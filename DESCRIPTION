@@ -1,9 +1,13 @@
 Package: rdwd
-Title: What the Package Does (one line, title case)
-Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-Depends: R (>= 3.3.1)
-License: What license is it under?
+Title: Download Climate Data from DWD (German Weather Service)
+Version: 0.1.0
+Date: 2016-10-19
+Suggests: RCurl
+Author: Berry Boessenkool
+Maintainer: Berry Boessenkool <berry-b@gmx.de>
+Description: indexDWD allows users to select weather data from the DWD (Deutscher Wetterdienst).
+dataDWD and readDWD download and process data
+License: GPL-2
 Encoding: UTF-8
-LazyData: true
+URL: https://github.com/brry/rdwd
+RoxygenNote: 5.0.1

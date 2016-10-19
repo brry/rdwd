@@ -1,0 +1,31 @@
+
+rdwd ToDo-list / wishlist / issues
+- metaDWD
+- Station selection from map with metadata if clicked on point (leaflet/shiny app?)
+- dataDWD: sleep argument
+- metaDWD <- function(
+id="", name="", # if !="" and corresponding file(s) exist(s), metaDWD returns "res/var/time/filename.zip"
+res=c("hourly","daily","monthly"),
+variable=c("prec","press","temp","wind","etc"),
+time=c("recent", "historical"), # can be abbreviated
+browse=FALSE,
+files=FALSE,
+ziponly=TRUE
+)
+- metaDWDlinks: DF as in dataDWD examples
+- metaDWDlist: DF with metadata from all Beschreibung files collected, + ts_length, nNAs,
+
+
+---------------------------------------
+rdwd: DWD Climate Data access package by Berry Boessenkool, berry-b@gmx.de
+Any feedback is welcome, per email or on github.com/brry/rdwd
+---------------------------------------
+
+
+Version 0.. (2016--)
+Initial release of the package
+dataDWD and readDWD were started in spring 2016 within my misc package berryFunctions
+
+-----------------------------
+-----------------------------
+
