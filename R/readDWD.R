@@ -1,11 +1,14 @@
-#' process data from DWD
+#' Process data from the DWD CDC FTP Server
 #'
 #' Read climate data that was downloaded with \code{\link{dataDWD}}.
+#' The file is read, processed and returned as a data.frame
 #'
 #' @return data.frame of the desired dataset
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jul 2016
 #' @seealso \code{\link{dataDWD}}
-#' @keywords aplot
+#' @keywords file chron
+#' @importFrom utils read.table unzip
+#' @importFrom berryFunctions checkFile na9
 #' @export
 #' @examples
 #' # see dataDWD
