@@ -6,7 +6,7 @@
 \usage{
 indexDWD(folder = "",
   base = "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
-  sleep = 0)
+  sleep = 0, dir = "DWDdata", quiet = FALSE)
 }
 \arguments{
 \item{folder}{Folder to be indexed recursively, e.g. "hourly/wind/".
@@ -18,6 +18,11 @@ DEFAULT: ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate"}
 \item{sleep}{If not 0, a random number of seconds between 0 and \code{sleep}
 is passed to \code{\link{Sys.sleep}} after each folder level
 to avoid getting kicked off the FTP-Server. DEFAULT: 0}
+
+\item{dir}{Writeable directory name where to save the downloaded file.
+Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
+
+\item{quiet}{Suppress message about directory? DEFAULT: FALSE}
 }
 \value{
 currently a vector with file paths (output may change in the future)

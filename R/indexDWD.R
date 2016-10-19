@@ -30,11 +30,16 @@
 #' @param sleep If not 0, a random number of seconds between 0 and \code{sleep}
 #'              is passed to \code{\link{Sys.sleep}} after each folder level
 #'              to avoid getting kicked off the FTP-Server. DEFAULT: 0
+#' @param dir Writeable directory name where to save the downloaded file.
+#'            Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}
+#' @param quiet Suppress message about directory? DEFAULT: FALSE
 #'
 indexDWD <- function(
 folder="",
 base="ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
-sleep=0
+sleep=0,
+dir="DWDdata",
+quiet=FALSE
 )
 {
 # Check if RCurl is available:
@@ -61,8 +66,14 @@ while(any(!isfile))
   f <- c(f1,unlist(f2))
   if(sleep!=0) Sys.sleep(runif(n=1, min=0, max=sleep))
   }
+# sort final results alphabetically
+f <- sort(unlist(f, use.names=FALSE))
+# write output:
+##outfile <- paste0("INDEX_of_DWD_", gsub("/","_",base2),".txt")
+##if(file.exists(outfile)) warning("File '",outfile,"' already existed, is now overwritten.")
+##write.table(f, file=outfile, row.names=FALSE, col.names=FALSE, quote=FALSE)
 # return output:
-sort(unlist(f, use.names=FALSE))
+return(f)
 }
 
 # Index creation:
