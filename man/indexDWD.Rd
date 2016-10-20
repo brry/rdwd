@@ -2,11 +2,11 @@
 % Please edit documentation in R/indexDWD.R
 \name{indexDWD}
 \alias{indexDWD}
-\title{Create an index of the DWD CDC FTP Server}
+\title{Create a recursive index of the DWD CDC FTP Server}
 \usage{
 indexDWD(folder = "",
   base = "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
-  sleep = 0, dir = "DWDdata", quiet = FALSE)
+  sleep = 0, dir = "DWDdata", quiet = FALSE, progbar = TRUE)
 }
 \arguments{
 \item{folder}{Folder to be indexed recursively, e.g. "hourly/wind/".
@@ -16,13 +16,17 @@ DEFAULT: "" (all folders at \code{base})}
 DEFAULT: ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate"}
 
 \item{sleep}{If not 0, a random number of seconds between 0 and \code{sleep}
-is passed to \code{\link{Sys.sleep}} after each folder level
+is passed to \code{\link{Sys.sleep}} after each read folder
 to avoid getting kicked off the FTP-Server. DEFAULT: 0}
 
 \item{dir}{Writeable directory name where to save the downloaded file.
 Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
 
-\item{quiet}{Suppress message about directory? DEFAULT: FALSE}
+\item{quiet}{Suppress message about directory and failed
+\code{RCurl::\link[RCurl]{getURL}}? DEFAULT: FALSE}
+
+\item{progbar}{Logical: present a progress bar in each level?
+Only works if the R package pbapply is available. DEFAULT: TRUE}
 }
 \value{
 currently a vector with file paths (output may change in the future)
@@ -30,7 +34,10 @@ currently a vector with file paths (output may change in the future)
 \description{
 Create a list of all the files (in subfolders) at the Climate Data Center (CDC)
 FTP-Server from the German Weather Service (DWD, Deutscher WetterDienst) at
-\url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
+\url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}.\cr
+If it fails, because bot access is detected and denied, there will stil be an
+output which you can pass in a second run via \code{folder} to extract the remaining dirs.
+You might want to set \code{sleep=10} or similar in that case.
 }
 \details{
 It's not suggested to run this for all folders, as it can take quite some time
