@@ -5,7 +5,7 @@
 \title{Download data from the DWD CDC FTP Server}
 \usage{
 dataDWD(file, dir = "DWDdata", quiet = FALSE, read = TRUE, format = NA,
-  sleep = 0)
+  sleep = 0, progbar = TRUE)
 }
 \arguments{
 \item{file}{Complete file URL (including filename.zip) as returned by
@@ -26,11 +26,17 @@ see \code{\link{readDWD}}. DEFAULT: NA}
 \item{sleep}{If not 0, a random number of seconds between 0 and \code{sleep}
 is passed to \code{\link{Sys.sleep}} after each download
 to avoid getting kicked off the FTP-Server. DEFAULT: 0}
+
+\item{progbar}{Logical: present a progress bar?
+Only works if the R package pbapply is available. DEFAULT: TRUE}
 }
 \value{
-data.frame of the desired dataset (returned by \code{\link{readDWD}} if meta=0),
-        presuming downloading and processing were successfull.
-        Alternatively, links that were opened if \code{browse}!=0.
+presuming downloading and processing were successfull:
+        if \code{read=TRUE}, a data.frame of the desired dataset
+        (as returned by \code{\link{readDWD}}),
+        otherwise the filenames as saved on disc
+        (may have "_n" appended in name, see \code{\link{fileDWD}}).\cr
+        if length(file)>1, the output is a list of data.frames / filenames.
 }
 \description{
 Get climate data from the German Weather Service (DWD) FTP-server.
@@ -42,7 +48,7 @@ If \code{read=TRUE}, it is also read, processed and returned as a data.frame
 
 }
 \author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Jun 2016
+Berry Boessenkool, \email{berry-b@gmx.de}, Jun-Oct 2016
 }
 \seealso{
 \code{\link{readDWD}}, \code{\link{download.file}}.

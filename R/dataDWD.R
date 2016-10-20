@@ -10,10 +10,13 @@
 #' The desired .zip dataset is downloaded into \code{dir}.
 #' If \code{read=TRUE}, it is also read, processed and returned as a data.frame
 #'
-#' @return data.frame of the desired dataset (returned by \code{\link{readDWD}} if meta=0),
-#'         presuming downloading and processing were successfull.
-#'         Alternatively, links that were opened if \code{browse}!=0.
-#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jun 2016
+#' @return presuming downloading and processing were successfull:
+#'         if \code{read=TRUE}, a data.frame of the desired dataset
+#'         (as returned by \code{\link{readDWD}}),
+#'         otherwise the filenames as saved on disc
+#'         (may have "_n" appended in name, see \code{\link{fileDWD}}).\cr
+#'         if length(file)>1, the output is a list of data.frames / filenames.
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jun-Oct 2016
 #' @seealso \code{\link{readDWD}}, \code{\link{download.file}}.
 #'          Helpful for plotting: \code{berryFunctions::\link[berryFunctions]{monthAxis}},
 #'          see also \code{berryFunctions::\link[berryFunctions]{climateGraph}}
@@ -36,30 +39,37 @@
 #' @param sleep If not 0, a random number of seconds between 0 and \code{sleep}
 #'              is passed to \code{\link{Sys.sleep}} after each download
 #'              to avoid getting kicked off the FTP-Server. DEFAULT: 0
+#' @param progbar Logical: present a progress bar?
+#'                Only works if the R package pbapply is available. DEFAULT: TRUE
 #'
 dataDWD <- function(
 file,
 dir="DWDdata",
-quiet=FALSE,
+quiet=FALSE,          # ToDo: Optinally (DEFAULT) only download if file not available in dir
 read=TRUE,
 format=NA,
-sleep=0
+sleep=0,
+progbar=TRUE
 )
 {
 # create directory to store downloaded data
-owd <- dirDWD(dir)
+owd <- dirDWD(dir, quiet=quiet)
 on.exit(setwd(owd))
-# loop over each filename # toDo: progress bar
+# Optional progress bar:
+progbar <- progbar & requireNamespace("pbapply", quietly=TRUE)
+if(progbar) lapply <- pbapply::pblapply
+# loop over each filename
 output <- lapply(file, function(f)
   {
   # output file name:
   outfile <- tail(strsplit(f, "/")[[1]], 1)
-  # Actual file download:
+  outfile <- fileDWD(outfile, quiet=quiet)
+  # Actual file download: # ToDo: wrap in try like in indexDWD, but maybe stop the rest of lapply
   download.file(url=f, destfile=outfile, quiet=TRUE)
   # wait some time to avoid FTP bot recognition:
   if(sleep!=0) Sys.sleep(runif(n=1, min=0, max=sleep))
   # Read the file:
-  if(read) readDWD(file=outfile, format=format)
+  if(read) readDWD(file=outfile, format=format) else outfile
   })
-if(length(file)!=1) output[[1]] else output
+if(length(file)==1) output[[1]] else output
 }
