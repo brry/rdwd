@@ -30,6 +30,8 @@
 #'               DEFAULT: "" (all folders at \code{base})
 #' @param base Main directory of DWD ftp server, defaulting to observed climatic records.
 #'             DEFAULT: ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate"
+#' @param ziponly Logical: return only the filenames ending in ".zip"?
+#'                DEFAULT: FALSE
 #' @param sleep If not 0, a random number of seconds between 0 and \code{sleep}
 #'              is passed to \code{\link{Sys.sleep}} after each read folder
 #'              to avoid getting kicked off the FTP-Server. DEFAULT: 0
@@ -43,12 +45,14 @@
 indexDWD <- function(
 folder="",
 base="ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
+ziponly=FALSE,
 sleep=0,
 dir="DWDdata",
 quiet=FALSE,
 progbar=TRUE
 )
 {
+  if(ziponly) stop("ziponly is not implemented yet in indexDWD!")
 # Check if RCurl is available:
 if(!requireNamespace("RCurl", quietly=TRUE))
   stop("The R package 'RCurl' is not available. indexDWD can not obtain file list.\n",
@@ -97,15 +101,10 @@ return(f)
 
 # Index creation:
 if(FALSE){
-indexm <- indexDWD("monthly")
-indexd <- indexDWD("daily")
-indexh <- indexDWD("hourly", sleep=5)
-index <- sort(c(indexm, indexd, indexh))
+index <- indexDWD(sleep=10)
 index2 <- l2df(lapply(index,function(x) strsplit(x,"/")[[1]]))
 View(index2)
-file <-  paste0("DWDdata/INDEX_of_DWD_COMPLETE_", 1:2, "_", Sys.Date(), ".txt")
-write.table(index,  file=file[1], row.names=FALSE, col.names=FALSE, quote=FALSE)
-write.table(index2, file=file[2], row.names=FALSE, col.names=FALSE, quote=FALSE)
+write.table(index2, file="DWDdata/INDEX_of_DWD_DF", row.names=FALSE, col.names=FALSE, quote=FALSE)
 }
 
 
