@@ -1,9 +1,9 @@
 Package: rdwd
 Title: Download Climate Data from DWD (German Weather Service)
-Version: 0.1.2
+Version: 0.1.3
 Date: 2016-10-19
 Imports: berryFunctions
-Suggests: RCurl
+Suggests: RCurl, pbapply
 Author: Berry Boessenkool
 Maintainer: Berry Boessenkool <berry-b@gmx.de>
 Description: indexDWD allows users to select weather data from the DWD (Deutscher Wetterdienst).

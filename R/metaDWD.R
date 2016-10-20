@@ -66,7 +66,7 @@ path <- paste0(base,"/",res,"/",var,"/",time)
 # open URL in internet browser:
 if(browse) { browseURL(path)  ; return(path) }
 # list available files:
-if(files) return(indexDWD(path, base=base, dir=dir, quiet=quiet))
+if(files) return(indexDWD(path, base="", ziponly=ziponly, dir=dir, quiet=quiet))
 # ------------------------------------------------------------------------------
 # metadata file name parts:
 resname <- c(hourly="Stundenwerte", daily="Tageswerte", monthly="Monatswerte")

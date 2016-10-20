@@ -13,7 +13,7 @@ fileDWD(filename, quiet = FALSE)
 \item{dir}{Writeable directory. Created if not existent.
 DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
 
-\item{quiet}{Suppress message about directory? DEFAULT: FALSE}
+\item{quiet}{Suppress message about directory / existing file? DEFAULT: FALSE}
 
 \item{filename}{Character string with a single file name.}
 }
