@@ -2,21 +2,28 @@
 % Please edit documentation in R/dirDWD.R
 \name{dirDWD}
 \alias{dirDWD}
+\alias{fileDWD}
 \title{directory management for rdwd}
 \usage{
 dirDWD(dir = "DWDdata", quiet = FALSE)
+
+fileDWD(filename, quiet = FALSE)
 }
 \arguments{
 \item{dir}{Writeable directory. Created if not existent.
 DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
 
 \item{quiet}{Suppress message about directory? DEFAULT: FALSE}
+
+\item{filename}{Character string with a single file name.}
 }
 \value{
-prior working directory
+dirDWD invisibly returns the prior working directory as per \code{\link{setwd}}.\cr
+        fileDWD returns the input with an added "_n" in the filename if the
+        file already existed.
 }
 \description{
-Manage directories in the rdwd package
+Manage directories and files in the rdwd package.
 }
 \examples{
 # see source code of dataDWD and metaDWD
