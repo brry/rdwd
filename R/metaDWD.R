@@ -91,11 +91,11 @@ stats <- suppressWarnings(read.fwf(file, widths=widths, skip=2, strip.white=TRUE
 # column names:
 colnames(stats) <- strsplit(oneline[1], " ")[[1]]
 # prepare file writing:
-outfile <- tail(strsplit(file, "/")[[1]], 1)
 owd <- dirDWD(dir, quiet=quiet)
 on.exit(setwd(owd))
+outfile <- tail(strsplit(file, "/")[[1]], 1)
+outfile <- fileDWD(outfile)
 # write file:
-if(file.exists(outfile)) warning("File '",outfile,"' already existed, is now overwritten.")
 write.table(stats, file=outfile, row.names=FALSE, quote=FALSE, sep="\t")
 # output:
 return(stats)
