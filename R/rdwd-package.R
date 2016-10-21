@@ -3,13 +3,14 @@
 #' A data.frame with the filenames with path starting at the default \code{base} value:
 #' \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/}.
 #' Created with \code{\link{index2df}} in the not-tested example section of \code{\link{indexDWD}}.
+#' In functions, you can access it with \code{rdwd:::indexlist}.
 #'
 #' @name indexlist
 #' @docType data
 #' @format data.frame with character srings. 25'631 rows x 7 columns:
 #'         \code{res}, \code{var}, \code{time} (see \code{\link{metaDWD}}),
-#'         station \code{id},
-#'         \code{start} and \code{end} of time series according to \code{path}.
+#'         station \code{id} and time series \code{start} and \code{end}
+#'         according to \code{path}.
 #' @source Deutscher WetterDienst / Climata Data Center  FTP Server
 #' @keywords datasets
 #' @examples
@@ -17,8 +18,14 @@
 #' data(indexlist)
 #' head(indexlist)
 #'
-NULL
+#' # in functions, you can use head(rdwd:::indexlist), but I don't export it
+#' # because Hadley says 'Never @export a data set' in
+#' # browseURL("http://r-pkgs.had.co.nz/data.html#data-data")
+#'
 
+data(indexlist, envir=environment())
+# http://stackoverflow.com/questions/32964741/accessing-sysdata-rda-within-package-functions
+# http://stackoverflow.com/questions/9521009/how-do-you-handle-r-data-internal-to-a-package
 
 
 

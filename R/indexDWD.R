@@ -32,8 +32,12 @@
 #' indexcompare <- index2df(index1)
 #' indexlist <- read.table("DWDdata/INDEX.txt", sep="\t", header=TRUE, colClasses="character")
 #' stopifnot(all(indexlist==indexcompare))
+#'
 #' save(indexlist, file="data/indexlist.rda")
-#' #' tools::resaveRdaFiles("data/indexlist.rda")
+#' tools::resaveRdaFiles("data/indexlist.rda")
+#'
+#' #devtools::use_data(indexlist, internal=TRUE)
+#' #tools::checkRdaFiles("R/sysdata.rda")
 #'
 #' }
 #'
