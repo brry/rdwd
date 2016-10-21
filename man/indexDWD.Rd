@@ -14,7 +14,7 @@ indexDWD(folder = "",
 DEFAULT: "" (all folders at \code{base})}
 
 \item{base}{Main directory of DWD ftp server, defaulting to observed climatic records.
-DEFAULT: ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate"}
+DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/}}
 
 \item{ziponly}{Logical: return only the filenames ending in ".zip"?
 DEFAULT: FALSE}

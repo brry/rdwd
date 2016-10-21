@@ -16,7 +16,7 @@ file(s) exist(s), metaDWD returns "base/res/var/time/filename.zip"
 CURRENTLY IGNORED! ToDo: match with indexed metadata}
 
 \item{base}{Main directory of DWD ftp server, defaulting to observed climatic records.
-DEFAULT: ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate"}
+DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/}}
 
 \item{res}{Time resolution available at \code{base}. usually one of
 hourly","daily","monthly". DEFAULT: "hourly"}
