@@ -15,7 +15,7 @@ DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
 
 \item{quiet}{Suppress message about directory / existing file? DEFAULT: FALSE}
 
-\item{filename}{Character string with a single file name.}
+\item{filename}{fileDWD only: Character string with a single file name.}
 }
 \value{
 dirDWD invisibly returns the prior working directory as per \code{\link{setwd}}.\cr

@@ -17,11 +17,14 @@
 #'
 #' @param dir Writeable directory. Created if not existent.
 #'            DEFAULT: "DWDdata" at current \code{\link{getwd}()}
-#' @param filename Character string with a single file name.
+# @param reading dirDWD only: Logical: should the message be "reading from"
+#                instead of "adding to"? DEFAULT: FALSE
+#' @param filename fileDWD only: Character string with a single file name.
 #' @param quiet Suppress message about directory / existing file? DEFAULT: FALSE
 #'
 dirDWD <- function(
 dir="DWDdata",
+#reading=FALSE,
 quiet=FALSE
 )
 {
