@@ -10,8 +10,7 @@
 #' @details
 #' It's not suggested to run this for all folders, as it can take quite some time
 #' and you may get kicked off the FTP-Server. This package contains an index
-#' of the 'regular' climatic observations at weather stations.
-#' ToDo: put reference here.
+#' of the climatic observations at weather stations: \code{\link{indexlist}}
 #' If it is out of date, please let me know!
 #'
 #' @return currently a vector with file paths (output may change in the future)
@@ -22,11 +21,21 @@
 #' @export
 #' @examples
 #' \dontrun{ ## Needs internet connection
-#' sol <- indexDWD(folder="daily/solar")
+#' sol <- indexDWD(folder="/daily/solar")
 #' head(sol)
+#' rm(sol)
+#'
+#' # Here's how I produce and update   ?indexlist
+#' # index1 <- indexDWD(sleep=30) # commented out to prevent accidental calling
+#' # index1 <- indexDWD(index1, sleep=30) # potentially needed several times
+#' index1 <- readLines("DWDdata/INDEX_of_DWD_.txt") # 25'631 elements (2016-10-21)
+#' indexcompare <- index2df(index1)
+#' indexlist <- read.table("DWDdata/INDEX.txt", sep="\t", header=TRUE, colClasses="character")
+#' stopifnot(all(indexlist==indexcompare))
+#' save(indexlist, file="data/indexlist.rda")
 #' }
 #'
-#' @param folder Folder to be indexed recursively, e.g. "hourly/wind/".
+#' @param folder Folder to be indexed recursively, e.g. "/hourly/wind/".
 #'               DEFAULT: "" (all folders at \code{base})
 #' @param base Main directory of DWD ftp server, defaulting to observed climatic records.
 #'             DEFAULT: ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate"
@@ -92,19 +101,9 @@ f <- sort(unlist(f, use.names=FALSE))
 # write output:
 owd <- dirDWD(dir, quiet=quiet)
 on.exit(setwd(owd))
-outfile <- paste0("INDEX_of_DWD_", gsub("/","_",folder),".txt")
+outfile <- paste0("INDEX_of_DWD_", gsub("/","_",folder[1]),".txt")
 outfile <- fileDWD(outfile, quiet=quiet)
 write.table(f, file=outfile, row.names=FALSE, col.names=FALSE, quote=FALSE)
 # return output:
 return(f)
 }
-
-# Index creation:
-if(FALSE){
-index <- indexDWD(sleep=10)
-index2 <- l2df(lapply(index,function(x) strsplit(x,"/")[[1]]))
-View(index2)
-write.table(index2, file="DWDdata/INDEX_of_DWD_DF", row.names=FALSE, col.names=FALSE, quote=FALSE)
-}
-
-
