@@ -35,7 +35,7 @@ if(dir=="")
 if(!file.exists(dir))
   {
   dir.create(dir)
-  if(!quiet) message("Created directory '",   normalizePath(dir, winslash="/"), "'")
+  if(!quiet) message("Creating directory '",   normalizePath(dir, winslash="/"), "'")
   } else
   if(!quiet) message("Adding to directory '", normalizePath(dir, winslash="/"), "'")
 setwd(dir)
@@ -62,7 +62,7 @@ while(file.exists(f))
   nr <- nr + 1
   Newfilecreated <- TRUE
 }
-if( Newfilecreated & !quiet) message("File already existed. Created the file '", f, "'")
-if(!Newfilecreated & !quiet) message("Created the file '", f, "'")
+if( Newfilecreated & !quiet) message("File already existed. Creating the file '", f, "'")
+if(!Newfilecreated & !quiet) message("Creating the file '", f, "'")
 f
 }
