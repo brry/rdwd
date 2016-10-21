@@ -33,7 +33,7 @@
 #'            Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}
 #' @param quiet Suppress message about directory? DEFAULT: FALSE
 #' @param read Read the file with \code{\link{readDWD}}?
-#'             If FALSE, only download is performed. DEFAULT: TRUE
+#'             If FALSE, only download is performed (and the filename returned). DEFAULT: TRUE
 #' @param format Format used in \code{\link{strptime}} to convert date/time column,
 #'               see \code{\link{readDWD}}. DEFAULT: NA
 #' @param sleep If not 0, a random number of seconds between 0 and \code{sleep}

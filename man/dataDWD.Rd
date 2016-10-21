@@ -18,7 +18,7 @@ Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
 \item{quiet}{Suppress message about directory? DEFAULT: FALSE}
 
 \item{read}{Read the file with \code{\link{readDWD}}?
-If FALSE, only download is performed. DEFAULT: TRUE}
+If FALSE, only download is performed (and the filename returned). DEFAULT: TRUE}
 
 \item{format}{Format used in \code{\link{strptime}} to convert date/time column,
 see \code{\link{readDWD}}. DEFAULT: NA}

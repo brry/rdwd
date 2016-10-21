@@ -1,11 +1,10 @@
 
 rdwd ToDo-list / wishlist / issues
 - Station selection from map with metadata if clicked on point (leaflet/shiny app?)
-- dataDWD: progressbar argument
-- index: DF as in dataDWD examples
-- metaDWDlist: DF with metadata from all Beschreibung files collected, + ts_length, nNAs,
+- metalist: DF with metadata from all Beschreibung files collected, + ts_length, nNAs,
 - search for toDo notes in code
-- metaDWD: consider an optional file argument ignoring the other arguments
+- metaDWD: consider an optional 'file' argument ignoring the other arguments
+- base doc with \url
 
 
 ---------------------------------------
