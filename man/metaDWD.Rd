@@ -32,7 +32,7 @@ DEFAULT: "recent" (the first of the inputs is used)}
 \item{dir}{Writeable directory name where to save the downloaded file.
 Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
 
-\item{quiet}{Suppress message about directory? DEFAULT: FALSE}
+\item{quiet}{Suppress messages about directory / filename? DEFAULT: FALSE}
 
 \item{browse}{Logical: open repository via \code{\link{browseURL}}?
 If TRUE, no metadata is downloaded, but the path URL is returned.

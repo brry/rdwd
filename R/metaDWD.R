@@ -27,7 +27,7 @@
 #'             DEFAULT: "recent" (the first of the inputs is used)
 #' @param dir Writeable directory name where to save the downloaded file.
 #'            Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}
-#' @param quiet Suppress message about directory? DEFAULT: FALSE
+#' @param quiet Suppress messages about directory / filename? DEFAULT: FALSE
 #' @param browse Logical: open repository via \code{\link{browseURL}}?
 #'               If TRUE, no metadata is downloaded, but the path URL is returned.
 #'               DEFAULT: FALSE
@@ -57,16 +57,16 @@ res  <-  res[1]
 var  <-  var[1]
 time <- match.arg(time)
 # path:
-path <- paste0(base,"/",res,"/",var,"/",time)
+path <- paste0("/",res,"/",var,"/",time)
 # path plausibility:
 ### Using index - toDo!
 # URL existance check if RCurl available
 ### toDo!
 # ------------------------------------------------------------------------------
 # open URL in internet browser:
-if(browse) { browseURL(path)  ; return(path) }
+if(browse) { browseURL(paste0(base,path))  ; return(paste0(base,path)) }
 # list available files:
-if(files) return(indexDWD(path, base="", ziponly=ziponly, dir=dir, quiet=quiet))
+if(files) return(indexDWD(path, base=base, ziponly=ziponly, dir=dir, quiet=quiet))
 # ------------------------------------------------------------------------------
 # metadata file name parts:
 resname <- c(hourly="Stundenwerte", daily="Tageswerte", monthly="Monatswerte")
@@ -94,7 +94,7 @@ colnames(stats) <- strsplit(oneline[1], " ")[[1]]
 owd <- dirDWD(dir, quiet=quiet)
 on.exit(setwd(owd))
 outfile <- tail(strsplit(file, "/")[[1]], 1)
-outfile <- fileDWD(outfile)
+outfile <- fileDWD(outfile, quiet=quiet)
 # write file:
 write.table(stats, file=outfile, row.names=FALSE, quote=FALSE, sep="\t")
 # output:
