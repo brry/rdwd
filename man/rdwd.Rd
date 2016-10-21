@@ -7,7 +7,7 @@
 \title{Download Climate Data from DWD (German Weather Service)}
 \description{
 Select weather data from the DWD (Deutscher Wetterdienst) with
-\code{\link{metaDWD}}, \code{\link{indexDWD}} and \code{\link{indexlist}}.\cr
+\code{\link{selectDWD}}, \code{\link{indexDWD}} and \code{\link{indexlist}}.\cr
 Download and process data sets with \code{\link{dataDWD}} and \code{\link{readDWD}}.
 }
 \details{

@@ -8,9 +8,8 @@ dataDWD(file, dir = "DWDdata", quiet = FALSE, read = TRUE, format = NA,
   sleep = 0, progbar = TRUE)
 }
 \arguments{
-\item{file}{Complete file URL (including filename.zip) as returned by
-\code{\link{metaDWD}} if \code{id} or \code{name} is given.
-Can be a vector with several filenames.}
+\item{file}{Complete file URL (including base and filename.zip) as returned by
+\code{\link{selectDWD}}. Can be a vector with several filenames.}
 
 \item{dir}{Writeable directory name where to save the downloaded file.
 Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}}

@@ -4,7 +4,7 @@ rdwd ToDo-list / wishlist / issues
 - metalist: DF with metadata from all Beschreibung files collected, + ts_length, nNAs,
 - search for toDo notes in code
 - metaDWD: consider an optional 'file' argument ignoring the other arguments
-
+- option to merge hist and recent
 
 ---------------------------------------
 rdwd: DWD Climate Data access package by Berry Boessenkool, berry-b@gmx.de

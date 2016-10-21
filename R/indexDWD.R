@@ -18,6 +18,7 @@
 # @seealso \code{\link{metaDWD}}, \code{\link{dataDWD}}, \code{\link{readDWD}}
 #' @keywords file
 #' @importFrom stats runif
+#' @importFrom utils write.table
 #' @export
 #' @examples
 #' \dontrun{ ## Needs internet connection
@@ -25,19 +26,32 @@
 #' head(sol)
 #' rm(sol)
 #'
-#' # Here's how I produce and update   ?indexlist
-#' # index1 <- indexDWD(sleep=30) # commented out to prevent accidental calling
-#' # index1 <- indexDWD(index1, sleep=30) # potentially needed several times
-#' index1 <- readLines("DWDdata/INDEX_of_DWD_.txt") # 25'631 elements (2016-10-21)
-#' indexcompare <- index2df(index1)
+#'
+#' # Here's how I produce and update   ?indexlist    ---------------------------
+#' # index <- indexDWD(sleep=30) # commented out to prevent accidental calling
+#' # index <- indexDWD(index, sleep=30) # potentially needed several times
+#' index <- readLines("DWDdata/INDEX_of_DWD_.txt") # 25'631 elements (2016-10-21)
+#' indexcompare <- index2df(index)
 #' indexlist <- read.table("DWDdata/INDEX.txt", sep="\t", header=TRUE, colClasses="character")
 #' stopifnot(all(indexlist==indexcompare))
 #'
 #' save(indexlist, file="data/indexlist.rda")
 #' tools::resaveRdaFiles("data/indexlist.rda")
-#'
 #' #devtools::use_data(indexlist, internal=TRUE)
-#' #tools::checkRdaFiles("R/sysdata.rda")
+#'
+#'
+#' # Here's how I produce and update   ?metalist    ----------------------------
+#' sel <- substr(indexlist$path, nchar(indexlist$path)-3, 1e4)==".txt"
+#' sel <- sel & grepl("Beschreibung", indexlist$path)
+#' indexlist[sel, -(4:6)]
+#'
+#' # comparison with all folders:
+#' sum(sel) #27
+#' folders <- with(indexlist, unique(paste(res,var,time, sep="/"))   )
+#' length(folders) # 30 (3 multi_annual, no Beschreibung file)
+#' folders;  rm(folders)
+#'
+#' # ToDo: actually create metalist
 #'
 #' }
 #'
@@ -64,18 +78,20 @@ ziponly=FALSE,
 sleep=0,
 dir="DWDdata",
 quiet=FALSE,
-progbar=TRUE
+progbar=!quiet
 )
 {
-  if(ziponly) stop("ziponly is not implemented yet in indexDWD!")
+if(ziponly) stop("ziponly is not implemented yet in indexDWD!") # ToDo
 # Check if RCurl is available:
 if(!requireNamespace("RCurl", quietly=TRUE))
   stop("The R package 'RCurl' is not available. indexDWD can not obtain file list.\n",
        "install.packages('RCurl')       to enable this.")
-if(quiet) progbar <- FALSE
+# Progress bar?
 progbar <- progbar & requireNamespace("pbapply", quietly=TRUE)
 if(progbar) lapply <- pbapply::pblapply
+# central object: f (file/folder names)
 f <- folder
+#
 # as long as f contains folders (charstrings without . ), run the following:
 isfile <- grepl(pattern=".", x=f, fixed=TRUE)
 while(any(!isfile))
@@ -98,12 +114,14 @@ while(any(!isfile))
     # p <- strsplit(p, "\n")[[1]] # may be needed on linux. toDo: check this out
     if(sleep!=0) Sys.sleep(runif(n=1, min=0, max=sleep))
     # complete file path:
-    paste0(path,"/",p)
+    return(paste0(path,"/",p))
     })
   f <- c(f1,unlist(f2))
   }
-# sort final results alphabetically
+# sort final results alphabetically:
 f <- sort(unlist(f, use.names=FALSE))
+# Keep only the zip files:
+# ToDo
 # write output:
 owd <- dirDWD(dir, quiet=quiet)
 on.exit(setwd(owd))

@@ -4,33 +4,46 @@
 \alias{readDWD}
 \title{Process data from the DWD CDC FTP Server}
 \usage{
-readDWD(file, format = NA)
+readDWD(file, dir = "DWDdata", meta = substr(file, nchar(file) - 3, 10000)
+  == ".txt", format = NA, progbar = TRUE)
 }
 \arguments{
-\item{file}{Name of Zip-File downloaded with \code{\link{dataDWD}},
-e.g. "tageswerte_KL_02575_akt.zip".}
+\item{file}{Name(s) of the file(s) downloaded with \code{\link{dataDWD}},
+e.g. "tageswerte_KL_02575_akt.zip" or
+"RR_Stundenwerte_Beschreibung_Stationen.txt"}
 
-\item{format}{Format passed to \code{\link{as.POSIXct}} (see \code{\link{strptime}})
-to convert the date/time column to POSIX time format .
+\item{dir}{Directory name where to read the file. Use \code{"."} or \code{""}
+if \code{file} already includes a (relative) path.
+DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
+
+\item{meta}{Logical: is the \code{file} a meta file?
+DEFAULT: TRUE for each file ending in ".txt"}
+
+\item{format}{If \code{meta=FALSE}: Format passed to \code{\link{as.POSIXct}}
+(see \code{\link{strptime}})
+to convert the date/time column to POSIX time format.\cr
 If NULL, no conversion is performed (date stays a factor).
 If NA, \code{readDWD} tries to find suitable format based on the number of characters.}
+
+\item{progbar}{ToDo}
 }
 \value{
 data.frame of the desired dataset
 }
 \description{
-Read climate data that was downloaded with \code{\link{dataDWD}}.
-The file is read, processed and returned as a data.frame
+Read climate (meta) data that was downloaded with \code{\link{dataDWD}}.
+The file is read, processed and returned as a data.frame.\cr
+If \code{meta=TRUE}: column widths for \code{\link{read.fwf}} are computed internally.
 }
 \examples{
 # see dataDWD
 
 }
 \author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Jul 2016
+Berry Boessenkool, \email{berry-b@gmx.de}, Jul-Oct 2016
 }
 \seealso{
-\code{\link{dataDWD}}
+\code{\link{dataDWD}}, \code{\link{selectDWD}}
 }
 \keyword{chron}
 \keyword{file}

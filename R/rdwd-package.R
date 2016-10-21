@@ -8,7 +8,7 @@
 #' @name indexlist
 #' @docType data
 #' @format data.frame with character srings. 25'631 rows x 7 columns:
-#'         \code{res}, \code{var}, \code{time} (see \code{\link{metaDWD}}),
+#'         \code{res}, \code{var}, \code{time} (see \code{\link{selectDWD}}),
 #'         station \code{id} and time series \code{start} and \code{end}
 #'         according to \code{path}.
 #' @source Deutscher WetterDienst / Climata Data Center  FTP Server
@@ -32,7 +32,7 @@ data(indexlist, envir=environment())
 #' Download Climate Data from DWD (German Weather Service)
 #'
 #' Select weather data from the DWD (Deutscher Wetterdienst) with
-#' \code{\link{metaDWD}}, \code{\link{indexDWD}} and \code{\link{indexlist}}.\cr
+#' \code{\link{selectDWD}}, \code{\link{indexDWD}} and \code{\link{indexlist}}.\cr
 #' Download and process data sets with \code{\link{dataDWD}} and \code{\link{readDWD}}.
 #'
 #' @details

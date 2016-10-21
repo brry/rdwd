@@ -7,7 +7,7 @@
 indexDWD(folder = "",
   base = "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
   ziponly = FALSE, sleep = 0, dir = "DWDdata", quiet = FALSE,
-  progbar = TRUE)
+  progbar = !quiet)
 }
 \arguments{
 \item{folder}{Folder to be indexed recursively, e.g. "/hourly/wind/".
@@ -55,19 +55,32 @@ sol <- indexDWD(folder="/daily/solar")
 head(sol)
 rm(sol)
 
-# Here's how I produce and update   ?indexlist
-# index1 <- indexDWD(sleep=30) # commented out to prevent accidental calling
-# index1 <- indexDWD(index1, sleep=30) # potentially needed several times
-index1 <- readLines("DWDdata/INDEX_of_DWD_.txt") # 25'631 elements (2016-10-21)
-indexcompare <- index2df(index1)
+
+# Here's how I produce and update   ?indexlist    ---------------------------
+# index <- indexDWD(sleep=30) # commented out to prevent accidental calling
+# index <- indexDWD(index, sleep=30) # potentially needed several times
+index <- readLines("DWDdata/INDEX_of_DWD_.txt") # 25'631 elements (2016-10-21)
+indexcompare <- index2df(index)
 indexlist <- read.table("DWDdata/INDEX.txt", sep="\\t", header=TRUE, colClasses="character")
 stopifnot(all(indexlist==indexcompare))
 
 save(indexlist, file="data/indexlist.rda")
 tools::resaveRdaFiles("data/indexlist.rda")
-
 #devtools::use_data(indexlist, internal=TRUE)
-#tools::checkRdaFiles("R/sysdata.rda")
+
+
+# Here's how I produce and update   ?metalist    ----------------------------
+sel <- substr(indexlist$path, nchar(indexlist$path)-3, 1e4)==".txt"
+sel <- sel & grepl("Beschreibung", indexlist$path)
+indexlist[sel, -(4:6)]
+
+# comparison with all folders:
+sum(sel) #27
+folders <- with(indexlist, unique(paste(res,var,time, sep="/"))   )
+length(folders) # 30 (3 multi_annual, no Beschreibung file)
+folders;  rm(folders)
+
+# ToDo: actually create metalist
 
 }
 
