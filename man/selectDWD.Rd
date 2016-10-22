@@ -31,8 +31,8 @@ See more in \code{View(rdwd:::\link{indexlist})}. DEFAULT: ""}
 
 \item{time}{Char: desired time range. One of
 "recent" (data from the last year, up to date usually within a few days) or
-"historical" (long time series). DEFAULT: ""
-ToDo: make time abbreviatable}
+"historical" (long time series). Can be abbreviated (if the first
+letter is "r" or "h", full names are used. DEFAULT: ""}
 
 \item{index}{Single object: Index used to select filename, as returned by
 \code{\link{index2df}}.To use a current / custom index, use
@@ -78,12 +78,23 @@ case \tab | id \tab | path \tab | action \cr
 \examples{
 \dontrun{
 selectDWD(id="00386", res="daily", var="kl", time="historical")
+selectDWD(id="00386", res="daily", var="kl", time="h") # time abbreviatable
 selectDWD(id="00386", res="daily", var="kl", time="historical", meta=TRUE)
-selectDWD(id="00386")
+
+selectDWD(id="01050", res="daily", var="kl", time=c("r","h")) #vectorizable
+selectDWD(id="01050", res=c("daily","monthly"), var="kl") # must give time
+selectDWD(id="01050", res=c("daily","monthly"), var="kl", time="r")
+# vectorization gives not the outer product, but elementwise comparison:
+selectDWD(id="01050", res=c("daily","monthly"), var="kl", time=c("r","h"))
+
+selectDWD(id="01050") # all files in all paths matching id
 selectDWD(id="00386", meta=TRUE)
 selectDWD(res="daily", var="kl", time="recent") # id missing, thus meta<-TRUE
-selectDWD(var="dummy") # should give an informative error
-selectDWD(time="dummy") # this one, too
+
+# See if errors come as expected:
+selectDWD(res="dummy", var="dummy") # should give an informative error
+selectDWD(res="dummy") # this one, too
+selectDWD(res="daily", var="kl") # must give time
 }
 
 }

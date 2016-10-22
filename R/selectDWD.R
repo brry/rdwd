@@ -27,12 +27,23 @@
 #' @examples
 #' \dontrun{
 #' selectDWD(id="00386", res="daily", var="kl", time="historical")
+#' selectDWD(id="00386", res="daily", var="kl", time="h") # time abbreviatable
 #' selectDWD(id="00386", res="daily", var="kl", time="historical", meta=TRUE)
-#' selectDWD(id="00386")
+#'
+#' selectDWD(id="01050", res="daily", var="kl", time=c("r","h")) #vectorizable
+#' selectDWD(id="01050", res=c("daily","monthly"), var="kl") # must give time
+#' selectDWD(id="01050", res=c("daily","monthly"), var="kl", time="r")
+#' # vectorization gives not the outer product, but elementwise comparison:
+#' selectDWD(id="01050", res=c("daily","monthly"), var="kl", time=c("r","h"))
+#'
+#' selectDWD(id="01050") # all files in all paths matching id
 #' selectDWD(id="00386", meta=TRUE)
 #' selectDWD(res="daily", var="kl", time="recent") # id missing, thus meta<-TRUE
-#' selectDWD(var="dummy") # should give an informative error
-#' selectDWD(time="dummy") # this one, too
+#'
+#' # See if errors come as expected:
+#' selectDWD(res="dummy", var="dummy") # should give an informative error
+#' selectDWD(res="dummy") # this one, too
+#' selectDWD(res="daily", var="kl") # must give time
 #' }
 #'
 #' @param name  Char: station name that will be matched in \code{index} to obtain
@@ -51,8 +62,8 @@
 #'              See more in \code{View(rdwd:::\link{indexlist})}. DEFAULT: ""
 #' @param time  Char: desired time range. One of
 #'              "recent" (data from the last year, up to date usually within a few days) or
-#'              "historical" (long time series). DEFAULT: ""
-#'              ToDo: make time abbreviatable
+#'              "historical" (long time series). Can be abbreviated (if the first
+#'              letter is "r" or "h", full names are used. DEFAULT: ""
 #' @param index Single object: Index used to select filename, as returned by
 #'              \code{\link{index2df}}.To use a current / custom index, use
 #'              \code{myIndex <- index2df(indexDWD("/daily/solar"))}
@@ -124,6 +135,8 @@ if(givenid & !givenpath)
 #
 # Case 3 and 4 (path given) - path existence check -----------------------------
 time.i <- time[i]
+if(substr(time.i,1,1)=="h") time.i <- "historical"
+if(substr(time.i,1,1)=="r") time.i <- "recent"
 if(var[i]=="solar") time.i <- ""
 path <- paste0("/",res[i],"/",var[i],"/",time.i)
 if(all(!grepl(path, index$path))) stop("in selectDWD: According to index '",
@@ -152,7 +165,7 @@ if(givenid & givenpath)
   {
   if(!meta.i) sel <- sel & id[i]==index$id
   if(sum(sel)==0) stop("in selectDWD: According to index '",indexname,
-                       "', there is no file in '", path, "' with id '",id,
+                       "', there is no file in '", path, "' with id '",id[i],
                        "'. See ?metaDWD on how to use a different index.", call.=FALSE)
   }
 filename <- index[sel,"path"]
