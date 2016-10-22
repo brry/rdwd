@@ -2,9 +2,12 @@
 #'
 #' Read climate (meta) data that was downloaded with \code{\link{dataDWD}}.
 #' The file is read, processed and returned as a data.frame.\cr
-#' If \code{meta=TRUE}: column widths for \code{\link{read.fwf}} are computed internally.
+#' If \code{meta=TRUE}: column widths for \code{\link{read.fwf}} are computed internally.\cr
+#' \code{file} can be a vector with several filenames. The arguments \code{meta}
+#' and \code{format} can also be a vecor and will be recycled to the length of \code{file}.
 #'
-#' @return data.frame of the desired dataset
+#' @return Invisible data.frame of the desired dataset, or a list of data.frames
+#'         if length(file) > 1.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jul-Oct 2016
 #' @seealso \code{\link{dataDWD}}, \code{\link{selectDWD}}
 #' @keywords file chron
@@ -13,23 +16,26 @@
 #' @export
 #' @examples
 #' # see dataDWD
-# ToDo: read station id as character string by specifying all column classes, see
+# ToDo: if meta: read station id as character string by specifying all column classes, see
 # http://stackoverflow.com/questions/13022299/specify-date-format-for-colclasses-argument-in-read-table-read-csv/13022441#13022441
 #'
-#' @param file Name(s) of the file(s) downloaded with \code{\link{dataDWD}},
-#'             e.g. "tageswerte_KL_02575_akt.zip" or
-#'             "RR_Stundenwerte_Beschreibung_Stationen.txt"
-#' @param dir Directory name where to read the file. Use \code{"."} or \code{""}
-#'            if \code{file} already includes a (relative) path.
-#'            DEFAULT: "DWDdata" at current \code{\link{getwd}()}
-#' @param meta Logical: is the \code{file} a meta file?
-#'                      DEFAULT: TRUE for each file ending in ".txt"
-#' @param format If \code{meta=FALSE}: Format passed to \code{\link{as.POSIXct}}
-#'               (see \code{\link{strptime}})
+#' @param file   Char (vector): name(s) of the file(s) downloaded with \code{\link{dataDWD}},
+#'               e.g. "tageswerte_KL_02575_akt.zip" or
+#'               "RR_Stundenwerte_Beschreibung_Stationen.txt"
+#' @param dir    Char: directory name where to read the file. Use \code{"."} or \code{""}
+#'               if \code{file} already includes a (relative) path.
+#'               DEFAULT: "DWDdata" at current \code{\link{getwd}()}
+#' @param meta   Logical (vector): is the \code{file} a meta file?
+#'               DEFAULT: TRUE for each file ending in ".txt"
+#' @param format Char (vector): if \code{meta=FALSE}: Format passed to
+#'               \code{\link{as.POSIXct}} (see \code{\link{strptime}})
 #'               to convert the date/time column to POSIX time format.\cr
 #'               If NULL, no conversion is performed (date stays a factor).
-#'               If NA, \code{readDWD} tries to find suitable format based on the number of characters.
-#' @param progbar ToDo
+#'               If NA, \code{readDWD} tries to find suitable format based
+#'               on the number of characters. DEFAULT: NA
+#' @param progbar Logical: present a progress bar with estimated remaining time?
+#'               If missing and length(file)==1, progbar is internally set to FALSE.
+#'               Only works if the R package \code{pbapply} is available. DEFAULT: TRUE (!quiet)
 #'
 readDWD <- function(
 file,
@@ -39,6 +45,14 @@ format=NA,
 progbar=TRUE
 )
 {
+# recycle meta and format
+len <- length(file)
+if(missing(progbar) & len==1) progbar <- FALSE
+if(len>1)
+  {
+  meta   <- rep(meta,   length.out=len)
+  format <- rep(format, length.out=len)
+  }
 # set directory from which to read downloaded data
 owd <- dirDWD(dir, quiet=TRUE)
 on.exit(setwd(owd))
@@ -51,7 +65,7 @@ output <- lapply(seq_along(file), function(i)
 # file check, type selection:
 f <- file[i]
 checkFile(f)
-if(!meta[i]) # -----------------------------------------------------------------
+if(!meta[i]) # if data ---------------------------------------------------------
 {
 # temporary unzipping directory
 exdir <- paste0(tempdir(),"/", substr(f, 1, nchar(f)-4))
@@ -64,9 +78,9 @@ f <- dir(exdir, pattern="produkt*", full.names=TRUE)
 # Actually read data
 dat <- read.table(f, na.strings=na9(), header=TRUE, sep=";", as.is=FALSE)
 # process time-stamp:
-if(!is.null(format) & "MESS_DATUM" %in% colnames(dat))
+if(!is.null(format[i]) & "MESS_DATUM" %in% colnames(dat))
   {
-  if(is.na(format)) format <- if(nchar(dat$MESS_DATUM[1])==8) "%Y%m%d" else "%Y%m%d%H"
+  if(is.na(format[i])) format <- if(nchar(dat$MESS_DATUM[1])==8) "%Y%m%d" else "%Y%m%d%H"
   dat$MESS_DATUM <- as.POSIXct(as.character(dat$MESS_DATUM), format=format)
   }
 # return dataset:
@@ -86,5 +100,6 @@ return(stats)
 }
 # lapply loop end
 })
-if(length(file)==1) output[[1]] else output
+output <- if(length(file)==1) output[[1]] else output
+return(invisible(output))
 }
