@@ -4,38 +4,40 @@
 \alias{dataDWD}
 \title{Download data from the DWD CDC FTP Server}
 \usage{
-dataDWD(file, dir = "DWDdata", progbar = TRUE, sleep = 0, quiet = FALSE,
-  meta = substr(file, nchar(file) - 3, 10000) == ".txt", read = TRUE,
-  format = NA, browse = FALSE, ...)
+dataDWD(file, dir = "DWDdata", sleep = 0, quiet = FALSE,
+  progbar = !quiet, browse = FALSE, read = TRUE, meta = substr(file,
+  nchar(file) - 3, 10000) == ".txt", format = NA, ...)
 }
 \arguments{
-\item{file}{Char: complete file URL (including base and filename.zip) as returned by
-\code{\link{selectDWD}}. Can also be a vector with several filenames.}
+\item{file}{Char (vector): complete file URL(s) (including base and filename.zip) as returned by
+\code{\link{selectDWD}}. Can be a vector with several filenames.}
 
-\item{dir}{Single char: Writeable directory name where to save the downloaded file.
+\item{dir}{Char: Writeable directory name where to save the downloaded file.
 Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
 
-\item{progbar}{Single logical: present a progress bar?
-Only works if the R package \code{pbapply} is available. DEFAULT: TRUE}
-
-\item{sleep}{Single number. If not 0, a random number of seconds between 0 and
+\item{sleep}{Number. If not 0, a random number of seconds between 0 and
 \code{sleep} is passed to \code{\link{Sys.sleep}} after each download
 to avoid getting kicked off the FTP-Server. DEFAULT: 0}
 
 \item{quiet}{Logical: suppress message about directory / filenames? DEFAULT: FALSE}
 
-\item{meta}{Logical: is the \code{file} a meta file?
-DEFAULT: TRUE for each file ending in ".txt"}
+\item{progbar}{Logical: present a progress bar with estimated remaining time?
+If missing and length(file)==1, progbar is internally set to FALSE.
+Only works if the R package \code{pbapply} is available. DEFAULT: TRUE (!quiet)}
 
-\item{read}{Logical: read the file with \code{\link{readDWD}}? If FALSE,
-only download is performed and the filename returned. DEFAULT: TRUE}
-
-\item{format}{Char: format used in \code{\link{strptime}} to convert date/time column,
-see \code{\link{readDWD}}. DEFAULT: NA}
-
-\item{browse}{Logical: open repository via \code{\link{browseURL}}? If TRUE,
-no data is downloaded, but the URL path without filename is returned.
+\item{browse}{Logical: open repository via \code{\link{browseURL}} and
+return URL folder path? If TRUE, no data is downloaded.
+If file has several values, only unique folders will be opened.
 DEFAULT: FALSE}
+
+\item{read}{Logical: read the file(s) with \code{\link{readDWD}}? If FALSE,
+only download is performed and the filename(s) returned. DEFAULT: TRUE}
+
+\item{meta}{Logical (vector): is the \code{file} a meta file? Passed to
+\code{\link{readDWD}}. DEFAULT: TRUE for each file ending in ".txt"}
+
+\item{format}{Char (vector): format used in \code{\link{strptime}} to convert date/time column,
+see \code{\link{readDWD}}. DEFAULT: NA}
 
 \item{\dots}{Further arguments passed to code{\link{download.file}}}
 }
@@ -43,17 +45,15 @@ DEFAULT: FALSE}
 Presuming downloading and processing were successfull:
         if \code{read=TRUE}, a data.frame of the desired dataset
         (as returned by \code{\link{readDWD}}),
-        otherwise the filenames as saved on disc
+        otherwise the filename as saved on disc
         (may have "_n" appended in name, see \code{\link{fileDWD}}).\cr
-        If length(file)>1, the output is a list of data.frames / filenames.\cr
+        If length(file)>1, the output is a list of data.frames / vector of filenames.\cr
         The output is always invisible.
 }
 \description{
 Get climate data from the German Weather Service (DWD) FTP-server.
 The desired .zip (or .txt) dataset is downloaded into \code{dir}.
 If \code{read=TRUE}, it is also read, processed and returned as a data.frame.
-All arguments (except for \code{dir}, \code{progbar} and \code{sleep})
-can be a vecor and will be recycled to the length of \code{file}.
 }
 \examples{
 # toDo: get from berryFunctions::dataDWD

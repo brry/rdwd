@@ -9,15 +9,13 @@
 #' Get climate data from the German Weather Service (DWD) FTP-server.
 #' The desired .zip (or .txt) dataset is downloaded into \code{dir}.
 #' If \code{read=TRUE}, it is also read, processed and returned as a data.frame.
-#' All arguments (except for \code{dir}, \code{progbar} and \code{sleep})
-#' can be a vecor and will be recycled to the length of \code{file}.
 #'
 #' @return Presuming downloading and processing were successfull:
 #'         if \code{read=TRUE}, a data.frame of the desired dataset
 #'         (as returned by \code{\link{readDWD}}),
-#'         otherwise the filenames as saved on disc
+#'         otherwise the filename as saved on disc
 #'         (may have "_n" appended in name, see \code{\link{fileDWD}}).\cr
-#'         If length(file)>1, the output is a list of data.frames / filenames.\cr
+#'         If length(file)>1, the output is a list of data.frames / vector of filenames.\cr
 #'         The output is always invisible.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jun-Oct 2016
 #' @seealso \code{\link{selectDWD}}. \code{\link{readDWD}}, \code{\link{download.file}}.
@@ -30,80 +28,85 @@
 #' # toDo: get from berryFunctions::dataDWD
 #' # d <- dataDWD(selectDWD(id="05692", res="daily", var="kl", time="recent"))
 #'
-#' @param file   Char: complete file URL (including base and filename.zip) as returned by
-#'               \code{\link{selectDWD}}. Can also be a vector with several filenames.
-#' @param dir    Single char: Writeable directory name where to save the downloaded file.
+#' @param file   Char (vector): complete file URL(s) (including base and filename.zip) as returned by
+#'               \code{\link{selectDWD}}. Can be a vector with several filenames.
+#' @param dir    Char: Writeable directory name where to save the downloaded file.
 #'               Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}
-#' @param progbar Single logical: present a progress bar?
-#'               Only works if the R package \code{pbapply} is available. DEFAULT: TRUE
-#' @param sleep  Single number. If not 0, a random number of seconds between 0 and
+#' @param sleep  Number. If not 0, a random number of seconds between 0 and
 #'               \code{sleep} is passed to \code{\link{Sys.sleep}} after each download
 #'               to avoid getting kicked off the FTP-Server. DEFAULT: 0
 #' @param quiet  Logical: suppress message about directory / filenames? DEFAULT: FALSE
-#' @param meta   Logical: is the \code{file} a meta file?
-#'               DEFAULT: TRUE for each file ending in ".txt"
-#' @param read   Logical: read the file with \code{\link{readDWD}}? If FALSE,
-#'               only download is performed and the filename returned. DEFAULT: TRUE
-#' @param format Char: format used in \code{\link{strptime}} to convert date/time column,
-#'               see \code{\link{readDWD}}. DEFAULT: NA
-#' @param browse Logical: open repository via \code{\link{browseURL}}? If TRUE,
-#'               no data is downloaded, but the URL path without filename is returned.
+#' @param progbar Logical: present a progress bar with estimated remaining time?
+#'               If missing and length(file)==1, progbar is internally set to FALSE.
+#'               Only works if the R package \code{pbapply} is available. DEFAULT: TRUE (!quiet)
+#' @param browse Logical: open repository via \code{\link{browseURL}} and
+#'               return URL folder path? If TRUE, no data is downloaded.
+#'               If file has several values, only unique folders will be opened.
 #'               DEFAULT: FALSE
+#' @param read   Logical: read the file(s) with \code{\link{readDWD}}? If FALSE,
+#'               only download is performed and the filename(s) returned. DEFAULT: TRUE
+#' @param meta   Logical (vector): is the \code{file} a meta file? Passed to
+#'               \code{\link{readDWD}}. DEFAULT: TRUE for each file ending in ".txt"
+#' @param format Char (vector): format used in \code{\link{strptime}} to convert date/time column,
+#'               see \code{\link{readDWD}}. DEFAULT: NA
 #' @param \dots  Further arguments passed to code{\link{download.file}}
 #
 dataDWD <- function(
 file,
 dir="DWDdata",
-progbar=TRUE,
 sleep=0,
 quiet=FALSE,          # ToDo: Optinally (DEFAULT) only download if file not available in dir
-meta=substr(file, nchar(file)-3, 1e4)==".txt",
-read=TRUE,
-format=NA,
+progbar=!quiet,
 browse=FALSE,
+read=TRUE,
+meta=substr(file, nchar(file)-3, 1e4)==".txt",
+format=NA,
 ...
 )
 {
-len <- length(file)
-if(missing(progbar) & len==1) progbar <- FALSE
-# recycle input vectors
-if(len>1)
-  {
-  quiet  <- rep(quiet,  length.out=len)
-  meta   <- rep(meta,   length.out=len)
-  read   <- rep(read,   length.out=len)
-  format <- rep(format, length.out=len)
-  browse <- rep(browse, length.out=len)
-  }
+if(missing(progbar) & length(file)==1) progbar <- FALSE
 # be safe for accidental vector input:
 dir     <- dir[1]
 progbar <- progbar[1]
 sleep   <- sleep[1]
-# output file name(s)
-outnames <- gsub("ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/", "", file)
-outnames <- gsub("/", "_", outnames)
-# ------------------------------------------------------------------------------
-# create directory to store downloaded data
-owd <- dirDWD(dir, quiet=quiet[1])
-on.exit(setwd(owd))
-# Optional progress bar:
-progbar <- progbar[1] & requireNamespace("pbapply", quietly=TRUE)
-if(progbar) lapply <- pbapply::pblapply
-# loop over each filename
-output <- lapply(seq_along(file), function(i)
+quiet   <- quiet[1]
+read    <- read[1]
+browse  <- browse[1]
+#
+# open URL path(s) in internet browser:
+if(browse)
   {
-  # open URL in internet browser:
-  if(browse[i]) { browseURL(dirname(file))  ; return(dirname(file)) }
-  # output file name:
-  outfile <- fileDWD(outnames[i], quiet=quiet[i])
+  folders <- unique(dirname(file))
+  browseURL(folders)
+  return(folders)
+  }
+# create directory to store downloaded data
+owd <- dirDWD(dir, quiet=quiet)
+on.exit(setwd(owd))
+# output file name(s)
+outfile <- gsub("ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/", "", file)
+outfile <- gsub("/", "_", outfile)
+outfile <- fileDWD(outfile, quiet=quiet)
+# Optional progress bar:
+progbar <- progbar & requireNamespace("pbapply", quietly=TRUE)
+if(progbar) lapply <- pbapply::pblapply
+# ------------------------------------------------------------------------------
+# loop over each filename
+dummy <- lapply(seq_along(file), function(i)
+  {
   # Actual file download: # ToDo: wrap in try like in indexDWD, but maybe stop the rest of lapply
-  download.file(url=file[i], destfile=outfile, quiet=quiet[i], ...)
+  download.file(url=file[i], destfile=outfile[i], quiet=TRUE, ...)
   # wait some time to avoid FTP bot recognition:
   if(sleep!=0) Sys.sleep(runif(n=1, min=0, max=sleep))
-  # Output: Read the file or outfile name:
-  if(read[i]) readDWD(file=outfile, dir="", meta=meta[i], format=format[i]) else outfile
   })
-#
-output <- if(length(file)==1) output[[1]] else output
+# ------------------------------------------------------------------------------
+# Output: Read the file or outfile name:
+if(read)
+  {
+  output <- readDWD(file=outfile, dir="", meta=meta, format=format, progbar=progbar)
+  output <- if(length(file)==1) output[[1]] else output
+  } else
+  output <- outfile
+# output:
 return(invisible(output))
 }
