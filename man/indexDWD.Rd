@@ -14,7 +14,7 @@ indexDWD(folder = "",
 DEFAULT: "" (all folders at \code{base})}
 
 \item{base}{Main directory of DWD ftp server, defaulting to observed climatic records.
-DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/}}
+DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}}
 
 \item{ziponly}{Logical: return only the filenames ending in ".zip"?
 DEFAULT: FALSE}
@@ -75,6 +75,7 @@ tools::resaveRdaFiles("data/fileIndex.rda")
 sel <- substr(fileIndex$path, nchar(fileIndex$path)-3, 1e4)==".txt"
 sel <- sel & grepl("Beschreibung", fileIndex$path)
 fileIndex[sel, -(4:6)]
+base <- "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate"
 
 # comparison with all folders:
 sum(sel) #27

@@ -46,6 +46,7 @@
 #' sel <- substr(fileIndex$path, nchar(fileIndex$path)-3, 1e4)==".txt"
 #' sel <- sel & grepl("Beschreibung", fileIndex$path)
 #' fileIndex[sel, -(4:6)]
+#' base <- "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate"
 #'
 #' # comparison with all folders:
 #' sum(sel) #27
@@ -60,7 +61,7 @@
 #' @param folder Folder to be indexed recursively, e.g. "/hourly/wind/".
 #'               DEFAULT: "" (all folders at \code{base})
 #' @param base Main directory of DWD ftp server, defaulting to observed climatic records.
-#'             DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/}
+#'             DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
 #' @param ziponly Logical: return only the filenames ending in ".zip"?
 #'                DEFAULT: FALSE
 #' @param sleep If not 0, a random number of seconds between 0 and \code{sleep}

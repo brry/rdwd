@@ -53,7 +53,7 @@
 #' @param base  Single char: main directory of DWD ftp server, defaulting to
 #'              observed climatic records.
 #'              Must be the same \code{base} used to create \code{index}.
-#'              DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/}
+#'              DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
 #' @param res   Char: temporal resolution available at \code{base}, usually one of
 #'              \code{c("hourly","daily","monthly")}. DEFAULT: ""
 #' @param var   Char: Weather variable of interest, usually one of
