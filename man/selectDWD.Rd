@@ -6,7 +6,7 @@
 \usage{
 selectDWD(id = "", name = "", meta = FALSE, index = rdwd:::indexlist,
   base = "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
-  res = "", var = "", time = "")
+  res = "", var = "", time = "", files = FALSE, ziponly = TRUE, ...)
 }
 \arguments{
 \item{id, name}{Character strings. If both are "", \code{meta} is set to TRUE.
@@ -35,6 +35,16 @@ See more in \code{\link{indexlist}}. DEFAULT: ""}
 \item{time}{Desired time range. One of
 "recent" (data from the last year, up to date usually within a few days) or
 "historical" (long time series). DEFAULT: ""}
+
+\item{files}{Logical for case 3/4 with \code{meta}=TRUE: istead of station metadata,
+return a list of the currently available files?
+This will call code{\link{indexDWD}} with the path, thus
+requiring the \code{RCurl} package.  DEFAULT: FALSE}
+
+\item{ziponly}{Logical: If \code{files=TRUE}, only return the zip files, not the
+description (Beschreibung.txt/.pdf) files? DEFAULT: TRUE}
+
+\item{\dots}{Further arguments passed to \code{\link{indexDWD}} if \code{files=TRUE}}
 }
 \value{
 Character string with file path and name(s) in the format

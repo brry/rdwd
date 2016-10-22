@@ -52,6 +52,13 @@
 #' @param time Desired time range. One of
 #'             "recent" (data from the last year, up to date usually within a few days) or
 #'             "historical" (long time series). DEFAULT: ""
+#' @param files Logical for case 3/4 with \code{meta}=TRUE: istead of station metadata,
+#'              return a list of the currently available files?
+#'              This will call code{\link{indexDWD}} with the path, thus
+#'              requiring the \code{RCurl} package.  DEFAULT: FALSE
+#' @param ziponly Logical: If \code{files=TRUE}, only return the zip files, not the
+#'                description (Beschreibung.txt/.pdf) files? DEFAULT: TRUE
+#' @param \dots Further arguments passed to \code{\link{indexDWD}} if \code{files=TRUE}
 #'
 selectDWD <- function(
 id="",
@@ -61,7 +68,10 @@ index=rdwd:::indexlist,
 base="ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
 res="",
 var="",
-time=""
+time="",
+files=FALSE,
+ziponly=TRUE,
+...
 )
 {
 # Input checks and processing:
@@ -98,6 +108,8 @@ if(all(!grepl(path, index$path))) stop("According to index '",indexname,
       "', the path '", path,"' doesn't exist. See ?metaDWD on how to use a different index.")
 # select entry from index:
 sel <- index$res==res & index$var==var & index$time==time
+# # list available files:
+if(files) return(indexDWD(path, base=base, ziponly=ziponly, ...))
 #
 # 3: id is empty, path is given ------------------------------------------------
 if(!givenid & givenpath) meta <- TRUE
