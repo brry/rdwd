@@ -12,7 +12,7 @@
 #' @details
 #' It's not suggested to run this for all folders, as it can take quite some time
 #' and you may get kicked off the FTP-Server. This package contains an index
-#' of the climatic observations at weather stations: \code{\link{indexlist}}
+#' of the climatic observations at weather stations: \code{View(rdwd:::\link{fileIndex})}
 #' If it is out of date, please let me know!
 #'
 #' @return currently a vector with file paths (output may change in the future)
@@ -29,27 +29,27 @@
 #' rm(sol)
 #'
 #'
-#' # Here's how I produce and update   ?indexlist    ---------------------------
+#' # Here's how I produce and update   ?fileIndex    ---------------------------
 #' # index <- indexDWD(sleep=30) # commented out to prevent accidental calling
 #' # index <- indexDWD(index, sleep=30) # potentially needed several times
 #' index <- readLines("DWDdata/INDEX_of_DWD_.txt") # 25'631 elements (2016-10-21)
 #' indexcompare <- index2df(index)
-#' indexlist <- read.table("DWDdata/INDEX.txt", sep="\t", header=TRUE, colClasses="character")
-#' stopifnot(all(indexlist==indexcompare))
+#' fileIndex <- read.table("DWDdata/INDEX.txt", sep="\t", header=TRUE, colClasses="character")
+#' stopifnot(all(fileIndex==indexcompare))
 #'
-#' save(indexlist, file="data/indexlist.rda")
-#' tools::resaveRdaFiles("data/indexlist.rda")
-#' #devtools::use_data(indexlist, internal=TRUE)
+#' save(fileIndex, file="data/fileIndex.rda")
+#' tools::resaveRdaFiles("data/fileIndex.rda")
+#' #devtools::use_data(fileIndex, internal=TRUE)
 #'
 #'
-#' # Here's how I produce and update   ?metalist    ----------------------------
-#' sel <- substr(indexlist$path, nchar(indexlist$path)-3, 1e4)==".txt"
-#' sel <- sel & grepl("Beschreibung", indexlist$path)
-#' indexlist[sel, -(4:6)]
+#' # Here's how I produce and update   ?metaIndex    ----------------------------
+#' sel <- substr(fileIndex$path, nchar(fileIndex$path)-3, 1e4)==".txt"
+#' sel <- sel & grepl("Beschreibung", fileIndex$path)
+#' fileIndex[sel, -(4:6)]
 #'
 #' # comparison with all folders:
 #' sum(sel) #27
-#' folders <- with(indexlist, unique(paste(res,var,time, sep="/"))   )
+#' folders <- with(fileIndex, unique(paste(res,var,time, sep="/"))   )
 #' length(folders) # 30 (3 multi_annual, no Beschreibung file)
 #' folders;  rm(folders)
 #'

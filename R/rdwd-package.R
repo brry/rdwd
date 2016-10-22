@@ -2,10 +2,10 @@
 #'
 #' A data.frame with the filenames with path starting at the default \code{base} value:
 #' \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/}.
-#' Created with \code{\link{index2df}} in the not-tested example section of \code{\link{indexDWD}}.
-#' In functions, you can access it with \code{rdwd:::indexlist}.
+#' Created with \code{\link{index2df}} in the example section of \code{\link{indexDWD}}.
+#' In functions, you can access it with \code{rdwd:::fileIndex}.
 #'
-#' @name indexlist
+#' @name fileIndex
 #' @docType data
 #' @format data.frame with character srings. 25'631 rows x 7 columns:
 #'         \code{res}, \code{var}, \code{time} (see \code{\link{selectDWD}}),
@@ -15,15 +15,15 @@
 #' @keywords datasets
 #' @examples
 #'
-#' data(indexlist)
-#' head(indexlist)
+#' data(fileIndex)
+#' head(fileIndex)
 #'
-#' # in functions, you can use head(rdwd:::indexlist), but I don't export it
+#' # in functions, you can use head(rdwd:::fileIndex), but I don't export it
 #' # because Hadley says 'Never @export a data set' in
 #' # browseURL("http://r-pkgs.had.co.nz/data.html#data-data")
 #'
 
-data(indexlist, envir=environment())
+data(fileIndex, envir=environment())
 # http://stackoverflow.com/questions/32964741/accessing-sysdata-rda-within-package-functions
 # http://stackoverflow.com/questions/9521009/how-do-you-handle-r-data-internal-to-a-package
 
@@ -32,7 +32,7 @@ data(indexlist, envir=environment())
 #' Download Climate Data from DWD (German Weather Service)
 #'
 #' Select weather data from the DWD (Deutscher Wetterdienst) with
-#' \code{\link{selectDWD}}, \code{\link{indexDWD}} and \code{\link{indexlist}}.\cr
+#' \code{\link{selectDWD}}, which uses \code{\link{fileIndex}}.\cr
 #' Download and process data sets with \code{\link{dataDWD}} and \code{\link{readDWD}}.
 #'
 #' @details

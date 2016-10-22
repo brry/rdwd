@@ -6,7 +6,7 @@
 \usage{
 selectDWD(name = "", id = "",
   base = "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
-  res = "", var = "", time = "", index = rdwd:::indexlist,
+  res = "", var = "", time = "", index = rdwd:::fileIndex,
   meta = FALSE, files = FALSE, ziponly = TRUE, ...)
 }
 \arguments{
@@ -27,7 +27,7 @@ DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/}}
 \item{var}{Char: Weather variable of interest, usually one of
 \code{c("kl", "more_precip", "soil_temperature", "solar",
 "air_temperature", "cloudiness", "precipitation", "pressure", "sun", "wind")}.
-See more in \code{View(rdwd:::\link{indexlist})}. DEFAULT: ""}
+See more in \code{View(rdwd:::\link{fileIndex})}. DEFAULT: ""}
 
 \item{time}{Char: desired time range. One of
 "recent" (data from the last year, up to date usually within a few days) or
@@ -37,7 +37,7 @@ letter is "r" or "h", full names are used. DEFAULT: ""}
 \item{index}{Single object: Index used to select filename, as returned by
 \code{\link{index2df}}.To use a current / custom index, use
 \code{myIndex <- index2df(indexDWD("/daily/solar"))}
-(with desired path, of course). DEFAULT: rdwd:::indexlist}
+(with desired path, of course). DEFAULT: \code{rdwd:::\link{fileIndex}}}
 
 \item{meta}{Logical: return metadata txt file name instead of climate data zip file?
 Relevant only in case 4 (path and id given). DEFAULT: FALSE}
@@ -62,8 +62,8 @@ All arguments (except for \code{index} and \code{base})
 can be a vecor and will be recycled to the maximum length of all arguments.
 If that length > 1, the output is a list of filenames.\cr
 If station \code{name} is given, but \code{id} is empty (""),
-\code{id} is inferred via \code{findex}.
-# ToDo: fileIndex (instead of indexlist), metaIndex. argument names findex, mindex
+\code{id} is inferred via \code{mindex}.
+# ToDo: create metaIndex. argument names findex, mindex
 If \code{res/var/time} are given and valid (existing in \code{findex}),
 they are pasted together to form a \code{path}.
 Here is an overview of the behaviour in each case of availability:
