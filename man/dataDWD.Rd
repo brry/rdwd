@@ -40,18 +40,19 @@ DEFAULT: FALSE}
 \item{\dots}{Further arguments passed to code{\link{download.file}}}
 }
 \value{
-presuming downloading and processing were successfull:
+Presuming downloading and processing were successfull:
         if \code{read=TRUE}, a data.frame of the desired dataset
         (as returned by \code{\link{readDWD}}),
         otherwise the filenames as saved on disc
         (may have "_n" appended in name, see \code{\link{fileDWD}}).\cr
-        if length(file)>1, the output is a list of data.frames / filenames.
+        If length(file)>1, the output is a list of data.frames / filenames.\cr
+        The output is always invisible.
 }
 \description{
 Get climate data from the German Weather Service (DWD) FTP-server.
 The desired .zip (or .txt) dataset is downloaded into \code{dir}.
 If \code{read=TRUE}, it is also read, processed and returned as a data.frame.
-All arguments (except for \code{dir},\code{progbar} and \code{sleep})
+All arguments (except for \code{dir}, \code{progbar} and \code{sleep})
 can be a vecor and will be recycled to the length of \code{file}.
 }
 \examples{
@@ -63,7 +64,7 @@ can be a vecor and will be recycled to the length of \code{file}.
 Berry Boessenkool, \email{berry-b@gmx.de}, Jun-Oct 2016
 }
 \seealso{
-\code{\link{readDWD}}, \code{\link{download.file}}.
+\code{\link{selectDWD}}. \code{\link{readDWD}}, \code{\link{download.file}}.
          Helpful for plotting: \code{berryFunctions::\link[berryFunctions]{monthAxis}},
          see also \code{berryFunctions::\link[berryFunctions]{climateGraph}}
 }
