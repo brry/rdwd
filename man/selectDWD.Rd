@@ -4,42 +4,48 @@
 \alias{selectDWD}
 \title{Select data from the DWD CDC FTP Server}
 \usage{
-selectDWD(id = "", name = "", meta = FALSE, index = rdwd:::indexlist,
+selectDWD(name = "", id = "",
   base = "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
-  res = "", var = "", time = "", files = FALSE, ziponly = TRUE, ...)
+  res = "", var = "", time = "", index = rdwd:::indexlist,
+  meta = FALSE, files = FALSE, ziponly = TRUE, ...)
 }
 \arguments{
-\item{id, name}{Character strings. If both are "", \code{meta} is set to TRUE.
+\item{name}{Char: station name that will be matched in \code{index} to obtain
+\code{id}.  Not yet implemented!  DEFAULT: ""}
+
+\item{id}{Char: station ID with leading zeros, e.g. "00614".
 If \code{id} is given, \code{name} is ignored. DEFAULT: ""}
 
-\item{meta}{Logical: return metadata txt file name instead of climate data zip file?
-DEFAULT: FALSE}
-
-\item{index}{Index used to select filename, as returned by
-\code{\link{index2df}}. To use a current / custom index, use
-\code{myIndex <- index2df(indexDWD("/daily/solar"))}
-(with desired path, of course). DEFAULT: rdwd:::indexlist}
-
-\item{base}{Main directory of DWD ftp server, defaulting to observed climatic records.
+\item{base}{Single char: main directory of DWD ftp server, defaulting to
+observed climatic records.
 Must be the same \code{base} used to create \code{index}.
 DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/}}
 
-\item{res}{Temporal resolution available at \code{base}, usually one of
+\item{res}{Char: temporal resolution available at \code{base}, usually one of
 \code{c("hourly","daily","monthly")}. DEFAULT: ""}
 
-\item{var}{Weather variable of interest, usually one of
+\item{var}{Char: Weather variable of interest, usually one of
 \code{c("kl", "more_precip", "soil_temperature", "solar",
 "air_temperature", "cloudiness", "precipitation", "pressure", "sun", "wind")}.
-See more in \code{\link{indexlist}}. DEFAULT: ""}
+See more in \code{View(rdwd:::\link{indexlist})}. DEFAULT: ""}
 
-\item{time}{Desired time range. One of
+\item{time}{Char: desired time range. One of
 "recent" (data from the last year, up to date usually within a few days) or
-"historical" (long time series). DEFAULT: ""}
+"historical" (long time series). DEFAULT: ""
+ToDo: make time abbreviatable}
 
-\item{files}{Logical for case 3/4 with \code{meta}=TRUE: istead of station metadata,
-return a list of the currently available files?
+\item{index}{Single object: Index used to select filename, as returned by
+\code{\link{index2df}}.To use a current / custom index, use
+\code{myIndex <- index2df(indexDWD("/daily/solar"))}
+(with desired path, of course). DEFAULT: rdwd:::indexlist}
+
+\item{meta}{Logical: return metadata txt file name instead of climate data zip file?
+Relevant only in case 4 (path and id given). DEFAULT: FALSE}
+
+\item{files}{Logical: for case 3/4 with given \code{path}: instead of station
+metadata, return a list of the currently available files?
 This will call code{\link{indexDWD}} with the path, thus
-requiring the \code{RCurl} package.  DEFAULT: FALSE}
+requiring the \code{RCurl} package. DEFAULT: FALSE}
 
 \item{ziponly}{Logical: If \code{files=TRUE}, only return the zip files, not the
 description (Beschreibung.txt/.pdf) files? DEFAULT: TRUE}
@@ -52,7 +58,9 @@ Character string with file path and name(s) in the format
 }
 \description{
 Select files for downloading with \code{\link{dataDWD}}.
-Each argument can be a vector, then the rules below are applied element-wise.\cr # ToDo: not yet
+All arguments (except for \code{index} and \code{base})
+can be a vecor and will be recycled to the maximum length of all arguments.
+If that length > 1, the output is a list of filenames.\cr
 If station \code{name} is given, but \code{id} is empty (""),
 \code{id} is inferred via \code{findex}.
 # ToDo: fileIndex (instead of indexlist), metaIndex. argument names findex, mindex
@@ -70,9 +78,10 @@ case \tab | id \tab | path \tab | action \cr
 \examples{
 \dontrun{
 selectDWD(id="00386", res="daily", var="kl", time="historical")
+selectDWD(id="00386", res="daily", var="kl", time="historical", meta=TRUE)
 selectDWD(id="00386")
 selectDWD(id="00386", meta=TRUE)
-selectDWD(res="daily", var="kl", time="recent")
+selectDWD(res="daily", var="kl", time="recent") # id missing, thus meta<-TRUE
 selectDWD(var="dummy") # should give an informative error
 selectDWD(time="dummy") # this one, too
 }
