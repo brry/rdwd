@@ -15,12 +15,10 @@
 #' @examples
 #' # see source code of dataDWD and metaDWD
 #'
-#' @param dir Writeable directory. Created if not existent.
-#'            DEFAULT: "DWDdata" at current \code{\link{getwd}()}
-# @param reading dirDWD only: Logical: should the message be "reading from"
-#                instead of "adding to"? DEFAULT: FALSE
-#' @param filename fileDWD only: Character string with a single file name.
-#' @param quiet Suppress message about directory / existing file? DEFAULT: FALSE
+#' @param dir      Char: writeable directory name. Created if not existent.
+#'                 DEFAULT: "DWDdata" at current \code{\link{getwd}()}
+#' @param filename Char (vector): for fileDWD only: file name(s).
+#' @param quiet    Logical: Suppress messages about creating dir / file(s)? DEFAULT: FALSE
 #'
 dirDWD <- function(
 dir="DWDdata",
@@ -54,18 +52,31 @@ filename,
 quiet=FALSE
 )
 {
-f <- filename[1]
+output <- lapply(filename, function(f)
+{
 e2 <- tools::file_ext(f)
+if(e2!="") e2 <- paste0(".",e2)
 e1 <- tools::file_path_sans_ext(f)
-Newfilecreated <- FALSE
+existed <- FALSE
 nr <- 1
 while(file.exists(f))
 {
-  f <- paste0(e1,"_",nr,".",e2)
+  f <- paste0(e1,"_",nr,e2)
   nr <- nr + 1
-  Newfilecreated <- TRUE
+  existed <- TRUE
 }
-if( Newfilecreated & !quiet) message("File already existed. Creating the file '", f, "'")
-if(!Newfilecreated & !quiet) message("Creating the file '", f, "'")
-f
+return(c(existed, f))
+})
+fnames  <- sapply(output, "[", 2)
+existed <- sapply(output, "[", 1)
+existed <- as.logical(existed)
+if(!quiet)
+  {
+  if(any(!existed)) message("Creating the file", if(sum(!existed)>1) "s",
+                            " '", toString(fnames[!existed]), "'")
+  if(any(existed)) message("File", if(sum(existed)>1) "s",
+                           " already existed. Creating the file", if(sum(existed)>1) "s",
+                            " '", toString(fnames[existed]), "'")
+  }
+fnames
 }

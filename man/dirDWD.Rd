@@ -10,12 +10,12 @@ dirDWD(dir = "DWDdata", quiet = FALSE)
 fileDWD(filename, quiet = FALSE)
 }
 \arguments{
-\item{dir}{Writeable directory. Created if not existent.
+\item{dir}{Char: writeable directory name. Created if not existent.
 DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
 
-\item{quiet}{Suppress message about directory / existing file? DEFAULT: FALSE}
+\item{quiet}{Logical: Suppress messages about creating dir / file(s)? DEFAULT: FALSE}
 
-\item{filename}{fileDWD only: Character string with a single file name.}
+\item{filename}{Char (vector): for fileDWD only: file name(s).}
 }
 \value{
 dirDWD invisibly returns the prior working directory as per \code{\link{setwd}}.\cr
