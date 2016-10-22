@@ -13,6 +13,8 @@
 #' @export
 #' @examples
 #' # see dataDWD
+# ToDo: read station id as character string by specifying all column classes, see
+# http://stackoverflow.com/questions/13022299/specify-date-format-for-colclasses-argument-in-read-table-read-csv/13022441#13022441
 #'
 #' @param file Name(s) of the file(s) downloaded with \code{\link{dataDWD}},
 #'             e.g. "tageswerte_KL_02575_akt.zip" or
