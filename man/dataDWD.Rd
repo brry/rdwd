@@ -4,30 +4,40 @@
 \alias{dataDWD}
 \title{Download data from the DWD CDC FTP Server}
 \usage{
-dataDWD(file, dir = "DWDdata", quiet = FALSE, read = TRUE, format = NA,
-  sleep = 0, progbar = TRUE)
+dataDWD(file, dir = "DWDdata", progbar = TRUE, sleep = 0, quiet = FALSE,
+  meta = substr(file, nchar(file) - 3, 10000) == ".txt", read = TRUE,
+  format = NA, browse = FALSE, ...)
 }
 \arguments{
-\item{file}{Complete file URL (including base and filename.zip) as returned by
-\code{\link{selectDWD}}. Can be a vector with several filenames.}
+\item{file}{Char: complete file URL (including base and filename.zip) as returned by
+\code{\link{selectDWD}}. Can also be a vector with several filenames.}
 
-\item{dir}{Writeable directory name where to save the downloaded file.
+\item{dir}{Single char: Writeable directory name where to save the downloaded file.
 Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
 
-\item{quiet}{Suppress message about directory? DEFAULT: FALSE}
+\item{progbar}{Single logical: present a progress bar?
+Only works if the R package \code{pbapply} is available. DEFAULT: TRUE}
 
-\item{read}{Read the file with \code{\link{readDWD}}?
-If FALSE, only download is performed (and the filename returned). DEFAULT: TRUE}
-
-\item{format}{Format used in \code{\link{strptime}} to convert date/time column,
-see \code{\link{readDWD}}. DEFAULT: NA}
-
-\item{sleep}{If not 0, a random number of seconds between 0 and \code{sleep}
-is passed to \code{\link{Sys.sleep}} after each download
+\item{sleep}{Single number. If not 0, a random number of seconds between 0 and
+\code{sleep} is passed to \code{\link{Sys.sleep}} after each download
 to avoid getting kicked off the FTP-Server. DEFAULT: 0}
 
-\item{progbar}{Logical: present a progress bar?
-Only works if the R package pbapply is available. DEFAULT: TRUE}
+\item{quiet}{Logical: suppress message about directory / filenames? DEFAULT: FALSE}
+
+\item{meta}{Logical: is the \code{file} a meta file?
+DEFAULT: TRUE for each file ending in ".txt"}
+
+\item{read}{Logical: read the file with \code{\link{readDWD}}? If FALSE,
+only download is performed and the filename returned. DEFAULT: TRUE}
+
+\item{format}{Char: format used in \code{\link{strptime}} to convert date/time column,
+see \code{\link{readDWD}}. DEFAULT: NA}
+
+\item{browse}{Logical: open repository via \code{\link{browseURL}}? If TRUE,
+no data is downloaded, but the URL path without filename is returned.
+DEFAULT: FALSE}
+
+\item{\dots}{Further arguments passed to code{\link{download.file}}}
 }
 \value{
 presuming downloading and processing were successfull:
@@ -39,11 +49,14 @@ presuming downloading and processing were successfull:
 }
 \description{
 Get climate data from the German Weather Service (DWD) FTP-server.
-The desired .zip dataset is downloaded into \code{dir}.
-If \code{read=TRUE}, it is also read, processed and returned as a data.frame
+The desired .zip (or .txt) dataset is downloaded into \code{dir}.
+If \code{read=TRUE}, it is also read, processed and returned as a data.frame.
+All arguments (except for \code{dir},\code{progbar} and \code{sleep})
+can be a vecor and will be recycled to the length of \code{file}.
 }
 \examples{
 # toDo: get from berryFunctions::dataDWD
+# d <- dataDWD(selectDWD(id="05692", res="daily", var="kl", time="recent"))
 
 }
 \author{
