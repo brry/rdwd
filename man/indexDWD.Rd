@@ -39,9 +39,11 @@ currently a vector with file paths (output may change in the future)
 Create a list of all the files (in subfolders) at the Climate Data Center (CDC)
 FTP-Server from the German Weather Service (DWD, Deutscher WetterDienst) at
 \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}.\cr
-If it fails, because bot access is detected and denied, there will stil be an
-output which you can pass in a second run via \code{folder} to extract the remaining dirs.
-You might want to set \code{sleep=10} or similar in that case.
+The R package \code{RCurl} must be available to do this.
+If \code{RCurl::\link[RCurl]{getURL}} fails, usually because bot access is
+detected and denied, there will stil be an output which you can pass in a
+second run via \code{folder} to extract the remaining dirs.
+You might want to wait a bit and set \code{sleep} to a higher value in that case.
 }
 \details{
 It's not suggested to run this for all folders, as it can take quite some time
