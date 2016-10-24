@@ -125,7 +125,18 @@ rm(cnames)
 
 # merge:
 metaIndex <- Reduce(function(...) merge(..., all=T), metas)
-# save:
+
+# ASCII symbols:
+convertUmlaut <- function(x)
+  {
+  x <- gsub("\U00FC","ue",gsub("\U00F6","oe",gsub("\U00E4","ae",gsub("\U00DF","ss",x))))
+  x <- gsub("\U00DC","Ue",gsub("\U00D6","Oe",gsub("\U00C4","Ae",x)))
+  x }
+metaIndex$Stationsname <- convertUmlaut(metaIndex$Stationsname)
+metaIndex$Bundesland   <- convertUmlaut(metaIndex$Bundesland)
+# iconv(metaIndex$Stationsname, to="ASCII//TRANSLIT")
+
+# save and compress:
 save(metaIndex, file="data/metaIndex.rda")
 tools::resaveRdaFiles("data/metaIndex.rda")
 
