@@ -24,6 +24,8 @@ dirDWD invisibly returns the prior working directory as per \code{\link{setwd}}.
 }
 \description{
 Manage directories and files in the rdwd package.
+Files are never overwritten but saved with a message as OriginalName_1.file
+or OriginalName_2.file etc.
 }
 \examples{
 # see source code of dataDWD and metaDWD

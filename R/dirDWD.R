@@ -1,6 +1,8 @@
 #' directory management for rdwd
 #'
 #' Manage directories and files in the rdwd package.
+#' Files are never overwritten but saved with a message as OriginalName_1.file
+#' or OriginalName_2.file etc.
 #'
 #' @name dirDWD
 #' @aliases fileDWD
