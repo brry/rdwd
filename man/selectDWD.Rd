@@ -7,8 +7,7 @@
 selectDWD(name = "", id = "",
   base = "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
   res = "", var = "", time = "", mindex = rdwd:::metaIndex,
-  findex = rdwd:::fileIndex, meta = FALSE, files = FALSE,
-  ziponly = TRUE, ...)
+  findex = rdwd:::fileIndex, current = FALSE, meta = FALSE, ...)
 }
 \arguments{
 \item{name}{Char: station name that will be matched in \code{mindex} to obtain
@@ -27,15 +26,17 @@ DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}}
 \item{res}{Char: temporal resolution available at \code{base}, usually one of
 \code{c("hourly","daily","monthly")}. DEFAULT: ""}
 
-\item{var}{Char: Weather variable of interest, usually one of
-\code{c("kl", "more_precip", "soil_temperature", "solar",
-"air_temperature", "cloudiness", "precipitation", "pressure", "sun", "wind")}.
+\item{var}{Char: weather variable of interest, usually one of
+\code{c("air_temperature", "cloudiness", "precipitation",
+        "pressure", "sun", "wind")} (only in hourly),
+\code{c("soil_temperature", "solar")} (in hourly and daily), or
+\code{c("kl", "more_precip")} (in daily and monthly).
 See more in \code{View(rdwd:::\link{fileIndex})}. DEFAULT: ""}
 
 \item{time}{Char: desired time range. One of
 "recent" (data from the last year, up to date usually within a few days) or
 "historical" (long time series). Can be abbreviated (if the first
-letter is "r" or "h", full names are used. DEFAULT: ""}
+letter is "r" or "h", full names are used). DEFAULT: ""}
 
 \item{mindex}{Single object: Index used to select \code{id} if \code{name}
 is given. DEFAULT: \code{rdwd:::\link{metaIndex}}}
@@ -45,18 +46,17 @@ is given. DEFAULT: \code{rdwd:::\link{metaIndex}}}
 \code{myIndex <- index2df(indexDWD("/daily/solar"))}
 (with desired path, of course). DEFAULT: \code{rdwd:::\link{fileIndex}}}
 
+\item{current}{Single logical for case 3/4 with given \code{path}: instead of
+\code{findex}, use a list of the currently available files at
+base/res/var/time? This will call code{\link{indexDWD}}, thus
+requires availability of the \code{RCurl} package.
+DEFAULT: FALSE}
+
 \item{meta}{Logical: return metadata txt file name instead of climate data zip file?
 Relevant only in case 4 (path and id given). DEFAULT: FALSE}
 
-\item{files}{Logical: for case 3/4 with given \code{path}: instead of station
-metadata, return a list of the currently available files?
-This will call code{\link{indexDWD}} with the path, thus
-requiring the \code{RCurl} package. DEFAULT: FALSE}
-
-\item{ziponly}{Logical: If \code{files=TRUE}, only return the zip files, not the
-description (Beschreibung.txt/.pdf) files? DEFAULT: TRUE}
-
-\item{\dots}{Further arguments passed to \code{\link{indexDWD}} if \code{files=TRUE}}
+\item{\dots}{Further arguments passed to \code{\link{indexDWD}} if \code{current=TRUE},
+like dir, quiet}
 }
 \value{
 Character string with file path and name(s) in the format
