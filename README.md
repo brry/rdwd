@@ -33,7 +33,8 @@ climdata <- dataDWD(link, dir=tempdir())
 
 ```R
 png("ExampleGraph.png", width=4, height=3, units="in", res=150)
-plot(climdata[,c(2,4)], type="l", xaxt="n", las=1)
+par(mar=c(4,4,2,0.5), mgp=c(2.7, 0.8, 0), cex=0.8)
+plot(climdata[,c(2,4)], type="l", xaxt="n", las=1, main="Daily temp Potsdam")
 berryFunctions::monthAxis(ym=TRUE)
 dev.off()
 ```
