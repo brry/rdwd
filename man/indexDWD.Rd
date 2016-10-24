@@ -6,8 +6,7 @@
 \usage{
 indexDWD(folder = "",
   base = "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
-  ziponly = FALSE, sleep = 0, dir = "DWDdata", quiet = FALSE,
-  progbar = !quiet)
+  sleep = 0, dir = "DWDdata", quiet = FALSE, progbar = !quiet)
 }
 \arguments{
 \item{folder}{Folder to be indexed recursively, e.g. "/hourly/wind/".
@@ -15,9 +14,6 @@ DEFAULT: "" (all folders at \code{base})}
 
 \item{base}{Main directory of DWD ftp server, defaulting to observed climatic records.
 DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}}
-
-\item{ziponly}{Logical: return only the filenames ending in ".zip"?
-DEFAULT: FALSE}
 
 \item{sleep}{If not 0, a random number of seconds between 0 and \code{sleep}
 is passed to \code{\link{Sys.sleep}} after each read folder

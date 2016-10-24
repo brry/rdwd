@@ -32,8 +32,6 @@
 #'               DEFAULT: "" (all folders at \code{base})
 #' @param base Main directory of DWD ftp server, defaulting to observed climatic records.
 #'             DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
-#' @param ziponly Logical: return only the filenames ending in ".zip"?
-#'                DEFAULT: FALSE
 #' @param sleep If not 0, a random number of seconds between 0 and \code{sleep}
 #'              is passed to \code{\link{Sys.sleep}} after each read folder
 #'              to avoid getting kicked off the FTP-Server. DEFAULT: 0
@@ -47,14 +45,12 @@
 indexDWD <- function(
 folder="",
 base="ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
-ziponly=FALSE,
 sleep=0,
 dir="DWDdata",
 quiet=FALSE,
 progbar=!quiet
 )
 {
-if(ziponly) stop("ziponly is not implemented yet in indexDWD!") # ToDo
 # Check if RCurl is available:
 if(!requireNamespace("RCurl", quietly=TRUE))
   stop("The R package 'RCurl' is not available. indexDWD can not obtain file list.\n",
