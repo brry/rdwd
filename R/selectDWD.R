@@ -113,6 +113,7 @@ if(len>1)
 }
 # convert ID to integer:
 id <- suppressWarnings(as.integer(id))
+findex$id <- suppressWarnings(as.integer(findex$id))
 # be safe for accidental vector input
 base <- base[1]
 # loop over each input element:
@@ -141,8 +142,6 @@ if(givenid & !givenpath)
   {
   if(meta) warning("selectDWD: meta is currently ignored if id is given", call.=FALSE)
   #ToDo: decide if there should instead of ignoring be some result from metaIndex
-  # fileIndex ID to integer:
-  findex$id <- suppressWarnings(as.integer(findex$id))
   filename <- findex[id.i==findex$id, "path"]
   filename <- filename[!is.na(filename)]
   return(   paste0(base, filename)   )
@@ -178,7 +177,7 @@ if(meta.i)
 # 4: id and path are both given ------------------------------------------------
 if(givenid & givenpath)
   {
-  if(!meta.i) sel <- sel & id.i==findex$id
+  if(!meta.i) sel <- sel & sapply(id.i==findex$id, isTRUE)
   if(sum(sel)==0) stop("in selectDWD: According to findex '",findexname,
                        "', there is no file in '", path, "' with id '",id.i,
                        "'. See ?selectDWD on how to use a different index.", call.=FALSE)
