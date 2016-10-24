@@ -100,12 +100,9 @@ dummy <- lapply(seq_along(file), function(i)
   })
 # ------------------------------------------------------------------------------
 # Output: Read the file or outfile name:
-if(read)
-  {
-  output <- readDWD(file=outfile, dir="", meta=meta, format=format, progbar=progbar)
-  output <- if(length(file)==1) output[[1]] else output
-  } else
-  output <- outfile
+output <- if(read) readDWD(file=outfile, dir="", meta=meta, format=format,
+                           progbar=progbar) else
+                   outfile
 # output:
 return(invisible(output))
 }
