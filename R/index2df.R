@@ -17,15 +17,18 @@
 #' if(interactive())
 #' browseURL("https://github.com/brry/rdwd/blob/master/R/rdwd-package.R")
 #'
-#' @param path Vector of paths returned by \code{\link{indexDWD}} called with
-#'             the default \code{base} value.
-#' @param dir Writeable directory name where to save the output.
-#'            Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}
-#' @param quiet Suppress messages about directory / filename? DEFAULT: FALSE
+#' @param path  Char: vector of paths returned by \code{\link{indexDWD}} called
+#'              with the default \code{base} value.
+#' @param dir   Char: writeable directory name where to save the output.
+#'              Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}
+#' @param filename Char: Name of file in \code{dir} in which to save the output.
+#'              Use \code{filename=""} to suppress writing. DEFAULT: "INDEX.txt"
+#' @param quiet Logical: Suppress messages about directory / filename? DEFAULT: FALSE
 #'
 index2df <- function(
 path,
 dir="DWDdata",
+filename="INDEX.txt",
 quiet=FALSE
 )
 {
@@ -72,10 +75,13 @@ index$end <- ifelse(multi,   info[,3], index$end)
 index$path <- path
 #
 # Write to disc
-owd <- dirDWD(dir, quiet=quiet)
-on.exit(setwd(owd))
-outfile <- fileDWD("INDEX.txt", quiet=quiet)
-write.table(index, file=outfile, sep="\t", row.names=FALSE, quote=FALSE)
+if(filename!="")
+  {
+  owd <- dirDWD(dir, quiet=quiet)
+  on.exit(setwd(owd))
+  outfile <- fileDWD("INDEX.txt", quiet=quiet)
+  write.table(index, file=outfile, sep="\t", row.names=FALSE, quote=FALSE)
+  }
 # Output
 return(invisible(index))
 }

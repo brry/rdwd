@@ -4,16 +4,19 @@
 \alias{index2df}
 \title{process the index of the DWD CDC FTP Server}
 \usage{
-index2df(path, dir = "DWDdata", quiet = FALSE)
+index2df(path, dir = "DWDdata", filename = "INDEX.txt", quiet = FALSE)
 }
 \arguments{
-\item{path}{Vector of paths returned by \code{\link{indexDWD}} called with
-the default \code{base} value.}
+\item{path}{Char: vector of paths returned by \code{\link{indexDWD}} called
+with the default \code{base} value.}
 
-\item{dir}{Writeable directory name where to save the output.
+\item{dir}{Char: writeable directory name where to save the output.
 Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
 
-\item{quiet}{Suppress messages about directory / filename? DEFAULT: FALSE}
+\item{filename}{Char: Name of file in \code{dir} in which to save the output.
+Use \code{filename=""} to suppress writing. DEFAULT: "INDEX.txt"}
+
+\item{quiet}{Logical: Suppress messages about directory / filename? DEFAULT: FALSE}
 }
 \value{
 invisible dataframe with a number of columns tried to infer from the paths.
