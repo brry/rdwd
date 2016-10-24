@@ -6,19 +6,22 @@
 \usage{
 selectDWD(name = "", id = "",
   base = "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
-  res = "", var = "", time = "", index = rdwd:::fileIndex,
-  meta = FALSE, files = FALSE, ziponly = TRUE, ...)
+  res = "", var = "", time = "", mindex = rdwd:::metaIndex,
+  findex = rdwd:::fileIndex, meta = FALSE, files = FALSE,
+  ziponly = TRUE, ...)
 }
 \arguments{
-\item{name}{Char: station name that will be matched in \code{index} to obtain
-\code{id}.  Not yet implemented!  DEFAULT: ""}
+\item{name}{Char: station name that will be matched in \code{mindex} to obtain
+\code{id}. DEFAULT: ""}
 
-\item{id}{Char: station ID with leading zeros, e.g. "00614".
+\item{id}{Char/Number: station ID with or without leading zeros, e.g. "00614" or 614.
+Is internally converted to an integer, because some DWD meta data
+Files also contain no leading zeros.
 If \code{id} is given, \code{name} is ignored. DEFAULT: ""}
 
 \item{base}{Single char: main directory of DWD ftp server, defaulting to
 observed climatic records.
-Must be the same \code{base} used to create \code{index}.
+Must be the same \code{base} used to create \code{findex}.
 DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}}
 
 \item{res}{Char: temporal resolution available at \code{base}, usually one of
@@ -34,7 +37,10 @@ See more in \code{View(rdwd:::\link{fileIndex})}. DEFAULT: ""}
 "historical" (long time series). Can be abbreviated (if the first
 letter is "r" or "h", full names are used. DEFAULT: ""}
 
-\item{index}{Single object: Index used to select filename, as returned by
+\item{mindex}{Single object: Index used to select \code{id} if \code{name}
+is given. DEFAULT: \code{rdwd:::\link{metaIndex}}}
+
+\item{findex}{Single object: Index used to select filename, as returned by
 \code{\link{index2df}}.To use a current / custom index, use
 \code{myIndex <- index2df(indexDWD("/daily/solar"))}
 (with desired path, of course). DEFAULT: \code{rdwd:::\link{fileIndex}}}
@@ -58,12 +64,11 @@ Character string with file path and name(s) in the format
 }
 \description{
 Select files for downloading with \code{\link{dataDWD}}.
-All arguments (except for \code{index} and \code{base})
+All arguments (except for \code{mindex}, \code{findex} and \code{base})
 can be a vecor and will be recycled to the maximum length of all arguments.
 If that length > 1, the output is a list of filenames.\cr
 If station \code{name} is given, but \code{id} is empty (""),
 \code{id} is inferred via \code{mindex}.
-# ToDo: create metaIndex. argument names findex, mindex
 If \code{res/var/time} are given and valid (existing in \code{findex}),
 they are pasted together to form a \code{path}.
 Here is an overview of the behaviour in each case of availability:

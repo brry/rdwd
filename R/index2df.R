@@ -13,7 +13,9 @@
 #' @importFrom utils write.table
 #' @export
 #' @examples
-#' # see indexDWD
+#' # see last part of
+#' if(interactive())
+#' browseURL("https://github.com/brry/rdwd/blob/master/R/rdwd-package.R")
 #'
 #' @param path Vector of paths returned by \code{\link{indexDWD}} called with
 #'             the default \code{base} value.

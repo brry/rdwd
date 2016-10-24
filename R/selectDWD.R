@@ -1,12 +1,11 @@
 #' Select data from the DWD CDC FTP Server
 #'
 #' Select files for downloading with \code{\link{dataDWD}}.
-#' All arguments (except for \code{index} and \code{base})
+#' All arguments (except for \code{mindex}, \code{findex} and \code{base})
 #' can be a vecor and will be recycled to the maximum length of all arguments.
 #' If that length > 1, the output is a list of filenames.\cr
 #' If station \code{name} is given, but \code{id} is empty (""),
 #' \code{id} is inferred via \code{mindex}.
-#' # ToDo: create metaIndex. argument names findex, mindex
 #' If \code{res/var/time} are given and valid (existing in \code{findex}),
 #' they are pasted together to form a \code{path}.
 #' Here is an overview of the behaviour in each case of availability:
@@ -46,13 +45,15 @@
 #' selectDWD(res="daily", var="kl") # must give time
 #' }
 #'
-#' @param name  Char: station name that will be matched in \code{index} to obtain
-#'              \code{id}.  Not yet implemented!  DEFAULT: ""
-#' @param id    Char: station ID with leading zeros, e.g. "00614".
+#' @param name  Char: station name that will be matched in \code{mindex} to obtain
+#'              \code{id}. DEFAULT: ""
+#' @param id    Char/Number: station ID with or without leading zeros, e.g. "00614" or 614.
+#'              Is internally converted to an integer, because some DWD meta data
+#'              Files also contain no leading zeros.
 #'              If \code{id} is given, \code{name} is ignored. DEFAULT: ""
 #' @param base  Single char: main directory of DWD ftp server, defaulting to
 #'              observed climatic records.
-#'              Must be the same \code{base} used to create \code{index}.
+#'              Must be the same \code{base} used to create \code{findex}.
 #'              DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
 #' @param res   Char: temporal resolution available at \code{base}, usually one of
 #'              \code{c("hourly","daily","monthly")}. DEFAULT: ""
@@ -64,7 +65,9 @@
 #'              "recent" (data from the last year, up to date usually within a few days) or
 #'              "historical" (long time series). Can be abbreviated (if the first
 #'              letter is "r" or "h", full names are used. DEFAULT: ""
-#' @param index Single object: Index used to select filename, as returned by
+#' @param mindex Single object: Index used to select \code{id} if \code{name}
+#'               is given. DEFAULT: \code{rdwd:::\link{metaIndex}}
+#' @param findex Single object: Index used to select filename, as returned by
 #'              \code{\link{index2df}}.To use a current / custom index, use
 #'              \code{myIndex <- index2df(indexDWD("/daily/solar"))}
 #'              (with desired path, of course). DEFAULT: \code{rdwd:::\link{fileIndex}}
@@ -85,7 +88,8 @@ base="ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
 res="",
 var="",
 time="",
-index=rdwd:::fileIndex,
+mindex=rdwd:::metaIndex,
+findex=rdwd:::fileIndex,
 meta=FALSE,
 files=FALSE,
 ziponly=TRUE,
@@ -93,7 +97,7 @@ ziponly=TRUE,
 )
 {
 # Input checks and processing:
-indexname <- deparse(substitute(index))
+findexname <- deparse(substitute(findex))
 len <- max(length(name), length(id), length(res), length(var), length(time)  )
 # recycle input vectors
 if(len>1)
@@ -106,16 +110,24 @@ if(len>1)
   meta    <- rep(meta,   length.out=len)
   files   <- rep(files,  length.out=len)
   ziponly <- rep(ziponly,length.out=len)
-  }
+}
+# convert ID to integer:
+id <- suppressWarnings(as.integer(id))
 # be safe for accidental vector input
 base <- base[1]
 # loop over each input element:
 output <- lapply(seq_len(len), function(i)
 {
 # infer id from name if id=="" and name!="":
-# ToDo
+id.i <- id[i]
+if(is.na(id.i) & name[i]!="")
+  {
+  id.i <- unique(mindex[mindex$Stationsname==name[i], "Stations_id"])
+  }
+if(length(id.i)!=1) warning("in selectDWD: determined ID is not of length 1, but ",
+                         length(id.i), " (",toString(id.i), ").", call.=FALSE)
 # cases (as in description)
-givenid <- id[i]!=""
+givenid <- !is.na(id.i)
 givenpath <- res[i]!="" & var[i]!="" # ignore time, because of var=solar possibility (no time)
 # 1: id and path are both empty ------------------------------------------------
 if(!givenid & !givenpath)
@@ -129,7 +141,10 @@ if(givenid & !givenpath)
   {
   if(meta) warning("selectDWD: meta is currently ignored if id is given", call.=FALSE)
   #ToDo: decide if there should instead of ignoring be some result from metaIndex
-  filename <- index[id[i]==index$id,"path"]
+  # fileIndex ID to integer:
+  findex$id <- suppressWarnings(as.integer(findex$id))
+  filename <- findex[id.i==findex$id, "path"]
+  filename <- filename[!is.na(filename)]
   return(   paste0(base, filename)   )
   }
 #
@@ -139,11 +154,11 @@ if(substr(time.i,1,1)=="h") time.i <- "historical"
 if(substr(time.i,1,1)=="r") time.i <- "recent"
 if(var[i]=="solar") time.i <- ""
 path <- paste0("/",res[i],"/",var[i],"/",time.i)
-if(all(!grepl(path, index$path))) stop("in selectDWD: According to index '",
-       indexname, "', the path '", path,
-       "' doesn't exist. See ?metaDWD on how to use a different index.", call.=FALSE)
-# select entry from index:
-sel <- res[i]==index$res & var[i]==index$var & time.i==index$time
+if(all(!grepl(path, findex$path))) stop("in selectDWD: According to findex '",
+       findexname, "', the path '", path,
+       "' doesn't exist. See ?selectDWD on how to use a different index.", call.=FALSE)
+# select entry from findex:
+sel <- res[i]==findex$res & var[i]==findex$var & time.i==findex$time
 # # list available files:
 if(files[i]) return(indexDWD(path, base=base, ziponly=ziponly[i], ...))
 #
@@ -153,22 +168,22 @@ if(!givenid & givenpath) meta.i <- TRUE
 # if either   case 3   or   4 with meta=TRUE  : return name of description txt file
 if(meta.i)
   {
-  sel <- sel & substr(index$path, nchar(index$path)-3, 1e4)==".txt"
-  sel <- sel & grepl("Beschreibung", index$path)
+  sel <- sel & substr(findex$path, nchar(findex$path)-3, 1e4)==".txt"
+  sel <- sel & grepl("Beschreibung", findex$path)
   # checks:
-  if(sum(sel)==0) stop("in selectDWD: According to index '",indexname,
+  if(sum(sel)==0) stop("in selectDWD: According to findex '",findexname,
                      "', there is no description file in '", path,
-                     "'. See ?metaDWD on how to use a different index.", call.=FALSE)
+                     "'. See ?selectDWD on how to use a different index.", call.=FALSE)
   }
 # 4: id and path are both given ------------------------------------------------
 if(givenid & givenpath)
   {
-  if(!meta.i) sel <- sel & id[i]==index$id
-  if(sum(sel)==0) stop("in selectDWD: According to index '",indexname,
-                       "', there is no file in '", path, "' with id '",id[i],
-                       "'. See ?metaDWD on how to use a different index.", call.=FALSE)
+  if(!meta.i) sel <- sel & id.i==findex$id
+  if(sum(sel)==0) stop("in selectDWD: According to findex '",findexname,
+                       "', there is no file in '", path, "' with id '",id.i,
+                       "'. See ?selectDWD on how to use a different index.", call.=FALSE)
   }
-filename <- index[sel,"path"]
+filename <- findex[sel,"path"]
 if(length(filename)!=1) stop("in selectDWD: Several (or no) files were selected: ",
                              toString(filename), call.=FALSE)
 return(   paste0(base, filename)   )

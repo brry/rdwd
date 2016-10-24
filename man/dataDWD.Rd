@@ -57,6 +57,7 @@ If \code{read=TRUE}, it is also read, processed and returned as a data.frame.
 }
 \examples{
 # toDo: get from berryFunctions::dataDWD
+# toDo: check what happens if halfway though a vector of files access gets blocked.
 # d <- dataDWD(selectDWD(id="05692", res="daily", var="kl", time="recent"))
 
 }

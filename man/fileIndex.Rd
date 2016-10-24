@@ -14,7 +14,8 @@ Deutscher WetterDienst / Climata Data Center  FTP Server
 \description{
 A data.frame with the filenames with path starting at the default \code{base} value:
 \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/}.
-Created with \code{\link{index2df}} in the example section of \code{\link{indexDWD}}.
+Created with \code{\link{index2df}} in the last section of
+\url{https://github.com/brry/rdwd/blob/master/R/rdwd-package.R}
 In functions, you can access it with \code{rdwd:::fileIndex}.
 }
 \examples{
@@ -26,6 +27,9 @@ head(fileIndex)
 # because Hadley says 'Never @export a data set' in
 # browseURL("http://r-pkgs.had.co.nz/data.html#data-data")
 
+}
+\seealso{
+\code{\link{metaIndex}}, \code{\link{indexDWD}}
 }
 \keyword{datasets}
 

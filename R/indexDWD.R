@@ -26,36 +26,6 @@
 #' \dontrun{ ## Needs internet connection
 #' sol <- indexDWD(folder="/daily/solar")
 #' head(sol)
-#' rm(sol)
-#'
-#'
-#' # Here's how I produce and update   ?fileIndex    ---------------------------
-#' # index <- indexDWD(sleep=30) # commented out to prevent accidental calling
-#' # index <- indexDWD(index, sleep=30) # potentially needed several times
-#' index <- readLines("DWDdata/INDEX_of_DWD_.txt") # 25'631 elements (2016-10-21)
-#' indexcompare <- index2df(index)
-#' fileIndex <- read.table("DWDdata/INDEX.txt", sep="\t", header=TRUE, colClasses="character")
-#' stopifnot(all(fileIndex==indexcompare))
-#'
-#' save(fileIndex, file="data/fileIndex.rda")
-#' tools::resaveRdaFiles("data/fileIndex.rda")
-#' #devtools::use_data(fileIndex, internal=TRUE)
-#'
-#'
-#' # Here's how I produce and update   ?metaIndex    ----------------------------
-#' sel <- substr(fileIndex$path, nchar(fileIndex$path)-3, 1e4)==".txt"
-#' sel <- sel & grepl("Beschreibung", fileIndex$path)
-#' fileIndex[sel, -(4:6)]
-#' base <- "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate"
-#'
-#' # comparison with all folders:
-#' sum(sel) #27
-#' folders <- with(fileIndex, unique(paste(res,var,time, sep="/"))   )
-#' length(folders) # 30 (3 multi_annual, no Beschreibung file)
-#' folders;  rm(folders)
-#'
-#' # ToDo: actually create metalist
-#'
 #' }
 #'
 #' @param folder Folder to be indexed recursively, e.g. "/hourly/wind/".

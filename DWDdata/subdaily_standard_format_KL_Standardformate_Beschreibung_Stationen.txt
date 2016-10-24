@@ -1,0 +1,87 @@
+
+ST_KE ST_ID VON      BIS      ST_HOEHE  GEO_BREITE GEO_LAENGE STATIONSNAME              BUNDESLANDNAME
+----- ----- -------- -------- --------- ---------- ---------- ------------------------- ----------------------------------------
+10501 00003 18910101 20110331       202    50.7827     6.0941 Aachen                    Nordrhein-Westfalen
+10124 00102 19980101 20161020        32    53.8617     8.1266 Leuchtturm Alte Weser     Niedersachsen
+10291 00164 19470101 20161020        54    53.0316    13.9907 Angermünde                Brandenburg
+10091 00183 19470101 20161020        42    54.6792    13.4343 Arkona                    Mecklenburg-Vorpommern
+10852 00232 19470101 20161020       461    48.4254    10.9420 Augsburg                  Bayern
+10675 00282 19490101 20161020       240    49.8742    10.9206 Bamberg                   Bayern
+10381 00403 19500101 20161020        51    52.4537    13.3017 Berlin-Dahlem (FU)        Berlin
+10382 00430 19630101 20161020        36    52.5644    13.3088 Berlin-Tegel              Berlin
+10384 00433 19480101 20161020        48    52.4675    13.4021 Berlin-Tempelhof          Berlin
+10224 00691 18900101 20161020         4    53.0450     8.7979 Bremen                    Bremen
+10453 00722 19470911 20161020      1134    51.7986    10.6183 Brocken                   Sachsen-Anhalt
+10496 00880 18870101 20161020        69    51.7760    14.3168 Cottbus                   Brandenburg
+10131 00891 19460101 20161020         5    53.8713     8.7058 Cuxhaven                  Niedersachsen
+10007 00954 19980101 20161020         0    54.1667     7.4500 UFS Deutsche Bucht        Hamburg
+10488 01048 19350401 20161020       227    51.1280    13.7543 Dresden-Klotzsche         Sachsen
+10400 01078 19690701 20161020        37    51.2960     6.7686 Düsseldorf                Nordrhein-Westfalen
+10004 01228 20000701 20161020         0    54.1651     6.3460 UFS TW Ems                Hamburg
+10870 01262 19920517 20161020       446    48.3477    11.8133 München-Flughafen         Bayern
+10554 01270 19510101 20161020       316    50.9829    10.9608 Erfurt-Weimar             Thüringen
+10908 01346 19450101 20161020      1490    47.8749     8.0038 Feldberg/Schwarzwald      Baden-Württemberg
+10578 01358 18900801 20161020      1213    50.4283    12.9535 Fichtelberg               Sachsen
+10637 01420 19490101 20161020       100    50.0259     8.5213 Frankfurt/Main            Hessen
+10815 01468 19490101 20161020       797    48.4537     8.4091 Freudenstadt              Baden-Württemberg
+10439 01504 20000701 20161020       172    51.1190     9.2799 Fritzlar (Flugplatz)      Hessen
+10567 01612 19520101 20161020       311    50.8813    12.1289 Gera-Leumnitz             Thüringen
+10532 01639 19390101 20161020       203    50.6017     8.6439 Gießen/Wettenberg         Hessen
+10499 01684 19350101 20161020       238    51.1622    14.9506 Görlitz                   Sachsen
+10184 01757 18980301 20161020         2    54.0967    13.4056 Greifswald                Mecklenburg-Vorpommern
+10315 01766 19891001 20161020        48    52.1344     7.6969 Münster/Osnabrück         Nordrhein-Westfalen
+10791 01832 19821101 20161020      1436    49.1130    13.1342 Großer Arber              Bayern
+10147 01975 19360101 20161020        11    53.6332     9.9881 Hamburg-Fuhlsbüttel       Hamburg
+10338 02014 19360101 20161020        55    52.4644     9.6779 Hannover                  Niedersachsen
+10015 02115 19520501 20161020         4    54.1750     7.8920 Helgoland                 Schleswig-Holstein
+10685 02261 19470101 20161020       565    50.3122    11.8761 Hof                       Bayern
+10962 02290 17810101 20161020       977    47.8009    11.0108 Hohenpeißenberg           Bayern
+10427 02483 19550101 20161020       839    51.1803     8.4891 Kahler Asten              Nordrhein-Westfalen
+10727 02522 18760101 20081031       112    49.0382     8.3641 Karlsruhe                 Baden-Württemberg
+10438 02532 19510101 20131031       231    51.2963     9.4424 Kassel                    Hessen
+10946 02559 19520101 20161020       705    47.7233    10.3348 Kempten                   Bayern
+10046 02564 19860601 20161020        27    54.3761    10.1433 Kiel-Holtenau             Schleswig-Holstein
+10513 02667 19570901 20161020        92    50.8646     7.1575 Köln-Bonn                 Nordrhein-Westfalen
+10929 02712 19721101 20161020       443    47.6774     9.1901 Konstanz                  Baden-Württemberg
+10805 02812 19500101 20161020       155    48.3647     7.8280 Lahr                      Baden-Württemberg
+10469 02932 19340101 20161020       131    51.4348    12.2396 Leipzig/Halle             Sachsen
+10044 02961 19980101 20161020        31    54.4996    10.2737 Leuchtturm Kiel           Schleswig-Holstein
+10393 03015 19060401 20161020        98    52.2085    14.1180 Lindenberg                Brandenburg
+10430 03028 19510101 20161020       157    51.7855     8.8388 Lippspringe, Bad          Nordrhein-Westfalen
+10020 03032 19370101 20161020        26    55.0110     8.4125 List auf Sylt             Schleswig-Holstein
+10361 03126 18810101 20161020        76    52.1029    11.5827 Magdeburg                 Sachsen-Anhalt
+10264 03196 19470101 20161020        81    53.3223    11.9319 Marnitz                   Mecklenburg-Vorpommern
+10548 03231 19790101 20161020       450    50.5612    10.3771 Meiningen                 Thüringen
+10270 03552 19610101 20161020        38    52.9037    12.8072 Neuruppin                 Brandenburg
+10113 03631 19470101 20161020        11    53.7123     7.1519 Norderney                 Niedersachsen
+10506 03660 19950306 20161020       485    50.3601     6.8697 Nürburg-Barweiler         Rheinland-Pfalz
+10763 03668 19550401 20161020       314    49.5030    11.0549 Nürnberg                  Bayern
+10948 03730 19360101 20161020       806    47.3986    10.2760 Oberstdorf                Bayern
+10742 03761 19470101 20161020       276    49.2070     9.5175 Öhringen                  Baden-Württemberg
+10379 03987 18930101 20161020        81    52.3813    13.0622 Potsdam                   Brandenburg
+10776 04104 19470101 20161020       365    49.0424    12.1021 Regensburg                Bayern
+10731 04177 19480101 20161020       116    48.9726     8.3301 Rheinstetten              Baden-Württemberg
+10170 04271 19470101 20161020         4    54.1803    12.0808 Rostock-Warnemünde        Mecklenburg-Vorpommern
+10708 04336 19510101 20161020       320    49.2128     7.1077 Saarbrücken-Ensheim       Saarland
+10035 04466 19470101 20161020        43    54.5275     9.5486 Schleswig                 Schleswig-Holstein
+10162 04625 18900101 20161020        59    53.6425    11.3872 Schwerin                  Mecklenburg-Vorpommern
+10836 04887 19470101 20161020       734    48.6657     9.8646 Stötten                   Baden-Württemberg
+10788 04911 19510101 20161020       350    48.8275    12.5598 Straubing                 Bayern
+10738 04931 19530101 20161020       371    48.6883     9.2235 Stuttgart-Echterdingen    Baden-Württemberg
+10609 05100 19480101 20161020       265    49.7479     6.6582 Trier-Petrisberg          Rheinland-Pfalz
+10544 05371 19360101 20161020       921    50.4973     9.9428 Wasserkuppe               Hessen
+10688 05397 19470101 20161020       440    49.6663    12.1845 Weiden                    Bayern
+10980 05467 19510101 20120920      1832    47.7035    12.0119 Wendelstein               Bayern
+10055 05516 19480101 20161020         3    54.5284    11.0605 Fehmarn                   Schleswig-Holstein
+10655 05705 19470101 20161020       268    49.7703     9.9577 Würzburg                  Bayern
+10961 05792 19000801 20161020      2964    47.4209    10.9847 Zugspitze                 Bayern
+10200 05839 19970701 20161020        -0    53.3881     7.2287 Emden                     Niedersachsen
+10895 05856 19970103 20161020       476    48.5451    13.3531 Fürstenzell               Bayern
+10616 05871 19981101 20161020       497    49.9462     7.2645 Hahn                      Rheinland-Pfalz
+10729 05906 19360101 20161020        96    49.5090     8.5541 Mannheim                  Baden-Württemberg
+10641 07341 20050715 20161020       119    50.0900     8.7862 Offenbach-Wetterpark      Hessen
+10505 15000 20110401 20161020       231    50.7983     6.0244 Aachen-Orsbach            Nordrhein-Westfalen
+
+ST_KE ST_ID VON      BIS      ST_HOEHE  GEO_BREITE GEO_LAENGE STATIONSNAME              BUNDESLANDNAME
+----- ----- -------- -------- --------- ---------- ---------- ------------------------- ----------------------------------------
+10XXX 00402 18760101 19621231        55    52.4564    13.2997 Berlin-Dahlem (LFAG)      Berlin

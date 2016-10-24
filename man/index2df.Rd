@@ -25,7 +25,9 @@ Create a data.frame out of the vector index returned by \code{\link{indexDWD}}.
 This produces the \code{\link{fileIndex}} used in \code{\link{selectDWD}}. ToDO: create and document 'metaIndex'
 }
 \examples{
-# see indexDWD
+# see last part of
+if(interactive())
+browseURL("https://github.com/brry/rdwd/blob/master/R/rdwd-package.R")
 
 }
 \author{

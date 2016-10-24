@@ -1,8 +1,6 @@
 # DWD Daten mit R runterladen, Wetter und Klimadaten in R
 # Deutscher Wetterdienst R Daten download Klimastationen
 # Weather Data Germany download with R, Climate Data Germany
-# For html rendered documentation, please visit
-#   https://www.rdocumentation.org/packages/berryFunctions/versions/1.12.3/topics/dataDWD
 #
 #' Download data from the DWD CDC FTP Server
 #'
@@ -26,6 +24,7 @@
 #' @export
 #' @examples
 #' # toDo: get from berryFunctions::dataDWD
+#' # toDo: check what happens if halfway though a vector of files access gets blocked.
 #' # d <- dataDWD(selectDWD(id="05692", res="daily", var="kl", time="recent"))
 #'
 #' @param file   Char (vector): complete file URL(s) (including base and filename.zip) as returned by

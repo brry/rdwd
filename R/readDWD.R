@@ -16,8 +16,6 @@
 #' @export
 #' @examples
 #' # see dataDWD
-# ToDo: if meta: read station id as character string by specifying all column classes, see
-# http://stackoverflow.com/questions/13022299/specify-date-format-for-colclasses-argument-in-read-table-read-csv/13022441#13022441
 #'
 #' @param file   Char (vector): name(s) of the file(s) downloaded with \code{\link{dataDWD}},
 #'               e.g. "tageswerte_KL_02575_akt.zip" or
@@ -78,6 +76,7 @@ f <- dir(exdir, pattern="produkt*", full.names=TRUE)
 # Actually read data
 dat <- read.table(f, na.strings=na9(), header=TRUE, sep=";", as.is=FALSE)
 # process time-stamp:
+# http://stackoverflow.com/questions/13022299/specify-date-format-for-colclasses-argument-in-read-table-read-csv/13022441#13022441
 if(!is.null(format[i]) & "MESS_DATUM" %in% colnames(dat))
   {
   if(is.na(format[i])) format <- if(nchar(dat$MESS_DATUM[1])==8) "%Y%m%d" else "%Y%m%d%H"
@@ -91,6 +90,9 @@ widths <- c( 6,9,9,15,12,10,41,100)
 # read one line to confirm widths and get column names
 oneline <- readLines(f, n=3)
 if(substr(oneline[3],1,6)=="      ") widths[1] <- 11
+#                ID           VON         BIS        HOEHE    LAT       LONG      NAME     BUNDESLAND
+#colClasses <- c("character", "integer", "integer", "numeric","numeric","numeric","factor","factor")
+# some meta files have no leading zeros, so this package uses integer all the time. # colClasses=colClasses
 # actually read metadata, suppress readLines warning about EOL:
 stats <- suppressWarnings(read.fwf(f, widths=widths, skip=2, strip.white=TRUE) )
 # column names:
