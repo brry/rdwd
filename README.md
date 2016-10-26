@@ -6,7 +6,16 @@ I expect to have run enough tests by late November...
 
 Any feedback is now particularly welcome! File an issue here or send me a message (berry-b@gmx.de).
 
-### Code to install the most recent development version from github:
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
+- [rdwd](#)
+		- [Installation (latest development version)](#)
+		- [Basic usage](#)
+		- [More details](#)
+		- [Plotting](#)
+		- [Installation troubleshooting](#)
+
+### Installation (latest development version)
 
 ```R
 install.packages("berryFunctions") # rdwd depends on this package
@@ -21,7 +30,7 @@ library(rdwd)
 ?rdwd
 ```
 
-### Basic Usage:
+### Basic usage
 
 ```R
 link <- selectDWD("Potsdam", res="daily", var="kl", time="recent")
@@ -50,18 +59,7 @@ selectDWD(id=c(3467, 5116), meta=T) # that's why the default outvec is FALSE
 For example Tucheim (5116) is listed in [monthly/more_precip/recent/RR_Monatwerte_Beschreibung_Stationen.txt](ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/monthly/more_precip/recent/RR_Monatwerte_Beschreibung_Stationen.txt), but actually has no file there.
 Filenames in the last output suggest that the historical time series run until 2006, but the file name may be inaccurate.
 
-### Plotting
-
-```R
-png("ExampleGraph.png", width=4, height=3, units="in", res=150)
-par(mar=c(4,4,2,0.5), mgp=c(2.7, 0.8, 0), cex=0.8)
-plot(clim[,c(2,4)], type="l", xaxt="n", las=1, main="Daily temp Potsdam")
-berryFunctions::monthAxis(ym=TRUE)
-dev.off()
-```
-![ExampleGraph](https://github.com/brry/rdwd/blob/master/ExampleGraph.png "Example Graph")
-
-### more details
+### More details
 
 ```R
 # metadata:
@@ -81,6 +79,16 @@ funet <- indexDWD(base="ftp://ftp.funet.fi/pub/standards/RFC/ien")
 p <- RCurl::getURL("ftp://ftp.funet.fi/pub/standards/RFC/ien",
                        verbose=T, ftp.use.epsv=TRUE, dirlistonly=TRUE)
 ```
+### Plotting
+
+```R
+png("ExampleGraph.png", width=4, height=3, units="in", res=150)
+par(mar=c(4,4,2,0.5), mgp=c(2.7, 0.8, 0), cex=0.8)
+plot(clim[,c(2,4)], type="l", xaxt="n", las=1, main="Daily temp Potsdam")
+berryFunctions::monthAxis(ym=TRUE)
+dev.off()
+```
+![ExampleGraph](https://github.com/brry/rdwd/blob/master/ExampleGraph.png)
 
 ### Installation troubleshooting
 
