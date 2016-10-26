@@ -21,7 +21,7 @@
 #'               e.g. "tageswerte_KL_02575_akt.zip" or
 #'               "RR_Stundenwerte_Beschreibung_Stationen.txt"
 #' @param dir    Char: directory name where to read the file. Use \code{"."} or \code{""}
-#'               if \code{file} already includes a (relative) path.
+#'               if \code{file} already includes a (relative or absolute) path.
 #'               DEFAULT: "DWDdata" at current \code{\link{getwd}()}
 #' @param meta   Logical (vector): is the \code{file} a meta file?
 #'               DEFAULT: TRUE for each file ending in ".txt"

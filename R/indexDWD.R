@@ -94,8 +94,6 @@ while(any(!isfile))
   }
 # sort final results alphabetically:
 f <- sort(unlist(f, use.names=FALSE))
-# Keep only the zip files:
-# ToDo
 # write output:
 owd <- dirDWD(dir, quiet=quiet)
 on.exit(setwd(owd))
