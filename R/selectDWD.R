@@ -122,8 +122,8 @@ if(current)
   uniquepaths <- uniquepaths[uniquepaths!="///"]
   if(length(uniquepaths)<1) stop("in selectDWD: current=TRUE, but no valid ",
                                  "paths available.", call.=FALSE)
-  findexname <- "currentIndex"
   findex <- index2df(indexDWD(uniquepaths, ...), filename="")
+  findexname <- "currentIndex"
   }
 # convert ID to integer:
 id <- suppressWarnings(as.integer(id))
@@ -153,9 +153,10 @@ if(!givenid & !givenpath)
   # call.=FALSE to avoid uninformative  Error in FUN(X[[i]], ...) :
   }
 # 2: id given, path empty ------------------------------------------------------
+meta.i <- meta[i]
 if(givenid & !givenpath)
   {
-  if(meta) warning("selectDWD: meta is currently ignored if id is given.", call.=FALSE)
+  if(meta.i) warning("selectDWD: meta is currently ignored if id is given.", call.=FALSE)
   filename <- findex[id.i==findex$id, "path"]
   filename <- filename[!is.na(filename)]
   return(   paste0(base, filename)   )
@@ -171,7 +172,6 @@ if(all(!grepl(path, findex$path))) warning("in selectDWD: According to file inde
 sel <- res[i]==findex$res & var[i]==findex$var & time.i==findex$time
 #
 # 3: id is empty, path is given ------------------------------------------------
-meta.i <- meta[i]
 if(!givenid & givenpath) meta.i <- TRUE
 # if either   case 3   or   4 with meta=TRUE  : return name of description txt file
 if(meta.i)
