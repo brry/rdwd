@@ -54,7 +54,8 @@ head(dataDWD(selectDWD(res="hourly", var="sun", time="r")))
 # all (available) files for a certain station (meta files may have more results):
 selectDWD(id=c(3467, 5116), meta=T) # that's why the default outvec is FALSE
 ```
-For example: Tucheim (5116) is listed in the monthly/more\_precip/recent [metadata](ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/monthly/more_precip/recent/RR_Monatwerte_Beschreibung_Stationen.txt), but actually has no file there.
+For example: Tucheim (5116) is listed in the monthly/more\_precip/recent metadata at
+<ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/monthly/more_precip/recent/RR_Monatwerte_Beschreibung_Stationen.txt>, but actually has no file there.
 Filenames in the last output suggest that the historical time series run until 2006, but the file name may be inaccurate.
 
 ### More details
