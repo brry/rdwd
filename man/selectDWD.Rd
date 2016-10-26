@@ -7,7 +7,8 @@
 selectDWD(name = "", id = "",
   base = "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
   res = "", var = "", time = "", mindex = rdwd:::metaIndex,
-  findex = rdwd:::fileIndex, current = FALSE, meta = FALSE, ...)
+  findex = rdwd:::fileIndex, current = FALSE, meta = FALSE,
+  outvec = FALSE, ...)
 }
 \arguments{
 \item{name}{Char: station name that will be matched in \code{mindex} to obtain
@@ -54,6 +55,10 @@ DEFAULT: FALSE}
 
 \item{meta}{Logical: return metadata txt file name instead of climate data zip file?
 Relevant only in case 4 (path and id given). DEFAULT: FALSE}
+
+\item{outvec}{Single logical: if \bold{path} or \bold{ID} length > 1,
+instead of a list, return a vector? (via \code{\link{unlist}}).
+DEFAULT: FALSE}
 
 \item{\dots}{Further arguments passed to \code{\link{indexDWD}} if \code{current=TRUE},
 like dir, quiet}

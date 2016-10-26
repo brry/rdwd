@@ -80,6 +80,9 @@
 #'              DEFAULT: FALSE
 #' @param meta  Logical: return metadata txt file name instead of climate data zip file?
 #'              Relevant only in case 4 (path and id given). DEFAULT: FALSE
+#' @param outvec Single logical: if \bold{path} or \bold{ID} length > 1,
+#'              instead of a list, return a vector? (via \code{\link{unlist}}).
+#'              DEFAULT: FALSE
 #' @param \dots Further arguments passed to \code{\link{indexDWD}} if \code{current=TRUE},
 #'              like dir, quiet
 #'
@@ -94,6 +97,7 @@ mindex=rdwd:::metaIndex,
 findex=rdwd:::fileIndex,
 current=FALSE,
 meta=FALSE,
+outvec=FALSE,
 ...
 )
 {
@@ -195,5 +199,6 @@ if(length(filename)!=1) warning("in selectDWD: Several (or no) files were select
 return(   paste0(base, filename)   )
 }) # loop end
 output <- if(len==1) output[[1]] else output
+if(len>1 & outvec) output <- unlist(output)
 return(output)
 }
