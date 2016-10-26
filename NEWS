@@ -1,10 +1,9 @@
 
 rdwd ToDo-list / wishlist / issues
 - Station selection from map with metadata if clicked on point (leaflet/shiny app?)
-- metalist: DF with metadata from all Beschreibung files collected, + ts_length, nNAs,
 - search for toDo notes in code
-- metaDWD: consider an optional 'file' argument ignoring the other arguments
 - option to merge hist and recent
+- just before CRAN release, change date in github compare link below
 
 ---------------------------------------
 rdwd: DWD Climate Data access package by Berry Boessenkool, berry-b@gmx.de
@@ -13,8 +12,17 @@ Any feedback is welcome, per email or on github.com/brry/rdwd
 
 
 Version 0.. (2016--)
-Initial release of the package
-dataDWD and readDWD were started in June 2016 within my misc package berryFunctions
+Initial release of the package, development can be seen at
+https://github.com/brry/rdwd/compare/master@{2016-10-19}...master@{2016-11-xx}
+
+'indexDWD' lists all the files on the FTP server with DWD data.
+With 'index2df', it is used to create 'fileIndex', which then helps create 'metaIndex'.
+'selectDWD' uses all that to find files matching a path or station criteria.
+With the returned path/file names, 'dataDWD' and 'readDWD' download and read data.
+'dirDWD' and 'fileDWD' control that no file will be overwritten and path messages are useful.
+
+Note: 'dataDWD' and 'readDWD' were started in June 2016 within my misc package
+berryFunctions, from which they will be deleted after rdwd is on CRAN
 
 -----------------------------
 -----------------------------
