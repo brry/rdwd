@@ -26,6 +26,8 @@
 #' \dontrun{ ## Needs internet connection
 #' sol <- indexDWD(folder="/daily/solar")
 #' head(sol)
+#'
+#' mon <- indexDWD(folder="/monthly/kl", verbose=TRUE)
 #' }
 #'
 #' @param folder Folder to be indexed recursively, e.g. "/hourly/wind/".
@@ -41,6 +43,8 @@
 #'              \code{RCurl::\link[RCurl]{getURL}}? DEFAULT: FALSE
 #' @param progbar Logical: present a progress bar in each level?
 #'                Only works if the R package pbapply is available. DEFAULT: TRUE
+#' @param verbose Logical: write a lot of messages from \code{RCurl::\link[RCurl]{getURL}}?
+#'                DEFAULT: FALSE (usually, you dont need all the curl information)
 #'
 indexDWD <- function(
 folder="",
@@ -48,7 +52,8 @@ base="ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
 sleep=0,
 dir="DWDdata",
 quiet=FALSE,
-progbar=!quiet
+progbar=!quiet,
+verbose=FALSE
 )
 {
 # Check if RCurl is available:
@@ -71,7 +76,7 @@ while(any(!isfile))
     {
     # List of files at 'path':
     p <- try( RCurl::getURL(paste0(base,"/",path,"/"),
-                       verbose=F, ftp.use.epsv=TRUE, dirlistonly=TRUE), silent=TRUE)
+                       verbose=verbose, ftp.use.epsv=TRUE, dirlistonly=TRUE), silent=TRUE)
     if(inherits(p, "try-error"))
       {
       if(!quiet) warning("indexDWD: RCurl::getURL failed for '/", path,

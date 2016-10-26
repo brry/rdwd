@@ -6,7 +6,8 @@
 \usage{
 indexDWD(folder = "",
   base = "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
-  sleep = 0, dir = "DWDdata", quiet = FALSE, progbar = !quiet)
+  sleep = 0, dir = "DWDdata", quiet = FALSE, progbar = !quiet,
+  verbose = FALSE)
 }
 \arguments{
 \item{folder}{Folder to be indexed recursively, e.g. "/hourly/wind/".
@@ -27,6 +28,9 @@ Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
 
 \item{progbar}{Logical: present a progress bar in each level?
 Only works if the R package pbapply is available. DEFAULT: TRUE}
+
+\item{verbose}{Logical: write a lot of messages from \code{RCurl::\link[RCurl]{getURL}}?
+DEFAULT: FALSE (usually, you dont need all the curl information)}
 }
 \value{
 currently a vector with file paths (output may change in the future)
@@ -51,6 +55,8 @@ If it is out of date, please let me know!
 \dontrun{ ## Needs internet connection
 sol <- indexDWD(folder="/daily/solar")
 head(sol)
+
+mon <- indexDWD(folder="/monthly/kl", verbose=TRUE)
 }
 
 }
