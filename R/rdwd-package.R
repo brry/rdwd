@@ -3,11 +3,24 @@
 #' Download Climate Data from DWD (German Weather Service)
 #'
 #' Select weather data from the DWD (Deutscher Wetterdienst) with
-#' \code{\link{selectDWD}}, which uses \code{\link{fileIndex}}.\cr
-#' Download and process data sets with \code{\link{dataDWD}} and \code{\link{readDWD}}.
+#' \code{\link{selectDWD}}, which uses \code{\link{fileIndex}} and \code{\link{metaIndex}}.
+#' Download and process data sets with \code{\link{dataDWD}} and \code{\link{readDWD}}.\cr
+#' For an introduction to the package, see \url{https://github.com/brry/rdwd#rdwd}
 #'
-#' @details
-#' ToDo: more info
+#' @details The following folders are available (and a few more).
+#' "<" signifies a split into the folders "recent" and "historical".
+#' "-" signifies that there are no further sub-folders.
+#' \tabular{lll}{
+#' \bold{hourly}      \tab | \bold{daily}       \tab | \bold{monthly}\cr
+#' air_temperature <  \tab | kl <               \tab | kl <          \cr
+#' cloudiness <       \tab | more_precip <      \tab | more_precip < \cr
+#' precipitation <    \tab |                    \tab |               \cr
+#' pressure <         \tab |                    \tab |               \cr
+#' sun <              \tab |                    \tab |               \cr
+#' wind <             \tab |                    \tab |               \cr
+#' soil_temperature < \tab | soil_temperature < \tab |               \cr
+#' solar -            \tab | solar -            \tab |               \cr
+#' }
 #'
 #' @name rdwd
 #' @aliases rdwd-package rdwd
