@@ -4,7 +4,7 @@
 \alias{selectDWD}
 \title{Select data from the DWD CDC FTP Server}
 \usage{
-selectDWD(name = "", id = "",
+selectDWD(name = "", exactmatch = TRUE, id = "",
   base = "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
   res = "", var = "", time = "", mindex = rdwd:::metaIndex,
   findex = rdwd:::fileIndex, current = FALSE, meta = FALSE,
@@ -12,12 +12,18 @@ selectDWD(name = "", id = "",
 }
 \arguments{
 \item{name}{Char: station name that will be matched in \code{mindex} to obtain
-\code{id}. DEFAULT: ""}
+\bold{id}. Ignored if \code{id} is given. DEFAULT: ""}
+
+\item{exactmatch}{Logical: Should \code{name} match an entry in \code{mindex}
+exactly (be \code{\link{==}})?
+If FALSE, \code{name} may be a part of \code{mindex$Stationsname},
+as checked with \code{\link{grepl}}. This is useful e.g. to get
+all stations starting with a name (e.g. 42 IDs for Berlin).
+DEFAULT: TRUE}
 
 \item{id}{Char/Number: station ID with or without leading zeros, e.g. "00614" or 614.
 Is internally converted to an integer, because some DWD meta data
-Files also contain no leading zeros.
-If \code{id} is given, \code{name} is ignored. DEFAULT: ""}
+Files also contain no leading zeros. DEFAULT: ""}
 
 \item{base}{Single char: main directory of DWD ftp server, defaulting to
 observed climatic records.
@@ -25,9 +31,10 @@ Must be the same \code{base} used to create \code{findex}.
 DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}}
 
 \item{res}{Char: temporal resolution available at \code{base}, usually one of
-\code{c("hourly","daily","monthly")}. DEFAULT: ""}
+\code{c("hourly","daily","monthly")}, see \code{\link{rdwd}}.
+\code{res/var/time} together form the \bold{path}. DEFAULT: ""}
 
-\item{var}{Char: weather variable of interest, usually one of
+\item{var}{Char: weather variable of interest, see \code{\link{rdwd}}. Usually one of
 \code{c("air_temperature", "cloudiness", "precipitation",
         "pressure", "sun", "wind")} (only in hourly),
 \code{c("soil_temperature", "solar")} (in hourly and daily), or
@@ -37,7 +44,8 @@ See more in \code{View(rdwd:::\link{fileIndex})}. DEFAULT: ""}
 \item{time}{Char: desired time range. One of
 "recent" (data from the last year, up to date usually within a few days) or
 "historical" (long time series). Can be abbreviated (if the first
-letter is "r" or "h", full names are used). DEFAULT: ""}
+letter is "r" or "h", full names are used).
+Is set to "" if var=="solar". DEFAULT: ""}
 
 \item{mindex}{Single object: Index used to select \code{id} if \code{name}
 is given. DEFAULT: \code{rdwd:::\link{metaIndex}}}
@@ -49,7 +57,7 @@ is given. DEFAULT: \code{rdwd:::\link{metaIndex}}}
 
 \item{current}{Single logical for case 3/4 with given \code{path}: instead of
 \code{findex}, use a list of the currently available files at
-base/res/var/time? This will call code{\link{indexDWD}}, thus
+base/res/var/time? This will call \code{\link{indexDWD}}, thus
 requires availability of the \code{RCurl} package.
 DEFAULT: FALSE}
 
@@ -71,40 +79,65 @@ Character string with file path and name(s) in the format
 Select files for downloading with \code{\link{dataDWD}}.
 All arguments (except for \code{mindex}, \code{findex} and \code{base})
 can be a vecor and will be recycled to the maximum length of all arguments.
-If that length > 1, the output is a list of filenames.\cr
+If that length > 1, the output is a list of filenames (or vector with \code{outvec=TRUE}).\cr
 If station \code{name} is given, but \code{id} is empty (""),
-\code{id} is inferred via \code{mindex}.
+\bold{id} is inferred via \code{mindex}.
 If \code{res/var/time} are given and valid (existing in \code{findex}),
-they are pasted together to form a \code{path}.
+they are pasted together to form a \bold{path}.
 Here is an overview of the behaviour in each case of availability:
 \tabular{llll}{
-case \tab | id \tab | path \tab | action \cr
- 1 \tab |  ""  \tab |  ""  \tab | ToDo describe \cr
- 2 \tab | "xx" \tab |  ""  \tab | All file names (across paths) for station "id" \cr
- 3 \tab |  ""  \tab | "xx" \tab | All file names at path (toDo), or if meta=TRUE: name of station description file at path \cr
- 4 \tab | "xx" \tab | "xx" \tab | regular single data file name \cr
+case \tab |  \bold{id} \tab |  \bold{path} \tab | output \cr
+ 1 \tab |  ""  \tab |  ""  \tab | \code{base} (and some warnings) \cr
+ 2 \tab | "xx" \tab |  ""  \tab | All file names (across paths) for station \bold{id} \cr
+ 3 \tab |  ""  \tab | "xx" \tab | The zip file names at \bold{path} \cr
+ 4 \tab | "xx" \tab | "xx" \tab | Regular single data file name \cr
 }
+For case 3 and 4 (\bold{path} given), you can set \code{meta=TRUE}.
+Then selectDWD will return the name of the station description file at \bold{path}.
+This is why case 3 with \code{meta=FALSE} only returns the data file names (ending in .zip).
 }
 \examples{
 \dontrun{
-selectDWD(id="00386", res="daily", var="kl", time="historical")
-selectDWD(id="00386", res="daily", var="kl", time="h") # time abbreviatable
-selectDWD(id="00386", res="daily", var="kl", time="historical", meta=TRUE)
+# Give weather station name (must be existing in metaIndex):
+selectDWD("Potsdam", res="daily", var="kl", time="historical")
+# all names containing "Hamburg":
+tail(  selectDWD("Hamburg", exactmatch=FALSE)   )
 
-selectDWD(id="01050", res="daily", var="kl", time=c("r","h")) #vectorizable
-selectDWD(id="01050", res=c("daily","monthly"), var="kl") # must give time
+# or directly give station ID:
+selectDWD(id="00386", res="daily", var="kl", time="historical")
+selectDWD(id=386, res="daily", var="kl", time="historical")
+# time abbreviatable:
+selectDWD(id="00386", res="daily", var="kl", time="h")
+selectDWD(id="00386", res="daily", var="kl", time="h", meta=TRUE)
+
+# vectorizable:
+selectDWD(id="01050", res="daily", var="kl", time=c("r","h"))
+selectDWD(id="01050", res="daily", var="kl", time=c("r","h"), outvec=TRUE)
 selectDWD(id="01050", res=c("daily","monthly"), var="kl", time="r")
 # vectorization gives not the outer product, but elementwise comparison:
 selectDWD(id="01050", res=c("daily","monthly"), var="kl", time=c("r","h"))
 
-selectDWD(id="01050") # all files in all paths matching id
-selectDWD(id="00386", meta=TRUE)
-selectDWD(res="daily", var="kl", time="recent") # id missing, thus meta<-TRUE
+# all files in all paths matching id:
+selectDWD(id=c(1050, 386))
+# all files in a given path (if ID is empty):
+head(  selectDWD(res="daily", var="kl", time="recent")   )
 
-# See if errors come as expected:
-selectDWD(res="dummy", var="dummy") # should give an informative error
-selectDWD(res="dummy") # this one, too
-selectDWD(res="daily", var="kl") # must give time
+
+# See if warnings come as expected and are informative:
+selectDWD()
+selectDWD(7777)
+selectDWD(id=7777)
+selectDWD(res="dummy", var="dummy")
+selectDWD(res="dummy")
+selectDWD(res="daily", var="kl")
+selectDWD(id="01050", res=c("daily","monthly"), var="kl") # needs 'time'
+selectDWD(id="00386", meta=TRUE)
+
+selectDWD("Potsdam", res="daily", var="solar")
+selectDWD(id="Potsdam", res="daily", var="solar") # ToDo: make this a warning?
+
+berryFunctions::is.error(  selectDWD(current=TRUE) , tell=TRUE, force=TRUE) # should be an error
+
 }
 
 }
