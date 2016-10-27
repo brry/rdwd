@@ -3,6 +3,7 @@ rdwd ToDo-list / wishlist / issues
 - Station selection from map with metadata if clicked on point (leaflet/shiny app?)
 - search for toDo notes in code
 - option to merge hist and recent
+- FTP folder overview
 - just before CRAN release, change date in github compare link below
 
 ---------------------------------------

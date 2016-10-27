@@ -87,6 +87,7 @@ return(dat)
 } else # if meta ---------------------------------------------------------------
 {
 widths <- c( 6,9,9,15,12,10,41,100)
+# toDo: new monthly historical files do not conform! Get format from data line!
 # read one line to confirm widths and get column names
 oneline <- readLines(f, n=3)
 if(substr(oneline[3],1,6)=="      ") widths[1] <- 11

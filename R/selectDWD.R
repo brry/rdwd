@@ -11,9 +11,9 @@
 #' Here is an overview of the behaviour in each case of availability:
 #' \tabular{llll}{
 #' case \tab | id \tab | path \tab | action \cr
-#'  1 \tab |  ""  \tab |  ""  \tab | ToDo decide, is now the DEFAULT \cr
+#'  1 \tab |  ""  \tab |  ""  \tab | ToDo describe \cr
 #'  2 \tab | "xx" \tab |  ""  \tab | All file names (across paths) for station "id" \cr
-#'  3 \tab |  ""  \tab | "xx" \tab | meta=TRUE -> name of station description file at path \cr
+#'  3 \tab |  ""  \tab | "xx" \tab | All file names at path (toDo), or if meta=TRUE: name of station description file at path \cr
 #'  4 \tab | "xx" \tab | "xx" \tab | regular single data file name \cr
 #' }
 #'
@@ -144,6 +144,7 @@ if(is.na(id.i) & name[i]!="")
   id.i <- unique(mindex[mindex$Stationsname==name[i], "Stations_id"])
   if(length(id.i)!=1) warning("in selectDWD: determined ID is not of length 1, but ",
                          length(id.i), " (",toString(id.i), ").", call.=FALSE)
+  # ToDo: fuzzy matching!
   }
 # ------------------------------------------------------------------------------
 # cases (as in description)
@@ -160,7 +161,7 @@ if(!givenid & !givenpath)
 meta.i <- meta[i]
 if(givenid & !givenpath)
   {
-  if(meta.i) warning("selectDWD: meta is currently ignored if id is given.", call.=FALSE)
+  if(meta.i) warning("in selectDWD: meta is currently ignored if id is given.", call.=FALSE)
   filename <- findex[id.i==findex$id, "path"]
   filename <- filename[!is.na(filename)]
   return(   paste0(base, filename)   )
@@ -176,7 +177,7 @@ if(all(!grepl(path, findex$path))) warning("in selectDWD: According to file inde
 sel <- res[i]==findex$res & var[i]==findex$var & time.i==findex$time
 #
 # 3: id is empty, path is given ------------------------------------------------
-if(!givenid & givenpath) meta.i <- TRUE
+if(!givenid & givenpath) meta.i <- TRUE #ToDo: change behaviour to all filenames EXCEPT metadata (i.e. only zipfiles)
 # if either   case 3   or   4 with meta=TRUE  : return name of description txt file
 if(meta.i)
   {

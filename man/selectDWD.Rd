@@ -79,9 +79,9 @@ they are pasted together to form a \code{path}.
 Here is an overview of the behaviour in each case of availability:
 \tabular{llll}{
 case \tab | id \tab | path \tab | action \cr
- 1 \tab |  ""  \tab |  ""  \tab | ToDo decide, is now the DEFAULT \cr
+ 1 \tab |  ""  \tab |  ""  \tab | ToDo describe \cr
  2 \tab | "xx" \tab |  ""  \tab | All file names (across paths) for station "id" \cr
- 3 \tab |  ""  \tab | "xx" \tab | meta=TRUE -> name of station description file at path \cr
+ 3 \tab |  ""  \tab | "xx" \tab | All file names at path (toDo), or if meta=TRUE: name of station description file at path \cr
  4 \tab | "xx" \tab | "xx" \tab | regular single data file name \cr
 }
 }
