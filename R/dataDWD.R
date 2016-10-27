@@ -76,7 +76,7 @@ browse  <- browse[1]
 if(browse)
   {
   folders <- unique(dirname(file))
-  browseURL(folders)
+  sapply(folders, browseURL)
   return(folders)
   }
 # create directory to store downloaded data
