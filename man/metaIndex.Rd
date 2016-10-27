@@ -24,8 +24,25 @@ In functions, you can access it with \code{rdwd:::metaIndex}.
 
 data(metaIndex)
 head(metaIndex)
-
 # in functions, you can use head(rdwd:::metaIndex)
+
+# Map of all precipitation stations:
+if(FALSE){ ## requires extra package
+if(!requireNameSpace("OSMscale")) install.packages("OSMscale")
+library("OSMscale")
+map <- pointsMap(geoBreite, geoLaenge, data=rdwd:::metaIndex, fx=0.28, fy=0.06)
+pdf("DWDdata/RainfallStationsMap.pdf")
+plot(map)
+scaleBar(map, x=0.05, y=0.03, abslen=200)
+pp <- projectPoints(geoBreite, geoLaenge, data=rdwd:::metaIndex, to=posm())
+points(pp[!rdwd:::metaIndex$hasfile,], col="red", pch=3)
+points(pp[ rdwd:::metaIndex$hasfile,], col="blue", pch=3)
+legend("bottomright", c("in matadata only", "file on FTP server"),
+       col=c("red", "blue"), pch=3, bg="white")
+title(main="DWD stations: data on ftp server", line=3)
+dev.off()
+
+}
 
 }
 \seealso{

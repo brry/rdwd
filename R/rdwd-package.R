@@ -1,4 +1,4 @@
-# documentation of package and both Index datasets
+# documentation of package and both Index datasets + viewIndex
 
 #' Download Climate Data from DWD (German Weather Service)
 #'
@@ -21,6 +21,7 @@
 #' # ToDo
 #'
 NULL
+
 
 
 
@@ -56,6 +57,7 @@ data(fileIndex, envir=environment())
 
 
 
+
 #' station info (meta data) available on the DWD CDC FTP server
 #'
 #' A data.frame with the contents of all the station description files
@@ -79,10 +81,42 @@ data(fileIndex, envir=environment())
 #'
 #' data(metaIndex)
 #' head(metaIndex)
-#'
 #' # in functions, you can use head(rdwd:::metaIndex)
 #'
+#' # Map of all precipitation stations:
+#' if(FALSE){ ## requires extra package
+#' if(!requireNameSpace("OSMscale")) install.packages("OSMscale")
+#' library("OSMscale")
+#' map <- pointsMap(geoBreite, geoLaenge, data=rdwd:::metaIndex, fx=0.28, fy=0.06)
+#' pdf("DWDdata/RainfallStationsMap.pdf")
+#' plot(map)
+#' scaleBar(map, x=0.05, y=0.03, abslen=200)
+#' pp <- projectPoints(geoBreite, geoLaenge, data=rdwd:::metaIndex, to=posm())
+#' points(pp[!rdwd:::metaIndex$hasfile,], col="red", pch=3)
+#' points(pp[ rdwd:::metaIndex$hasfile,], col="blue", pch=3)
+#' legend("bottomright", c("in matadata only", "file on FTP server"),
+#'        col=c("red", "blue"), pch=3, bg="white")
+#' title(main="DWD stations: data on ftp server", line=3)
+#' dev.off()
+#'
+#' }
+#'
 data(metaIndex, envir=environment())
+
+
+
+
+#' View fileIndex and metaIndex
+#'
+#' Open \code{rdwd:::\link{fileIndex}} and \code{rdwd:::\link{metaIndex}} with \code{\link{View}}
+#'
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2016
+#' @importFrom utils View
+#' @export
+viewIndex <- function() {View(rdwd:::fileIndex); View(rdwd:::metaIndex)}
+
+
+
 
 
 if(FALSE){
@@ -135,6 +169,27 @@ convertUmlaut <- function(x)
 metaIndex$Stationsname <- convertUmlaut(metaIndex$Stationsname)
 metaIndex$Bundesland   <- convertUmlaut(metaIndex$Bundesland)
 # iconv(metaIndex$Stationsname, to="ASCII//TRANSLIT")
+
+# sort alphabetically:
+metaIndex <- berryFunctions::sortDF(metaIndex, Stationsname, decreasing=FALSE)
+
+# add column describing whether each entry has a file
+metaComb <- paste(  metaIndex$Stations_id,  metaIndex$res, metaIndex$var, metaIndex$time, sep="/")
+fileComb <- paste(as.integer(fileIndex$id), fileIndex$res, fileIndex$var, fileIndex$time, sep="/")
+metaIndex$hasfile <- metaComb  %in% fileComb
+
+# check coordinates:
+coord_ok <- pbsapply(unique(metaIndex$Stationsname), function(n)
+  {
+  sel <- metaIndex$Stationsname==n
+  lat <- metaIndex$geoBreite[sel]
+  lon <- metaIndex$geoLaenge[sel]
+  ele <- metaIndex$Stationshoehe[sel]
+  d <- 6 # number of digits rounded to
+  all(round(lat,d)==round(lat[1],d)  &  round(lon,d)==round(lon[1],d)  & ele==ele[1]  )
+})
+mean(coord_ok) # 80.7% is OK, 94.9 % with d=2, 98% with d=1
+names(coord_ok[!coord_ok])
 
 # save and compress:
 save(metaIndex, file="data/metaIndex.rda")
