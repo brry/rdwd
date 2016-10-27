@@ -56,9 +56,31 @@ The desired .zip (or .txt) dataset is downloaded into \code{dir}.
 If \code{read=TRUE}, it is also read, processed and returned as a data.frame.
 }
 \examples{
-# toDo: get from berryFunctions::dataDWD
-# toDo: check what happens if halfway though a vector of files access gets blocked.
-# d <- dataDWD(selectDWD(id="05692", res="daily", var="kl", time="recent"))
+\dontrun{ ## requires internet connection
+# find files for a given station name and file path:
+link <- selectDWD("Kupferzell-Rechbach", res="hourly", var="precipitation", time="recent")
+# actually download and read files
+prec <- dataDWD(link)
+plot(prec$MESS_DATUM, prec$NIEDERSCHLAGSHOEHE, main="DWD hourly rain Kupferzell", col="blue",
+     xaxt="n", las=1, type="l", xlab="Date", ylab="Hourly rainfall  [mm]")
+monthAxis(1, ym=T)
+
+d <- dataDWD(selectDWD(id="05692", res="daily", var="kl", time="recent"))
+# writes into the same folder (dir="DWDdata")
+
+folder <- dataDWD(link, browse=T)
+folder
+
+# With many files, use sleep
+links <- selectDWD(res="daily", var="solar", meta=F)
+sol <- dataDWD(links, sleep=20) # random waiting time after download (0 to 20 secs)
+
+# Real life example with data completeness check etc:
+browseURL("http://github.com/brry/prectemp/blob/master/Code_example.R")
+# ToDo: change code there!
+# ToDo: reference to this in README.md
+
+}
 
 }
 \author{
