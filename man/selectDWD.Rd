@@ -117,11 +117,10 @@ selectDWD(id="01050", res=c("daily","monthly"), var="kl", time="r")
 # vectorization gives not the outer product, but elementwise comparison:
 selectDWD(id="01050", res=c("daily","monthly"), var="kl", time=c("r","h"))
 
-# all files in all paths matching id:
+# all zip files in all paths matching id:
 selectDWD(id=c(1050, 386))
-# all files in a given path (if ID is empty):
+# all zip files in a given path (if ID is empty):
 head(  selectDWD(res="daily", var="kl", time="recent")   )
-
 
 # See if warnings come as expected and are informative:
 selectDWD()
@@ -129,6 +128,7 @@ selectDWD(7777)
 selectDWD(id=7777)
 selectDWD(res="dummy", var="dummy")
 selectDWD(res="dummy")
+selectDWD(res="daily", time="r")
 selectDWD(res="daily", var="kl")
 selectDWD(id="01050", res=c("daily","monthly"), var="kl") # needs 'time'
 selectDWD(id="00386", meta=TRUE)
