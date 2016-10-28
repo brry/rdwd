@@ -7,16 +7,18 @@
 \title{Download Climate Data from DWD (German Weather Service)}
 \description{
 Select weather data from the DWD (Deutscher Wetterdienst) with
-\code{\link{selectDWD}}, which uses \code{\link{fileIndex}} and \code{\link{metaIndex}}.
+\code{\link{selectDWD}}, which uses \code{\link{fileIndex}} and \code{\link{metaIndex}}.\cr
 Download and process data sets with \code{\link{dataDWD}} and \code{\link{readDWD}}.\cr
 For an introduction to the package, see \url{https://github.com/brry/rdwd#rdwd}
 }
 \details{
-The following folders are available (and a few more).
-"<" signifies a split into the folders "recent" and "historical".
+The following folders are available (and a few more at the \code{res} level) at
+\url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/}\cr
+"<" signifies a split into the folders \code{time} = "recent" and "historical".\cr
 "-" signifies that there are no further sub-folders.
 \tabular{lll}{
-\bold{hourly}      \tab | \bold{daily}       \tab | \bold{monthly}\cr
+\code{res}=\bold{hourly} \tab | \code{res}=\bold{daily} \tab | \code{res}=\bold{monthly} \cr
+\code{var=} \tab \tab \cr
 air_temperature <  \tab | kl <               \tab | kl <          \cr
 cloudiness <       \tab | more_precip <      \tab | more_precip < \cr
 precipitation <    \tab |                    \tab |               \cr
@@ -33,10 +35,7 @@ solar -            \tab | solar -            \tab |               \cr
 
 }
 \author{
-Berry Boessenkool, \email{berry-b@gmx.de}, 2016
-}
-\seealso{
-\url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/}
+Berry Boessenkool, \email{berry-b@gmx.de}, June-Oct 2016
 }
 \keyword{documentation}
 \keyword{package}
