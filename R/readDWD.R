@@ -86,14 +86,15 @@ if(!is.null(format[i]) & "MESS_DATUM" %in% colnames(dat))
 return(dat)
 } else # if meta ---------------------------------------------------------------
 {
-widths <- c( 6,9,9,15,12,10,41,100)
-# toDo: new monthly historical files do not conform! Get format from data line!
-# read one line to confirm widths and get column names
+# read one line to get column widths and names
 oneline <- readLines(f, n=3)
-if(substr(oneline[3],1,6)=="      ") widths[1] <- 11
-#                ID           VON         BIS        HOEHE    LAT       LONG      NAME     BUNDESLAND
-#colClasses <- c("character", "integer", "integer", "numeric","numeric","numeric","factor","factor")
-# some meta files have no leading zeros, so this package uses integer all the time. # colClasses=colClasses
+# column widhts (automatic detection across different styles used by the DWD)
+spaces <- unlist(gregexpr(" ", oneline[3]))
+breaks <- spaces[which(diff(spaces)!=1)]
+if(substr(oneline[3],1,1)==" ") breaks <- breaks[-1]
+breaks[3] <- breaks[3] -9 # right-adjusted column
+breaks[4:5] <- breaks[4:5] -1 # right-adjusted columns
+widths <- diff(c(0,breaks,200))
 # actually read metadata, suppress readLines warning about EOL:
 stats <- suppressWarnings(read.fwf(f, widths=widths, skip=2, strip.white=TRUE) )
 # column names:
