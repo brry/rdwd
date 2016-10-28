@@ -153,6 +153,8 @@ base <- base[1]
 # time partial matching (abbreviation):
 time[substr(time,1,1)=="h"] <- "historical"
 time[substr(time,1,1)=="r"] <- "recent"
+# solar time to ""
+time[var=="solar"] <- ""
 # update file index:
 if(current)
   {
@@ -221,13 +223,11 @@ if(givenid & !givenpath)
   }
 #
 # Case 3 and 4 (path given) - path existence check ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-time.i <- time[i]
-if(var[i]=="solar") time.i <- ""
-path <- paste0("/",res[i],"/",var[i],"/",time.i)
+path <- paste0("/",res[i],"/",var[i],"/",time[i])
 if(all(!grepl(path, findex$path))) warning("in selectDWD: According to file index '",
        findexname, "', the path '", path, "' doesn't exist.", call.=FALSE)
 # select entries from file index:
-sel <- res[i]==findex$res & var[i]==findex$var & time.i==findex$time
+sel <- res[i]==findex$res & var[i]==findex$var & time[i]==findex$time
 #
 # case 3 or 4 with meta=TRUE
 # return name of description txt file
