@@ -3,7 +3,7 @@ rdwd ToDo-list / wishlist / issues
 - Station selection from map with metadata if clicked on point (leaflet/shiny app?)
 - search for toDo notes in code
 - option to merge hist and recent
-- FTP folder overview
+- write vignette + move examples from metaIndex there
 - just before CRAN release, change date in github compare link below
 
 ---------------------------------------
@@ -14,7 +14,7 @@ Any feedback is welcome, per email or on github.com/brry/rdwd
 
 Version 0.. (2016--)
 Initial release of the package, development can be seen at
-https://github.com/brry/rdwd/compare/master@{2016-10-19}...master@{2016-11-xx}
+https://github.com/brry/rdwd/compare/master@{2016-10-19}...master@{2016-10-28}
 
 'indexDWD' lists all the files on the FTP server with DWD data.
 With 'index2df', it is used to create 'fileIndex', which then helps create 'metaIndex'.
