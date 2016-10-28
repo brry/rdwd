@@ -1,14 +1,16 @@
 # rdwd
 Select and download climate data from the DWD (German Weather Service) FTP Server.
 
-The German weather service (Deutscher Wetterdienst, DWD) has around 25 thousand
+The German weather service (Deutscher Wetterdienst, DWD) has over 25 thousand
 datasets with weather observations online at <ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate>.
-`rdwd` has been designed to mainly do 3 things:
+
+To use those datasets, `rdwd` has been designed to mainly do 3 things:
 * `selectDWD`: facilitate file selection, e.g. for certain station names, by geographical location, 
 by temporal resolution, variables (temperature, rain, wind, sun, clouds, etc) or
 observation period (historical long term records or the current year)
 * `dataDWD`: download a file (or multiple files without getting banned by the FTP-server)
 * `readDWD`: read that data into R
+
 As a side effect, there now is a function (`indexDWD`) to recursively list all the files
 on an FTP-server (using RCurl::getURL).
 

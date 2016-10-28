@@ -2,8 +2,8 @@
 # readDWD meta = TRUE
 # Development process and tests
 
-# in october 2016, DWD slighlty changed monthly/kl meta file column widths
-# Here are alternative thoughs on how to automazie width detection
+# in october 2016, DWD slightly changed monthly/kl meta file column widths
+# Here are alternative thoughs on how to automatize width detection
 
 
 "
@@ -63,7 +63,6 @@ sb[which(diff(sb)!=1)]
 mf <- selectDWD(res=c(rep("hourly",3), "monthly", "daily"), var=c("cloudiness","solar","sun","kl","kl"),
           time=c(rep("r",4), "h"), meta=TRUE, outvec=T, current=TRUE)
 
-mf[2] <- "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/hourly/solar/ST_Beschreibung_Stationen.txt"
 m <- dataDWD(mf)
 lapply(m, head)
 

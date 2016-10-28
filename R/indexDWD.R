@@ -79,7 +79,7 @@ while(any(!isfile))
                        verbose=verbose, ftp.use.epsv=TRUE, dirlistonly=TRUE), silent=TRUE)
     if(inherits(p, "try-error"))
       {
-      if(!quiet) warning("indexDWD: RCurl::getURL failed for '/", path,
+      if(!quiet) warning("indexDWD: RCurl::getURL failed for '", path,
                          "/' - ", p, call.=FALSE) # strsplit(p, "\n")[[1]][2]
       assign("isfile", TRUE, inherits=TRUE) # to get out of the while loop
       return(path)
