@@ -85,6 +85,8 @@ format=NA,
 ...
 )
 {
+if(!is.atomic(file)) stop("file must be a vector, not a ", class(file))
+if(!is.character(file)) stop("file must be char, not ", class(file))
 if(missing(progbar) & length(file)==1) progbar <- FALSE
 # be safe for accidental vector input:
 dir     <- dir[1]
@@ -115,7 +117,7 @@ if(progbar) lapply <- pbapply::pblapply
 # loop over each filename
 dummy <- lapply(seq_along(file), function(i)
   {
-  # Actual file download: # ToDo: wrap in try like in indexDWD, but maybe stop the rest of lapply
+  # Actual file download:
   download.file(url=file[i], destfile=outfile[i], quiet=TRUE, ...)
   # wait some time to avoid FTP bot recognition:
   if(sleep!=0) Sys.sleep(runif(n=1, min=0, max=sleep))
