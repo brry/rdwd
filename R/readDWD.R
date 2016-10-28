@@ -99,6 +99,17 @@ widths <- diff(c(0,breaks,200))
 stats <- suppressWarnings(read.fwf(f, widths=widths, skip=2, strip.white=TRUE) )
 # column names:
 colnames(stats) <- strsplit(oneline[1], " ")[[1]]
+# check classes:
+classes <- c("integer", "integer", "integer", "integer", "numeric", "numeric", "factor", "factor")
+actual <- sapply(stats, class)
+if(!all(actual == classes))
+  {
+  msg <- paste0(names(actual)[actual!=classes], ": ", actual[actual!=classes],
+                " instead of ", classes[actual!=classes], ".")
+  msg <- paste(msg, collapse=" ")
+  warning("in readDWD: reading file '", f,
+          "' did not give the correct column classes. ", msg, call.=FALSE)
+  }
 # return meta data.frame:
 return(stats)
 }
