@@ -30,18 +30,32 @@ head(metaIndex)
 if(FALSE){ ## requires extra package
 if(!requireNameSpace("OSMscale")) install.packages("OSMscale")
 library("OSMscale")
-map <- pointsMap(geoBreite, geoLaenge, data=rdwd:::metaIndex, fx=0.28, fy=0.06)
+map <- pointsMap(geoBreite, geoLaenge, data=metaIndex, fx=0.28, fy=0.06)
 pdf("DWDdata/RainfallStationsMap.pdf")
 plot(map)
 scaleBar(map, x=0.05, y=0.03, abslen=200)
-pp <- projectPoints(geoBreite, geoLaenge, data=rdwd:::metaIndex, to=posm())
-points(pp[!rdwd:::metaIndex$hasfile,], col="red", pch=3)
-points(pp[ rdwd:::metaIndex$hasfile,], col="blue", pch=3)
+pp <- projectPoints(geoBreite, geoLaenge, data=metaIndex, to=posm())
+points(pp[!metaIndex$hasfile,], col="red", pch=3)
+points(pp[ metaIndex$hasfile,], col="blue", pch=3)
 legend("bottomright", c("in matadata only", "file on FTP server"),
        col=c("red", "blue"), pch=3, bg="white")
 title(main="DWD stations: data on ftp server", line=3)
 dev.off()
 
+# Time series duration:
+colPoints <- berryFunctions::colPoints
+colPoints(geoLaenge, geoBreite, Stations_id, data=metaIndex, add=F, asp=1.5)
+colPoints(geoLaenge, geoBreite, Stationshoehe, data=metaIndex, add=F, asp=1.5)
+metaIndex$von_jahr <- metaIndex$von_datum/1e4
+metaIndex$bis_jahr <- metaIndex$bis_datum/1e4
+metaIndex$dauer <- metaIndex$bis_jahr - metaIndex$von_jahr
+colPoints(geoLaenge, geoBreite, von_jahr, data=metaIndex, add=F, asp=1.5)
+colPoints(geoLaenge, geoBreite, bis_jahr, data=metaIndex, add=F, asp=1.5)
+colPoints(geoLaenge, geoBreite, dauer, data=metaIndex, add=F, asp=1.5)
+hist(metaIndex$bis_jahr, breaks=50, col="purple")
+hist(metaIndex$dauer, breaks=50, col="purple")
+sum(metaIndex$dauer>50); mean(metaIndex$dauer>50)
+# 40\% of stations with more than 50 years of data (according to metadata)
 }
 
 }
