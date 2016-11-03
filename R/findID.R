@@ -1,0 +1,81 @@
+#' find DWD weather station ID from name
+#'
+#' Identify DWD weather station ID from station name
+#'
+#' @return Character string (vector) with ID(s)
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct-Nov 2016
+#' @seealso used in \code{\link{selectDWD}}
+#' @keywords character
+#' @export
+#' @examples
+#' \dontrun{
+#' # Give weather station name (must be existing in metaIndex):
+#' findID("Potsdam")
+#' findID("potsDam") # capitalization is ignored
+#' # all names containing "Hamburg":
+#' findID("Hamburg", exactmatch=FALSE)
+#' findID("Potsdam", exactmatch=FALSE)
+#'
+#' # vectorized:
+#' findID(c("Potsdam","Berlin-Buch"))
+#'
+#' # German Umlauts are changed to ue, ae, oe, ss
+#' findID("Muenchen", FALSE)
+#'
+#' # See if warnings come as expected and are informative:
+#' findID("this_is_not_a_city")
+#' findID(c("Wuppertal"," this_is_not_a_city") )
+#'
+#' findID()
+#' findID(7777)
+#' findID("01050")
+#'
+#' }
+#'
+#' @param name  Char: station name(s) that will be matched in \code{mindex} to obtain
+#'              \bold{id}. DEFAULT: ""
+#' @param exactmatch Logical: Should \code{name} match an entry in \code{mindex}
+#'              exactly (be \code{\link{==}})?
+#'              If FALSE, \code{name} may be a part of \code{mindex$Stationsname},
+#'              as checked with \code{\link{grepl}}. This is useful e.g. to get
+#'              all stations starting with a name (e.g. 42 IDs for Berlin).
+#'              DEFAULT: TRUE
+#' @param mindex Single object: Index used to select \code{id} if \code{name}
+#'              is given. DEFAULT: \code{rdwd:::\link{metaIndex}}
+#'
+findID <- function(
+name="",
+exactmatch=TRUE,
+mindex=rdwd:::metaIndex
+)
+{
+# Input checks and processing:
+len <- length(name)
+exactmatch <- rep(exactmatch, length.out=len)
+#
+# ------------------------------------------------------------------------------
+# loop over each input element:
+output <- lapply(seq_len(len), function(i)
+  {
+  select <- if(exactmatch[i]) tolower(mindex$Stationsname)==tolower(name[i]) else
+                              grepl(name[i], mindex$Stationsname, ignore.case=TRUE)
+  id <- unique(mindex[select, "Stations_id"])
+  # warn about length
+  if(length(id)<1)
+    {
+    id <- NA
+    warning("in rdwd::findID: no ID could be determined from name '",
+                             name[i], "'.", call.=FALSE)
+    }
+  if(length(id)>1) warning("in rdwd::findID: ID determined from name '",
+                             name[i], "' has ", length(id), " elements (",
+                             toString(sort(id)), ").", call.=FALSE)
+  ## warning message preparation:
+  #ids <- if(length(id.i)<3) toString(id.i) else
+  #                   paste0(toString(id.i[1:2]), ", ... (", length(id.i)-2, " more)")
+  names(id) <- mindex[ match(id, mindex$Stations_id), "Stationsname" ]
+  id
+  }) # loop end
+# output:
+return(unlist(output))
+}

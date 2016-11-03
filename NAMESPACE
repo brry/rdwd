@@ -3,6 +3,7 @@
 export(dataDWD)
 export(dirDWD)
 export(fileDWD)
+export(findID)
 export(index2df)
 export(indexDWD)
 export(readDWD)
