@@ -46,7 +46,7 @@
 findID <- function(
 name="",
 exactmatch=TRUE,
-mindex=rdwd:::metaIndex
+mindex=metaIndex
 )
 {
 # Input checks and processing:

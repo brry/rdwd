@@ -4,7 +4,7 @@
 \alias{findID}
 \title{find DWD weather station ID from name}
 \usage{
-findID(name = "", exactmatch = TRUE, mindex = rdwd:::metaIndex)
+findID(name = "", exactmatch = TRUE, mindex = metaIndex)
 }
 \arguments{
 \item{name}{Char: station name(s) that will be matched in \code{mindex} to obtain

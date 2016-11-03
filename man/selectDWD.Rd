@@ -4,11 +4,11 @@
 \alias{selectDWD}
 \title{Select data from the DWD CDC FTP Server}
 \usage{
-selectDWD(name = "", exactmatch = TRUE, mindex = rdwd:::metaIndex,
+selectDWD(name = "", exactmatch = TRUE, mindex = metaIndex,
   id = findID(name, exactmatch = exactmatch, mindex = mindex),
   base = "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
-  res = "", var = "", time = "", findex = rdwd:::fileIndex,
-  current = FALSE, meta = FALSE, outvec = FALSE, ...)
+  res = "", var = "", time = "", findex = fileIndex, current = FALSE,
+  meta = FALSE, outvec = FALSE, ...)
 }
 \arguments{
 \item{name}{Char: station name(s) passed to \code{\link{findID}}, along with the
