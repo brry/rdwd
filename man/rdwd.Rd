@@ -31,7 +31,7 @@ solar -            \tab | solar -            \tab |               \cr
 }
 \examples{
 
-# ToDo
+# see README.md
 
 }
 \author{

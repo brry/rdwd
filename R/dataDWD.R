@@ -44,8 +44,6 @@
 #'
 #' # Real life example with data completeness check etc:
 #' browseURL("http://github.com/brry/prectemp/blob/master/Code_example.R")
-#' # ToDo: change code there!
-#' # ToDo: reference to this in README.md
 #'
 #' }
 #'
@@ -76,7 +74,7 @@ dataDWD <- function(
 file,
 dir="DWDdata",
 sleep=0,
-quiet=FALSE,          # ToDo: Optinally (DEFAULT) only download if file not available in dir
+quiet=FALSE,
 progbar=!quiet,
 browse=FALSE,
 read=TRUE,

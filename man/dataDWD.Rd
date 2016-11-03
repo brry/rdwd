@@ -77,8 +77,6 @@ sol <- dataDWD(links, sleep=20) # random waiting time after download (0 to 20 se
 
 # Real life example with data completeness check etc:
 browseURL("http://github.com/brry/prectemp/blob/master/Code_example.R")
-# ToDo: change code there!
-# ToDo: reference to this in README.md
 
 }
 

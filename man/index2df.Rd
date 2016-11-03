@@ -25,7 +25,7 @@ invisible dataframe with a number of columns tried to infer from the paths.
 \description{
 Create a data.frame out of the vector index returned by \code{\link{indexDWD}}.
 \code{index2df} tries to obtain res, var, time, file, id, start and end from the paths.
-This produces the \code{\link{fileIndex}} used in \code{\link{selectDWD}}. ToDO: create and document 'metaIndex'
+This produces the \code{\link{fileIndex}} used in \code{\link{selectDWD}}.
 }
 \examples{
 # see last part of

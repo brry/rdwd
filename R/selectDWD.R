@@ -235,7 +235,7 @@ if(!givenid & givenpath & !meta[i])
 # regular single data file name
 if(givenid & givenpath & !meta[i])
   {
-  sel <- sel & findex$id %in% id[i] # todo remove: sapply(findex$id %in% id[i], isTRUE)
+  sel <- sel & findex$id %in% id[i]
   if(sum(sel)==0) warning("in selectDWD: According to file index '",findexname,
                           "', there is no file in '", path, "' with ID ",
                           id[i], ".", call.=FALSE)

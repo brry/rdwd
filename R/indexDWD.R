@@ -85,7 +85,7 @@ while(any(!isfile))
       return(path)
       }
     p <- strsplit(p, "\r\n")[[1]]
-    # p <- strsplit(p, "\n")[[1]] # may be needed on linux. toDo: check this out
+    # p <- strsplit(p, "\n")[[1]] # may be needed on linux.
     if(sleep!=0) Sys.sleep(runif(n=1, min=0, max=sleep))
     # complete file path:
     return(paste0(path,"/",p))

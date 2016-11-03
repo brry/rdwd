@@ -2,7 +2,7 @@
 #'
 #' Create a data.frame out of the vector index returned by \code{\link{indexDWD}}.
 #' \code{index2df} tries to obtain res, var, time, file, id, start and end from the paths.
-#' This produces the \code{\link{fileIndex}} used in \code{\link{selectDWD}}. ToDO: create and document 'metaIndex'
+#' This produces the \code{\link{fileIndex}} used in \code{\link{selectDWD}}.
 #'
 #' @return invisible dataframe with a number of columns tried to infer from the paths.
 #'         This is also saved to disc.
@@ -40,7 +40,8 @@ index <- gsub("subdaily/standard_format/", "subdaily/standard_format//", index)
 index <- ifelse(substr(index,1,1)=="/", substr(index,2,1e4), index)
 # split into parts:
 index <- l2df(lapply(index,function(x) strsplit(x,"/")[[1]]))
-# ToDo: check if there are actually 4 columns (might be different with non-standard base)
+# check if there are actually 4 columns (might be different with non-standard base)
+if(ncol(index)!=4) stop("index does not habe 4 columns, but ", ncol(index))
 colnames(index) <- c("res","var","time","file")
 file <- index$file
 index <- index[,1:3]

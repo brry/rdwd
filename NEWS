@@ -1,9 +1,16 @@
 
 rdwd ToDo-list / wishlist / issues
 - Station selection from map with metadata if clicked on point (leaflet/shiny app?)
-- search for toDo notes in code
+- for that: create metaIndexSmall with unique entries
+- update prectemp/Code_example.R and reference it in README.md
+- write package examples
+- dataDWD:  Optinally (DEFAULT) only download if file not available in dir
+- indexDWD: strsplit(p, "\n") on LINUX necessary?
+- fileIndex + metaIndex: replace rdwd::: with load
+- contemplate adding "rdwd::" to all warnings and messages
 - option to merge hist and recent
 - write vignette + move examples from metaIndex there
+- update fileIndex and metaIndex
 - just before CRAN release, change date in github compare link below
 
 ---------------------------------------

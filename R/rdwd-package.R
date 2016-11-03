@@ -31,7 +31,7 @@
 #' @keywords package documentation
 #' @examples
 #'
-#' # ToDo
+#' # see README.md
 #'
 NULL
 
