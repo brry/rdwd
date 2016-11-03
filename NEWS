@@ -6,8 +6,8 @@ rdwd ToDo-list / wishlist / issues
 - write package examples
 - dataDWD:  Optinally (DEFAULT) only download if file not available in dir
 - indexDWD: strsplit(p, "\n") on LINUX necessary?
-- fileIndex + metaIndex: replace rdwd::: with load
 - contemplate adding "rdwd::" to all warnings and messages
+- contemplate putting metaIndex creating code into createMetaIndex with file names as input (and rename index2df)
 - option to merge hist and recent
 - write vignette + move examples from metaIndex there
 - update fileIndex and metaIndex
