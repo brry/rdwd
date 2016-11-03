@@ -36,6 +36,14 @@ solar -            \tab | solar -            \tab |               \cr
 
 # see README.md
 
+link <- selectDWD("Potsdam", res="monthly", var="kl", time="h", current=TRUE)
+clim <- dataDWD(link)
+clim$month <- substr(clim$MESS_DATUM_BEGINN,5,6)
+temp <- tapply(clim$LUFTTEMPERATUR, clim$month, mean)
+prec <- tapply(clim$NIEDERSCHLAGSHOEHE, clim$month, mean)
+library(berryFunctions)
+climateGraph(temp, prec, main="Potsdam 1893:2015")
+
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, June-Oct 2016
