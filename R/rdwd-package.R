@@ -3,8 +3,11 @@
 #' Download Climate Data from DWD (German Weather Service)
 #'
 #' Select weather data from the DWD (Deutscher Wetterdienst) with
-#' \code{\link{selectDWD}}, which uses \code{\link{fileIndex}} and \code{\link{metaIndex}}.\cr
-#' Download and process data sets with \code{\link{dataDWD}} and \code{\link{readDWD}}.\cr
+#' \code{\link{selectDWD}}, which uses \code{\link{fileIndex}} and
+#' \code{\link{findID}} (which uses \code{\link{metaIndex}}).
+#' The Index objects are created with \code{\link{indexDWD}} and \code{\link{index2df}}.\cr
+#' Download and process data sets with \code{\link{dataDWD}} and \code{\link{readDWD}}.
+#' code{\link{dirDWD}} and code{\link{fileDWD}} make sure no file is overwritten and give useful messages.\cr
 #' For an introduction to the package, see \url{https://github.com/brry/rdwd#rdwd}
 #'
 #' @details The following folders are available (and a few more at the \code{res} level) at
@@ -53,7 +56,7 @@ NULL
 #'         station \code{id} and time series \code{start} and \code{end}
 #'         according to \code{path}.
 #' @source Deutscher WetterDienst / Climata Data Center  FTP Server
-#' @seealso \code{\link{metaIndex}}, \code{\link{indexDWD}}
+#' @seealso \code{\link{metaIndex}}, \code{\link{indexDWD}}, \code{\link{selectDWD}}
 #' @keywords datasets
 #' @examples
 #'
@@ -88,7 +91,7 @@ data(fileIndex, envir=environment())
 #'         \code{Stationsname}, \code{Bundesland},
 #'         \code{res}, \code{var}, \code{time} (see \code{\link{selectDWD}})
 #' @source Deutscher WetterDienst / Climata Data Center  FTP Server
-#' @seealso \code{\link{fileIndex}}, \code{\link{indexDWD}}
+#' @seealso \code{\link{fileIndex}}, \code{\link{findID}}
 #' @keywords datasets
 #' @examples
 #'
@@ -140,7 +143,7 @@ data(metaIndex, envir=environment())
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2016
 #' @importFrom utils View
 #' @export
-viewIndex <- function() {View(rdwd:::fileIndex); View(rdwd:::metaIndex)}
+viewIndex <- function() {View(fileIndex); View(metaIndex)}
 
 
 

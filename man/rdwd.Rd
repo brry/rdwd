@@ -7,8 +7,11 @@
 \title{Download Climate Data from DWD (German Weather Service)}
 \description{
 Select weather data from the DWD (Deutscher Wetterdienst) with
-\code{\link{selectDWD}}, which uses \code{\link{fileIndex}} and \code{\link{metaIndex}}.\cr
-Download and process data sets with \code{\link{dataDWD}} and \code{\link{readDWD}}.\cr
+\code{\link{selectDWD}}, which uses \code{\link{fileIndex}} and
+\code{\link{findID}} (which uses \code{\link{metaIndex}}).
+The Index objects are created with \code{\link{indexDWD}} and \code{\link{index2df}}.\cr
+Download and process data sets with \code{\link{dataDWD}} and \code{\link{readDWD}}.
+code{\link{dirDWD}} and code{\link{fileDWD}} make sure no file is overwritten and give useful messages.\cr
 For an introduction to the package, see \url{https://github.com/brry/rdwd#rdwd}
 }
 \details{

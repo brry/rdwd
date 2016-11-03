@@ -60,7 +60,7 @@ sum(metaIndex$dauer>50); mean(metaIndex$dauer>50)
 
 }
 \seealso{
-\code{\link{fileIndex}}, \code{\link{indexDWD}}
+\code{\link{fileIndex}}, \code{\link{findID}}
 }
 \keyword{datasets}
 

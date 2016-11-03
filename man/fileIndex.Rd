@@ -29,7 +29,7 @@ head(fileIndex)
 
 }
 \seealso{
-\code{\link{metaIndex}}, \code{\link{indexDWD}}
+\code{\link{metaIndex}}, \code{\link{indexDWD}}, \code{\link{selectDWD}}
 }
 \keyword{datasets}
 

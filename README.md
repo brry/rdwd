@@ -5,8 +5,9 @@ The German weather service (Deutscher Wetterdienst, DWD) has over 25 thousand
 datasets with weather observations online at <ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate>.
 
 To use those datasets, `rdwd` has been designed to mainly do 3 things:
-* `selectDWD`: facilitate file selection, e.g. for certain station names, by geographical location, 
-by temporal resolution, variables (temperature, rain, wind, sun, clouds, etc) or
+* `selectDWD`: facilitate file selection, e.g. for certain station names (with `findID`), 
+by geographical location (see `metaIndex`), by temporal resolution (hourly, daily, monthly), 
+variables (temperature, rain, wind, sun, clouds, etc) or
 observation period (historical long term records or the current year)
 * `dataDWD`: download a file (or multiple files without getting banned by the FTP-server)
 * `readDWD`: read that data into R
@@ -20,13 +21,13 @@ I expect to have run enough tests by late November...
 Any feedback is now particularly welcome! File an issue here or send me a message (berry-b@gmx.de).
 
 **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/), seen [here](https://github.com/isaacs/github/issues/215)*
-* [Installation (latest development version)](#installation-latest-development-version)
+* [Installation](#installation)
 * [Basic usage](#basic-usage)
 * [More details](#more-details)
 * [Plotting](#plotting)
 * [Installation troubleshooting](#installation-troubleshooting)
 
-### Installation (latest development version)
+### Installation
 
 ```R
 install.packages("berryFunctions") # rdwd depends on this package
