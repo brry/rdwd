@@ -4,26 +4,25 @@
 \alias{selectDWD}
 \title{Select data from the DWD CDC FTP Server}
 \usage{
-selectDWD(name = "", exactmatch = TRUE, id = "",
+selectDWD(name = "", exactmatch = TRUE, mindex = rdwd:::metaIndex,
+  id = findID(name, exactmatch = exactmatch, mindex = mindex),
   base = "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
-  res = "", var = "", time = "", mindex = rdwd:::metaIndex,
-  findex = rdwd:::fileIndex, current = FALSE, meta = FALSE,
-  outvec = FALSE, ...)
+  res = "", var = "", time = "", findex = rdwd:::fileIndex,
+  current = FALSE, meta = FALSE, outvec = FALSE, ...)
 }
 \arguments{
-\item{name}{Char: station name that will be matched in \code{mindex} to obtain
-\bold{id}. Ignored if \code{id} is given. DEFAULT: ""}
+\item{name}{Char: station name(s) passed to \code{\link{findID}}, along with the
+next two arguments. All ignored if \code{id} is given. DEFAULT: ""}
 
-\item{exactmatch}{Logical: Should \code{name} match an entry in \code{mindex}
-exactly (be \code{\link{==}})?
-If FALSE, \code{name} may be a part of \code{mindex$Stationsname},
-as checked with \code{\link{grepl}}. This is useful e.g. to get
-all stations starting with a name (e.g. 42 IDs for Berlin).
-DEFAULT: TRUE}
+\item{exactmatch}{Logical passed to \code{\link{findID}}: match \code{name}
+with \code{\link{==}})? Else with \code{\link{grepl}}. DEFAULT: TRUE}
+
+\item{mindex}{Single object: Index with metadata passed to \code{\link{findID}}.
+DEFAULT: \code{rdwd:::\link{metaIndex}}}
 
 \item{id}{Char/Number: station ID with or without leading zeros, e.g. "00614" or 614.
 Is internally converted to an integer, because some DWD meta data
-Files also contain no leading zeros. DEFAULT: ""}
+files also contain no leading zeros. DEFAULT: findID(name)}
 
 \item{base}{Single char: main directory of DWD ftp server, defaulting to
 observed climatic records.
@@ -46,9 +45,6 @@ See more in \code{View(rdwd:::\link{fileIndex})}. DEFAULT: ""}
 "historical" (long time series). Can be abbreviated (if the first
 letter is "r" or "h", full names are used).
 Is set to "" if var=="solar". DEFAULT: ""}
-
-\item{mindex}{Single object: Index used to select \code{id} if \code{name}
-is given. DEFAULT: \code{rdwd:::\link{metaIndex}}}
 
 \item{findex}{Single object: Index used to select filename, as returned by
 \code{\link{index2df}}.To use a current / custom index, use
@@ -97,11 +93,12 @@ Then selectDWD will return the name of the station description file at \bold{pat
 This is why case 3 with \code{meta=FALSE} only returns the data file names (ending in .zip).
 }
 \examples{
-\dontrun{
 # Give weather station name (must be existing in metaIndex):
+findID("Potsdam", exactmatch=FALSE)
 selectDWD("Potsdam", res="daily", var="kl", time="historical")
-# all names containing "Hamburg":
-tail(  selectDWD("Hamburg", exactmatch=FALSE)   )
+# all files for all stations matching "Koeln":
+selectDWD("Koeln", exactmatch=FALSE)
+findID("Koeln", FALSE)
 
 # or directly give station ID:
 selectDWD(id="00386", res="daily", var="kl", time="historical")
@@ -120,13 +117,13 @@ selectDWD(id="01050", res=c("daily","monthly"), var="kl", time=c("r","h"))
 # all zip files in all paths matching id:
 selectDWD(id=c(1050, 386))
 # all zip files in a given path (if ID is empty):
-head(  selectDWD(res="daily", var="kl", time="recent")   )
+head(  selectDWD(id="", res="daily", var="kl", time="recent")   )
 
 # See if warnings come as expected and are informative:
 selectDWD()
 selectDWD(7777)
 selectDWD(id=7777)
-selectDWD(res="dummy", var="dummy")
+selectDWD(id="", res="dummy", var="dummy")
 selectDWD(res="dummy")
 selectDWD(res="daily", time="r")
 selectDWD(res="daily", var="kl")
@@ -134,11 +131,10 @@ selectDWD(id="01050", res=c("daily","monthly"), var="kl") # needs 'time'
 selectDWD(id="00386", meta=TRUE)
 
 selectDWD("Potsdam", res="daily", var="solar")
-selectDWD(id="Potsdam", res="daily", var="solar") # ToDo: make this a warning?
+# should be an error:
+berryFunctions::is.error(  selectDWD(id="Potsdam", res="daily", var="solar"), TRUE)
+berryFunctions::is.error(  selectDWD(id="", current=TRUE) , tell=TRUE, force=TRUE)
 
-berryFunctions::is.error(  selectDWD(current=TRUE) , tell=TRUE, force=TRUE) # should be an error
-
-}
 
 }
 \author{

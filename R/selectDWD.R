@@ -27,11 +27,12 @@
 #' @keywords file
 #' @export
 #' @examples
-#' \dontrun{
 #' # Give weather station name (must be existing in metaIndex):
+#' findID("Potsdam", exactmatch=FALSE)
 #' selectDWD("Potsdam", res="daily", var="kl", time="historical")
-#' # all names containing "Hamburg":
-#' tail(  selectDWD("Hamburg", exactmatch=FALSE)   )
+#' # all files for all stations matching "Koeln":
+#' selectDWD("Koeln", exactmatch=FALSE)
+#' findID("Koeln", FALSE)
 #'
 #' # or directly give station ID:
 #' selectDWD(id="00386", res="daily", var="kl", time="historical")
@@ -50,13 +51,13 @@
 #' # all zip files in all paths matching id:
 #' selectDWD(id=c(1050, 386))
 #' # all zip files in a given path (if ID is empty):
-#' head(  selectDWD(res="daily", var="kl", time="recent")   )
+#' head(  selectDWD(id="", res="daily", var="kl", time="recent")   )
 #'
 #' # See if warnings come as expected and are informative:
 #' selectDWD()
 #' selectDWD(7777)
 #' selectDWD(id=7777)
-#' selectDWD(res="dummy", var="dummy")
+#' selectDWD(id="", res="dummy", var="dummy")
 #' selectDWD(res="dummy")
 #' selectDWD(res="daily", time="r")
 #' selectDWD(res="daily", var="kl")
@@ -64,23 +65,20 @@
 #' selectDWD(id="00386", meta=TRUE)
 #'
 #' selectDWD("Potsdam", res="daily", var="solar")
-#' selectDWD(id="Potsdam", res="daily", var="solar") # ToDo: make this a warning?
+#' # should be an error:
+#' berryFunctions::is.error(  selectDWD(id="Potsdam", res="daily", var="solar"), TRUE)
+#' berryFunctions::is.error(  selectDWD(id="", current=TRUE) , tell=TRUE, force=TRUE)
 #'
-#' berryFunctions::is.error(  selectDWD(current=TRUE) , tell=TRUE, force=TRUE) # should be an error
 #'
-#' }
-#'
-#' @param name  Char: station name that will be matched in \code{mindex} to obtain
-#'              \bold{id}. Ignored if \code{id} is given. DEFAULT: ""
-#' @param exactmatch Logical: Should \code{name} match an entry in \code{mindex}
-#'              exactly (be \code{\link{==}})?
-#'              If FALSE, \code{name} may be a part of \code{mindex$Stationsname},
-#'              as checked with \code{\link{grepl}}. This is useful e.g. to get
-#'              all stations starting with a name (e.g. 42 IDs for Berlin).
-#'              DEFAULT: TRUE
+#' @param name  Char: station name(s) passed to \code{\link{findID}}, along with the
+#'              next two arguments. All ignored if \code{id} is given. DEFAULT: ""
+#' @param exactmatch Logical passed to \code{\link{findID}}: match \code{name}
+#'              with \code{\link{==}})? Else with \code{\link{grepl}}. DEFAULT: TRUE
+#' @param mindex Single object: Index with metadata passed to \code{\link{findID}}.
+#'              DEFAULT: \code{rdwd:::\link{metaIndex}}
 #' @param id    Char/Number: station ID with or without leading zeros, e.g. "00614" or 614.
 #'              Is internally converted to an integer, because some DWD meta data
-#'              Files also contain no leading zeros. DEFAULT: ""
+#'              files also contain no leading zeros. DEFAULT: findID(name)
 #' @param base  Single char: main directory of DWD ftp server, defaulting to
 #'              observed climatic records.
 #'              Must be the same \code{base} used to create \code{findex}.
@@ -99,8 +97,6 @@
 #'              "historical" (long time series). Can be abbreviated (if the first
 #'              letter is "r" or "h", full names are used).
 #'              Is set to "" if var=="solar". DEFAULT: ""
-#' @param mindex Single object: Index used to select \code{id} if \code{name}
-#'              is given. DEFAULT: \code{rdwd:::\link{metaIndex}}
 #' @param findex Single object: Index used to select filename, as returned by
 #'              \code{\link{index2df}}.To use a current / custom index, use
 #'              \code{myIndex <- index2df(indexDWD("/daily/solar"))}
@@ -121,12 +117,12 @@
 selectDWD <- function(
 name="",
 exactmatch=TRUE,
-id="",
+mindex=rdwd:::metaIndex,
+id=findID(name, exactmatch=exactmatch, mindex=mindex),
 base="ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
 res="",
 var="",
 time="",
-mindex=rdwd:::metaIndex,
 findex=rdwd:::fileIndex,
 current=FALSE,
 meta=FALSE,
@@ -136,12 +132,10 @@ outvec=FALSE,
 {
 # Input checks and processing:
 findexname <- deparse(substitute(findex))
-len <- max(length(name), length(id), length(res), length(var), length(time)  )
+len <- max(length(id), length(res), length(var), length(time), length(meta)  )
 # recycle input vectors
 if(len>1)
   {
-  exactmatch <- rep(exactmatch, length.out=len)
-  name    <- rep(name,   length.out=len)
   id      <- rep(id,     length.out=len)
   res     <- rep(res,    length.out=len)
   var     <- rep(var,    length.out=len)
@@ -165,6 +159,9 @@ if(current)
   findex <- index2df(indexDWD(uniquepaths, ...), filename="")
   findexname <- "currentIndex"
   }
+# check ids for accidental letters:
+idlett <- grepl("[A-Za-z]", id)
+if(any(idlett)) stop("id may not contain letters: ", toString(id[idlett]))
 # convert ID to integer:
 id <- suppressWarnings(as.integer(id))
 findex$id <- suppressWarnings(as.integer(findex$id))
@@ -175,26 +172,8 @@ findex$id <- suppressWarnings(as.integer(findex$id))
 output <- lapply(seq_len(len), function(i)
 {
 # ------------------------------------------------------------------------------
-# infer id from name if id=="" and name!="":
-id.i <- id[i]
-if(is.na(id.i) & name[i]!="")
-  {
-  select <- if(exactmatch[i]) mindex$Stationsname==name[i] else
-                              grepl(name[i], mindex$Stationsname)
-  id.i <- unique(mindex[select, "Stations_id"])
-  # warn about length
-  if(length(id.i)<1) warning("in selectDWD: no ID could be determined from name '",
-                             name[i], "'.", call.=FALSE)
-  if(length(id.i)>1) warning("in selectDWD: ID determined from name '",
-                             name[i], "' has ", length(id.i), " elements (",
-                             toString(sort(id.i)), ").", call.=FALSE)
-  }
-# warning message preparation:
-ids <- if(length(id.i)<3) toString(id.i) else
-                   paste0(toString(id.i[1:2]), ", ... (", length(id.i)-2, " more)")
-# ------------------------------------------------------------------------------
 # cases (as in description)
-givenid <- !is.na(id.i[1]) # only using first result if previous step returns several
+givenid <- !is.na(id[i])
 givenpath <- res[i]!="" & var[i]!="" # ignore time, because of var=solar possibility (no time)
 #
 # 1: id and path are both empty ------------------------------------------------
@@ -210,15 +189,15 @@ if(!givenid & !givenpath)
 if(givenid & !givenpath)
   {
   if(meta[i]) warning("in selectDWD: meta is ignored if id is given, but path is not given.", call.=FALSE)
-  filename <- findex[findex$id %in% id.i, "path"]
+  filename <- findex[findex$id %in% id[i], "path"]
   filename <- filename[!is.na(filename)]
   # check output length
   if(length(filename)<1) warning("in selectDWD: in file index '", findexname,
                                  "', no filename could be detected with ID ",
-                                 ids, ".", call.=FALSE)
+                                 id[i], ".", call.=FALSE)
   if(length(filename)>1) warning("in selectDWD: in file index '", findexname,
                                  "', there are ", length(filename), " files with ID ",
-                                 ids, ".", call.=FALSE)
+                                 id[i], ".", call.=FALSE)
   return(   paste0(base, filename)   )
   }
 #
@@ -249,17 +228,17 @@ if(!givenid & givenpath & !meta[i])
   filename <- findex[sel,"path"]
   if(length(filename)<1) warning("in selectDWD: According to file index '",
                                  findexname, "', there is no file in '", path,
-                                 "' with ID ", ids, ".", call.=FALSE)
+                                 "' with ID ", id[i], ".", call.=FALSE)
   return(   paste0(base, filename)   )
   }
 # 4: id and path are both given ------------------------------------------------
 # regular single data file name
 if(givenid & givenpath & !meta[i])
   {
-  sel <- sel & sapply(findex$id %in% id.i, isTRUE)
+  sel <- sel & findex$id %in% id[i] # todo remove: sapply(findex$id %in% id[i], isTRUE)
   if(sum(sel)==0) warning("in selectDWD: According to file index '",findexname,
                           "', there is no file in '", path, "' with ID ",
-                          ids, ".", call.=FALSE)
+                          id[i], ".", call.=FALSE)
   filename <- findex[sel,"path"]
   if(length(filename)>1) warning("in selectDWD: Several files were selected: ",
                                  toString(filename), call.=FALSE)
