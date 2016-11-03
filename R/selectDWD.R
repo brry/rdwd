@@ -154,14 +154,15 @@ if(current)
   {
   uniquepaths <- unique(paste0("/",res,"/",var,"/",time))
   uniquepaths <- uniquepaths[uniquepaths!="///"]
-  if(length(uniquepaths)<1) stop("in selectDWD: current=TRUE, but no valid ",
+  if(length(uniquepaths)<1) stop("in rdwd::selectDWD: current=TRUE, but no valid ",
                                  "paths available.", call.=FALSE)
   findex <- index2df(indexDWD(uniquepaths, ...), filename="")
   findexname <- "currentIndex"
   }
 # check ids for accidental letters:
 idlett <- grepl("[A-Za-z]", id)
-if(any(idlett)) stop("id may not contain letters: ", toString(id[idlett]))
+if(any(idlett)) stop("in rdwd::selectDWD: id may not contain letters: ",
+                     toString(id[idlett]), call.=FALSE)
 # convert ID to integer:
 id <- suppressWarnings(as.integer(id))
 findex$id <- suppressWarnings(as.integer(findex$id))
@@ -180,7 +181,7 @@ givenpath <- res[i]!="" & var[i]!="" # ignore time, because of var=solar possibi
 # base + warning
 if(!givenid & !givenpath)
   {
-  warning("in selectDWD: Neither station ID nor FTP folder is given.", call.=FALSE)
+  warning("in rdwd::selectDWD: Neither station ID nor FTP folder is given.", call.=FALSE)
   # call.=FALSE to avoid uninformative  Error in FUN(X[[i]], ...) :
   return(base)
   }
@@ -188,14 +189,14 @@ if(!givenid & !givenpath)
 # all file names for station ID, regardless of path
 if(givenid & !givenpath)
   {
-  if(meta[i]) warning("in selectDWD: meta is ignored if id is given, but path is not given.", call.=FALSE)
+  if(meta[i]) warning("in rdwd::selectDWD: meta is ignored if id is given, but path is not given.", call.=FALSE)
   filename <- findex[findex$id %in% id[i], "path"]
   filename <- filename[!is.na(filename)]
   # check output length
-  if(length(filename)<1) warning("in selectDWD: in file index '", findexname,
+  if(length(filename)<1) warning("in rdwd::selectDWD: in file index '", findexname,
                                  "', no filename could be detected with ID ",
                                  id[i], ".", call.=FALSE)
-  if(length(filename)>1) warning("in selectDWD: in file index '", findexname,
+  if(length(filename)>1) warning("in rdwd::selectDWD: in file index '", findexname,
                                  "', there are ", length(filename), " files with ID ",
                                  id[i], ".", call.=FALSE)
   return(   paste0(base, filename)   )
@@ -203,7 +204,7 @@ if(givenid & !givenpath)
 #
 # Case 3 and 4 (path given) - path existence check ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 path <- paste0("/",res[i],"/",var[i],"/",time[i])
-if(all(!grepl(path, findex$path))) warning("in selectDWD: According to file index '",
+if(all(!grepl(path, findex$path))) warning("in rdwd::selectDWD: According to file index '",
        findexname, "', the path '", path, "' doesn't exist.", call.=FALSE)
 # select entries from file index:
 sel <- res[i]==findex$res & var[i]==findex$var & time[i]==findex$time
@@ -215,7 +216,7 @@ if(meta[i])
   sel <- sel & substr(findex$path, nchar(findex$path)-3, 1e4)==".txt"
   sel <- sel & grepl("Beschreibung", findex$path)
   # checks:
-  if(sum(sel)==0) warning("in selectDWD: According to file index '",findexname,
+  if(sum(sel)==0) warning("in rdwd::selectDWD: According to file index '",findexname,
                      "', there is no description file in '", path, "'.", call.=FALSE)
   filename <- findex[sel,"path"]
   return(   paste0(base, filename)   )
@@ -226,7 +227,7 @@ if(!givenid & givenpath & !meta[i])
   {
   sel <- sel & substr(findex$path, nchar(findex$path)-3, 1e4)==".zip"
   filename <- findex[sel,"path"]
-  if(length(filename)<1) warning("in selectDWD: According to file index '",
+  if(length(filename)<1) warning("in rdwd::selectDWD: According to file index '",
                                  findexname, "', there is no file in '", path,
                                  "' with ID ", id[i], ".", call.=FALSE)
   return(   paste0(base, filename)   )
@@ -236,11 +237,11 @@ if(!givenid & givenpath & !meta[i])
 if(givenid & givenpath & !meta[i])
   {
   sel <- sel & findex$id %in% id[i]
-  if(sum(sel)==0) warning("in selectDWD: According to file index '",findexname,
+  if(sum(sel)==0) warning("in rdwd::selectDWD: According to file index '",findexname,
                           "', there is no file in '", path, "' with ID ",
                           id[i], ".", call.=FALSE)
   filename <- findex[sel,"path"]
-  if(length(filename)>1) warning("in selectDWD: Several files were selected: ",
+  if(length(filename)>1) warning("in rdwd::selectDWD: Several files were selected: ",
                                  toString(filename), call.=FALSE)
   return(   paste0(base, filename)   )
   }

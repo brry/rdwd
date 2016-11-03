@@ -58,7 +58,7 @@ verbose=FALSE
 {
 # Check if RCurl is available:
 if(!requireNamespace("RCurl", quietly=TRUE))
-  stop("The R package 'RCurl' is not available. indexDWD can not obtain file list.\n",
+  stop("The R package 'RCurl' is not available. rdwd::indexDWD can not obtain file list.\n",
        "install.packages('RCurl')       to enable this.")
 # Progress bar?
 progbar <- progbar & requireNamespace("pbapply", quietly=TRUE)
@@ -79,7 +79,7 @@ while(any(!isfile))
                        verbose=verbose, ftp.use.epsv=TRUE, dirlistonly=TRUE), silent=TRUE)
     if(inherits(p, "try-error"))
       {
-      if(!quiet) warning("indexDWD: RCurl::getURL failed for '", path,
+      if(!quiet) warning("rdwd::indexDWD: RCurl::getURL failed for '", path,
                          "/' - ", p, call.=FALSE) # strsplit(p, "\n")[[1]][2]
       assign("isfile", TRUE, inherits=TRUE) # to get out of the while loop
       return(path)

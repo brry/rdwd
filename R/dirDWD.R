@@ -31,16 +31,16 @@ quiet=FALSE
 dir <- dir[1]
 if(dir=="")
   {
-  if(!quiet) message("dirDWD: no directory is created, getwd remains at '", getwd(), "'")
+  if(!quiet) message("rdwd::dirDWD: no directory is created, getwd remains at '", getwd(), "'")
   return(getwd())
   }
 #
 if(!file.exists(dir))
   {
   dir.create(dir)
-  if(!quiet) message("Creating directory '",   normalizePath(dir, winslash="/"), "'")
+  if(!quiet) message("rdwd::dirDWD: creating directory '",   normalizePath(dir, winslash="/"), "'")
   } else
-  if(!quiet) message("Adding to directory '", normalizePath(dir, winslash="/"), "'")
+  if(!quiet) message("rdwd::dirDWD: adding to directory '", normalizePath(dir, winslash="/"), "'")
 setwd(dir)
 }
 
@@ -74,9 +74,9 @@ existed <- sapply(output, "[", 1)
 existed <- as.logical(existed)
 if(!quiet)
   {
-  if(any(!existed)) message("Creating the file", if(sum(!existed)>1) "s",
+  if(any(!existed)) message("rdwd::fileDWD: creating the file", if(sum(!existed)>1) "s",
                             " '", toString(fnames[!existed]), "'")
-  if(any(existed)) message("File", if(sum(existed)>1) "s",
+  if(any(existed)) message("rdwd::fileDWD: file", if(sum(existed)>1) "s",
                            " already existed. Creating the file", if(sum(existed)>1) "s",
                             " '", toString(fnames[existed]), "'")
   }

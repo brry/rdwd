@@ -107,7 +107,7 @@ if(!all(actual == classes))
   msg <- paste0(names(actual)[actual!=classes], ": ", actual[actual!=classes],
                 " instead of ", classes[actual!=classes], ".")
   msg <- paste(msg, collapse=" ")
-  warning("in readDWD: reading file '", f,
+  warning("in rdwd::readDWD: reading file '", f,
           "' did not give the correct column classes. ", msg, call.=FALSE)
   }
 # return meta data.frame:
