@@ -3,11 +3,10 @@ rdwd ToDo-list / wishlist / issues
 - Station selection from map with metadata if clicked on point (leaflet/shiny app?)
 - for that: create metaIndexSmall with unique entries
 - update prectemp/Code_example.R and reference it in README.md
-- dataDWD:  Optinally (DEFAULT) only download if file not available in dir
 - indexDWD: strsplit(p, "\n") on LINUX necessary?
 - contemplate putting metaIndex creating code into createMetaIndex with file names as input (and rename index2df)
 - option to merge hist and recent
-- write vignette + move examples from metaIndex there
+- write vignette + move examples from metaIndex (and elsewhere) there
 - update fileIndex and metaIndex
 - just before CRAN release, change date in github compare link below
 
@@ -19,7 +18,7 @@ Any feedback is welcome, per email or on github.com/brry/rdwd
 
 Version 0.. (2016--)
 Initial release of the package, development can be seen at
-https://github.com/brry/rdwd/compare/master@{2016-10-19}...master@{2016-10-28}
+https://github.com/brry/rdwd/compare/master@{2016-10-19}...master@{2016-11-03}
 
 'indexDWD' lists all the files on the FTP server with DWD data.
 With 'index2df', it is used to create 'fileIndex', which then helps create 'metaIndex'.

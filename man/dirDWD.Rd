@@ -7,15 +7,17 @@
 \usage{
 dirDWD(dir = "DWDdata", quiet = FALSE)
 
-fileDWD(filename, quiet = FALSE)
+fileDWD(filename, quiet = FALSE, ignore = FALSE)
 }
 \arguments{
-\item{dir}{Char: writeable directory name. Created if not existent.
+\item{dir}{Char for dirDWD: writeable directory name. Created if not existent.
 DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
 
 \item{quiet}{Logical: Suppress messages about creating dir / file(s)? DEFAULT: FALSE}
 
-\item{filename}{Char (vector): for fileDWD only: file name(s).}
+\item{filename}{Char (vector) for fileDWD: file name(s).}
+
+\item{ignore}{Logical (vector) for fileDWD: Ignore file? Handy in dataDWD. DEFAULT: FALSE}
 }
 \value{
 dirDWD invisibly returns the prior working directory as per \code{\link{setwd}}.\cr
@@ -29,6 +31,12 @@ or OriginalName_2.file etc.
 }
 \examples{
 # see source code of dataDWD and metaDWD
+
+fns <- c("data", "stupiddummy", "ExampleGraph.png", "rdwd.Rproj", "README.md",
+         "stupiddummy.txtdude", "DESCRIPTION", "test_devel.R")
+fileDWD(fns)
+fileDWD(fns, ignore=TRUE)
+fileDWD(fns, ignore=rep(0:1, each=4))
 
 }
 \author{

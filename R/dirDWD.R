@@ -17,14 +17,20 @@
 #' @examples
 #' # see source code of dataDWD and metaDWD
 #'
-#' @param dir      Char: writeable directory name. Created if not existent.
+#' fns <- c("data", "stupiddummy", "ExampleGraph.png", "rdwd.Rproj", "README.md",
+#'          "stupiddummy.txtdude", "DESCRIPTION", "test_devel.R")
+#' fileDWD(fns)
+#' fileDWD(fns, ignore=TRUE)
+#' fileDWD(fns, ignore=rep(0:1, each=4))
+#'
+#' @param dir      Char for dirDWD: writeable directory name. Created if not existent.
 #'                 DEFAULT: "DWDdata" at current \code{\link{getwd}()}
-#' @param filename Char (vector): for fileDWD only: file name(s).
+#' @param filename Char (vector) for fileDWD: file name(s).
+#' @param ignore   Logical (vector) for fileDWD: Ignore file? Handy in dataDWD. DEFAULT: FALSE
 #' @param quiet    Logical: Suppress messages about creating dir / file(s)? DEFAULT: FALSE
 #'
 dirDWD <- function(
 dir="DWDdata",
-#reading=FALSE,
 quiet=FALSE
 )
 {
@@ -51,11 +57,16 @@ setwd(dir)
 
 fileDWD <- function(
 filename,
-quiet=FALSE
+quiet=FALSE,
+ignore=FALSE
 )
 {
-output <- lapply(filename, function(f)
+ignore <- rep(ignore, length.out=length(filename))
+output <- lapply(seq_along(filename), function(i)
 {
+f <- filename[i]
+if(ignore[i]) return(c(NA, f))
+#
 e2 <- tools::file_ext(f)
 if(e2!="") e2 <- paste0(".",e2)
 e1 <- tools::file_path_sans_ext(f)
@@ -74,11 +85,11 @@ existed <- sapply(output, "[", 1)
 existed <- as.logical(existed)
 if(!quiet)
   {
-  if(any(!existed)) message("rdwd::fileDWD: creating the file", if(sum(!existed)>1) "s",
-                            " '", toString(fnames[!existed]), "'")
-  if(any(existed)) message("rdwd::fileDWD: file", if(sum(existed)>1) "s",
-                           " already existed. Creating the file", if(sum(existed)>1) "s",
-                            " '", toString(fnames[existed]), "'")
+  if(isTRUE(any(!existed))) message("rdwd::fileDWD: creating the file",
+    if(sum(!existed,na.rm=TRUE)>1) "s", " '", toString(fnames[sapply(!existed,isTRUE)]), "'")
+  if(isTRUE(any( existed))) message("rdwd::fileDWD: file",
+    if(sum( existed,na.rm=TRUE)>1) "s", " already existed. Creating the file",
+    if(sum( existed,na.rm=TRUE)>1) "s", " '", toString(fnames[sapply( existed,isTRUE)]), "'")
   }
 fnames
 }

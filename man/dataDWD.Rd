@@ -4,7 +4,7 @@
 \alias{dataDWD}
 \title{Download data from the DWD CDC FTP Server}
 \usage{
-dataDWD(file, dir = "DWDdata", sleep = 0, quiet = FALSE,
+dataDWD(file, dir = "DWDdata", force = FALSE, sleep = 0, quiet = FALSE,
   progbar = !quiet, browse = FALSE, read = TRUE, meta = substr(file,
   nchar(file) - 3, 10000) == ".txt", format = NA, ...)
 }
@@ -14,6 +14,9 @@ dataDWD(file, dir = "DWDdata", sleep = 0, quiet = FALSE,
 
 \item{dir}{Char: Writeable directory name where to save the downloaded file.
 Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
+
+\item{force}{Logical: always download, even if the file already exists in \code{dir}?
+If FALSE, it is still read (or name returned). DEFAULT: FALSE}
 
 \item{sleep}{Number. If not 0, a random number of seconds between 0 and
 \code{sleep} is passed to \code{\link{Sys.sleep}} after each download
@@ -60,7 +63,15 @@ If \code{read=TRUE}, it is also read, processed and returned as a data.frame.
 # find files for a given station name and file path:
 link <- selectDWD("Kupferzell-Rechbach", res="hourly", var="precipitation", time="recent")
 # actually download and read files
-prec <- dataDWD(link)
+prec <- dataDWD(link, dir="DWDdata") # the default dir
+fname <- dataDWD(link, read=FALSE) # filename, no second download (unless force=TRUE)
+link <- c(link, selectDWD("Potsdam", res="daily", var="kl", time=c("h","r"), outvec=TRUE))
+clim <- dataDWD(link)
+fname <- dataDWD(link, read=FALSE)
+clim <- readDWD(fname)
+unzip(zipfile=paste0("DWDdata/",fname[1]), exdir="DWDdata/Testunzip")
+# There's quite some important meta information there!
+
 plot(prec$MESS_DATUM, prec$NIEDERSCHLAGSHOEHE, main="DWD hourly rain Kupferzell", col="blue",
      xaxt="n", las=1, type="l", xlab="Date", ylab="Hourly rainfall  [mm]")
 monthAxis(1, ym=T)
@@ -72,7 +83,7 @@ folder <- dataDWD(link, browse=T)
 folder
 
 # With many files, use sleep
-links <- selectDWD(res="daily", var="solar", meta=F)
+links <- selectDWD(res="daily", var="solar", meta=FALSE)
 sol <- dataDWD(links, sleep=20) # random waiting time after download (0 to 20 secs)
 
 # Real life example with data completeness check etc:

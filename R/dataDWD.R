@@ -27,7 +27,15 @@
 #' # find files for a given station name and file path:
 #' link <- selectDWD("Kupferzell-Rechbach", res="hourly", var="precipitation", time="recent")
 #' # actually download and read files
-#' prec <- dataDWD(link)
+#' prec <- dataDWD(link, dir="DWDdata") # the default dir
+#' fname <- dataDWD(link, read=FALSE) # filename, no second download (unless force=TRUE)
+#' link <- c(link, selectDWD("Potsdam", res="daily", var="kl", time=c("h","r"), outvec=TRUE))
+#' clim <- dataDWD(link)
+#' fname <- dataDWD(link, read=FALSE)
+#' clim <- readDWD(fname)
+#' unzip(zipfile=paste0("DWDdata/",fname[1]), exdir="DWDdata/Testunzip")
+#' # There's quite some important meta information there!
+#'
 #' plot(prec$MESS_DATUM, prec$NIEDERSCHLAGSHOEHE, main="DWD hourly rain Kupferzell", col="blue",
 #'      xaxt="n", las=1, type="l", xlab="Date", ylab="Hourly rainfall  [mm]")
 #' monthAxis(1, ym=T)
@@ -39,7 +47,7 @@
 #' folder
 #'
 #' # With many files, use sleep
-#' links <- selectDWD(res="daily", var="solar", meta=F)
+#' links <- selectDWD(res="daily", var="solar", meta=FALSE)
 #' sol <- dataDWD(links, sleep=20) # random waiting time after download (0 to 20 secs)
 #'
 #' # Real life example with data completeness check etc:
@@ -51,6 +59,8 @@
 #'               \code{\link{selectDWD}}. Can be a vector with several filenames.
 #' @param dir    Char: Writeable directory name where to save the downloaded file.
 #'               Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}
+#' @param force  Logical: always download, even if the file already exists in \code{dir}?
+#'               If FALSE, it is still read (or name returned). DEFAULT: FALSE
 #' @param sleep  Number. If not 0, a random number of seconds between 0 and
 #'               \code{sleep} is passed to \code{\link{Sys.sleep}} after each download
 #'               to avoid getting kicked off the FTP-Server. DEFAULT: 0
@@ -73,6 +83,7 @@
 dataDWD <- function(
 file,
 dir="DWDdata",
+force=FALSE,
 sleep=0,
 quiet=FALSE,
 progbar=!quiet,
@@ -86,7 +97,7 @@ format=NA,
 if(!is.atomic(file)) stop("file must be a vector, not a ", class(file))
 if(!is.character(file)) stop("file must be char, not ", class(file))
 if(missing(progbar) & length(file)==1) progbar <- FALSE
-# be safe for accidental vector input:
+# be safe from accidental vector input:
 dir     <- dir[1]
 progbar <- progbar[1]
 sleep   <- sleep[1]
@@ -107,13 +118,21 @@ on.exit(setwd(owd))
 # output file name(s)
 outfile <- gsub("ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/", "", file)
 outfile <- gsub("/", "_", outfile)
-outfile <- fileDWD(outfile, quiet=quiet)
+dontdownload <- file.exists(outfile) & !force
+if( any(dontdownload)  )
+  {
+  fff <- if(sum(dontdownload)>1) c(paste(sum(dontdownload),"files"),"are") else c("file","is")
+  message("rdwd::dataDWD: the following ", fff[1], " already existed and ",
+          fff[2], " not downloaded again: ", toString(outfile[dontdownload]))
+  }
+outfile <- fileDWD(outfile, quiet=quiet, ignore=dontdownload )
 # Optional progress bar:
 progbar <- progbar & requireNamespace("pbapply", quietly=TRUE)
 if(progbar) lapply <- pbapply::pblapply
 # ------------------------------------------------------------------------------
 # loop over each filename
 dummy <- lapply(seq_along(file), function(i)
+  if(!dontdownload[i])
   {
   # Actual file download:
   download.file(url=file[i], destfile=outfile[i], quiet=TRUE, ...)
