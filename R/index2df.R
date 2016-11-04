@@ -41,7 +41,7 @@ index <- ifelse(substr(index,1,1)=="/", substr(index,2,1e4), index)
 # split into parts:
 index <- l2df(lapply(index,function(x) strsplit(x,"/")[[1]]))
 # check if there are actually 4 columns (might be different with non-standard base)
-if(ncol(index)!=4) stop("index does not habe 4 columns, but ", ncol(index))
+if(ncol(index)!=4) stop("index does not have 4 columns, but ", ncol(index))
 colnames(index) <- c("res","var","time","file")
 file <- index$file
 index <- index[,1:3]

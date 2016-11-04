@@ -70,9 +70,7 @@ output <- lapply(seq_len(len), function(i)
   if(length(id)>1) warning("in rdwd::findID: ID determined from name '",
                              name[i], "' has ", length(id), " elements (",
                              toString(sort(id)), ").", call.=FALSE)
-  ## warning message preparation:
-  #ids <- if(length(id.i)<3) toString(id.i) else
-  #                   paste0(toString(id.i[1:2]), ", ... (", length(id.i)-2, " more)")
+  # ID names:
   names(id) <- mindex[ match(id, mindex$Stations_id), "Stationsname" ]
   id
   }) # loop end
