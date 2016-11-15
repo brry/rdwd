@@ -31,6 +31,9 @@
 #'               If NULL, no conversion is performed (date stays a factor).
 #'               If NA, \code{readDWD} tries to find suitable format based
 #'               on the number of characters. DEFAULT: NA
+#' @param tz     Char (vector): time zone for \code{\link{as.POSIXct}}.           
+#'               "" is the current time zone, and "GMT" is UTC (Universal Time, 
+#'               Coordinated). DEFAULT: "GMT"
 #' @param progbar Logical: present a progress bar with estimated remaining time?
 #'               If missing and length(file)==1, progbar is internally set to FALSE.
 #'               Only works if the R package \code{pbapply} is available. DEFAULT: TRUE (!quiet)
@@ -40,16 +43,18 @@ file,
 dir="DWDdata",
 meta=substr(file, nchar(file)-3, 1e4)==".txt",
 format=NA,
+tz="GMT",
 progbar=TRUE
 )
 {
-# recycle meta and format
+# recycle meta, format and tz
 len <- length(file)
 if(missing(progbar) & len==1) progbar <- FALSE
 if(len>1)
   {
   meta   <- rep(meta,   length.out=len)
   format <- rep(format, length.out=len)
+  tz     <- rep(tz,     length.out=len)
   }
 # set directory from which to read downloaded data
 owd <- dirDWD(dir, quiet=TRUE)
@@ -57,12 +62,12 @@ on.exit(setwd(owd))
 # Optional progress bar:
 progbar <- progbar & requireNamespace("pbapply", quietly=TRUE)
 if(progbar) lapply <- pbapply::pblapply
+#
+checkFile(file)
 # loop over each filename
 output <- lapply(seq_along(file), function(i)
 {
-# file check, type selection:
 f <- file[i]
-checkFile(f)
 if(!meta[i]) # if data ---------------------------------------------------------
 {
 # temporary unzipping directory
@@ -71,8 +76,6 @@ unzip(f, exdir=exdir)
 on.exit(unlink(exdir, recursive=TRUE))
 # new filename - the actual data file:
 f <- dir(exdir, pattern="produkt*", full.names=TRUE)
-###if(length(f)!=1) warning("There is more/less than 1 'produkt*' f in ", exdir,
-###                            ":\n", toString(f), "\nOnly the first one is used.")
 # Actually read data
 dat <- read.table(f, na.strings=na9(), header=TRUE, sep=";", as.is=FALSE)
 # process time-stamp:
@@ -80,7 +83,7 @@ dat <- read.table(f, na.strings=na9(), header=TRUE, sep=";", as.is=FALSE)
 if(!is.null(format[i]) & "MESS_DATUM" %in% colnames(dat))
   {
   if(is.na(format[i])) format <- if(nchar(dat$MESS_DATUM[1])==8) "%Y%m%d" else "%Y%m%d%H"
-  dat$MESS_DATUM <- as.POSIXct(as.character(dat$MESS_DATUM), format=format)
+  dat$MESS_DATUM <- as.POSIXct(as.character(dat$MESS_DATUM), format=format, tz=tz[i])
   }
 # return dataset:
 return(dat)

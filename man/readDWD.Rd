@@ -5,7 +5,7 @@
 \title{Process data from the DWD CDC FTP Server}
 \usage{
 readDWD(file, dir = "DWDdata", meta = substr(file, nchar(file) - 3, 10000)
-  == ".txt", format = NA, progbar = TRUE)
+  == ".txt", format = NA, tz = "GMT", progbar = TRUE)
 }
 \arguments{
 \item{file}{Char (vector): name(s) of the file(s) downloaded with \code{\link{dataDWD}},
@@ -25,6 +25,10 @@ to convert the date/time column to POSIX time format.\cr
 If NULL, no conversion is performed (date stays a factor).
 If NA, \code{readDWD} tries to find suitable format based
 on the number of characters. DEFAULT: NA}
+
+\item{tz}{Char (vector): time zone for \code{\link{as.POSIXct}}.
+"" is the current time zone, and "GMT" is UTC (Universal Time, 
+Coordinated). DEFAULT: "GMT"}
 
 \item{progbar}{Logical: present a progress bar with estimated remaining time?
 If missing and length(file)==1, progbar is internally set to FALSE.
