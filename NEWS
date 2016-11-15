@@ -7,7 +7,9 @@ rdwd ToDo-list / wishlist / issues
 - contemplate putting metaIndex creating code into createMetaIndex with file names as input (and rename index2df)
 - option to merge hist and recent
 - write vignette + move examples from metaIndex (and elsewhere) there
+- fileDWD: message how many files are written, truncate after (new argument) ntrunc=3
 - update fileIndex and metaIndex
+- translations for colnames
 - just before CRAN release, change date in github compare link below
 
 ---------------------------------------
