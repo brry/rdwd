@@ -1,4 +1,5 @@
 # rdwd
+### intro
 Select and download climate data from the DWD (German Weather Service) FTP Server.
 
 The German weather service (Deutscher Wetterdienst, DWD) has over 25 thousand
@@ -21,13 +22,13 @@ I expect to have run enough tests by late November...
 Any feedback is now particularly welcome! File an issue here or send me a message (berry-b@gmx.de).
 
 **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/), seen [here](https://github.com/isaacs/github/issues/215)*
-* [Installation](#installation)
-* [Basic usage](#basic-usage)
-* [More details](#more-details)
-* [Plotting](#plotting)
-* [Installation troubleshooting](#installation-troubleshooting)
+* [installation](#installation)
+* [basic usage](#basic-usage)
+* [more details](#more-details)
+* [plotting](#plotting)
+* [Installation troubleshooting](#trouble)
 
-### Installation
+### installation
 
 ```R
 install.packages("berryFunctions") # rdwd depends on this package
@@ -42,7 +43,7 @@ library(rdwd)
 ?rdwd
 ```
 
-### Basic usage
+### basic usage
 
 ```R
 link <- selectDWD("Potsdam", res="daily", var="kl", time="recent")
@@ -74,7 +75,7 @@ For example: Tucheim (5116) is listed in the monthly/more\_precip/recent metadat
 <ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/monthly/more_precip/recent/RR_Monatwerte_Beschreibung_Stationen.txt>, but actually has no file there.
 Filenames in the last output suggest that the historical time series run until 2006, but the file name may be inaccurate.
 
-### More details
+### more details
 
 ```R
 # metadata:
@@ -94,7 +95,7 @@ funet <- indexDWD(base="ftp://ftp.funet.fi/pub/standards/RFC/ien")
 p <- RCurl::getURL("ftp://ftp.funet.fi/pub/standards/RFC/ien",
                        verbose=T, ftp.use.epsv=TRUE, dirlistonly=TRUE)
 ```
-### Plotting
+### plotting
 
 ```R
 png("ExampleGraph.png", width=4, height=3, units="in", res=150)
@@ -105,7 +106,7 @@ dev.off()
 ```
 ![ExampleGraph](https://github.com/brry/rdwd/blob/master/ExampleGraph.png)
 
-### Installation troubleshooting
+### trouble
 
 If direct installation from CRAN doesn't work, your R version might be too old. In that case, an update is really recommendable: [r-project.org](http://www.r-project.org/). If you can't update R, try installing from source (github) via `instGit` or devtools as mentioned above. If that's not possible either, here's a manual workaround:
 click on **Clone or Download -> Download ZIP** (topright, [link](https://github.com/brry/rdwd/archive/master.zip)), unzip the file to some place, then
