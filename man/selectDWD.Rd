@@ -47,8 +47,8 @@ letter is "r" or "h", full names are used).
 Is set to "" if var=="solar". DEFAULT: ""}
 
 \item{findex}{Single object: Index used to select filename, as returned by
-\code{\link{index2df}}.To use a current / custom index, use
-\code{myIndex <- index2df(indexDWD("/daily/solar"))}
+\code{\link{createIndex}}.To use a current / custom index, use
+\code{myIndex <- createIndex(indexDWD("/daily/solar"))}
 (with desired path, of course). DEFAULT: \code{rdwd:::\link{fileIndex}}}
 
 \item{current}{Single logical for case 3/4 with given \code{path}: instead of

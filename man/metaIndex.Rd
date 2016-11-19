@@ -16,7 +16,7 @@ Deutscher WetterDienst / Climata Data Center  FTP Server
 A data.frame with the contents of all the station description files
 (..._Beschreibung_Stationen.txt) in the folders hourly, daily and monthly at
 \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/}.
-Created with \code{\link{index2df}} in the last section of
+Created with \code{\link{createIndex}} in the last section of
 \url{https://github.com/brry/rdwd/blob/master/R/rdwd-package.R}
 In functions, you can access it with \code{rdwd:::metaIndex}.
 }
