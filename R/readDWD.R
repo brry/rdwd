@@ -31,8 +31,8 @@
 #'               If NULL, no conversion is performed (date stays a factor).
 #'               If NA, \code{readDWD} tries to find suitable format based
 #'               on the number of characters. DEFAULT: NA
-#' @param tz     Char (vector): time zone for \code{\link{as.POSIXct}}.           
-#'               "" is the current time zone, and "GMT" is UTC (Universal Time, 
+#' @param tz     Char (vector): time zone for \code{\link{as.POSIXct}}.
+#'               "" is the current time zone, and "GMT" is UTC (Universal Time,
 #'               Coordinated). DEFAULT: "GMT"
 #' @param progbar Logical: present a progress bar with estimated remaining time?
 #'               If missing and length(file)==1, progbar is internally set to FALSE.
@@ -78,8 +78,15 @@ on.exit(unlink(exdir, recursive=TRUE))
 f <- dir(exdir, pattern="produkt*", full.names=TRUE)
 # Actually read data
 dat <- read.table(f, na.strings=na9(), header=TRUE, sep=";", as.is=FALSE)
-# process time-stamp:
-# http://stackoverflow.com/questions/13022299/specify-date-format-for-colclasses-argument-in-read-table-read-csv/13022441#13022441
+##
+## # The alternative would be to use
+## fn <- unzip(f, list=TRUE)
+## fn <- fn$Name[grep(pattern="produkt", x=fn$Name)]
+## dat <- read.table(unz(f,fn), na.strings=na9(), header=TRUE, sep=";", as.is=FALSE)
+## # but it is not faster and introduces incomplete NA rows at the data.frame end
+## # and also removes the opportunity to potentially add an argument cleanup=FALSE
+##
+# process time-stamp: http://stackoverflow.com/a/13022441
 if(!is.null(format[i]) & "MESS_DATUM" %in% colnames(dat))
   {
   if(is.na(format[i])) format <- if(nchar(dat$MESS_DATUM[1])==8) "%Y%m%d" else "%Y%m%d%H"
@@ -105,6 +112,7 @@ colnames(stats) <- strsplit(oneline[1], " ")[[1]]
 # check classes:
 classes <- c("integer", "integer", "integer", "integer", "numeric", "numeric", "factor", "factor")
 actual <- sapply(stats, class)
+if(actual[4]=="numeric") classes[4] <- "numeric"
 if(!all(actual == classes))
   {
   msg <- paste0(names(actual)[actual!=classes], ": ", actual[actual!=classes],

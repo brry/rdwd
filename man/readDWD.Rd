@@ -27,7 +27,7 @@ If NA, \code{readDWD} tries to find suitable format based
 on the number of characters. DEFAULT: NA}
 
 \item{tz}{Char (vector): time zone for \code{\link{as.POSIXct}}.
-"" is the current time zone, and "GMT" is UTC (Universal Time, 
+"" is the current time zone, and "GMT" is UTC (Universal Time,
 Coordinated). DEFAULT: "GMT"}
 
 \item{progbar}{Logical: present a progress bar with estimated remaining time?
