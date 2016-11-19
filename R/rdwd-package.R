@@ -1,13 +1,16 @@
 # documentation of package and both Index datasets + viewIndex
 
+
+# package documentation --------------------------------------------------------
+
 #' Download Climate Data from DWD (German Weather Service)
 #'
 #' Select weather data from the DWD (Deutscher Wetterdienst) with
 #' \code{\link{selectDWD}}, which uses \code{\link{fileIndex}} and
 #' \code{\link{findID}} (which uses \code{\link{metaIndex}}).
-#' The Index objects are created with \code{\link{indexDWD}} and \code{\link{index2df}}.\cr
+#' The Index objects are created with \code{\link{indexDWD}} and \code{\link{createIndex}}.\cr
 #' Download and process data sets with \code{\link{dataDWD}} and \code{\link{readDWD}}.
-#' code{\link{dirDWD}} and code{\link{fileDWD}} make sure no file is overwritten and give useful messages.\cr
+#' \code{\link{dirDWD}} and \code{\link{fileDWD}} make sure no file is overwritten and give useful messages.\cr
 #' For an introduction to the package, see \url{https://github.com/brry/rdwd#rdwd}
 #'
 #' @details The following folders are available (and a few more at the \code{res} level) at
@@ -17,8 +20,10 @@
 #' \tabular{lll}{
 #' \code{res}=\bold{hourly} \tab | \code{res}=\bold{daily} \tab | \code{res}=\bold{monthly} \cr
 #' \code{var=} \tab \tab \cr
-#' air_temperature <  \tab | kl <               \tab | kl <          \cr
-#' cloudiness <       \tab | more_precip <      \tab | more_precip < \cr
+#'                    \tab | kl <               \tab | kl <          \cr
+#'                    \tab | more_precip <      \tab | more_precip < \cr
+#' air_temperature <  \tab |                    \tab |               \cr
+#' cloudiness <       \tab |                    \tab |               \cr
 #' precipitation <    \tab |                    \tab |               \cr
 #' pressure <         \tab |                    \tab |               \cr
 #' sun <              \tab |                    \tab |               \cr
@@ -48,12 +53,13 @@ NULL
 
 
 
+# fileIndex --------------------------------------------------------------------
 
 #' Files available on the DWD CDC FTP server
 #'
 #' A data.frame with the filenames with path starting at the default \code{base} value:
 #' \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/}.
-#' Created with \code{\link{index2df}} in the last section of
+#' Created with \code{\link{createIndex}} in the last section of
 #' \url{https://github.com/brry/rdwd/blob/master/R/rdwd-package.R}
 #' In functions, you can access it with \code{rdwd:::fileIndex}.
 #'
@@ -81,13 +87,14 @@ data(fileIndex, envir=environment())
 
 
 
+# metaIndex --------------------------------------------------------------------
 
 #' station info (meta data) available on the DWD CDC FTP server
 #'
 #' A data.frame with the contents of all the station description files
 #' (..._Beschreibung_Stationen.txt) in the folders hourly, daily and monthly at
 #' \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/}.
-#' Created with \code{\link{index2df}} in the last section of
+#' Created with \code{\link{createIndex}} in the last section of
 #' \url{https://github.com/brry/rdwd/blob/master/R/rdwd-package.R}
 #' In functions, you can access it with \code{rdwd:::metaIndex}.
 #'
@@ -143,6 +150,7 @@ data(metaIndex, envir=environment())
 
 
 
+# viewIndex --------------------------------------------------------------------
 
 #' View fileIndex and metaIndex
 #'
@@ -155,66 +163,27 @@ viewIndex <- function() {View(fileIndex); View(metaIndex)}
 
 
 
-
+# create / update Indexes ------------------------------------------------------
 
 if(FALSE){
+# dwdfiles <- indexDWD(sleep=30) # commented out to prevent accidental calling
+# dwdfiles <- indexDWD(dwdfiles, sleep=30) # potentially needed several times if sleep small
+dwdfiles <- readLines("DWDdata/INDEX_of_DWD_.txt") # 25'631 elements (2016-10-21)
+index <- createIndex(dwdfiles, meta=TRUE, sleep=10)
+fileIndex <- index[[1]]
+metaIndex <- index[[2]]
 
-# Here's how I produce and update   ?fileIndex    ---------------------------
-# index <- indexDWD(sleep=30) # commented out to prevent accidental calling
-# index <- indexDWD(index, sleep=30) # potentially needed several times
-index <- readLines("DWDdata/INDEX_of_DWD_.txt") # 25'631 elements (2016-10-21)
-indexcompare <- index2df(index)
-fileIndex <- read.table("DWDdata/INDEX.txt", sep="\t", header=TRUE, colClasses="character")
-stopifnot(all(fileIndex==indexcompare))
+# save and compress:
+save(fileIndex,  file="data/fileIndex.rda")
+tools::resaveRdaFiles("data/fileIndex.rda") #devtools::use_data(fileIndex, internal=TRUE)
+save(metaIndex,  file="data/metaIndex.rda")
+tools::resaveRdaFiles("data/metaIndex.rda")
 
-save(fileIndex, file="data/fileIndex.rda")
-tools::resaveRdaFiles("data/fileIndex.rda")
-#devtools::use_data(fileIndex, internal=TRUE)
-
-
-# Here's how I produce and update   ?metaIndex    ---------------------------
-fileIndex <- read.table("DWDdata/INDEX.txt", sep="\t", header=TRUE, colClasses="character")
-sel <- substr(fileIndex$path, nchar(fileIndex$path)-3, 1e4)==".txt"
-sel <- sel & grepl("Beschreibung", fileIndex$path)
-sel <- sel & fileIndex$res %in% c("monthly","daily","hourly")
-fileIndex[sel, -(4:6)]
-base <- "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate"
-#metas <- dataDWD(paste0(base,fileIndex[sel, "path"]))
-rm(base)
-metas <- readDWD(substr(gsub("/","_",fileIndex[sel, "path"]),2,1e4))
-for(i in seq_along(metas))
-{
-  metas[[i]]$res <- fileIndex[sel,  "res"][i]
-  metas[[i]]$var <- fileIndex[sel,  "var"][i]
-  metas[[i]]$time<- fileIndex[sel, "time"][i]
-}
-rm(i)
-
-# check if all files have the same column names:
-cnames <- sapply(metas, colnames)
-stopifnot(all(sapply(2:26, function(i) all(cnames[,i] == cnames[,1]))))
-rm(cnames)
-
-# merge:
-metaIndex <- Reduce(function(...) merge(..., all=T), metas)
-
-# ASCII symbols:
-convertUmlaut <- function(x)
-  {
-  x <- gsub("\U00FC","ue",gsub("\U00F6","oe",gsub("\U00E4","ae",gsub("\U00DF","ss",x))))
-  x <- gsub("\U00DC","Ue",gsub("\U00D6","Oe",gsub("\U00C4","Ae",x)))
-  x }
-metaIndex$Stationsname <- convertUmlaut(metaIndex$Stationsname)
-metaIndex$Bundesland   <- convertUmlaut(metaIndex$Bundesland)
-# iconv(metaIndex$Stationsname, to="ASCII//TRANSLIT")
-
-# sort alphabetically:
-metaIndex <- berryFunctions::sortDF(metaIndex, Stationsname, decreasing=FALSE)
-
-# add column describing whether each entry has a file
-metaComb <- paste(  metaIndex$Stations_id,  metaIndex$res, metaIndex$var, metaIndex$time, sep="/")
-fileComb <- paste(as.integer(fileIndex$id), fileIndex$res, fileIndex$var, fileIndex$time, sep="/")
-metaIndex$hasfile <- metaComb  %in% fileComb
+# check writing and reading of the files:
+fileIndex2 <- read.table("DWDdata/fileIndex.txt", sep="\t", header=TRUE, colClasses="character")
+stopifnot(all(fileIndex==fileIndex2))
+metaIndex2 <- read.table("DWDdata/metaIndex.txt", sep="\t", header=TRUE)#, colClasses="character")
+stopifnot(all(metaIndex==metaIndex2))
 
 # check coordinates:
 coord_ok <- pbsapply(unique(metaIndex$Stationsname), function(n)
@@ -226,12 +195,7 @@ coord_ok <- pbsapply(unique(metaIndex$Stationsname), function(n)
   d <- 6 # number of digits rounded to
   all(round(lat,d)==round(lat[1],d)  &  round(lon,d)==round(lon[1],d)  & ele==ele[1]  )
 })
-mean(coord_ok) # 80.7% is OK, 94.9 % with d=2, 98% with d=1
+mean(coord_ok) # 79% is OK, 94.9 % with d=2, 98% with d=1
 names(coord_ok[!coord_ok])
 
-# save and compress:
-save(metaIndex, file="data/metaIndex.rda")
-tools::resaveRdaFiles("data/metaIndex.rda")
-
 }
-
