@@ -9,9 +9,9 @@
 Select weather data from the DWD (Deutscher Wetterdienst) with
 \code{\link{selectDWD}}, which uses \code{\link{fileIndex}} and
 \code{\link{findID}} (which uses \code{\link{metaIndex}}).
-The Index objects are created with \code{\link{indexDWD}} and \code{\link{index2df}}.\cr
+The Index objects are created with \code{\link{indexDWD}} and \code{\link{createIndex}}.\cr
 Download and process data sets with \code{\link{dataDWD}} and \code{\link{readDWD}}.
-code{\link{dirDWD}} and code{\link{fileDWD}} make sure no file is overwritten and give useful messages.\cr
+\code{\link{dirDWD}} and \code{\link{fileDWD}} make sure no file is overwritten and give useful messages.\cr
 For an introduction to the package, see \url{https://github.com/brry/rdwd#rdwd}
 }
 \details{
@@ -22,8 +22,10 @@ The following folders are available (and a few more at the \code{res} level) at
 \tabular{lll}{
 \code{res}=\bold{hourly} \tab | \code{res}=\bold{daily} \tab | \code{res}=\bold{monthly} \cr
 \code{var=} \tab \tab \cr
-air_temperature <  \tab | kl <               \tab | kl <          \cr
-cloudiness <       \tab | more_precip <      \tab | more_precip < \cr
+                   \tab | kl <               \tab | kl <          \cr
+                   \tab | more_precip <      \tab | more_precip < \cr
+air_temperature <  \tab |                    \tab |               \cr
+cloudiness <       \tab |                    \tab |               \cr
 precipitation <    \tab |                    \tab |               \cr
 pressure <         \tab |                    \tab |               \cr
 sun <              \tab |                    \tab |               \cr

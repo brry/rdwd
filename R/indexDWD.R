@@ -68,13 +68,16 @@ f <- folder
 #
 # as long as f contains folders (charstrings without . ), run the following:
 isfile <- grepl(pattern=".", x=f, fixed=TRUE)
+stoppp <- FALSE
 while(any(!isfile))
   {
   isfile <- grepl(pattern=".", x=f, fixed=TRUE)
   f1 <- f[isfile] # these are finished
+  #
   f2 <- lapply(f[!isfile], function(path) # for the folders, run getURL:
     {
     # List of files at 'path':
+    if(stoppp) return(path) # do not attempt if already kicked off the FTP
     p <- try( RCurl::getURL(paste0(base,"/",path,"/"),
                        verbose=verbose, ftp.use.epsv=TRUE, dirlistonly=TRUE), silent=TRUE)
     if(inherits(p, "try-error"))
@@ -82,6 +85,7 @@ while(any(!isfile))
       if(!quiet) warning("rdwd::indexDWD: RCurl::getURL failed for '", path,
                          "/' - ", p, call.=FALSE) # strsplit(p, "\n")[[1]][2]
       assign("isfile", TRUE, inherits=TRUE) # to get out of the while loop
+      if(grepl("Access denied: 530", p)) assign("stoppp", TRUE, inherits=TRUE) # to get out of the lapply loop
       return(path)
       }
     p <- strsplit(p, "\r\n")[[1]]
@@ -89,9 +93,9 @@ while(any(!isfile))
     if(sleep!=0) Sys.sleep(runif(n=1, min=0, max=sleep))
     # complete file path:
     return(paste0(path,"/",p))
-    })
+    }) # end lapply loop
   f <- c(f1,unlist(f2))
-  }
+  } # end while loop
 # sort final results alphabetically:
 f <- sort(unlist(f, use.names=FALSE))
 # write output:
