@@ -6,7 +6,7 @@
 \usage{
 dataDWD(file, dir = "DWDdata", force = FALSE, sleep = 0, quiet = FALSE,
   progbar = !quiet, browse = FALSE, read = TRUE, meta = substr(file,
-  nchar(file) - 3, 10000) == ".txt", format = NA, ...)
+  nchar(file) - 3, 10000) == ".txt", format = NA, ntrunc = 3, ...)
 }
 \arguments{
 \item{file}{Char (vector): complete file URL(s) (including base and filename.zip) as returned by
@@ -42,7 +42,10 @@ only download is performed and the filename(s) returned. DEFAULT: TRUE}
 \item{format}{Char (vector): format used in \code{\link{strptime}} to convert date/time column,
 see \code{\link{readDWD}}. DEFAULT: NA}
 
-\item{\dots}{Further arguments passed to code{\link{download.file}}}
+\item{ntrunc}{Single integer: number of filenames printed in messages
+before they get truncated with message "(and xx more)". DEFAULT: 3}
+
+\item{\dots}{Further arguments passed to \code{\link{download.file}}}
 }
 \value{
 Presuming downloading and processing were successfull:

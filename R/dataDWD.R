@@ -78,7 +78,9 @@
 #'               \code{\link{readDWD}}. DEFAULT: TRUE for each file ending in ".txt"
 #' @param format Char (vector): format used in \code{\link{strptime}} to convert date/time column,
 #'               see \code{\link{readDWD}}. DEFAULT: NA
-#' @param \dots  Further arguments passed to code{\link{download.file}}
+#' @param ntrunc Single integer: number of filenames printed in messages
+#'               before they get truncated with message "(and xx more)". DEFAULT: 3
+#' @param \dots  Further arguments passed to \code{\link{download.file}}
 #
 dataDWD <- function(
 file,
@@ -91,6 +93,7 @@ browse=FALSE,
 read=TRUE,
 meta=substr(file, nchar(file)-3, 1e4)==".txt",
 format=NA,
+ntrunc=3,
 ...
 )
 {
@@ -121,11 +124,11 @@ outfile <- gsub("/", "_", outfile)
 dontdownload <- file.exists(outfile) & !force
 if( any(dontdownload)  )
   {
-  fff <- if(sum(dontdownload)>1) c(paste(sum(dontdownload),"files"),"are") else c("file","is")
-  message("rdwd::dataDWD: the following ", fff[1], " already existed and ",
-          fff[2], " not downloaded again: ", toString(outfile[dontdownload]))
+  message("rdwd::dataDWD: already existing and not downloaded again: ",
+          berryFunctions::truncMessage(outfile[dontdownload], ntrunc=ntrunc, prefix=" "),
+          "\nNow downloading ",sum(!dontdownload)," files...")
   }
-outfile <- fileDWD(outfile, quiet=quiet, ignore=dontdownload )
+outfile <- fileDWD(outfile, quiet=quiet, ignore=dontdownload, ntrunc=ntrunc)
 # Optional progress bar:
 progbar <- progbar & requireNamespace("pbapply", quietly=TRUE)
 if(progbar) lapply <- pbapply::pblapply

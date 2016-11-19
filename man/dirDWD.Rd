@@ -7,7 +7,7 @@
 \usage{
 dirDWD(dir = "DWDdata", quiet = FALSE)
 
-fileDWD(filename, quiet = FALSE, ignore = FALSE)
+fileDWD(filename, quiet = FALSE, ntrunc = 3, ignore = FALSE)
 }
 \arguments{
 \item{dir}{Char for dirDWD: writeable directory name. Created if not existent.
@@ -16,6 +16,9 @@ DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
 \item{quiet}{Logical: Suppress messages about creating dir / file(s)? DEFAULT: FALSE}
 
 \item{filename}{Char (vector) for fileDWD: file name(s).}
+
+\item{ntrunc}{Integer for fileDWD: Number of filenames printed in messages
+before they get truncated with message "(and xx more)". DEFAULT: 3}
 
 \item{ignore}{Logical (vector) for fileDWD: Ignore file? Handy in dataDWD. DEFAULT: FALSE}
 }
@@ -37,6 +40,8 @@ fns <- c("data", "stupiddummy", "ExampleGraph.png", "rdwd.Rproj", "README.md",
 fileDWD(fns)
 fileDWD(fns, ignore=TRUE)
 fileDWD(fns, ignore=rep(0:1, each=4))
+fileDWD(fns, ntrunc=2)
+fileDWD("ExampleGraph.png")
 
 }
 \author{

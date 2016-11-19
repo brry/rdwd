@@ -13,6 +13,7 @@
 #' @seealso \code{\link{dataDWD}}
 #' @keywords file
 #' @importFrom tools file_ext file_path_sans_ext
+#' @importFrom berryFunctions truncMessage
 #' @export
 #' @examples
 #' # see source code of dataDWD and metaDWD
@@ -22,12 +23,16 @@
 #' fileDWD(fns)
 #' fileDWD(fns, ignore=TRUE)
 #' fileDWD(fns, ignore=rep(0:1, each=4))
+#' fileDWD(fns, ntrunc=2)
+#' fileDWD("ExampleGraph.png")
 #'
 #' @param dir      Char for dirDWD: writeable directory name. Created if not existent.
 #'                 DEFAULT: "DWDdata" at current \code{\link{getwd}()}
 #' @param filename Char (vector) for fileDWD: file name(s).
 #' @param ignore   Logical (vector) for fileDWD: Ignore file? Handy in dataDWD. DEFAULT: FALSE
 #' @param quiet    Logical: Suppress messages about creating dir / file(s)? DEFAULT: FALSE
+#' @param ntrunc   Integer for fileDWD: Number of filenames printed in messages
+#'                 before they get truncated with message "(and xx more)". DEFAULT: 3
 #'
 dirDWD <- function(
 dir="DWDdata",
@@ -58,6 +63,7 @@ setwd(dir)
 fileDWD <- function(
 filename,
 quiet=FALSE,
+ntrunc=3,
 ignore=FALSE
 )
 {
@@ -85,11 +91,14 @@ existed <- sapply(output, "[", 1)
 existed <- as.logical(existed)
 if(!quiet)
   {
-  if(isTRUE(any(!existed))) message("rdwd::fileDWD: creating the file",
-    if(sum(!existed,na.rm=TRUE)>1) "s", " '", toString(fnames[sapply(!existed,isTRUE)]), "'")
-  if(isTRUE(any( existed))) message("rdwd::fileDWD: file",
-    if(sum( existed,na.rm=TRUE)>1) "s", " already existed. Creating the file",
-    if(sum( existed,na.rm=TRUE)>1) "s", " '", toString(fnames[sapply( existed,isTRUE)]), "'")
+  # message names:
+  n_n <- sum(!existed,na.rm=TRUE)
+  n_e <- sum( existed,na.rm=TRUE)
+  mnames_n <- fnames[sapply(!existed,isTRUE)]
+  mnames_e <- fnames[sapply( existed,isTRUE)]
+  if(n_n>0) message("rdwd::fileDWD: creating the file", truncMessage(mnames_n, ntrunc=ntrunc))
+  if(n_e>0) message("rdwd::fileDWD: file", if(n_e>1) "s",
+                 " already existed. Creating the file", truncMessage(mnames_e, ntrunc=ntrunc))
   }
 fnames
 }
