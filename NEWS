@@ -1,14 +1,13 @@
 
 rdwd ToDo-list / wishlist / issues
 - Station selection from map with metadata if clicked on point (leaflet/shiny app?)
-- for that: create metaIndexSmall with unique entries - decide on coordinate differences
 - update prectemp/Code_example.R and reference it in README.md
 - indexDWD: strsplit(p, "\n") on LINUX necessary?
 - option to merge hist and recent
 - write vignette + move examples from metaIndex (and elsewhere) there
-- update fileIndex and metaIndex
+- rename time to per for period in function arguments, rdwd doc, metaIndex, etc
 - translations for colnames
-- just before CRAN release, change date in github compare link below
+- just before CRAN release, change date in github compare link below and update indexes
 
 ---------------------------------------
 rdwd: DWD Climate Data access package by Berry Boessenkool, berry-b@gmx.de

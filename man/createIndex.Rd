@@ -7,7 +7,8 @@
 createIndex(paths,
   base = "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
   dir = "DWDdata", fname = "fileIndex.txt", meta = FALSE,
-  metadir = "meta", mname = "metaIndex.txt", quiet = FALSE, ...)
+  metadir = "meta", mname = "metaIndex.txt", gname = "geoIndex.txt",
+  quiet = FALSE, ...)
 }
 \arguments{
 \item{paths}{Char: vector of DWD paths returned by \code{\link{indexDWD}} called
@@ -19,7 +20,7 @@ DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}}
 \item{dir}{Char: writeable directory name where to save the main output(s).
 Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
 
-\item{fname}{Char: Name of file in \code{dir} in which to write fileIndex.
+\item{fname}{Char: Name of file in \code{dir} in which to write \code{\link{fileIndex}}.
 Use \code{fname=""} to suppress writing. DEFAULT: "fileIndex.txt"}
 
 \item{meta}{Logical: should metaIndex also be created from fileIndex?
@@ -30,8 +31,11 @@ DEFAULT: FALSE}
 description files are downloaded to if meta=TRUE. vPassed to
 \code{\link{dataDWD}}. "" to write in \code{dir}. DEFAULT: "meta"}
 
-\item{mname}{Char: Name of file in \code{dir} (not \code{metadir}) in which to write metaIndex.
+\item{mname}{Char: Name of file in \code{dir} (not \code{metadir}) in which to
+write \code{\link{metaIndex}}.
 Use \code{mname=""} to suppress writing. DEFAULT: "metaIndex.txt"}
+
+\item{gname}{Ditto for \code{\link{geoIndex}}. DEFAULT: "geoIndex.txt"}
 
 \item{quiet}{Logical: Suppress messages about directory / filename? DEFAULT: FALSE}
 
@@ -45,13 +49,23 @@ with a number of columns inferred from the paths. Each is also written to disc.
 Create data.frames out of the vector index returned by \code{\link{indexDWD}}.
 For \code{\link{fileIndex}} (the first output element) \code{createIndex}
 tries to obtain res, var, time, file, id, start and end from the paths.
-If \code{meta=TRUE}, \code{\link{metaIndex}} is also created ...
+If \code{meta=TRUE}, \code{\link{metaIndex}} is also created, which combines
+all Beschreibung files into a single data.frame.\cr
+If you create your own index as suggested in selectDWD (argument \code{findex}),
+you can read the produced file as shown in the example section.
 }
 \examples{
 # see last part of
 if(interactive())
 browseURL("https://github.com/brry/rdwd/blob/master/R/rdwd-package.R")
 # where fileIndex and metaIndex are added to the package
+
+# Read results in later:
+\dontrun{ ## files normally not yet available:
+fileIndex2 <- read.table("DWDdata/fileIndex.txt", sep="\\t", header=TRUE,
+                         colClasses="character")
+metaIndex2 <- read.table("DWDdata/metaIndex.txt", sep="\\t", header=TRUE, as.is=TRUE)
+}
 
 }
 \author{

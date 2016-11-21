@@ -4,11 +4,12 @@
 \name{metaIndex}
 \alias{metaIndex}
 \title{station info (meta data) available on the DWD CDC FTP server}
-\format{data.frame with character srings. 36'254 rows x 11 columns:
+\format{data.frame with ca 38k rows for 12 columns:
         \code{Stations_id}, \code{von_datum}, \code{bis_datum}
         \code{Stationshoehe}, \code{geoBreite}, \code{geoLaenge}
         \code{Stationsname}, \code{Bundesland},
-        \code{res}, \code{var}, \code{time} (see \code{\link{selectDWD}})}
+        \code{res}, \code{var}, \code{time} (see \code{\link{selectDWD}}),
+        \code{hasfile}}
 \source{
 Deutscher WetterDienst / Climata Data Center  FTP Server
 }
@@ -59,8 +60,12 @@ sum(metaIndex$dauer>50); mean(metaIndex$dauer>50)
 }
 
 }
+\author{
+Berry Boessenkool, \email{berry-b@gmx.de}, June-Nov 2016
+}
 \seealso{
-\code{\link{fileIndex}}, \code{\link{findID}}
+\code{\link{geoIndex}} for metadata per location,
+         \code{\link{fileIndex}}, \code{\link{findID}}
 }
 \keyword{datasets}
 

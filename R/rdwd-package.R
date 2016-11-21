@@ -35,7 +35,7 @@
 #' @name rdwd
 #' @aliases rdwd-package rdwd
 #' @docType package
-#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June-Oct 2016
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June-Nov 2016
 #' @keywords package documentation
 #' @examples
 #'
@@ -71,6 +71,7 @@ NULL
 #'         according to \code{path}.
 #' @source Deutscher WetterDienst / Climata Data Center  FTP Server
 #' @seealso \code{\link{metaIndex}}, \code{\link{indexDWD}}, \code{\link{selectDWD}}
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June-Nov 2016
 #' @keywords datasets
 #' @examples
 #'
@@ -100,13 +101,16 @@ data(fileIndex, envir=environment())
 #'
 #' @name metaIndex
 #' @docType data
-#' @format data.frame with character srings. 36'254 rows x 11 columns:
+#' @format data.frame with ca 38k rows for 12 columns:
 #'         \code{Stations_id}, \code{von_datum}, \code{bis_datum}
 #'         \code{Stationshoehe}, \code{geoBreite}, \code{geoLaenge}
 #'         \code{Stationsname}, \code{Bundesland},
-#'         \code{res}, \code{var}, \code{time} (see \code{\link{selectDWD}})
+#'         \code{res}, \code{var}, \code{time} (see \code{\link{selectDWD}}),
+#'         \code{hasfile}
 #' @source Deutscher WetterDienst / Climata Data Center  FTP Server
-#' @seealso \code{\link{fileIndex}}, \code{\link{findID}}
+#' @seealso \code{\link{geoIndex}} for metadata per location,
+#'          \code{\link{fileIndex}}, \code{\link{findID}}
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June-Nov 2016
 #' @keywords datasets
 #' @examples
 #'
@@ -150,16 +154,45 @@ data(metaIndex, envir=environment())
 
 
 
-# viewIndex --------------------------------------------------------------------
+# geoIndex --------------------------------------------------------------------
 
-#' View fileIndex and metaIndex
+#' coordinatewise station info (meta data) available on the DWD CDC FTP server
 #'
-#' Open \code{rdwd:::\link{fileIndex}} and \code{rdwd:::\link{metaIndex}} with \code{\link{View}}
+#' \code{\link{metaIndex}} distilled to geographic locations.
 #'
-#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2016
-#' @importFrom utils View
-#' @export
-viewIndex <- function() {View(fileIndex); View(metaIndex)}
+#' @name geoIndex
+#' @docType data
+#' @format data.frame with ca 7k rows for 9 columns:
+#'         \code{id}, \code{name}, \code{state}
+#'         \code{lat}, \code{long}, \code{ele}
+#'         \code{all_elev}, \code{nfiles_coord}, \code{nfiles_id}
+#' @source Deutscher WetterDienst / Climata Data Center  FTP Server
+#' @seealso \code{\link{metaIndex}}, \code{\link{createIndex}}
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June-Nov 2016
+#' @keywords datasets
+#' @examples
+#'
+#' data(geoIndex)
+#' head(geoIndex)
+#' # in functions, you can use head(rdwd:::geoIndex)
+#'
+#' # Map of all precipitation stations:
+#' if(FALSE){ ## requires extra package
+#' if(!requireNameSpace("OSMscale")) install.packages("OSMscale")
+#' library("OSMscale")
+#' map <- pointsMap(lat, long, data=geoIndex, fx=0.06, fy=0.06)
+#' pdf("DWDdata/RainfallStationsMap_nfiles.pdf", width=5)
+#' plot(map)
+#' scaleBar(map, x=0.05, y=0.03, abslen=200)
+#' geoIndex <- sortDF(geoIndex, "nfiles_coord", decreasing=FALSE)
+#' pp <- projectPoints(lat, long, data=geoIndex, to=posm())
+#' points(pp, cex=0.6)
+#' colPoints(pp$x, pp$y, geoIndex$nfiles_coord, cex=0.6, zlab="")
+#' title(main="DWD stations: number of files on ftp server", line=3)
+#' dev.off()
+#' }
+#'
+data(geoIndex, envir=environment())
 
 
 
@@ -172,18 +205,24 @@ dwdfiles <- readLines("DWDdata/INDEX_of_DWD_.txt") # 25'631 elements (2016-10-21
 index <- createIndex(dwdfiles, meta=TRUE, sleep=10)
 fileIndex <- index[[1]]
 metaIndex <- index[[2]]
+ geoIndex <- index[[3]]
 
 # save and compress:
 save(fileIndex,  file="data/fileIndex.rda")
 tools::resaveRdaFiles("data/fileIndex.rda") #devtools::use_data(fileIndex, internal=TRUE)
 save(metaIndex,  file="data/metaIndex.rda")
 tools::resaveRdaFiles("data/metaIndex.rda")
+save( geoIndex,  file="data/geoIndex.rda")
+tools::resaveRdaFiles("data/geoIndex.rda")
 
 # check writing and reading of the files:
 fileIndex2 <- read.table("DWDdata/fileIndex.txt", sep="\t", header=TRUE, colClasses="character")
 stopifnot(all(fileIndex==fileIndex2))
-metaIndex2 <- read.table("DWDdata/metaIndex.txt", sep="\t", header=TRUE)#, colClasses="character")
+metaIndex2 <- read.table("DWDdata/metaIndex.txt", sep="\t", header=TRUE, as.is=TRUE)
 stopifnot(all(metaIndex==metaIndex2))
+ geoIndex2 <- read.table("DWDdata/geoIndex.txt",  sep="\t", header=TRUE, as.is=TRUE)
+stopifnot(all( geoIndex== geoIndex2))
+
 
 # check coordinates:
 coord_ok <- pbsapply(unique(metaIndex$Stationsname), function(n)
@@ -197,5 +236,26 @@ coord_ok <- pbsapply(unique(metaIndex$Stationsname), function(n)
 })
 mean(coord_ok) # 79% is OK, 94.9 % with d=2, 98% with d=1
 names(coord_ok[!coord_ok])
+
+
+# some more checks:
+mean(metaIndex$hasfile) # 72% has a file
+length(unique(metaIndex$Stations_id)) # 5778 IDs (5660 in geoIndex)
+hist(table(metaIndex$Stations_id), breaks=100, col="cadetblue", xlab="number of entries per ID")
+
+checkdupli <- function(a,b, x=metaIndex)
+  {
+  d <- tapply(x[,a], x[,b], unique)
+  list( morethan1=d[sapply(d, length)!=1],   table=table(sapply(d, length)) )
+  }
+
+checkdupli("Bundesland", "Stationsname") # $`Holzdorf (Flugplatz)` "Sachsen-Anhalt" "Brandenburg"
+checkdupli("Stations_id", "Stationsname") # $Hoerstel 2254 15559
+checkdupli("Stationsname", "Stations_id") # 53 with 2
+
+checkdupli("name", "id", geoIndex) # 44 with 2
+
+sum(geoIndex$nfiles_coord) # 25482
+hist(geoIndex$nfiles_coord, breaks=100, col="cadetblue", xlab="number of files per location")
 
 }

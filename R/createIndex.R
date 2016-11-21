@@ -3,7 +3,10 @@
 #' Create data.frames out of the vector index returned by \code{\link{indexDWD}}.
 #' For \code{\link{fileIndex}} (the first output element) \code{createIndex}
 #' tries to obtain res, var, time, file, id, start and end from the paths.
-#' If \code{meta=TRUE}, \code{\link{metaIndex}} is also created ...
+#' If \code{meta=TRUE}, \code{\link{metaIndex}} is also created, which combines
+#' all Beschreibung files into a single data.frame.\cr
+#' If you create your own index as suggested in selectDWD (argument \code{findex}),
+#' you can read the produced file as shown in the example section.
 #'
 #' @return invisible data.frame (or if meta=TRUE, list with two data.frames)
 #' with a number of columns inferred from the paths. Each is also written to disc.
@@ -19,13 +22,20 @@
 #' browseURL("https://github.com/brry/rdwd/blob/master/R/rdwd-package.R")
 #' # where fileIndex and metaIndex are added to the package
 #'
+#' # Read results in later:
+#' \dontrun{ ## files normally not yet available:
+#' fileIndex2 <- read.table("DWDdata/fileIndex.txt", sep="\t", header=TRUE,
+#'                          colClasses="character")
+#' metaIndex2 <- read.table("DWDdata/metaIndex.txt", sep="\t", header=TRUE, as.is=TRUE)
+#' }
+#'
 #' @param paths Char: vector of DWD paths returned by \code{\link{indexDWD}} called
 #'              with the same \code{base} value as this function
 #' @param base  Main directory of DWD ftp server, defaulting to observed climatic records.
 #'              DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
 #' @param dir   Char: writeable directory name where to save the main output(s).
 #'              Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}
-#' @param fname Char: Name of file in \code{dir} in which to write fileIndex.
+#' @param fname Char: Name of file in \code{dir} in which to write \code{\link{fileIndex}}.
 #'              Use \code{fname=""} to suppress writing. DEFAULT: "fileIndex.txt"
 #' @param meta  Logical: should metaIndex also be created from fileIndex?
 #'              Uses \code{\link{dataDWD}} to download files if not present.
@@ -33,8 +43,10 @@
 #' @param metadir Char: Directory (subfolder of \code{dir}) where original
 #'              description files are downloaded to if meta=TRUE. vPassed to
 #'              \code{\link{dataDWD}}. "" to write in \code{dir}. DEFAULT: "meta"
-#' @param mname Char: Name of file in \code{dir} (not \code{metadir}) in which to write metaIndex.
+#' @param mname Char: Name of file in \code{dir} (not \code{metadir}) in which to
+#'              write \code{\link{metaIndex}}.
 #'              Use \code{mname=""} to suppress writing. DEFAULT: "metaIndex.txt"
+#' @param gname Ditto for \code{\link{geoIndex}}. DEFAULT: "geoIndex.txt"
 #' @param quiet Logical: Suppress messages about directory / filename? DEFAULT: FALSE
 #' @param \dots  Further arguments passed to \code{\link{dataDWD}} for the meta part.
 #'
@@ -46,6 +58,7 @@ fname="fileIndex.txt",
 meta=FALSE,
 metadir="meta",
 mname="metaIndex.txt",
+gname="geoIndex.txt",
 quiet=FALSE,
 ...
 )
@@ -145,6 +158,47 @@ if(mname!="")
   outfile <- fileDWD(mname, quiet=quiet)
   write.table(metaIndex, file=outfile, sep="\t", row.names=FALSE, quote=FALSE)
   }
+#
+#
+# geoIndex ---------------------------------------------------------------------
+if(!quiet) message("Creating geoIndex...")
+# metaIndex                                               Nov 2016 # 38'516 rows
+# only use entries with file, ignore date range and hasfile columns:
+geoIndex <- unique(metaIndex[metaIndex$hasfile,-c(2,3,12)])        # 25'482 rows
+# unique locations:
+geoIndex$coord <- paste(geoIndex$geoBreite, geoIndex$geoLaenge, sep="_")
+# id column
+geoIndex$id <- geoIndex$Stations_id
+# all station names:
+name <- tapply(geoIndex$Stationsname, geoIndex$coord, unique)
+name <- sapply(name, paste, collapse=" _ ")
+geoIndex$name <- name[geoIndex$coord]
+rm(name)
+# lowercase + english column name
+geoIndex$state <- geoIndex$Bundesland
+# coordinate columns
+geoIndex$lat <- geoIndex$geoBreite
+geoIndex$long <- geoIndex$geoLaenge
+# average elevation:
+geoIndex$ele <- round(as.numeric(tapply(geoIndex$Stationshoehe,
+                        geoIndex$coord, mean)[geoIndex$coord]), 2)
+# all elevation entries:
+ele <- tapply(geoIndex$Stationshoehe, geoIndex$coord, table)
+ele <- sapply(ele, function(x) paste0(names(x), "(", x, ")", collapse="_"))
+geoIndex$all_elev <- ele[geoIndex$coord]
+rm(ele)
+# nuber of files per coordinate set:
+geoIndex$nfiles_coord <- as.integer(table(geoIndex$coord)[geoIndex$coord])
+# nuber of files per ID:
+geoIndex$nfiles_id <- as.integer(table(geoIndex$Stations_id)[as.character(geoIndex$Stations_id)])
+# reduction of duplicated rows:
+geoIndex <- geoIndex[!duplicated(geoIndex$coord), 11:19]           #  6'927 rows
+# Write to disc
+if(gname!="")
+  {
+  outfile <- fileDWD(gname, quiet=quiet)
+  write.table(geoIndex, file=outfile, sep="\t", row.names=FALSE, quote=FALSE)
+  }
 # Output -----------------------------------------------------------------------
-return(invisible(list(fileIndex=fileIndex, metaIndex=metaIndex)))
+return(invisible(list(fileIndex=fileIndex, metaIndex=metaIndex, geoIndex=geoIndex)))
 }

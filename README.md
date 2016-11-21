@@ -57,7 +57,7 @@ head(clim)
 selectDWD(c("Potsdam","Wuerzburg"), res="hourly", var="sun", time="hist")
 selectDWD("Potsdam", res="daily", var="kl", time=c("r","h"), outvec=TRUE)
 
-# station metadata for a given path, with current file index (RCurl required):
+# station metadata for a given path:
 m_link <- selectDWD(res="monthly", var="more_precip", time="hist", meta=TRUE)
 m_link
 meta_monthly_rain <- dataDWD(m_link, read=TRUE)

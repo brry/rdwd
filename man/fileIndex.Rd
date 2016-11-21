@@ -28,6 +28,9 @@ head(fileIndex)
 # browseURL("http://r-pkgs.had.co.nz/data.html#data-data")
 
 }
+\author{
+Berry Boessenkool, \email{berry-b@gmx.de}, June-Nov 2016
+}
 \seealso{
 \code{\link{metaIndex}}, \code{\link{indexDWD}}, \code{\link{selectDWD}}
 }

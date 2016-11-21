@@ -48,7 +48,7 @@ climateGraph(temp, prec, main="Potsdam 1893:2015")
 
 }
 \author{
-Berry Boessenkool, \email{berry-b@gmx.de}, June-Oct 2016
+Berry Boessenkool, \email{berry-b@gmx.de}, June-Nov 2016
 }
 \keyword{documentation}
 \keyword{package}
