@@ -7,17 +7,20 @@
 \title{Download Climate Data from DWD (German Weather Service)}
 \description{
 Select weather data from the DWD (Deutscher Wetterdienst) with
-\code{\link{selectDWD}}, which uses \code{\link{fileIndex}} and
+\code{\link{selectDWD}}. Download and process data sets with
+\code{\link{dataDWD}} and \code{\link{readDWD}}.\cr
+Station selection is done offline with \code{\link{fileIndex}} and
 \code{\link{findID}} (which uses \code{\link{metaIndex}}).
 The Index objects are created with \code{\link{indexDWD}} and \code{\link{createIndex}}.\cr
-Download and process data sets with \code{\link{dataDWD}} and \code{\link{readDWD}}.
 \code{\link{dirDWD}} and \code{\link{fileDWD}} make sure no file is overwritten and give useful messages.\cr
 For an introduction to the package, see \url{https://github.com/brry/rdwd#rdwd}
 }
 \details{
-The following folders are available (and a few more at the \code{res} level) at
-\url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/}\cr
-"<" signifies a split into the folders \code{time} = "recent" and "historical".\cr
+The following folders in \bold{\code{res/var/per}} notation
+(resolution/variable/period) are available at
+\url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/}
+(and a few more at the \code{res} level).\cr
+"<" signifies a split into the folders \code{per} = "recent" and "historical".\cr
 "-" signifies that there are no further sub-folders.
 \tabular{lll}{
 \code{res}=\bold{hourly} \tab | \code{res}=\bold{daily} \tab | \code{res}=\bold{monthly} \cr
@@ -38,7 +41,7 @@ solar -            \tab | solar -            \tab |               \cr
 
 # see README.md
 
-link <- selectDWD("Potsdam", res="monthly", var="kl", time="h", current=TRUE)
+link <- selectDWD("Potsdam", res="monthly", var="kl", per="h", current=TRUE)
 clim <- dataDWD(link)
 clim$month <- substr(clim$MESS_DATUM_BEGINN,5,6)
 temp <- tapply(clim$LUFTTEMPERATUR, clim$month, mean)
@@ -49,6 +52,10 @@ climateGraph(temp, prec, main="Potsdam 1893:2015")
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, June-Nov 2016
+}
+\seealso{
+USA data: \url{https://www.rdocumentation.org/packages/countyweather},
+         \url{https://www.rdocumentation.org/packages/rnoaa}
 }
 \keyword{documentation}
 \keyword{package}

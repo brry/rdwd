@@ -6,7 +6,7 @@
 #' If that length > 1, the output is a list of filenames (or vector with \code{outvec=TRUE}).\cr
 #' If station \code{name} is given, but \code{id} is empty (""),
 #' \bold{id} is inferred via \code{mindex}.
-#' If \code{res/var/time} are given and valid (existing in \code{findex}),
+#' If \code{res/var/per} are given and valid (existing in \code{findex}),
 #' they are pasted together to form a \bold{path}.
 #' Here is an overview of the behaviour in each case of availability:
 #' \tabular{llll}{
@@ -21,7 +21,7 @@
 #' This is why case 3 with \code{meta=FALSE} only returns the data file names (ending in .zip).
 #'
 #' @return Character string with file path and name(s) in the format
-#'         "base/res/var/time/filename.zip"
+#'         "base/res/var/per/filename.zip"
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2016
 #' @seealso \code{\link{dataDWD}}
 #' @keywords file
@@ -29,29 +29,29 @@
 #' @examples
 #' # Give weather station name (must be existing in metaIndex):
 #' findID("Potsdam", exactmatch=FALSE)
-#' selectDWD("Potsdam", res="daily", var="kl", time="historical")
+#' selectDWD("Potsdam", res="daily", var="kl", per="historical")
 #' # all files for all stations matching "Koeln":
 #' selectDWD("Koeln", exactmatch=FALSE)
 #' findID("Koeln", FALSE)
 #'
 #' # or directly give station ID:
-#' selectDWD(id="00386", res="daily", var="kl", time="historical")
-#' selectDWD(id=386, res="daily", var="kl", time="historical")
-#' # time abbreviatable:
-#' selectDWD(id="00386", res="daily", var="kl", time="h")
-#' selectDWD(id="00386", res="daily", var="kl", time="h", meta=TRUE)
+#' selectDWD(id="00386", res="daily", var="kl", per="historical")
+#' selectDWD(id=386, res="daily", var="kl", per="historical")
+#' # period abbreviatable:
+#' selectDWD(id="00386", res="daily", var="kl", per="h")
+#' selectDWD(id="00386", res="daily", var="kl", per="h", meta=TRUE)
 #'
 #' # vectorizable:
-#' selectDWD(id="01050", res="daily", var="kl", time=c("r","h"))
-#' selectDWD(id="01050", res="daily", var="kl", time=c("r","h"), outvec=TRUE)
-#' selectDWD(id="01050", res=c("daily","monthly"), var="kl", time="r")
+#' selectDWD(id="01050", res="daily", var="kl", per=c("r","h"))
+#' selectDWD(id="01050", res="daily", var="kl", per=c("r","h"), outvec=TRUE)
+#' selectDWD(id="01050", res=c("daily","monthly"), var="kl", per="r")
 #' # vectorization gives not the outer product, but elementwise comparison:
-#' selectDWD(id="01050", res=c("daily","monthly"), var="kl", time=c("r","h"))
+#' selectDWD(id="01050", res=c("daily","monthly"), var="kl", per=c("r","h"))
 #'
 #' # all zip files in all paths matching id:
 #' selectDWD(id=c(1050, 386))
 #' # all zip files in a given path (if ID is empty):
-#' head(  selectDWD(id="", res="daily", var="kl", time="recent")   )
+#' head(  selectDWD(id="", res="daily", var="kl", per="recent")   )
 #'
 #' # See if warnings come as expected and are informative:
 #' selectDWD()
@@ -59,9 +59,9 @@
 #' selectDWD(id=7777)
 #' selectDWD(id="", res="dummy", var="dummy")
 #' selectDWD(res="dummy")
-#' selectDWD(res="daily", time="r")
+#' selectDWD(res="daily", per="r")
 #' selectDWD(res="daily", var="kl")
-#' selectDWD(id="01050", res=c("daily","monthly"), var="kl") # needs 'time'
+#' selectDWD(id="01050", res=c("daily","monthly"), var="kl") # needs 'per'
 #' selectDWD(id="00386", meta=TRUE)
 #'
 #' selectDWD("Potsdam", res="daily", var="solar")
@@ -83,16 +83,16 @@
 #'              observed climatic records.
 #'              Must be the same \code{base} used to create \code{findex}.
 #'              DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
-#' @param res   Char: temporal resolution available at \code{base}, usually one of
+#' @param res   Char: temporal \bold{res}olution available at \code{base}, usually one of
 #'              \code{c("hourly","daily","monthly")}, see \code{\link{rdwd}}.
-#'              \code{res/var/time} together form the \bold{path}. DEFAULT: ""
-#' @param var   Char: weather variable of interest, see \code{\link{rdwd}}. Usually one of
+#'              \code{res/var/per} together form the \bold{path}. DEFAULT: ""
+#' @param var   Char: weather \bold{var}iable of interest, see \code{\link{rdwd}}. Usually one of
 #'              \code{c("air_temperature", "cloudiness", "precipitation",
 #'                      "pressure", "sun", "wind")} (only in hourly),
 #'              \code{c("soil_temperature", "solar")} (in hourly and daily), or
 #'              \code{c("kl", "more_precip")} (in daily and monthly).
 #'              See more in \code{View(rdwd:::\link{fileIndex})}. DEFAULT: ""
-#' @param time  Char: desired time range. One of
+#' @param per   Char: desired time \bold{per}iod. One of
 #'              "recent" (data from the last year, up to date usually within a few days) or
 #'              "historical" (long time series). Can be abbreviated (if the first
 #'              letter is "r" or "h", full names are used).
@@ -103,7 +103,7 @@
 #'              (with desired path, of course). DEFAULT: \code{rdwd:::\link{fileIndex}}
 #' @param current Single logical for case 3/4 with given \code{path}: instead of
 #'              \code{findex}, use a list of the currently available files at
-#'              base/res/var/time? This will call \code{\link{indexDWD}}, thus
+#'              base/res/var/per? This will call \code{\link{indexDWD}}, thus
 #'              requires availability of the \code{RCurl} package.
 #'              DEFAULT: FALSE
 #' @param meta  Logical: return metadata txt file name instead of climate data zip file?
@@ -122,7 +122,7 @@ id=findID(name, exactmatch=exactmatch, mindex=mindex),
 base="ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
 res="",
 var="",
-time="",
+per="",
 findex=fileIndex,
 current=FALSE,
 meta=FALSE,
@@ -132,27 +132,27 @@ outvec=FALSE,
 {
 # Input checks and processing:
 findexname <- deparse(substitute(findex))
-len <- max(length(id), length(res), length(var), length(time), length(meta)  )
+len <- max(length(id), length(res), length(var), length(per), length(meta)  )
 # recycle input vectors
 if(len>1)
   {
-  id      <- rep(id,     length.out=len)
-  res     <- rep(res,    length.out=len)
-  var     <- rep(var,    length.out=len)
-  time    <- rep(time,   length.out=len)
-  meta    <- rep(meta,   length.out=len)
+  id   <- rep(id,   length.out=len)
+  res  <- rep(res,  length.out=len)
+  var  <- rep(var,  length.out=len)
+  per  <- rep(per,  length.out=len)
+  meta <- rep(meta, length.out=len)
 }
 # be safe from accidental vector input
 base <- base[1]
-# time partial matching (abbreviation):
-time[substr(time,1,1)=="h"] <- "historical"
-time[substr(time,1,1)=="r"] <- "recent"
-# solar time to ""
-time[var=="solar"] <- ""
+# per partial matching (abbreviation):
+per[substr(per,1,1)=="h"] <- "historical"
+per[substr(per,1,1)=="r"] <- "recent"
+# solar per to ""
+per[var=="solar"] <- ""
 # update file index:
 if(current)
   {
-  uniquepaths <- unique(paste0("/",res,"/",var,"/",time))
+  uniquepaths <- unique(paste0("/",res,"/",var,"/",per))
   uniquepaths <- uniquepaths[uniquepaths!="///"]
   if(length(uniquepaths)<1) stop("in rdwd::selectDWD: current=TRUE, but no valid ",
                                  "paths available.", call.=FALSE)
@@ -175,7 +175,7 @@ output <- lapply(seq_len(len), function(i)
 # ------------------------------------------------------------------------------
 # cases (as in description)
 givenid <- !is.na(id[i])
-givenpath <- res[i]!="" & var[i]!="" # ignore time, because of var=solar possibility (no time)
+givenpath <- res[i]!="" & var[i]!="" # ignore per, because of var=solar possibility (no per)
 #
 # 1: id and path are both empty ------------------------------------------------
 # base + warning
@@ -203,11 +203,11 @@ if(givenid & !givenpath)
   }
 #
 # Case 3 and 4 (path given) - path existence check ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-path <- paste0("/",res[i],"/",var[i],"/",time[i])
+path <- paste0("/",res[i],"/",var[i],"/",per[i])
 if(all(!grepl(path, findex$path))) warning("in rdwd::selectDWD: According to file index '",
        findexname, "', the path '", path, "' doesn't exist.", call.=FALSE)
 # select entries from file index:
-sel <- res[i]==findex$res & var[i]==findex$var & time[i]==findex$time
+sel <- res[i]==findex$res & var[i]==findex$var & per[i]==findex$per
 #
 # case 3 or 4 with meta=TRUE
 # return name of description txt file

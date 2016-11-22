@@ -2,7 +2,7 @@
 #'
 #' Create data.frames out of the vector index returned by \code{\link{indexDWD}}.
 #' For \code{\link{fileIndex}} (the first output element) \code{createIndex}
-#' tries to obtain res, var, time, file, id, start and end from the paths.
+#' tries to obtain res, var, pe,r file, id, start and end from the paths.
 #' If \code{meta=TRUE}, \code{\link{metaIndex}} is also created, which combines
 #' all Beschreibung files into a single data.frame.\cr
 #' If you create your own index as suggested in selectDWD (argument \code{findex}),
@@ -74,7 +74,7 @@ fileIndex <- ifelse(substr(fileIndex,1,1)=="/", substr(fileIndex,2,1e4), fileInd
 fileIndex <- l2df(lapply(fileIndex,function(x) strsplit(x,"/")[[1]]))
 # check if there are actually 4 columns (might be different with non-standard base)
 if(ncol(fileIndex)!=4) stop("index does not have 4 columns, but ", ncol(fileIndex))
-colnames(fileIndex) <- c("res","var","time","file")
+colnames(fileIndex) <- c("res","var","per","file")
 file <- fileIndex$file
 fileIndex <- fileIndex[,1:3] # file will be re-attached (with path) as the last column
 #
@@ -82,14 +82,14 @@ fileIndex <- fileIndex[,1:3] # file will be re-attached (with path) as the last 
 info <- l2df(lapply(file, function(x) rev(strsplit(x, "[-_.]")[[1]])))
 # Station ID (identification number):
 fileIndex$id <- ""
-fileIndex$id <- ifelse(fileIndex$time=="historical" & info[,1]=="zip", info[,5], fileIndex$id)
-fileIndex$id <- ifelse(fileIndex$time=="recent"     & info[,1]=="zip", info[,3], fileIndex$id)
-fileIndex$id <- ifelse(fileIndex$var=="solar"       & info[,1]=="zip", info[,2], fileIndex$id) # var==solar
+fileIndex$id <- ifelse(fileIndex$per=="historical" & info[,1]=="zip", info[,5], fileIndex$id)
+fileIndex$id <- ifelse(fileIndex$per=="recent"     & info[,1]=="zip", info[,3], fileIndex$id)
+fileIndex$id <- ifelse(fileIndex$var=="solar"      & info[,1]=="zip", info[,2], fileIndex$id) # var==solar
 fileIndex$id <- ifelse(substr(file,1,2)=="kl", substr(file,4,8), fileIndex$id) # res==subdaily
 #
 # start and end of time series (according to file name):
-ziphist <- fileIndex$time=="historical"  & info[,1]=="zip"
-multi <- fileIndex$res=="multi_annual" & info[,1]=="txt" & info[,3]!="Stationsliste"
+ziphist <- fileIndex$per=="historical"  & info[,1]=="zip"
+multi <-  fileIndex$res=="multi_annual" & info[,1]=="txt" & info[,3]!="Stationsliste"
 # actual selection:
 fileIndex$start <- ""
 fileIndex$start <- ifelse(ziphist|multi, info[,4], fileIndex$start)
@@ -123,9 +123,9 @@ metas <- dataDWD(paste0(base,fileIndex[sel, "path"]), dir=metadir, ...)
 # metas <- readDWD(paste0("DWDdata/meta/",filenames))
 for(i in seq_along(metas))
   {
-  metas[[i]]$res <- fileIndex[sel,  "res"][i]
-  metas[[i]]$var <- fileIndex[sel,  "var"][i]
-  metas[[i]]$time<- fileIndex[sel, "time"][i]
+  metas[[i]]$res <- fileIndex[sel, "res"][i]
+  metas[[i]]$var <- fileIndex[sel, "var"][i]
+  metas[[i]]$per <- fileIndex[sel, "per"][i]
   }
 #
 # check if all files have the same column names:
@@ -148,8 +148,8 @@ metaIndex <- berryFunctions::sortDF(metaIndex, "Stationsname", decreasing=FALSE)
 #
 # add column describing whether each entry has a file
 filestatID <- suppressWarnings(as.integer(fileIndex$id))
-metaComb <- paste(metaIndex$Stations_id, metaIndex$res, metaIndex$var, metaIndex$time, sep="/")
-fileComb <- paste(           filestatID, fileIndex$res, fileIndex$var, fileIndex$time, sep="/")
+metaComb <- paste(metaIndex$Stations_id, metaIndex$res, metaIndex$var, metaIndex$per, sep="/")
+fileComb <- paste(           filestatID, fileIndex$res, fileIndex$var, fileIndex$per, sep="/")
 metaIndex$hasfile <- metaComb  %in% fileComb
 #
 # Write to disc

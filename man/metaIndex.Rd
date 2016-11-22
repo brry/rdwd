@@ -8,7 +8,7 @@
         \code{Stations_id}, \code{von_datum}, \code{bis_datum}
         \code{Stationshoehe}, \code{geoBreite}, \code{geoLaenge}
         \code{Stationsname}, \code{Bundesland},
-        \code{res}, \code{var}, \code{time} (see \code{\link{selectDWD}}),
+        \code{res}, \code{var}, \code{per} (see \code{\link{selectDWD}}),
         \code{hasfile}}
 \source{
 Deutscher WetterDienst / Climata Data Center  FTP Server

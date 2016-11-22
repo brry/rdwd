@@ -3,9 +3,9 @@ rdwd ToDo-list / wishlist / issues
 - Station selection from map with metadata if clicked on point (leaflet/shiny app?)
 - update prectemp/Code_example.R and reference it in README.md
 - indexDWD: strsplit(p, "\n") on LINUX necessary?
+- suppress warning for case 3: selectDWD(res="hourly", var="sun", time="h")
 - option to merge hist and recent
 - write vignette + move examples from metaIndex (and elsewhere) there
-- rename time to per for period in function arguments, rdwd doc, metaIndex, etc
 - translations for colnames
 - just before CRAN release, change date in github compare link below and update indexes
 

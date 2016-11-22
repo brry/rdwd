@@ -1,4 +1,4 @@
-res	var	time	id	start	end	path
+res	var	per	id	start	end	path
 daily	kl	historical				/daily/kl/historical/BESCHREIBUNG_obsgermany_climate_daily_kl_historical_de.pdf
 daily	kl	historical				/daily/kl/historical/DESCRIPTION_obsgermany_climate_daily_kl_historical_en.pdf
 daily	kl	historical				/daily/kl/historical/KL_Tageswerte_Beschreibung_Stationen.txt

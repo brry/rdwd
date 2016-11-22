@@ -64,11 +64,11 @@ If \code{read=TRUE}, it is also read, processed and returned as a data.frame.
 \examples{
 \dontrun{ ## requires internet connection
 # find files for a given station name and file path:
-link <- selectDWD("Kupferzell-Rechbach", res="hourly", var="precipitation", time="recent")
+link <- selectDWD("Kupferzell-Rechbach", res="hourly", var="precipitation", per="recent")
 # actually download and read files
 prec <- dataDWD(link, dir="DWDdata") # the default dir
 fname <- dataDWD(link, read=FALSE) # filename, no second download (unless force=TRUE)
-link <- c(link, selectDWD("Potsdam", res="daily", var="kl", time=c("h","r"), outvec=TRUE))
+link <- c(link, selectDWD("Potsdam", res="daily", var="kl", per=c("h","r"), outvec=TRUE))
 clim <- dataDWD(link)
 fname <- dataDWD(link, read=FALSE)
 clim <- readDWD(fname)
@@ -79,7 +79,7 @@ plot(prec$MESS_DATUM, prec$NIEDERSCHLAGSHOEHE, main="DWD hourly rain Kupferzell"
      xaxt="n", las=1, type="l", xlab="Date", ylab="Hourly rainfall  [mm]")
 monthAxis(1, ym=T)
 
-d <- dataDWD(selectDWD(id="05692", res="daily", var="kl", time="recent"))
+d <- dataDWD(selectDWD(id="05692", res="daily", var="kl", per="recent"))
 # writes into the same folder (dir="DWDdata")
 
 folder <- dataDWD(link, browse=T)

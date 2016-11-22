@@ -46,27 +46,27 @@ library(rdwd)
 ### basic usage
 
 ```R
-link <- selectDWD("Potsdam", res="daily", var="kl", time="recent")
+link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
 link
 file <- dataDWD(link, read=FALSE) # download file
 file
 clim <- readDWD(file)
 head(clim)
 
-# inputs can be vectorized, and time can be abbreviated:
-selectDWD(c("Potsdam","Wuerzburg"), res="hourly", var="sun", time="hist")
-selectDWD("Potsdam", res="daily", var="kl", time=c("r","h"), outvec=TRUE)
+# inputs can be vectorized, and period can be abbreviated:
+selectDWD(c("Potsdam","Wuerzburg"), res="hourly", var="sun", per="hist")
+selectDWD("Potsdam", res="daily", var="kl", per=c("r","h"), outvec=TRUE)
 
 # station metadata for a given path:
-m_link <- selectDWD(res="monthly", var="more_precip", time="hist", meta=TRUE)
+m_link <- selectDWD(res="monthly", var="more_precip", per="hist", meta=TRUE)
 m_link
 meta_monthly_rain <- dataDWD(m_link, read=TRUE)
 head(meta_monthly_rain)
 # or as a one-liner:
-head(dataDWD(selectDWD(res="hourly", var="sun", time="r", meta=TRUE)))
+head(dataDWD(selectDWD(res="hourly", var="sun", per="r", meta=TRUE)))
 
 # all files at a given path, with current file index (RCurl required):
-links <- selectDWD(res="monthly", var="more_precip", time="hist", current=TRUE)
+links <- selectDWD(res="monthly", var="more_precip", per="hist", current=TRUE)
 
 # all (available) files for a certain station (meta files may have more results):
 selectDWD(id=c(3467, 5116), meta=T) # that's why the default outvec is FALSE

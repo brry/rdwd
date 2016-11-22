@@ -7,7 +7,7 @@
 selectDWD(name = "", exactmatch = TRUE, mindex = metaIndex,
   id = findID(name, exactmatch = exactmatch, mindex = mindex),
   base = "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
-  res = "", var = "", time = "", findex = fileIndex, current = FALSE,
+  res = "", var = "", per = "", findex = fileIndex, current = FALSE,
   meta = FALSE, outvec = FALSE, ...)
 }
 \arguments{
@@ -29,18 +29,18 @@ observed climatic records.
 Must be the same \code{base} used to create \code{findex}.
 DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}}
 
-\item{res}{Char: temporal resolution available at \code{base}, usually one of
+\item{res}{Char: temporal \bold{res}olution available at \code{base}, usually one of
 \code{c("hourly","daily","monthly")}, see \code{\link{rdwd}}.
-\code{res/var/time} together form the \bold{path}. DEFAULT: ""}
+\code{res/var/per} together form the \bold{path}. DEFAULT: ""}
 
-\item{var}{Char: weather variable of interest, see \code{\link{rdwd}}. Usually one of
+\item{var}{Char: weather \bold{var}iable of interest, see \code{\link{rdwd}}. Usually one of
 \code{c("air_temperature", "cloudiness", "precipitation",
         "pressure", "sun", "wind")} (only in hourly),
 \code{c("soil_temperature", "solar")} (in hourly and daily), or
 \code{c("kl", "more_precip")} (in daily and monthly).
 See more in \code{View(rdwd:::\link{fileIndex})}. DEFAULT: ""}
 
-\item{time}{Char: desired time range. One of
+\item{per}{Char: desired time \bold{per}iod. One of
 "recent" (data from the last year, up to date usually within a few days) or
 "historical" (long time series). Can be abbreviated (if the first
 letter is "r" or "h", full names are used).
@@ -53,7 +53,7 @@ Is set to "" if var=="solar". DEFAULT: ""}
 
 \item{current}{Single logical for case 3/4 with given \code{path}: instead of
 \code{findex}, use a list of the currently available files at
-base/res/var/time? This will call \code{\link{indexDWD}}, thus
+base/res/var/per? This will call \code{\link{indexDWD}}, thus
 requires availability of the \code{RCurl} package.
 DEFAULT: FALSE}
 
@@ -69,7 +69,7 @@ like dir, quiet}
 }
 \value{
 Character string with file path and name(s) in the format
-        "base/res/var/time/filename.zip"
+        "base/res/var/per/filename.zip"
 }
 \description{
 Select files for downloading with \code{\link{dataDWD}}.
@@ -78,7 +78,7 @@ can be a vecor and will be recycled to the maximum length of all arguments.
 If that length > 1, the output is a list of filenames (or vector with \code{outvec=TRUE}).\cr
 If station \code{name} is given, but \code{id} is empty (""),
 \bold{id} is inferred via \code{mindex}.
-If \code{res/var/time} are given and valid (existing in \code{findex}),
+If \code{res/var/per} are given and valid (existing in \code{findex}),
 they are pasted together to form a \bold{path}.
 Here is an overview of the behaviour in each case of availability:
 \tabular{llll}{
@@ -95,29 +95,29 @@ This is why case 3 with \code{meta=FALSE} only returns the data file names (endi
 \examples{
 # Give weather station name (must be existing in metaIndex):
 findID("Potsdam", exactmatch=FALSE)
-selectDWD("Potsdam", res="daily", var="kl", time="historical")
+selectDWD("Potsdam", res="daily", var="kl", per="historical")
 # all files for all stations matching "Koeln":
 selectDWD("Koeln", exactmatch=FALSE)
 findID("Koeln", FALSE)
 
 # or directly give station ID:
-selectDWD(id="00386", res="daily", var="kl", time="historical")
-selectDWD(id=386, res="daily", var="kl", time="historical")
-# time abbreviatable:
-selectDWD(id="00386", res="daily", var="kl", time="h")
-selectDWD(id="00386", res="daily", var="kl", time="h", meta=TRUE)
+selectDWD(id="00386", res="daily", var="kl", per="historical")
+selectDWD(id=386, res="daily", var="kl", per="historical")
+# period abbreviatable:
+selectDWD(id="00386", res="daily", var="kl", per="h")
+selectDWD(id="00386", res="daily", var="kl", per="h", meta=TRUE)
 
 # vectorizable:
-selectDWD(id="01050", res="daily", var="kl", time=c("r","h"))
-selectDWD(id="01050", res="daily", var="kl", time=c("r","h"), outvec=TRUE)
-selectDWD(id="01050", res=c("daily","monthly"), var="kl", time="r")
+selectDWD(id="01050", res="daily", var="kl", per=c("r","h"))
+selectDWD(id="01050", res="daily", var="kl", per=c("r","h"), outvec=TRUE)
+selectDWD(id="01050", res=c("daily","monthly"), var="kl", per="r")
 # vectorization gives not the outer product, but elementwise comparison:
-selectDWD(id="01050", res=c("daily","monthly"), var="kl", time=c("r","h"))
+selectDWD(id="01050", res=c("daily","monthly"), var="kl", per=c("r","h"))
 
 # all zip files in all paths matching id:
 selectDWD(id=c(1050, 386))
 # all zip files in a given path (if ID is empty):
-head(  selectDWD(id="", res="daily", var="kl", time="recent")   )
+head(  selectDWD(id="", res="daily", var="kl", per="recent")   )
 
 # See if warnings come as expected and are informative:
 selectDWD()
@@ -125,9 +125,9 @@ selectDWD(7777)
 selectDWD(id=7777)
 selectDWD(id="", res="dummy", var="dummy")
 selectDWD(res="dummy")
-selectDWD(res="daily", time="r")
+selectDWD(res="daily", per="r")
 selectDWD(res="daily", var="kl")
-selectDWD(id="01050", res=c("daily","monthly"), var="kl") # needs 'time'
+selectDWD(id="01050", res=c("daily","monthly"), var="kl") # needs 'per'
 selectDWD(id="00386", meta=TRUE)
 
 selectDWD("Potsdam", res="daily", var="solar")

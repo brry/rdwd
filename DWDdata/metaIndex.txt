@@ -1,4 +1,4 @@
-Stations_id	von_datum	bis_datum	Stationshoehe	geoBreite	geoLaenge	Stationsname	Bundesland	res	var	time	hasfile
+Stations_id	von_datum	bis_datum	Stationshoehe	geoBreite	geoLaenge	Stationsname	Bundesland	res	var	per	hasfile
 1	18910101	19860630	478	47.8413	8.8493	Aach	Baden-Wuerttemberg	monthly	more_precip	recent	FALSE
 1	19120101	19860630	478	47.8413	8.8493	Aach	Baden-Wuerttemberg	daily	more_precip	historical	TRUE
 1	19120101	19860630	478	47.8413	8.8493	Aach	Baden-Wuerttemberg	daily	more_precip	recent	FALSE

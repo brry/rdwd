@@ -48,7 +48,7 @@ with a number of columns inferred from the paths. Each is also written to disc.
 \description{
 Create data.frames out of the vector index returned by \code{\link{indexDWD}}.
 For \code{\link{fileIndex}} (the first output element) \code{createIndex}
-tries to obtain res, var, time, file, id, start and end from the paths.
+tries to obtain res, var, pe,r file, id, start and end from the paths.
 If \code{meta=TRUE}, \code{\link{metaIndex}} is also created, which combines
 all Beschreibung files into a single data.frame.\cr
 If you create your own index as suggested in selectDWD (argument \code{findex}),
