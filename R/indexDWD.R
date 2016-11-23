@@ -88,8 +88,10 @@ while(any(!isfile))
       if(grepl("Access denied: 530", p)) assign("stoppp", TRUE, inherits=TRUE) # to get out of the lapply loop
       return(path)
       }
-    p <- strsplit(p, "\r\n")[[1]]
-    # p <- strsplit(p, "\n")[[1]] # may be needed on linux.
+    # split is OS-dependent, but windows and linux libcurl results both include newline:
+    p <- strsplit(p, "\n")[[1]]
+    p <- gsub("\r", "", p) # additional carriage return in windows libcurl
+    # wait some time:
     if(sleep!=0) Sys.sleep(runif(n=1, min=0, max=sleep))
     # complete file path:
     return(paste0(path,"/",p))

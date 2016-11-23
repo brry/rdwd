@@ -1,4 +1,28 @@
 
+# libcurl returning OS dependent results:
+
+if(!requireNamespace("RCurl", quietly=TRUE)) install.packages("RCurl")
+link <- "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate"
+RCurl::getURL(link, ftp.use.epsv=TRUE, dirlistonly=TRUE)
+Sys.info()['sysname']
+.Platform$OS.type
+
+# Windows / windows:
+w <- "climate\r\nphenology\r\nradiosondes\r\nclimate_urban\r\n"
+# Linux / unix:
+l <- "climate\nphenology\nradiosondes\nclimate_urban\n"
+# Darwin? (Mac)
+# SunOS? (Solaris)
+
+# generic solution:
+gsub("\r", "", strsplit(w, "\n")[[1]])
+gsub("\r", "", strsplit(l, "\n")[[1]])
+
+
+
+
+
+
 # readDWD meta = TRUE
 # Development process and tests
 
