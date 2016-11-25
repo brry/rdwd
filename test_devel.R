@@ -7,6 +7,13 @@ RCurl::getURL(link, ftp.use.epsv=TRUE, dirlistonly=TRUE)
 Sys.info()['sysname']
 .Platform$OS.type
 
+library(curl)
+readLines(curl(link, handle=new_handle(dirlistonly=TRUE, ftp_use_epsv=TRUE)))
+
+
+wp <- curl::curl(link, handle=curl::new_handle(dirlistonly=TRUE, ftp_use_epsv=TRUE))
+readLines(wp)
+
 # Windows / windows:
 w <- "climate\r\nphenology\r\nradiosondes\r\nclimate_urban\r\n"
 # Linux / unix:

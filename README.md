@@ -46,10 +46,8 @@ library(rdwd)
 ### basic usage
 
 ```R
-link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
-link
-file <- dataDWD(link, read=FALSE) # download file
-file
+link <- selectDWD("Potsdam", res="daily", var="kl", per="recent"); link
+file <- dataDWD(link, read=FALSE); file # download file
 clim <- readDWD(file)
 head(clim)
 
@@ -58,12 +56,15 @@ selectDWD(c("Potsdam","Wuerzburg"), res="hourly", var="sun", per="hist")
 selectDWD("Potsdam", res="daily", var="kl", per=c("r","h"), outvec=TRUE)
 
 # station metadata for a given path:
-m_link <- selectDWD(res="monthly", var="more_precip", per="hist", meta=TRUE)
-m_link
+m_link <- selectDWD(res="monthly", var="more_precip", per="hist", meta=TRUE); m_link
 meta_monthly_rain <- dataDWD(m_link, read=TRUE)
 head(meta_monthly_rain)
 # or as a one-liner:
 head(dataDWD(selectDWD(res="hourly", var="sun", per="r", meta=TRUE)))
+
+# All metadata at all folders:
+data(metaIndex) ; ?metaIndex
+head(metaIndex)
 
 # all files at a given path, with current file index (RCurl required):
 links <- selectDWD(res="monthly", var="more_precip", per="hist", current=TRUE)
@@ -72,8 +73,7 @@ links <- selectDWD(res="monthly", var="more_precip", per="hist", current=TRUE)
 selectDWD(id=c(3467, 5116), meta=T) # that's why the default outvec is FALSE
 ```
 For example: Tucheim (5116) is listed in the monthly/more\_precip/recent metadata at
-<ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/monthly/more_precip/recent/RR_Monatwerte_Beschreibung_Stationen.txt>, but actually has no file there.
-Filenames in the last output suggest that the historical time series run until 2006, but the file name may be inaccurate.
+<ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/monthly/more_precip/recent/RR_Monatwerte_Beschreibung_Stationen.txt>, but actually has no file in that folder (only in `../historical`).
 
 ### more details
 

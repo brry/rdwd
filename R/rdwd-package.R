@@ -159,6 +159,54 @@ data(metaIndex, envir=environment())
 
 
 
+
+# metaInfo ---------------------------------------------------------------------
+
+#' Information for a station ID on the DWD CDC FTP server
+#'
+#' @return invisible data.frame. Also \code{\link{print}s} the output.
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Nov 2016
+#' @seealso \code{\link{metaIndex}}
+#' @keywords datasets
+#' @importFrom berryFunctions sortDF
+#' @export
+#' @examples
+#' metaInfo(2849)
+#'
+#' @param id Station ID (integer number or convertible to one)
+#' @param hasfileonly Logical: Only show entries that have files? DEFAULT: TRUE
+#'
+metaInfo <- function(
+  id,
+  hasfileonly=TRUE
+  )
+{
+# ID preparation:
+id <- as.integer(id)
+# Selection of rows:
+sel <- metaIndex$Stations_id==id
+if(hasfileonly) sel <- sel & metaIndex$hasfile
+# Output preparation:
+out <- metaIndex[sel,]
+# Print preparation:
+printout <- t(cbind(out, data.frame("."="")))
+colnames(printout) <- 1:ncol(printout)
+print(printout, quote=FALSE)
+# Print unique paths:
+#cat(sort(unique(paste(out$res, out$var, out$per, sep="/"))), sep="\n")
+printout <- unique(data.frame(out$res, out$var, out$per))
+colnames(printout) <- c("res","var","per")
+printout <- sortDF(printout, "per", decreasing=FALSE)
+printout <- sortDF(printout, "var", decreasing=FALSE)
+printout <- sortDF(printout, "res", decreasing=FALSE)
+rownames(printout) <- NULL
+print(printout, quote=FALSE)
+# Output:
+return(invisible(out))
+}
+
+
+
 # geoIndex --------------------------------------------------------------------
 
 #' coordinatewise station info (meta data) available on the DWD CDC FTP server
@@ -228,6 +276,26 @@ stopifnot(all(metaIndex==metaIndex2))
  geoIndex2 <- read.table("DWDdata/geoIndex.txt",  sep="\t", header=TRUE, as.is=TRUE)
 stopifnot(all( geoIndex== geoIndex2))
 
+
+
+# interactive map --------------------------------------------------------------
+#data("geoIndex")
+onerow <- function(x) paste0("metaInfo(id=",removeSpace(x[1]),")<br>",
+                             paste0(names(x)[-1], ": ", x[-1], collapse="<br>"))
+#onerow(geoIndex[1,])
+geoIndex$display <- apply(geoIndex, MARGIN=1, onerow)
+
+library(leaflet)
+map <- leaflet(data=geoIndex) %>% addTiles() %>%
+             addCircles(~long, ~lat, radius=900, stroke=F)%>%
+             addCircleMarkers(~long, ~lat, popup=~display, stroke=F)
+map
+htmlwidgets::saveWidget(map, file="map.html")
+
+
+
+
+# tests ------------------------------------------------------------------------
 
 # check coordinates:
 coord_ok <- pbsapply(unique(metaIndex$Stationsname), function(n)
