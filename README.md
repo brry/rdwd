@@ -16,12 +16,10 @@ observation period (historical long term records or the current year)
 As a side effect, there now is a function (`indexDWD`) to recursively list all the files
 on an FTP-server (using RCurl::getURL).
 
-This package is in heavy development and not yet on CRAN.
-I expect to have run enough tests by late November...
-
+I expect to have run enough tests by late December to submit to CRAN.
 Any feedback is now particularly welcome! File an issue here or send me a message (berry-b@gmx.de).
 
-**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/), seen [here](https://github.com/isaacs/github/issues/215)*
+**Table of Contents**
 * [installation](#installation)
 * [basic usage](#basic-usage)
 * [more details](#more-details)

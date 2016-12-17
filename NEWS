@@ -1,5 +1,6 @@
 
 rdwd ToDo-list / wishlist / issues
+http://stackoverflow.com/questions/31433352/if-html-doesnt-work-well-in-github-how-can-some-people-make-it-work
 - indexDWD: default of ca 30 known folders?
 - update prectemp/Code_example.R and reference it in README.md
 - suppress warning for case 3: selectDWD(res="hourly", var="sun", time="h")
