@@ -25,6 +25,7 @@
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2016
 #' @seealso \code{\link{dataDWD}}
 #' @keywords file
+#' @importFrom berryFunctions truncMessage
 #' @export
 #' @examples
 #' # Give weather station name (must be existing in metaIndex):
@@ -246,8 +247,10 @@ if(givenid & givenpath & !meta[i])
                           "', there is no file in '", path, "' with ID ",
                           id[i], ".", call.=FALSE)
   filename <- findex[sel,"path"]
-  if(length(filename)>1) warning("in rdwd::selectDWD: Several files were selected: ",
-                                 toString(filename), call.=FALSE)
+  if(length(filename)>1) warning("in rdwd::selectDWD: Several files (",
+                                 length(filename),") were selected:",
+                                 berryFunctions::truncMessage(filename, prefix=""),
+                                 call.=FALSE)
   return(   paste0(base, filename)   )
   }
 }) # loop end
