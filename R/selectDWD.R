@@ -130,6 +130,11 @@ outvec=FALSE,
 ...
 )
 {
+# unused arguments:
+unused <- names(list(...))
+unused <- unused[!unused %in% names(formals(indexDWD))]
+if(length(unused)>0) warning("unused arguments in ", traceCall(1,"",""), ": ",
+                             toString(unused), call.=FALSE)
 # Input checks and processing:
 findexname <- deparse(substitute(findex))
 len <- max(length(id), length(res), length(var), length(per), length(meta)  )
