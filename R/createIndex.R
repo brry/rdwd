@@ -117,6 +117,7 @@ if(!isTRUE(meta)) return(invisible(fileIndex))
 sel <- substr(fileIndex$path, nchar(fileIndex$path)-3, 1e4)==".txt"
 sel <- sel & grepl("Beschreibung", fileIndex$path)
 sel <- sel & fileIndex$res %in% c("monthly","daily","hourly")
+if(sum(sel)<2) stop("There need to be at least two 'Beschreibung' files. (There are ",sum(sel),")")
 # download those files:
 metas <- dataDWD(paste0(base,fileIndex[sel, "path"]), dir=metadir, ...)
 # filenames <- substr(gsub("/","_",fileIndex[sel, "path"]),2,1e4)
