@@ -71,7 +71,6 @@ isfile <- grepl(pattern=".", x=f, fixed=TRUE)
 stoppp <- FALSE
 while(any(!isfile))
   {
-  isfile <- grepl(pattern=".", x=f, fixed=TRUE)
   f1 <- f[isfile] # these are finished
   #
   f2 <- lapply(f[!isfile], function(path) # for the folders, run getURL:
@@ -97,6 +96,7 @@ while(any(!isfile))
     return(paste0(path,"/",p))
     }) # end lapply loop
   f <- c(f1,unlist(f2))
+  isfile <- grepl(pattern=".", x=f, fixed=TRUE)
   } # end while loop
 # sort final results alphabetically:
 f <- sort(unlist(f, use.names=FALSE))
