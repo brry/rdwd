@@ -4,14 +4,14 @@
 \alias{indexDWD}
 \title{Create a recursive index of the DWD CDC FTP Server}
 \usage{
-indexDWD(folder = "",
+indexDWD(folder = unique(dirname(fileIndex$path)),
   base = "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
   sleep = 0, dir = "DWDdata", quiet = FALSE, progbar = !quiet,
   verbose = FALSE)
 }
 \arguments{
 \item{folder}{Folder to be indexed recursively, e.g. "/hourly/wind/".
-DEFAULT: "" (all folders at \code{base})}
+DEFAULT: all folders at \code{base} in current \code{\link{fileIndex}}}
 
 \item{base}{Main directory of DWD ftp server, defaulting to observed climatic records.
 DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}}

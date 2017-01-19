@@ -31,7 +31,7 @@
 #' }
 #'
 #' @param folder Folder to be indexed recursively, e.g. "/hourly/wind/".
-#'               DEFAULT: "" (all folders at \code{base})
+#'               DEFAULT: all folders at \code{base} in current \code{\link{fileIndex}}
 #' @param base Main directory of DWD ftp server, defaulting to observed climatic records.
 #'             DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
 #' @param sleep If not 0, a random number of seconds between 0 and \code{sleep}
@@ -47,7 +47,7 @@
 #'                DEFAULT: FALSE (usually, you dont need all the curl information)
 #'
 indexDWD <- function(
-folder="",
+folder=unique(dirname(fileIndex$path)),
 base="ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
 sleep=0,
 dir="DWDdata",
