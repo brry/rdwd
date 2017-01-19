@@ -1,10 +1,11 @@
 #' Create file and meta index of the DWD CDC FTP Server
 #'
+#' This is mainly an internal function.
 #' Create data.frames out of the vector index returned by \code{\link{indexDWD}}.
 #' For \code{\link{fileIndex}} (the first output element) \code{createIndex}
 #' tries to obtain res, var, pe,r file, id, start and end from the paths.
-#' If \code{meta=TRUE}, \code{\link{metaIndex}} is also created, which combines
-#' all Beschreibung files into a single data.frame.\cr
+#' If \code{meta=TRUE}, \code{\link{metaIndex}} and \code{\link{geoIndex}} are also
+#' created. They combine all Beschreibung files into a single data.frame.\cr
 #' If you create your own index as suggested in selectDWD (argument \code{findex}),
 #' you can read the produced file as shown in the example section.
 #'
@@ -17,7 +18,17 @@
 #' @importFrom utils write.table
 #' @export
 #' @examples
-#' # see last part of
+#' \dontrun{ # Not tested with R CMD check because of file writing
+#' link <- "/daily/kl/historical/tageswerte_00699_19490101_19580630_hist.zip"
+#' ind <- createIndex(link, dir=tempdir())
+#' ind
+#' link2 <- "/daily/kl/historical/KL_Tageswerte_Beschreibung_Stationen.txt"
+#' link3 <- "/daily/kl/recent/KL_Tageswerte_Beschreibung_Stationen.txt"
+#' ind2 <- createIndex(c(link,link2,link3), dir=tempdir(), meta=TRUE)
+#' lapply(ind2, head)
+#' }
+#'
+#' # For real usage, see last part of
 #' if(interactive())
 #' browseURL("https://github.com/brry/rdwd/blob/master/R/rdwd-package.R")
 #' # where fileIndex and metaIndex are added to the package
