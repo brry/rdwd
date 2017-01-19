@@ -2,7 +2,7 @@
 ### intro
 Select and download climate data from the DWD (German Weather Service) FTP Server.
 
-The German weather service (Deutscher Wetterdienst, DWD) has over 25 thousand
+The German weather service (Deutscher Wetterdienst, DWD) has over 28 thousand
 datasets with weather observations online at <ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate>.
 
 To use those datasets, `rdwd` has been designed to mainly do 3 things:
@@ -16,8 +16,8 @@ observation period (historical long term records or the current year)
 As a side effect, there now is a function (`indexDWD`) to recursively list all the files
 on an FTP-server (using RCurl::getURL).
 
-I expect to have run enough tests by late December to submit to CRAN.
-Any feedback is now particularly welcome! File an issue here or send me a message (berry-b@gmx.de).
+A real-life usage example of the package can be found at
+https://github.com/brry/prectemp/blob/master/Code_analysis.R
 
 **Table of Contents**
 * [installation](#installation)
@@ -106,7 +106,7 @@ dev.off()
 
 ### trouble
 
-If direct installation from CRAN doesn't work, your R version might be too old. In that case, an update is really recommendable: [r-project.org](http://www.r-project.org/). If you can't update R, try installing from source (github) via `instGit` or devtools as mentioned above. If that's not possible either, here's a manual workaround:
+If direct installation from CRAN doesn't work, your R version might be too old. In that case, an update is really recommendable: [r-project.org](https://www.r-project.org/). If you can't update R, try installing from source (github) via `instGit` or devtools as mentioned above. If that's not possible either, here's a manual workaround:
 click on **Clone or Download -> Download ZIP** (topright, [link](https://github.com/brry/rdwd/archive/master.zip)), unzip the file to some place, then
 ```R
 setwd("that/path")
