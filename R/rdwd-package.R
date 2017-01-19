@@ -46,13 +46,15 @@
 #'
 #' # see README.md
 #'
+#' \dontrun{ # excluded from CRAN R CMD check because of file writing
 #' link <- selectDWD("Potsdam", res="monthly", var="kl", per="h", current=TRUE)
-#' clim <- dataDWD(link)
+#' clim <- dataDWD(link[1])
 #' clim$month <- substr(clim$MESS_DATUM_BEGINN,5,6)
 #' temp <- tapply(clim$LUFTTEMPERATUR, clim$month, mean)
 #' prec <- tapply(clim$NIEDERSCHLAGSHOEHE, clim$month, mean)
 #' library(berryFunctions)
 #' climateGraph(temp, prec, main="Potsdam 1893:2015")
+#' }
 #'
 NULL
 
