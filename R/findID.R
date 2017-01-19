@@ -21,6 +21,7 @@
 #'
 #' # German Umlauts are changed to ue, ae, oe, ss
 #' findID("Muenchen", FALSE)
+#' berryFunctions::convertUmlaut("M?nchen") # use this to convert umlauts in lists
 #'
 #' # See if warnings come as expected and are informative:
 #' findID("this_is_not_a_city")
@@ -57,6 +58,7 @@ exactmatch <- rep(exactmatch, length.out=len)
 # loop over each input element:
 output <- lapply(seq_len(len), function(i)
   {
+  if(name[i]=="") return("")
   select <- if(exactmatch[i]) tolower(mindex$Stationsname)==tolower(name[i]) else
                               grepl(name[i], mindex$Stationsname, ignore.case=TRUE)
   id <- unique(mindex[select, "Stations_id"])
