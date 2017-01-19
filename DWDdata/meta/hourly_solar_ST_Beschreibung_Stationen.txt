@@ -1,58 +1,58 @@
 Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname Bundesland
 ----------- --------- --------- ------------- --------- --------- ----------------------------------------- ----------
-00183 19810101 20160930             42     54.6792   13.4343 Arkona                                   Mecklenburg-Vorpommern                                                                            
+00183 19810101 20161130             42     54.6792   13.4343 Arkona                                   Mecklenburg-Vorpommern                                                                            
 00282 20130101 20130731            240     49.8742   10.9206 Bamberg                                  Bayern                                                                                            
 00591 20130101 20130731             45     53.3911   10.6878 Boizenburg                               Mecklenburg-Vorpommern                                                                            
 00596 20130101 20130731             15     54.0028   11.1908 Boltenhagen                              Mecklenburg-Vorpommern                                                                            
 00656 19570101 20130731            607     51.7234   10.6021 Braunlage                                Niedersachsen                                                                                     
-00662 19580101 20160930             81     52.2914   10.4465 Braunschweig                             Niedersachsen                                                                                     
-00691 20090101 20160930              4     53.0450    8.7979 Bremen                                   Bremen                                                                                            
-00853 19810101 20160930            418     50.7913   12.8720 Chemnitz                                 Sachsen                                                                                           
-01048 19960901 20160930            227     51.1280   13.7543 Dresden-Klotzsche                        Sachsen                                                                                           
-01358 19580101 20160930           1213     50.4283   12.9535 Fichtelberg                              Sachsen                                                                                           
+00662 19580101 20161130             81     52.2914   10.4465 Braunschweig                             Niedersachsen                                                                                     
+00691 20090101 20161130              4     53.0450    8.7979 Bremen                                   Bremen                                                                                            
+00853 19810101 20161130            418     50.7913   12.8720 Chemnitz                                 Sachsen                                                                                           
+01048 19960901 20161130            227     51.1280   13.7543 Dresden-Klotzsche                        Sachsen                                                                                           
+01358 19580101 20161130           1213     50.4283   12.9535 Fichtelberg                              Sachsen                                                                                           
 01443 19730101 20150131            236     48.0233    7.8344 Freiburg                                 Baden-Württemberg                                                                                 
 01468 20130101 20130731            797     48.4537    8.4091 Freudenstadt                             Baden-Württemberg                                                                                 
 01580 19760101 20131231            110     49.9859    7.9549 Geisenheim                               Hessen                                                                                            
 01594 19740101 19901231             44     51.5068    7.0945 Gelsenkirchen                            Nordrhein-Westfalen                                                                               
-01684 20010101 20160930            238     51.1622   14.9506 Görlitz                                  Sachsen                                                                                           
+01684 20010101 20161130            238     51.1622   14.9506 Görlitz                                  Sachsen                                                                                           
 01957 19810101 20150131             93     51.5138   11.9499 Halle-Kröllwitz                          Sachsen-Anhalt                                                                                    
-01975 20050101 20160930             11     53.6332    9.9881 Hamburg-Fuhlsbüttel                      Hamburg                                                                                           
+01975 20050101 20161130             11     53.6332    9.9881 Hamburg-Fuhlsbüttel                      Hamburg                                                                                           
 02261 20130101 20130731            565     50.3122   11.8761 Hof                                      Bayern                                                                                            
-02290 19530101 20160930            977     47.8009   11.0108 Hohenpeißenberg                          Bayern                                                                                            
+02290 19530101 20161130            977     47.8009   11.0108 Hohenpeißenberg                          Bayern                                                                                            
 02485 20130101 20130731            489     48.9171    9.6872 Kaisersbach-Cronhütte                    Baden-Württemberg                                                                                 
 02532 19790101 20021231            231     51.2963    9.4424 Kassel                                   Hessen                                                                                            
 02559 20130101 20130731            705     47.7233   10.3348 Kempten                                  Bayern                                                                                            
 02638 20130101 20130731            973     48.1054    8.7549 Klippeneck                               Baden-Württemberg                                                                                 
-02712 19770101 20160930            443     47.6774    9.1901 Konstanz                                 Baden-Württemberg                                                                                 
-02928 20140101 20160930            138     51.3151   12.4462 Leipzig-Holzhausen                       Sachsen                                                                                           
-03015 19810101 20160930             98     52.2085   14.1180 Lindenberg                               Brandenburg                                                                                       
+02712 19770101 20161130            443     47.6774    9.1901 Konstanz                                 Baden-Württemberg                                                                                 
+02928 20140101 20161130            138     51.3151   12.4462 Leipzig-Holzhausen                       Sachsen                                                                                           
+03015 19810101 20161130             98     52.2085   14.1180 Lindenberg                               Brandenburg                                                                                       
 03028 19820101 20111231            157     51.7855    8.8388 Lippspringe, Bad                         Nordrhein-Westfalen                                                                               
 03032 19720101 20150131             26     55.0110    8.4125 List auf Sylt                            Schleswig-Holstein                                                                                
 03098 20060101 20130731            387     51.2452    7.6425 Lüdenscheid                              Nordrhein-Westfalen                                                                               
 03196 20130101 20130731             81     53.3223   11.9319 Marnitz                                  Mecklenburg-Vorpommern                                                                            
 03478 19910101 20031231             81     53.5468   13.1914 Neubrandenburg                           Mecklenburg-Vorpommern                                                                            
-03631 19640101 20160930             11     53.7123    7.1519 Norderney                                Niedersachsen                                                                                     
+03631 19640101 20161130             11     53.7123    7.1519 Norderney                                Niedersachsen                                                                                     
 03660 20130101 20130731            485     50.3601    6.8697 Nürburg-Barweiler                        Rheinland-Pfalz                                                                                   
-03668 20090101 20160930            314     49.5030   11.0549 Nürnberg                                 Bayern                                                                                            
+03668 20090101 20161130            314     49.5030   11.0549 Nürnberg                                 Bayern                                                                                            
 03730 20130101 20130731            806     47.3986   10.2760 Oberstdorf                               Bayern                                                                                            
 03815 19770101 20011231             95     52.2553    8.0534 Osnabrück                                Niedersachsen                                                                                     
 03946 20130101 20130731            386     50.4819   12.1300 Plauen                                   Sachsen                                                                                           
-03987 19451231 20160930             81     52.3813   13.0622 Potsdam                                  Brandenburg                                                                                       
-04271 19980101 20160930              4     54.1803   12.0808 Rostock-Warnemünde                       Mecklenburg-Vorpommern                                                                            
-04336 19810101 20160930            320     49.2128    7.1077 Saarbrücken-Ensheim                      Saarland                                                                                          
-04393 20150101 20160930              5     54.3279    8.6030 Sankt Peter-Ording                       Schleswig-Holstein                                                                                
-04466 19800101 20160930             43     54.5275    9.5486 Schleswig                                Schleswig-Holstein                                                                                
-04642 19910101 20160930             21     52.8911   11.7297 Seehausen                                Sachsen-Anhalt                                                                                    
+03987 19451231 20161130             81     52.3813   13.0622 Potsdam                                  Brandenburg                                                                                       
+04271 19980101 20161130              4     54.1803   12.0808 Rostock-Warnemünde                       Mecklenburg-Vorpommern                                                                            
+04336 19810101 20161130            320     49.2128    7.1077 Saarbrücken-Ensheim                      Saarland                                                                                          
+04393 20150101 20161130              5     54.3279    8.6030 Sankt Peter-Ording                       Schleswig-Holstein                                                                                
+04466 19800101 20161130             43     54.5275    9.5486 Schleswig                                Schleswig-Holstein                                                                                
+04642 19910101 20161130             21     52.8911   11.7297 Seehausen                                Sachsen-Anhalt                                                                                    
 04887 20130101 20130731            734     48.6657    9.8646 Stötten                                  Baden-Württemberg                                                                                 
-04928 19790101 20160930            314     48.8282    9.2000 Stuttgart (Schnarrenberg)                Baden-Württemberg                                                                                 
-05100 19580101 20160930            265     49.7479    6.6582 Trier-Petrisberg                         Rheinland-Pfalz                                                                                   
+04928 19790101 20161130            314     48.8282    9.2000 Stuttgart (Schnarrenberg)                Baden-Württemberg                                                                                 
+05100 19580101 20161130            265     49.7479    6.6582 Trier-Petrisberg                         Rheinland-Pfalz                                                                                   
 05282 19500101 19960831            246     51.1197   13.6744 Wahnsdorf bei Dresden                    Sachsen                                                                                           
-05404 19610101 20160930            477     48.4025   11.6946 Weihenstephan-Dürnast                    Bayern                                                                                            
+05404 19610101 20161130            477     48.4025   11.6946 Weihenstephan-Dürnast                    Bayern                                                                                            
 05419 19490101 20070430            264     50.9751   11.3076 Weimar                                   Thüringen                                                                                         
 05440 19810101 20141031            439     49.0116   10.9308 Weißenburg-Emetzheim                     Bayern                                                                                            
 05546 20130101 20130731            187     52.1207   12.4585 Wiesenburg                               Brandenburg                                                                                       
-05705 19570101 20160930            268     49.7703    9.9577 Würzburg                                 Bayern                                                                                            
+05705 19570101 20161130            268     49.7703    9.9577 Würzburg                                 Bayern                                                                                            
 05779 19810101 20111231            877     50.7314   13.7516 Zinnwald-Georgenfeld                     Sachsen                                                                                           
-05792 20130101 20160930           2964     47.4209   10.9847 Zugspitze                                Bayern                                                                                            
-05856 19970102 20160930            476     48.5451   13.3531 Fürstenzell                              Bayern                                                                                            
+05792 20130101 20161130           2964     47.4209   10.9847 Zugspitze                                Bayern                                                                                            
+05856 19970102 20161130            476     48.5451   13.3531 Fürstenzell                              Bayern                                                                                            
 05906 19790101 20111231             96     49.5090    8.5541 Mannheim                                 Baden-Württemberg                                                                                 
