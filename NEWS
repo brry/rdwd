@@ -5,7 +5,6 @@ http://stackoverflow.com/questions/31433352/if-html-doesnt-work-well-in-github-h
 - translations for colnames
 - rdwd leaflet map github page?
 - dataDWD test force=TRUE (dontdownload all FALSE)
-- fileDWD and dirDWD in separate source files
 - just before CRAN release, change date in github compare link below and update indexes
 
 ---------------------------------------

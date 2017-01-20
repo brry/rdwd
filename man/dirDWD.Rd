@@ -2,53 +2,41 @@
 % Please edit documentation in R/dirDWD.R
 \name{dirDWD}
 \alias{dirDWD}
-\alias{fileDWD}
 \title{directory management for rdwd}
 \usage{
 dirDWD(dir = "DWDdata", quiet = FALSE)
-
-fileDWD(filename, quiet = FALSE, ntrunc = 3, ignore = FALSE)
 }
 \arguments{
 \item{dir}{Char for dirDWD: writeable directory name. Created if not existent.
 DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
 
-\item{quiet}{Logical: Suppress messages about creating dir / file(s)? DEFAULT: FALSE}
-
-\item{filename}{Char (vector) for fileDWD: file name(s).}
-
-\item{ntrunc}{Integer for fileDWD: Number of filenames printed in messages
-before they get truncated with message "(and xx more)". DEFAULT: 3}
-
-\item{ignore}{Logical (vector) for fileDWD: Ignore file? Handy in dataDWD. DEFAULT: FALSE}
+\item{quiet}{Logical: Suppress messages about creating dir? DEFAULT: FALSE}
 }
 \value{
-dirDWD invisibly returns the prior working directory as per \code{\link{setwd}}.\cr
-        fileDWD returns the input with an added "_n" in the filename if the
-        file already existed.
+dirDWD invisibly returns the prior working directory as per \code{\link{setwd}}.
 }
 \description{
-Manage directories and files in the rdwd package.
-Files are never overwritten but saved with a message as OriginalName_1.file
-or OriginalName_2.file etc.
+Manage directories with useful messages in the rdwd package.
 }
 \examples{
 # see source code of dataDWD and metaDWD
 
-fns <- c("data", "stupiddummy", "ExampleGraph.png", "rdwd.Rproj", "README.md",
-         "stupiddummy.txtdude", "DESCRIPTION", "test_devel.R")
-fileDWD(fns)
-fileDWD(fns, ignore=TRUE)
-fileDWD(fns, ignore=rep(0:1, each=4))
-fileDWD(fns, ntrunc=2)
-fileDWD("ExampleGraph.png")
+\dontrun{ ## folder creation + deletion
+owd <- getwd(); owd
+dirDWD("dummydummydummy")
+getwd()
+setwd(owd)
+dirDWD("dummydummydummy")
+setwd(owd)
+unlink("dummydummydummy")
+}
 
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2016
 }
 \seealso{
-\code{\link{dataDWD}}
+\code{\link{fileDWD}}, \code{\link{dataDWD}}
 }
 \keyword{file}
 
