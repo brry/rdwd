@@ -142,8 +142,9 @@ outfile <- gsub("/", "_", outfile)
 dontdownload <- file.exists(outfile) & !force
 if( any(dontdownload)  )
   {
-  message("rdwd::dataDWD: already existing and not downloaded again: ",
-          berryFunctions::truncMessage(outfile[dontdownload], ntrunc=ntrunc, prefix=" "),
+  message("rdwd::dataDWD: ", sum(dontdownload), " file", if(sum(dontdownload)>1)"s",
+          " already existing and not downloaded again: ",
+          berryFunctions::truncMessage(outfile[dontdownload], ntrunc=ntrunc, prefix=""),
           "\nNow downloading ",sum(!dontdownload)," files...")
   }
 outfile <- fileDWD(outfile, quiet=quiet, ignore=dontdownload, ntrunc=ntrunc)
@@ -162,9 +163,12 @@ dummy <- lapply(seq_along(file), function(i)
   })
 # ------------------------------------------------------------------------------
 # Output: Read the file or outfile name:
-output <- if(read) readDWD(file=outfile, dir="", meta=meta, format=format,
-                           progbar=progbar) else
-                   outfile
+output <- outfile
+if(read)
+  {
+  if(progbar) message("Reading ", length(outfile), " file", if(length(outfile)>1)"s", "...")
+  output <- readDWD(file=outfile, dir="", meta=meta, format=format, progbar=progbar)
+  }
 # output:
 return(invisible(output))
 }
