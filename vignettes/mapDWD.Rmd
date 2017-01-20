@@ -9,6 +9,6 @@ vignette: >
 [rdwd main vignette](../doc/rdwd.html)
 
 ```{r map, fig.height=7, fig.width=7, warning=FALSE}
-library(leaflet)  ;  data(mapDWD)  ;  mapDWD
+library(rdwd)  ;  data(mapDWD)  ;  library(leaflet)  ;  mapDWD
 ```
 

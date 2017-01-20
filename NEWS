@@ -1,10 +1,13 @@
 
 rdwd ToDo-list / wishlist / issues
 http://stackoverflow.com/questions/31433352/if-html-doesnt-work-well-in-github-how-can-some-people-make-it-work
-- move examples from metaIndex (and elsewhere) to vignette
-- translations for colnames
+- check whether it is possible to include a vignette that will not be build each time (time consuming!)
+- decide examples location (rdwd vignette vs rdwd-package vs potentially third vignette previous point)
 - just before CRAN release, change date in github compare link below and update indexes
+
+- translations for colnames
 - After package is on CRAN, link to map and vignette in the readME.
+
 
 ---------------------------------------
 rdwd: DWD Climate Data access package by Berry Boessenkool, berry-b@gmx.de
