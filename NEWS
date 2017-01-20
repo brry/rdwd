@@ -4,6 +4,7 @@ http://stackoverflow.com/questions/31433352/if-html-doesnt-work-well-in-github-h
 - move examples from metaIndex (and elsewhere) to vignette
 - translations for colnames
 - just before CRAN release, change date in github compare link below and update indexes
+- After package is on CRAN, link to map and vignette in the readME.
 
 ---------------------------------------
 rdwd: DWD Climate Data access package by Berry Boessenkool, berry-b@gmx.de
