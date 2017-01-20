@@ -251,6 +251,48 @@ data(geoIndex, envir=environment())
 
 
 
+# mapDWD --------------------------------------------------------------
+
+#' interactive map of data available on the DWD CDC FTP server
+#'
+#' leaflet map from \code{\link{geoIndex}}
+#'
+#' @name mapDWD
+#' @docType data
+#' @format leaflet map
+#' @source Deutscher WetterDienst / Climata Data Center  FTP Server
+#' @seealso \code{\link{geoIndex}}, \code{\link{metaInfo}}
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jan 2017
+#' @keywords datasets
+#' @examples
+#'
+#' data(mapDWD)
+#' library(leaflet)
+#' mapDWD
+#' # in functions, you can use rdwd:::mapDWD
+#'
+#'
+data(mapDWD, envir=environment())
+
+if(FALSE){
+#   data("geoIndex")
+onerow <- function(x) paste0("metaInfo(id=",removeSpace(x[1]),")<br>",
+                             paste0(names(x)[-1], ": ", x[-1], collapse="<br>"))
+#onerow(geoIndex[1,])
+geoIndex$display <- apply(geoIndex, MARGIN=1, onerow)
+
+library(leaflet)
+mapDWD <- leaflet(data=geoIndex) %>% addTiles() %>%
+             addCircles(~long, ~lat, radius=900, stroke=F)%>%
+             addCircleMarkers(~long, ~lat, popup=~display, stroke=F)
+mapDWD
+htmlwidgets::saveWidget(mapDWD, file="mapDWD.html")
+save( mapDWD,    file="data/mapDWD.rda")
+tools::resaveRdaFiles("data/mapDWD.rda")
+}
+
+
+
 # create / update Indexes ------------------------------------------------------
 
 if(FALSE){
@@ -278,23 +320,6 @@ metaIndex2 <- read.table("DWDdata/metaIndex.txt", sep="\t", header=TRUE, as.is=T
 stopifnot(all(metaIndex==metaIndex2))
  geoIndex2 <- read.table("DWDdata/geoIndex.txt",  sep="\t", header=TRUE, as.is=TRUE)
 stopifnot(all( geoIndex== geoIndex2))
-
-
-
-# interactive map --------------------------------------------------------------
-#data("geoIndex")
-onerow <- function(x) paste0("metaInfo(id=",removeSpace(x[1]),")<br>",
-                             paste0(names(x)[-1], ": ", x[-1], collapse="<br>"))
-#onerow(geoIndex[1,])
-geoIndex$display <- apply(geoIndex, MARGIN=1, onerow)
-
-library(leaflet)
-map <- leaflet(data=geoIndex) %>% addTiles() %>%
-             addCircles(~long, ~lat, radius=900, stroke=F)%>%
-             addCircleMarkers(~long, ~lat, popup=~display, stroke=F)
-map
-htmlwidgets::saveWidget(map, file="map.html")
-
 
 
 
