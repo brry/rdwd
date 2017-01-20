@@ -25,7 +25,7 @@
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2016
 #' @seealso \code{\link{dataDWD}}
 #' @keywords file
-#' @importFrom berryFunctions truncMessage
+#' @importFrom berryFunctions truncMessage traceCall
 #' @export
 #' @examples
 #' # Give weather station name (must be existing in metaIndex):
@@ -44,10 +44,10 @@
 #'
 #' # vectorizable:
 #' selectDWD(id="01050", res="daily", var="kl", per=c("r","h"))
-#' selectDWD(id="01050", res="daily", var="kl", per=c("r","h"), outvec=TRUE)
+#' selectDWD(id="01050", res="daily", var="kl", per="rh", outvec=TRUE)
 #' selectDWD(id="01050", res=c("daily","monthly"), var="kl", per="r")
 #' # vectorization gives not the outer product, but elementwise comparison:
-#' selectDWD(id="01050", res=c("daily","monthly"), var="kl", per=c("r","h"))
+#' selectDWD(id="01050", res=c("daily","monthly"), var="kl", per="hr")
 #'
 #' # all zip files in all paths matching id:
 #' selectDWD(id=c(1050, 386))
@@ -96,8 +96,9 @@
 #' @param per   Char: desired time \bold{per}iod. One of
 #'              "recent" (data from the last year, up to date usually within a few days) or
 #'              "historical" (long time series). Can be abbreviated (if the first
-#'              letter is "r" or "h", full names are used).
-#'              Is set to "" if var=="solar". DEFAULT: ""
+#'              letter is "r" or "h", full names are used). To get both datasets,
+#'              use \code{per="hr"} or \code{per="rh"} (and \code{outvec=TRUE}).
+#'              \code{per} is set to "" if var=="solar". DEFAULT: ""
 #' @param findex Single object: Index used to select filename, as returned by
 #'              \code{\link{createIndex}}.To use a current / custom index, use
 #'              \code{myIndex <- createIndex(indexDWD("/daily/solar"))}
@@ -134,12 +135,22 @@ outvec=FALSE,
 # unused arguments:
 unused <- names(list(...))
 unused <- unused[!unused %in% names(formals(indexDWD))]
-if(length(unused)>0) warning("unused arguments in ", traceCall(1,"",""), ": ",
+if(length(unused)>0) warning("unused arguments in ", berryFunctions::traceCall(1,"",""), ": ",
                              toString(unused), call.=FALSE)
 # Input checks and processing:
 findexname <- deparse(substitute(findex))
-len <- max(length(id), length(res), length(var), length(per), length(meta)  )
+# time period insertations:
+p_index_hr <- which(per=="hr")
+p_index_hr <- p_index_hr + seq_along(p_index_hr)-1
+for(i in p_index_hr) per <- append(per, "r", after=i)
+per[per=="hr"] <- "h"
+p_index_rh <- which(per=="rh")
+p_index_rh <- p_index_rh + seq_along(p_index_rh)-1
+for(i in p_index_rh) per <- append(per, "h", after=i)
+per[per=="rh"] <- "r"
+rm(i)
 # recycle input vectors
+len <- max(length(id), length(res), length(var), length(per), length(meta)  )
 if(len>1)
   {
   id   <- rep(id,   length.out=len)

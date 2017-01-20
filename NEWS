@@ -1,13 +1,11 @@
 
 rdwd ToDo-list / wishlist / issues
 http://stackoverflow.com/questions/31433352/if-html-doesnt-work-well-in-github-how-can-some-people-make-it-work
-- option to merge hist and recent
 - write vignette + move examples from metaIndex (and elsewhere) there
 - translations for colnames
 - rdwd leaflet map github page?
 - dataDWD test force=TRUE (dontdownload all FALSE)
 - fileDWD and dirDWD in separate source files
-- vignette
 - just before CRAN release, change date in github compare link below and update indexes
 
 ---------------------------------------

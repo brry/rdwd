@@ -43,8 +43,9 @@ See more in \code{View(rdwd:::\link{fileIndex})}. DEFAULT: ""}
 \item{per}{Char: desired time \bold{per}iod. One of
 "recent" (data from the last year, up to date usually within a few days) or
 "historical" (long time series). Can be abbreviated (if the first
-letter is "r" or "h", full names are used).
-Is set to "" if var=="solar". DEFAULT: ""}
+letter is "r" or "h", full names are used). To get both datasets,
+use \code{per="hr"} or \code{per="rh"} (and \code{outvec=TRUE}).
+\code{per} is set to "" if var=="solar". DEFAULT: ""}
 
 \item{findex}{Single object: Index used to select filename, as returned by
 \code{\link{createIndex}}.To use a current / custom index, use
@@ -109,10 +110,10 @@ selectDWD(id="00386", res="daily", var="kl", per="h", meta=TRUE)
 
 # vectorizable:
 selectDWD(id="01050", res="daily", var="kl", per=c("r","h"))
-selectDWD(id="01050", res="daily", var="kl", per=c("r","h"), outvec=TRUE)
+selectDWD(id="01050", res="daily", var="kl", per="rh", outvec=TRUE)
 selectDWD(id="01050", res=c("daily","monthly"), var="kl", per="r")
 # vectorization gives not the outer product, but elementwise comparison:
-selectDWD(id="01050", res=c("daily","monthly"), var="kl", per=c("r","h"))
+selectDWD(id="01050", res=c("daily","monthly"), var="kl", per="hr")
 
 # all zip files in all paths matching id:
 selectDWD(id=c(1050, 386))

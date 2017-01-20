@@ -68,7 +68,25 @@ link <- selectDWD("Kupferzell-Rechbach", res="hourly", var="precipitation", per=
 # actually download and read files
 prec <- dataDWD(link, dir="DWDdata") # the default dir
 fname <- dataDWD(link, read=FALSE) # filename, no second download (unless force=TRUE)
-link <- c(link, selectDWD("Potsdam", res="daily", var="kl", per=c("h","r"), outvec=TRUE))
+
+# current and historical files:
+link <- selectDWD("Potsdam", res="daily", var="kl", per="hr", outvec=TRUE); link
+potsdam <- dataDWD(link)
+potsdam <- do.call(rbind, potsdam) # this will partly overlap in time
+plot(LUFTTEMPERATUR~MESS_DATUM, data=tail(potsdam,1000), type="l")
+# Straight line marks the jump back in time
+# check for equality:
+dup <- which(duplicated(potsdam$MESS_DATUM))
+dup_df <- which(duplicated(potsdam))
+err <- dup[ ! dup \%in\% dup_df]
+err <- potsdam[potsdam$MESS_DATUM \%in\% potsdam$MESS_DATUM[err], ]
+err <- err[order(err$MESS_DATUM),]
+View(err) # WINDGESCHWINDIGKEIT (wind speed) has been slightly changed
+# Keep only historical dataset:
+potsdam <- potsdam[!duplicated(potsdam$MESS_DATUM),]
+
+# several files:
+link <- c(link, selectDWD("Potsdam", res="daily", var="kl", per="hr", outvec=TRUE))
 clim <- dataDWD(link)
 fname <- dataDWD(link, read=FALSE)
 clim <- readDWD(fname)
