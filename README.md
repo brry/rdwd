@@ -7,14 +7,15 @@ datasets with weather observations online at <ftp://ftp-cdc.dwd.de/pub/CDC/obser
 
 To use those datasets, `rdwd` has been designed to mainly do 3 things:
 * `selectDWD`: facilitate file selection, e.g. for certain station names (with `findID`), 
-by geographical location (see `metaIndex`), by temporal resolution (hourly, daily, monthly), 
+by geographical location (see `mapDWD`), by temporal resolution (hourly, daily, monthly), 
 variables (temperature, rain, wind, sun, clouds, etc) or
 observation period (historical long term records or the current year)
 * `dataDWD`: download a file (or multiple files without getting banned by the FTP-server)
-* `readDWD`: read that data into R
+* `readDWD`: read that data into R (including useful defaults for metadata)
 
-As a side effect, there now is a function (`indexDWD`) to recursively list all the files
-on an FTP-server (using RCurl::getURL).
+`selectDWD` uses the result from `indexDWD` which recursively lists all the files on an FTP-server (using RCurl::getURL).
+As this is time consuming, the result is stored in the package dataset `fileIndex`.
+From this, `metaIndex`, `geoIndex`, `mapDWD` and `metaInfo` are derived.
 
 A real-life usage example of the package can be found at
 https://github.com/brry/prectemp/blob/master/Code_analysis.R

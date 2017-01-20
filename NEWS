@@ -16,11 +16,12 @@ Version 0.. (2017-01-)
 Initial release of the package, development can be seen at
 https://github.com/brry/rdwd/compare/master@{2016-10-19}...master@{2017-01-19}
 
-'indexDWD' lists all the files on the FTP server with DWD data.
-With 'index2df', it is used to create 'fileIndex', which then helps create 'metaIndex'.
-'selectDWD' uses all that to find files matching a path or station criteria.
+'selectDWD' uses index information to find files matching a path or station criteria.
 With the returned path/file names, 'dataDWD' and 'readDWD' download and read data.
 'dirDWD' and 'fileDWD' control that no file will be overwritten and path messages are useful.
+'indexDWD' lists all the files on the FTP server with DWD data.
+'createIndex' uses that list to create 'fileIndex', 'metaIndex' and 'geoIndex'.
+'mapDWD' is an interactive leaflet map also useful to explore datasets.
 
 Note: 'dataDWD' and 'readDWD' were started in June 2016 within my misc package
 berryFunctions, from which they will be deleted after rdwd is on CRAN

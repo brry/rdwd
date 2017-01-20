@@ -25,7 +25,7 @@ metaInfo(2849)
 Berry Boessenkool, \email{berry-b@gmx.de}, Nov 2016
 }
 \seealso{
-\code{\link{metaIndex}}
+\code{\link{metaIndex}}, \code{\link{mapDWD}}
 }
 \keyword{datasets}
 

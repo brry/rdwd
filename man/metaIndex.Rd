@@ -65,7 +65,7 @@ Berry Boessenkool, \email{berry-b@gmx.de}, June-Nov 2016
 }
 \seealso{
 \code{\link{geoIndex}} for metadata per location,
-         \code{\link{fileIndex}}, \code{\link{findID}}
+         \code{\link{fileIndex}}, \code{\link{findID}}, \code{\link{metaInfo}}
 }
 \keyword{datasets}
 

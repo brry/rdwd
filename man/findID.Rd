@@ -57,7 +57,7 @@ findID("01050")
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct-Nov 2016
 }
 \seealso{
-used in \code{\link{selectDWD}}
+used in \code{\link{selectDWD}}, \code{\link{metaInfo}}
 }
 \keyword{character}
 

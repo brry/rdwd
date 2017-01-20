@@ -1,4 +1,4 @@
-# documentation of package and both Index datasets + viewIndex
+# documentation of package and Index datasets + metaInfo
 
 
 # package documentation --------------------------------------------------------
@@ -116,7 +116,7 @@ data(fileIndex, envir=environment())
 #'         \code{hasfile}
 #' @source Deutscher WetterDienst / Climata Data Center  FTP Server
 #' @seealso \code{\link{geoIndex}} for metadata per location,
-#'          \code{\link{fileIndex}}, \code{\link{findID}}
+#'          \code{\link{fileIndex}}, \code{\link{findID}}, \code{\link{metaInfo}}
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June-Nov 2016
 #' @keywords datasets
 #' @examples
@@ -168,7 +168,7 @@ data(metaIndex, envir=environment())
 #'
 #' @return invisible data.frame. Also \code{\link{print}s} the output.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Nov 2016
-#' @seealso \code{\link{metaIndex}}
+#' @seealso \code{\link{metaIndex}}, \code{\link{mapDWD}}
 #' @keywords datasets
 #' @importFrom berryFunctions sortDF
 #' @export

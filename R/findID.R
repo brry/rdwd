@@ -4,7 +4,7 @@
 #'
 #' @return Character string (vector) with ID(s)
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct-Nov 2016
-#' @seealso used in \code{\link{selectDWD}}
+#' @seealso used in \code{\link{selectDWD}}, \code{\link{metaInfo}}
 #' @keywords character
 #' @export
 #' @examples
