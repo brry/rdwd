@@ -39,9 +39,9 @@ solar -            \tab | solar -            \tab |               \cr
 }
 \examples{
 
-# see README.md
+\dontrun{ # excluded from CRAN R CMD check because of file writing / time consumption
 
-\dontrun{ # excluded from CRAN R CMD check because of file writing
+
 link <- selectDWD("Potsdam", res="monthly", var="kl", per="h", current=TRUE)
 clim <- dataDWD(link[1])
 clim$month <- substr(clim$MESS_DATUM_BEGINN,5,6)
@@ -49,6 +49,56 @@ temp <- tapply(clim$LUFTTEMPERATUR, clim$month, mean)
 prec <- tapply(clim$NIEDERSCHLAGSHOEHE, clim$month, mean)
 library(berryFunctions)
 climateGraph(temp, prec, main="Potsdam 1893:2015")
+
+
+# Map of all precipitation stations:
+if(!requireNameSpace("OSMscale")) install.packages("OSMscale")
+library("OSMscale")
+map <- pointsMap(geoBreite, geoLaenge, data=metaIndex, fx=0.28, fy=0.06)
+pdf("DWDdata/RainfallStationsMap.pdf")
+plot(map)
+scaleBar(map, x=0.05, y=0.03, abslen=200)
+pp <- projectPoints(geoBreite, geoLaenge, data=metaIndex, to=posm())
+points(pp[!metaIndex$hasfile,], col="red", pch=3)
+points(pp[ metaIndex$hasfile,], col="blue", pch=3)
+legend("bottomright", c("in matadata only", "file on FTP server"),
+       col=c("red", "blue"), pch=3, bg="white")
+title(main="DWD stations: data on ftp server", line=3)
+dev.off()
+
+
+
+# Map of all precipitation stations:
+if(FALSE){ ## requires extra package
+if(!requireNameSpace("OSMscale")) install.packages("OSMscale")
+library("OSMscale")
+map <- pointsMap(lat, long, data=geoIndex, fx=0.06, fy=0.06)
+pdf("DWDdata/RainfallStationsMap_nfiles.pdf", width=5)
+plot(map)
+scaleBar(map, x=0.05, y=0.03, abslen=200)
+geoIndex <- sortDF(geoIndex, "nfiles_coord", decreasing=FALSE)
+pp <- projectPoints(lat, long, data=geoIndex, to=posm())
+points(pp, cex=0.6)
+colPoints(pp$x, pp$y, geoIndex$nfiles_coord, cex=0.6, zlab="")
+title(main="DWD stations: number of files on ftp server", line=3)
+dev.off()
+}
+
+
+# Time series duration:
+colPoints <- berryFunctions::colPoints
+colPoints(geoLaenge, geoBreite, Stations_id, data=metaIndex, add=F, asp=1.5)
+colPoints(geoLaenge, geoBreite, Stationshoehe, data=metaIndex, add=F, asp=1.5)
+metaIndex$von_jahr <- metaIndex$von_datum/1e4
+metaIndex$bis_jahr <- metaIndex$bis_datum/1e4
+metaIndex$dauer <- metaIndex$bis_jahr - metaIndex$von_jahr
+colPoints(geoLaenge, geoBreite, von_jahr, data=metaIndex, add=F, asp=1.5)
+colPoints(geoLaenge, geoBreite, bis_jahr, data=metaIndex, add=F, asp=1.5)
+colPoints(geoLaenge, geoBreite, dauer, data=metaIndex, add=F, asp=1.5)
+hist(metaIndex$bis_jahr, breaks=50, col="purple")
+hist(metaIndex$dauer, breaks=50, col="purple")
+sum(metaIndex$dauer>50); mean(metaIndex$dauer>50)
+# 40\% of stations with more than 50 years of data (according to metadata)
 }
 
 }
