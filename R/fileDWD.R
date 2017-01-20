@@ -62,9 +62,9 @@ existed <- as.logical(existed)
 if(!quiet)
   {
   # message names:
-  n_e <- sum( existed,na.rm=TRUE)
+  n_e <- sum(existed, na.rm=TRUE)
   message("rdwd::fileDWD: Creating ",length(fnames)," file", if(length(fnames)>1) "s",
-          if(n_e>1) paste0(" (",n_e," already existed for which '_n' is appended)"), ":",
+          if(n_e>0) paste0(" (",n_e," already existed for which '_n' is appended)"), ":",
           truncMessage(fnames, ntrunc=ntrunc, prefix=""))
   }
 fnames
