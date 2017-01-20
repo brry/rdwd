@@ -222,7 +222,7 @@ mapDWD <- leaflet(data=geoIndex) %>% addTiles() %>%
              addCircles(~long, ~lat, radius=900, stroke=F)%>%
              addCircleMarkers(~long, ~lat, popup=~display, stroke=F)
 mapDWD
-htmlwidgets::saveWidget(mapDWD, file="mapDWD.html")
+htmlwidgets::saveWidget(mapDWD, file="map.html")
 save(mapDWD,     file="data/mapDWD.rda")
 tools::resaveRdaFiles("data/mapDWD.rda")
 }

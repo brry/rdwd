@@ -1,3 +1,7 @@
+context("Development notes of package (not real tests")
+
+if(FALSE) {
+
 
 # libcurl returning OS dependent results:
 
@@ -102,3 +106,7 @@ lapply(m, head)
 #                ID           VON         BIS        HOEHE    LAT       LONG      NAME     BUNDESLAND
 #colClasses <- c("character", "integer", "integer", "numeric","numeric","numeric","factor","factor")
 # some meta files have no leading zeros, so this package uses integer all the time. # colClasses=colClasses
+
+
+}
+
