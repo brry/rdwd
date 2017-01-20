@@ -1,0 +1,14 @@
+---
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{mapDWD}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+[rdwd main vignette](../doc/rdwd.html)
+
+```{r map, fig.height=7, fig.width=7, warning=FALSE}
+library(leaflet)  ;  data(mapDWD)  ;  mapDWD
+```
+
