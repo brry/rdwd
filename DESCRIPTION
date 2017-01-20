@@ -1,10 +1,10 @@
 Package: rdwd
 Title: Download Climate Data from DWD (German Weather Service)
-Version: 0.5.8
+Version: 0.5.9
 Date: 2017-01-20
 Depends: R(>= 2.10)
 Imports: berryFunctions (>= 1.12.17)
-Suggests: RCurl, pbapply, OSMscale
+Suggests: RCurl, pbapply, OSMscale, leaflet, knitr, rmarkdown
 Author: Berry Boessenkool
 Maintainer: Berry Boessenkool <berry-b@gmx.de>
 Description: indexDWD allows users to select weather data from the DWD (Deutscher Wetterdienst).
@@ -13,3 +13,4 @@ License: GPL (>= 2)
 Encoding: UTF-8
 URL: https://github.com/brry/rdwd
 RoxygenNote: 5.0.1
+VignetteBuilder: knitr

@@ -1,9 +1,8 @@
 
 rdwd ToDo-list / wishlist / issues
 http://stackoverflow.com/questions/31433352/if-html-doesnt-work-well-in-github-how-can-some-people-make-it-work
-- write vignette + move examples from metaIndex (and elsewhere) there
+- move examples from metaIndex (and elsewhere) to vignette
 - translations for colnames
-- rdwd leaflet map github page?
 - just before CRAN release, change date in github compare link below and update indexes
 
 ---------------------------------------
