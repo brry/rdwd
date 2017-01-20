@@ -1,118 +1,47 @@
 # rdwd
-### intro
-Select and download climate data from the DWD (German Weather Service) FTP Server.
+`rdwd` is an [R](https://www.r-project.org/) package to select, download and read climate data from the 
+German Weather Service (Deutscher Wetterdienst, DWD) FTP Server.
 
-The German weather service (Deutscher Wetterdienst, DWD) has over 28 thousand
-datasets with weather observations online at <ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate>.
+The DWD provides over 25 thousand datasets with weather observations online at 
+<ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate>.
 
-To use those datasets, `rdwd` has been designed to mainly do 3 things:
-* `selectDWD`: facilitate file selection, e.g. for certain station names (with `findID`), 
-by geographical location (see `mapDWD`), by temporal resolution (hourly, daily, monthly), 
-variables (temperature, rain, wind, sun, clouds, etc) or
-observation period (historical long term records or the current year)
-* `dataDWD`: download a file (or multiple files without getting banned by the FTP-server)
-* `readDWD`: read that data into R (including useful defaults for metadata)
+Usage of the package will usually look something like the following:
 
-`selectDWD` uses the result from `indexDWD` which recursively lists all the files on an FTP-server (using RCurl::getURL).
-As this is time consuming, the result is stored in the package dataset `fileIndex`.
-From this, `metaIndex`, `geoIndex`, `mapDWD` and `metaInfo` are derived.
+```R
+
+# download and install the rdwd package (only needed once):
+install.packages("berryFunctions") 
+berryFunctions::instGit("brry/rdwd")
+# install.packages("rdwd") # will replace the previous two lines once package is on CRAN
+
+# load the package into library (needed in every R session):
+library(rdwd)
+
+# view package documentation:
+?rdwd
+
+# select a dataset (e.g. last year's daily climatic data from Potsdam City):
+link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
+
+# Actually download that dataset, returning the local storage file name:
+file <- dataDWD(link, read=FALSE)
+
+# Read the file from the zip folder:
+clim <- readDWD(file)
+
+# Inspect first couple of entries:
+head(clim)
+```
+
+You can also select datasets with the interactive map.
+
+Further instructions and examples are explained in the package vignette.
+
+```R
+vignette("mapDWD") # interactive map
+vignette("rdwd")   # package instructions and examples
+```
 
 A real-life usage example of the package can be found at
 https://github.com/brry/prectemp/blob/master/Code_analysis.R
-
-**Table of Contents**
-* [installation](#installation)
-* [basic usage](#basic-usage)
-* [more details](#more-details)
-* [plotting](#plotting)
-* [Installation troubleshooting](#trouble)
-
-### installation
-
-```R
-install.packages("berryFunctions") # rdwd depends on this package
-berryFunctions::instGit("brry/rdwd")
-# or if you already have devtools:
-devtools::install_github("brry/rdwd")
-
-# For full usage, as needed in indexDWD and metaDWD(..., current=TRUE):
-install.packages("RCurl") # is only suggested, not mandatory dependency
-
-library(rdwd)
-?rdwd
-```
-
-### basic usage
-
-```R
-link <- selectDWD("Potsdam", res="daily", var="kl", per="recent"); link
-file <- dataDWD(link, read=FALSE); file # download file
-clim <- readDWD(file)
-head(clim)
-
-# inputs can be vectorized, and period can be abbreviated:
-selectDWD(c("Potsdam","Wuerzburg"), res="hourly", var="sun", per="hist")
-selectDWD("Potsdam", res="daily", var="kl", per=c("r","h"), outvec=TRUE)
-
-# station metadata for a given path:
-m_link <- selectDWD(res="monthly", var="more_precip", per="hist", meta=TRUE); m_link
-meta_monthly_rain <- dataDWD(m_link, read=TRUE)
-head(meta_monthly_rain)
-# or as a one-liner:
-head(dataDWD(selectDWD(res="hourly", var="sun", per="r", meta=TRUE)))
-
-# All metadata at all folders:
-data(metaIndex) ; ?metaIndex
-head(metaIndex)
-
-# all files at a given path, with current file index (RCurl required):
-links <- selectDWD(res="monthly", var="more_precip", per="hist", current=TRUE)
-
-# all (available) files for a certain station (meta files may have more results):
-selectDWD(id=c(3467, 5116), meta=T) # that's why the default outvec is FALSE
-```
-For example: Tucheim (5116) is listed in the monthly/more\_precip/recent metadata at
-<ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/monthly/more_precip/recent/RR_Monatwerte_Beschreibung_Stationen.txt>, but actually has no file in that folder (only in `../historical`).
-
-### more details
-
-```R
-# metadata:
-head(rdwd:::metaIndex)
-View(data.frame(sort(unique(rdwd:::metaIndex$Stationsname))))
-
-# files
-head(rdwd:::fileIndex)
-# If you find this to be outdated (Error in download.file ... : cannot open URL),
-# please let me know and I will update it. Meanwhile, use current=TRUE in selectDWD
-
-# recursively list files on the FTP-server:
-files <- indexDWD("hourly/sun") # use dir="some_path" to save the output elsewhere
-berryFunctions::headtail(files, 5, na=TRUE)
-# with other FTP servers, this should also work...
-funet <- indexDWD(base="ftp://ftp.funet.fi/pub/standards/RFC/ien")
-p <- RCurl::getURL("ftp://ftp.funet.fi/pub/standards/RFC/ien",
-                       verbose=T, ftp.use.epsv=TRUE, dirlistonly=TRUE)
-```
-### plotting
-
-```R
-png("ExampleGraph.png", width=4, height=3, units="in", res=150)
-par(mar=c(4,4,2,0.5), mgp=c(2.7, 0.8, 0), cex=0.8)
-plot(clim[,c(2,4)], type="l", xaxt="n", las=1, main="Daily temp Potsdam")
-berryFunctions::monthAxis(ym=TRUE)
-dev.off()
-```
-![ExampleGraph](https://github.com/brry/rdwd/blob/master/ExampleGraph.png)
-
-### trouble
-
-If direct installation from CRAN doesn't work, your R version might be too old. In that case, an update is really recommendable: [r-project.org](https://www.r-project.org/). If you can't update R, try installing from source (github) via `instGit` or devtools as mentioned above. If that's not possible either, here's a manual workaround:
-click on **Clone or Download -> Download ZIP** (topright, [link](https://github.com/brry/rdwd/archive/master.zip)), unzip the file to some place, then
-```R
-setwd("that/path")
-dd <- dir("rdwd-master/R", full=T)
-dummy <- sapply(dd, source)
-```
-This creates all R functions as objects in your globalenv workspace (and overwrites existing objects of the same name!).
 
