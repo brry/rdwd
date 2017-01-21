@@ -82,9 +82,10 @@ while(any(!isfile))
     if(inherits(p, "try-error"))
       {
       if(!quiet) warning("rdwd::indexDWD: RCurl::getURL failed for '", path,
-                         "/' - ", p, call.=FALSE) # strsplit(p, "\n")[[1]][2]
-      assign("isfile", TRUE, inherits=TRUE) # to get out of the while loop
-      if(grepl("Access denied: 530", p)) assign("stoppp", TRUE, inherits=TRUE) # to get out of the lapply loop
+                         "/' - ", p, call.=FALSE, immediate.=TRUE) # strsplit(p, "\n")[[1]][2]
+      assign("isfile", 7777, inherits=TRUE) # to get out of the while loop
+      # if(grepl("Access denied: 530", p)) # stoppp now always set to true after failure
+      assign("stoppp", TRUE, inherits=TRUE) # to get out of the lapply loop
       return(path)
       }
     # carriage return / newline is OS-dependent:
@@ -96,7 +97,7 @@ while(any(!isfile))
     return(paste0(path,"/",p))
     }) # end lapply loop
   f <- c(f1,unlist(f2))
-  isfile <- grepl(pattern=".", x=f, fixed=TRUE)
+  if(!isfile[1]==7777) isfile <- grepl(pattern=".", x=f, fixed=TRUE)
   } # end while loop
 # sort final results alphabetically:
 f <- sort(unlist(f, use.names=FALSE))
