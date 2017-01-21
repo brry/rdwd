@@ -142,7 +142,7 @@ berryFunctions::is.error(  selectDWD(id="", current=TRUE) , tell=TRUE, force=TRU
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2016
 }
 \seealso{
-\code{\link{dataDWD}}
+\code{\link{dataDWD}}, \url{../doc/mapDWD.html}, \code{vignette("mapDWD", package="rdwd")}
 }
 \keyword{file}
 

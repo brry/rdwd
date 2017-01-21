@@ -23,7 +23,7 @@
 #' @return Character string with file path and name(s) in the format
 #'         "base/res/var/per/filename.zip"
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2016
-#' @seealso \code{\link{dataDWD}}
+#' @seealso \code{\link{dataDWD}}, \url{../doc/mapDWD.html}, \code{vignette("mapDWD", package="rdwd")}
 #' @keywords file
 #' @importFrom berryFunctions truncMessage traceCall
 #' @export

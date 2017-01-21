@@ -1,8 +1,7 @@
 # rdwd
 `rdwd` is an [R](https://www.r-project.org/) package to select, download and read climate data from the 
-German Weather Service (Deutscher Wetterdienst, DWD) FTP Server.
-
-The DWD provides over 25 thousand datasets with weather observations online at 
+German Weather Service (Deutscher Wetterdienst, DWD).
+They provide over 25 thousand datasets with weather observations online at 
 <ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate>.
 
 Usage of the package will usually look something like the following:
@@ -20,7 +19,7 @@ library(rdwd)
 # view package documentation:
 ?rdwd
 
-# select a dataset (e.g. last year's daily climatic data from Potsdam City):
+# select a dataset (e.g. last year's daily climate data from Potsdam City):
 link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
 
 # Actually download that dataset, returning the local storage file name:

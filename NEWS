@@ -1,12 +1,12 @@
 
 rdwd ToDo-list / wishlist / issues
-http://stackoverflow.com/questions/31433352/if-html-doesnt-work-well-in-github-how-can-some-people-make-it-work
-- check whether it is possible to include a vignette that will not be build each time (time consuming!)
-- decide examples location (rdwd vignette vs rdwd-package vs potentially third vignette previous point)
+- devtools release question is index updated?
 - just before CRAN release, change date in github compare link below and update indexes
 
-- translations for colnames
+- translations for colnames (in doc only? metaIndex / vs current=TRUE)
+- improve readability of dates, at least in metaInfo print (1953-04-16)
 - After package is on CRAN, link to map and vignette in the readME.
+- change tests to actually test stuff
 
 
 ---------------------------------------
@@ -17,7 +17,7 @@ Any feedback is welcome, per email or on github.com/brry/rdwd
 
 Version 0.. (2017-01-)
 Initial release of the package, development can be seen at
-https://github.com/brry/rdwd/compare/master@{2016-10-19}...master@{2017-01-19}
+https://github.com/brry/rdwd/compare/master@{2016-10-19}...master@{2017-01-21}
 
 'selectDWD' uses index information to find files matching a path or station criteria.
 With the returned path/file names, 'dataDWD' and 'readDWD' download and read data.
