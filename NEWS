@@ -1,12 +1,10 @@
 
 rdwd ToDo-list / wishlist / issues
-- devtools release question is index updated?
 - just before CRAN release, change date in github compare link below and update indexes
-
 - translations for colnames (in doc only? metaIndex / vs current=TRUE)
 - improve readability of dates, at least in metaInfo print (1953-04-16)
 - After package is on CRAN, link to map and vignette in the readME.
-- change tests to actually test stuff
+- change tests to actually test stuff, maybe add third vignette
 
 
 ---------------------------------------

@@ -1,15 +1,14 @@
-# package documentation and general examples
+# package documentation and release questions
 
 #' Download Climate Data from DWD (German Weather Service)
 #'
-#' Select weather data from the DWD (Deutscher Wetterdienst) with
-#' \code{\link{selectDWD}}. Download and process data sets with
-#' \code{\link{dataDWD}} and \code{\link{readDWD}}.\cr
+#' Select weather data from the DWD (Deutscher Wetterdienst) with  \code{\link{selectDWD}}. \cr
+#' Download and process data sets with \code{\link{dataDWD}} and \code{\link{readDWD}}.\cr
 #' Station selection is done offline with \code{\link{fileIndex}} and
-#' \code{\link{findID}} (which uses \code{\link{metaIndex}}).
+#' \code{\link{findID}} (which uses \code{\link{metaIndex}}).\cr
 #' The Index objects are created with \code{\link{indexDWD}} and \code{\link{createIndex}}.\cr
 #' \code{\link{dirDWD}} and \code{\link{fileDWD}} make sure no file is overwritten and give useful messages.\cr
-#' For an introduction to the package, see \url{https://github.com/brry/rdwd#rdwd}
+#' For an introduction to the package, see the vignette \url{../doc/rdwd.html}.
 #'
 #' @details The following folders in \bold{\code{res/var/per}} notation
 #' (resolution/variable/period) are available at
@@ -39,7 +38,19 @@
 #' @keywords package documentation
 #' @seealso USA data: \url{https://www.rdocumentation.org/packages/countyweather},
 #'          \url{https://www.rdocumentation.org/packages/rnoaa}\cr
-#'          \url{../doc/rdwd.html}, \code{vignette("rdwd", package="rdwd")}
 #'
 NULL
 
+
+
+#' Reminders when using devtools::release
+#'
+#' Reminders when using devtools::release. Code is in R/rdwd-package.R
+#'
+#' @keywords internal
+
+release_questions <- function() {
+  c(
+    "Have you updated the indexes with the code in R/meta.R?"
+  )
+}
