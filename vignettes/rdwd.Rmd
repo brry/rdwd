@@ -44,7 +44,7 @@ observation period (historical long term records or the current year)
 As this is time consuming, the result is stored in the package dataset `fileIndex`.
 From this, `metaIndex`, `geoIndex`, `mapDWD` and `metaInfo` are derived.
 
-<img src="https://github.com/brry/rdwd/raw/master/PackageSchematic.png" width="600">
+<img src="PackageSchematic.png" width="600">
 
 [TOC](#top)
 
