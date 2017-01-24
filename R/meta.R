@@ -185,11 +185,11 @@ data(mapDWD, envir=environment())
 # create / update Indexes ------------------------------------------------------
 
 if(FALSE){
-# dwdfiles <- indexDWD(sleep=3) # commented out to prevent accidental calling
-# dwdfiles <- indexDWD(dwdfiles, sleep=30) # potentially needed several times if sleep small
+# dwdfiles <- indexDWD(sleep=0) # commented out to prevent accidental calling
+# dwdfiles <- indexDWD(dwdfiles, sleep=10) # potentially needed several times if sleep small
 # file.rename("DWDdata/INDEX_of_DWD__daily_kl_historical.txt", "DWDdata/INDEX_of_DWD_.txt")
 dwdfiles <- readLines("DWDdata/INDEX_of_DWD_.txt") # 25'631 elements (2016-10-21)
-index <- createIndex(dwdfiles, meta=TRUE, sleep=10)
+index <- createIndex(dwdfiles, meta=TRUE, sleep=5)
 fileIndex <- index[[1]]
 metaIndex <- index[[2]]
  geoIndex <- index[[3]]
@@ -222,7 +222,7 @@ mapDWD <- leaflet(data=geoIndex) %>% addTiles() %>%
              addCircles(~long, ~lat, radius=900, stroke=F)%>%
              addCircleMarkers(~long, ~lat, popup=~display, stroke=F)
 mapDWD
-htmlwidgets::saveWidget(mapDWD, file="map.html")
+#htmlwidgets::saveWidget(mapDWD, file="map.html")
 save(mapDWD,     file="data/mapDWD.rda")
 tools::resaveRdaFiles("data/mapDWD.rda")
 }
