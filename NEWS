@@ -1,6 +1,5 @@
 
 rdwd ToDo-list / wishlist / issues
-- just before CRAN release, change date in github compare link below and update indexes
 - translations for colnames (in doc only? metaIndex / vs current=TRUE)
 - improve readability of dates, at least in metaInfo print (1953-04-16)
 - After package is on CRAN, link to map and vignette in the readME.
@@ -13,9 +12,9 @@ Any feedback is welcome, per email or on github.com/brry/rdwd
 ---------------------------------------
 
 
-Version 0.. (2017-01-)
+Version 0.6.0 (2017-01-24)
 Initial release of the package, development can be seen at
-https://github.com/brry/rdwd/compare/master@{2016-10-19}...master@{2017-01-21}
+https://github.com/brry/rdwd/compare/master@{2016-10-19}...master@{2017-01-24}
 
 'selectDWD' uses index information to find files matching a path or station criteria.
 With the returned path/file names, 'dataDWD' and 'readDWD' download and read data.

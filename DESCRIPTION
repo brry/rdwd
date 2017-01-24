@@ -1,14 +1,14 @@
 Package: rdwd
-Title: Download Climate Data from DWD (German Weather Service)
-Version: 0.5.13
+Title: Select and Download Climate Data from 'DWD' (German Weather Service)
+Version: 0.6.0
 Date: 2017-01-24
 Depends: R(>= 2.10)
 Imports: berryFunctions (>= 1.14.0)
 Suggests: RCurl, pbapply, OSMscale (>= 0.4.1), leaflet, knitr, rmarkdown, testthat
 Author: Berry Boessenkool
 Maintainer: Berry Boessenkool <berry-b@gmx.de>
-Description: 'selectDWD' allows users to select weather data from the DWD (Deutscher Wetterdienst).
-             'dataDWD' and 'readDWD' download and process data sets.
+Description: Handle climate data from the 'DWD' ('Deutscher Wetterdienst').
+             Choose files with 'selectDWD', download and process datasets with 'dataDWD' and 'readDWD'.
 License: GPL (>= 2)
 Encoding: UTF-8
 URL: https://github.com/brry/rdwd
