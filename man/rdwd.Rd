@@ -36,6 +36,12 @@ soil_temperature < \tab | soil_temperature < \tab |               \cr
 solar -            \tab | solar -            \tab |               \cr
 }
 }
+\section{Searchability Terms}{
+
+Weather Data Germany download with R, Climate Data Germany\cr
+Deutscher Wetterdienst R Daten download Klimastationen\cr
+DWD Daten mit R runterladen, Wetter und Klimadaten in R\cr
+}
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, June-Nov 2016
 }

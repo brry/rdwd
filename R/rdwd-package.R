@@ -38,7 +38,10 @@
 #' @keywords package documentation
 #' @seealso USA data: \url{https://www.rdocumentation.org/packages/countyweather},
 #'          \url{https://www.rdocumentation.org/packages/rnoaa}\cr
-#'
+#' @section Searchability Terms:
+#' Weather Data Germany download with R, Climate Data Germany\cr
+#' Deutscher Wetterdienst R Daten download Klimastationen\cr
+#' DWD Daten mit R runterladen, Wetter und Klimadaten in R\cr
 NULL
 
 
