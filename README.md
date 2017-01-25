@@ -9,9 +9,7 @@ Usage of the package will usually look something like the following:
 ```R
 
 # download and install the rdwd package (only needed once):
-install.packages("berryFunctions") 
-berryFunctions::instGit("brry/rdwd")
-# install.packages("rdwd") # will replace the previous two lines once package is on CRAN
+install.packages("rdwd")
 
 # load the package into library (needed in every R session):
 library(rdwd)
@@ -28,16 +26,15 @@ file <- dataDWD(link, read=FALSE)
 # Read the file from the zip folder:
 clim <- readDWD(file)
 
-# Inspect first couple of entries:
-head(clim)
+# Inspect the data.frame:
+str(clim)
 ```
 
-You can also select datasets with the interactive map.
-
-Further instructions and examples are explained in the package vignette.
+You can also select datasets with the [interactive map](https://cran.r-project.org/package=rdwd/vignettes/mapDWD.html).
+Further instructions and examples are available in the [package vignette](https://cran.r-project.org/package=rdwd/vignettes/rdwd.html).
 
 ```R
-vignette("mapDWD") # interactive map
+vignette("mapDWD") # interactive map, likely faster than CRAN link above
 vignette("rdwd")   # package instructions and examples
 ```
 
