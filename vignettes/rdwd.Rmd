@@ -230,3 +230,4 @@ but actually has no file in that folder (only in .../monthly/more_precip/__histo
 
 [TOC](#top)
 
+Any feedback on this package (or this vignette) is very welcome via [github](https://github.com/brry/rdwd) or <berry-b@gmx.de>!
