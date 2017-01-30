@@ -30,7 +30,7 @@
 #'
 #' # For real usage, see last part of
 #' if(interactive())
-#' browseURL("https://github.com/brry/rdwd/blob/master/R/rdwd-package.R")
+#' browseURL("https://github.com/brry/rdwd/blob/master/R/meta.R")
 #' # where fileIndex and metaIndex are added to the package
 #'
 #' # Read results in later:
@@ -132,7 +132,7 @@ if(sum(sel)<2) stop("There need to be at least two 'Beschreibung' files. (There 
 # download those files:
 metas <- dataDWD(paste0(base,fileIndex[sel, "path"]), dir=metadir, ...)
 # filenames <- substr(gsub("/","_",fileIndex[sel, "path"]),2,1e4)
-# metas <- readDWD(paste0("DWDdata/meta/",filenames))
+# metas <- readDWD(filenames, dir="DWDdata/meta")
 for(i in seq_along(metas))
   {
   metas[[i]]$res <- fileIndex[sel, "res"][i]
