@@ -1,0 +1,264 @@
+% rdwd package presentation
+% Berry Boessenkool, Potsdam University, Germany
+% berry-b@gmx.de
+
+\documentclass[compress, xcolor=dvipsnames]{beamer}
+\setbeamerfont{frametitle}{size=\normalsize}
+
+\usepackage{hyperref, graphicx}
+\usepackage[dvipsnames]{xcolor}
+\renewcommand\appendixname{Appendix}
+\usepackage[absolute,overlay]{textpos}
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
+% \beamertemplatenavigationsymbolsempty
+\setbeamertemplate{navigation symbols}[only frame symbol]
+%\usetheme{Madrid}
+\useoutertheme[subsection=false]{miniframes}
+\beamersetleftmargin{0.5cm}
+\beamersetrightmargin{0.5cm}
+\let\Tiny=\tiny % avoid warning: Font shape `OT1/cmss/m/n' in size <4> not available. size <5> substituted on input line
+\setbeamertemplate{footline}[frame number]
+
+\newcommand{\bildlink}[1]{\flushleft{\tiny \href{#1}{\textcolor{gray}{#1}} \normalsize }}
+\newcommand{\bildlinkt}[2]{\flushleft{\tiny \href{#1}{\textcolor{gray}{#2}} \normalsize }}
+
+
+
+% ACTUAL SLIDES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\centering
+
+
+% ---------------------------
+
+\section{Motivation}
+
+% ---------------------------
+
+<<setup, include=FALSE>>=
+opts_chunk$set(cache=T, echo=TRUE, fig.height=3.3, fig.width=5, out.width='0.9\\textwidth')
+@
+
+% ---------------------------
+
+\begin{frame}%[plain]
+\vspace{1em}
+\Large
+\textbf{rdwd - an R package to select, download and read climate data from the German Weather Service}\\[2em]
+\normalsize
+Berry Boessenkool, \href{http://www.geo.uni-potsdam.de/geoecology.html}{uni-potsdam.de}, Feb 2017\\[1em]
+\texttt{berry-b@gmx.de}\\[1em]
+\href{https://github.com/brry/rdwd\#rdwd}{github.com/brry/rdwd\#rdwd}
+\end{frame}
+
+% ---------------------------
+
+\begin{frame}{The German Weather Service (DWD) provides over 25'000 climate datasets}
+\pause
+\begin{itemize}%[<+->]
+\item Too much for manual inspection
+\item Somewhat difficult to search
+\item File format inconsistent (e.g. column widths)
+\end{itemize}
+\pause
+\flushleft{Screenshot of FTP server:}\\[0.5em]
+\includegraphics[width=0.9\textwidth]{dwd_ftp.PNG}\\
+\end{frame}
+
+% ---------------------------
+
+\begin{frame}{R saves the day}
+R package \texttt{rdwd} ~~$->$~~ easy usage of the datasets
+\end{frame}
+
+% ---------------------------
+
+\begin{frame}{Overview}
+\begin{itemize}%[<+->]
+\item Motivation
+\item Usage
+\item Applications
+\item Community
+\end{itemize}
+\end{frame}
+
+% ---------------------------
+
+\section{Usage}
+\begin{frame}
+\textbf{Usage}\\[1em]
+- \hyperlink{ul}{get URL}\\
+- \hyperlink{ud}{download}\\
+- \hyperlink{ur}{read}\\
+- \hyperlink{up}{plot}\\
+- \hyperlink{um}{map}
+\end{frame}
+
+% ---------------------------
+
+\begin{frame}[fragile]{U1/5: Get dataset URL with \texttt{selectDWD}}
+\label{ul}
+\pause
+<<libr>>=
+library("rdwd")
+@
+\pause
+<<link>>=
+link <- selectDWD("Potsdam", res="daily",
+                  var="kl", per="recent")
+@
+\pause
+<<linkprint, echo=FALSE>>=
+cat(gsub("/cli", "/\n/cli", link))
+@
+\end{frame}
+
+% ---------------------------
+
+\begin{frame}[fragile]{U2/5: Download dataset with \texttt{dataDWD}}
+\label{ud}
+\pause
+<<file1, eval=FALSE>>=
+file <- dataDWD(link, read=FALSE)
+@
+<<file2, size="tiny", echo=FALSE>>=
+file <- dataDWD(link, read=FALSE)
+@
+\pause
+<<file3>>=
+file
+@
+\end{frame}
+
+% ---------------------------
+
+\begin{frame}[fragile]{U3/5: Unzip file and read + convert data with \texttt{readDWD}}
+\label{ur}
+\pause
+<<clim>>=
+clim <- readDWD(file)
+@
+\pause
+<<clim2, size="tiny">>=
+str(clim)
+@
+\end{frame}
+
+% ---------------------------
+
+\begin{frame}[fragile]{U4/5: Data can be plotted with regular R code}
+\label{up}
+\pause
+<<tempplot, echo=2:3, fig.height=3>>=
+par(mar=c(4,4,2,0.5), mgp=c(2.6, 0.8, 0), cex=0.8)
+plot(clim[,c(2,4)], type="l", xaxt="n", las=1)
+berryFunctions::monthAxis(ym=TRUE)   ;   abline(h=0)
+mtext("Daily temperature Potsdam", adj=0, line=0.5, font=2, cex=0.8)
+mtext("Source: Deutscher Wetterdienst", adj=1, line=0.5, font=3, cex=0.8)
+@
+\end{frame}
+
+% ---------------------------
+
+% \begin{frame}{\texttt{rdwd}: assessing the power of DWD data}
+% \includegraphics[width=0.99\textwidth]{../vignettes/PackageSchematic.png}
+% \end{frame}
+
+% ---------------------------
+
+\begin{frame}[fragile]{U5/5: Interactive map (\href{../inst/doc/mapDWD.html}{mapDWD.html})}
+\label{um}
+<<map, eval=FALSE>>=
+data(mapDWD)  ;  library(leaflet)  ;  mapDWD
+@
+\includegraphics[width=0.7\textwidth]{map1.png}
+\end{frame}
+
+% ---------------------------
+
+\begin{frame}[fragile]{U5/5: Interactive map (\href{../inst/doc/mapDWD.html}{mapDWD.html})}
+\includegraphics[width=0.99\textwidth]{map2.png}
+\end{frame}
+
+% ---------------------------
+\section{Applications}
+\begin{frame}
+\textbf{Applications}\\[1em]
+- \hyperlink{ac}{climate graph}\\
+- \hyperlink{ae}{event analysis}\\
+- \hyperlink{ar}{rainfall extremes}\\
+\end{frame}
+
+% ---------------------------
+
+\begin{frame}[fragile]{A1/3: Long term climate graph (Potsdam 1893:2015)}
+\label{ac}
+<<climgraph, echo=-1, message=FALSE, fig.show='hide'>>=
+par(mar=c(4,4,2,0.5), mgp=c(2.6, 0.8, 0), cex=0.7)
+clim <- dataDWD(selectDWD("Potsdam", res="monthly",
+                          var="kl", per="h"))
+clim$month <- substr(clim$MESS_DATUM_BEGINN,5,6)
+temp <- tapply(clim$LUFTTEMPERATUR, clim$month, mean)
+prec <- tapply(clim$NIEDERSCHLAGSHOEHE, clim$month, mean)
+berryFunctions::climateGraph(temp, prec, main="")
+@
+\end{frame}
+
+% ---------------------------
+
+\begin{frame}[fragile]{A1/3: Long term climate graph (Potsdam 1893:2015)}
+\includegraphics[width=0.99\textwidth]{figure/climgraph-1.pdf}
+\end{frame}
+
+% ---------------------------
+
+\begin{frame}[fragile]{A2/3: Flashflood event rainfall analysis (\href{http://www.uni-potsdam.de/natriskchange/qualification-program/task-force-braunsbach-flash-flood-2016.html}{Taskforce report})}
+\label{ae}
+\pause
+\includegraphics[width=0.99\textwidth]{Rainfall_map_events.pdf}
+\end{frame}
+
+% ---------------------------
+
+\begin{frame}{A3/3: Extreme rainfall over temperature (\href{https://github.com/brry/prectemp}{github.com/brry/prectemp})}
+\label{ar}
+\only<1>{
+\textblockcolour{white}
+\begin{textblock*}{5.1cm}(6.5cm,1.4cm)
+\vspace{7.0cm} ~
+\end{textblock*}
+\vspace{0.1em}
+}
+\only<1-2>{\includegraphics[width=0.9\textwidth]{fig2.pdf}}
+\end{frame}
+
+% ---------------------------
+
+\section{Community}
+
+% ---------------------------
+
+\begin{frame}{The FOSS community role}
+\pause
+\begin{itemize}[<+->]
+\item Stackoverflow
+\item ...
+\end{itemize}
+\end{frame}
+
+% ---------------------------
+
+\begin{frame}{Conclusion}
+\pause
+\begin{itemize}[<+->]
+\item DWD is awesome
+\item Usage of the data is easy with \texttt{rdwd}
+\item FOSS is awesome
+\end{itemize}
+\end{frame}
+
+% ---------------------------
+
+\end{document}
+
