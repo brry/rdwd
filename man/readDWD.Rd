@@ -32,7 +32,7 @@ Coordinated). DEFAULT: "GMT"}
 
 \item{progbar}{Logical: present a progress bar with estimated remaining time?
 If missing and length(file)==1, progbar is internally set to FALSE.
-Only works if the R package \code{pbapply} is available. DEFAULT: TRUE (!quiet)}
+Only works if the R package \code{pbapply} is available. DEFAULT: TRUE}
 }
 \value{
 Invisible data.frame of the desired dataset, or a list of data.frames

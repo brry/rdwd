@@ -36,7 +36,7 @@
 #'               Coordinated). DEFAULT: "GMT"
 #' @param progbar Logical: present a progress bar with estimated remaining time?
 #'               If missing and length(file)==1, progbar is internally set to FALSE.
-#'               Only works if the R package \code{pbapply} is available. DEFAULT: TRUE (!quiet)
+#'               Only works if the R package \code{pbapply} is available. DEFAULT: TRUE 
 #'
 readDWD <- function(
 file,
