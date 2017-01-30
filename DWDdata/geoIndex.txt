@@ -56,8 +56,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 51	Ahrensboek	Schleswig-Holstein	54.0167	10.5667	60	60(2)	2	2
 52	Ahrensburg-Wulfsdorf	Schleswig-Holstein	53.6623	10.199	46	46(8)	8	9
 52	Ahrensburg-Wulfsdorf	Schleswig-Holstein	53.6639	10.2003	46	46(1)	1	9
-53	Ahrensfelde	Brandenburg	52.585	13.5635	60	60(4)	4	7
-53	Ahrensfelde	Brandenburg	52.585	13.5634	60	60(3)	3	7
+53	Ahrensfelde	Brandenburg	52.585	13.5634	60	60(3)	3	6
+53	Ahrensfelde	Brandenburg	52.585	13.5635	60	60(3)	3	6
 54	Ahrenshoeft	Schleswig-Holstein	54.5667	9.0667	5	5(2)	2	2
 55	Aibling, Bad-Ellmosen	Bayern	47.878	12.0239	509	509(4)	4	4
 56	Aichach	Bayern	48.45	11.1333	444	444(2)	2	2
@@ -209,8 +209,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 174	Annweiler-Bindersbach	Rheinland-Pfalz	49.1886	7.9766	250	250(5)	5	5
 175	Ansbach	Bayern	49.2964	10.5751	413	413(9)	9	9
 177	Ansbach-Hennenbach	Bayern	49.3158	10.5815	418	418(4)	4	4
-178	Ansbach-Schalkhausen	Bayern	49.2995	10.5356	418	418(3)	3	5
-178	Ansbach-Schalkhausen	Bayern	49.2993	10.5354	418	418(2)	2	5
+178	Ansbach-Schalkhausen	Bayern	49.2995	10.5356	418	418(2)	2	4
+178	Ansbach-Schalkhausen	Bayern	49.2993	10.5354	418	418(2)	2	4
 179	Apfeldorf	Bayern	47.8963	10.932	664	664(2)	2	2
 180	Apolda	Thueringen	51.0306	11.505	205	205(2)	2	2
 182	Arendsee/Altmark, Luftkurort	Sachsen-Anhalt	52.8802	11.4841	33	33(4)	4	4
@@ -243,21 +243,21 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 201	Asbach	Rheinland-Pfalz	50.6649	7.4453	255	255(2)	2	4
 202	Aschaffenburg	Bayern	49.9778	9.1114	110	110(7)	7	7
 203	Aschau-Innerkoy	Bayern	47.786	12.3368	607	607(4)	4	4
-204	Aschau-Sachrang	Bayern	47.6983	12.2716	740	740(3)	3	5
-204	Aschau-Sachrang	Bayern	47.7002	12.2731	731	731(2)	2	5
+204	Aschau-Sachrang	Bayern	47.7002	12.2731	731	731(2)	2	4
+204	Aschau-Sachrang	Bayern	47.6983	12.2716	740	740(2)	2	4
 205	Aschau-Stein	Bayern	47.7274	12.2982	680	680(6)	6	6
 206	Aschendorf	Niedersachsen	53.05	7.3333	3	3(2)	2	2
 207	Aschersleben	Sachsen-Anhalt	51.7498	11.4667	105	105(5)	5	5
-3226	Aschersleben-Mehringen	Sachsen-Anhalt	51.7259	11.5111	107	107(7)	7	13
-3226	Aschersleben-Mehringen	Sachsen-Anhalt	51.7259	11.5109	107	107(6)	6	13
+3226	Aschersleben-Mehringen	Sachsen-Anhalt	51.7259	11.5109	107	107(6)	6	12
+3226	Aschersleben-Mehringen	Sachsen-Anhalt	51.7259	11.5111	107	107(6)	6	12
 208	Aseleben	Sachsen-Anhalt	51.4887	11.6679	100	100(2)	2	2
 209	Aspach-Allmersbach am Weinberg	Baden-Wuerttemberg	48.9957	9.3933	318	318(2)	2	2
 210	Asseln	Nordrhein-Westfalen	51.65	8.9333	321	321(2)	2	2
 211	Asslar Klein-Altenstaedten	Hessen	50.5799	8.4682	200	200(4)	4	9
 211	Asslar Klein-Altenstaedten	Hessen	50.58	8.4685	200	200(5)	5	9
 214	Attendorn	Nordrhein-Westfalen	51.1212	7.9108	307	307(2)	2	2
-216	Attendorn-Neulisternohl	Nordrhein-Westfalen	51.1143	7.8808	311	311(4)	4	7
-216	Attendorn-Neulisternohl	Nordrhein-Westfalen	51.1142	7.8808	311	311(3)	3	7
+216	Attendorn-Neulisternohl	Nordrhein-Westfalen	51.1142	7.8808	311	311(3)	3	6
+216	Attendorn-Neulisternohl	Nordrhein-Westfalen	51.1143	7.8808	311	311(3)	3	6
 217	Attenkam	Bayern	47.8774	11.3642	672	672(14)	14	14
 218	Atzendorf	Sachsen-Anhalt	51.918	11.5954	83	83(2)	2	2
 219	Atzendorf (Marbeschacht)	Sachsen-Anhalt	51.9167	11.5667	77	77(2)	2	2
@@ -288,8 +288,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 7135	Aulendorf-Haslach	Baden-Wuerttemberg	47.9655	9.6806	565	565(1)	1	10
 238	Aulendorf-Spiegler	Baden-Wuerttemberg	47.9699	9.6672	560	560(5)	5	6
 238	Aulendorf-Spiegler	Baden-Wuerttemberg	47.9708	9.6683	560	560(1)	1	6
-240	Aura im Sinngrund	Bayern	50.1805	9.5745	287	287(4)	4	7
-240	Aura im Sinngrund	Bayern	50.1805	9.5743	287	287(3)	3	7
+240	Aura im Sinngrund	Bayern	50.1805	9.5745	287	287(3)	3	6
+240	Aura im Sinngrund	Bayern	50.1805	9.5743	287	287(3)	3	6
 242	Aurach-Weinberg	Bayern	49.2331	10.3635	510	510(2)	2	2
 243	Aurich	Niedersachsen	53.4621	7.467	4	4(5)	5	5
 244	Aurich-Dietrichsfeld	Niedersachsen	53.5392	7.5159	10	10(2)	2	2
@@ -318,9 +318,9 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 3841	Bahretal-Ottendorf	Sachsen	50.8974	13.9265	273	273(2)	2	2
 267	Baierbach	Bayern	48.4158	12.206	460	460(2)	2	2
 1663	Baiern-Kleinrohrsdorf	Bayern	47.9952	11.9153	552	552(2)	2	2
-269	Baiersbronn-Mitteltal	Baden-Wuerttemberg	48.5116	8.3177	596	596(3)	3	7
-269	Baiersbronn-Mitteltal	Baden-Wuerttemberg	48.5116	8.3176	596	596(3)	3	7
-269	Baiersbronn-Mitteltal	Baden-Wuerttemberg	48.5115	8.318	596	596(1)	1	7
+269	Baiersbronn-Mitteltal	Baden-Wuerttemberg	48.5116	8.3176	596	596(3)	3	6
+269	Baiersbronn-Mitteltal	Baden-Wuerttemberg	48.5115	8.318	596	596(1)	1	6
+269	Baiersbronn-Mitteltal	Baden-Wuerttemberg	48.5116	8.3177	596	596(2)	2	6
 4315	Baiersbronn-Ruhestein	Baden-Wuerttemberg	48.5615	8.2229	916	916(5)	5	6
 4315	Baiersbronn-Ruhestein	Baden-Wuerttemberg	48.5618	8.2227	916	916(1)	1	6
 270	Baiersbronn-Schoenegruend	Baden-Wuerttemberg	48.5698	8.406	559	559(1)	1	4
@@ -353,8 +353,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 289	Bargteheide	Schleswig-Holstein	53.7333	10.25	45	45(1)	1	4
 290	Barneberg	Sachsen-Anhalt	52.1155	11.078	143	143(4)	4	4
 291	Barnin	Mecklenburg-Vorpommern	53.5968	11.6952	42	42(2)	2	2
-292	Barnstorf	Niedersachsen	52.6966	8.4865	37	37(4)	4	7
-292	Barnstorf	Niedersachsen	52.6965	8.487	37	37(3)	3	7
+292	Barnstorf	Niedersachsen	52.6966	8.4865	37	37(3)	3	6
+292	Barnstorf	Niedersachsen	52.6965	8.487	37	37(3)	3	6
 293	Barsinghausen	Niedersachsen	52.2992	9.4675	114	114(2)	2	2
 6084	Barsinghausen-Egestorf	Niedersachsen	52.2911	9.4961	96	96(4)	4	4
 294	Barsinghausen-Hohenbostel	Niedersachsen	52.3199	9.43	110	110(11)	11	12
@@ -373,8 +373,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 308	Bastheim-Simonshof	Bayern	50.4113	10.1782	312	312(2)	2	2
 6101	Bastorf-Kaegsdorf (SWN)	Mecklenburg-Vorpommern	54.1323	11.6719	51	51(2)	2	2
 309	Battenberg-Berghofen	Hessen	51.0031	8.6692	328	328(4)	4	4
-310	Battenberg-Hof Karlsburg	Hessen	51.0662	8.5373	590	590(4)	4	7
-310	Battenberg-Hof Karlsburg	Hessen	51.0662	8.5375	590	590(3)	3	7
+310	Battenberg-Hof Karlsburg	Hessen	51.0662	8.5375	590	590(3)	3	6
+310	Battenberg-Hof Karlsburg	Hessen	51.0662	8.5373	590	590(3)	3	6
 311	Baumannshof	Bayern	48.7	11.5333	366	366(2)	2	2
 312	Baumgarten	Mecklenburg-Vorpommern	53.8149	11.8818	52	52(5)	5	6
 312	Baumgarten	Mecklenburg-Vorpommern	53.8148	11.8818	52	52(1)	1	6
@@ -391,8 +391,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 325	Beckum-Neubeckum	Nordrhein-Westfalen	51.7997	8.0297	105	105(2)	2	2
 326	Beckum-Unterberg	Nordrhein-Westfalen	51.7204	8.0577	120	120(8)	8	9
 326	Beckum-Unterberg	Nordrhein-Westfalen	51.7217	8.0586	120	120(1)	1	9
-7378	Bedburg-Weiler Hohenholz	Nordrhein-Westfalen	51.0154	6.5174	101	101(4)	4	7
-7378	Bedburg-Weiler Hohenholz	Nordrhein-Westfalen	51.0149	6.5173	101	101(3)	3	7
+7378	Bedburg-Weiler Hohenholz	Nordrhein-Westfalen	51.0154	6.5174	101	101(3)	3	6
+7378	Bedburg-Weiler Hohenholz	Nordrhein-Westfalen	51.0149	6.5173	101	101(3)	3	6
 327	Bederkesa	Niedersachsen	53.6234	8.8323	27	27(4)	4	4
 328	Beelitz	Brandenburg	52.2372	12.9775	39	39(2)	2	2
 329	Beerfelde	Brandenburg	52.4303	14.0443	64	64(2)	2	2
@@ -430,8 +430,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 358	Benthullen	Niedersachsen	53.0491	8.133	13	13(2)	2	2
 359	Beratzhausen	Bayern	49.1023	11.7958	463	463(6)	6	6
 360	Berching	Bayern	49.1115	11.4328	403	403(6)	6	6
-6190	Berchtesgaden	Bayern	47.6391	13.0065	600	600(4)	4	7
-6190	Berchtesgaden	Bayern	47.6392	13.0068	600	600(3)	3	7
+6190	Berchtesgaden	Bayern	47.6391	13.0065	600	600(3)	3	6
+6190	Berchtesgaden	Bayern	47.6392	13.0068	600	600(3)	3	6
 363	Berchtesgaden-Obersalzberg	Bayern	47.6327	13.0503	930	930(2)	2	2
 364	Berchtesgaden-Unterau	Bayern	47.6524	13.0556	715	715(2)	2	4
 364	Berchtesgaden-Unterau	Bayern	47.6523	13.0558	715	715(2)	2	4
@@ -464,19 +464,19 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 379	Berka, Bad (A)	Thueringen	50.8921	11.2786	330	330(1)	1	1
 382	Berka/Werra	Thueringen	50.9405	10.0746	225	225(2)	2	2
 383	Berkatal-Frankenhain	Hessen	51.2373	9.8899	318	318(2)	2	2
-3124	Berkenbrueck	Brandenburg	52.1397	13.1236	45	45(3)	3	5
-3124	Berkenbrueck	Brandenburg	52.1394	13.1236	45	45(2)	2	5
+3124	Berkenbrueck	Brandenburg	52.1397	13.1236	45	45(2)	2	4
+3124	Berkenbrueck	Brandenburg	52.1394	13.1236	45	45(2)	2	4
 384	Berkheim	Baden-Wuerttemberg	48.0409	10.0808	570	570(6)	6	7
 384	Berkheim	Baden-Wuerttemberg	48.041	10.081	570	570(1)	1	7
 385	Berkhof	Niedersachsen	52.6	9.7667	35	35(2)	2	2
-7079	Berkholz-Meyenburg	Brandenburg	53.0443	14.2428	14	14(1)	1	7
-7079	Berkholz-Meyenburg	Brandenburg	53.0443	14.2423	14	14(3)	3	7
-7079	Berkholz-Meyenburg	Brandenburg	53.0443	14.2422	14	14(3)	3	7
+7079	Berkholz-Meyenburg	Brandenburg	53.0443	14.2428	14	14(1)	1	6
+7079	Berkholz-Meyenburg	Brandenburg	53.0443	14.2423	14	14(2)	2	6
+7079	Berkholz-Meyenburg	Brandenburg	53.0443	14.2422	14	14(3)	3	6
 386	Berleburg, Bad	Nordrhein-Westfalen	51.0454	8.3851	445	445(5)	5	5
 389	Berleburg, Bad-Arfeld	Nordrhein-Westfalen	51.0148	8.4318	436	436(6)	6	6
 388	Berleburg, Bad-Girkhausen	Nordrhein-Westfalen	51.1201	8.454	510	510(2)	2	2
-390	Berleburg, Bad-Stuenzel	Nordrhein-Westfalen	50.9837	8.3679	610	610(8)	8	14
-390	Berleburg, Bad-Stuenzel	Nordrhein-Westfalen	50.9837	8.3683	610	610(6)	6	14
+390	Berleburg, Bad-Stuenzel	Nordrhein-Westfalen	50.9837	8.3679	610	610(7)	7	13
+390	Berleburg, Bad-Stuenzel	Nordrhein-Westfalen	50.9837	8.3683	610	610(6)	6	13
 391	Berleburg, Bad-Wingeshausen	Nordrhein-Westfalen	51.0698	8.2888	450	450(2)	2	2
 392	Berleburg, Bad-Wunderthausen	Nordrhein-Westfalen	51.0948	8.5148	543	543(2)	2	2
 387	Berleburg, Bad (Alte Warte)	Nordrhein-Westfalen	51.0667	8.3833	470	470(2)	2	2
@@ -539,8 +539,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 447	Berneck, Bad	Bayern	50.0414	11.6483	363	363(2)	2	4
 448	Bernhardswald-Hauzendorf	Bayern	49.1265	12.2649	435	435(2)	2	2
 449	Bernhardswald-Kuern	Bayern	49.1201	12.2152	570	570(2)	2	2
-3469	Bernitt	Mecklenburg-Vorpommern	53.9042	11.8863	48	48(3)	3	5
-3469	Bernitt	Mecklenburg-Vorpommern	53.9043	11.8863	48	48(2)	2	5
+3469	Bernitt	Mecklenburg-Vorpommern	53.9043	11.8863	48	48(2)	2	4
+3469	Bernitt	Mecklenburg-Vorpommern	53.9042	11.8863	48	48(2)	2	4
 450	Bernkastel-Kues	Rheinland-Pfalz	49.9186	7.0664	120	120(11)	11	11
 451	Bernried/Niederbayern -Buchet	Bayern	48.9207	12.9267	495	495(2)	2	2
 452	Bernsdorf, Krs. Kamenz	Sachsen	51.3734	14.066	145	145(2)	2	2
@@ -573,8 +573,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 475	Biberbach-Markt	Bayern	48.5346	10.8118	436	436(4)	4	4
 476	Biblis	Hessen	49.6895	8.4182	88	88(4)	4	4
 477	Bibra, Bad	Sachsen-Anhalt	51.2068	11.5803	190	190(4)	4	4
-124	Bibra, Bad-Altenroda	Sachsen-Anhalt	51.2387	11.5769	267	267(4)	4	7
-124	Bibra, Bad-Altenroda	Sachsen-Anhalt	51.2386	11.576	267	267(3)	3	7
+124	Bibra, Bad-Altenroda	Sachsen-Anhalt	51.2386	11.576	267	267(3)	3	6
+124	Bibra, Bad-Altenroda	Sachsen-Anhalt	51.2387	11.5769	267	267(3)	3	6
 478	Biebergemuend-Bieber	Hessen	50.1607	9.3342	223	223(2)	2	2
 480	Biedenkopf	Hessen	50.9198	8.5268	349	349(1)	1	7
 482	Biedenkopf-Eckelshausen	Hessen	50.8833	8.55	280	280(1)	1	1
@@ -587,8 +587,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 7106	Bielefeld-Deppendorf	Nordrhein-Westfalen	52.0714	8.4568	105	105(1)	1	18
 7106	Bielefeld-Deppendorf	Nordrhein-Westfalen	52.0714	8.4565	105	105(16)	16	18
 487	Bielefeld-Senne	Nordrhein-Westfalen	51.9836	8.554	250	250(2)	2	2
-488	Bielefeld-Sennestadt	Nordrhein-Westfalen	51.9394	8.5934	127	127(3)	3	5
-488	Bielefeld-Sennestadt	Nordrhein-Westfalen	51.9394	8.5932	127	127(2)	2	5
+488	Bielefeld-Sennestadt	Nordrhein-Westfalen	51.9394	8.5932	127	127(2)	2	4
+488	Bielefeld-Sennestadt	Nordrhein-Westfalen	51.9394	8.5934	127	127(2)	2	4
 484	Bielefeld (Stadtreinigungsamt )	Nordrhein-Westfalen	52.0358	8.5637	99	99(2)	2	2
 489	Biendorf	Sachsen-Anhalt	51.7504	11.8532	79	79(2)	2	2
 490	Bienenbuettel-Bargdorf	Niedersachsen	53.1172	10.4903	31	31(1)	1	4
@@ -625,15 +625,15 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 519	Bispingen-Wilsede	Niedersachsen	53.166	9.9638	116	116(2)	2	2
 520	Bissendorf-Holte-Suensbeck	Niedersachsen	52.2105	8.1938	180	180(2)	2	2
 521	Bissendorf-Schledehausen	Niedersachsen	52.2842	8.251	94.03	94(3)_94.1(1)	4	4
-523	Bitburg	Rheinland-Pfalz	49.9803	6.5329	359	359(4)	4	7
-523	Bitburg	Rheinland-Pfalz	49.9797	6.5325	359	359(3)	3	7
+523	Bitburg	Rheinland-Pfalz	49.9797	6.5325	359	359(3)	3	6
+523	Bitburg	Rheinland-Pfalz	49.9803	6.5329	359	359(3)	3	6
 524	Bitterfeld	Sachsen-Anhalt	51.6333	12.3167	80	80(4)	4	4
 525	Bitz	Baden-Wuerttemberg	48.2435	9.1007	854	854(3)	3	3
 526	Blankenburg, Bad	Thueringen	50.6738	11.2805	254	254(7)	7	7
 527	Blankenburg/Harz	Sachsen-Anhalt	51.7901	10.9714	194	194(4)	4	4
 528	Blankenfelde	Brandenburg	52.3333	13.4	42	42(2)	2	2
-529	Blankenhagen	Mecklenburg-Vorpommern	54.1737	12.3415	26	26(3)	3	5
-529	Blankenhagen	Mecklenburg-Vorpommern	54.1733	12.3413	26	26(2)	2	5
+529	Blankenhagen	Mecklenburg-Vorpommern	54.1737	12.3415	26	26(2)	2	4
+529	Blankenhagen	Mecklenburg-Vorpommern	54.1733	12.3413	26	26(2)	2	4
 530	Blankenhain	Thueringen	50.8599	11.3439	365	365(2)	2	2
 1058	Blankenhain-Droessnitz	Thueringen	50.8294	11.4208	400	400(4)	4	4
 533	Blankenheim-Ahrhuette	Nordrhein-Westfalen	50.3846	6.7362	400	400(2)	2	4
@@ -693,8 +693,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 574	Bodnegg-Billen	Baden-Wuerttemberg	47.7167	9.6833	640	640(2)	2	2
 575	Boebing	Bayern	47.753	10.9865	744	744(2)	2	2
 576	Boeblingen	Baden-Wuerttemberg	48.6759	8.9732	445	445(4)	4	4
-13662	Boecke	Brandenburg	52.303	12.4028	37	37(6)	6	11
-13662	Boecke	Brandenburg	52.3031	12.4029	37	37(5)	5	11
+13662	Boecke	Brandenburg	52.303	12.4028	37	37(5)	5	10
+13662	Boecke	Brandenburg	52.3031	12.4029	37	37(5)	5	10
 6278	Boehl-Iggelheim	Rheinland-Pfalz	49.372	8.3035	107	107(2)	2	2
 577	Boehmfeld	Bayern	48.8667	11.3667	488	488(2)	2	2
 578	Boehming	Bayern	48.9451	11.3667	379	379(4)	4	4
@@ -706,8 +706,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 1804	Boerdeland-Kleinmuehlingen (Steinbruch)	Sachsen-Anhalt	51.9411	11.7643	57	57(4)	4	4
 583	Boerfink-Thranenweier	Rheinland-Pfalz	49.7067	7.0973	585	585(4)	4	4
 585	Boernicke, Kreis Havelland	Brandenburg	52.6892	12.935	34	34(2)	2	2
-7285	Boesdorf	Sachsen-Anhalt	52.4161	11.0758	68	68(4)	4	7
-7285	Boesdorf	Sachsen-Anhalt	52.4153	11.0758	68	68(3)	3	7
+7285	Boesdorf	Sachsen-Anhalt	52.4161	11.0758	68	68(3)	3	6
+7285	Boesdorf	Sachsen-Anhalt	52.4153	11.0758	68	68(3)	3	6
 586	Boesleben	Thueringen	50.8241	11.0589	360	360(2)	2	2
 587	Boettingen	Baden-Wuerttemberg	48.1063	8.8032	928	928(2)	2	2
 588	Boffzen	Niedersachsen	51.752	9.3953	105	105(4)	4	4
@@ -751,8 +751,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 619	Borkum-Suederstrasse	Niedersachsen	53.5788	6.6703	11.95	11.6(1)_12(7)	8	8
 620	Borkumriff	Hamburg	53.8	6.3667	6	6(2)	2	2
 621	Borler	Rheinland-Pfalz	50.3127	6.826	440	440(3)	3	3
-622	Born	Sachsen-Anhalt	52.3744	11.4653	66	66(4)	4	7
-622	Born	Sachsen-Anhalt	52.3745	11.4655	66	66(3)	3	7
+622	Born	Sachsen-Anhalt	52.3745	11.4655	66	66(3)	3	6
+622	Born	Sachsen-Anhalt	52.3744	11.4653	66	66(3)	3	6
 623	Borna (Speicherbecken)	Sachsen	51.15	12.4667	135	135(2)	2	2
 624	Bornhagen	Thueringen	51.3443	9.9465	297	297(3)	3	4
 624	Bornhagen	Thueringen	51.3426	9.9427	320	320(1)	1	4
@@ -760,8 +760,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 626	Bornum	Sachsen-Anhalt	51.9797	12.2066	80	80(2)	2	2
 1669	Borrentin-Wolkwitz	Mecklenburg-Vorpommern	53.8083	12.9678	40	40(9)	9	10
 1669	Borrentin-Wolkwitz	Mecklenburg-Vorpommern	53.8084	12.9686	40	40(1)	1	10
-628	Borstel ueber Bad Oldesloe	Schleswig-Holstein	53.8333	10.1833	40	40(3)	3	5
-628	Borstel ueber Bad Oldesloe	Schleswig-Holstein	53.8308	10.1804	40	40(2)	2	5
+628	Borstel ueber Bad Oldesloe	Schleswig-Holstein	53.8333	10.1833	40	40(2)	2	4
+628	Borstel ueber Bad Oldesloe	Schleswig-Holstein	53.8308	10.1804	40	40(2)	2	4
 629	Bosau-Hutzfeld	Schleswig-Holstein	54.089	10.4845	47	47(2)	2	2
 4943	Bothel-Rahnhorst	Niedersachsen	52.9878	9.3617	53	53(4)	4	4
 630	Bottmersdorf-Klein Germersleben	Sachsen-Anhalt	52.0194	11.4055	83	83(6)	6	6
@@ -775,8 +775,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 642	Brake	Niedersachsen	53.3175	8.48	1	1(1)	1	10
 643	Brake-Suederfeld	Niedersachsen	53.296	8.4529	0	0(5)	5	6
 643	Brake-Suederfeld	Niedersachsen	53.2975	8.4539	0	0(1)	1	6
-644	Brakel	Nordrhein-Westfalen	51.7054	9.1739	145	145(4)	4	7
-644	Brakel	Nordrhein-Westfalen	51.7049	9.1738	150	150(3)	3	7
+644	Brakel	Nordrhein-Westfalen	51.7049	9.1738	150	150(3)	3	6
+644	Brakel	Nordrhein-Westfalen	51.7054	9.1739	145	145(3)	3	6
 4089	Brambach, Bad Raun-Guerth	Sachsen	50.2466	12.2646	600	600(4)	4	4
 645	Bramsche	Niedersachsen	52.4036	7.9724	58	58(6)	6	6
 1919	Bramstedt-Hagen	Niedersachsen	53.3841	8.6323	3	3(2)	2	2
@@ -890,15 +890,15 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 744	Bruehl	Nordrhein-Westfalen	50.8274	6.9135	61	61(2)	2	2
 745	Bruennsteinhaus	Bayern	47.6447	12.0982	1345	1345(2)	2	2
 746	Brumby	Sachsen-Anhalt	51.8934	11.7127	70	70(2)	2	2
-747	Brunsbuettel	Schleswig-Holstein	53.9195	9.1414	2	2(3)	3	5
-747	Brunsbuettel	Schleswig-Holstein	53.9196	9.1417	1	1(2)	2	5
+747	Brunsbuettel	Schleswig-Holstein	53.9196	9.1417	1	1(2)	2	4
+747	Brunsbuettel	Schleswig-Holstein	53.9195	9.1414	2	2(2)	2	4
 749	Brunsleberfeld	Niedersachsen	52.1833	10.85	198	198(2)	2	2
 750	Brunsmark	Schleswig-Holstein	53.617	10.7486	40	40(2)	2	2
 751	Bruttig-Fankel	Rheinland-Pfalz	50.1332	7.2342	97	97(2)	2	2
 752	Buch am Wald-Schoenbronn	Bayern	49.3272	10.2777	464	464(1)	1	4
 752	Buch am Wald-Schoenbronn	Bayern	49.3273	10.2777	464	464(3)	3	4
-753	Bucha	Thueringen	50.8702	11.5025	310	310(4)	4	7
-753	Bucha	Thueringen	50.8702	11.5022	310	310(3)	3	7
+753	Bucha	Thueringen	50.8702	11.5022	310	310(3)	3	6
+753	Bucha	Thueringen	50.8702	11.5025	310	310(3)	3	6
 754	Buchau, Bad	Baden-Wuerttemberg	48.0575	9.6167	585	585(2)	2	2
 755	Buchen, Kr. Neckar-Odenwald	Baden-Wuerttemberg	49.5182	9.3213	340	340(14)	14	16
 755	Buchen, Kr. Neckar-Odenwald	Baden-Wuerttemberg	49.5181	9.3214	340	340(1)	1	16
@@ -941,8 +941,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 790	Buetthof	Baden-Wuerttemberg	48.7167	8.25	306	306(2)	2	2
 792	Buetzow-Wolken	Mecklenburg-Vorpommern	53.85	12.0167	10	10(2)	2	2
 793	Buhlenberg	Rheinland-Pfalz	49.662	7.1098	530	530(4)	4	4
-15209	Bullay (Klaeranlage)	Rheinland-Pfalz	50.0461	7.1422	93	93(3)	3	5
-15209	Bullay (Klaeranlage)	Rheinland-Pfalz	50.0462	7.1422	93	93(2)	2	5
+15209	Bullay (Klaeranlage)	Rheinland-Pfalz	50.0461	7.1422	93	93(2)	2	4
+15209	Bullay (Klaeranlage)	Rheinland-Pfalz	50.0462	7.1422	93	93(2)	2	4
 794	Bullenkuhlen	Schleswig-Holstein	53.7667	9.7333	10	10(2)	2	2
 795	Bundorf	Bayern	50.2152	10.5231	335	335(2)	2	2
 796	Burbach-Wuergendorf	Nordrhein-Westfalen	50.7556	8.1257	413	413(5)	5	6
@@ -979,8 +979,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 825	Bursfelde	Niedersachsen	51.5333	9.6333	120	120(2)	2	2
 826	Buseck-Grossen-Buseck	Hessen	50.611	8.7854	187	187(2)	2	2
 827	Butjadingen-Burhave	Niedersachsen	53.5795	8.3623	1	1(4)	4	4
-4803	Butjadingen-Inte	Niedersachsen	53.4913	8.3937	1	1(4)	4	7
-4803	Butjadingen-Inte	Niedersachsen	53.4926	8.3768	1	1(3)	3	7
+4803	Butjadingen-Inte	Niedersachsen	53.4926	8.3768	1	1(3)	3	6
+4803	Butjadingen-Inte	Niedersachsen	53.4913	8.3937	1	1(3)	3	6
 5396	Buttelstedt-Weiden	Thueringen	51.0712	11.3586	250	250(2)	2	2
 828	Buttstaedt	Thueringen	51.1179	11.4158	184	184(2)	2	2
 830	Butzbach-Kirch-Goens	Hessen	50.4707	8.6523	238	238(2)	2	2
@@ -993,15 +993,15 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 15477	Calw-Stammheim	Baden-Wuerttemberg	48.698	8.7695	503	503(4)	4	4
 837	Camberg, Bad	Hessen	50.2863	8.2949	244	244(6)	6	6
 838	Camburg	Thueringen	51.0509	11.7016	147	147(2)	2	2
-839	Carlow	Mecklenburg-Vorpommern	53.7576	10.9289	27	27(1)	1	7
-839	Carlow	Mecklenburg-Vorpommern	53.7577	10.9286	27	27(3)	3	7
-839	Carlow	Mecklenburg-Vorpommern	53.7575	10.9288	27	27(3)	3	7
+839	Carlow	Mecklenburg-Vorpommern	53.7576	10.9289	27	27(1)	1	6
+839	Carlow	Mecklenburg-Vorpommern	53.7577	10.9286	27	27(2)	2	6
+839	Carlow	Mecklenburg-Vorpommern	53.7575	10.9288	27	27(3)	3	6
 840	Carlsfeld	Sachsen	50.4313	12.6114	897	897(23)	23	24
 840	Carlsfeld	Sachsen	50.4322	12.6128	897	897(1)	1	24
 842	Carlsfeld Talsperre (Weiterwiese )	Sachsen	50.4252	12.5953	914	914(2)	2	2
 843	Carpin	Mecklenburg-Vorpommern	53.3593	13.2447	75	75(2)	2	2
-845	Carpin-Serrahn	Mecklenburg-Vorpommern	53.3446	13.2033	100	100(3)	3	5
-845	Carpin-Serrahn	Mecklenburg-Vorpommern	53.3445	13.2034	100	100(2)	2	5
+845	Carpin-Serrahn	Mecklenburg-Vorpommern	53.3446	13.2033	100	100(2)	2	4
+845	Carpin-Serrahn	Mecklenburg-Vorpommern	53.3445	13.2034	100	100(2)	2	4
 846	Casekow	Brandenburg	53.2167	14.2167	26	26(2)	2	2
 847	Castell	Bayern	49.732	10.3663	403	403(2)	2	2
 850	Celle	Niedersachsen	52.5959	10.0296	39	39(20)	20	21
@@ -1034,8 +1034,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 3164	Coelbe, Kr. Marburg-Biedenkopf	Hessen	50.8491	8.7734	182	182(1)	1	14
 3164	Coelbe, Kr. Marburg-Biedenkopf	Hessen	50.8503	8.7744	182	182(1)	1	14
 870	Coelpin	Mecklenburg-Vorpommern	53.5229	13.4304	80	80(4)	4	4
-871	Coesfeld	Nordrhein-Westfalen	51.9617	7.1584	87	87(4)	4	7
-871	Coesfeld	Nordrhein-Westfalen	51.9618	7.1585	87	87(3)	3	7
+871	Coesfeld	Nordrhein-Westfalen	51.9618	7.1585	87	87(3)	3	6
+871	Coesfeld	Nordrhein-Westfalen	51.9617	7.1584	87	87(3)	3	6
 873	Colberg, Bad	Thueringen	50.2833	10.8	283	283(2)	2	2
 875	Colditz	Sachsen	51.1326	12.7801	192	192(2)	2	2
 876	Collmberg	Sachsen	51.3	13.0167	314	314(6)	6	6
@@ -1054,8 +1054,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 882	Crawinkel	Thueringen	50.7813	10.786	469	469(4)	4	4
 883	Creglingen	Baden-Wuerttemberg	49.4695	10.0274	306	306(2)	2	2
 884	Creglingen-Finsterlohr	Baden-Wuerttemberg	49.4345	10.0941	422	422(2)	2	2
-1278	Cremlingen-Destedt	Niedersachsen	52.2447	10.7179	160	160(4)	4	7
-1278	Cremlingen-Destedt	Niedersachsen	52.2449	10.7182	160	160(3)	3	7
+1278	Cremlingen-Destedt	Niedersachsen	52.2447	10.7179	160	160(3)	3	6
+1278	Cremlingen-Destedt	Niedersachsen	52.2449	10.7182	160	160(3)	3	6
 885	Creussen-Buehl	Bayern	49.8449	11.616	450	450(3)	3	6
 885	Creussen-Buehl	Bayern	49.8447	11.6161	450	450(3)	3	6
 6178	Creussen-Unterschwarzach	Bayern	49.8572	11.6978	427	427(2)	2	2
@@ -1066,8 +1066,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 13774	Crimmitschau-Mannichswalde	Sachsen	50.8138	12.2985	327	327(6)	6	6
 889	Crivitz	Mecklenburg-Vorpommern	53.5735	11.6456	40	40(3)	3	4
 889	Crivitz	Mecklenburg-Vorpommern	53.5738	11.6463	40	40(1)	1	4
-6271	Crossen/Elster-Nickelsdorf	Thueringen	50.9769	12.0043	272	272(4)	4	7
-6271	Crossen/Elster-Nickelsdorf	Thueringen	50.9771	12.0044	272	272(3)	3	7
+6271	Crossen/Elster-Nickelsdorf	Thueringen	50.9769	12.0043	272	272(3)	3	6
+6271	Crossen/Elster-Nickelsdorf	Thueringen	50.9771	12.0044	272	272(3)	3	6
 890	Crottendorf	Sachsen	50.5277	12.9328	652	652(2)	2	2
 891	Cuxhaven	Niedersachsen	53.8713	8.7058	5	5(23)	23	24
 891	Cuxhaven	Niedersachsen	53.8728	8.7069	5	5(1)	1	24
@@ -1123,8 +1123,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 939	Demmin	Mecklenburg-Vorpommern	53.9164	12.9771	23	23(4)	4	4
 940	Denkendorf	Bayern	48.9167	11.45	518	518(3)	3	3
 941	Denklingen-Dienhausen	Bayern	47.8874	10.8315	722	722(2)	2	2
-942	Densborn	Rheinland-Pfalz	50.1255	6.6001	308	308(4)	4	7
-942	Densborn	Rheinland-Pfalz	50.122	6.599	308	308(3)	3	7
+942	Densborn	Rheinland-Pfalz	50.122	6.599	308	308(3)	3	6
+942	Densborn	Rheinland-Pfalz	50.1255	6.6001	308	308(3)	3	6
 943	Denzlingen	Baden-Wuerttemberg	48.0633	7.8649	223	223(2)	2	2
 944	Derenburg	Sachsen-Anhalt	51.8714	10.9026	161	161(2)	2	2
 945	Dermbach	Thueringen	50.716	10.1185	357	357(4)	4	4
@@ -1237,14 +1237,14 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 1030	Dornum	Niedersachsen	53.646	7.4302	1	1(3)	3	6
 1030	Dornum	Niedersachsen	53.6459	7.43	1	1(3)	3	6
 1031	Dorsten-Hervest	Nordrhein-Westfalen	51.6706	6.9843	33	33(2)	2	2
-15001	Dorsten-Lembeck	Nordrhein-Westfalen	51.7389	7.05	51	51(3)	3	5
-15001	Dorsten-Lembeck	Nordrhein-Westfalen	51.7389	7.0504	51	51(2)	2	5
+15001	Dorsten-Lembeck	Nordrhein-Westfalen	51.7389	7.05	51	51(2)	2	4
+15001	Dorsten-Lembeck	Nordrhein-Westfalen	51.7389	7.0504	51	51(2)	2	4
 1032	Dortmund	Nordrhein-Westfalen	51.512	7.5345	120	120(5)	5	5
 1033	Dortmund-Brechten	Nordrhein-Westfalen	51.5715	7.4631	96	96(2)	2	2
 1034	Dortmund-Kruckel	Nordrhein-Westfalen	51.45	7.4167	100	100(2)	2	2
 1038	Drachselsried	Bayern	49.1065	13.0165	525	525(2)	2	2
-1039	Dransfeld-Ossenfeld	Niedersachsen	51.5262	9.7982	317	317(4)	4	7
-1039	Dransfeld-Ossenfeld	Niedersachsen	51.5263	9.7978	317	317(3)	3	7
+1039	Dransfeld-Ossenfeld	Niedersachsen	51.5263	9.7978	317	317(3)	3	6
+1039	Dransfeld-Ossenfeld	Niedersachsen	51.5262	9.7982	317	317(3)	3	6
 1040	Drebach	Sachsen	50.6741	13.0131	490	490(2)	2	2
 1041	Drebkau	Brandenburg	51.6579	14.2146	85	85(4)	4	4
 1042	Drebligar	Sachsen	51.6279	12.9109	85	85(2)	2	2
@@ -1435,9 +1435,9 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 1202	Elsdorf-Ehestorf	Niedersachsen	53.2452	9.3772	29	29(2)	2	4
 1202	Elsdorf-Hatzte	Niedersachsen	53.2446	9.3914	30	30(2)	2	4
 1201	Elsdorf/Erftkreis	Nordrhein-Westfalen	50.9281	6.5646	85	85(4)	4	4
-7075	Elsendorf-Horneck	Bayern	48.7031	11.8508	425	425(1)	1	19
-7075	Elsendorf-Horneck	Bayern	48.7021	11.8494	425	425(9)	9	19
-7075	Elsendorf-Horneck	Bayern	48.702	11.8493	425	425(9)	9	19
+7075	Elsendorf-Horneck	Bayern	48.7031	11.8508	425	425(1)	1	18
+7075	Elsendorf-Horneck	Bayern	48.7021	11.8494	425	425(8)	8	18
+7075	Elsendorf-Horneck	Bayern	48.702	11.8493	425	425(9)	9	18
 1203	Elsenfeld-Rueck	Bayern	49.832	9.2083	165	165(2)	2	2
 1204	Elsfleth	Niedersachsen	53.2346	8.4612	1	1(5)	5	5
 1205	Elsfleth-Moorhausen	Niedersachsen	53.1738	8.3221	1	1(2)	2	2
@@ -1447,8 +1447,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 1208	Elsterberg	Sachsen	50.5985	12.1604	290	290(2)	2	2
 1571	Elsterheide-Geierswalde	Sachsen	51.4948	14.1226	108	108(2)	2	2
 1209	Elstertrebnitz	Sachsen	51.1609	12.2452	132	132(2)	2	2
-1210	Elsterwerda	Brandenburg	51.4506	13.5052	90	90(4)	4	7
-1210	Elsterwerda	Brandenburg	51.4505	13.5046	90	90(3)	3	7
+1210	Elsterwerda	Brandenburg	51.4505	13.5046	90	90(3)	3	6
+1210	Elsterwerda	Brandenburg	51.4506	13.5052	90	90(3)	3	6
 1211	Elterlein	Sachsen	50.5821	12.8684	600	600(2)	2	2
 1212	Eltville	Hessen	50.0285	8.1358	98	98(2)	2	2
 1213	Eltville (Steinberg)	Hessen	50.0333	8.05	197	197(2)	2	2
@@ -1552,15 +1552,14 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 1297	Eschwege	Hessen	51.1834	10.0638	170	170(8)	8	19
 1297	Eschwege	Hessen	51.1847	10.065	170	170(1)	1	19
 13701	Eschwege-Eltmannshausen	Hessen	51.1945	9.9885	250	250(2)	2	2
-1298	Eschweiler-Weisweiler	Nordrhein-Westfalen	50.8217	6.3308	152	152(1)	1	5
-1298	Eschweiler-Weisweiler	Nordrhein-Westfalen	50.8306	6.333	113	113(2)	2	5
-1298	Eschweiler-Weisweiler	Nordrhein-Westfalen	50.8221	6.3308	152	152(2)	2	5
+1298	Eschweiler-Weisweiler	Nordrhein-Westfalen	50.8306	6.333	113	113(2)	2	4
+1298	Eschweiler-Weisweiler	Nordrhein-Westfalen	50.8221	6.3308	152	152(2)	2	4
 1299	Esens	Niedersachsen	53.6476	7.6085	3	3(5)	5	6
 1299	Esens	Niedersachsen	53.6492	7.6094	3	3(1)	1	6
 1300	Eslohe	Nordrhein-Westfalen	51.254	8.1565	351	351(11)	11	12
 1300	Eslohe	Nordrhein-Westfalen	51.254	8.1563	351	351(1)	1	12
-3081	Espelkamp-Isenstedt	Nordrhein-Westfalen	52.3453	8.6476	65	65(4)	4	7
-3081	Espelkamp-Isenstedt	Nordrhein-Westfalen	52.3452	8.6477	65	65(3)	3	7
+3081	Espelkamp-Isenstedt	Nordrhein-Westfalen	52.3452	8.6477	65	65(3)	3	6
+3081	Espelkamp-Isenstedt	Nordrhein-Westfalen	52.3453	8.6476	65	65(3)	3	6
 1301	Espenau-Moenchehof	Hessen	51.3945	9.4606	247	247(4)	4	4
 4601	Essel	Niedersachsen	52.6797	9.6524	27.9	27.5(1)_28(4)	5	6
 4601	Essel	Niedersachsen	52.6796	9.6521	28	28(1)	1	6
@@ -1596,8 +1595,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 1330	Extertal-Meierberg	Nordrhein-Westfalen	52.1011	9.1345	250	250(2)	2	2
 5470	Fahrenzhausen	Bayern	48.363	11.5636	458	458(6)	6	6
 5846	Falkenberg	Sachsen	51.6154	12.767	115	115(2)	2	2
-1332	Falkenberg,Kr.Rottal-Inn	Bayern	48.4832	12.724	472	472(7)	7	13
-1332	Falkenberg,Kr.Rottal-Inn	Bayern	48.4832	12.7241	472	472(6)	6	13
+1332	Falkenberg,Kr.Rottal-Inn	Bayern	48.4832	12.724	472	472(6)	6	12
+1332	Falkenberg,Kr.Rottal-Inn	Bayern	48.4832	12.7241	472	472(6)	6	12
 5847	Falkenberg/Niedersachsen	Niedersachsen	53.15	8.9333	4	4(2)	2	2
 1333	Falkenstein (Talsperre)	Sachsen	50.4688	12.3774	541	541(4)	4	4
 1334	Falkenstein, Kreis Cham	Bayern	49.0979	12.4868	562	562(2)	2	2
@@ -1656,8 +1655,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 1382	Flintsbach/Inn-Asten	Bayern	47.7002	12.1166	1106	1106(1)	1	4
 1382	Flintsbach/Inn-Asten	Bayern	47.7001	12.1168	1101	1101(3)	3	4
 1383	Floeha	Sachsen	50.8544	13.0714	270	270(2)	2	2
-1384	Floersbachtal-Floersbach	Hessen	50.1344	9.4083	424	424(3)	3	5
-1384	Floersbachtal-Floersbach	Hessen	50.1346	9.4084	424	424(2)	2	5
+1384	Floersbachtal-Floersbach	Hessen	50.1346	9.4084	424	424(2)	2	4
+1384	Floersbachtal-Floersbach	Hessen	50.1344	9.4083	424	424(2)	2	4
 1385	Floersbachtal-Lohrhaupte	Hessen	50.1188	9.4728	327	327(2)	2	2
 1386	Floersbachtal-Mosborn	Hessen	50.1085	9.4039	460	460(2)	2	2
 1387	Floessberg	Sachsen	51.1231	12.5862	164	164(2)	2	2
@@ -1809,16 +1808,16 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 1504	Fritzlar (Flugplatz)	Hessen	51.119	9.2799	172	172(17)	17	18
 1504	Fritzlar (Flugplatz)	Hessen	51.1194	9.2836	172	172(1)	1	18
 1506	Froendenberg	Nordrhein-Westfalen	51.4693	7.733	121	121(2)	2	2
-6276	Froendenberg-Hohenheide	Nordrhein-Westfalen	51.4895	7.781	240	240(4)	4	7
-6276	Froendenberg-Hohenheide	Nordrhein-Westfalen	51.4895	7.7813	235	235(3)	3	7
+6276	Froendenberg-Hohenheide	Nordrhein-Westfalen	51.4895	7.781	240	240(3)	3	6
+6276	Froendenberg-Hohenheide	Nordrhein-Westfalen	51.4895	7.7813	235	235(3)	3	6
 1507	Frohndorf (Talsperre)	Thueringen	51.1454	11.2064	152	152(2)	2	2
 1508	Fronau, Kreis Cham	Bayern	49.2667	12.4333	445	445(2)	2	2
 1509	Fronhausen	Hessen	50.7027	8.6976	169	169(2)	2	2
 1510	Fronreute-Blitzenreute	Baden-Wuerttemberg	47.8667	9.5833	584	584(2)	2	2
 1512	Fuchshain	Sachsen	51.2848	12.5242	138	138(2)	2	2
 1513	Fuchskauten	Rheinland-Pfalz	50.6588	8.1027	653	653(5)	5	5
-4683	Fuerstenau	Niedersachsen	52.5158	7.6763	46	46(4)	4	7
-4683	Fuerstenau	Niedersachsen	52.516	7.6762	46	46(3)	3	7
+4683	Fuerstenau	Niedersachsen	52.516	7.6762	46	46(3)	3	6
+4683	Fuerstenau	Niedersachsen	52.5158	7.6763	46	46(3)	3	6
 1514	Fuerstenberg/Havel	Brandenburg	53.1982	13.153	53	53(1)	1	4
 1514	Fuerstenberg/Havel	Brandenburg	53.1983	13.1515	53	53(3)	3	4
 1515	Fuerstenfeldbruck	Bayern	48.2	11.2667	519	519(5)	5	5
@@ -1844,8 +1843,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 1532	Gadebusch-Ganzow	Mecklenburg-Vorpommern	53.6865	11.0608	55	55(2)	2	2
 1533	Gadow	Brandenburg	53.1071	12.6198	73	73(2)	2	2
 1534	Gaedheim-Gresshausen	Bayern	50.0367	10.3855	310	310(4)	4	4
-1536	Gager-Gross Zicker	Mecklenburg-Vorpommern	54.297	13.6899	6	6(3)	3	5
-1536	Gager-Gross Zicker	Mecklenburg-Vorpommern	54.2969	13.6899	6	6(2)	2	5
+1536	Gager-Gross Zicker	Mecklenburg-Vorpommern	54.2969	13.6899	6	6(2)	2	4
+1536	Gager-Gross Zicker	Mecklenburg-Vorpommern	54.297	13.6899	6	6(2)	2	4
 1537	Gaggenau-Rotenfels,Bad	Baden-Wuerttemberg	48.8247	8.2917	132	132(3)	3	4
 1537	Gaggenau-Rotenfels,Bad	Baden-Wuerttemberg	48.8248	8.2915	132	132(1)	1	4
 10339	Gaildorf	Baden-Wuerttemberg	49.0059	9.7684	341	341(3)	3	4
@@ -1876,8 +1875,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 1557	Geba	Thueringen	50.5774	10.2591	670	670(2)	2	2
 1559	Gebhardshain	Rheinland-Pfalz	50.7421	7.8163	402	402(3)	3	3
 1560	Gebra-Niedergebra	Thueringen	51.4198	10.5987	250	250(2)	2	2
-1561	Gedern-Schoenhausen	Hessen	50.4035	9.2064	407	407(4)	4	7
-1561	Gedern-Schoenhausen	Hessen	50.404	9.2075	407	407(3)	3	7
+1561	Gedern-Schoenhausen	Hessen	50.404	9.2075	407	407(3)	3	6
+1561	Gedern-Schoenhausen	Hessen	50.4035	9.2064	407	407(3)	3	6
 1562	Geesthacht	Schleswig-Holstein	53.4354	10.3343	7	7(2)	2	2
 1563	Gefell	Thueringen	50.4369	11.8613	565	565(2)	2	2
 1564	Gefell-Rottmar	Thueringen	50.3333	11.1667	350	350(2)	2	2
@@ -1891,8 +1890,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 1575	Geiselhoering	Bayern	48.8237	12.4029	367	367(4)	4	4
 1576	Geiselhoering-Poenning	Bayern	48.8359	12.4732	356	356(2)	2	2
 1577	Geiselwind	Bayern	49.774	10.4677	344	344(4)	4	4
-1578	Geisenfeld-Eichelberg	Bayern	48.6515	11.5844	395	395(4)	4	7
-1578	Geisenfeld-Eichelberg	Bayern	48.6516	11.5845	395	395(3)	3	7
+1578	Geisenfeld-Eichelberg	Bayern	48.6516	11.5845	395	395(3)	3	6
+1578	Geisenfeld-Eichelberg	Bayern	48.6515	11.5844	395	395(3)	3	6
 1579	Geisenhausen	Bayern	48.4798	12.2604	467	467(2)	2	2
 1580	Geisenheim	Hessen	49.9859	7.9549	110.02	110(22)_110.2(3)	25	26
 1580	Geisenheim	Hessen	49.985	7.9547	110	110(1)	1	26
@@ -1936,9 +1935,9 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 1614	Gerabronn	Baden-Wuerttemberg	49.2514	9.9338	474	474(3)	3	3
 1615	Gerdshagen	Brandenburg	53.2382	12.1867	100	100(2)	2	2
 2674	Geretsried	Bayern	47.8433	11.4775	608	608(4)	4	4
-131	Geringswalde-Altgeringswalde	Sachsen	51.088	12.9328	296	296(9)	9	19
-131	Geringswalde-Altgeringswalde	Sachsen	51.0881	12.9326	296	296(9)	9	19
-131	Geringswalde-Altgeringswalde	Sachsen	51.0892	12.9344	296	296(1)	1	19
+131	Geringswalde-Altgeringswalde	Sachsen	51.0881	12.9326	296	296(9)	9	18
+131	Geringswalde-Altgeringswalde	Sachsen	51.088	12.9328	296	296(8)	8	18
+131	Geringswalde-Altgeringswalde	Sachsen	51.0892	12.9344	296	296(1)	1	18
 1616	Germersheim	Rheinland-Pfalz	49.2136	8.3741	106	106(2)	2	2
 1617	Gernrode	Sachsen-Anhalt	51.7259	11.1317	210	210(4)	4	4
 1618	Gernrode-Sternhaus	Sachsen-Anhalt	51.6906	11.1361	412	412(2)	2	2
@@ -1999,8 +1998,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 1668	Gnarrenburg-Karlshoefen	Niedersachsen	53.3333	9	5	5(2)	2	2
 14001	Gnarrenburg-Oberklenkendorf	Niedersachsen	53.4121	9.0825	11	11(2)	2	2
 1671	Gnutz	Schleswig-Holstein	54.1353	9.8249	25	25(2)	2	2
-1673	Goch-Asperden	Nordrhein-Westfalen	51.6851	6.1055	16	16(3)	3	5
-1673	Goch-Asperden	Nordrhein-Westfalen	51.6849	6.1053	16	16(2)	2	5
+1673	Goch-Asperden	Nordrhein-Westfalen	51.6849	6.1053	16	16(2)	2	4
+1673	Goch-Asperden	Nordrhein-Westfalen	51.6851	6.1055	16	16(2)	2	4
 1674	Goeggingen	Baden-Wuerttemberg	48.8621	9.8869	490	490(4)	4	4
 1678	Goehren-Doehlen	Thueringen	50.7141	12.0166	300	300(2)	2	2
 1677	Goehren, Kreis Mecklenburg-Strelitz	Mecklenburg-Vorpommern	53.421	13.5649	110	110(2)	2	2
@@ -2051,8 +2050,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 1712	Gotzing	Bayern	47.8167	11.8	700	700(2)	2	2
 1714	Graal-Mueritz, Seeheilbad	Mecklenburg-Vorpommern	54.2481	12.237	3	3(4)	4	4
 1716	Graben-Neudorf	Baden-Wuerttemberg	49.1478	8.4687	109	109(4)	4	4
-7413	Grabow-Stadt	Mecklenburg-Vorpommern	53.2821	11.5621	30	30(3)	3	5
-7413	Grabow-Stadt	Mecklenburg-Vorpommern	53.2818	11.562	30	30(2)	2	5
+7413	Grabow-Stadt	Mecklenburg-Vorpommern	53.2821	11.5621	30	30(2)	2	4
+7413	Grabow-Stadt	Mecklenburg-Vorpommern	53.2818	11.562	30	30(2)	2	4
 1718	Grabow-Ziegelsdorf	Sachsen-Anhalt	52.2644	11.9804	62	62(4)	4	4
 1717	Grabow (Hechtsforthschleuse)	Mecklenburg-Vorpommern	53.3041	11.5952	30	30(1)	1	6
 1717	Grabow (Klaeranlage Fahlenkamp)	Mecklenburg-Vorpommern	53.2651	11.5042	28	28(5)	5	6
@@ -2161,8 +2160,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 1809	Gross Rodensleben	Sachsen-Anhalt	52.1222	11.3917	125	125(4)	4	4
 1811	Gross Schwarzlosen	Sachsen-Anhalt	52.5055	11.7518	45	45(2)	2	2
 1812	Gross Schwechten	Sachsen-Anhalt	52.6878	11.8085	39	39(2)	2	2
-1813	Gross Wittensee	Schleswig-Holstein	54.4031	9.7649	15	15(4)	4	7
-1813	Gross Wittensee	Schleswig-Holstein	54.4032	9.7654	15	15(3)	3	7
+1813	Gross Wittensee	Schleswig-Holstein	54.4032	9.7654	15	15(3)	3	6
+1813	Gross Wittensee	Schleswig-Holstein	54.4031	9.7649	15	15(3)	3	6
 1816	Grossalmerode	Hessen	51.2606	9.7905	390	390(2)	2	2
 1817	Grossalsleben	Sachsen-Anhalt	51.9792	11.2294	85	85(2)	2	2
 1818	Grossbeeren	Brandenburg	52.3667	13.3167	40	40(2)	2	2
@@ -2257,9 +2256,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 1907	Guxhagen-Albshausen	Hessen	51.2044	9.5131	279	279(4)	4	4
 1908	Guxhagen-Breitenau	Hessen	51.2	9.4833	156	156(2)	2	2
 1909	Haag, Kreis Muehldorf	Bayern	48.1533	12.1702	530	530(4)	4	4
-5057	Haale	Schleswig-Holstein	54.1695	9.556	26	26(3)	3	7
-5057	Haale	Schleswig-Holstein	54.1695	9.5558	26	26(1)	1	7
-5057	Haale	Schleswig-Holstein	54.1695	9.5559	26	26(3)	3	7
+5057	Haale	Schleswig-Holstein	54.1695	9.556	26	26(3)	3	6
+5057	Haale	Schleswig-Holstein	54.1695	9.5559	26	26(3)	3	6
 14667	Haarbach-Wolfakirchen	Bayern	48.5028	13.1061	417	417(4)	4	4
 15120	Haaren	Nordrhein-Westfalen	51.5572	8.7019	379	379(2)	2	2
 1911	Habinghorst (Pumpwerk)	Nordrhein-Westfalen	51.5833	7.3167	56	56(2)	2	2
@@ -2348,9 +2346,9 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 1970	Hamburg (Stadtpark)	Hamburg	53.5898	10.0299	8	8(2)	2	2
 1992	Hamdorf	Schleswig-Holstein	54.2333	9.5167	10	10(2)	2	2
 1993	Hameln	Niedersachsen	52.0848	9.3896	68	68(9)	9	9
-13675	Hameln-Hastenbeck	Niedersachsen	52.0831	9.4083	77	77(1)	1	17
-13675	Hameln-Hastenbeck	Niedersachsen	52.0817	9.4072	77	77(8)	8	17
-13675	Hameln-Hastenbeck	Niedersachsen	52.0818	9.4077	77	77(8)	8	17
+13675	Hameln-Hastenbeck	Niedersachsen	52.0831	9.4083	77	77(1)	1	16
+13675	Hameln-Hastenbeck	Niedersachsen	52.0817	9.4072	77	77(7)	7	16
+13675	Hameln-Hastenbeck	Niedersachsen	52.0818	9.4077	77	77(8)	8	16
 1994	Hamersleben	Sachsen-Anhalt	52.0611	11.0908	104	104(2)	2	2
 1996	Hamm-Rhynern	Nordrhein-Westfalen	51.6333	7.8667	96	96(2)	2	2
 1995	Hamm (Schleuse)	Nordrhein-Westfalen	51.6865	7.8202	59	59(2)	2	2
@@ -2392,13 +2390,12 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 2027	Harsewinkel	Nordrhein-Westfalen	51.9755	8.2094	63	63(6)	6	6
 2028	Hartenholm	Schleswig-Holstein	53.9	10.0667	32	32(2)	2	2
 2029	Hartenstein-Rupprechtstegen	Bayern	49.6	11.4805	410	410(2)	2	2
-5395	Harth-Poellnitz Neundorf	Thueringen	50.7677	11.981	340	340(4)	4	7
-5395	Harth-Poellnitz Neundorf	Thueringen	50.7676	11.981	340	340(3)	3	7
+5395	Harth-Poellnitz Neundorf	Thueringen	50.7676	11.981	340	340(3)	3	6
+5395	Harth-Poellnitz Neundorf	Thueringen	50.7677	11.981	340	340(3)	3	6
 2030	Hartha-Foerdergersdorf	Sachsen	50.9946	13.5439	335	335(2)	2	2
 2031	Harthausen, Kreis Zollernalb	Baden-Wuerttemberg	48.2	9.1667	737	737(2)	2	2
-2032	Hartheim	Baden-Wuerttemberg	47.9338	7.6281	205	205(2)	2	5
-2032	Hartheim am Rhein	Baden-Wuerttemberg	47.936	7.6181	200	200(1)	1	5
-2032	Hartheim am Rhein	Baden-Wuerttemberg	47.936	7.6182	200	200(2)	2	5
+2032	Hartheim	Baden-Wuerttemberg	47.9338	7.6281	205	205(2)	2	4
+2032	Hartheim am Rhein	Baden-Wuerttemberg	47.936	7.6182	200	200(2)	2	4
 2037	Hartmannsdorf-Reichenau	Sachsen	50.8319	13.5889	527	527(1)	1	1
 2038	Hartmannsdorf bei Kirchberg	Sachsen	50.5624	12.5806	563	563(2)	2	2
 2036	Hartmannsdorf, Kreis Oder-Spree	Brandenburg	52.3503	13.8301	37	37(2)	2	2
@@ -2481,9 +2478,9 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 5874	Heiligenstadt/-Eichsfeld	Thueringen	51.3665	10.1385	260	260(2)	2	2
 2102	Heiligkreuz	Bayern	50.2	9.7333	218	218(2)	2	2
 2103	Heilsbronn	Bayern	49.3343	10.7845	423	423(4)	4	4
-2104	Heimbach-Duettling	Nordrhein-Westfalen	50.6044	6.546	380	380(2)	2	5
-2104	Heimbach-Duettling	Nordrhein-Westfalen	50.6086	6.5495	385	385(2)	2	5
-2104	Heimbach-Duettling	Nordrhein-Westfalen	50.6044	6.5465	380	380(1)	1	5
+2104	Heimbach-Duettling	Nordrhein-Westfalen	50.6086	6.5495	385	385(2)	2	4
+2104	Heimbach-Duettling	Nordrhein-Westfalen	50.6044	6.5465	380	380(1)	1	4
+2104	Heimbach-Duettling	Nordrhein-Westfalen	50.6044	6.546	380	380(1)	1	4
 2105	Heimbach-Schwammenauel	Nordrhein-Westfalen	50.6388	6.4426	274	274(2)	2	2
 2106	Heimburg	Sachsen-Anhalt	51.8167	10.9333	240	240(2)	2	2
 2107	Heimenkirch	Bayern	47.631	9.8908	639	639(2)	2	2
@@ -2545,8 +2542,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 2149	Heringen/Helme	Thueringen	51.4506	10.8737	164	164(2)	2	2
 2150	Heringsdorf, Seebad	Mecklenburg-Vorpommern	53.9548	14.1667	10	10(2)	2	2
 2151	Herleshausen	Hessen	51.0048	10.1705	215	215(4)	4	4
-2152	Herleshausen-Archfeld	Hessen	51.0423	10.1471	380	380(4)	4	7
-2152	Herleshausen-Archfeld	Hessen	51.0423	10.1469	380	380(3)	3	7
+2152	Herleshausen-Archfeld	Hessen	51.0423	10.1471	380	380(3)	3	6
+2152	Herleshausen-Archfeld	Hessen	51.0423	10.1469	380	380(3)	3	6
 2153	Hermannsburg	Niedersachsen	52.8388	10.1019	55	55(2)	2	2
 7331	Hermaringen-Allewind	Baden-Wuerttemberg	48.6106	10.2694	468	468(1)	1	18
 7331	Hermaringen-Allewind	Baden-Wuerttemberg	48.6099	10.2674	468	468(16)	16	18
@@ -2586,8 +2583,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 2186	Hesseneck-Hesselbach	Hessen	49.5761	9.0898	485	485(2)	2	2
 2187	Hessenthal	Bayern	49.9281	9.287	287	287(2)	2	2
 2182	Hessisch Lichtenau	Hessen	51.2	9.7333	384	384(2)	2	2
-2184	Hessisch Lichtenau-Fuerstenhagen	Hessen	51.2143	9.6924	340	340(4)	4	7
-2184	Hessisch Lichtenau-Fuerstenhagen	Hessen	51.2142	9.6919	340	340(3)	3	7
+2184	Hessisch Lichtenau-Fuerstenhagen	Hessen	51.2143	9.6924	340	340(3)	3	6
+2184	Hessisch Lichtenau-Fuerstenhagen	Hessen	51.2142	9.6919	340	340(3)	3	6
 2183	Hessisch Lichtenau-Hausen	Hessen	51.2051	9.8302	520	520(2)	2	2
 2188	Hessisch Oldendorf	Niedersachsen	52.1675	9.2506	62	62(2)	2	2
 2189	Heteborn	Sachsen-Anhalt	51.8933	11.2892	192	192(2)	2	2
@@ -2733,8 +2730,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 2312	Holthusen	Mecklenburg-Vorpommern	53.556	11.3622	51	51(2)	2	2
 2313	Holtrop	Niedersachsen	53.4333	7.55	7	7(2)	2	2
 2314	Holzdorf	Sachsen-Anhalt	51.7833	13.1333	78	78(2)	2	2
-2316	Holzdorf-Seeholz	Schleswig-Holstein	54.5667	9.9	25	25(3)	3	5
-2316	Holzdorf-Seeholz	Schleswig-Holstein	54.5592	9.8978	25	25(2)	2	5
+2316	Holzdorf-Seeholz	Schleswig-Holstein	54.5592	9.8978	25	25(2)	2	4
+2316	Holzdorf-Seeholz	Schleswig-Holstein	54.5667	9.9	25	25(2)	2	4
 2315	Holzdorf (Flugplatz)	Sachsen-Anhalt	51.7657	13.1666	81	81(15)	15	16
 2315	Holzdorf (Flugplatz)	Brandenburg	51.7686	13.1683	81	81(1)	1	16
 2318	Holzhausen a.d. Haide	Rheinland-Pfalz	50.2182	7.9133	397	397(4)	4	4
@@ -2751,9 +2748,9 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 2330	Homburg, Bad-Saalburg	Hessen	50.2707	8.5665	424	424(2)	2	2
 2329	Homburg, Bad (Filterwerk)	Hessen	50.2446	8.5725	255	255(3)	3	6
 2329	Homburg, Bad (Filterwerk)	Hessen	50.2541	8.5748	255	255(3)	3	6
-2331	Homburg/Saar	Saarland	49.3283	7.3561	235	235(7)	7	12
-2331	Homburg/Saar	Saarland	49.3278	7.3533	235	235(4)	4	12
-2331	Homburg/Saar	Saarland	49.3294	7.3569	235	235(1)	1	12
+2331	Homburg/Saar	Saarland	49.3278	7.3533	235	235(4)	4	11
+2331	Homburg/Saar	Saarland	49.3283	7.3561	235	235(6)	6	11
+2331	Homburg/Saar	Saarland	49.3294	7.3569	235	235(1)	1	11
 2332	Honnef, Bad	Nordrhein-Westfalen	50.65	7.2158	58	58(3)	3	4
 2332	Honnef, Bad	Nordrhein-Westfalen	50.6502	7.2159	58	58(1)	1	4
 2333	Honnef, Bad (Servatiushof)	Nordrhein-Westfalen	50.6505	7.2895	278	278(2)	2	2
@@ -2769,8 +2766,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 2343	Horla	Sachsen-Anhalt	51.5306	11.1803	395	395(2)	2	2
 2344	Horlachen	Bayern	50.1511	11.698	582	582(4)	4	4
 2345	Horn-Meinberg, Bad	Nordrhein-Westfalen	51.8769	8.9498	210	210(2)	2	2
-2346	Horn-Meinberg, Bad-Feldrom	Nordrhein-Westfalen	51.8238	8.943	357.33	356(2)_360(1)	3	5
-2346	Horn-Meinberg, Bad-Feldrom	Nordrhein-Westfalen	51.8239	8.9426	360	360(2)	2	5
+2346	Horn-Meinberg, Bad-Feldrom	Nordrhein-Westfalen	51.8238	8.943	356	356(2)	2	4
+2346	Horn-Meinberg, Bad-Feldrom	Nordrhein-Westfalen	51.8239	8.9426	360	360(2)	2	4
 2347	Hornbostel	Niedersachsen	52.6708	9.8394	34	34(2)	2	2
 2348	Hornhausen	Sachsen-Anhalt	52.0494	11.1705	92	92(2)	2	2
 2349	Hornisgrinde	Baden-Wuerttemberg	48.6136	8.2034	1119	1119(7)	7	8
@@ -2833,8 +2830,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 2401	Immenhausen-Holzhausen	Hessen	51.4251	9.5395	303	303(2)	2	2
 2402	Immenstaad	Baden-Wuerttemberg	47.6641	9.3606	404	404(2)	2	2
 2403	Immenstadt	Bayern	47.5566	10.223	731	731(2)	2	2
-2405	Immenstadt-Reute	Bayern	47.6077	10.2021	960	960(4)	4	7
-2405	Immenstadt-Reute	Bayern	47.6078	10.202	960	960(3)	3	7
+2405	Immenstadt-Reute	Bayern	47.6078	10.202	960	960(3)	3	6
+2405	Immenstadt-Reute	Bayern	47.6077	10.2021	960	960(3)	3	6
 2404	Immenstadt (Waerterhaus)	Bayern	47.546	10.206	935	935(4)	4	4
 2406	Ingelfingen	Baden-Wuerttemberg	49.2967	9.652	209	209(4)	4	4
 6260	Ingelfingen-Stachenhausen	Baden-Wuerttemberg	49.3325	9.7039	385	385(5)	5	12
@@ -2867,8 +2864,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 2432	Ivenrode	Sachsen-Anhalt	52.2692	11.2383	153	153(1)	1	4
 2433	Jachenau	Bayern	47.6	11.4333	765	765(2)	2	2
 2434	Jachenau-Niedernach	Bayern	47.5841	11.3936	803	803(2)	2	2
-6257	Jachenau-Tannern	Bayern	47.628	11.5167	720	720(4)	4	7
-6257	Jachenau-Tannern	Bayern	47.6279	11.5166	720	720(3)	3	7
+6257	Jachenau-Tannern	Bayern	47.628	11.5167	720	720(3)	3	6
+6257	Jachenau-Tannern	Bayern	47.6279	11.5166	720	720(3)	3	6
 2435	Jaegerthal	Rheinland-Pfalz	49.45	8.05	198	198(2)	2	2
 2439	Jagstzell	Baden-Wuerttemberg	49.0343	10.0869	466	466(4)	4	4
 2440	Jedesheim	Bayern	48.2	10.1167	518	518(2)	2	2
@@ -2886,8 +2883,7 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 2450	Jesewitz	Sachsen	51.419	12.5465	127	127(2)	2	2
 2451	Jessen/Elster	Sachsen-Anhalt	51.7954	12.9583	77	77(4)	4	4
 7364	Jessnitz	Sachsen-Anhalt	51.682	12.3042	74	74(12)	12	12
-2452	Jesteburg _ Marxen	Niedersachsen	53.3052	10.0124	38	38(3)	3	5
-2452	Jesteburg	Niedersachsen	53.301	9.9499	28	28(2)	2	5
+2452	Jesteburg	Niedersachsen	53.301	9.9499	28	28(2)	2	4
 2456	Jever	Niedersachsen	53.5322	7.8806	7	7(11)	11	11
 2458	Joehstadt	Sachsen	50.5032	13.1006	715	715(4)	4	4
 2459	Joerdenstorf	Mecklenburg-Vorpommern	53.8778	12.6163	45	45(3)	3	4
@@ -2911,8 +2907,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 2472	Juehnsdorf-Blankenfelde	Brandenburg	52.3192	13.3875	45	45(4)	4	4
 2474	Juelich (Forsch.-Anlage)	Nordrhein-Westfalen	50.9104	6.4093	91	91(5)	5	5
 2473	Juelich (Klaeranlage)	Nordrhein-Westfalen	50.9315	6.343	76	76(6)	6	6
-2475	Jueterbog	Brandenburg	52.0006	13.1022	75	75(5)	5	8
-2475	Jueterbog	Brandenburg	52	13.1009	75	75(3)	3	8
+2475	Jueterbog	Brandenburg	52	13.1009	75	75(3)	3	7
+2475	Jueterbog	Brandenburg	52.0006	13.1022	75	75(4)	4	7
 2476	Juist	Niedersachsen	53.6717	6.9426	2	2(2)	2	2
 2479	Kaarssen-Laave	Niedersachsen	53.2163	11.0717	13	13(2)	2	2
 2480	Kahl/Main	Bayern	50.0643	8.993	107	107(10)	10	12
@@ -2948,8 +2944,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 2503	Kaltennordheim	Thueringen	50.6266	10.1455	487	487(11)	11	12
 2503	Kaltennordheim	Thueringen	50.6278	10.1467	487	487(1)	1	12
 2504	Kaltohmfeld	Thueringen	51.4548	10.3998	491	491(2)	2	2
-2505	Kamen	Nordrhein-Westfalen	51.5848	7.6539	62	62(3)	3	5
-2505	Kamen	Nordrhein-Westfalen	51.5854	7.6536	60	60(2)	2	5
+2505	Kamen	Nordrhein-Westfalen	51.5854	7.6536	60	60(2)	2	4
+2505	Kamen	Nordrhein-Westfalen	51.5848	7.6539	62	62(2)	2	4
 2506	Kamenz	Sachsen	51.2667	14.0833	270	270(3)	3	3
 2507	Kamern	Sachsen-Anhalt	52.7469	12.1054	30	30(2)	2	2
 2508	Kammerforst	Thueringen	51.1212	10.4268	270	270(2)	2	2
@@ -2990,8 +2986,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 2534	Kassel-Herkules	Hessen	51.3167	9.3833	525	525(2)	2	2
 2535	Kassel-Neue Muehle	Hessen	51.2833	9.4833	140	140(2)	2	2
 2537	Kastellaun	Rheinland-Pfalz	50.0682	7.4467	425	425(2)	2	2
-2538	Kastl, Kreis Amberg-Sulzbach	Bayern	49.3658	11.6922	424	424(4)	4	7
-2538	Kastl, Kreis Amberg-Sulzbach	Bayern	49.3658	11.6925	424	424(3)	3	7
+2538	Kastl, Kreis Amberg-Sulzbach	Bayern	49.3658	11.6925	424	424(3)	3	6
+2538	Kastl, Kreis Amberg-Sulzbach	Bayern	49.3658	11.6922	424	424(3)	3	6
 2539	Katerbow	Brandenburg	52.9877	12.6581	56	56(2)	2	2
 2540	Katzenelnbogen	Rheinland-Pfalz	50.2655	7.9699	308	308(2)	2	2
 2541	Katzhuette	Thueringen	50.5467	11.0317	462	462(3)	3	6
@@ -3043,8 +3039,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 2575	Kirchberg/Jagst-Herboldshausen	Baden-Wuerttemberg	49.1804	9.9799	426	426(1)	1	12
 6191	Kirchberg/Niederbayern -Zell	Bayern	48.9023	13.1442	683	683(6)	6	6
 2576	Kirchdorf im Wald	Bayern	48.9107	13.2695	693	693(2)	2	2
-2577	Kirchdorf, Kreis Diepholz	Niedersachsen	52.6008	8.8518	34	34(4)	4	7
-2577	Kirchdorf, Kreis Diepholz	Niedersachsen	52.6007	8.8522	34	34(3)	3	7
+2577	Kirchdorf, Kreis Diepholz	Niedersachsen	52.6007	8.8522	34	34(3)	3	6
+2577	Kirchdorf, Kreis Diepholz	Niedersachsen	52.6008	8.8518	34	34(3)	3	6
 2578	Kirchdorf/Poel	Mecklenburg-Vorpommern	53.9995	11.4341	12	12(11)	11	12
 2578	Kirchdorf/Poel	Mecklenburg-Vorpommern	53.9995	11.4346	12	12(1)	1	12
 2579	Kirchen/Sieg	Rheinland-Pfalz	50.8057	7.893	295	295(2)	2	2
@@ -3063,8 +3059,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 2592	Kirchroettenbach	Bayern	49.5833	11.2833	360	360(2)	2	2
 2593	Kirchweidach	Bayern	48.0866	12.6429	505	505(2)	2	2
 2594	Kirchzell-Breitenbuch	Bayern	49.6208	9.1097	512	512(2)	2	2
-2595	Kirn	Rheinland-Pfalz	49.7883	7.4845	181	181(4)	4	7
-2595	Kirn	Rheinland-Pfalz	49.789	7.4853	181	181(3)	3	7
+2595	Kirn	Rheinland-Pfalz	49.789	7.4853	181	181(3)	3	6
+2595	Kirn	Rheinland-Pfalz	49.7883	7.4845	181	181(3)	3	6
 2596	Kirtorf	Hessen	50.7705	9.1017	260	260(4)	4	4
 2597	Kissingen, Bad	Bayern	50.2241	10.0792	281.97	281.8(3)_282(20)	23	24
 2597	Kissingen, Bad	Bayern	50.2256	10.0803	282	282(1)	1	24
@@ -3086,20 +3082,20 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 2601	Kleiner Feldberg/Taunus	Hessen	50.2218	8.4469	825.95	825.6(3)_826(20)	23	24
 2601	Kleiner Feldberg/Taunus	Hessen	50.2225	8.4481	826	826(1)	1	24
 2618	Kleiner Inselsberg	Thueringen	50.8458	10.4803	732	732(12)	12	12
-14315	Kleinich	Rheinland-Pfalz	49.8939	7.1884	437.83	437.5(1)_438(2)	3	5
-14315	Kleinich	Rheinland-Pfalz	49.8939	7.1886	447	447(2)	2	5
+14315	Kleinich	Rheinland-Pfalz	49.8939	7.1886	447	447(2)	2	4
+14315	Kleinich	Rheinland-Pfalz	49.8939	7.1884	438	438(2)	2	4
 2621	Kleinmachnow	Brandenburg	52.4036	13.2319	42	42(7)	7	7
 2610	Kleinsolt	Schleswig-Holstein	54.7333	9.5167	40	40(2)	2	2
 2623	Kleintettau	Bayern	50.4833	11.2833	680	680(2)	2	2
 2624	Kleinwaabs	Schleswig-Holstein	54.533	9.9855	32	32(2)	2	2
 4042	Klepzig	Brandenburg	52.0189	12.5356	146	146(4)	4	4
-2625	Klessen	Brandenburg	52.7394	12.499	38	38(4)	4	7
-2625	Klessen	Brandenburg	52.739	12.4984	38	38(3)	3	7
+2625	Klessen	Brandenburg	52.739	12.4984	38	38(3)	3	6
+2625	Klessen	Brandenburg	52.7394	12.499	38	38(3)	3	6
 2626	Klettenberg	Thueringen	51.5545	10.5943	241	241(2)	2	2
 5866	Klettgau-Griessen	Baden-Wuerttemberg	47.6238	8.4108	390	390(2)	2	2
-2627	Klettwitz	Brandenburg	51.5567	13.8864	128	128(1)	1	19
-2627	Klettwitz	Brandenburg	51.5554	13.8846	128	128(9)	9	19
-2627	Klettwitz	Brandenburg	51.5555	13.8845	128	128(9)	9	19
+2627	Klettwitz	Brandenburg	51.5567	13.8864	128	128(1)	1	18
+2627	Klettwitz	Brandenburg	51.5554	13.8846	128	128(8)	8	18
+2627	Klettwitz	Brandenburg	51.5555	13.8845	128	128(9)	9	18
 2628	Kletzen	Sachsen	51.4523	12.4156	120	120(2)	2	2
 2629	Kleve	Nordrhein-Westfalen	51.7612	6.0954	46	46(13)	13	13
 2630	Kleve-Schenkenschanz	Nordrhein-Westfalen	51.835	6.1105	16	16(4)	4	4
@@ -3108,8 +3104,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 2633	Klingenberg Talsperre	Sachsen	50.9074	13.535	395	395(2)	2	2
 2634	Klingenthal	Sachsen	50.3732	12.4634	618	618(2)	2	2
 2635	Klingenthal-Aschberg	Sachsen	50.3896	12.5062	914	914(2)	2	2
-6269	Klingenthal-Kamerun	Sachsen	50.3596	12.484	730	730(4)	4	7
-6269	Klingenthal-Kamerun	Sachsen	50.3594	12.4837	730	730(3)	3	7
+6269	Klingenthal-Kamerun	Sachsen	50.3596	12.484	730	730(3)	3	6
+6269	Klingenthal-Kamerun	Sachsen	50.3594	12.4837	730	730(3)	3	6
 2636	Klings	Thueringen	50.6494	10.1166	485	485(2)	2	2
 2637	Klink	Mecklenburg-Vorpommern	53.4635	12.607	68	68(3)	3	4
 2637	Klink	Mecklenburg-Vorpommern	53.4763	12.6178	70	70(1)	1	4
@@ -3141,8 +3137,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 2659	Kochel (Walchenseekraftwerk)	Bayern	47.6308	11.3368	610	610(2)	2	2
 2662	Koeckte	Sachsen-Anhalt	52.5233	11.1289	59	59(6)	6	6
 2663	Koehlen	Niedersachsen	53.5323	8.8686	8	8(4)	4	4
-4666	Koehn	Schleswig-Holstein	54.3442	10.4579	40	40(4)	4	7
-4666	Koehn	Schleswig-Holstein	54.3444	10.4581	40	40(3)	3	7
+4666	Koehn	Schleswig-Holstein	54.3444	10.4581	40	40(3)	3	6
+4666	Koehn	Schleswig-Holstein	54.3442	10.4579	40	40(3)	3	6
 2664	Koelleda	Thueringen	51.1906	11.2436	143	143(2)	2	2
 2667	Koeln-Bonn	Nordrhein-Westfalen	50.8646	7.1575	92	92(23)	23	24
 2667	Koeln-Bonn	Nordrhein-Westfalen	50.8661	7.1586	92	92(1)	1	24
@@ -3270,11 +3266,11 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 15147	Krummhoern-Woquard	Niedersachsen	53.4308	7.0822	1	1(3)	3	4
 6221	Krummhoern (Hooge)	Niedersachsen	53.5084	7.0781	6	6(1)	1	1
 2764	Krumstedt	Schleswig-Holstein	54.0706	9.1781	8	8(2)	2	2
-314	Kubschuetz, Kr. Bautzen	Sachsen	51.1605	14.5037	232	232(8)	8	17
-314	Kubschuetz, Kr. Bautzen	Sachsen	51.1604	14.5042	232	232(8)	8	17
-314	Kubschuetz, Kr. Bautzen	Sachsen	51.1617	14.5056	232	232(1)	1	17
-2767	Kuehlungsborn, Ostseebad	Mecklenburg-Vorpommern	54.1503	11.7633	6	6(3)	3	5
-2767	Kuehlungsborn, Ostseebad	Mecklenburg-Vorpommern	54.1504	11.7634	6	6(2)	2	5
+314	Kubschuetz, Kr. Bautzen	Sachsen	51.1605	14.5037	232	232(7)	7	16
+314	Kubschuetz, Kr. Bautzen	Sachsen	51.1604	14.5042	232	232(8)	8	16
+314	Kubschuetz, Kr. Bautzen	Sachsen	51.1617	14.5056	232	232(1)	1	16
+2767	Kuehlungsborn, Ostseebad	Mecklenburg-Vorpommern	54.1504	11.7634	6	6(2)	2	4
+2767	Kuehlungsborn, Ostseebad	Mecklenburg-Vorpommern	54.1503	11.7633	6	6(2)	2	4
 2766	Kuehlungsborn, Ostseebad1	Mecklenburg-Vorpommern	54.1167	11.7667	74	74(2)	2	2
 2768	Kuehndorf	Thueringen	50.6035	10.4918	445	445(2)	2	2
 2769	Kuehnhaide	Sachsen	50.5935	13.2489	715	715(2)	2	2
@@ -3298,8 +3294,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 2783	Kumhausen	Bayern	48.5136	12.1528	436	436(1)	1	7
 2785	Kunrau	Sachsen-Anhalt	52.5661	11.0233	63	63(2)	2	2
 2786	Kupferberg	Bayern	50.1378	11.5742	470	470(2)	2	2
-2787	Kupferzell-Rechbach	Baden-Wuerttemberg	49.2428	9.6703	354	354(4)	4	7
-2787	Kupferzell-Rechbach	Baden-Wuerttemberg	49.2428	9.6786	354	354(3)	3	7
+2787	Kupferzell-Rechbach	Baden-Wuerttemberg	49.2428	9.6786	354	354(3)	3	6
+2787	Kupferzell-Rechbach	Baden-Wuerttemberg	49.2428	9.6703	354	354(3)	3	6
 2788	Kupferzell-Westernach	Baden-Wuerttemberg	49.1936	9.6853	355	355(2)	2	2
 2789	Kusel	Rheinland-Pfalz	49.5422	7.3975	287	287(2)	2	2
 2790	Kusel-Fuenfbirken	Rheinland-Pfalz	49.5592	7.4134	296	296(4)	4	4
@@ -3323,8 +3319,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 2807	Ladeburg	Sachsen-Anhalt	52.0822	11.9346	88	88(2)	2	2
 2808	Ladenburg	Baden-Wuerttemberg	49.4731	8.6387	104	104(2)	2	2
 2809	Lage, Kreis Lippe	Nordrhein-Westfalen	51.9858	8.8093	108	108(2)	2	2
-2810	Lage, Kreis Lippe-Hoerste	Nordrhein-Westfalen	51.9444	8.7746	154	154(4)	4	7
-2810	Lage, Kreis Lippe-Hoerste	Nordrhein-Westfalen	51.9446	8.7749	154	154(3)	3	7
+2810	Lage, Kreis Lippe-Hoerste	Nordrhein-Westfalen	51.9446	8.7749	154	154(3)	3	6
+2810	Lage, Kreis Lippe-Hoerste	Nordrhein-Westfalen	51.9444	8.7746	154	154(3)	3	6
 2811	Lahnstein	Rheinland-Pfalz	50.2882	7.6239	71	71(2)	2	2
 2812	Lahr	Baden-Wuerttemberg	48.3647	7.828	155	155(23)	23	24
 2812	Lahr	Baden-Wuerttemberg	48.3658	7.8289	155	155(1)	1	24
@@ -3350,8 +3346,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 2831	Landshut	Bayern	48.5357	12.1132	393	393(5)	5	6
 2831	Landshut	Bayern	48.5367	12.1147	393	393(1)	1	6
 6224	Landshut-Peterreuth	Bayern	48.5168	12.0493	400	400(1)	1	1
-13710	Landshut-Reithof	Bayern	48.5734	12.2574	490	490(7)	7	13
-13710	Landshut-Reithof	Bayern	48.5734	12.2576	490	490(6)	6	13
+13710	Landshut-Reithof	Bayern	48.5734	12.2574	490	490(6)	6	12
+13710	Landshut-Reithof	Bayern	48.5734	12.2576	490	490(6)	6	12
 2832	Landshut-Schoenbrunn	Bayern	48.5579	12.1966	385	385(2)	2	2
 2833	Landstuhl	Rheinland-Pfalz	49.4095	7.5684	280	280(2)	2	2
 2834	Landwehr-Wetteborn	Niedersachsen	51.9167	9.9667	205	205(2)	2	2
@@ -3396,8 +3392,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 2860	Langenzenn	Bayern	49.5075	10.7884	370	370(6)	6	6
 2861	Langeoog	Niedersachsen	53.7445	7.4775	5	5(5)	5	5
 2862	Langerringen-Schwabmuehlen	Bayern	48.1091	10.7731	575	575(2)	2	2
-2863	Langerwisch	Brandenburg	52.3175	13.0686	40	40(3)	3	5
-2863	Langerwisch	Brandenburg	52.3175	13.0679	40	40(2)	2	5
+2863	Langerwisch	Brandenburg	52.3175	13.0686	40	40(2)	2	4
+2863	Langerwisch	Brandenburg	52.3175	13.0679	40	40(2)	2	4
 2864	Langfoerden	Niedersachsen	52.7838	8.2502	42	42(2)	2	2
 2865	Langgoens-Niederkleen	Hessen	50.4839	8.6028	213	213(4)	4	4
 2866	Langmuehle	Rheinland-Pfalz	49.1667	7.6667	260	260(2)	2	2
@@ -3503,9 +3499,9 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 2946	Lenggries-Vorderriss	Bayern	47.5572	11.4353	803	803(2)	2	2
 2944	Lenggries (Rissbachwehr)	Bayern	47.5194	11.4428	850	850(2)	2	2
 2948	Lennestadt-Bilstein	Nordrhein-Westfalen	51.0959	8.016	320	320(2)	2	2
-2947	Lennestadt-Theten	Nordrhein-Westfalen	51.1334	8.0352	286	286(9)	9	19
-2947	Lennestadt-Theten	Nordrhein-Westfalen	51.1333	8.0348	286	286(9)	9	19
-2947	Lennestadt-Theten	Nordrhein-Westfalen	51.1347	8.0361	286	286(1)	1	19
+2947	Lennestadt-Theten	Nordrhein-Westfalen	51.1333	8.0348	286	286(9)	9	18
+2947	Lennestadt-Theten	Nordrhein-Westfalen	51.1334	8.0352	286	286(8)	8	18
+2947	Lennestadt-Theten	Nordrhein-Westfalen	51.1347	8.0361	286	286(1)	1	18
 2949	Lenningen-Schopfloch	Baden-Wuerttemberg	48.5396	9.5275	758	758(5)	5	5
 2950	Lensahn	Schleswig-Holstein	54.219	10.8844	14	14(4)	4	4
 2951	Lenzen/Elbe	Brandenburg	53.101	11.4863	20	20(1)	1	18
@@ -3529,14 +3525,14 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 7403	Leutkirch-Herlazhofen	Baden-Wuerttemberg	47.7964	10.0336	672	672(1)	1	24
 7403	Leutkirch-Herlazhofen	Baden-Wuerttemberg	47.7955	10.0324	671.96	671.7(3)_672(20)	23	24
 2969	Leverkusen-Hitdorf	Nordrhein-Westfalen	51.0654	6.9218	43	43(2)	2	2
-2970	Leverkusen-Pattscheid	Nordrhein-Westfalen	51.0933	7.0706	140	140(2)	2	5
-2970	Leverkusen-Pattscheid	Nordrhein-Westfalen	51.0915	7.0489	140	140(1)	1	5
-2970	Leverkusen-Pattscheid	Nordrhein-Westfalen	51.0932	7.0706	140	140(2)	2	5
+2970	Leverkusen-Pattscheid	Nordrhein-Westfalen	51.0933	7.0706	140	140(2)	2	4
+2970	Leverkusen-Pattscheid	Nordrhein-Westfalen	51.0915	7.0489	140	140(1)	1	4
+2970	Leverkusen-Pattscheid	Nordrhein-Westfalen	51.0932	7.0706	140	140(1)	1	4
 2971	Levershausen	Niedersachsen	51.6667	10.0167	286	286(2)	2	2
 2974	Libehna	Sachsen-Anhalt	51.7137	12.0679	80	80(2)	2	2
 2975	Lich	Hessen	50.5131	8.8051	189	189(4)	4	4
-2976	Lichtenau in Westfalen	Nordrhein-Westfalen	51.6154	8.9004	300	300(3)	3	5
-2976	Lichtenau in Westfalen	Nordrhein-Westfalen	51.6153	8.9009	307	307(2)	2	5
+2976	Lichtenau in Westfalen	Nordrhein-Westfalen	51.6153	8.9009	307	307(2)	2	4
+2976	Lichtenau in Westfalen	Nordrhein-Westfalen	51.6154	8.9004	300	300(2)	2	4
 2977	Lichtenau in Westfalen -Blankenrode	Nordrhein-Westfalen	51.5393	8.9112	375	375(2)	2	2
 5896	Lichtenberg	Mecklenburg-Vorpommern	53.381	13.4949	125	125(2)	2	2
 2979	Lichtenberg/Erzgeb.  (Talsperre)	Sachsen	50.811	13.45	518	518(1)	1	1
@@ -3565,8 +3561,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 2997	Lieberose	Brandenburg	51.9861	14.3044	47	47(5)	5	6
 2799	Lieberschuetzberg-Laas	Sachsen	51.3662	13.148	125	125(2)	2	2
 2998	Liebstedt	Thueringen	51.0456	11.4117	260	260(2)	2	2
-2999	Lienen-Kattenvenne	Nordrhein-Westfalen	52.1208	7.8702	55	55(4)	4	7
-2999	Lienen-Kattenvenne	Nordrhein-Westfalen	52.1211	7.8699	55	55(3)	3	7
+2999	Lienen-Kattenvenne	Nordrhein-Westfalen	52.1211	7.8699	55	55(3)	3	6
+2999	Lienen-Kattenvenne	Nordrhein-Westfalen	52.1208	7.8702	55	55(3)	3	6
 3000	Liggersdorf	Baden-Wuerttemberg	47.8833	9.1167	650	650(2)	2	2
 3001	Liliental	Baden-Wuerttemberg	48.0674	7.677	284	284(6)	6	7
 3001	Liliental	Baden-Wuerttemberg	48.0683	7.6778	284	284(1)	1	7
@@ -3611,8 +3607,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 3031	Lippstadt-Boekenfoerde	Nordrhein-Westfalen	51.6336	8.3945	92	92(10)	10	18
 3031	Lippstadt-Boekenfoerde	Nordrhein-Westfalen	51.6347	8.3953	92	92(1)	1	18
 3031	Lippstadt-Boekenfoerde	Nordrhein-Westfalen	51.6334	8.3943	92	92(7)	7	18
-2213	Lissendorf	Rheinland-Pfalz	50.3107	6.6237	407	407(4)	4	7
-2213	Lissendorf	Rheinland-Pfalz	50.3105	6.6236	407	407(3)	3	7
+2213	Lissendorf	Rheinland-Pfalz	50.3105	6.6236	407	407(3)	3	6
+2213	Lissendorf	Rheinland-Pfalz	50.3107	6.6237	407	407(3)	3	6
 3032	List auf Sylt	Schleswig-Holstein	55.011	8.4125	26.03	26(19)_26.2(3)	22	22
 3033	Litzendorf-Lohndorf	Bayern	49.9164	11.0473	346	346(2)	2	2
 3034	Lobenstein, Bad	Thueringen	50.4505	11.635	500	500(12)	12	12
@@ -3640,12 +3636,12 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 3051	Lohme	Mecklenburg-Vorpommern	54.5792	13.6143	58	58(2)	2	2
 3052	Lohme-Nipmerow	Mecklenburg-Vorpommern	54.569	13.6029	95	95(2)	2	2
 3053	Lohmen	Mecklenburg-Vorpommern	53.6851	12.0931	50	50(2)	2	2
-3740	Lohmen/Sachsen	Sachsen	50.9932	13.981	195	195(4)	4	7
-3740	Lohmen/Sachsen	Sachsen	50.9933	13.9808	195	195(3)	3	7
+3740	Lohmen/Sachsen	Sachsen	50.9932	13.981	195	195(3)	3	6
+3740	Lohmen/Sachsen	Sachsen	50.9933	13.9808	195	195(3)	3	6
 3054	Lohnde	Niedersachsen	52.3986	9.5631	51	51(2)	2	2
-6336	Lohr/Main-Halsbach	Bayern	50.0144	9.655	285	285(1)	1	17
-6336	Lohr/Main-Halsbach	Bayern	50.0133	9.6539	285	285(8)	8	17
-6336	Lohr/Main-Halsbach	Bayern	50.0132	9.654	285	285(8)	8	17
+6336	Lohr/Main-Halsbach	Bayern	50.0144	9.655	285	285(1)	1	16
+6336	Lohr/Main-Halsbach	Bayern	50.0133	9.6539	285	285(7)	7	16
+6336	Lohr/Main-Halsbach	Bayern	50.0132	9.654	285	285(8)	8	16
 3056	Lohr/Main-Steinbach	Bayern	50.0103	9.61	161	161(6)	6	7
 3056	Lohr/Main-Steinbach	Bayern	50.0114	9.6111	161	161(1)	1	7
 3055	Lohr/Main -Ruppertshuetten	Bayern	50.0802	9.542	370	370(4)	4	4
@@ -3748,8 +3744,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 5905	Mainburg-Lindkirchen	Bayern	48.6709	11.7836	436	436(1)	1	1
 3133	Mainburg (A)	Bayern	48.65	11.7833	420	420(2)	2	2
 3135	Mainhardt-Ziegelbronn	Baden-Wuerttemberg	49.0643	9.582	473	473(4)	4	4
-4668	Mainhausen-Zellhausen	Hessen	50.0147	8.9708	126	126(3)	3	5
-4668	Mainhausen-Zellhausen	Hessen	50.0147	8.9705	126	126(2)	2	5
+4668	Mainhausen-Zellhausen	Hessen	50.0147	8.9705	126	126(2)	2	4
+4668	Mainhausen-Zellhausen	Hessen	50.0147	8.9708	126	126(2)	2	4
 3137	Mainz-Lerchenberg (ZDF)	Rheinland-Pfalz	49.9656	8.2139	195	195(11)	11	12
 3137	Mainz-Lerchenberg (ZDF)	Rheinland-Pfalz	49.9672	8.2108	195	195(1)	1	12
 6346	Maisach-Galgen	Bayern	48.2072	11.2034	530	530(1)	1	12
@@ -3846,6 +3842,7 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 3204	Martinroda	Thueringen	50.7347	10.8831	430	430(1)	1	18
 3205	Marwitz (Wasserwerk)	Brandenburg	52.6589	13.18	33	33(1)	1	6
 3205	Marwitz (Wasserwerk)	Brandenburg	52.6579	13.179	33	33(5)	5	6
+2452	Marxen	Niedersachsen	53.3052	10.0124	38	38(2)	2	4
 3206	Marxzell-Schielberg	Baden-Wuerttemberg	48.8478	8.4459	398	398(3)	3	4
 3206	Marxzell-Schielberg	Baden-Wuerttemberg	48.8479	8.4457	398	398(1)	1	4
 3207	Massbach	Bayern	50.1797	10.272	326	326(6)	6	6
@@ -3911,8 +3908,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 3260	Mertendorf	Thueringen	50.9935	11.7868	330	330(4)	4	4
 3261	Mertesdorf	Rheinland-Pfalz	49.7711	6.729	211	211(2)	2	2
 3262	Mertingen-Druisheim	Bayern	48.6329	10.8123	440	440(4)	4	4
-3263	Merzig	Saarland	49.457	6.6251	171	171(4)	4	7
-3263	Merzig	Saarland	49.4566	6.6266	171	171(3)	3	7
+3263	Merzig	Saarland	49.4566	6.6266	171	171(3)	3	6
+3263	Merzig	Saarland	49.457	6.6251	171	171(3)	3	6
 3264	Meschede	Nordrhein-Westfalen	51.3385	8.2709	348	348(2)	2	4
 3264	Meschede	Nordrhein-Westfalen	51.3387	8.2713	348	348(2)	2	4
 3265	Mespelbrunn	Bayern	49.922	9.2872	302	302(4)	4	4
@@ -3923,9 +3920,9 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 3268	Messstetten	Baden-Wuerttemberg	48.1847	8.9925	920	920(1)	1	24
 3269	Messstetten-Tieringen	Baden-Wuerttemberg	48.2019	8.8832	852	852(2)	2	2
 3270	Metebach-Neufrankenroda	Thueringen	50.9667	10.5833	346	346(2)	2	2
-3271	Metten	Bayern	48.8548	12.9187	313	313(9)	9	19
-3271	Metten	Bayern	48.8548	12.9189	313	313(9)	9	19
-3271	Metten	Bayern	48.8558	12.9203	313	313(1)	1	19
+3271	Metten	Bayern	48.8548	12.9187	313	313(8)	8	18
+3271	Metten	Bayern	48.8548	12.9189	313	313(9)	9	18
+3271	Metten	Bayern	48.8558	12.9203	313	313(1)	1	18
 14318	Mettenheim	Rheinland-Pfalz	49.7393	8.3295	89	89(4)	4	4
 3273	Mettlach-Orscholz	Saarland	49.507	6.5229	415	415(4)	4	4
 3276	Mettmann	Nordrhein-Westfalen	51.25	6.9667	153	153(2)	2	2
@@ -4007,8 +4004,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 3341	Moorenweis-Grunertshofen	Bayern	48.1874	11.0881	550	550(4)	4	4
 6272	Moorgrund Graefen-Nitzendorf	Thueringen	50.8424	10.2516	283	283(1)	1	12
 6272	Moorgrund Graefen-Nitzendorf	Thueringen	50.8426	10.2518	283	283(11)	11	12
-3342	Moormerland-Neermoor	Niedersachsen	53.3091	7.432	0	0(4)	4	7
-3342	Moormerland-Neermoor	Niedersachsen	53.311	7.4329	0	0(3)	3	7
+3342	Moormerland-Neermoor	Niedersachsen	53.3091	7.432	0	0(3)	3	6
+3342	Moormerland-Neermoor	Niedersachsen	53.311	7.4329	0	0(3)	3	6
 3343	Moosburg/Isar-Pfrombach	Bayern	48.4401	12.0043	445	445(2)	2	2
 3344	Mooshuette	Bayern	47.6	10.3667	1013	1013(2)	2	2
 3345	Morgenroethe-Rautenkranz	Sachsen	50.4421	12.5145	672	672(2)	2	2
@@ -4119,12 +4116,12 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 3433	Nahwinden	Thueringen	50.7524	11.1519	425	425(2)	2	2
 3434	Naila	Bayern	50.3269	11.6997	525	525(2)	2	2
 4607	Naila-Lippertsgruen	Bayern	50.308	11.6431	637	637(3)	3	4
-3435	Nandlstadt	Bayern	48.5234	11.8397	475	475(4)	4	7
-3435	Nandlstadt	Bayern	48.5235	11.8398	475	475(3)	3	7
+3435	Nandlstadt	Bayern	48.5235	11.8398	475	475(3)	3	6
+3435	Nandlstadt	Bayern	48.5234	11.8397	475	475(3)	3	6
 3436	Narsdorf	Sachsen	51.0085	12.7151	275	275(2)	2	2
 13691	Nassau	Rheinland-Pfalz	50.316	7.7784	85	85(4)	4	4
-3438	Nassenfels	Bayern	48.8018	11.2181	401	401(4)	4	7
-3438	Nassenfels	Bayern	48.8016	11.2181	401	401(3)	3	7
+3438	Nassenfels	Bayern	48.8016	11.2181	401	401(3)	3	6
+3438	Nassenfels	Bayern	48.8018	11.2181	401	401(3)	3	6
 3439	Nassengrund	Nordrhein-Westfalen	51.9667	9.1	216	216(2)	2	2
 6186	Nastaetten	Rheinland-Pfalz	50.1988	7.8647	268	268(5)	5	12
 6186	Nastaetten	Rheinland-Pfalz	50.1989	7.8651	268	268(7)	7	12
@@ -4132,8 +4129,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 3440	Nattheim-Fleinheim	Baden-Wuerttemberg	48.7071	10.2997	530	530(5)	5	6
 3441	Nauen	Brandenburg	52.6108	12.8594	35	35(2)	2	2
 3442	Nauheim, Bad	Hessen	50.3574	8.7506	148.88	148.5(3)_149(10)	13	13
-3443	Naumburg-Altenstaedt	Hessen	51.2748	9.1995	303.88	303.5(1)_304(3)	4	7
-3443	Naumburg-Altenstaedt	Hessen	51.2748	9.1975	303.83	303.5(1)_304(2)	3	7
+3443	Naumburg-Altenstaedt	Hessen	51.2748	9.1975	303.83	303.5(1)_304(2)	3	6
+3443	Naumburg-Altenstaedt	Hessen	51.2748	9.1995	304	304(3)	3	6
 3444	Naumburg/Saale	Sachsen-Anhalt	51.1498	11.796	135	135(2)	2	2
 7420	Naumburg/Saale-Kreipitzsch	Sachsen-Anhalt	51.1043	11.711	246	246(1)	1	14
 7420	Naumburg/Saale-Kreipitzsch	Sachsen-Anhalt	51.1044	11.7112	246	246(13)	13	14
@@ -4144,8 +4141,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 3450	Neckarwestheim	Baden-Wuerttemberg	49.0429	9.1958	275	275(4)	4	4
 3451	Nedlitz	Sachsen-Anhalt	52.0736	12.2295	98	98(2)	2	4
 3451	Nedlitz	Sachsen-Anhalt	52.0772	12.2406	98	98(2)	2	4
-2765	Neetzow	Mecklenburg-Vorpommern	53.8823	13.4063	10	10(3)	3	5
-2765	Neetzow	Mecklenburg-Vorpommern	53.8819	13.4057	10	10(2)	2	5
+2765	Neetzow	Mecklenburg-Vorpommern	53.8819	13.4057	10	10(2)	2	4
+2765	Neetzow	Mecklenburg-Vorpommern	53.8823	13.4063	10	10(2)	2	4
 3452	Negenborn	Niedersachsen	51.8833	9.5667	140	140(2)	2	2
 3453	Nehlitz	Sachsen-Anhalt	51.5762	11.9596	140	140(2)	2	2
 3454	Nehren	Baden-Wuerttemberg	48.4354	9.0704	421	421(2)	2	2
@@ -4160,16 +4157,16 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 15109	Neresheim	Baden-Wuerttemberg	48.7596	10.3366	543	543(1)	1	4
 15109	Neresheim	Baden-Wuerttemberg	48.7595	10.3364	543	543(3)	3	4
 3462	Neresheim-Stetten	Baden-Wuerttemberg	48.7712	10.2794	552	552(2)	2	2
-3687	Nersingen-Oberfahlheim	Bayern	48.4293	10.1469	472	472(3)	3	5
-3687	Nersingen-Oberfahlheim	Bayern	48.4294	10.1473	472	472(2)	2	5
+3687	Nersingen-Oberfahlheim	Bayern	48.4294	10.1473	472	472(2)	2	4
+3687	Nersingen-Oberfahlheim	Bayern	48.4293	10.1469	472	472(2)	2	4
 3463	Nesseltal bei Bayrischzell	Bayern	47.6333	12.0333	899	899(2)	2	2
 3464	Nesselwang	Bayern	47.6347	10.5077	880	880(4)	4	4
 3466	Netphen-Hainchen	Nordrhein-Westfalen	50.8574	8.2116	395	395(2)	2	2
 3465	Netphen (Lahnhof)	Nordrhein-Westfalen	50.8912	8.2416	610	610(4)	4	4
-3467	Nettelsee	Schleswig-Holstein	54.1734	10.187	40	40(3)	3	5
-3467	Nettelsee	Schleswig-Holstein	54.1733	10.1869	40	40(2)	2	5
-7344	Nettetal-Huelst	Nordrhein-Westfalen	51.2995	6.2013	45	45(4)	4	7
-7344	Nettetal-Huelst	Nordrhein-Westfalen	51.2992	6.2013	45	45(3)	3	7
+3467	Nettelsee	Schleswig-Holstein	54.1734	10.187	40	40(2)	2	4
+3467	Nettelsee	Schleswig-Holstein	54.1733	10.1869	40	40(2)	2	4
+7344	Nettetal-Huelst	Nordrhein-Westfalen	51.2995	6.2013	45	45(3)	3	6
+7344	Nettetal-Huelst	Nordrhein-Westfalen	51.2992	6.2013	45	45(3)	3	6
 3468	Nettetal-Lobberich	Nordrhein-Westfalen	51.3079	6.303	53	53(2)	2	2
 3472	Neu-Anspach-Anspach	Hessen	50.2932	8.5009	375	375(2)	2	2
 3474	Neu-Isenburg	Hessen	50.0416	8.7004	130	130(2)	2	2
@@ -4178,8 +4175,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 7410	Neu-Ulrichstein	Hessen	50.7531	9.0236	350	350(1)	1	24
 7410	Neu-Ulrichstein	Hessen	50.7519	9.0226	350	350(10)	10	24
 7410	Neu-Ulrichstein	Hessen	50.7513	9.0224	350.07	350(10)_350.3(3)	13	24
-714	Neu Madlitz	Brandenburg	52.3655	14.247	46	46(4)	4	7
-714	Neu Madlitz	Brandenburg	52.3653	14.2474	46	46(3)	3	7
+714	Neu Madlitz	Brandenburg	52.3655	14.247	46	46(3)	3	6
+714	Neu Madlitz	Brandenburg	52.3653	14.2474	46	46(3)	3	6
 3470	Neu Poserin	Mecklenburg-Vorpommern	53.5524	12.1634	80	80(2)	2	2
 3471	Neu Zauche	Brandenburg	51.9281	14.0888	55	55(2)	2	2
 3476	Neualbenreuth	Bayern	49.9831	12.4432	585	585(2)	2	2
@@ -4212,8 +4209,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 3495	Neuenkirchen, Kreis Osnabrueck	Niedersachsen	52.4172	7.8358	56	56(2)	2	2
 3496	Neuenkirchen/Oldenburg -Voerden	Niedersachsen	52.478	8.0969	42	42(2)	2	4
 3498	Neuenrade	Nordrhein-Westfalen	51.2833	7.7833	339	339(2)	2	2
-3499	Neuenrade-Blintrop	Nordrhein-Westfalen	51.2915	7.8527	296	296(4)	4	7
-3499	Neuenrade-Blintrop	Nordrhein-Westfalen	51.2915	7.853	296	296(3)	3	7
+3499	Neuenrade-Blintrop	Nordrhein-Westfalen	51.2915	7.8527	296	296(3)	3	6
+3499	Neuenrade-Blintrop	Nordrhein-Westfalen	51.2915	7.853	296	296(3)	3	6
 3500	Neuenstadt am Kocher	Baden-Wuerttemberg	49.2314	9.3367	184	184(4)	4	4
 3501	Neuenstein-Muehlbach	Hessen	50.9303	9.558	342	342(2)	2	4
 3501	Neuenstein-Muehlbach	Hessen	50.9309	9.5592	342	342(2)	2	4
@@ -4315,8 +4312,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 5920	Neuwied	Rheinland-Pfalz	50.4485	7.4275	91	91(4)	4	4
 15044	Neuwied-Feldkirchen-Huellenberg	Rheinland-Pfalz	50.4517	7.4058	199	199(2)	2	2
 5921	Neuwied (A)	Rheinland-Pfalz	50.4667	7.4333	125	125(2)	2	2
-3584	Newel	Rheinland-Pfalz	49.8128	6.5857	365	365(4)	4	7
-3584	Newel	Rheinland-Pfalz	49.8135	6.5858	365	365(3)	3	7
+3584	Newel	Rheinland-Pfalz	49.8135	6.5858	365	365(3)	3	6
+3584	Newel	Rheinland-Pfalz	49.8128	6.5857	365	365(3)	3	6
 3585	Nexdorf	Brandenburg	51.6348	13.3714	93	93(2)	2	2
 3586	Nidda-Ober Lais	Hessen	50.4167	9.1	270	270(2)	2	2
 3588	Nidda-Stornfels	Hessen	50.4888	9.0398	285	285(2)	2	2
@@ -4324,12 +4321,12 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 3589	Nidderau-Erbstadt	Hessen	50.2741	8.8653	162	162(5)	5	6
 3589	Nidderau-Erbstadt	Hessen	50.2741	8.8651	162	162(1)	1	6
 3590	Nidderau-Windecken	Hessen	50.2335	8.8923	180	180(4)	4	4
-3591	Nideggen-Schmidt	Nordrhein-Westfalen	50.6744	6.4237	350	350(7)	7	13
-3591	Nideggen-Schmidt	Nordrhein-Westfalen	50.6743	6.424	350	350(6)	6	13
+3591	Nideggen-Schmidt	Nordrhein-Westfalen	50.6744	6.4237	350	350(6)	6	12
+3591	Nideggen-Schmidt	Nordrhein-Westfalen	50.6743	6.424	350	350(6)	6	12
 3592	Niebuell	Schleswig-Holstein	54.7833	8.8333	4	4(2)	2	2
-3593	Niederaula	Hessen	50.799	9.6123	208	208(2)	2	5
-3593	Niederaula	Hessen	50.7988	9.612	208	208(2)	2	5
-3593	Niederaula	Hessen	50.7992	9.6103	208	208(1)	1	5
+3593	Niederaula	Hessen	50.7988	9.612	208	208(2)	2	4
+3593	Niederaula	Hessen	50.7992	9.6103	208	208(1)	1	4
+3593	Niederaula	Hessen	50.799	9.6123	208	208(1)	1	4
 3594	Niederaula-Solms	Hessen	50.7691	9.5931	216	216(2)	2	2
 3595	Niederelbert	Rheinland-Pfalz	50.4107	7.808	250	250(5)	5	6
 3595	Niederelbert	Rheinland-Pfalz	50.4119	7.8089	250	250(1)	1	6
@@ -4347,8 +4344,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 2167	Niederwoerresbach	Rheinland-Pfalz	49.7672	7.3356	302	302(7)	7	8
 2167	Niederwoerresbach	Rheinland-Pfalz	49.7683	7.3364	302	302(1)	1	8
 3609	Niegripp	Sachsen-Anhalt	52.2667	11.7667	41	41(2)	2	2
-3610	Nieheim	Nordrhein-Westfalen	51.8027	9.1115	212	203(2)_230(1)	3	5
-3610	Nieheim	Nordrhein-Westfalen	51.8028	9.1117	230	230(2)	2	5
+3610	Nieheim	Nordrhein-Westfalen	51.8027	9.1115	203	203(2)	2	4
+3610	Nieheim	Nordrhein-Westfalen	51.8028	9.1117	230	230(2)	2	4
 3611	Niemegk	Brandenburg	52.0761	12.6873	70	70(2)	2	2
 3612	Nienburg	Niedersachsen	52.6711	9.2229	25	25(17)	17	18
 3612	Nienburg	Niedersachsen	52.6725	9.2244	25	25(1)	1	18
@@ -4393,8 +4390,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 3647	Nordweil	Baden-Wuerttemberg	48.2	7.8167	205	205(2)	2	2
 3648	Norgaardholz	Schleswig-Holstein	54.7833	9.7833	15	15(2)	2	2
 3649	Northeim	Niedersachsen	51.7167	9.9833	121	121(2)	2	2
-3650	Northeim-Imbshausen	Niedersachsen	51.7629	10.0413	212	212(4)	4	7
-3650	Northeim-Imbshausen	Niedersachsen	51.763	10.0416	212	212(3)	3	7
+3650	Northeim-Imbshausen	Niedersachsen	51.763	10.0416	212	212(3)	3	6
+3650	Northeim-Imbshausen	Niedersachsen	51.7629	10.0413	212	212(3)	3	6
 3651	Northeim-Stoeckheim	Niedersachsen	51.7521	9.945	109	109(2)	2	2
 3652	Nortorf	Schleswig-Holstein	54.1667	9.8667	31	31(2)	2	2
 6314	Nossen	Sachsen	51.0507	13.3003	308	308(11)	11	20
@@ -4432,8 +4429,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 3674	Nutha	Sachsen-Anhalt	51.9617	12.0104	57	57(2)	2	2
 3675	Ober-Olm	Rheinland-Pfalz	49.9395	8.198	205	205(2)	2	2
 3676	Ober-Ramstadt	Hessen	49.822	8.7451	205	205(2)	2	2
-3677	Oberammergau	Bayern	47.6027	11.0606	835	835(4)	4	7
-3677	Oberammergau	Bayern	47.6029	11.0607	835	835(3)	3	7
+3677	Oberammergau	Bayern	47.6029	11.0607	835	835(3)	3	6
+3677	Oberammergau	Bayern	47.6027	11.0606	835	835(3)	3	6
 3678	Oberau	Bayern	47.5588	11.127	674	674(2)	2	2
 3680	Oberaula	Hessen	50.85	9.4667	340	340(2)	2	2
 1598	Oberbachheim	Rheinland-Pfalz	50.248	7.7456	328	328(3)	3	6
@@ -4463,8 +4460,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 3697	Oberkochen	Baden-Wuerttemberg	48.7871	10.1199	500	500(2)	2	2
 3698	Oberkotzau	Bayern	50.2605	11.9299	504	504(2)	2	2
 3699	Oberlahnstein	Rheinland-Pfalz	50.3	7.6167	71	71(1)	1	1
-3700	Oberleichtersbach-Modlos	Bayern	50.266	9.7727	470	470(4)	4	7
-3700	Oberleichtersbach-Modlos	Bayern	50.2662	9.7728	470	470(3)	3	7
+3700	Oberleichtersbach-Modlos	Bayern	50.2662	9.7728	470	470(3)	3	6
+3700	Oberleichtersbach-Modlos	Bayern	50.266	9.7727	470	470(3)	3	6
 3701	Oberlichtenau-Niederlichtenau	Sachsen	51.2354	13.9896	220	220(2)	2	2
 3704	Oberndorf/Neckar	Baden-Wuerttemberg	48.2851	8.5754	516	516(6)	6	6
 3705	Oberndorf/Neckar-Aistaig	Baden-Wuerttemberg	48.3147	8.5735	480	480(6)	6	7
@@ -4494,8 +4491,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 3724	Oberschoenau	Thueringen	50.7141	10.6112	525	525(2)	2	2
 3725	Obersinn	Bayern	50.2102	9.6197	215	215(2)	2	2
 14300	Obersoechering-Reinthal	Bayern	47.7477	11.2554	671	671(4)	4	4
-3602	Oberstadtfeld	Rheinland-Pfalz	50.1732	6.7693	421	421(4)	4	7
-3602	Oberstadtfeld	Rheinland-Pfalz	50.1749	6.77	421	421(3)	3	7
+3602	Oberstadtfeld	Rheinland-Pfalz	50.1749	6.77	421	421(3)	3	6
+3602	Oberstadtfeld	Rheinland-Pfalz	50.1732	6.7693	421	421(3)	3	6
 3728	Oberstaufen-Steibis	Bayern	47.523	10.0377	890	890(2)	2	2
 3730	Oberstdorf	Bayern	47.3986	10.276	806	806(25)	25	26
 3730	Oberstdorf	Bayern	47.3989	10.2769	806	806(1)	1	26
@@ -4571,19 +4568,19 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 3786	Oker	Niedersachsen	51.9	10.4833	208	208(2)	2	2
 3787	Olbernhau	Sachsen	50.6474	13.3441	532	532(2)	2	2
 3788	Olbersdorf	Sachsen	50.8646	14.7628	305	305(4)	4	4
-7321	Olbersleben	Thueringen	51.1509	11.3319	160	160(7)	7	13
-7321	Olbersleben	Thueringen	51.1507	11.3321	160	160(6)	6	13
+7321	Olbersleben	Thueringen	51.1509	11.3319	160	160(6)	6	12
+7321	Olbersleben	Thueringen	51.1507	11.3321	160	160(6)	6	12
 3789	Oldenborstel	Schleswig-Holstein	54.0667	9.5167	30	30(2)	2	2
 3791	Oldenburg	Niedersachsen	53.1763	8.1824	11	11(11)	11	12
 3791	Oldenburg	Niedersachsen	53.1764	8.1822	11	11(1)	1	12
 3790	Oldenburg (A)	Niedersachsen	53.1018	8.2516	5	5(6)	6	7
 3790	Oldenburg (A)	Niedersachsen	53.1033	8.2525	5	5(1)	1	7
-3792	Oldenburg in Holstein	Schleswig-Holstein	54.2878	10.8958	3	3(3)	3	5
-3792	Oldenburg in Holstein	Schleswig-Holstein	54.2878	10.8959	3	3(2)	2	5
+3792	Oldenburg in Holstein	Schleswig-Holstein	54.2878	10.8959	3	3(2)	2	4
+3792	Oldenburg in Holstein	Schleswig-Holstein	54.2878	10.8958	3	3(2)	2	4
 3793	Oldesloe, Bad	Schleswig-Holstein	53.8073	10.3931	15	15(2)	2	2
 3794	Oldisleben	Thueringen	51.3015	11.1711	129	129(2)	2	2
-3795	Olfen	Nordrhein-Westfalen	51.7065	7.3564	48.88	48.5(1)_49(3)	4	7
-3795	Olfen	Nordrhein-Westfalen	51.7066	7.3564	48.83	48.5(1)_49(2)	3	7
+3795	Olfen	Nordrhein-Westfalen	51.7066	7.3564	48.83	48.5(1)_49(2)	3	6
+3795	Olfen	Nordrhein-Westfalen	51.7065	7.3564	49	49(3)	3	6
 3798	Olsberg-Brunskappel	Nordrhein-Westfalen	51.2827	8.4797	413	413(3)	3	4
 3798	Olsberg-Brunskappel	Nordrhein-Westfalen	51.2829	8.4793	413	413(1)	1	4
 1964	Olsdorf	Rheinland-Pfalz	49.9445	6.3821	328	328(11)	11	12
@@ -4609,8 +4606,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 3815	Osnabrueck	Niedersachsen	52.2572	8.0544	95	95(1)	1	14
 3817	Osnabrueck-Haste	Niedersachsen	52.3035	8.044	67	67(3)	3	4
 3817	Osnabrueck-Haste	Niedersachsen	52.3036	8.0438	67	67(1)	1	4
-13669	Ostbevern-Schirlheide	Nordrhein-Westfalen	52.0086	7.8519	55	55(4)	4	7
-13669	Ostbevern-Schirlheide	Nordrhein-Westfalen	52.0086	7.8518	55	55(3)	3	7
+13669	Ostbevern-Schirlheide	Nordrhein-Westfalen	52.0086	7.8519	55	55(3)	3	6
+13669	Ostbevern-Schirlheide	Nordrhein-Westfalen	52.0086	7.8518	55	55(3)	3	6
 6105	Ostenfeld (Rendsburg)	Schleswig-Holstein	54.3211	9.8061	14	14(1)	1	18
 6105	Ostenfeld (Rendsburg)	Schleswig-Holstein	54.3192	9.8052	14	14(1)	1	18
 6105	Ostenfeld (Rendsburg)	Schleswig-Holstein	54.3194	9.8051	14	14(16)	16	18
@@ -4647,8 +4644,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 3846	Otterfing	Bayern	47.9167	11.6833	669	669(2)	2	2
 3847	Otterndorf	Niedersachsen	53.8012	8.9053	1	1(1)	1	4
 3847	Otterndorf-Mahrdorf	Niedersachsen	53.8225	8.9444	1	1(3)	3	4
-3848	Ottersberg-Otterstedt	Niedersachsen	53.1391	9.1506	17	17(4)	4	7
-3848	Ottersberg-Otterstedt	Niedersachsen	53.1403	9.1517	17	17(3)	3	7
+3848	Ottersberg-Otterstedt	Niedersachsen	53.1403	9.1517	17	17(3)	3	6
+3848	Ottersberg-Otterstedt	Niedersachsen	53.1391	9.1506	17	17(3)	3	6
 3849	Ottobeuren	Bayern	47.9302	10.3099	665	665(6)	6	6
 3850	Ottrau-Immichenhain	Hessen	50.81	9.3581	340	340(4)	4	4
 3851	Otzenhausen	Saarland	49.6	7	433	433(2)	2	2
@@ -4734,8 +4731,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 637	Petersberg-Hohen	Sachsen-Anhalt	51.5668	12.0677	115	115(2)	2	2
 3911	Petersberg-Marbach	Hessen	50.6175	9.725	305	305(6)	6	6
 3912	Petersdorf-Schoenleiten	Bayern	48.5262	11.0104	520	520(2)	2	2
-3913	Petershagen	Nordrhein-Westfalen	52.3814	9.0181	43	43(4)	4	7
-3913	Petershagen	Nordrhein-Westfalen	52.3817	9.0177	43	43(3)	3	7
+3913	Petershagen	Nordrhein-Westfalen	52.3817	9.0177	43	43(3)	3	6
+3913	Petershagen	Nordrhein-Westfalen	52.3814	9.0181	43	43(3)	3	6
 3914	Petershagen-Wasserstrasse	Nordrhein-Westfalen	52.4817	9.1214	36	36(3)	3	3
 13967	Peterslahr	Rheinland-Pfalz	50.6181	7.4479	166	166(2)	2	4
 13967	Peterslahr	Rheinland-Pfalz	50.6181	7.478	166	166(2)	2	4
@@ -4855,12 +4852,12 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4014	Probstzella	Thueringen	50.5321	11.3833	360	360(2)	2	2
 4015	Profen	Sachsen-Anhalt	51.1273	12.2085	145	145(2)	2	2
 4016	Prosselsheim-Seligenstadt	Bayern	49.8526	10.1006	284	284(2)	2	2
-4017	Pruem-Watzerath	Rheinland-Pfalz	50.1838	6.3596	386	386(4)	4	7
-4017	Pruem-Watzerath	Rheinland-Pfalz	50.1807	6.3509	386	386(3)	3	7
+4017	Pruem-Watzerath	Rheinland-Pfalz	50.1807	6.3509	386	386(3)	3	6
+4017	Pruem-Watzerath	Rheinland-Pfalz	50.1838	6.3596	386	386(3)	3	6
 4018	Puch	Bayern	48.1877	11.2206	550	550(6)	6	6
 4019	Puettlingen-Ritterstrasse	Saarland	49.2792	6.9135	323	323(2)	2	2
-4020	Pulheim	Nordrhein-Westfalen	50.9923	6.7918	61	61(3)	3	5
-4020	Pulheim	Nordrhein-Westfalen	50.9922	6.7916	61	61(2)	2	5
+4020	Pulheim	Nordrhein-Westfalen	50.9922	6.7916	61	61(2)	2	4
+4020	Pulheim	Nordrhein-Westfalen	50.9923	6.7918	61	61(2)	2	4
 4021	Pullach-Hoellriegelskreuth	Bayern	48.0327	11.5055	544	544(2)	2	2
 4022	Pullenreuth-Dreihaeuser	Bayern	49.9456	12.0107	585	585(2)	2	2
 4023	Pulsnitz	Sachsen	51.2007	14.0207	270	270(6)	6	6
@@ -4886,9 +4883,9 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4034	Quellendorf	Sachsen-Anhalt	51.7468	12.1299	81	81(2)	2	2
 4035	Querenhorst	Niedersachsen	52.3358	10.9553	105	105(2)	2	2
 1556	Querfurt-Gatterstaedt	Sachsen-Anhalt	51.4001	11.5442	221	221(2)	2	2
-4036	Querfurt-Muehle Lodersleben	Sachsen-Anhalt	51.3895	11.5414	204	204(9)	9	17
-4036	Querfurt-Muehle Lodersleben	Sachsen-Anhalt	51.3895	11.5412	204	204(7)	7	17
-4036	Querfurt-Muehle Lodersleben	Sachsen-Anhalt	51.3908	11.5428	204	204(1)	1	17
+4036	Querfurt-Muehle Lodersleben	Sachsen-Anhalt	51.3895	11.5412	204	204(7)	7	16
+4036	Querfurt-Muehle Lodersleben	Sachsen-Anhalt	51.3895	11.5414	204	204(8)	8	16
+4036	Querfurt-Muehle Lodersleben	Sachsen-Anhalt	51.3908	11.5428	204	204(1)	1	16
 4037	Questenberg-Agnesdorf	Sachsen-Anhalt	51.4987	11.0928	290	290(2)	2	2
 4039	Quickborn	Schleswig-Holstein	53.7331	9.8776	13	13(23)	23	24
 4039	Quickborn	Schleswig-Holstein	53.7347	9.8786	13	13(1)	1	24
@@ -4927,8 +4924,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4072	Rantum/Sylt	Schleswig-Holstein	54.8667	8.3	2	2(2)	2	2
 4073	Rappenau, Bad	Baden-Wuerttemberg	49.25	9.0833	250	250(1)	1	1
 4074	Rappenau, Bad-Bonfeld	Baden-Wuerttemberg	49.2133	9.0904	198	198(2)	2	2
-3175	Raschau	Sachsen	50.5227	12.8287	507	507(4)	4	7
-3175	Raschau	Sachsen	50.5219	12.8282	507	507(3)	3	7
+3175	Raschau	Sachsen	50.5219	12.8282	507	507(3)	3	6
+3175	Raschau	Sachsen	50.5227	12.8287	507	507(3)	3	6
 4075	Rasdorf	Hessen	50.7153	9.8992	335	335(4)	4	4
 4076	Rassnitz	Sachsen-Anhalt	51.3923	12.0902	93	93(2)	2	2
 4077	Rastatt	Baden-Wuerttemberg	48.8471	8.1869	114	114(6)	6	7
@@ -4936,8 +4933,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4078	Rastede	Niedersachsen	53.2427	8.2237	16	16(5)	5	6
 4078	Rastede	Niedersachsen	53.2424	8.2241	16	16(1)	1	6
 4079	Rastenberg	Thueringen	51.1765	11.4183	200	200(4)	4	4
-4080	Rathebur	Mecklenburg-Vorpommern	53.741	13.791	10	10(4)	4	7
-4080	Rathebur	Mecklenburg-Vorpommern	53.7409	13.7906	10	10(3)	3	7
+4080	Rathebur	Mecklenburg-Vorpommern	53.7409	13.7906	10	10(3)	3	6
+4080	Rathebur	Mecklenburg-Vorpommern	53.741	13.791	10	10(3)	3	6
 4081	Rathenow	Brandenburg	52.6092	12.3628	30	30(4)	4	4
 4082	Ratingen	Nordrhein-Westfalen	51.3	6.85	48	48(2)	2	2
 4084	Ratzdorf	Brandenburg	52.0693	14.7509	35	35(2)	2	2
@@ -4968,10 +4965,10 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4106	Regenstauf	Bayern	49.1387	12.116	346	346(1)	1	4
 4106	Regenstauf	Bayern	49.1388	12.1163	345	345(3)	3	4
 4107	Regnitzlosau	Bayern	50.2982	12.0477	530	530(4)	4	4
-4108	Rehagen	Brandenburg	52.1661	13.3675	41	41(3)	3	5
-4108	Rehagen	Brandenburg	52.1664	13.3678	46	46(2)	2	5
-4109	Rehau	Bayern	50.2213	12.0277	587	587(4)	4	7
-4109	Rehau	Bayern	50.2214	12.0276	587	587(3)	3	7
+4108	Rehagen	Brandenburg	52.1664	13.3678	46	46(2)	2	4
+4108	Rehagen	Brandenburg	52.1661	13.3675	41	41(2)	2	4
+4109	Rehau	Bayern	50.2214	12.0276	587	587(3)	3	6
+4109	Rehau	Bayern	50.2213	12.0277	587	587(3)	3	6
 4110	Rehberg	Mecklenburg-Vorpommern	53.4441	13.4629	105	105(4)	4	4
 4111	Rehberger Grabenhaus	Niedersachsen	51.729	10.539	683	683(2)	2	2
 4112	Rehburg-Loccum	Niedersachsen	52.4396	9.1335	60	60(6)	6	6
@@ -4991,12 +4988,12 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4127	Reichshof-Eckenhagen	Nordrhein-Westfalen	50.9906	7.6958	350	350(7)	7	8
 4127	Reichshof-Eckenhagen	Nordrhein-Westfalen	50.9919	7.6967	350	350(1)	1	8
 4129	Reilingen	Baden-Wuerttemberg	49.2939	8.5668	103	103(2)	2	2
-3621	Reimlingen	Bayern	48.8254	10.5066	435	435(8)	8	14
-3621	Reimlingen	Bayern	48.8253	10.5067	435	435(6)	6	14
+3621	Reimlingen	Bayern	48.8254	10.5066	435	435(7)	7	13
+3621	Reimlingen	Bayern	48.8253	10.5067	435	435(6)	6	13
 4130	Reinbek	Schleswig-Holstein	53.5167	10.2333	35	35(2)	2	2
 4131	Reinersdorf	Sachsen	51.2581	13.6169	140	140(2)	2	2
-4132	Reinhardshagen-Vaake	Hessen	51.4837	9.6128	115	115(4)	4	7
-4132	Reinhardshagen-Vaake	Hessen	51.4841	9.6121	115	115(3)	3	7
+4132	Reinhardshagen-Vaake	Hessen	51.4841	9.6121	115	115(3)	3	6
+4132	Reinhardshagen-Vaake	Hessen	51.4837	9.6128	115	115(3)	3	6
 4133	Reinhardtsdorf	Sachsen	50.896	14.1851	232	232(2)	2	2
 4134	Reinheim	Hessen	49.8244	8.8237	165	165(3)	3	6
 4134	Reinheim	Hessen	49.8245	8.824	165	165(3)	3	6
@@ -5102,8 +5099,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4214	Rittersgruen	Sachsen	50.4574	12.8176	673	673(2)	2	2
 4216	Rochau-Schartau	Sachsen-Anhalt	52.6983	11.6991	35	35(2)	2	2
 4217	Rochlitz	Sachsen	51.0421	12.8117	185	185(2)	2	2
-4219	Rodder	Rheinland-Pfalz	50.3963	6.8565	512	512(4)	4	7
-4219	Rodder	Rheinland-Pfalz	50.3965	6.8568	512	512(3)	3	7
+4219	Rodder	Rheinland-Pfalz	50.3965	6.8568	512	512(3)	3	6
+4219	Rodder	Rheinland-Pfalz	50.3963	6.8565	512	512(3)	3	6
 4220	Rodenbach-Niederrodenbach	Hessen	50.1405	9.0276	128	128(2)	2	2
 4222	Rodewisch	Sachsen	50.5263	12.4091	464	464(6)	6	7
 4222	Rodewisch	Sachsen	50.5275	12.4106	464	464(1)	1	7
@@ -5161,8 +5158,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4261	Rosenheim	Bayern	47.8754	12.128	444	444(8)	8	14
 13990	Rosenheim (Flussbauamt)	Bayern	47.856	12.1388	446	446(2)	2	2
 4262	Rosenow	Mecklenburg-Vorpommern	53.626	13.035	73	73(2)	2	2
-5943	Rosenthal-Bielatal	Sachsen	50.8377	14.0718	460	460(4)	4	7
-5943	Rosenthal-Bielatal	Sachsen	50.8377	14.0719	460	460(3)	3	7
+5943	Rosenthal-Bielatal	Sachsen	50.8377	14.0718	460	460(3)	3	6
+5943	Rosenthal-Bielatal	Sachsen	50.8377	14.0719	460	460(3)	3	6
 5944	Rosenthal (A)	Hessen	50.9833	8.8667	305	305(2)	2	2
 4264	Rossbach-Lunstaedt	Sachsen-Anhalt	51.2601	11.8971	120	120(2)	2	2
 4265	Rossdorf	Thueringen	50.7041	10.2099	395	395(3)	3	4
@@ -5239,8 +5236,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 6344	Runkel-Ennerich	Hessen	50.3944	8.1433	168	168(1)	1	20
 4321	Runkel-Eschenau	Hessen	50.4333	8.1667	153	153(2)	2	2
 4322	Ruppersdorf	Thueringen	50.5094	11.5761	550	550(2)	2	2
-4323	Ruppertsecken	Rheinland-Pfalz	49.6467	7.8835	461	461(7)	7	13
-4323	Ruppertsecken	Rheinland-Pfalz	49.6468	7.8837	461	461(6)	6	13
+4323	Ruppertsecken	Rheinland-Pfalz	49.6468	7.8837	461	461(6)	6	12
+4323	Ruppertsecken	Rheinland-Pfalz	49.6467	7.8835	461	461(6)	6	12
 4324	Ruppichteroth-Broeleck	Nordrhein-Westfalen	50.8396	7.4098	142	142(2)	2	2
 4325	Ruppichteroth-Doergen	Nordrhein-Westfalen	50.8588	7.5048	236	236(2)	2	2
 4326	Ruppichteroth-Scheid	Nordrhein-Westfalen	50.8444	7.4478	205	205(2)	2	2
@@ -5268,9 +5265,9 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4349	Sachsenheim	Baden-Wuerttemberg	48.9569	9.071	248	248(14)	14	16
 4349	Sachsenheim	Baden-Wuerttemberg	48.9578	9.0722	248	248(1)	1	16
 4351	Saeckingen, Bad (Bergseestr.)	Baden-Wuerttemberg	47.5583	7.9891	295	295(6)	6	6
-4352	Sagard	Mecklenburg-Vorpommern	54.5159	13.5307	5	5(4)	4	7
-4352	Sagard	Mecklenburg-Vorpommern	54.5159	13.5313	5	5(2)	2	7
-4352	Sagard	Mecklenburg-Vorpommern	54.516	13.5313	5	5(1)	1	7
+4352	Sagard	Mecklenburg-Vorpommern	54.5159	13.5313	5	5(2)	2	6
+4352	Sagard	Mecklenburg-Vorpommern	54.5159	13.5307	5	5(3)	3	6
+4352	Sagard	Mecklenburg-Vorpommern	54.516	13.5313	5	5(1)	1	6
 2255	Sailauf	Bayern	50.0231	9.26	200	200(4)	4	4
 4354	Saldenburg-Entschenreuth	Bayern	48.7832	13.3145	456	456(7)	7	18
 4354	Saldenburg-Entschenreuth	Bayern	48.7832	13.3146	456	456(10)	10	18
@@ -5297,10 +5294,10 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4372	Salzungen, Bad	Thueringen	50.8063	10.2294	268	268(2)	2	2
 4373	Salzwedel	Sachsen-Anhalt	52.8568	11.143	23	23(9)	9	9
 4375	Samswegen	Sachsen-Anhalt	52.2614	11.5613	49	49(2)	2	2
-4376	Samtens	Mecklenburg-Vorpommern	54.3559	13.2913	10	10(3)	3	5
-4376	Samtens	Mecklenburg-Vorpommern	54.3556	13.2907	10	10(2)	2	5
-4377	Sandberg	Bayern	50.3519	10.0032	510	510(7)	7	13
-4377	Sandberg	Bayern	50.3517	10.0034	510	510(6)	6	13
+4376	Samtens	Mecklenburg-Vorpommern	54.3556	13.2907	10	10(2)	2	4
+4376	Samtens	Mecklenburg-Vorpommern	54.3559	13.2913	10	10(2)	2	4
+4377	Sandberg	Bayern	50.3517	10.0034	510	510(6)	6	12
+4377	Sandberg	Bayern	50.3519	10.0032	510	510(6)	6	12
 4378	Sanderbusch	Niedersachsen	53.5087	8.0188	2	2(2)	2	2
 4379	Sandersleben	Sachsen-Anhalt	51.679	11.5725	158	158(2)	2	2
 4380	Sandstedt	Niedersachsen	53.3563	8.5193	1	1(2)	2	2
@@ -5311,8 +5308,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4385	Sankt Augustin-Hangelar	Nordrhein-Westfalen	50.7616	7.1711	66	66(2)	2	2
 4798	Sankt Bernhard	Thueringen	50.4604	10.5947	470	470(2)	2	4
 4798	Sankt Bernhard	Thueringen	50.4605	10.5962	475	475(2)	2	4
-7418	Sankt Egidien-Kuhschnappel	Sachsen	50.8019	12.6367	321	321(4)	4	7
-7418	Sankt Egidien-Kuhschnappel	Sachsen	50.802	12.6366	321	321(3)	3	7
+7418	Sankt Egidien-Kuhschnappel	Sachsen	50.8019	12.6367	321	321(3)	3	6
+7418	Sankt Egidien-Kuhschnappel	Sachsen	50.802	12.6366	321	321(3)	3	6
 4387	Sankt Englmar	Bayern	49.0029	12.8237	810	810(6)	6	6
 4388	Sankt Georgen/Schwarzwald	Baden-Wuerttemberg	48.1238	8.318	835	835(2)	2	2
 4389	Sankt Johann-Gaechingen	Baden-Wuerttemberg	48.4321	9.3781	683	683(2)	2	2
@@ -5330,11 +5327,11 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 213	Sargstedt	Sachsen-Anhalt	51.9375	10.9897	170	170(6)	6	6
 4398	Sarstedt	Niedersachsen	52.2475	9.8452	61	61(2)	2	2
 4399	Sassenburg-Platendorf	Niedersachsen	52.5647	10.627	58	58(2)	2	2
-4400	Sassendorf, Bad-Beusingsen	Nordrhein-Westfalen	51.5437	8.181	171	171(4)	4	7
-4400	Sassendorf, Bad-Beusingsen	Nordrhein-Westfalen	51.5439	8.1808	171	171(3)	3	7
+4400	Sassendorf, Bad-Beusingsen	Nordrhein-Westfalen	51.5439	8.1808	171	171(3)	3	6
+4400	Sassendorf, Bad-Beusingsen	Nordrhein-Westfalen	51.5437	8.181	171	171(3)	3	6
 4401	Sassendorf, Bad-Ostinghausen	Nordrhein-Westfalen	51.6334	8.1872	81	81(5)	5	5
-4402	Sassnitz	Mecklenburg-Vorpommern	54.5192	13.6174	90	90(3)	3	5
-4402	Sassnitz	Mecklenburg-Vorpommern	54.5192	13.6175	90	90(2)	2	5
+4402	Sassnitz	Mecklenburg-Vorpommern	54.5192	13.6175	90	90(2)	2	4
+4402	Sassnitz	Mecklenburg-Vorpommern	54.5192	13.6174	90	90(2)	2	4
 4403	Saterland-Ramsloh	Niedersachsen	53.1038	7.6505	4	4(2)	2	4
 4403	Saterland-Ramsloh	Niedersachsen	53.1032	7.6838	5	5(2)	2	4
 4404	Saterland-Sedelsberg	Niedersachsen	53.0468	7.7438	7	7(2)	2	2
@@ -5348,10 +5345,10 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4793	Sausedlitz	Sachsen	51.5704	12.4262	88	88(2)	2	2
 4410	Sayda	Sachsen	50.7167	13.4333	670	670(2)	2	2
 4411	Schaafheim-Schlierbach	Hessen	49.9195	8.9671	155	155(14)	14	14
-4412	Schackensleben	Sachsen-Anhalt	52.198	11.4244	95	95(4)	4	7
-4412	Schackensleben	Sachsen-Anhalt	52.198	11.4218	95	95(3)	3	7
-4413	Schaeftlarn-Kloster Schaeftlarn	Bayern	47.9766	11.4692	557	557(4)	4	7
-4413	Schaeftlarn-Kloster Schaeftlarn	Bayern	47.9767	11.4693	557	557(3)	3	7
+4412	Schackensleben	Sachsen-Anhalt	52.198	11.4218	95	95(3)	3	6
+4412	Schackensleben	Sachsen-Anhalt	52.198	11.4244	95	95(3)	3	6
+4413	Schaeftlarn-Kloster Schaeftlarn	Bayern	47.9767	11.4693	557	557(3)	3	6
+4413	Schaeftlarn-Kloster Schaeftlarn	Bayern	47.9766	11.4692	557	557(3)	3	6
 4414	Schafstaedt	Sachsen-Anhalt	51.379	11.7774	153	153(2)	2	2
 4415	Schaftlach	Bayern	47.7897	11.6878	775	775(2)	2	2
 4416	Schainbach	Baden-Wuerttemberg	49.2167	10.0833	423	423(2)	2	2
@@ -5383,8 +5380,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 6195	Schesslitz-Koettensdorf	Bayern	49.9561	11.019	304	304(6)	6	6
 4439	Schesslitz-Kuebelstein	Bayern	49.9628	11.1001	528	528(2)	2	2
 4440	Scheuring	Bayern	48.1716	10.8951	548	548(2)	2	2
-4441	Scheyern	Bayern	48.5023	11.4544	481	481(4)	4	7
-4441	Scheyern	Bayern	48.5025	11.4543	481	481(3)	3	7
+4441	Scheyern	Bayern	48.5025	11.4543	481	481(3)	3	6
+4441	Scheyern	Bayern	48.5023	11.4544	481	481(3)	3	6
 4442	Schieder	Nordrhein-Westfalen	51.9119	9.1533	155	155(5)	5	5
 4443	Schieder-Kamerun	Nordrhein-Westfalen	51.95	9.15	220	220(2)	2	2
 4444	Schielo	Sachsen-Anhalt	51.6193	11.2194	372	372(2)	2	2
@@ -5440,18 +5437,18 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4485	Schmalkalden, Kurort	Thueringen	50.7252	10.454	296	296(5)	5	12
 4486	Schmallenberg-Boedefeld	Nordrhein-Westfalen	51.2493	8.3957	490	490(2)	2	2
 4487	Schmallenberg-Fleckenberg	Nordrhein-Westfalen	51.1333	8.2667	364	364(2)	2	2
-4488	Schmallenberg-Sellinghausen	Nordrhein-Westfalen	51.2129	8.2672	443	443(4)	4	7
-4488	Schmallenberg-Sellinghausen	Nordrhein-Westfalen	51.2127	8.2672	443	443(3)	3	7
+4488	Schmallenberg-Sellinghausen	Nordrhein-Westfalen	51.2127	8.2672	443	443(3)	3	6
+4488	Schmallenberg-Sellinghausen	Nordrhein-Westfalen	51.2129	8.2672	443	443(3)	3	6
 15003	Schmarsow	Mecklenburg-Vorpommern	53.8753	13.21	20	20(1)	1	6
 15003	Schmarsow	Mecklenburg-Vorpommern	53.8753	13.2101	20	20(5)	5	6
 4489	Schmatzfeld	Sachsen-Anhalt	51.8833	10.7667	198	198(4)	4	4
-4490	Schmelz-Huettersdorf	Saarland	49.4149	6.836	223	223(4)	4	10
-4490	Schmelz-Huettersdorf	Saarland	49.422	6.8396	223	223(6)	6	10
+4490	Schmelz-Huettersdorf	Saarland	49.4149	6.836	223	223(4)	4	9
+4490	Schmelz-Huettersdorf	Saarland	49.422	6.8396	223	223(5)	5	9
 4491	Schmelz-Limbach	Saarland	49.4758	6.9015	280	280(3)	3	3
 4492	Schmergow	Brandenburg	52.4555	12.8131	37	37(2)	2	2
 4493	Schmidgaden	Bayern	49.4117	12.076	416	416(6)	6	6
-4494	Schmidmuehlen	Bayern	49.2807	11.9141	453	453(4)	4	7
-4494	Schmidmuehlen	Bayern	49.2806	11.914	453	453(3)	3	7
+4494	Schmidmuehlen	Bayern	49.2806	11.914	453	453(3)	3	6
+4494	Schmidmuehlen	Bayern	49.2807	11.9141	453	453(3)	3	6
 4495	Schmiedeberg	Sachsen	50.8432	13.6652	460	460(2)	2	2
 4496	Schmiedeberg, Bad	Sachsen-Anhalt	51.6826	12.7348	95	95(2)	2	2
 4497	Schmiedefeld am Rennsteig	Thueringen	50.6105	10.809	720	720(2)	2	2
@@ -5509,12 +5506,12 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4546	Schoensee-Dietersdorf	Bayern	49.5272	12.5703	685	685(6)	6	6
 4547	Schoental-Bieringen	Baden-Wuerttemberg	49.342	9.5381	230	230(2)	2	2
 13933	Schoental-Weigental	Baden-Wuerttemberg	49.3653	9.4481	347	347(4)	4	4
-3094	Schoenteichen-Cunnersdorf	Sachsen	51.312	14.0496	166	166(4)	4	7
-3094	Schoenteichen-Cunnersdorf	Sachsen	51.3122	14.0495	166	166(3)	3	7
+3094	Schoenteichen-Cunnersdorf	Sachsen	51.312	14.0496	166	166(3)	3	6
+3094	Schoenteichen-Cunnersdorf	Sachsen	51.3122	14.0495	166	166(3)	3	6
 5953	Schoenwalde	Brandenburg	52.6008	13.1397	33	33(2)	2	2
 4551	Schoenwalde, Kreis Dahme-Spremberg	Brandenburg	51.9856	13.7754	53	53(2)	2	2
-5952	Schoenwalde/Holstein-Langenhagen	Schleswig-Holstein	54.2201	10.7775	105	105(3)	3	5
-5952	Schoenwalde/Holstein-Langenhagen	Schleswig-Holstein	54.22	10.7775	105	105(2)	2	5
+5952	Schoenwalde/Holstein-Langenhagen	Schleswig-Holstein	54.22	10.7775	105	105(2)	2	4
+5952	Schoenwalde/Holstein-Langenhagen	Schleswig-Holstein	54.2201	10.7775	105	105(2)	2	4
 721	Schoenwoelkau-Brinnis	Sachsen	51.5168	12.4356	101	101(6)	6	6
 4552	Schoeppenstedt-Gross Rode	Niedersachsen	52.193	10.782	290	290(2)	2	2
 4553	Schoeppingen	Nordrhein-Westfalen	52.0917	7.2431	100	100(2)	2	2
@@ -5531,9 +5528,9 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4558	Schopfheim (Hebelstr.)	Baden-Wuerttemberg	47.65	7.8333	376	376(2)	2	2
 1810	Schorfheide-Gross Schoenebeck	Brandenburg	52.9094	13.5371	56	56(5)	5	6
 1810	Schorfheide-Gross Schoenebeck	Brandenburg	52.9093	13.5371	56	56(1)	1	6
-4559	Schorndorf-Knoebling	Bayern	49.1646	12.6176	399	399(8)	8	17
-4559	Schorndorf-Knoebling	Bayern	49.1643	12.6175	399	399(8)	8	17
-4559	Schorndorf-Knoebling	Bayern	49.1656	12.6192	399	399(1)	1	17
+4559	Schorndorf-Knoebling	Bayern	49.1646	12.6176	399	399(7)	7	16
+4559	Schorndorf-Knoebling	Bayern	49.1643	12.6175	399	399(8)	8	16
+4559	Schorndorf-Knoebling	Bayern	49.1656	12.6192	399	399(1)	1	16
 4560	Schotten	Hessen	50.4925	9.1226	265	265(8)	8	14
 4560	Schotten	Hessen	50.4927	9.1228	265	265(6)	6	14
 4562	Schotten-Breungeshain	Hessen	50.5167	9.2167	565	565(2)	2	2
@@ -5542,8 +5539,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4564	Schraplau	Sachsen-Anhalt	51.4343	11.6685	135	135(2)	2	2
 4565	Schrecksbach-Holzburg	Hessen	50.8333	9.25	264	264(2)	2	2
 4566	Schrepkow	Brandenburg	52.9738	12.1115	46	46(3)	3	3
-4567	Schrobenhausen	Bayern	48.5539	11.2847	411.5	409(3)_414(3)	6	7
-4567	Schrobenhausen	Bayern	48.554	11.285	409	409(1)	1	7
+4567	Schrobenhausen	Bayern	48.5539	11.2847	412	409(2)_414(3)	5	6
+4567	Schrobenhausen	Bayern	48.554	11.285	409	409(1)	1	6
 4568	Schrozberg	Baden-Wuerttemberg	49.345	9.981	455	455(2)	2	2
 4569	Schrozberg-Spielbach	Baden-Wuerttemberg	49.3833	10.0667	456	456(2)	2	2
 4570	Schuettorf	Niedersachsen	52.3167	7.2333	31	31(2)	2	2
@@ -5574,14 +5571,14 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4589	Schwalmstadt-Ascherode	Hessen	50.9033	9.2129	225	225(4)	4	4
 4590	Schwalmtal-Brauerschwend	Hessen	50.7	9.3333	325	325(2)	2	2
 4591	Schwanau-Ottenheim	Baden-Wuerttemberg	48.3848	7.7584	153	153(2)	2	2
-4592	Schwandorf	Bayern	49.3278	12.0871	356	356(9)	9	19
-4592	Schwandorf	Bayern	49.3278	12.087	356	356(9)	9	19
-4592	Schwandorf	Bayern	49.3289	12.0886	356	356(1)	1	19
+4592	Schwandorf	Bayern	49.3278	12.087	356	356(9)	9	18
+4592	Schwandorf	Bayern	49.3278	12.0871	356	356(8)	8	18
+4592	Schwandorf	Bayern	49.3289	12.0886	356	356(1)	1	18
 4593	Schwanebeck	Sachsen-Anhalt	51.9639	11.1208	117	117(5)	5	6
 4593	Schwanebeck	Sachsen-Anhalt	51.9653	11.1222	117	117(1)	1	6
 4595	Schwanewede-Meyenburg	Niedersachsen	53.2667	8.6	7	7(2)	2	2
-4594	Schwanewede-Neuenkirchen	Niedersachsen	53.2171	8.5115	1	1(4)	4	7
-4594	Schwanewede-Neuenkirchen	Niedersachsen	53.2338	8.5115	1	1(3)	3	7
+4594	Schwanewede-Neuenkirchen	Niedersachsen	53.2171	8.5115	1	1(3)	3	6
+4594	Schwanewede-Neuenkirchen	Niedersachsen	53.2338	8.5115	1	1(3)	3	6
 4597	Schwangau-Horn	Bayern	47.5769	10.7181	792	792(1)	1	1
 4598	Schwangau-Neuschwanstein	Bayern	47.5574	10.7498	1008	1008(2)	2	2
 4600	Schwarme	Niedersachsen	52.9081	9.0453	12	12(5)	5	6
@@ -5633,8 +5630,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4638	Seedorf, Kreis Lueneburg	Niedersachsen	53.1682	10.7079	48	48(2)	2	2
 4639	Seedorf, Kreis Segeberg -Blomnath	Schleswig-Holstein	54.0298	10.4754	31	31(4)	4	4
 4640	Seefeld/Oberbayern-Unering	Bayern	48.031	11.252	646	646(2)	2	2
-815	Seegebiet Mansfelder Land-Dederstedt	Sachsen-Anhalt	51.5426	11.6946	154	154(4)	4	7
-815	Seegebiet Mansfelder Land-Dederstedt	Sachsen-Anhalt	51.5427	11.6948	154	154(3)	3	7
+815	Seegebiet Mansfelder Land-Dederstedt	Sachsen-Anhalt	51.5427	11.6948	154	154(3)	3	6
+815	Seegebiet Mansfelder Land-Dederstedt	Sachsen-Anhalt	51.5426	11.6946	154	154(3)	3	6
 13782	Seegebiet Mansfelder Land-Erdeborn	Sachsen-Anhalt	51.4737	11.6402	95	95(2)	2	4
 13782	Seegebiet Mansfelder Land-Roeblingen	Sachsen-Anhalt	51.4612	11.6661	102	102(2)	2	4
 4642	Seehausen	Sachsen-Anhalt	52.8911	11.7297	21	21(25)	25	26
@@ -5738,9 +5735,9 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4730	Soden, Bad-Salmuenster	Hessen	50.2688	9.36	145	145(4)	4	4
 13900	Soden,Bad-Salmuenster (Klaeranlage)	Hessen	50.2688	9.358	145	145(4)	4	4
 4731	Soegel	Niedersachsen	52.8366	7.5231	33	33(2)	2	2
-4732	Soehren	Schleswig-Holstein	53.9103	10.424	40	40(1)	1	5
-4732	Soehren	Schleswig-Holstein	53.9101	10.43	40	40(2)	2	5
-4732	Soehren	Schleswig-Holstein	53.9102	10.4307	42	42(2)	2	5
+4732	Soehren	Schleswig-Holstein	53.9103	10.424	40	40(1)	1	4
+4732	Soehren	Schleswig-Holstein	53.9101	10.43	40	40(1)	1	4
+4732	Soehren	Schleswig-Holstein	53.9102	10.4307	42	42(2)	2	4
 4733	Soehrewald-Eiterhagen	Hessen	51.2	9.6	255	255(2)	2	2
 4734	Soehrewald-Wellerode	Hessen	51.2333	9.5667	335	335(2)	2	2
 4735	Soellingen	Baden-Wuerttemberg	48.7833	8.0833	123	123(1)	1	1
@@ -5749,8 +5746,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4737	Soernewitz-Reudnitz	Sachsen	51.4304	13.0711	155	155(2)	2	2
 4738	Soesetalsperre	Niedersachsen	51.7384	10.3062	274	274(2)	2	2
 4739	Soest	Nordrhein-Westfalen	51.5662	8.1155	110	110(2)	2	2
-6129	Sohland/Spree	Sachsen	51.0594	14.4262	290	290(7)	7	13
-6129	Sohland/Spree	Sachsen	51.0593	14.4266	290	290(6)	6	13
+6129	Sohland/Spree	Sachsen	51.0594	14.4262	290	290(6)	6	12
+6129	Sohland/Spree	Sachsen	51.0593	14.4266	290	290(6)	6	12
 4740	Sohren	Rheinland-Pfalz	49.9317	7.307	430	430(2)	2	2
 4742	Solingen-Glueder	Nordrhein-Westfalen	51.1368	7.1236	89	89(2)	2	2
 4741	Solingen-Hohenscheid	Nordrhein-Westfalen	51.14	7.093	154	154(5)	5	9
@@ -5771,8 +5768,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4751	Sonneberg-Oberlind	Thueringen	50.3457	11.1886	371	371(4)	4	4
 4753	Sonneberg-Stadtberg	Thueringen	50.3833	11.1833	626	626(1)	1	1
 4754	Sonnefeld-Gestungshausen	Bayern	50.2377	11.1797	332	332(4)	4	4
-4755	Sonnen	Bayern	48.6818	13.7347	847	847(4)	4	7
-4755	Sonnen	Bayern	48.6819	13.7351	847	847(3)	3	7
+4755	Sonnen	Bayern	48.6819	13.7351	847	847(3)	3	6
+4755	Sonnen	Bayern	48.6818	13.7347	847	847(3)	3	6
 4756	Sonnenberg	Niedersachsen	51.7667	10.5	776	776(2)	2	2
 4757	Sonnenbuehl-Genkingen	Baden-Wuerttemberg	48.4064	9.1891	783	783(3)	3	4
 4757	Sonnenbuehl-Genkingen	Baden-Wuerttemberg	48.4062	9.1889	783	783(1)	1	4
@@ -5786,8 +5783,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4767	Sosa Talsperre	Sachsen	50.4905	12.6451	650	650(2)	2	2
 473	Sotterhausen	Sachsen-Anhalt	51.4526	11.3969	200	200(2)	2	2
 4768	Spahl	Thueringen	50.6574	9.9135	380	380(2)	2	2
-4770	Spangdahlem	Rheinland-Pfalz	49.987	6.6849	320	320(3)	3	5
-4770	Spangdahlem	Rheinland-Pfalz	49.9871	6.6814	320	320(2)	2	5
+4770	Spangdahlem	Rheinland-Pfalz	49.9871	6.6814	320	320(2)	2	4
+4770	Spangdahlem	Rheinland-Pfalz	49.987	6.6849	320	320(2)	2	4
 4772	Spangenberg-Bischofferod	Hessen	51.1167	9.75	315	315(2)	2	2
 4771	Spangenberg-Moershausen	Hessen	51.1129	9.6039	196	196(1)	1	1
 4773	Spechbach	Baden-Wuerttemberg	49.35	8.8833	185	185(2)	2	2
@@ -5814,8 +5811,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4791	Springen	Thueringen	50.5366	10.1016	270	270(2)	2	2
 4792	Sprockhoevel-Hasslinghausen	Nordrhein-Westfalen	51.3333	7.2833	270	270(2)	2	2
 4794	Sproetze	Niedersachsen	53.3	9.8	47	47(2)	2	2
-4637	Staaken	Brandenburg	52.5403	13.1241	31	31(4)	4	7
-4637	Staaken	Brandenburg	52.5404	13.1243	31	31(3)	3	7
+4637	Staaken	Brandenburg	52.5404	13.1243	31	31(3)	3	6
+4637	Staaken	Brandenburg	52.5403	13.1241	31	31(3)	3	6
 4799	Staaken/Brandbg.	Brandenburg	52.5333	13.1333	34	34(2)	2	2
 4800	Stade	Niedersachsen	53.5883	9.4819	18	18(4)	4	4
 4802	Stadersand	Niedersachsen	53.6295	9.5255	5	5(2)	2	2
@@ -5835,16 +5832,16 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4819	Stammham-Appertshofen	Bayern	48.8693	11.4642	478	478(2)	2	2
 4822	Stapelburg	Sachsen-Anhalt	51.9025	10.6687	225	225(4)	4	4
 4823	Starkenberg	Thueringen	51.0069	12.2888	260	260(2)	2	2
-4997	Starkenberg-Tegkwitz	Thueringen	50.9777	12.3432	193	193(7)	7	13
-4997	Starkenberg-Tegkwitz	Thueringen	50.9771	12.3419	193	193(6)	6	13
+4997	Starkenberg-Tegkwitz	Thueringen	50.9777	12.3432	193	193(6)	6	12
+4997	Starkenberg-Tegkwitz	Thueringen	50.9771	12.3419	193	193(6)	6	12
 4824	Starnberg	Bayern	47.9999	11.3542	585	585(4)	4	4
 6238	Starnberg-Perchting	Bayern	47.9946	11.269	675	675(2)	2	2
 4825	Stassfurt	Sachsen-Anhalt	51.862	11.5514	67	67(2)	2	2
 4828	Staudernheim	Rheinland-Pfalz	49.777	7.6928	141	141(2)	2	2
 4829	Staufenberg-Treis	Hessen	50.6667	8.7833	225	225(4)	4	4
 4830	Stavenhagen, Reuterstadt	Mecklenburg-Vorpommern	53.7007	12.893	50	50(2)	2	2
-6338	Steben, Bad	Bayern	50.3619	11.6222	608	608(4)	4	7
-6338	Steben, Bad	Bayern	50.3618	11.6223	608	608(3)	3	7
+6338	Steben, Bad	Bayern	50.3619	11.6222	608	608(3)	3	6
+6338	Steben, Bad	Bayern	50.3618	11.6223	608	608(3)	3	6
 4831	Stechau	Brandenburg	51.697	13.47	92	92(2)	2	2
 4832	Stecklenberg	Sachsen-Anhalt	51.7345	11.0867	160	160(2)	2	2
 4833	Steddorf	Niedersachsen	53.3446	9.3947	28	28(2)	2	2
@@ -5873,8 +5870,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4850	Steingaden-Lauterbach	Bayern	47.7112	10.8758	782	782(3)	3	6
 6169	Steingaden-Riesen	Bayern	47.761	10.8601	761	761(3)	3	3
 4851	Steinhagen	Mecklenburg-Vorpommern	54.227	12.9894	21	21(2)	2	2
-4852	Steinhagen-Brockhagen	Nordrhein-Westfalen	52.0035	8.3456	81.5	81(2)_82(2)	4	5
-4852	Steinhagen-Brockhagen	Nordrhein-Westfalen	52.0039	8.3454	81	81(1)	1	5
+4852	Steinhagen-Brockhagen	Nordrhein-Westfalen	52.0035	8.3456	81.67	81(1)_82(2)	3	4
+4852	Steinhagen-Brockhagen	Nordrhein-Westfalen	52.0039	8.3454	81	81(1)	1	4
 6199	Steinhagen-Negast	Mecklenburg-Vorpommern	54.2487	13.0416	16	16(1)	1	12
 6199	Steinhagen-Negast	Mecklenburg-Vorpommern	54.2484	13.0418	16	16(11)	11	12
 4853	Steinhausen-Englisweiler	Baden-Wuerttemberg	48.0194	9.9446	663	663(2)	2	2
@@ -5921,12 +5918,12 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4898	Storkow	Brandenburg	52.2461	13.9396	39	39(2)	2	2
 4899	Straach	Sachsen-Anhalt	51.9506	12.6012	120	120(4)	4	4
 4900	Straelen	Nordrhein-Westfalen	51.4406	6.2672	45	45(3)	3	3
-4902	Stralsund	Mecklenburg-Vorpommern	54.2967	13.0614	13	13(3)	3	5
-4902	Stralsund	Mecklenburg-Vorpommern	54.2966	13.0615	13	13(2)	2	5
+4902	Stralsund	Mecklenburg-Vorpommern	54.2967	13.0614	13	13(2)	2	4
+4902	Stralsund	Mecklenburg-Vorpommern	54.2966	13.0615	13	13(2)	2	4
 6112	Stralsund-Devin	Mecklenburg-Vorpommern	54.267	13.143	2	2(4)	4	4
 4903	Strande	Schleswig-Holstein	54.4552	10.1973	2	2(2)	2	2
-4904	Strasburg	Mecklenburg-Vorpommern	53.5171	13.7376	65	65(3)	3	5
-4904	Strasburg	Mecklenburg-Vorpommern	53.5172	13.738	65	65(2)	2	5
+4904	Strasburg	Mecklenburg-Vorpommern	53.5172	13.738	65	65(2)	2	4
+4904	Strasburg	Mecklenburg-Vorpommern	53.5171	13.7376	65	65(2)	2	4
 4905	Strass bei Geratskirchen	Bayern	48.3369	12.6074	502	502(2)	2	2
 4906	Strassberg	Sachsen-Anhalt	51.614	11.0469	400	400(2)	2	2
 4907	Strasskirchen	Bayern	48.8301	12.7134	326	326(2)	2	2
@@ -5975,8 +5972,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4938	Suderburg	Niedersachsen	52.9024	10.4343	70	70(2)	2	2
 4939	Suderode, Bad	Sachsen-Anhalt	51.7333	11.1167	235	235(2)	2	2
 4940	Suedbrookmerland-Bedekamp	Niedersachsen	53.4333	7.3	0	0(2)	2	2
-5084	Suedeichsfeld-Wendehausen	Thueringen	51.1595	10.2471	290	290(4)	4	7
-5084	Suedeichsfeld-Wendehausen	Thueringen	51.1594	10.2473	290	290(3)	3	7
+5084	Suedeichsfeld-Wendehausen	Thueringen	51.1594	10.2473	290	290(3)	3	6
+5084	Suedeichsfeld-Wendehausen	Thueringen	51.1595	10.2471	290	290(3)	3	6
 3965	Suederholz-Neuendorf	Mecklenburg-Vorpommern	54.1034	13.1533	5	5(5)	5	6
 3965	Suederholz-Neuendorf	Mecklenburg-Vorpommern	54.1034	13.1527	5	5(1)	1	6
 4942	Suederstapel	Schleswig-Holstein	54.3501	9.2272	10	10(2)	2	2
@@ -6028,8 +6025,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 4867	Tanna-Stelzen	Thueringen	50.4777	11.9579	584	584(2)	2	2
 4980	Tanne	Sachsen-Anhalt	51.6998	10.7201	510	510(2)	2	2
 4981	Tanneberg	Sachsen	51.0566	13.4119	248	248(2)	2	2
-4982	Tannenberg	Sachsen	50.6077	12.9392	532	532(4)	4	7
-4982	Tannenberg	Sachsen	50.6074	12.939	532	532(3)	3	7
+4982	Tannenberg	Sachsen	50.6074	12.939	532	532(3)	3	6
+4982	Tannenberg	Sachsen	50.6077	12.9392	532	532(3)	3	6
 4983	Tannroda	Thueringen	50.8619	11.2453	295	295(2)	2	2
 4985	Tating	Schleswig-Holstein	54.3167	8.7167	3	3(2)	2	2
 4986	Tatzelwurm	Bayern	47.6833	12.0833	795	795(2)	2	2
@@ -6085,8 +6082,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 5033	Thurnau	Bayern	50.0275	11.3814	399	399(2)	2	2
 5034	Thurnau-Tannfeld	Bayern	49.9842	11.4008	513.67	513(5)_517(1)	6	6
 5035	Thyrnau	Bayern	48.6146	13.5336	443	443(2)	2	2
-5555	Thyrow	Brandenburg	52.2536	13.2358	43	43(4)	4	7
-5555	Thyrow	Brandenburg	52.2534	13.2361	43	43(3)	3	7
+5555	Thyrow	Brandenburg	52.2536	13.2358	43	43(3)	3	6
+5555	Thyrow	Brandenburg	52.2534	13.2361	43	43(3)	3	6
 5599	Tiefenbach-Oberndorf	Bayern	48.6308	13.3224	445	445(2)	2	4
 5037	Tiefenbronn	Baden-Wuerttemberg	48.8184	8.7946	344	344(2)	2	2
 5038	Tiefenellern	Bayern	49.9167	11.0833	394	394(2)	2	2
@@ -6138,17 +6135,17 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 5082	Trebendorf	Sachsen	51.527	14.5578	143	143(2)	2	2
 5083	Trebsen	Sachsen	51.2865	12.7537	129	129(2)	2	2
 5085	Treia	Schleswig-Holstein	54.5105	9.3245	7	7(2)	2	2
-5086	Trendelburg	Hessen	51.5776	9.4336	133	133(4)	4	7
-5086	Trendelburg	Hessen	51.5776	9.4335	133	133(3)	3	7
+5086	Trendelburg	Hessen	51.5776	9.4335	133	133(3)	3	6
+5086	Trendelburg	Hessen	51.5776	9.4336	133	133(3)	3	6
 5087	Trendelburg-Langenthal	Hessen	51.6167	9.3667	260	260(2)	2	2
 5088	Trent	Mecklenburg-Vorpommern	54.5337	13.246	3	3(6)	6	7
 5088	Trent	Mecklenburg-Vorpommern	54.5353	13.2478	3	3(1)	1	7
 5089	Treppeln	Brandenburg	52.0833	14.55	110	110(2)	2	2
 5090	Treuchtlingen-Auernheim	Bayern	48.9651	10.8084	617	617(2)	2	2
 5091	Treuchtlingen-Schambach	Bayern	48.9679	10.9529	425	425(2)	2	2
-7329	Treuen	Sachsen	50.5469	12.2867	465	465(1)	1	19
-7329	Treuen	Sachsen	50.5457	12.2852	465	465(9)	9	19
-7329	Treuen	Sachsen	50.5467	12.2863	465	465(9)	9	19
+7329	Treuen	Sachsen	50.5469	12.2867	465	465(1)	1	18
+7329	Treuen	Sachsen	50.5457	12.2852	465	465(8)	8	18
+7329	Treuen	Sachsen	50.5467	12.2863	465	465(9)	9	18
 5092	Treuenbrietzen	Brandenburg	52.1067	12.8814	55	55(4)	4	4
 5093	Triangel	Niedersachsen	52.5167	10.6	54	54(2)	2	2
 5096	Triberg-Nussbach	Baden-Wuerttemberg	48.1394	8.2466	720	720(2)	2	2
@@ -6199,8 +6196,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 5133	Twistetal-Muehlhausen	Hessen	51.3343	8.9132	295	295(6)	6	14
 5134	Uchte	Niedersachsen	52.4975	8.9126	45	45(2)	2	2
 5135	Uchte-Woltringhausen	Niedersachsen	52.55	8.9333	38	38(2)	2	2
-2438	Uckerland-Karlstein	Brandenburg	53.4277	13.8168	40	40(4)	4	7
-2438	Uckerland-Karlstein	Brandenburg	53.4277	13.8167	40	40(3)	3	7
+2438	Uckerland-Karlstein	Brandenburg	53.4277	13.8168	40	40(3)	3	6
+2438	Uckerland-Karlstein	Brandenburg	53.4277	13.8167	40	40(3)	3	6
 5136	Uder	Thueringen	51.3629	10.0663	232	232(2)	2	2
 5137	Udestedt	Thueringen	51.0476	11.1344	175	175(2)	2	2
 15186	Ueberlingen-Hoedingen	Baden-Wuerttemberg	47.7877	9.1309	530	530(2)	2	2
@@ -6300,8 +6297,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 5209	Verden-Dauelsen	Niedersachsen	52.9585	9.227	21	21(1)	1	6
 5210	Veringenstadt	Baden-Wuerttemberg	48.1797	9.2117	632	632(2)	2	2
 5211	Versen	Niedersachsen	52.7333	7.25	13	13(2)	2	2
-5213	Versmold	Nordrhein-Westfalen	52.0108	8.1599	65	65(3)	3	5
-5213	Versmold	Nordrhein-Westfalen	52.0105	8.1597	63	63(2)	2	5
+5213	Versmold	Nordrhein-Westfalen	52.0105	8.1597	63	63(2)	2	4
+5213	Versmold	Nordrhein-Westfalen	52.0108	8.1599	65	65(2)	2	4
 5214	Viecheln	Mecklenburg-Vorpommern	54.0167	12.6505	23	23(2)	2	2
 5215	Viechtach	Bayern	49.0807	12.8967	455	455(2)	2	2
 5216	Viechtach-Buehling	Bayern	49.1098	12.927	662	662(4)	4	4
@@ -6315,13 +6312,13 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 5225	Vilbel, Bad-Dortelweil	Hessen	50.2135	8.7453	125	125(3)	3	6
 5225	Vilbel, Bad-Dortelweil	Hessen	50.2138	8.7446	125	125(3)	3	6
 5226	Vilgertshofen	Bayern	47.953	10.9151	708	708(1)	1	1
-5227	Vilgertshofen-Pflugdorf	Bayern	47.9685	10.9159	685	685(4)	4	7
-5227	Vilgertshofen-Pflugdorf	Bayern	47.9688	10.9156	685	685(3)	3	7
+5227	Vilgertshofen-Pflugdorf	Bayern	47.9688	10.9156	685	685(3)	3	6
+5227	Vilgertshofen-Pflugdorf	Bayern	47.9685	10.9159	685	685(3)	3	6
 5229	Villingen-Schwenningen	Baden-Wuerttemberg	48.0453	8.4608	720	720(11)	11	12
 5229	Villingen-Schwenningen	Baden-Wuerttemberg	48.0452	8.4608	720	720(1)	1	12
 5228	Villingen-Schwenningen (FTS)	Baden-Wuerttemberg	48.0569	8.5254	715	715(2)	2	2
-5230	Vilsbiburg	Bayern	48.4526	12.3382	461	461(4)	4	7
-5230	Vilsbiburg	Bayern	48.4527	12.3382	461	461(3)	3	7
+5230	Vilsbiburg	Bayern	48.4527	12.3382	461	461(3)	3	6
+5230	Vilsbiburg	Bayern	48.4526	12.3382	461	461(3)	3	6
 5231	Vilseck	Bayern	49.615	11.8153	400	400(4)	4	4
 5232	Vilshofen (Schweiklberg)	Bayern	48.6282	13.1734	378	378(2)	2	2
 5233	Vioel	Schleswig-Holstein	54.5683	9.1861	21	21(2)	2	2
@@ -6356,10 +6353,10 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 5259	Vorbeck-Kambs	Mecklenburg-Vorpommern	53.8948	12.0528	5	5(2)	2	2
 5260	Vordorf	Niedersachsen	52.3667	10.5333	88	88(2)	2	2
 5261	Waakirchen	Bayern	47.7702	11.6714	750	750(2)	2	2
-5262	Waakirchen-Demmelberg	Bayern	47.7563	11.6928	815	815(4)	4	7
-5262	Waakirchen-Demmelberg	Bayern	47.7564	11.6928	815	815(3)	3	7
-5263	Wabern-Hebel	Hessen	51.0673	9.3822	203	203(4)	4	7
-5263	Wabern-Hebel	Hessen	51.067	9.3821	203	203(3)	3	7
+5262	Waakirchen-Demmelberg	Bayern	47.7564	11.6928	815	815(3)	3	6
+5262	Waakirchen-Demmelberg	Bayern	47.7563	11.6928	815	815(3)	3	6
+5263	Wabern-Hebel	Hessen	51.067	9.3821	203	203(3)	3	6
+5263	Wabern-Hebel	Hessen	51.0673	9.3822	203	203(3)	3	6
 5264	Wachenroth-Weingartsgreuth	Bayern	49.7422	10.7373	285	285(2)	2	2
 5265	Wachstedt	Thueringen	51.2923	10.2502	486	486(2)	2	2
 5266	Wachtberg-Berkum	Nordrhein-Westfalen	50.623	7.1373	220	220(2)	2	2
@@ -6367,8 +6364,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 5268	Waddens	Niedersachsen	53.55	8.4	1	1(2)	2	2
 5269	Waddeweitz	Niedersachsen	52.9918	10.9686	52	52(2)	2	2
 5270	Wadern-Wadrill	Saarland	49.5861	6.8921	354	354(2)	2	2
-5271	Wadersloh	Nordrhein-Westfalen	51.757	8.2652	92	92(3)	3	5
-5271	Wadersloh	Nordrhein-Westfalen	51.7577	8.2637	96	96(2)	2	5
+5271	Wadersloh	Nordrhein-Westfalen	51.7577	8.2637	96	96(2)	2	4
+5271	Wadersloh	Nordrhein-Westfalen	51.757	8.2652	92	92(2)	2	4
 479	Waechtersbach	Hessen	50.2435	9.2893	138	138(5)	5	6
 479	Waechtersbach	Hessen	50.2441	9.2895	138	138(1)	1	6
 5272	Waffenbrunn-Kolmberg	Bayern	49.2833	12.7	580	580(2)	2	2
@@ -6379,16 +6376,16 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 5275	Waghaeusel-Kirrlach	Baden-Wuerttemberg	49.2445	8.5374	105	105(7)	7	12
 5275	Waghaeusel-Kirrlach	Baden-Wuerttemberg	49.2447	8.5373	105	105(5)	5	12
 5274	Waghaeusel (A)	Baden-Wuerttemberg	49.25	8.5	106	106(2)	2	2
-5276	Waging am See	Bayern	47.9235	12.7557	475	475(4)	4	7
-5276	Waging am See	Bayern	47.9237	12.7558	475	475(3)	3	7
+5276	Waging am See	Bayern	47.9237	12.7558	475	475(3)	3	6
+5276	Waging am See	Bayern	47.9235	12.7557	475	475(3)	3	6
 2573	Waging am See-Schnoebling	Bayern	47.9588	12.7717	470	470(2)	2	2
 5277	Wahlen	Hessen	50.8113	9.1275	349	349(6)	6	9
 5277	Wahlen	Hessen	50.8125	9.1286	349	349(1)	1	9
 5277	Wahlen	Hessen	50.8119	9.128	349	349(2)	2	9
 5278	Wahlerscheid	Nordrhein-Westfalen	50.5	6.3333	628	628(2)	2	2
-5279	Wahlsburg-Lippoldsberg	Hessen	51.6184	9.5761	176	176(9)	9	18
-5279	Wahlsburg-Lippoldsberg	Hessen	51.6194	9.5749	176	176(8)	8	18
-5279	Wahlsburg-Lippoldsberg	Hessen	51.6197	9.5772	176	176(1)	1	18
+5279	Wahlsburg-Lippoldsberg	Hessen	51.6194	9.5749	176	176(8)	8	17
+5279	Wahlsburg-Lippoldsberg	Hessen	51.6184	9.5761	176	176(8)	8	17
+5279	Wahlsburg-Lippoldsberg	Hessen	51.6197	9.5772	176	176(1)	1	17
 5281	Wahns	Thueringen	50.6319	10.3055	350	350(1)	1	4
 5281	Wahns	Thueringen	50.6309	10.3052	352	352(3)	3	4
 5282	Wahnsdorf bei Dresden	Sachsen	51.1197	13.6744	246	246(9)	9	9
@@ -6484,8 +6481,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 5349	Waren	Mecklenburg-Vorpommern	53.5214	12.6694	70	70(1)	1	24
 5349	Waren (Mueritz)	Mecklenburg-Vorpommern	53.5196	12.6654	72.95	72.6(3)_73(20)	23	24
 5350	Waren (Mueritzhof)	Mecklenburg-Vorpommern	53.4513	12.7352	70	70(2)	2	2
-5351	Warendorf	Nordrhein-Westfalen	51.9514	8.0199	53	53(3)	3	5
-5351	Warendorf	Nordrhein-Westfalen	51.9499	8.0103	53	53(2)	2	5
+5351	Warendorf	Nordrhein-Westfalen	51.9499	8.0103	53	53(2)	2	4
+5351	Warendorf	Nordrhein-Westfalen	51.9514	8.0199	53	53(2)	2	4
 5352	Warendorf-Hoetmar	Nordrhein-Westfalen	51.8903	7.9038	64	64(2)	2	2
 5353	Warin	Mecklenburg-Vorpommern	53.8037	11.6966	35	35(2)	2	2
 5354	Warmensteinach	Bayern	49.9911	11.7714	610	610(2)	2	2
@@ -6516,8 +6513,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 5378	Weberstedt	Thueringen	51.109	10.5106	230	230(2)	2	2
 5379	Wechingen	Bayern	48.8932	10.612	413	413(2)	2	2
 3620	Wechselburg-Meusen	Sachsen	51.0003	12.7997	237	237(4)	4	4
-13687	Weddelbrook	Schleswig-Holstein	53.9006	9.8307	18	18(4)	4	7
-13687	Weddelbrook	Schleswig-Holstein	53.9005	9.8308	18	18(3)	3	7
+13687	Weddelbrook	Schleswig-Holstein	53.9006	9.8307	18	18(3)	3	6
+13687	Weddelbrook	Schleswig-Holstein	53.9005	9.8308	18	18(3)	3	6
 2078	Weddingstedt	Schleswig-Holstein	54.2181	9.0853	10	10(4)	4	4
 5380	Wedel	Schleswig-Holstein	53.5833	9.7167	14	14(2)	2	2
 5381	Wedel (Wasserwerk)	Schleswig-Holstein	53.6051	9.6719	13	13(2)	2	4
@@ -6566,8 +6563,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 5409	Weil im Schoenbuch	Baden-Wuerttemberg	48.6274	9.0714	431	431(4)	4	4
 5410	Weilburg (Klaeranlage)	Hessen	50.4732	8.2588	150	150(2)	2	2
 5411	Weilenbach	Bayern	48.4993	11.2986	450	450(2)	2	2
-1327	Weilerswist-Lommersum	Nordrhein-Westfalen	50.7119	6.791	146	146(8)	8	15
-1327	Weilerswist-Lommersum	Nordrhein-Westfalen	50.7119	6.7905	147	147(7)	7	15
+1327	Weilerswist-Lommersum	Nordrhein-Westfalen	50.7119	6.7905	147	147(7)	7	14
+1327	Weilerswist-Lommersum	Nordrhein-Westfalen	50.7119	6.791	146	146(7)	7	14
 5412	Weilheim-Bierbronnen	Baden-Wuerttemberg	47.6802	8.1964	771	771(2)	2	2
 5413	Weilheim/Oberbayern	Bayern	47.85	11.15	568	568(2)	2	2
 5414	Weilheim/Teck	Baden-Wuerttemberg	48.6167	9.5333	388	388(2)	2	2
@@ -6620,8 +6617,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 1847	Weissenfels-Wengelsdorf	Sachsen-Anhalt	51.2743	12.0517	92	92(3)	3	6
 1847	Weissenfels-Wengelsdorf	Sachsen-Anhalt	51.2743	12.051	92	92(3)	3	6
 5443	Weissenhaid	Bayern	50.0833	11.85	689	689(2)	2	2
-5444	Weissenhorn-Oberreichenbach	Bayern	48.3091	10.2046	500	500(4)	4	7
-5444	Weissenhorn-Oberreichenbach	Bayern	48.3091	10.2048	500	500(3)	3	7
+5444	Weissenhorn-Oberreichenbach	Bayern	48.3091	10.2046	500	500(3)	3	6
+5444	Weissenhorn-Oberreichenbach	Bayern	48.3091	10.2048	500	500(3)	3	6
 5445	Weissensee-Ottenhausen	Thueringen	51.212	10.9956	165	165(7)	7	7
 2170	Weissenseifen	Rheinland-Pfalz	50.1499	6.5527	526	526(3)	3	6
 5446	Weissenstadt	Bayern	50.1061	11.8827	620	620(2)	2	2
@@ -6653,8 +6650,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 5467	Wendelstein	Bayern	47.7035	12.0119	1832	1832(10)	10	10
 4599	Wendelstein-Kleinschwarzenlohe	Bayern	49.3425	11.1077	331	331(5)	5	6
 4599	Wendelstein-Kleinschwarzenlohe	Bayern	49.3422	11.107	331	331(1)	1	6
-5468	Wenden-Doernscheid	Nordrhein-Westfalen	50.9379	7.8474	418	418(4)	4	7
-5468	Wenden-Doernscheid	Nordrhein-Westfalen	50.9377	7.8475	418	418(3)	3	7
+5468	Wenden-Doernscheid	Nordrhein-Westfalen	50.9377	7.8475	418	418(3)	3	6
+5468	Wenden-Doernscheid	Nordrhein-Westfalen	50.9379	7.8474	418	418(3)	3	6
 6093	Wendisch Evern	Niedersachsen	53.2153	10.4717	62	62(1)	1	16
 6093	Wendisch Evern	Niedersachsen	53.2138	10.4704	62	62(1)	1	16
 6093	Wendisch Evern	Niedersachsen	53.2139	10.4704	62	62(14)	14	16
@@ -6678,8 +6675,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 5486	Werne-Wessel	Nordrhein-Westfalen	51.7151	7.6802	94	94(1)	1	4
 5486	Werne-Wessel	Nordrhein-Westfalen	51.7161	7.6834	92.83	92.5(1)_93(2)	3	4
 5489	Werneuchen	Brandenburg	52.623	13.7521	80	80(2)	2	2
-5490	Wernigerode	Sachsen-Anhalt	51.8454	10.7686	233.51	233(10)_233.1(2)_234(12)	24	25
-5490	Wernigerode	Sachsen-Anhalt	51.8478	10.7697	234	234(1)	1	25
+5490	Wernigerode	Sachsen-Anhalt	51.8454	10.7686	233.49	233(10)_233.1(2)_234(11)	23	24
+5490	Wernigerode	Sachsen-Anhalt	51.8478	10.7697	234	234(1)	1	24
 5495	Wernigerode-Hasserode	Sachsen-Anhalt	51.8198	10.7437	277	277(2)	2	2
 4445	Wernigerode-Schierke	Sachsen-Anhalt	51.7658	10.6533	609	609(14)	14	14
 5492	Wernigerode (Zillierbachtalsperre)	Sachsen-Anhalt	51.7926	10.7781	434	434(2)	2	2
@@ -6688,11 +6685,11 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 5498	Wertheim-Eichel	Baden-Wuerttemberg	49.7667	9.5428	140	140(5)	5	5
 5499	Wertheim-Kembach	Baden-Wuerttemberg	49.7442	9.6275	250	250(2)	2	2
 5500	Werther	Nordrhein-Westfalen	52.07	8.4209	134	134(2)	2	2
-5502	Wesel-Flueren	Nordrhein-Westfalen	51.6926	6.5849	25	25(3)	3	5
-5502	Wesel-Flueren	Nordrhein-Westfalen	51.6927	6.5853	25	25(2)	2	5
+5502	Wesel-Flueren	Nordrhein-Westfalen	51.6927	6.5853	25	25(2)	2	4
+5502	Wesel-Flueren	Nordrhein-Westfalen	51.6926	6.5849	25	25(2)	2	4
 5503	Weselberg	Rheinland-Pfalz	49.3389	7.6034	428	428(2)	2	2
-5504	Wesenberg	Mecklenburg-Vorpommern	53.2943	12.97	75	75(3)	3	5
-5504	Wesenberg	Mecklenburg-Vorpommern	53.2945	12.9689	75	75(2)	2	5
+5504	Wesenberg	Mecklenburg-Vorpommern	53.2945	12.9689	75	75(2)	2	4
+5504	Wesenberg	Mecklenburg-Vorpommern	53.2943	12.97	75	75(2)	2	4
 4941	Wesselburen	Schleswig-Holstein	54.2101	8.9189	2	2(4)	4	4
 5505	Wessobrunn	Bayern	47.8744	11.0215	707	707(2)	2	2
 7103	Wessobrunn-Puitl	Bayern	47.8533	11.0084	755	755(4)	4	4
@@ -6707,15 +6704,15 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 5514	Westerland	Schleswig-Holstein	54.8991	8.3123	3	3(5)	5	5
 5517	Westerngrund-Oberwestern	Bayern	50.1121	9.2403	242	242(2)	2	2
 2455	Westerroenfeld	Schleswig-Holstein	54.2706	9.6716	10	10(2)	2	2
-5518	Westerstede	Niedersachsen	53.2504	7.9349	7	7(4)	4	7
-5518	Westerstede	Niedersachsen	53.2504	7.935	7	7(3)	3	7
+5518	Westerstede	Niedersachsen	53.2504	7.935	7	7(3)	3	6
+5518	Westerstede	Niedersachsen	53.2504	7.9349	7	7(3)	3	6
 5519	Westertimke	Niedersachsen	53.25	9.1333	38	38(2)	2	2
 5520	Westfehmarn-Sulsdorf	Schleswig-Holstein	54.4667	11.05	1	1(2)	2	2
 5521	Westre	Schleswig-Holstein	54.8575	8.9856	15	15(2)	2	2
 5522	Wettelrode	Sachsen-Anhalt	51.5168	11.2933	295	295(2)	2	2
 5523	Wettenberg-Krofdorf-Gleiberg	Hessen	50.6305	8.6384	235	235(2)	2	2
-5524	Wetter/Hessen-Amoenau	Hessen	50.9073	8.6929	227	227(4)	4	7
-5524	Wetter/Hessen-Amoenau	Hessen	50.9087	8.6929	227	227(3)	3	7
+5524	Wetter/Hessen-Amoenau	Hessen	50.9073	8.6929	227	227(3)	3	6
+5524	Wetter/Hessen-Amoenau	Hessen	50.9087	8.6929	227	227(3)	3	6
 5525	Wetter/Hessen-Mellnau	Hessen	50.9333	8.7667	281	281(2)	2	2
 5526	Wetter/Ruhr	Nordrhein-Westfalen	51.3843	7.3781	107	107(2)	2	2
 5527	Wetterzeube	Sachsen-Anhalt	51.0085	12.006	208	208(2)	2	2
@@ -6781,8 +6778,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 5585	Willingshausen-Loshausen	Hessen	50.8833	9.25	215	215(2)	2	2
 5586	Willstaett-Legelshurst	Baden-Wuerttemberg	48.5667	7.9167	140	140(2)	2	2
 5587	Wilsdruff	Sachsen	51.0527	13.5339	275	275(2)	2	2
-13654	Wilsdruff-Mohorn	Sachsen	51.0063	13.4708	288	288(4)	4	7
-13654	Wilsdruff-Mohorn	Sachsen	51.0063	13.471	288	288(3)	3	7
+13654	Wilsdruff-Mohorn	Sachsen	51.0063	13.4708	288	288(3)	3	6
+13654	Wilsdruff-Mohorn	Sachsen	51.0063	13.471	288	288(3)	3	6
 5588	Wilsnack, Bad	Brandenburg	52.9532	11.9479	25	25(2)	2	2
 5589	Wilster	Schleswig-Holstein	53.927	9.3681	1.5	0(1)_2(3)	4	4
 15499	Wilsum	Niedersachsen	52.5387	6.7888	16	16(3)	3	3
@@ -6808,10 +6805,10 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 10510	Winterbach/Remstal	Baden-Wuerttemberg	48.8059	9.5046	241	241(2)	2	2
 5611	Winterberg-Altastenberg	Nordrhein-Westfalen	51.1904	8.4654	782	782(2)	2	2
 5612	Winterberg-Zueschen	Nordrhein-Westfalen	51.1529	8.5757	460	460(2)	2	2
-5614	Winterfeld-Sallenthin	Sachsen-Anhalt	52.7566	11.2533	35	35(4)	4	7
-5614	Winterfeld-Sallenthin	Sachsen-Anhalt	52.7582	11.2549	35	35(3)	3	7
-5616	Winterspelt	Rheinland-Pfalz	50.2282	6.2072	426	426(4)	4	7
-5616	Winterspelt	Rheinland-Pfalz	50.2282	6.2071	426	426(3)	3	7
+5614	Winterfeld-Sallenthin	Sachsen-Anhalt	52.7582	11.2549	35	35(3)	3	6
+5614	Winterfeld-Sallenthin	Sachsen-Anhalt	52.7566	11.2533	35	35(3)	3	6
+5616	Winterspelt	Rheinland-Pfalz	50.2282	6.2071	426	426(3)	3	6
+5616	Winterspelt	Rheinland-Pfalz	50.2282	6.2072	426	426(3)	3	6
 5617	Winterstein	Thueringen	50.888	10.4554	356	356(2)	2	2
 5619	Wipperfuerth-Gardeweg	Nordrhein-Westfalen	51.1636	7.4234	360	360(6)	6	6
 5618	Wipperfuerth (Schevelinger Talsperre )	Nordrhein-Westfalen	51.1362	7.4306	312	312(2)	2	2
@@ -6827,8 +6824,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 5628	Witten-Stockum	Nordrhein-Westfalen	51.4731	7.3592	130	130(2)	2	4
 5629	Wittenberg	Sachsen-Anhalt	51.8892	12.6445	105	105(23)	23	24
 5629	Wittenberg	Sachsen-Anhalt	51.8903	12.6464	105	105(1)	1	24
-5280	Wittenborn	Schleswig-Holstein	53.9223	10.2268	35	35(7)	7	13
-5280	Wittenborn	Schleswig-Holstein	53.9224	10.2267	35	35(6)	6	13
+5280	Wittenborn	Schleswig-Holstein	53.9223	10.2268	35	35(6)	6	12
+5280	Wittenborn	Schleswig-Holstein	53.9224	10.2267	35	35(6)	6	12
 5630	Wittenburg	Mecklenburg-Vorpommern	53.5041	11.0803	42	42(2)	2	2
 5631	Wittenhofen	Baden-Wuerttemberg	47.7833	9.4	499	499(2)	2	2
 5632	Wittenmoor	Sachsen-Anhalt	52.5417	11.6885	53	53(2)	2	2
@@ -6836,8 +6833,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 7432	Wittingen-Vorhop	Niedersachsen	52.6439	10.6644	72	72(1)	1	18
 7432	Wittingen-Vorhop	Niedersachsen	52.6425	10.6631	72	72(7)	7	18
 7432	Wittingen-Vorhop	Niedersachsen	52.6423	10.6627	71.85	71.5(3)_72(7)	10	18
-5635	Wittlich	Rheinland-Pfalz	49.9695	6.9346	147	147(4)	4	7
-5635	Wittlich	Rheinland-Pfalz	49.9617	6.9287	147	147(3)	3	7
+5635	Wittlich	Rheinland-Pfalz	49.9617	6.9287	147	147(3)	3	6
+5635	Wittlich	Rheinland-Pfalz	49.9695	6.9346	147	147(3)	3	6
 5636	Wittlohe	Niedersachsen	52.8591	9.345	18	18(2)	2	2
 5638	Wittmund-Abens	Niedersachsen	53.5985	7.7261	3	3(4)	4	4
 5639	Wittmund-Harlesiel	Niedersachsen	53.7065	7.8091	1	1(2)	2	2
@@ -6895,7 +6892,7 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 5682	Wolgast	Mecklenburg-Vorpommern	54.0476	13.7676	20	20(3)	3	4
 5682	Wolgast	Mecklenburg-Vorpommern	54.0478	13.7679	20	20(1)	1	4
 5683	Wolkramshausen	Thueringen	51.4195	10.7379	205	205(2)	2	2
-5684	Wollin	Brandenburg	52.2844	12.4659	34	30(3)_40(2)	5	5
+5684	Wollin	Brandenburg	52.2844	12.4659	35	30(2)_40(2)	4	4
 5685	Wolmirsleben	Sachsen-Anhalt	51.9442	11.4903	70	70(2)	2	2
 5686	Wolmirstedt	Sachsen-Anhalt	52.2475	11.6371	45	45(2)	2	2
 5687	Wolnzach	Bayern	48.5943	11.633	425	425(2)	2	2
@@ -6968,8 +6965,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 5745	Zehdenick	Brandenburg	52.9664	13.3268	51	51(17)	17	19
 5745	Zehdenick	Brandenburg	52.9666	13.3266	51	51(1)	1	19
 5745	Zehdenick	Brandenburg	52.9681	13.3283	51	51(1)	1	19
-5746	Zehren	Sachsen	51.1995	13.405	108	108(3)	3	5
-5746	Zehren	Sachsen	51.1991	13.4049	108	108(2)	2	5
+5746	Zehren	Sachsen	51.1995	13.405	108	108(2)	2	4
+5746	Zehren	Sachsen	51.1991	13.4049	108	108(2)	2	4
 5747	Zeil-Bischofsheim	Bayern	50.0328	10.6393	348	348(4)	4	4
 5748	Zeilarn-Gumpersdorf	Bayern	48.278	12.8712	408	408(4)	4	4
 5749	Zeitlofs-Rossbach	Bayern	50.2396	9.6817	430	430(2)	2	2
@@ -6982,8 +6979,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 5754	Zella-Mehlis	Thueringen	50.65	10.6667	530	530(2)	2	2
 5755	Zellendorf	Brandenburg	51.8954	13.0716	89	89(2)	2	2
 5756	Zellsee	Bayern	47.8667	11.0667	600	600(2)	2	2
-5757	Zemitz	Mecklenburg-Vorpommern	53.9762	13.7524	15	15(3)	3	5
-5757	Zemitz	Mecklenburg-Vorpommern	53.9761	13.7523	15	15(2)	2	5
+5757	Zemitz	Mecklenburg-Vorpommern	53.9761	13.7523	15	15(2)	2	4
+5757	Zemitz	Mecklenburg-Vorpommern	53.9762	13.7524	15	15(2)	2	4
 5758	Zemmer (Forsthaus Muelchen)	Rheinland-Pfalz	49.8711	6.7079	293	293(6)	6	6
 5759	Zentbechhofen	Bayern	49.7667	10.9	314	314(2)	2	2
 5761	Zerbst	Sachsen-Anhalt	51.9642	12.0996	69	69(4)	4	4
@@ -7014,8 +7011,8 @@ id	name	state	lat	long	ele	all_elev	nfiles_coord	nfiles_id
 5787	Zossen	Brandenburg	52.2364	13.4502	36	36(2)	2	2
 5788	Zschornewitz	Sachsen-Anhalt	51.7404	12.4153	86	86(2)	2	2
 5789	Zschortau-Brodenaundorf	Sachsen	51.4737	12.3434	106	106(2)	2	2
-5790	Zudar	Mecklenburg-Vorpommern	54.2592	13.3543	2	2(3)	3	5
-5790	Zudar	Mecklenburg-Vorpommern	54.2591	13.3539	2	2(2)	2	5
+5790	Zudar	Mecklenburg-Vorpommern	54.2591	13.3539	2	2(2)	2	4
+5790	Zudar	Mecklenburg-Vorpommern	54.2592	13.3543	2	2(2)	2	4
 5791	Zuelpich	Nordrhein-Westfalen	50.6935	6.6515	170	170(2)	2	2
 5792	Zugspitze	Bayern	47.4209	10.9847	2964	2964(21)	21	21
 5794	Zweibruecken	Rheinland-Pfalz	49.272	7.3609	330	330(2)	2	2

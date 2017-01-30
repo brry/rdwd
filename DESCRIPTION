@@ -1,6 +1,6 @@
 Package: rdwd
 Title: Select and Download Climate Data from 'DWD' (German Weather Service)
-Version: 0.6.3
+Version: 0.6.4
 Date: 2017-01-30
 Depends: R(>= 2.10)
 Imports: berryFunctions (>= 1.14.0)

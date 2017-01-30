@@ -25472,7 +25472,6 @@ monthly	more_precip	recent	15518			/monthly/more_precip/recent/monatswerte_RR_15
 monthly	more_precip	recent	15522			/monthly/more_precip/recent/monatswerte_RR_15522_akt.zip
 monthly	more_precip	recent	15530			/monthly/more_precip/recent/monatswerte_RR_15530_akt.zip
 monthly	more_precip	recent				/monthly/more_precip/recent/RR_Monatswerte_Beschreibung_Stationen.txt
-monthly	more_precip	recent				/monthly/more_precip/recent/RR_Monatwerte_Beschreibung_Stationen.txt
 multi_annual		mean_61-90				/multi_annual/mean_61-90/BESCHREIBUNG_obsgermany_climatemulti_annual_mean_6190_de.pdf
 multi_annual		mean_61-90				/multi_annual/mean_61-90/DESCRIPTION_obsgermany_climatemulti_annual_mean_6190_en.pdf
 multi_annual		mean_61-90		1961	1990	/multi_annual/mean_61-90/Eistage_1961-1990_festerStandort.txt
