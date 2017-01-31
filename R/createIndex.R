@@ -175,8 +175,11 @@ if(mname!="")
 # geoIndex ---------------------------------------------------------------------
 if(!quiet) message("Creating geoIndex...")
 # metaIndex                                               Nov 2016 # 38'516 rows
+mtemp <- metaIndex
+mtemp$recentfile <- mtemp$per=="recent" | mtemp$bis_datum > as.numeric(format(Sys.Date()-365,"%Y%m%d"))
+mtemp$recentfile <- mtemp$recentfile & mtemp$hasfile
 # only use entries with file, ignore date range and hasfile columns:
-geoIndex <- unique(metaIndex[metaIndex$hasfile,-c(2,3,12)])        # 25'482 rows
+geoIndex <- unique(mtemp[mtemp$hasfile,-c(2,3,12)])        # 25'482 rows
 # unique locations:
 geoIndex$coord <- paste(geoIndex$geoBreite, geoIndex$geoLaenge, sep="_")
 # id column
@@ -203,8 +206,9 @@ rm(ele)
 geoIndex$nfiles_coord <- as.integer(table(geoIndex$coord)[geoIndex$coord])
 # nuber of files per ID:
 geoIndex$nfiles_id <- as.integer(table(geoIndex$Stations_id)[as.character(geoIndex$Stations_id)])
+geoIndex$recentfile <- tapply(geoIndex$recentfile, geoIndex$coord, any)[geoIndex$coord]
 # reduction of duplicated rows:
-geoIndex <- geoIndex[!duplicated(geoIndex$coord), 11:19]           #  6'927 rows
+geoIndex <- geoIndex[!duplicated(geoIndex$coord), c(12:20,10)]           #  6'927 rows
 # Write to disc
 if(gname!="")
   {
