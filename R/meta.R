@@ -101,7 +101,7 @@ metaInfo <- function(
   )
 {
 # ID preparation:
-id <- as.integer(id)
+id <- as.integer(id[1])
 # Selection of rows:
 sel <- metaIndex$Stations_id==id
 if(hasfileonly) sel <- sel & metaIndex$hasfile
@@ -209,20 +209,77 @@ metaIndex2 <- read.table("DWDdata/metaIndex.txt", sep="\t", header=TRUE, as.is=T
 stopifnot(all(metaIndex==metaIndex2))
  geoIndex2 <- read.table("DWDdata/geoIndex.txt",  sep="\t", header=TRUE, as.is=TRUE)
 stopifnot(all( geoIndex== geoIndex2))
+rm(fileIndex2,metaIndex2,geoIndex2)
 
 
-# interactive map:
-onerow <- function(x) paste0("metaInfo(id=",removeSpace(x[1]),")<br>",
+
+# interactive map --------------------------------------------------------------
+
+# data("geoIndex")
+rowdisplay <- function(x) paste0("metaInfo(id=",removeSpace(x[1]),")<br>",
                              paste0(names(x)[-1], ": ", x[-1], collapse="<br>"))
-#onerow(geoIndex[1,])
-geoIndex$display <- apply(geoIndex, MARGIN=1, onerow)
+#rowdisplay(geoIndex[1,])
+geoIndex$display <- apply(geoIndex, MARGIN=1, rowdisplay)
 
 library(leaflet)
-mapDWD <- leaflet(data=geoIndex) %>% addTiles() %>%
-             addCircles(~long, ~lat, radius=900, stroke=F)%>%
-             addCircleMarkers(~long, ~lat, popup=~display, stroke=F)
+
+# all coordinates:
+
+mapDWD_all <- leaflet(data=geoIndex[,]) %>% addTiles() %>%
+              addCircleMarkers(~long, ~lat, popup=~display, stroke=F)
+mapDWD_all
+owd <- setwd("inst/doc")
+htmlwidgets::saveWidget(mapDWD_all, file="mapDWD_all.html")
+setwd(owd); rm(owd)
+rm(mapDWD_all)
+
+# coordinates combined by ID if not too far apart:
+
+# Examine distances:
+id <- unique(geoIndex$id)
+dist <- pbapply::pbsapply(id, function(i)  # ca 5 secs computing time
+  {
+  g <- geoIndex[geoIndex$id==i,]
+  if(nrow(g)<2) return(0)
+  OSMscale::maxEarthDist(lat, long, data=g)
+  })
+names(dist) <- id
+logHist(dist, breaks=50, main="Max distance between station locations in km")
+#far <- dist > 5  ;   which(far);  id[far]
+#maps <- lapply(id[far], function(i) leaflet(data=geoIndex[geoIndex$id==i,]) %>%
+#                 addTiles() %>% addCircleMarkers(~long, ~lat, popup=~display, stroke=F))
+#maps[[4]]
+leaflet(data=geoIndex[geoIndex$id %in% id[dist>2],]) %>%
+        addTiles() %>% addCircleMarkers(~long, ~lat, popup=~display, stroke=F)
+
+
+# combine stations closer than 900 m apart (radius of fixed circles):
+
+geoIndex2 <- pbapply::pblapply(id, function(i){
+  g <- geoIndex[geoIndex$id==i,]
+  if(nrow(g)<2) return(g)
+  if(dist[as.character(i)] > 0.9) return(g)
+  keeprow <- which.max(g$nfiles_coord)
+  g$recentfile <- any(g$recentfile)
+  g$ele <- round(sum(g$ele*g$nfiles_coord/g$nfiles_id[1]),2)
+  g$nfiles_coord <- paste(g$nfiles_coord, collapse="+")
+  return(g[keeprow,])
+})
+
+geoIndex <- do.call(rbind, geoIndex2)
+rm(geoIndex2)
+geoIndex$all_elev <- NULL
+geoIndex$display <- NULL
+geoIndex$display <- apply(geoIndex, MARGIN=1, rowdisplay)
+
+geoIndex$col <- "blue"
+geoIndex$col[!geoIndex$recentfile] <- "red"
+
+mapDWD <- leaflet(data=geoIndex[,]) %>% addTiles() %>%
+             addCircles(~long, ~lat, radius=900, stroke=F, color=~col)%>%
+             addCircleMarkers(~long, ~lat, popup=~display, stroke=F, color=~col)
 mapDWD
-#htmlwidgets::saveWidget(mapDWD, file="map.html")
+
 save(mapDWD,     file="data/mapDWD.rda")
 tools::resaveRdaFiles("data/mapDWD.rda")
 }
