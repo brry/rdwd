@@ -11,7 +11,7 @@
 #' @seealso \code{\link{dirDWD}}, \code{\link{dataDWD}}
 #' @keywords file
 #' @importFrom tools file_ext file_path_sans_ext
-#' @importFrom berryFunctions truncMessage
+#' @importFrom berryFunctions truncMessage traceCall
 #' @export
 #' @examples
 #' # see source code of dataDWD and metaDWD
@@ -63,7 +63,7 @@ if(!quiet)
   {
   # message names:
   n_e <- sum(existed, na.rm=TRUE)
-  message("rdwd::fileDWD: Creating ",length(fnames)," file", if(length(fnames)>1) "s",
+  message(traceCall(1, "", ": "), "creating ",length(fnames)," file", if(length(fnames)>1) "s",
           if(n_e>0) paste0(" (",n_e," already existed for which '_n' is appended)"), ":",
           truncMessage(fnames, ntrunc=ntrunc, prefix=""))
   }

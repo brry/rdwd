@@ -4,7 +4,6 @@ rdwd ToDo-list / wishlist / issues
 - improve readability of dates, at least in metaInfo print (1953-04-16)
 - change tests to actually test stuff, maybe add third vignette
 - if downloading 0 files, fileDWD should not say "creating 26 files"
-- fileDWD / dirDWD: add traceback
 - metaInfo(5308)
 
 

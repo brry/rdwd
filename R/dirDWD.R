@@ -7,6 +7,7 @@
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2016
 #' @seealso \code{\link{fileDWD}}, \code{\link{dataDWD}}
 #' @keywords file
+#' @importFrom berryFunctions traceCall
 #' @export
 #' @examples
 #' # see source code of dataDWD and metaDWD
@@ -33,15 +34,15 @@ quiet=FALSE
 dir <- dir[1]
 if(dir=="")
   {
-  if(!quiet) message("rdwd::dirDWD: no directory is created, getwd remains at '", getwd(), "'")
+  if(!quiet) message(traceCall(1, "", ": "), "no directory is created, getwd remains at '", getwd(), "'")
   return(getwd())
   }
 #
 if(!file.exists(dir))
   {
   dir.create(dir)
-  if(!quiet) message("rdwd::dirDWD: creating directory '",   normalizePath(dir, winslash="/"), "'")
+  if(!quiet) message(traceCall(1, "", ": "), "creating directory '",   normalizePath(dir, winslash="/"), "'")
   } else
-  if(!quiet) message("rdwd::dirDWD: adding to directory '", normalizePath(dir, winslash="/"), "'")
+  if(!quiet) message(traceCall(1, "", ": "), "adding to directory '", normalizePath(dir, winslash="/"), "'")
 setwd(dir)
 }
