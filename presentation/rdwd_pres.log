@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.24)  30 JAN 2017 14:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.24)  2 FEB 2017 21:33
 entering extended mode
 **./rdwd_pres.tex
 (rdwd_pres.tex
@@ -1023,22 +1023,21 @@ Package pdftex.def Info: figure/tempplot-1.pdf used on input line 11.
 \openout4 = `rdwd_pres.vrb'.
 
  (rdwd_pres.vrb
-<map1.png, id=318, 577.40718pt x 450.9347pt>
+<map1.png, id=318, 612.03656pt x 484.81125pt>
 File: map1.png Graphic file (type png)
  <use map1.png>
 Package pdftex.def Info: map1.png used on input line 10.
-(pdftex.def)             Requested size: 235.01881pt x 183.54268pt.
+(pdftex.def)             Requested size: 235.01881pt x 186.16096pt.
 ) [20
 
  <./map1.png>]
 \openout4 = `rdwd_pres.vrb'.
 
-
-(rdwd_pres.vrb <map2.png, id=334, 693.34032pt x 376.40625pt>
+(rdwd_pres.vrb <map2.png, id=334, 703.87968pt x 378.66469pt>
 File: map2.png Graphic file (type png)
  <use map2.png>
 Package pdftex.def Info: map2.png used on input line 2.
-(pdftex.def)             Requested size: 332.38704pt x 180.45468pt.
+(pdftex.def)             Requested size: 332.38704pt x 178.81023pt.
 )
 [21
 
@@ -1111,6 +1110,10 @@ Package pdftex.def Info: fig2.pdf used on input line 350.
 
 ] [35
 
+] [36
+
+] [37
+
 ]
 \tf@nav=\write6
 \openout6 = `rdwd_pres.nav'.
@@ -1121,23 +1124,23 @@ Package pdftex.def Info: fig2.pdf used on input line 350.
 \tf@snm=\write8
 \openout8 = `rdwd_pres.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 379.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 379.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 381.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 381.
  (rdwd_pres.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 379.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 379.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 381.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 381.
 Package rerunfilecheck Info: File `rdwd_pres.out' has not changed.
 (rerunfilecheck)             Checksum: 3CD45013B6ED5C2F7BB92269D685D4AA;180.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 379.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 381.
  ) 
 Here is how much of TeX's memory you used:
- 17009 strings out of 493622
- 323356 string characters out of 3143626
+ 17013 strings out of 493622
+ 323394 string characters out of 3143626
  409869 words of memory out of 3000000
  19869 multiletter control sequences out of 15000+200000
  12522 words of font info for 47 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 56i,15n,55p,486b,599s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 56i,15n,55p,509b,599s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmitt10.pfb><C:/P
 rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program F
 iles/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss10.pfb><C:/Program Files/MiK
@@ -1147,9 +1150,9 @@ ype1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pub
 lic/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsf
 onts/cm/cmtt8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symb
 ols/msam10.pfb>
-Output written on rdwd_pres.pdf (35 pages, 2758602 bytes).
+Output written on rdwd_pres.pdf (37 pages, 3055465 bytes).
 PDF statistics:
- 617 PDF objects out of 1000 (max. 8388607)
- 83 named destinations out of 1000 (max. 500000)
+ 647 PDF objects out of 1000 (max. 8388607)
+ 87 named destinations out of 1000 (max. 500000)
  110 words of extra memory for PDF output out of 10000 (max. 10000000)
 

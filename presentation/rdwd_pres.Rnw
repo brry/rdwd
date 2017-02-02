@@ -49,7 +49,7 @@ opts_chunk$set(cache=T, echo=TRUE, fig.height=3.3, fig.width=5, out.width='0.9\\
 \normalsize
 Berry Boessenkool, \href{http://www.geo.uni-potsdam.de/geoecology.html}{uni-potsdam.de}, Feb 2017\\[1em]
 \texttt{berry-b@gmx.de}\\[1em]
-\href{https://github.com/brry/rdwd\#rdwd}{github.com/brry/rdwd\#rdwd}
+\href{https://github.com/brry/rdwd\#rdwd}{github.com/brry/rdwd}
 \end{frame}
 
 % ---------------------------
@@ -242,8 +242,10 @@ berryFunctions::climateGraph(temp, prec, main="")
 \begin{frame}{The FOSS community role}
 \pause
 \begin{itemize}[<+->]
-\item Stackoverflow
-\item ...
+\item Stackoverflow for programming help
+\item Lobbying DWD into publishing tax-paid data
+\item Package distribution infrastructure (CRAN)
+\item \texttt{leaflet} interactive map really easy to create
 \end{itemize}
 \end{frame}
 
@@ -252,9 +254,9 @@ berryFunctions::climateGraph(temp, prec, main="")
 \begin{frame}{Conclusion}
 \pause
 \begin{itemize}[<+->]
+\item FOSS is awesome
 \item DWD is awesome
 \item Usage of the data is easy with \texttt{rdwd}
-\item FOSS is awesome
 \end{itemize}
 \end{frame}
 
