@@ -97,7 +97,7 @@
 #' @param format Char (vector): format used in \code{\link{strptime}} to convert date/time column,
 #'               see \code{\link{readDWD}}. DEFAULT: NA
 #' @param ntrunc Single integer: number of filenames printed in messages
-#'               before they get truncated with message "(and xx more)". DEFAULT: 3
+#'               before they get truncated with message "(and xx more)". DEFAULT: 2
 #' @param \dots  Further arguments passed to \code{\link{download.file}}
 #
 dataDWD <- function(
@@ -111,7 +111,7 @@ browse=FALSE,
 read=TRUE,
 meta=substr(file, nchar(file)-3, 1e4)==".txt",
 format=NA,
-ntrunc=3,
+ntrunc=2,
 ...
 )
 {
@@ -142,7 +142,7 @@ outfile <- gsub("/", "_", outfile)
 dontdownload <- file.exists(outfile) & !force
 if( any(dontdownload)  )
   {
-  message("rdwd::dataDWD: ", sum(dontdownload), " file", if(sum(dontdownload)>1)"s",
+  message(traceCall(1, "", ": "), sum(dontdownload), " file", if(sum(dontdownload)>1)"s",
           " already existing and not downloaded again: ",
           berryFunctions::truncMessage(outfile[dontdownload], ntrunc=ntrunc, prefix=""),
           "\nNow downloading ",sum(!dontdownload)," files...")
