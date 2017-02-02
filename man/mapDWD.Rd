@@ -23,11 +23,10 @@ mapDWD
 # The first line when clicked on a point can be copied to R for more information
 
 }
-\author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Jan 2017
-}
 \seealso{
 \code{\link{geoIndex}}, \code{\link{metaInfo}}
 }
+\author{
+Berry Boessenkool, \email{berry-b@gmx.de}, Jan 2017
+}
 \keyword{datasets}
-

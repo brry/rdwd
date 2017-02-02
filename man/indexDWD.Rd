@@ -64,4 +64,3 @@ mon <- indexDWD(folder="/monthly/kl", verbose=TRUE)
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2016
 }
 \keyword{file}
-

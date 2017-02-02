@@ -113,14 +113,13 @@ browseURL("http://github.com/brry/prectemp/blob/master/Code_example.R")
 }
 
 }
-\author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Jun-Oct 2016
-}
 \seealso{
 \code{\link{selectDWD}}. \code{\link{readDWD}}, \code{\link{download.file}}.
          Helpful for plotting: \code{berryFunctions::\link[berryFunctions]{monthAxis}},
          see also \code{berryFunctions::\link[berryFunctions]{climateGraph}}
 }
+\author{
+Berry Boessenkool, \email{berry-b@gmx.de}, Jun-Oct 2016
+}
 \keyword{data}
 \keyword{file}
-

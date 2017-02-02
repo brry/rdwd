@@ -49,12 +49,11 @@ and \code{format} can also be a vecor and will be recycled to the length of \cod
 # see dataDWD
 
 }
-\author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Jul-Oct 2016
-}
 \seealso{
 \code{\link{dataDWD}}, \code{\link{selectDWD}}
 }
+\author{
+Berry Boessenkool, \email{berry-b@gmx.de}, Jul-Oct 2016
+}
 \keyword{chron}
 \keyword{file}
-

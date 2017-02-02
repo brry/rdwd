@@ -10,4 +10,3 @@ release_questions()
 Reminders when using devtools::release. Code is in R/rdwd-package.R
 }
 \keyword{internal}
-

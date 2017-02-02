@@ -23,11 +23,10 @@ head(geoIndex)
 # example usages are in ?rdwd
 
 }
-\author{
-Berry Boessenkool, \email{berry-b@gmx.de}, June-Nov 2016
-}
 \seealso{
 \code{\link{metaIndex}}, \code{\link{createIndex}}
 }
+\author{
+Berry Boessenkool, \email{berry-b@gmx.de}, June-Nov 2016
+}
 \keyword{datasets}
-

@@ -21,11 +21,10 @@ Information for a station ID on the DWD CDC FTP server
 metaInfo(2849)
 
 }
-\author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Nov 2016
-}
 \seealso{
 \code{\link{metaIndex}}, \code{\link{mapDWD}}
 }
+\author{
+Berry Boessenkool, \email{berry-b@gmx.de}, Nov 2016
+}
 \keyword{datasets}
-

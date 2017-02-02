@@ -37,11 +37,10 @@ fileDWD(fns, ntrunc=2)
 fileDWD("ExampleGraph.png")
 
 }
-\author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2016
-}
 \seealso{
 \code{\link{dirDWD}}, \code{\link{dataDWD}}
 }
+\author{
+Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2016
+}
 \keyword{file}
-

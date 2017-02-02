@@ -32,11 +32,10 @@ unlink("dummydummydummy")
 }
 
 }
-\author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2016
-}
 \seealso{
 \code{\link{fileDWD}}, \code{\link{dataDWD}}
 }
+\author{
+Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2016
+}
 \keyword{file}
-

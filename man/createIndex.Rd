@@ -79,11 +79,10 @@ metaIndex2 <- read.table("DWDdata/metaIndex.txt", sep="\\t", header=TRUE, as.is=
 }
 
 }
-\author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Oct-Nov 2016
-}
 \seealso{
 \code{\link{indexDWD}}, \code{\link{fileIndex}}, \code{\link{metaIndex}}, \code{\link{selectDWD}}
 }
+\author{
+Berry Boessenkool, \email{berry-b@gmx.de}, Oct-Nov 2016
+}
 \keyword{manip}
-

@@ -53,11 +53,10 @@ findID("01050")
 }
 
 }
-\author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Oct-Nov 2016
-}
 \seealso{
 used in \code{\link{selectDWD}}, \code{\link{metaInfo}}
 }
+\author{
+Berry Boessenkool, \email{berry-b@gmx.de}, Oct-Nov 2016
+}
 \keyword{character}
-
