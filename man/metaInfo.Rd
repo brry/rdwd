@@ -12,7 +12,7 @@ metaInfo(id, hasfileonly = TRUE)
 \item{hasfileonly}{Logical: Only show entries that have files? DEFAULT: TRUE}
 }
 \value{
-invisible data.frame. Also \code{\link{print}s} the output.
+invisible data.frame. Also \code{\link{print}s} the output nicely formatted.
 }
 \description{
 Information for a station ID on the DWD CDC FTP server

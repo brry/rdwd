@@ -83,7 +83,7 @@ data(metaIndex, envir=environment())
 
 #' Information for a station ID on the DWD CDC FTP server
 #'
-#' @return invisible data.frame. Also \code{\link{print}s} the output.
+#' @return invisible data.frame. Also \code{\link{print}s} the output nicely formatted.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Nov 2016
 #' @seealso \code{\link{metaIndex}}, \code{\link{mapDWD}}
 #' @keywords datasets
@@ -109,19 +109,31 @@ if(sum(sel)<1) stop("metaIndex contains no entries for id=", id,
 if(hasfileonly) sel <- sel & metaIndex$hasfile
 # Output preparation:
 out <- metaIndex[sel,]
-# Print preparation:
-printout <- t(cbind(out, data.frame("."="")))
-colnames(printout) <- 1:ncol(printout)
-print(printout, quote=FALSE)
-# Print unique paths:
-#cat(sort(unique(paste(out$res, out$var, out$per, sep="/"))), sep="\n")
-printout <- unique(data.frame(out$res, out$var, out$per))
-colnames(printout) <- c("res","var","per")
-printout <- sortDF(printout, "per", decreasing=FALSE)
-printout <- sortDF(printout, "var", decreasing=FALSE)
-printout <- sortDF(printout, "res", decreasing=FALSE)
-rownames(printout) <- NULL
-print(printout, quote=FALSE)
+out$von_datum <- as.Date(as.character(out$von_datum), "%Y%m%d")
+out$bis_datum <- as.Date(as.character(out$bis_datum), "%Y%m%d")
+#
+# Print preparation I:
+p_id <- toString(unique(out$Stations_id))
+p_sn <- toString(unique(out$Stationsname))
+p_bl <- toString(unique(out$Bundesland))
+p_nf <- length(unique(paste(out$res, out$var, out$per)))
+# message I:
+message("rdwd station id ", p_id, " with ", p_nf, " files.\nName: ", p_sn, ", State: ", p_bl)
+#
+# Print preparation II:
+p_out <- data.frame(from=out$von_datum,
+                    to=out$bis_datum,
+                    lat=out$geoBreite,
+                    long=out$geoLaenge,
+                    ele=out$Stationshoehe)
+p_out <- cbind(out[,c("res","var","per","hasfile")], p_out)
+p_out <- sortDF(p_out, "per", decreasing=FALSE)
+p_out <- sortDF(p_out, "var", decreasing=FALSE)
+p_out <- sortDF(p_out, "res", decreasing=FALSE)
+rownames(p_out) <- NULL
+# print II:
+print(p_out, quote=FALSE)
+#
 # Output:
 return(invisible(out))
 }
