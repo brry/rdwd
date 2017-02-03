@@ -116,6 +116,8 @@ cat(gsub("/cli", "/\n/cli", link))
 
 % ---------------------------
 
+\begin{flushleft}
+
 \begin{frame}[fragile]{U2/5: Download dataset with \texttt{dataDWD}}
 \label{ud}
 \pause
@@ -130,6 +132,8 @@ file <- dataDWD(link, read=FALSE)
 file
 @
 \end{frame}
+\end{flushleft}
+
 
 % ---------------------------
 

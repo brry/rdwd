@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.24)  2 FEB 2017 21:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.24)  3 FEB 2017 16:56
 entering extended mode
 **./rdwd_pres.tex
 (rdwd_pres.tex
@@ -1084,14 +1084,14 @@ Package pdftex.def Info: Rainfall_map_events.pdf used on input line 4.
 File: fig2.pdf Graphic file (type pdf)
 
 <use fig2.pdf>
-Package pdftex.def Info: fig2.pdf used on input line 350.
+Package pdftex.def Info: fig2.pdf used on input line 354.
 (pdftex.def)             Requested size: 302.1663pt x 215.83574pt.
  [27
 
  <./fig2.pdf>]
 File: fig2.pdf Graphic file (type pdf)
  <use fig2.pdf>
-Package pdftex.def Info: fig2.pdf used on input line 350.
+Package pdftex.def Info: fig2.pdf used on input line 354.
 (pdftex.def)             Requested size: 302.1663pt x 215.83574pt.
  [28
 
@@ -1124,23 +1124,23 @@ Package pdftex.def Info: fig2.pdf used on input line 350.
 \tf@snm=\write8
 \openout8 = `rdwd_pres.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 381.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 381.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 385.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 385.
  (rdwd_pres.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 381.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 381.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 385.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 385.
 Package rerunfilecheck Info: File `rdwd_pres.out' has not changed.
 (rerunfilecheck)             Checksum: 3CD45013B6ED5C2F7BB92269D685D4AA;180.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 381.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 385.
  ) 
 Here is how much of TeX's memory you used:
- 17013 strings out of 493622
- 323394 string characters out of 3143626
+ 17014 strings out of 493622
+ 323411 string characters out of 3143626
  409869 words of memory out of 3000000
- 19869 multiletter control sequences out of 15000+200000
+ 19870 multiletter control sequences out of 15000+200000
  12522 words of font info for 47 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 56i,15n,55p,509b,599s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 56i,15n,55p,486b,712s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmitt10.pfb><C:/P
 rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program F
 iles/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss10.pfb><C:/Program Files/MiK
@@ -1150,7 +1150,7 @@ ype1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pub
 lic/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsf
 onts/cm/cmtt8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symb
 ols/msam10.pfb>
-Output written on rdwd_pres.pdf (37 pages, 3055465 bytes).
+Output written on rdwd_pres.pdf (37 pages, 3053021 bytes).
 PDF statistics:
  647 PDF objects out of 1000 (max. 8388607)
  87 named destinations out of 1000 (max. 500000)
