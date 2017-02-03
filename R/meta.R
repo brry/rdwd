@@ -145,8 +145,15 @@ return(invisible(out))
 #' coordinatewise station info (meta data) available on the DWD CDC FTP server
 #'
 #' \code{\link{metaIndex}} distilled to geographic locations.
+#' \code{geoIndexAll} contains all coordinates.
+#' \code{geoIndex} is an aggregated version where stations (of a single ID) with all unique
+#' coordinates less than 900 m apart are aggregated into one location.
+#' Distance is computed with \url{https://github.com/brry/OSMscale/blob/master/R/maxEarthDist.R}
+#' To reduce package dependency, aggregation is done locally in the last section of
+#' \url{https://github.com/brry/rdwd/blob/master/R/meta.R}
 #'
 #' @name geoIndex
+#' @aliases geoIndex geoIndexAll
 #' @docType data
 #' @format data.frame with ca 7k rows for 9 columns:
 #'         \code{id}, \code{name}, \code{state}
@@ -154,7 +161,7 @@ return(invisible(out))
 #'         \code{all_elev}, \code{nfiles_coord}, \code{nfiles_id}
 #' @source Deutscher WetterDienst / Climata Data Center  FTP Server
 #' @seealso \code{\link{metaIndex}}, \code{\link{createIndex}}
-#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June-Nov 2016
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June-Nov 2016 + Feb 2017
 #' @keywords datasets
 #' @examples
 #'
@@ -165,6 +172,7 @@ return(invisible(out))
 #' # example usages are in ?rdwd
 #'
 data(geoIndex, envir=environment())
+data(geoIndexAll, envir=environment())
 
 
 
