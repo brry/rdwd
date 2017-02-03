@@ -82,7 +82,7 @@ Vectorize(source)(dir("path/you/unzipped/to/rdwd-master/R", full=T))
 ```{r basics, eval=TRUE}
 tdir <- tempdir()
 link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
-file <- dataDWD(link, read=FALSE, dir=tdir)
+file <- dataDWD(link, read=FALSE, dir=tdir, quiet=TRUE)
 clim <- readDWD(file, dir=tdir)
 
 str(clim)
@@ -104,7 +104,7 @@ Long term climate graph:
 ```{r climgraph, eval=TRUE, fig.height=3, fig.width=7, echo=-1}
 par(mar=c(4,4,2,0.5), mgp=c(2.7, 0.8, 0), cex=0.8)
 link <- selectDWD("Potsdam", res="monthly", var="kl", per="h")
-clim <- dataDWD(link)
+clim <- dataDWD(link, quiet=TRUE)
 clim$month <- substr(clim$MESS_DATUM_BEGINN,5,6)
 temp <- tapply(clim$LUFTTEMPERATUR, clim$month, mean)
 prec <- tapply(clim$NIEDERSCHLAGSHOEHE, clim$month, mean)
@@ -137,10 +137,10 @@ It needs an index of all the available files on the server.
 The package contains such an index (`fileIndex`) that is updated (at least) with each CRAN release of the package.
 The `selectDWD` function documentation contains an overview of the FTP folder structure.
 
-```{r fileIndex, eval=TRUE}
-head(rdwd:::fileIndex) # 28'798 rows in Jan 2017 (with some almost duplicate files)
-```
-If you find this to be outdated (Error in download.file ... : cannot open URL),
+<!-- ```{r fileIndex, eval=TRUE} -->
+<!-- head(rdwd:::fileIndex) # 28'798 rows in Jan 2017 (with some almost duplicate files) -->
+<!-- ``` -->
+If you find `rdwd:::fileIndex` to be outdated (Error in download.file ... : cannot open URL),
 please let me know and I will update it. Meanwhile, use current=TRUE in `selectDWD`:
 
 ```{r files, eval=FALSE}
@@ -148,8 +148,9 @@ please let me know and I will update it. Meanwhile, use current=TRUE in `selectD
 links <- selectDWD(res="monthly", var="more_precip", per="hist", current=TRUE)
 ```
 
-`fileIndex` is created with the function `indexDWD` at 
-<https://github.com/brry/rdwd/blob/master/R/meta.R#L185>.
+`fileIndex` is created with the function `indexDWD` used in 
+[meta.R](https://github.com/brry/rdwd/blob/master/R/meta.R#L205).
+
 ```{r listfiles, eval=FALSE}
 # recursively list files on the FTP-server:
 files <- indexDWD("hourly/sun") # use dir="some_path" to save the output elsewhere
@@ -186,7 +187,7 @@ selectDWD("Potsdam", res="daily", var="kl", per="rh", outvec=TRUE)
 gsub("/tages", "/ tages", selectDWD("Potsdam", res="daily", var="kl", per="rh", outvec=TRUE))
 ```
 
-There may be a differing number of available files for several stations across al folders.
+There may be a differing number of available files for several stations across all folders.
 That's why the default outvec is FALSE.
 
 ```{r select5, eval=TRUE}

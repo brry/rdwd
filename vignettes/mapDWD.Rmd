@@ -14,7 +14,7 @@ The `rdwd` package provides a collection of all the metafiles on the
 [DWD data server](ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate).
 It is presented as an interactive map below.
 
-When a point is clicked on, an infobox should appear.
+When a point is clicked, an infobox should appear.
 The first line can be copypasted into R to obtain more information on the available files.
 
 ```{r map, fig.height=7, fig.width=7, warning=FALSE}
