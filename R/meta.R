@@ -186,6 +186,7 @@ data(geoIndexAll, envir=environment())
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Feb 2017
 #' @seealso \code{\link{geoIndex}}
 #' @keywords character
+#' @importFrom berryFunctions removeSpace
 #' @export
 #'
 #' @param x data.frame with colnames
