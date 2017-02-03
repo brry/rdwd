@@ -31,7 +31,8 @@ head(geoIndex)
 
 }
 \seealso{
-\code{\link{metaIndex}}, \code{\link{createIndex}}
+\code{\link{metaIndex}}, \code{\link{createIndex}},
+        \code{vignette("mapDWD")}, \url{../doc/mapDWD.html}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, June-Nov 2016 + Feb 2017

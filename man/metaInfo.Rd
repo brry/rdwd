@@ -22,7 +22,7 @@ metaInfo(2849)
 
 }
 \seealso{
-\code{\link{metaIndex}}, \code{\link{mapDWD}}
+\code{\link{metaIndex}}, \code{\link{geoIndex}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Nov 2016

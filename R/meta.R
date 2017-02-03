@@ -85,7 +85,7 @@ data(metaIndex, envir=environment())
 #'
 #' @return invisible data.frame. Also \code{\link{print}s} the output nicely formatted.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Nov 2016
-#' @seealso \code{\link{metaIndex}}, \code{\link{mapDWD}}
+#' @seealso \code{\link{metaIndex}}, \code{\link{geoIndex}}
 #' @keywords datasets
 #' @importFrom berryFunctions sortDF
 #' @export
@@ -162,7 +162,8 @@ return(invisible(out))
 #'         \code{lat}, \code{long}, \code{ele}
 #'         \code{all_elev}, \code{nfiles_coord}, \code{nfiles_id}
 #' @source Deutscher WetterDienst / Climata Data Center  FTP Server
-#' @seealso \code{\link{metaIndex}}, \code{\link{createIndex}}
+#' @seealso \code{\link{metaIndex}}, \code{\link{createIndex}},
+#'         \code{vignette("mapDWD")}, \url{../doc/mapDWD.html}
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June-Nov 2016 + Feb 2017
 #' @keywords datasets
 #' @examples

@@ -10,6 +10,25 @@ Any feedback is welcome, per email or on github.com/brry/rdwd
 ---------------------------------------
 
 
+-----------------------------
+-----------------------------
+
+Version 0.7.0 (2017-02-03)
+- interactive map now colored by availability of recent file
+- stations with slightly varying coordinates (<900 m apart) aggregated in geoIndex
+- documentation corrections, improved messages in fileDWD and dirDWD
+- map vignette expanded, package vignette abbreviated slightly
+- metaInfo printout greatly improved
+- duplicate index entries removed
+New function: rowDisplay
+New object: geoIndexAll
+Removed object: mapDWD (to reduce package size)
+
+
+-----------------------------
+-----------------------------
+
+
 Version 0.6.1 (2017-01-24)
 Initial release of the package, development can be seen at
 https://github.com/brry/rdwd/compare/master@{2016-10-19}...master@{2017-01-24}
