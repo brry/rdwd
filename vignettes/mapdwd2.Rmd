@@ -10,14 +10,27 @@ vignette: >
 
 [rdwd main vignette](rdwd.html)
 
+The `rdwd` package provides a collection of all the metafiles on the 
+[DWD data server](ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate).
+It is presented as an interactive map below.
+
 The first line of the info box (when you click on a point)
 can be copypasted into R to obtain more information on the available files.
 
-Copypaste the following code for a map with faster reaction times than the CRAN html view.
-
 ```{r map, fig.height=7, fig.width=7, warning=FALSE}
-library(rdwd)  ;  data(mapDWD)  ;  library(leaflet)  ;  mapDWD
+library(rdwd)  ;  data(geoIndex)  ;  library(leaflet) 
+leaflet(geoIndex) %>% addTiles() %>%
+        addCircles(~long, ~lat, radius=900, stroke=F, color=~col)%>%
+        addCircleMarkers(~long, ~lat, popup=~display, stroke=F, color=~col)
 ```
+
+Open this vignette locally for faster reaction times than on the CRAN html view:
+```{r vignette_local, eval=FALSE}
+vignette("mapdwd")
+```
+
+
+
 
 The blue dots mark stations for which recent files are available 
 (with >=1 file in 'recent' folder or 'BIS_DATUM' later than one year ago).
