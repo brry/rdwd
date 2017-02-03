@@ -68,14 +68,11 @@ library(rdwd)
 If direct installation from CRAN doesn't work, your R version might be too old. 
 In that case, an update is really recommendable: [r-project.org](https://www.r-project.org/). 
 If you can't update R, try installing from source (github) via `instGit` as mentioned above. 
-If that's not possible either, here's a manual workaround that might work for most functions:
-On the github package page, click on **Clone or Download -> Download ZIP** (topright, [link](https://github.com/brry/rdwd/archive/master.zip)), unzip the file to some place, then
+If that's not possible either, you might be able to `source` some functions from the 
+[package zip folder](https://github.com/brry/rdwd/archive/master.zip)
 ```R
-setwd("that/path")
-dd <- dir("rdwd-master/R", full=T)
-dummy <- sapply(dd, source)
+Vectorize(source)(dir("path/you/unzipped/to/rdwd-master/R", full=T))
 ```
-This creates all R functions as objects in your globalenv workspace (and overwrites existing objects of the same name!).
 
 [TOC](#top)
 
