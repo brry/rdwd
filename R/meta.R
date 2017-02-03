@@ -204,7 +204,7 @@ data(mapDWD, envir=environment())
 
 
 
-# create / update Indexes ------------------------------------------------------
+# update Indexes ---------------------------------------------------------------
 
 if(FALSE){
 # dwdfiles <- indexDWD(sleep=0) # commented out to prevent accidental calling
@@ -212,73 +212,56 @@ if(FALSE){
 # file.rename("DWDdata/INDEX_of_DWD__daily_kl_historical.txt", "DWDdata/INDEX_of_DWD_.txt")
 dwdfiles <- readLines("DWDdata/INDEX_of_DWD_.txt") # 25'631 elements (2016-10-21)
 index <- createIndex(dwdfiles, meta=TRUE, sleep=5)
-fileIndex <- index[[1]]
-metaIndex <- index[[2]]
- geoIndex <- index[[3]]
-
+fileIndex    <- index[[1]]
+metaIndex    <- index[[2]]
+ geoIndexAll <- index[[3]]
 # save and compress:
-save(fileIndex,  file="data/fileIndex.rda")
-tools::resaveRdaFiles("data/fileIndex.rda") #devtools::use_data(fileIndex, internal=TRUE)
-save(metaIndex,  file="data/metaIndex.rda")
-tools::resaveRdaFiles("data/metaIndex.rda")
-save( geoIndex,  file="data/geoIndex.rda")
-tools::resaveRdaFiles("data/geoIndex.rda")
+save(fileIndex,     file="data/fileIndex.rda")
+tools::resaveRdaFiles(   "data/fileIndex.rda") #devtools::use_data(fileIndex, internal=TRUE)
+save(metaIndex,     file="data/metaIndex.rda")
+tools::resaveRdaFiles(   "data/metaIndex.rda")
+save( geoIndexAll,  file="data/geoIndexAll.rda")
+tools::resaveRdaFiles(   "data/geoIndexAll.rda")
 
 # check writing and reading of the files:
 fileIndex2 <- read.table("DWDdata/fileIndex.txt", sep="\t", header=TRUE, colClasses="character")
 stopifnot(all(fileIndex==fileIndex2))
 metaIndex2 <- read.table("DWDdata/metaIndex.txt", sep="\t", header=TRUE, as.is=TRUE)
 stopifnot(all(metaIndex==metaIndex2))
- geoIndex2 <- read.table("DWDdata/geoIndex.txt",  sep="\t", header=TRUE, as.is=TRUE)
-stopifnot(all( geoIndex== geoIndex2))
-rm(fileIndex2,metaIndex2,geoIndex2)
+ geoIndexAll2 <- read.table("DWDdata/geoIndexAll.txt",  sep="\t", header=TRUE, as.is=TRUE)
+stopifnot(all( geoIndexAll== geoIndexAll2))
+rm(fileIndex2,metaIndex2,geoIndexAll2, index,dwdfiles)
 
 
 
-# interactive map --------------------------------------------------------------
+# geoIndexAll 2 geoIndex -------------------------------------------------------
 
-# data("geoIndex")
+# data("geoIndexAll")
 rowdisplay <- function(x) paste0("metaInfo(id=",removeSpace(x[1]),")<br>",
                              paste0(names(x)[-1], ": ", x[-1], collapse="<br>"))
-#rowdisplay(geoIndex[1,])
-geoIndex$display <- apply(geoIndex, MARGIN=1, rowdisplay)
+geoIndexAll$display <- apply(geoIndexAll, MARGIN=1, rowdisplay)
 
-library(leaflet)
-
-# all coordinates:
-
-mapDWD_all <- leaflet(data=geoIndex[,]) %>% addTiles() %>%
-              addCircleMarkers(~long, ~lat, popup=~display, stroke=F)
-mapDWD_all
-owd <- setwd("inst/doc")
-htmlwidgets::saveWidget(mapDWD_all, file="mapDWD_all.html")
-setwd(owd); rm(owd)
-rm(mapDWD_all)
-
-# coordinates combined by ID if not too far apart:
-
-# Examine distances:
-id <- unique(geoIndex$id)
+# compute max distances:
+id <- unique(geoIndexAll$id)
 dist <- pbapply::pbsapply(id, function(i)  # ca 5 secs computing time
   {
-  g <- geoIndex[geoIndex$id==i,]
+  g <- geoIndexAll[geoIndexAll$id==i,]
   if(nrow(g)<2) return(0)
   OSMscale::maxEarthDist(lat, long, data=g)
   })
 names(dist) <- id
+
+# Examine distances:
+if(FALSE){
 logHist(dist, breaks=50, main="Max distance between station locations in km")
-#far <- dist > 5  ;   which(far);  id[far]
-#maps <- lapply(id[far], function(i) leaflet(data=geoIndex[geoIndex$id==i,]) %>%
-#                 addTiles() %>% addCircleMarkers(~long, ~lat, popup=~display, stroke=F))
-#maps[[4]]
-leaflet(data=geoIndex[geoIndex$id %in% id[dist>2],]) %>%
+library(leaflet)
+leaflet(data=geoIndexAll[geoIndexAll$id %in% id[dist>2],]) %>%
         addTiles() %>% addCircleMarkers(~long, ~lat, popup=~display, stroke=F)
+}
 
-
-# combine stations closer than 900 m apart (radius of fixed circles):
-
-geoIndex2 <- pbapply::pblapply(id, function(i){
-  g <- geoIndex[geoIndex$id==i,]
+# combine stations per ID closer than 900 m apart (radius of fixed circles):
+geoIndex <- pbapply::pblapply(id, function(i){
+  g <- geoIndexAll[geoIndexAll$id==i,]
   if(nrow(g)<2) return(g)
   if(dist[as.character(i)] > 0.9) return(g)
   keeprow <- which.max(g$nfiles_coord)
@@ -288,16 +271,20 @@ geoIndex2 <- pbapply::pblapply(id, function(i){
   return(g[keeprow,])
 })
 
-geoIndex <- do.call(rbind, geoIndex2)
-rm(geoIndex2)
+geoIndex <- do.call(rbind, geoIndex)
 geoIndex$all_elev <- NULL
 geoIndex$display <- NULL
 geoIndex$display <- apply(geoIndex, MARGIN=1, rowdisplay)
-
 geoIndex$col <- "blue"
 geoIndex$col[!geoIndex$recentfile] <- "red"
 
-mapDWD <- leaflet(data=geoIndex[,]) %>% addTiles() %>%
+save( geoIndex,  file="data/geoIndex.rda")
+tools::resaveRdaFiles("data/geoIndex.rda")
+
+
+# interactive map --------------------------------------------------------------
+library(leaflet)
+mapDWD <- leaflet(data=geoIndex) %>% addTiles() %>%
              addCircles(~long, ~lat, radius=900, stroke=F, color=~col)%>%
              addCircleMarkers(~long, ~lat, popup=~display, stroke=F, color=~col)
 mapDWD

@@ -7,7 +7,7 @@
 createIndex(paths,
   base = "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
   dir = "DWDdata", fname = "fileIndex.txt", meta = FALSE,
-  metadir = "meta", mname = "metaIndex.txt", gname = "geoIndex.txt",
+  metadir = "meta", mname = "metaIndex.txt", gname = "geoIndexAll.txt",
   quiet = FALSE, ...)
 }
 \arguments{
@@ -35,7 +35,7 @@ description files are downloaded to if meta=TRUE. vPassed to
 write \code{\link{metaIndex}}.
 Use \code{mname=""} to suppress writing. DEFAULT: "metaIndex.txt"}
 
-\item{gname}{Ditto for \code{\link{geoIndex}}. DEFAULT: "geoIndex.txt"}
+\item{gname}{Ditto for \code{\link{geoIndexAll}}. DEFAULT: "geoIndexAll.txt"}
 
 \item{quiet}{Logical: Suppress messages about directory / filename? DEFAULT: FALSE}
 
@@ -50,7 +50,7 @@ This is mainly an internal function.
 Create data.frames out of the vector index returned by \code{\link{indexDWD}}.
 For \code{\link{fileIndex}} (the first output element) \code{createIndex}
 tries to obtain res, var, pe,r file, id, start and end from the paths.
-If \code{meta=TRUE}, \code{\link{metaIndex}} and \code{\link{geoIndex}} are also
+If \code{meta=TRUE}, \code{\link{metaIndex}} and \code{\link{geoIndexAll}} are also
 created. They combine all Beschreibung files into a single data.frame.\cr
 If you create your own index as suggested in selectDWD (argument \code{findex}),
 you can read the produced file as shown in the example section.
