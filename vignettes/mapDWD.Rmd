@@ -19,6 +19,19 @@ Copypaste the following code for a map with faster reaction times than the CRAN 
 library(rdwd)  ;  data(mapDWD)  ;  library(leaflet)  ;  mapDWD
 ```
 
+The blue dots mark stations for which recent files are available 
+(with >=1 file in 'recent' folder or 'BIS_DATUM' later than one year ago).
+The red dots mark all stations with only historical datasets.
+
+To see only the stations with recent data, copypaste the following code:
+
+```{r onlyrecent, eval=FALSE}
+library(rdwd)  ;  library(leaflet)
+data("geoIndex")
+leaflet(data=geoIndex[geoIndex$recentfile,]) %>% addTiles() %>%
+        addCircleMarkers(~long, ~lat, popup=~display, stroke=F)
+```
+
 Many stations have slightly different coordinates, depending on the description metadata file.
 They may have been corrected over time, station locations may have actually changed, 
 or different variables may be measured at different locations.
@@ -27,17 +40,12 @@ All station IDs where the coordinates are no further than 900 m apart (the fix c
 are aggregated and plotted in the position where most datasets are available.
 For aggregated stations, the popup infobox `nfiles_coord` entry contains more than one value.
 
-To see every location on the map, open [mapDWD_all.html](mapDWD_all.html).
+To see every location on the map, copypaste the following code:
 
-The blue dots mark stations for which recent files are available 
-(with >=1 file in 'recent' folder or 'BIS_DATUM' later than one year ago).
-The red dots mark all stations with only historical datasets.
-
-To see only the stations with recent data, use something like the following:
-
-```{r onlyrecent, eval=FALSE}
-data("geoIndex")
-leaflet(data=geoIndex[geoIndex$recentfile,]) %>% addTiles() %>%
-  addCircleMarkers(~long, ~lat, popup=~display, stroke=F)
+```{r all, eval=FALSE}
+data("geoIndexAll")
+leaflet(data=geoIndexAll) %>% addTiles() %>%
+        addCircleMarkers(~long, ~lat, popup=~display, stroke=F)
 ```
 
+Map created in last section of [meta.R](https://github.com/brry/rdwd/blob/master/R/meta.R#L303).
