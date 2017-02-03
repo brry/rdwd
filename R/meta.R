@@ -201,33 +201,6 @@ apply(x, MARGIN=1, perrow)
 }
 
 
-# mapDWD --------------------------------------------------------------
-
-#' Interactive map of data available on the DWD CDC FTP server
-#'
-#' Interactive leaflet map with DWD weather stations.
-#' Created from \code{\link{geoIndex}} in the last section of
-#' \url{https://github.com/brry/rdwd/blob/master/R/meta.R}
-#'
-#' @name mapDWD
-#' @docType data
-#' @format leaflet map
-#' @source Deutscher WetterDienst / Climata Data Center  FTP Server
-#' @seealso \code{\link{geoIndex}}, \code{\link{metaInfo}}
-#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jan 2017
-#' @keywords datasets
-#' @examples
-#'
-#' data(mapDWD)
-#' library(leaflet)
-#' mapDWD
-#' # in functions, you can use rdwd:::mapDWD
-#'
-#' # The first line when clicked on a point can be copied to R for more information
-#'
-data(mapDWD, envir=environment())
-
-
 
 # update Indexes ---------------------------------------------------------------
 
@@ -280,7 +253,7 @@ leaflet(data=geoIndexAll[geoIndexAll$id %in% id[dist>2],]) %>%
         addTiles() %>% addCircleMarkers(~long, ~lat, popup=~display, stroke=F)
 }
 
-# combine stations per ID closer than 900 m apart (radius of fixed circles):
+# combine stations per ID if closer than 900 m apart (radius of fixed circles):
 geoIndex <- pbapply::pblapply(id, function(i){
   g <- geoIndexAll[geoIndexAll$id==i,]
   if(nrow(g)<2) return(g)
@@ -302,14 +275,4 @@ geoIndex$col[!geoIndex$recentfile] <- "red"
 save( geoIndex,  file="data/geoIndex.rda")
 tools::resaveRdaFiles("data/geoIndex.rda")
 
-
-# interactive map --------------------------------------------------------------
-library(leaflet)
-mapDWD <- leaflet(data=geoIndex) %>% addTiles() %>%
-             addCircles(~long, ~lat, radius=900, stroke=F, color=~col)%>%
-             addCircleMarkers(~long, ~lat, popup=~display, stroke=F, color=~col)
-mapDWD
-
-save(mapDWD,     file="data/mapDWD.rda")
-tools::resaveRdaFiles("data/mapDWD.rda")
 }

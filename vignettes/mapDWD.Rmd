@@ -14,8 +14,8 @@ The `rdwd` package provides a collection of all the metafiles on the
 [DWD data server](ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate).
 It is presented as an interactive map below.
 
-The first line of the info box (when you click on a point)
-can be copypasted into R to obtain more information on the available files.
+When a point is clicked on, an infobox should appear.
+The first line can be copypasted into R to obtain more information on the available files.
 
 ```{r map, fig.height=7, fig.width=7, warning=FALSE}
 library(rdwd)  ;  data(geoIndex)  ;  library(leaflet) 
@@ -24,19 +24,16 @@ leaflet(geoIndex) %>% addTiles() %>%
         addCircleMarkers(~long, ~lat, popup=~display, stroke=F, color=~col)
 ```
 
-Open this vignette locally for faster reaction times than on the CRAN html view:
+Open this vignette locally for faster map reaction times than on the CRAN html view:
 ```{r vignette_local, eval=FALSE}
-vignette("mapdwd")
+vignette("mapDWD")
 ```
-
-
-
 
 The blue dots mark stations for which recent files are available 
 (with >=1 file in 'recent' folder or 'BIS_DATUM' later than one year ago).
 The red dots mark all stations with only historical datasets.
 
-To see only the stations with recent data, copypaste the following code:
+To see only the stations with recent data, use the following code:
 
 ```{r onlyrecent, eval=FALSE}
 library(rdwd)  ;  library(leaflet)
@@ -61,4 +58,5 @@ leaflet(data=geoIndexAll) %>% addTiles() %>%
         addCircleMarkers(~long, ~lat, popup=~display, stroke=F)
 ```
 
-Map created in last section of [meta.R](https://github.com/brry/rdwd/blob/master/R/meta.R#L303).
+Note: `geoIndex` is created in the last section of 
+[meta.R](https://github.com/brry/rdwd/blob/master/R/meta.R#L231).
