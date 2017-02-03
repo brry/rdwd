@@ -209,6 +209,8 @@ geoIndexAll$nfiles_id <- as.integer(table(geoIndexAll$Stations_id)[as.character(
 geoIndexAll$recentfile <- tapply(geoIndexAll$recentfile, geoIndexAll$coord, any)[geoIndexAll$coord]
 # reduction of duplicated rows:
 geoIndexAll <- geoIndexAll[!duplicated(geoIndexAll$coord), c(12:20,10)]           #  6'927 rows
+# popup display column:
+geoIndexAll$display <- rowDisplay(geoIndexAll)
 # Write to disc
 if(gname!="")
   {

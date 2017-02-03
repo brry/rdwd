@@ -176,6 +176,28 @@ data(geoIndexAll, envir=environment())
 
 
 
+# rowDisplay ---------------------------------------------------------------------
+
+#' create display character string for leaflet map popup from data.frame rows
+#'
+#' @return Vector of characterstrings, one for each row in x.
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Feb 2017
+#' @seealso \code{\link{geoIndex}}
+#' @keywords character
+#' @export
+#'
+#' @param x data.frame with colnames
+#'
+rowDisplay <- function(
+x
+)
+{
+perrow <- function(x) paste0("rdwd::metaInfo(id=",removeSpace(x[1]),")<br>",
+                             paste0(names(x)[-1], ": ", x[-1], collapse="<br>"))
+apply(x, MARGIN=1, perrow)
+}
+
+
 # mapDWD --------------------------------------------------------------
 
 #' Interactive map of data available on the DWD CDC FTP server
@@ -235,11 +257,7 @@ rm(fileIndex2,metaIndex2,geoIndexAll2, index,dwdfiles)
 
 
 # geoIndexAll 2 geoIndex -------------------------------------------------------
-
-# data("geoIndexAll")
-rowdisplay <- function(x) paste0("metaInfo(id=",removeSpace(x[1]),")<br>",
-                             paste0(names(x)[-1], ": ", x[-1], collapse="<br>"))
-geoIndexAll$display <- apply(geoIndexAll, MARGIN=1, rowdisplay)
+#    data("geoIndexAll")
 
 # compute max distances:
 id <- unique(geoIndexAll$id)
@@ -274,7 +292,7 @@ geoIndex <- pbapply::pblapply(id, function(i){
 geoIndex <- do.call(rbind, geoIndex)
 geoIndex$all_elev <- NULL
 geoIndex$display <- NULL
-geoIndex$display <- apply(geoIndex, MARGIN=1, rowdisplay)
+geoIndex$display <- rowDisplay(geoIndex)
 geoIndex$col <- "blue"
 geoIndex$col[!geoIndex$recentfile] <- "red"
 
