@@ -45,3 +45,13 @@ vignette("rdwd")   # package instructions and examples
 A real-life usage example of the package can be found at
 <https://github.com/brry/prectemp/blob/master/Code_analysis.R>
 
+# help
+I'm looking for someone to help implement multiple downloads in [dataDWD](https://github.com/brry/rdwd/blob/master/R/dataDWD.R#L160) via e.g. `curl` or `wget`.
+Some payment can be arranged.
+The requirements are as follows:
+
+* must work cross platform
+* is called from R
+* has as few dependencies as possible
+ 
+
