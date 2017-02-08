@@ -173,7 +173,7 @@ if(current)
   uniquepaths <- uniquepaths[uniquepaths!="///"]
   if(length(uniquepaths)<1) stop("in rdwd::selectDWD: current=TRUE, but no valid ",
                                  "paths available.", call.=FALSE)
-  findex <- createIndex(indexDWD(uniquepaths, ...), filename="")
+  findex <- createIndex(indexDWD(uniquepaths, ...), fname="")
   findexname <- "currentIndex"
   }
 # check ids for accidental letters:
