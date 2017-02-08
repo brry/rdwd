@@ -166,6 +166,10 @@ per[substr(per,1,1)=="h"] <- "historical"
 per[substr(per,1,1)=="r"] <- "recent"
 # solar per to ""
 per[var=="solar"] <- ""
+# check ids for accidental letters:
+idlett <- grepl("[A-Za-z]", id)
+if(any(idlett)) stop(traceCall(1, "in ", ": "), "id may not contain letters: ",
+                     toString(id[idlett]), call.=FALSE)
 # update file index:
 if(current)
   {
@@ -176,10 +180,6 @@ if(current)
   findex <- createIndex(indexDWD(uniquepaths, ...), fname="")
   findexname <- "currentIndex"
   }
-# check ids for accidental letters:
-idlett <- grepl("[A-Za-z]", id)
-if(any(idlett)) stop(traceCall(1, "in ", ": "), "id may not contain letters: ",
-                     toString(id[idlett]), call.=FALSE)
 # convert ID to integer:
 id <- suppressWarnings(as.integer(id))
 findex$id <- suppressWarnings(as.integer(findex$id))
