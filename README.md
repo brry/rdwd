@@ -4,7 +4,11 @@ German Weather Service (Deutscher Wetterdienst, DWD).
 They provide over 25 thousand datasets with weather observations online at 
 <ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate>.
 
-Usage of the package will usually look something like the following:
+`rdwd` is available on CRAN:
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version-last-release/rdwd)](http://cran.r-project.org/package=rdwd) 
+[![downloads](http://cranlogs.r-pkg.org/badges/rdwd)](http://www.r-pkg.org/services)
+
+Usage of the package usually looks something like the following:
 
 ```R
 
@@ -39,5 +43,5 @@ vignette("rdwd")   # package instructions and examples
 ```
 
 A real-life usage example of the package can be found at
-https://github.com/brry/prectemp/blob/master/Code_analysis.R
+<https://github.com/brry/prectemp/blob/master/Code_analysis.R>
 

@@ -2,6 +2,10 @@
 rdwd ToDo-list / wishlist / issues
 - translations for colnames (in doc only? metaIndex / vs current=TRUE)
 - change tests to actually test stuff, maybe add third vignette
+- dataDWD: potentially use curl to download data without sleep need
+- indexDWD: pass all the links to getURL at once?
+- indexDWD: if base is not normal base, set folder to ""
+- selectDWD: if res/var/pre is NA or "", give a selection popup
 
 
 ---------------------------------------
