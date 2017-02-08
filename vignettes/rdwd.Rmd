@@ -56,7 +56,6 @@ From this, `metaIndex`, `geoIndex`, `mapDWD` and `metaInfo` are derived.
 install.packages("rdwd")
 # get the latest development version from github:
 berryFunctions::instGit("brry/rdwd") 
-
 # For full usage, as needed in indexDWD and metaDWD(..., current=TRUE):
 install.packages("RCurl") # is only suggested, not mandatory dependency
 ```
