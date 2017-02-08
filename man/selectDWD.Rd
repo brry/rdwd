@@ -59,7 +59,9 @@ requires availability of the \code{RCurl} package.
 DEFAULT: FALSE}
 
 \item{meta}{Logical: return metadata txt file name instead of climate data zip file?
-Relevant only in case 4 (path and id given). DEFAULT: FALSE}
+Relevant only in case 4 (path and id given).
+See \code{\link{metaIndex}} for a compilation of all metaData files.
+DEFAULT: FALSE}
 
 \item{outvec}{Single logical: if \bold{path} or \bold{ID} length > 1,
 instead of a list, return a vector? (via \code{\link{unlist}}).
@@ -139,7 +141,7 @@ berryFunctions::is.error(  selectDWD(id="", current=TRUE) , tell=TRUE, force=TRU
 
 }
 \seealso{
-\code{\link{dataDWD}}, \url{../doc/mapDWD.html}, \code{vignette("mapDWD", package="rdwd")}
+\code{\link{dataDWD}}, \code{\link{metaIndex}}, \url{../doc/mapDWD.html}, \code{vignette("mapDWD", package="rdwd")}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2016
