@@ -4,6 +4,7 @@ rdwd ToDo-list / wishlist / issues
 - change tests to actually test stuff, maybe add third vignette
 - dataDWD: potentially use curl to download data without sleep need
 - selectDWD: if res/var/pre is NA or "", give a selection popup
+- before next CRAN release: update bF, then OSMscale
 
 
 ---------------------------------------
