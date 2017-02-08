@@ -86,10 +86,18 @@ while(any(!isfile))
                        verbose=verbose, ftp.use.epsv=TRUE, dirlistonly=TRUE), silent=TRUE)
     if(inherits(p, "try-error"))
       {
-      if(!quiet) warning("rdwd::indexDWD: RCurl::getURL failed for '", path,
-                         "/' - ", p, call.=FALSE, immediate.=TRUE) # strsplit(p, "\n")[[1]][2]
+      # Prepare warning or note message text:
+      p <- gsub("Error in function (type, msg, asError = TRUE)  : ", "", p, fixed=TRUE)
+      p <- removeSpace(gsub("\n", "", p))
+      if(grepl("Could not resolve host", p)) p <- paste0(p,
+                       "\nThis may mean you are not connected to the internet.")
+      file_nodot <- !grepl(pattern=".", x=path, fixed=TRUE)
+      file_nodot <- file_nodot && p=="Server denied you to change to the given directory"
+      msg <- paste0("rdwd::indexDWD: RCurl::getURL failed for '", path, "/' - ", p)
+      if(file_nodot) msg <- paste0(msg, "\nIf this is a file, not a folder, ignore this message.")
+      # actually warn / notify:
+      if(file_nodot) message("Note in ", msg) else warning(msg, call.=FALSE)
       assign("isfile", 7777, inherits=TRUE) # to get out of the while loop
-      # if(grepl("Access denied: 530", p)) # stoppp now always set to true after failure
       assign("stoppp", TRUE, inherits=TRUE) # to get out of the lapply loop
       return(path)
       }
