@@ -12,7 +12,7 @@
 #' @seealso \code{\link{dataDWD}}, \code{\link{selectDWD}}
 #' @keywords file chron
 #' @importFrom utils read.table unzip read.fwf
-#' @importFrom berryFunctions checkFile na9
+#' @importFrom berryFunctions checkFile na9 traceCall
 #' @export
 #' @examples
 #' # see dataDWD
@@ -36,7 +36,7 @@
 #'               Coordinated). DEFAULT: "GMT"
 #' @param progbar Logical: present a progress bar with estimated remaining time?
 #'               If missing and length(file)==1, progbar is internally set to FALSE.
-#'               Only works if the R package \code{pbapply} is available. DEFAULT: TRUE 
+#'               Only works if the R package \code{pbapply} is available. DEFAULT: TRUE
 #'
 readDWD <- function(
 file,
@@ -118,7 +118,7 @@ if(!all(actual == classes))
   msg <- paste0(names(actual)[actual!=classes], ": ", actual[actual!=classes],
                 " instead of ", classes[actual!=classes], ".")
   msg <- paste(msg, collapse=" ")
-  warning("in rdwd::readDWD: reading file '", f,
+  warning(traceCall(1, "", ": "), "reading file '", f,
           "' did not give the correct column classes. ", msg, call.=FALSE)
   }
 # return meta data.frame:

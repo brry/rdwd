@@ -84,7 +84,8 @@ fileIndex <- ifelse(substr(fileIndex,1,1)=="/", substr(fileIndex,2,1e4), fileInd
 # split into parts:
 fileIndex <- l2df(lapply(fileIndex,function(x) strsplit(x,"/")[[1]]))
 # check if there are actually 4 columns (might be different with non-standard base)
-if(ncol(fileIndex)!=4) stop("index does not have 4 columns, but ", ncol(fileIndex))
+if(ncol(fileIndex)!=4) stop(traceCall(1, "in ", ": "), "index does not have 4 columns, but ",
+                            ncol(fileIndex), call.=FALSE)
 colnames(fileIndex) <- c("res","var","per","file")
 file <- fileIndex$file
 fileIndex <- fileIndex[,1:3] # file will be re-attached (with path) as the last column
@@ -128,7 +129,9 @@ if(!isTRUE(meta)) return(invisible(fileIndex))
 sel <- substr(fileIndex$path, nchar(fileIndex$path)-3, 1e4)==".txt"
 sel <- sel & grepl("Beschreibung", fileIndex$path)
 sel <- sel & fileIndex$res %in% c("monthly","daily","hourly")
-if(sum(sel)<2) stop("There need to be at least two 'Beschreibung' files. (There are ",sum(sel),")")
+if(sum(sel)<2) stop(traceCall(1, "in ", ": "),
+              "There need to be at least two 'Beschreibung' files. (There is ",
+              sum(sel),")", call.=FALSE)
 # download those files:
 metas <- dataDWD(paste0(base,fileIndex[sel, "path"]), dir=metadir, ...)
 # filenames <- substr(gsub("/","_",fileIndex[sel, "path"]),2,1e4)
@@ -143,7 +146,8 @@ for(i in seq_along(metas))
 # check if all files have the same column names:
 cnames <- lapply(metas, colnames)
 sapply(2:length(cnames), function(i) if(!all(cnames[[i]] == cnames[[1]]))
-    stop("The file ", fileIndex[sel, "path"][i], "\nhas incorrect column names: ", toString(cnames[[i]]),"."))
+    stop(traceCall(1, "in ", ": "), "The file ", fileIndex[sel, "path"][i],
+         "\nhas incorrect column names: ", toString(cnames[[i]]),".", call.=FALSE))
 #
 # merge:
 if(!quiet) message("Merging meta files...")

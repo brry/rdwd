@@ -66,10 +66,10 @@ output <- lapply(seq_len(len), function(i)
   if(length(id)<1)
     {
     id <- NA
-    warning("in rdwd::findID: no ID could be determined from name '",
+    warning(traceCall(1, "", ": "), "no ID could be determined from name '",
                              name[i], "'.", call.=FALSE)
     }
-  if(length(id)>1) warning("in rdwd::findID: ID determined from name '",
+  if(length(id)>1) warning(traceCall(1, "", ": "), "ID determined from name '",
                              name[i], "' has ", length(id), " elements (",
                              toString(sort(id)), ").", call.=FALSE)
   # ID names:

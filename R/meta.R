@@ -104,7 +104,7 @@ metaInfo <- function(
 id <- as.integer(id[1])
 # Selection of rows:
 sel <- metaIndex$Stations_id==id
-if(sum(sel)<1) stop("metaIndex contains no entries for id=", id,
+if(sum(sel)<1) stop("rdwd::metaIndex contains no entries for id=", id,
                     ". This ID probably does not exist.")
 if(hasfileonly) sel <- sel & metaIndex$hasfile
 # Output preparation:
