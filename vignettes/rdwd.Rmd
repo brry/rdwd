@@ -157,7 +157,7 @@ files <- indexDWD("hourly/sun") # use dir="some_path" to save the output elsewhe
 berryFunctions::headtail(files, 5, na=TRUE)
 
 # with other FTP servers, this should also work...
-funet <- indexDWD(base="ftp.funet.fi/pub/standards/RFC/ien", folder="")
+funet <- indexDWD(base="ftp.funet.fi/pub/standards/RFC/ien")
 p <- RCurl::getURL("ftp.funet.fi/pub/standards/RFC/ien/",
                        verbose=T, ftp.use.epsv=TRUE, dirlistonly=TRUE)
 ```

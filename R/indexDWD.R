@@ -31,6 +31,7 @@
 #' }
 #'
 #' @param folder Folder to be indexed recursively, e.g. "/hourly/wind/".
+#'               Set to "" if \code{base} is not the default and \code{folder} is missing.
 #'               DEFAULT: all folders at \code{base} in current \code{\link{fileIndex}}
 #' @param base Main directory of DWD ftp server, defaulting to observed climatic records.
 #'             DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
@@ -60,6 +61,10 @@ verbose=FALSE
 if(!requireNamespace("RCurl", quietly=TRUE))
   stop("The R package 'RCurl' is not available. rdwd::indexDWD can not obtain file list.\n",
        "install.packages('RCurl')       to enable this.")
+# change folder to ""?
+chf <- missing(folder) || all(folder==unique(dirname(fileIndex$path)))
+chf <- chf && base!="ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate"
+if(chf) folder <- ""
 # Progress bar?
 progbar <- progbar & requireNamespace("pbapply", quietly=TRUE)
 if(progbar) lapply <- pbapply::pblapply
