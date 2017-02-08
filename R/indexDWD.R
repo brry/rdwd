@@ -30,18 +30,18 @@
 #' mon <- indexDWD(folder="/monthly/kl", verbose=TRUE)
 #' }
 #'
-#' @param folder Folder to be indexed recursively, e.g. "/hourly/wind/".
-#'               Set to "" if \code{base} is not the default and \code{folder} is missing.
-#'               DEFAULT: all folders at \code{base} in current \code{\link{fileIndex}}
-#' @param base Main directory of DWD ftp server, defaulting to observed climatic records.
-#'             DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
-#' @param sleep If not 0, a random number of seconds between 0 and \code{sleep}
-#'              is passed to \code{\link{Sys.sleep}} after each read folder
-#'              to avoid getting kicked off the FTP-Server. DEFAULT: 0
-#' @param dir Writeable directory name where to save the downloaded file.
-#'            Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}
-#' @param quiet Suppress message about directory and failed
-#'              \code{RCurl::\link[RCurl]{getURL}}? DEFAULT: FALSE
+#' @param folder  Folder to be indexed recursively, e.g. "/hourly/wind/".
+#'                Set to "" if \code{base} is not the default and \code{folder} is missing.
+#'                DEFAULT: all folders at \code{base} in current \code{\link{fileIndex}}
+#' @param base    Main directory of DWD ftp server, defaulting to observed climatic records.
+#'                DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
+#' @param sleep   If not 0, a random number of seconds between 0 and \code{sleep}
+#'                is passed to \code{\link{Sys.sleep}} after each read folder
+#'                to avoid getting kicked off the FTP-Server. DEFAULT: 0
+#' @param dir     Writeable directory name where to save the downloaded file.
+#'                Created if not existent.
+#'                DEFAULT: "DWDdata" at current \code{\link{getwd}()}
+#' @param quiet   Suppress progbars and message about directory/files? DEFAULT: FALSE
 #' @param progbar Logical: present a progress bar in each level?
 #'                Only works if the R package pbapply is available. DEFAULT: TRUE
 #' @param verbose Logical: write a lot of messages from \code{RCurl::\link[RCurl]{getURL}}?
