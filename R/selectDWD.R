@@ -200,7 +200,7 @@ givenpath <- res[i]!="" & var[i]!="" # ignore per, because of var=solar possibil
 # base + warning
 if(!givenid & !givenpath)
   {
-  warning(traceCall(1, "", ": "), "neither station ID nor FTP folder is given.", call.=FALSE)
+  warning(traceCall(3, "", ": "), "neither station ID nor FTP folder is given.", call.=FALSE)
   # call.=FALSE to avoid uninformative  Error in FUN(X[[i]], ...) :
   return(base)
   }
@@ -208,15 +208,15 @@ if(!givenid & !givenpath)
 # all file names for station ID, regardless of path
 if(givenid & !givenpath)
   {
-  if(meta[i]) warning(traceCall(1, "", ": "),
+  if(meta[i]) warning(traceCall(3, "", ": "),
           "meta is ignored if id is given, but path is not given.", call.=FALSE)
   filename <- findex[findex$id %in% id[i], "path"]
   filename <- filename[!is.na(filename)]
   # check output length
-  if(length(filename)<1) warning(traceCall(1, "", ": "), "in file index '", findexname,
+  if(length(filename)<1) warning(traceCall(3, "", ": "), "in file index '", findexname,
                                  "', no filename could be detected with ID ",
                                  id[i], ".", call.=FALSE)
-  if(length(filename)>1) warning(traceCall(1, "", ": "), "in file index '", findexname,
+  if(length(filename)>1) warning(traceCall(3, "", ": "), "in file index '", findexname,
                                  "', there are ", length(filename), " files with ID ",
                                  id[i], ".", call.=FALSE)
   return(   paste0(base, filename)   )
@@ -224,7 +224,7 @@ if(givenid & !givenpath)
 #
 # Case 3 and 4 (path given) - path existence check ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 path <- paste0("/",res[i],"/",var[i],"/",per[i])
-if(all(!grepl(path, findex$path))) warning(traceCall(1, "", ": "), "according to file index '",
+if(all(!grepl(path, findex$path))) warning(traceCall(3, "", ": "), "according to file index '",
        findexname, "', the path '", path, "' doesn't exist.", call.=FALSE)
 # select entries from file index:
 sel <- res[i]==findex$res & var[i]==findex$var & per[i]==findex$per
@@ -236,7 +236,7 @@ if(meta[i])
   sel <- sel & substr(findex$path, nchar(findex$path)-3, 1e4)==".txt"
   sel <- sel & grepl("Beschreibung", findex$path)
   # checks:
-  if(sum(sel)==0) warning(traceCall(1, "", ": "), "according to file index '",findexname,
+  if(sum(sel)==0) warning(traceCall(3, "", ": "), "according to file index '",findexname,
                      "', there is no description file in '", path, "'.", call.=FALSE)
   filename <- findex[sel,"path"]
   return(   paste0(base, filename)   )
@@ -247,7 +247,7 @@ if(!givenid & givenpath & !meta[i])
   {
   sel <- sel & substr(findex$path, nchar(findex$path)-3, 1e4)==".zip"
   filename <- findex[sel,"path"]
-  if(length(filename)<1) warning(traceCall(1, "", ": "), "according to file index '",
+  if(length(filename)<1) warning(traceCall(3, "", ": "), "according to file index '",
                                  findexname, "', there is no file in '", path,
                                  "' with ID ", id[i], ".", call.=FALSE)
   return(   paste0(base, filename)   )
@@ -257,11 +257,11 @@ if(!givenid & givenpath & !meta[i])
 if(givenid & givenpath & !meta[i])
   {
   sel <- sel & findex$id %in% id[i]
-  if(sum(sel)==0) warning(traceCall(1, "", ": "), "according to file index '",findexname,
+  if(sum(sel)==0) warning(traceCall(3, "", ": "), "according to file index '",findexname,
                           "', there is no file in '", path, "' with ID ",
                           id[i], ".", call.=FALSE)
   filename <- findex[sel,"path"]
-  if(length(filename)>1) warning(traceCall(1, "", ": "), "several files (",
+  if(length(filename)>1) warning(traceCall(3, "", ": "), "several files (",
                                  length(filename),") were selected:",
                                  berryFunctions::truncMessage(filename, prefix=""),
                                  call.=FALSE)

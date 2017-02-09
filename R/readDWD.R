@@ -118,7 +118,7 @@ if(!all(actual == classes))
   msg <- paste0(names(actual)[actual!=classes], ": ", actual[actual!=classes],
                 " instead of ", classes[actual!=classes], ".")
   msg <- paste(msg, collapse=" ")
-  warning(traceCall(1, "", ": "), "reading file '", f,
+  warning(traceCall(3, "", ": "), "reading file '", f,
           "' did not give the correct column classes. ", msg, call.=FALSE)
   }
 # return meta data.frame:

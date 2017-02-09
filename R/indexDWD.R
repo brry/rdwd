@@ -94,7 +94,7 @@ while(any(!isfile))
                        "\nThis may mean you are not connected to the internet.")
       file_nodot <- !grepl(pattern=".", x=path, fixed=TRUE)
       file_nodot <- file_nodot && p=="Server denied you to change to the given directory"
-      msg <- paste0(traceCall(0, "", ": "), "RCurl::getURL failed for '", path, "/' - ", p)
+      msg <- paste0(traceCall(3, "", ": "), "RCurl::getURL failed for '", path, "/' - ", p)
       if(file_nodot) msg <- paste0(msg, "\nIf this is a file, not a folder, ignore this message.")
       # actually warn / notify:
       if(file_nodot) message("Note in ", msg) else warning(msg, call.=FALSE)
