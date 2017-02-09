@@ -250,8 +250,21 @@ names(dist) <- id
 if(FALSE){
 logHist(dist, breaks=50, main="Max distance between station locations in km")
 library(leaflet)
-leaflet(data=geoIndexAll[geoIndexAll$id %in% id[dist>2],]) %>%
-        addTiles() %>% addCircleMarkers(~long, ~lat, popup=~display, stroke=F)
+
+farapart <- geoIndexAll[geoIndexAll$id %in% id[dist>0.5],]
+farapart$dist <- dist[as.character(farapart$id)]
+farapart$display <- paste0(farapart$display, "<br>maxDist: ", round(farapart$dist,2))
+col <- seqPal(100)[classify(farapart$dist, method="logspaced", breaks=c(100,1.05))$index]
+#col_leg <- seqPal(100)[classify(1:26/2, method="logspaced", breaks=c(100,1.05),
+#Range=range(farapart$dist))$index]
+mapfarapart <- leaflet(farapart) %>% addTiles() %>%
+   addCircleMarkers(~long,~lat, popup=~display, col="white", opacity=1,
+                    fillOpacity=1, fillColor=col) #%>%
+#   addLegend("bottomright", values=1:26/2, col=col_leg, labels=1:26/2)
+owd <- setwd(desktop)
+htmlwidgets::saveWidget(mapfarapart, "mapfarapart.html")
+setwd(owd)
+rm(owd, mapfarapart, col, farapart)
 }
 
 # combine stations per ID if closer than 900 m apart (radius of fixed circles):
