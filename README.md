@@ -7,6 +7,10 @@ They provide over 25 thousand datasets with weather observations online at
 `rdwd` is available on CRAN:
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version-last-release/rdwd)](http://cran.r-project.org/package=rdwd) 
 [![downloads](http://cranlogs.r-pkg.org/badges/rdwd)](http://www.r-pkg.org/services)
+[![Rdoc](http://www.rdocumentation.org/badges/version/rdwd)](http://www.rdocumentation.org/packages/rdwd)
+and has been presented at [FOSDEM](https://fosdem.org/2017/schedule/event/geo_weather/) in Brussels,
+featured in Rstudios [data package list](https://www.rstudio.com/rviews/2017/02/17/january-new-data-packages/) 
+and written about in [OSOR](https://joinup.ec.europa.eu/community/osor/news/study-german-weather-data-made-easy-rdwd).
 
 Usage of the package usually looks something like the following:
 
