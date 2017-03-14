@@ -2,9 +2,11 @@
 #'
 #' Read climate (meta) data that was downloaded with \code{\link{dataDWD}}.
 #' The file is read, processed and returned as a data.frame.\cr
-#' If \code{meta=TRUE}: column widths for \code{\link{read.fwf}} are computed internally.\cr
 #' \code{file} can be a vector with several filenames. The arguments \code{meta}
-#' and \code{format} can also be a vecor and will be recycled to the length of \code{file}.
+#' and \code{format} can also be a vecor and will be recycled to the length of \code{file}.\cr
+#' If \code{meta=TRUE}, column widths for \code{\link{read.fwf}} are computed internally.
+#' If needed, readDWD tries to set the locale to German (to handle Umlaute correctly).
+#' They can then be processed with \code{dd$Stations_id <- berryFunctions::convertUmlaut(dd$Stations_id)}.
 #'
 #' @return Invisible data.frame of the desired dataset, or a list of data.frames
 #'         if length(file) > 1.
@@ -58,7 +60,7 @@ if(len>1)
   }
 # set directory from which to read downloaded data
 owd <- dirDWD(dir, quiet=TRUE)
-on.exit(setwd(owd))
+on.exit(setwd(owd), add=TRUE)
 # Optional progress bar:
 progbar <- progbar & requireNamespace("pbapply", quietly=TRUE)
 if(progbar) lapply <- pbapply::pblapply
@@ -73,7 +75,7 @@ if(!meta[i]) # if data ---------------------------------------------------------
 # temporary unzipping directory
 exdir <- paste0(tempdir(),"/", substr(f, 1, nchar(f)-4))
 unzip(f, exdir=exdir)
-on.exit(unlink(exdir, recursive=TRUE))
+on.exit(unlink(exdir, recursive=TRUE), add=TRUE)
 # new filename - the actual data file:
 f <- dir(exdir, pattern="produkt*", full.names=TRUE)
 # Actually read data
@@ -96,9 +98,20 @@ if(!is.null(format[i]) & "MESS_DATUM" %in% colnames(dat))
 return(dat)
 } else # if meta ---------------------------------------------------------------
 {
+# Handle German Umlaute:
+lct <- Sys.getlocale("LC_CTYPE")
+if(!grepl(pattern="german", lct, ignore.case=TRUE))
+  {
+  warning("readDWD is changing locale 'LC_CTYPE' to German (to handle Umlaute). ",
+          "To restore previous state, use\n  Sys.setlocale('LC_CTYPE', '",lct,"')",
+          call.=FALSE)
+  lctry <- c("German","de_DE","de_DE.UTF-8","de_DE.utf8","de")
+  for(lc in lctry) if(suppressWarnings(Sys.setlocale("LC_CTYPE", lc))!="") break
+  }
+#
 # read one line to get column widths and names
 oneline <- readLines(f, n=3)
-# column widhts (automatic detection across different styles used by the DWD)
+# column widths (automatic detection across different styles used by the DWD)
 spaces <- unlist(gregexpr(" ", oneline[3]))
 breaks <- spaces[which(diff(spaces)!=1)]
 if(substr(oneline[3],1,1)==" ") breaks <- breaks[-1]
