@@ -21,7 +21,7 @@
 #' @keywords file
 #' @importFrom stats runif
 #' @importFrom utils write.table
-#' @importFrom berryFunctions removeSpace traceCall
+#' @importFrom berryFunctions removeSpace traceCall newFilename
 #' @export
 #' @examples
 #' \dontrun{ ## Needs internet connection
@@ -31,9 +31,10 @@
 #' mon <- indexDWD(folder="/monthly/kl", verbose=TRUE)
 #' }
 #'
-#' @param folder  Folder to be indexed recursively, e.g. "/hourly/wind/".
-#'                Set to "" if \code{base} is not the default and \code{folder} is missing.
-#'                DEFAULT: all folders at \code{base} in current \code{\link{fileIndex}}
+#' @param folder  Folder(s) to be indexed recursively, e.g. "/hourly/wind/".
+#'                If it is "currentfindex" (the default) and \code{base} is the default,
+#'                it is changed to all folders in current \code{\link{fileIndex}}:
+#'                \code{unique(dirname(fileIndex$path))}. DEFAULT: "currentfindex"
 #' @param base    Main directory of DWD ftp server, defaulting to observed climatic records.
 #'                DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
 #' @param sleep   If not 0, a random number of seconds between 0 and \code{sleep}
@@ -42,6 +43,11 @@
 #' @param dir     Writeable directory name where to save the downloaded file.
 #'                Created if not existent.
 #'                DEFAULT: "DWDdata" at current \code{\link{getwd}()}
+#' @param filename Character: Part of output filename. "INDEX_of_DWD_" is prepended,
+#'                "/" replaced with "_", ".txt" appended. DEFAULT: folder[1]
+#' @param overwrite Logical: Overwrite existing file? If not, "_n" is added to the
+#'                filename, see \code{berryFunctions::\link[berryFunctions]{newFilename}}.
+#'                DEFAULT: FALSE
 #' @param quiet   Suppress progbars and message about directory/files? DEFAULT: FALSE
 #' @param progbar Logical: present a progress bar in each level?
 #'                Only works if the R package pbapply is available. DEFAULT: TRUE
@@ -49,10 +55,12 @@
 #'                DEFAULT: FALSE (usually, you dont need all the curl information)
 #'
 indexDWD <- function(
-folder=unique(dirname(fileIndex$path)),
+folder="currentfindex",
 base="ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
 sleep=0,
 dir="DWDdata",
+filename=folder[1],
+overwrite=FALSE,
 quiet=FALSE,
 progbar=!quiet,
 verbose=FALSE
@@ -62,10 +70,9 @@ verbose=FALSE
 if(!requireNamespace("RCurl", quietly=TRUE))
   stop("The R package 'RCurl' is not available. rdwd::indexDWD can not obtain file list.\n",
        "install.packages('RCurl')       to enable this.")
-# change folder to ""?
-chf <- missing(folder) || all(folder==unique(dirname(fileIndex$path)))
-chf <- chf && base!="ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate"
-if(chf) folder <- ""
+# change folder:
+if(all(folder=="currentfindex") & base=="ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate")
+   folder <- unique(dirname(fileIndex$path))
 # Progress bar?
 progbar <- progbar & requireNamespace("pbapply", quietly=TRUE)
 if(progbar) lapply <- pbapply::pblapply
@@ -118,8 +125,8 @@ f <- sort(unlist(f, use.names=FALSE))
 # write output:
 owd <- dirDWD(dir, quiet=quiet)
 on.exit(setwd(owd))
-outfile <- paste0("INDEX_of_DWD_", gsub("/","_",folder[1]),".txt")
-outfile <- fileDWD(outfile, quiet=quiet)
+outfile <- paste0("INDEX_of_DWD_", gsub("/","_",filename),".txt")
+outfile <- newFilename(outfile, ignore=overwrite, pre="", mid="", quiet=quiet)
 write.table(f, file=outfile, row.names=FALSE, col.names=FALSE, quote=FALSE)
 # return output:
 return(f)

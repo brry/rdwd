@@ -4,15 +4,16 @@
 \alias{indexDWD}
 \title{Create a recursive index of the DWD CDC FTP Server}
 \usage{
-indexDWD(folder = unique(dirname(fileIndex$path)),
+indexDWD(folder = "currentfindex",
   base = "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
-  sleep = 0, dir = "DWDdata", quiet = FALSE, progbar = !quiet,
-  verbose = FALSE)
+  sleep = 0, dir = "DWDdata", filename = folder[1], overwrite = FALSE,
+  quiet = FALSE, progbar = !quiet, verbose = FALSE)
 }
 \arguments{
-\item{folder}{Folder to be indexed recursively, e.g. "/hourly/wind/".
-Set to "" if \code{base} is not the default and \code{folder} is missing.
-DEFAULT: all folders at \code{base} in current \code{\link{fileIndex}}}
+\item{folder}{Folder(s) to be indexed recursively, e.g. "/hourly/wind/".
+If it is "currentfindex" (the default) and \code{base} is the default,
+it is changed to all folders in current \code{\link{fileIndex}}:
+\code{unique(dirname(fileIndex$path))}. DEFAULT: "currentfindex"}
 
 \item{base}{Main directory of DWD ftp server, defaulting to observed climatic records.
 DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}}
@@ -24,6 +25,13 @@ to avoid getting kicked off the FTP-Server. DEFAULT: 0}
 \item{dir}{Writeable directory name where to save the downloaded file.
 Created if not existent.
 DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
+
+\item{filename}{Character: Part of output filename. "INDEX_of_DWD_" is prepended,
+"/" replaced with "_", ".txt" appended. DEFAULT: folder[1]}
+
+\item{overwrite}{Logical: Overwrite existing file? If not, "_n" is added to the
+filename, see \code{berryFunctions::\link[berryFunctions]{newFilename}}.
+DEFAULT: FALSE}
 
 \item{quiet}{Suppress progbars and message about directory/files? DEFAULT: FALSE}
 
