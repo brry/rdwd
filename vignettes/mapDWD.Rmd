@@ -16,6 +16,7 @@ It is presented as an interactive map below.
 
 When a point is clicked, an infobox should appear.
 The first line can be copypasted into R to obtain more information on the available files.
+The map is created with the following code:
 
 ```{r map, fig.height=7, fig.width=7, warning=FALSE}
 library(rdwd)  ;  data(geoIndex)  ;  library(leaflet) 
@@ -32,6 +33,10 @@ vignette("mapDWD")
 The blue dots mark stations for which recent files are available 
 (with >=1 file in 'recent' folder or 'BIS_DATUM' later than one year ago).
 The red dots mark all stations with only historical datasets.
+The black dots mark stations for wich only non-public data is available (hasfile=FALSE).
+To request those datasets, please contact <klima.vertrieb@dwd.de>.
+(The DWD cannot publish all datasets because of copyright restrictions).
+
 
 To see only the stations with recent data, use the following code:
 
@@ -59,4 +64,4 @@ leaflet(data=geoIndexAll) %>% addTiles() %>%
 ```
 
 Note: `geoIndex` is created in the last section of 
-[meta.R](https://github.com/brry/rdwd/blob/master/R/meta.R#L231).
+[meta.R](https://github.com/brry/rdwd/blob/master/R/meta.R#L248).

@@ -19,7 +19,7 @@
 #'
 #' @name fileIndex
 #' @docType data
-#' @format data.frame with character srings. 25'631 rows x 7 columns:
+#' @format data.frame with character strings. 25'631 rows x 7 columns:
 #'         \code{res}, \code{var}, \code{per} (see \code{\link{selectDWD}}),
 #'         station \code{id} and time series \code{start} and \code{end}
 #'         according to \code{path}.

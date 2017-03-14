@@ -25,6 +25,10 @@ over 25 thousand datasets with weather observations through the FTP server onlin
 
 <ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate>.
 
+For data interpolated onto a 1 km raster, including radar data up to the last hour, 
+see <ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/>. 
+Management of these (very large!) datasets is not yet included in rdwd.
+If you want it to be supported, send me a message to boost it up my priority list.
 
 
 ### Package structure
