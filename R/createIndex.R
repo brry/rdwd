@@ -132,7 +132,12 @@ sel <- sel & fileIndex$res %in% c("monthly","daily","hourly")
 if(sum(sel)<2) stop(traceCall(1, "in ", ": "),
               "There need to be at least two 'Beschreibung' files. (There is ",
               sum(sel),")", call.=FALSE)
-# download those files:
+# download those files, read in German locale:
+lct <- Sys.getlocale("LC_COLLATE")
+on.exit(Sys.setlocale("LC_COLLATE", lct), add=TRUE)
+lctry <- c("German","de_DE","de_DE.UTF-8","de_DE.utf8","de")
+for(lc in lctry) if(suppressWarnings(Sys.setlocale("LC_COLLATE", lc))!="") break
+# actually read:
 metas <- dataDWD(paste0(base,fileIndex[sel, "path"]), dir=metadir, ...)
 # filenames <- substr(gsub("/","_",fileIndex[sel, "path"]),2,1e4)
 # metas <- readDWD(filenames, dir="DWDdata/meta")
