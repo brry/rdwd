@@ -77,6 +77,7 @@ quiet=FALSE,
 # fileIndex --------------------------------------------------------------------
 # All paths should have the same amount of levels before being splitted:
 fileIndex <- gsub("solar/", "solar//", paths)
+fileIndex <- gsub("solar//ignore", "solar/ignore", fileIndex)
 fileIndex <- gsub("multi_annual/", "multi_annual//", fileIndex)
 fileIndex <- gsub("subdaily/standard_format/", "subdaily/standard_format//", fileIndex)
 # remove leading slashes:
@@ -114,7 +115,7 @@ fileIndex$path <- paths
 #
 # Write to disc
 owd <- dirDWD(dir, quiet=quiet|fname=="" )
-on.exit(setwd(owd))
+on.exit(setwd(owd), add=TRUE)
 if(fname!="")
   {
   outfile <- fileDWD(fname, quiet=quiet)
@@ -183,12 +184,10 @@ if(mname!="")
 #
 # geoIndexAll ------------------------------------------------------------------
 if(!quiet) message("Creating geoIndexAll...")
-# metaIndex                                               Nov 2016 # 38'516 rows
-mtemp <- metaIndex
-mtemp$recentfile <- mtemp$per=="recent" | mtemp$bis_datum > as.numeric(format(Sys.Date()-365,"%Y%m%d"))
-mtemp$recentfile <- mtemp$recentfile & mtemp$hasfile
-# only use entries with file, ignore date range and hasfile columns:
-geoIndexAll <- unique(mtemp[mtemp$hasfile,-c(2,3,12)])        # 25'482 rows
+geoIndexAll <- metaIndex     # Feb 2017  36'091 rows
+geoIndexAll$recentfile <- geoIndexAll$per=="recent" | geoIndexAll$bis_datum >
+                                     as.numeric(format(Sys.Date()-365,"%Y%m%d"))
+geoIndexAll$recentfile <- geoIndexAll$recentfile & geoIndexAll$hasfile
 # unique locations:
 geoIndexAll$coord <- paste(geoIndexAll$geoBreite, geoIndexAll$geoLaenge, sep="_")
 # id column
@@ -212,12 +211,24 @@ ele <- sapply(ele, function(x) paste0(names(x), "(", x, ")", collapse="_"))
 geoIndexAll$all_elev <- ele[geoIndexAll$coord]
 rm(ele)
 # nuber of files per coordinate set:
-geoIndexAll$nfiles_coord <- as.integer(table(geoIndexAll$coord)[geoIndexAll$coord])
+nf_p <- table(geoIndexAll$coord[ geoIndexAll$hasfile]) # public files
+nf_n <- table(geoIndexAll$coord[!geoIndexAll$hasfile]) # non-public files
+nf_out <- paste0(nf_p[geoIndexAll$coord], " (+", nf_n[geoIndexAll$coord], ")")
+nf_out <- gsub(" (+NA)", "", nf_out, fixed=TRUE)
+geoIndexAll$nfiles_coord <- gsub("NA", "0", nf_out, fixed=TRUE)
 # nuber of files per ID:
-geoIndexAll$nfiles_id <- as.integer(table(geoIndexAll$Stations_id)[as.character(geoIndexAll$Stations_id)])
-geoIndexAll$recentfile <- tapply(geoIndexAll$recentfile, geoIndexAll$coord, any)[geoIndexAll$coord]
+geoIndexAll$Stations_id <- as.character(geoIndexAll$Stations_id)
+nf_p <- table(geoIndexAll$Stations_id[ geoIndexAll$hasfile])
+nf_n <- table(geoIndexAll$Stations_id[!geoIndexAll$hasfile])
+nf_out <- paste0(nf_p[geoIndexAll$Stations_id], " (+", nf_n[geoIndexAll$Stations_id], ")")
+nf_out <- gsub(" (+NA)", "", nf_out, fixed=TRUE)
+geoIndexAll$nfiles_id <- gsub("NA", "0", nf_out, fixed=TRUE)
+rm(nf_p, nf_n, nf_out)
+# recent file?:
+recfile <- tapply(geoIndexAll$recentfile, geoIndexAll$coord, any)[geoIndexAll$coord]
+geoIndexAll$recentfile <- as.logical(recfile)
 # reduction of duplicated rows:
-geoIndexAll <- geoIndexAll[!duplicated(geoIndexAll$coord), c(12:20,10)]           #  6'927 rows
+geoIndexAll <- geoIndexAll[!duplicated(geoIndexAll$coord), c(15:23,13)]  #  7'219 rows
 # popup display column:
 geoIndexAll$display <- rowDisplay(geoIndexAll)
 # Write to disc
