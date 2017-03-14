@@ -106,6 +106,12 @@ id <- as.integer(id[1])
 sel <- metaIndex$Stations_id==id
 if(sum(sel)<1) stop("rdwd::metaIndex contains no entries for id=", id,
                     ". This ID probably does not exist.")
+# public / nonpublic files
+nonpubmes <- ""
+nonpub <- !metaIndex[sel,"hasfile"]
+if(any(nonpub)&hasfileonly) nonpubmes <- paste0("\nAdditionally, there are ",
+      sum(nonpub), " non-public files. Display all with  metaInfo(",id,",FALSE)",
+      "\nTo request those datasets, please contact  klima.vertrieb@dwd.de")
 if(hasfileonly) sel <- sel & metaIndex$hasfile
 # Output preparation:
 out <- metaIndex[sel,]
@@ -118,7 +124,7 @@ p_sn <- toString(unique(out$Stationsname))
 p_bl <- toString(unique(out$Bundesland))
 p_nf <- length(unique(paste(out$res, out$var, out$per)))
 # message I:
-message("rdwd station id ", p_id, " with ", p_nf, " files.\nName: ", p_sn, ", State: ", p_bl)
+message("rdwd station id ", p_id, " with ", p_nf, " files.\nName: ", p_sn, ", State: ", p_bl, nonpubmes)
 #
 # Print preparation II:
 p_out <- data.frame(from=out$von_datum,
