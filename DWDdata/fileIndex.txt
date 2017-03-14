@@ -11355,6 +11355,7 @@ hourly	cloudiness	recent	04371			/hourly/cloudiness/recent/stundenwerte_N_04371_
 hourly	cloudiness	recent	04393			/hourly/cloudiness/recent/stundenwerte_N_04393_akt.zip
 hourly	cloudiness	recent	04464			/hourly/cloudiness/recent/stundenwerte_N_04464_akt.zip
 hourly	cloudiness	recent	04466			/hourly/cloudiness/recent/stundenwerte_N_04466_akt.zip
+hourly	cloudiness	recent	04485			/hourly/cloudiness/recent/stundenwerte_N_04485_akt.zip
 hourly	cloudiness	recent	04501			/hourly/cloudiness/recent/stundenwerte_N_04501_akt.zip
 hourly	cloudiness	recent	04509			/hourly/cloudiness/recent/stundenwerte_N_04509_akt.zip
 hourly	cloudiness	recent	04625			/hourly/cloudiness/recent/stundenwerte_N_04625_akt.zip
@@ -12974,6 +12975,7 @@ hourly	precipitation	recent	03617			/hourly/precipitation/recent/stundenwerte_RR
 hourly	precipitation	recent	03621			/hourly/precipitation/recent/stundenwerte_RR_03621_akt.zip
 hourly	precipitation	recent	03625			/hourly/precipitation/recent/stundenwerte_RR_03625_akt.zip
 hourly	precipitation	recent	03631			/hourly/precipitation/recent/stundenwerte_RR_03631_akt.zip
+hourly	precipitation	recent	03639			/hourly/precipitation/recent/stundenwerte_RR_03639_akt.zip
 hourly	precipitation	recent	03650			/hourly/precipitation/recent/stundenwerte_RR_03650_akt.zip
 hourly	precipitation	recent	03660			/hourly/precipitation/recent/stundenwerte_RR_03660_akt.zip
 hourly	precipitation	recent	03667			/hourly/precipitation/recent/stundenwerte_RR_03667_akt.zip
@@ -13935,6 +13937,7 @@ hourly	pressure	recent	04371			/hourly/pressure/recent/stundenwerte_P0_04371_akt
 hourly	pressure	recent	04393			/hourly/pressure/recent/stundenwerte_P0_04393_akt.zip
 hourly	pressure	recent	04464			/hourly/pressure/recent/stundenwerte_P0_04464_akt.zip
 hourly	pressure	recent	04466			/hourly/pressure/recent/stundenwerte_P0_04466_akt.zip
+hourly	pressure	recent	04485			/hourly/pressure/recent/stundenwerte_P0_04485_akt.zip
 hourly	pressure	recent	04501			/hourly/pressure/recent/stundenwerte_P0_04501_akt.zip
 hourly	pressure	recent	04509			/hourly/pressure/recent/stundenwerte_P0_04509_akt.zip
 hourly	pressure	recent	04625			/hourly/pressure/recent/stundenwerte_P0_04625_akt.zip
@@ -14791,6 +14794,8 @@ hourly	soil_temperature	recent	15444			/hourly/soil_temperature/recent/stundenwe
 hourly	soil_temperature	recent	15555			/hourly/soil_temperature/recent/stundenwerte_EB_15555_akt.zip
 hourly	solar					/hourly/solar/BESCHREIBUNG_obsgermany_climate_hourly_solar_de.pdf
 hourly	solar					/hourly/solar/DESCRIPTION_obsgermany_climate_hourly_solar_en.pdf
+hourly	solar	ignore				/hourly/solar/ignore/BESCHREIBUNG_obsgermany_climate_hourly_solar_ignore_de.pdf
+hourly	solar	ignore				/hourly/solar/ignore/DESCRIPTION_obsgermany_climate_hourly_solar_ignore_en.pdf
 hourly	solar					/hourly/solar/ST_Beschreibung_Stationen.txt
 hourly	solar		00183			/hourly/solar/stundenwerte_ST_00183.zip
 hourly	solar		00282			/hourly/solar/stundenwerte_ST_00282.zip
@@ -16447,6 +16452,7 @@ hourly	wind	recent	13674			/hourly/wind/recent/stundenwerte_FF_13674_akt.zip
 hourly	wind	recent	13676			/hourly/wind/recent/stundenwerte_FF_13676_akt.zip
 hourly	wind	recent	13693			/hourly/wind/recent/stundenwerte_FF_13693_akt.zip
 hourly	wind	recent	13701			/hourly/wind/recent/stundenwerte_FF_13701_akt.zip
+hourly	wind	recent	13711			/hourly/wind/recent/stundenwerte_FF_13711_akt.zip
 hourly	wind	recent	13900			/hourly/wind/recent/stundenwerte_FF_13900_akt.zip
 hourly	wind	recent	13901			/hourly/wind/recent/stundenwerte_FF_13901_akt.zip
 hourly	wind	recent	13932			/hourly/wind/recent/stundenwerte_FF_13932_akt.zip
@@ -17524,6 +17530,8 @@ monthly	kl	historical	15000	20110401	20151231	/monthly/kl/historical/monatswerte
 monthly	kl	historical	15207	20131101	20151231	/monthly/kl/historical/monatswerte_15207_20131101_20151231_hist.zip
 monthly	kl	historical	15444	20140901	20151231	/monthly/kl/historical/monatswerte_15444_20140901_20151231_hist.zip
 monthly	kl	historical	15526	18810101	19351231	/monthly/kl/historical/monatswerte_15526_18810101_19351231_hist.zip
+monthly	kl	recent				/monthly/kl/recent/BESCHREIBUNG_obsgermany_climate_monthly_kl_recent_de.pdf
+monthly	kl	recent				/monthly/kl/recent/DESCRIPTION_obsgermany_climate_monthly_kl_recent_en.pdf
 monthly	kl	recent				/monthly/kl/recent/KL_Monatswerte_Beschreibung_Stationen.txt
 monthly	kl	recent	00044			/monthly/kl/recent/monatswerte_00044_akt.zip
 monthly	kl	recent	00071			/monthly/kl/recent/monatswerte_00071_akt.zip
@@ -17694,6 +17702,7 @@ monthly	kl	recent	01832			/monthly/kl/recent/monatswerte_01832_akt.zip
 monthly	kl	recent	01844			/monthly/kl/recent/monatswerte_01844_akt.zip
 monthly	kl	recent	01863			/monthly/kl/recent/monatswerte_01863_akt.zip
 monthly	kl	recent	01869			/monthly/kl/recent/monatswerte_01869_akt.zip
+monthly	kl	recent	01886			/monthly/kl/recent/monatswerte_01886_akt.zip
 monthly	kl	recent	01891			/monthly/kl/recent/monatswerte_01891_akt.zip
 monthly	kl	recent	01964			/monthly/kl/recent/monatswerte_01964_akt.zip
 monthly	kl	recent	01975			/monthly/kl/recent/monatswerte_01975_akt.zip
@@ -18112,6 +18121,7 @@ monthly	kl	recent	14311			/monthly/kl/recent/monatswerte_14311_akt.zip
 monthly	kl	recent	15000			/monthly/kl/recent/monatswerte_15000_akt.zip
 monthly	kl	recent	15207			/monthly/kl/recent/monatswerte_15207_akt.zip
 monthly	kl	recent	15444			/monthly/kl/recent/monatswerte_15444_akt.zip
+monthly	kl	recent	15555			/monthly/kl/recent/monatswerte_15555_akt.zip
 monthly	more_precip	historical	00001	18910101	19860630	/monthly/more_precip/historical/monatswerte_RR_00001_18910101_19860630_hist.zip
 monthly	more_precip	historical	00002	19140101	20061231	/monthly/more_precip/historical/monatswerte_RR_00002_19140101_20061231_hist.zip
 monthly	more_precip	historical	00003	18440101	20110331	/monthly/more_precip/historical/monatswerte_RR_00003_18440101_20110331_hist.zip
@@ -24191,6 +24201,7 @@ monthly	more_precip	recent	02346			/monthly/more_precip/recent/monatswerte_RR_02
 monthly	more_precip	recent	02355			/monthly/more_precip/recent/monatswerte_RR_02355_akt.zip
 monthly	more_precip	recent	02356			/monthly/more_precip/recent/monatswerte_RR_02356_akt.zip
 monthly	more_precip	recent	02358			/monthly/more_precip/recent/monatswerte_RR_02358_akt.zip
+monthly	more_precip	recent	02359			/monthly/more_precip/recent/monatswerte_RR_02359_akt.zip
 monthly	more_precip	recent	02362			/monthly/more_precip/recent/monatswerte_RR_02362_akt.zip
 monthly	more_precip	recent	02372			/monthly/more_precip/recent/monatswerte_RR_02372_akt.zip
 monthly	more_precip	recent	02376			/monthly/more_precip/recent/monatswerte_RR_02376_akt.zip
@@ -25502,12 +25513,19 @@ monthly	more_precip	recent	15455			/monthly/more_precip/recent/monatswerte_RR_15
 monthly	more_precip	recent	15456			/monthly/more_precip/recent/monatswerte_RR_15456_akt.zip
 monthly	more_precip	recent	15477			/monthly/more_precip/recent/monatswerte_RR_15477_akt.zip
 monthly	more_precip	recent	15478			/monthly/more_precip/recent/monatswerte_RR_15478_akt.zip
+monthly	more_precip	recent	15490			/monthly/more_precip/recent/monatswerte_RR_15490_akt.zip
 monthly	more_precip	recent	15499			/monthly/more_precip/recent/monatswerte_RR_15499_akt.zip
+monthly	more_precip	recent	15512			/monthly/more_precip/recent/monatswerte_RR_15512_akt.zip
 monthly	more_precip	recent	15518			/monthly/more_precip/recent/monatswerte_RR_15518_akt.zip
 monthly	more_precip	recent	15522			/monthly/more_precip/recent/monatswerte_RR_15522_akt.zip
 monthly	more_precip	recent	15530			/monthly/more_precip/recent/monatswerte_RR_15530_akt.zip
+monthly	more_precip	recent	15553			/monthly/more_precip/recent/monatswerte_RR_15553_akt.zip
+monthly	more_precip	recent	15555			/monthly/more_precip/recent/monatswerte_RR_15555_akt.zip
+monthly	more_precip	recent	15558			/monthly/more_precip/recent/monatswerte_RR_15558_akt.zip
 monthly	more_precip	recent	15567			/monthly/more_precip/recent/monatswerte_RR_15567_akt.zip
 monthly	more_precip	recent	15572			/monthly/more_precip/recent/monatswerte_RR_15572_akt.zip
+monthly	more_precip	recent	15573			/monthly/more_precip/recent/monatswerte_RR_15573_akt.zip
+monthly	more_precip	recent	15574			/monthly/more_precip/recent/monatswerte_RR_15574_akt.zip
 monthly	more_precip	recent				/monthly/more_precip/recent/RR_Monatswerte_Beschreibung_Stationen.txt
 multi_annual		mean_61-90				/multi_annual/mean_61-90/BESCHREIBUNG_obsgermany_climatemulti_annual_mean_6190_de.pdf
 multi_annual		mean_61-90				/multi_annual/mean_61-90/DESCRIPTION_obsgermany_climatemulti_annual_mean_6190_en.pdf
