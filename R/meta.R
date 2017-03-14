@@ -240,7 +240,8 @@ metaIndex2 <- read.table("DWDdata/metaIndex.txt", sep="\t", header=TRUE, as.is=T
 stopifnot(all(metaIndex==metaIndex2))
  geoIndexAll2 <- read.table("DWDdata/geoIndexAll.txt",  sep="\t", header=TRUE, as.is=TRUE)
 stopifnot(all( geoIndexAll== geoIndexAll2))
-rm(fileIndex2,metaIndex2,geoIndexAll2, index,dwdfiles)
+rm(fileIndex2,metaIndex2,geoIndexAll2)
+rm(index,dwdfiles)
 
 
 
@@ -254,8 +255,7 @@ dist <- pbapply::pbsapply(id, function(i)  # ca 5 secs computing time
   g <- geoIndexAll[geoIndexAll$id==i,]
   if(nrow(g)<2) return(0)
   OSMscale::maxEarthDist(lat, long, data=g)
-  })
-names(dist) <- id
+  }) ; names(dist) <- id
 
 # Examine distances:
 if(FALSE){
@@ -272,10 +272,8 @@ mapfarapart <- leaflet(farapart) %>% addTiles() %>%
    addCircleMarkers(~long,~lat, popup=~display, col="white", opacity=1,
                     fillOpacity=1, fillColor=col) #%>%
 #   addLegend("bottomright", values=1:26/2, col=col_leg, labels=1:26/2)
-owd <- setwd(desktop)
 htmlwidgets::saveWidget(mapfarapart, "mapfarapart.html")
-setwd(owd)
-rm(owd, mapfarapart, col, farapart)
+rm(mapfarapart, col, farapart)
 }
 
 # combine stations per ID if closer than 900 m apart (radius of fixed circles):
@@ -283,11 +281,20 @@ geoIndex <- pbapply::pblapply(id, function(i){
   g <- geoIndexAll[geoIndexAll$id==i,]
   if(nrow(g)<2) return(g)
   if(dist[as.character(i)] > 0.9) return(g)
-  keeprow <- which.max(g$nfiles_coord)
+  nf_co <- strsplit(paste(g$nfiles_coord,"(0"), "(", fixed=TRUE)
+  nf_id <- strsplit(paste(g$nfiles_id,   "(0"), "(", fixed=TRUE)
+  nfc <- as.numeric(sapply(nf_co, "[", 1))
+  nfi <- as.numeric(sapply(nf_id,    "[", 1))
+  nf_co <- sapply(nf_co, "[", 2)
+  nf_id <- sapply(nf_id, "[", 2)
+  nf_co <- gsub("+","",gsub(")","",nf_co,fixed=TRUE), fixed=TRUE)
+  nf_id <- gsub("+","",gsub(")","",nf_id,fixed=TRUE), fixed=TRUE)
+  nfc <- nfc + as.numeric(nf_co)
+  nfi <- nfi + as.numeric(nf_id)
   g$recentfile <- any(g$recentfile)
-  g$ele <- round(sum(g$ele*g$nfiles_coord/g$nfiles_id[1]),2)
-  g$nfiles_coord <- paste(g$nfiles_coord, collapse="+")
-  return(g[keeprow,])
+  g$ele <- round(sum(g$ele*nfc/nfi[1],na.rm=TRUE),2)
+  g$nfiles_coord <- paste(g$nfiles_coord, collapse=" + ")
+  return(g[which.max(nfc),])
 })
 
 geoIndex <- do.call(rbind, geoIndex)
@@ -296,6 +303,8 @@ geoIndex$display <- NULL
 geoIndex$display <- rowDisplay(geoIndex)
 geoIndex$col <- "blue"
 geoIndex$col[!geoIndex$recentfile] <- "red"
+isnul <- as.numeric(sapply(strsplit(geoIndex$nfiles_id, "(", fixed=TRUE), "[", 1))==0
+geoIndex$col[isnul] <- "black" ;  rm(isnul)
 
 save( geoIndex,  file="data/geoIndex.rda")
 tools::resaveRdaFiles("data/geoIndex.rda")
