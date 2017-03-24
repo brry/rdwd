@@ -118,6 +118,12 @@ ntrunc=2,
 if(!is.atomic(file)) stop("file must be a vector, not a ", class(file))
 if(!is.character(file)) stop("file must be char, not ", class(file))
 if(missing(progbar) & length(file)==1) progbar <- FALSE
+if(any(file==""))
+{
+  message(traceCall(1, "", ": "), "Removing ", sum(file==""), " empty element(s) from file vector.")
+  file <- file[file!=""]
+}
+if(length(file)<1) stop("The vector of files to be downloaded is empty.")
 # be safe from accidental vector input:
 dir     <- dir[1]
 progbar <- progbar[1]
