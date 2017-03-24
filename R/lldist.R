@@ -29,8 +29,8 @@ i=1L
 # Input coordinates:
 if(!missing(data)) # get lat and long from data.frame
   {
-  lat  <- getColumn(substitute(lat) , data, trace=trace)
-  long <- getColumn(substitute(long), data, trace=trace)
+  lat  <- getColumn(substitute(lat) , data)
+  long <- getColumn(substitute(long), data)
   }
 # coordinate control:
 ###checkLL(lat, long, trace=trace)
