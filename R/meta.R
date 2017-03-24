@@ -123,8 +123,11 @@ p_id <- toString(unique(out$Stations_id))
 p_sn <- toString(unique(out$Stationsname))
 p_bl <- toString(unique(out$Bundesland))
 p_nf <- length(unique(paste(out$res, out$var, out$per)))
+if(p_id=="") p_id <- id
 # message I:
 message("rdwd station id ", p_id, " with ", p_nf, " files.\nName: ", p_sn, ", State: ", p_bl, nonpubmes)
+#
+if(nrow(out)==0) return()
 #
 # Print preparation II:
 p_out <- data.frame(from=out$von_datum,
