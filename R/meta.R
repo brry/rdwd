@@ -137,7 +137,7 @@ p_out <- data.frame(from=out$von_datum,
                     ele=out$Stationshoehe)
 p_out <- cbind(out[,c("res","var","per","hasfile")], p_out)
 p_out$from <- as.character(p_out$from)
-p_out$from[p_out$per=="recent"] <- ""
+###p_out$from[p_out$per=="recent"] <- ""
 p_out <- sortDF(p_out, "var", decreasing=FALSE)
 p_out <- sortDF(p_out, "res", decreasing=FALSE)
 p_out <- sortDF(p_out, "per", decreasing=FALSE)
