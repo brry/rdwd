@@ -8,6 +8,8 @@ rdwd ToDo-list / wishlist / issues
 - check out small wrapper on top of data.table::fread() which will read zipped files directly (without preliminary unzipping to disk):
   http://dsnotes.com/post/2017-01-27-lessons-learned-from-outbrain-click-prediction-kaggle-competition/
 - metaInfo(47)
+- use lldist to put geoIndex creation into createIndex and change all references
+- do not export rowDisplay
 
 ---------------------------------------
 rdwd: DWD Climate Data access package by Berry Boessenkool, berry-b@gmx.de

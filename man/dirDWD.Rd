@@ -33,7 +33,7 @@ unlink("dummydummydummy")
 
 }
 \seealso{
-\code{\link{fileDWD}}, \code{\link{dataDWD}}
+\code{\link{dataDWD}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2016

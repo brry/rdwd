@@ -12,7 +12,7 @@
 #'         if \code{read=TRUE}, a data.frame of the desired dataset
 #'         (as returned by \code{\link{readDWD}}),
 #'         otherwise the filename as saved on disc
-#'         (may have "_n" appended in name, see \code{\link{fileDWD}}).\cr
+#'         (may have "_n" appended in name, see \code{\link{newFilename}}).\cr
 #'         If length(file)>1, the output is a list of data.frames / vector of filenames.\cr
 #'         The output is always invisible.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jun-Oct 2016
@@ -21,6 +21,7 @@
 #'          see also \code{berryFunctions::\link[berryFunctions]{climateGraph}}
 #' @keywords data file
 #' @importFrom utils tail download.file browseURL
+#' @importFrom berryFunctions newFilename
 #' @export
 #' @examples
 #' \dontrun{ ## requires internet connection
@@ -153,7 +154,7 @@ if( any(dontdownload)  )
           berryFunctions::truncMessage(outfile[dontdownload], ntrunc=ntrunc, prefix=""),
           "\nNow downloading ",sum(!dontdownload)," files...")
   }
-outfile <- fileDWD(outfile, quiet=quiet, ignore=dontdownload, ntrunc=ntrunc)
+outfile <- newFilename(outfile, quiet=quiet, ignore=dontdownload, ntrunc=ntrunc)
 # Optional progress bar:
 progbar <- progbar & requireNamespace("pbapply", quietly=TRUE)
 if(progbar) lapply <- pbapply::pblapply

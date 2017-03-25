@@ -14,7 +14,7 @@
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct-Nov 2016
 #' @seealso \code{\link{indexDWD}}, \code{\link{fileIndex}}, \code{\link{metaIndex}}, \code{\link{selectDWD}}
 #' @keywords manip
-#' @importFrom berryFunctions l2df convertUmlaut
+#' @importFrom berryFunctions l2df convertUmlaut newFilename
 #' @importFrom utils write.table
 #' @export
 #' @examples
@@ -118,7 +118,7 @@ owd <- dirDWD(dir, quiet=quiet|fname=="" )
 on.exit(setwd(owd), add=TRUE)
 if(fname!="")
   {
-  outfile <- fileDWD(fname, quiet=quiet)
+  outfile <- newFilename(fname, mid=": ", quiet=quiet)
   write.table(fileIndex, file=outfile, sep="\t", row.names=FALSE, quote=FALSE)
   }
 # Potential (DEFAULT) output:
@@ -172,7 +172,7 @@ metaIndex$hasfile <- metaComb  %in% fileComb
 # Write to disc
 if(mname!="")
   {
-  outfile <- fileDWD(mname, quiet=quiet)
+  outfile <- newFilename(mname, mid=": ", quiet=quiet)
   write.table(metaIndex, file=outfile, sep="\t", row.names=FALSE, quote=FALSE)
   }
 #
@@ -229,7 +229,7 @@ geoIndexAll$display <- rowDisplay(geoIndexAll)
 # Write to disc
 if(gname!="")
   {
-  outfile <- fileDWD(gname, quiet=quiet)
+  outfile <- newFilename(gname, mid=": ", quiet=quiet)
   write.table(geoIndexAll, file=outfile, sep="\t", row.names=FALSE, quote=FALSE)
   }
 #

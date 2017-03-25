@@ -52,7 +52,7 @@ Presuming downloading and processing were successfull:
         if \code{read=TRUE}, a data.frame of the desired dataset
         (as returned by \code{\link{readDWD}}),
         otherwise the filename as saved on disc
-        (may have "_n" appended in name, see \code{\link{fileDWD}}).\cr
+        (may have "_n" appended in name, see \code{\link{newFilename}}).\cr
         If length(file)>1, the output is a list of data.frames / vector of filenames.\cr
         The output is always invisible.
 }
