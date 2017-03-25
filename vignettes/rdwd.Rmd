@@ -33,7 +33,7 @@ If you want it to be supported, send me a message to boost it up my priority lis
 
 ### Package structure
 
-To use those datasets, `rdwd` has been designed to mainly do 3 things:
+To use the observation datasets, `rdwd` has been designed to mainly do 3 things:
 
 * `selectDWD`: facilitate file selection, e.g. for certain station names (with `findID`), 
 by geographical location (see `mapDWD`), by temporal resolution (hourly, daily, monthly), 
@@ -123,6 +123,8 @@ mtext("Source: Deutscher Wetterdienst", adj=-0.05, line=2.8, font=3)
 ### Station selection
 
 Weather stations can be selected geographically with the [interactive map](mapDWD.html).
+All stations within a certain radius around a given lat-long position can be obtained with
+[nearbyStations](../help/nearbyStations).
 
 The DWD station IDs can be obtained from station names with
 ```{r findID, eval=TRUE}

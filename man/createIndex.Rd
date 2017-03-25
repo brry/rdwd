@@ -49,7 +49,7 @@ with a number of columns inferred from the paths. Each is also written to disc.
 This is mainly an internal function.
 Create data.frames out of the vector index returned by \code{\link{indexDWD}}.
 For \code{\link{fileIndex}} (the first output element) \code{createIndex}
-tries to obtain res, var, pe,r file, id, start and end from the paths.
+tries to obtain res, var, per, file, id, start and end from the paths.
 If \code{meta=TRUE}, \code{\link{metaIndex}} and \code{\link{geoIndexAll}} are also
 created. They combine all Beschreibung files into a single data.frame.\cr
 If you create your own index as suggested in selectDWD (argument \code{findex}),

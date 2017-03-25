@@ -18,12 +18,33 @@
 #' }
 #' For case 3 and 4 (\bold{path} given), you can set \code{meta=TRUE}.
 #' Then selectDWD will return the name of the station description file at \bold{path}.
-#' This is why case 3 with \code{meta=FALSE} only returns the data file names (ending in .zip).
+#' This is why case 3 with \code{meta=FALSE} only returns the data file names (ending in .zip).\cr
+#' The following folders in \bold{\code{res/var/per}} notation
+#' (resolution/variable/period) are available at
+#' \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/}
+#' (and a few more at the \code{res} level).\cr
+#' "<" signifies a split into the folders \code{per} = "recent" and "historical".\cr
+#' "-" signifies that there are no further sub-folders.
+#' \tabular{lll}{
+#' \code{res}=\bold{hourly} \tab | \code{res}=\bold{daily} \tab | \code{res}=\bold{monthly} \cr
+#' \code{var=} \tab \tab \cr
+#'                    \tab | kl <               \tab | kl <          \cr
+#'                    \tab | more_precip <      \tab | more_precip < \cr
+#' air_temperature <  \tab |                    \tab |               \cr
+#' cloudiness <       \tab |                    \tab |               \cr
+#' precipitation <    \tab |                    \tab |               \cr
+#' pressure <         \tab |                    \tab |               \cr
+#' sun <              \tab |                    \tab |               \cr
+#' wind <             \tab |                    \tab |               \cr
+#' soil_temperature < \tab | soil_temperature < \tab |               \cr
+#' solar -            \tab | solar -            \tab |               \cr
+#' }
 #'
 #' @return Character string with file path and name(s) in the format
 #'         "base/res/var/per/filename.zip"
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2016
-#' @seealso \code{\link{dataDWD}}, \code{\link{metaIndex}}, \url{../doc/mapDWD.html}, \code{vignette("mapDWD", package="rdwd")}
+#' @seealso \code{\link{dataDWD}}, \code{\link{metaIndex}}, \url{../doc/mapDWD.html},
+#'          \code{vignette("mapDWD", package="rdwd")}
 #' @keywords file
 #' @importFrom berryFunctions truncMessage traceCall
 #' @export
@@ -85,9 +106,9 @@
 #'              Must be the same \code{base} used to create \code{findex}.
 #'              DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
 #' @param res   Char: temporal \bold{res}olution available at \code{base}, usually one of
-#'              \code{c("hourly","daily","monthly")}, see \code{\link{rdwd}}.
+#'              \code{c("hourly","daily","monthly")}, see section 'Description' above.
 #'              \code{res/var/per} together form the \bold{path}. DEFAULT: ""
-#' @param var   Char: weather \bold{var}iable of interest, see \code{\link{rdwd}}. Usually one of
+#' @param var   Char: weather \bold{var}iable of interest. Usually one of
 #'              \code{c("air_temperature", "cloudiness", "precipitation",
 #'                      "pressure", "sun", "wind")} (only in hourly),
 #'              \code{c("soil_temperature", "solar")} (in hourly and daily), or
