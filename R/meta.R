@@ -19,7 +19,7 @@
 #'
 #' @name fileIndex
 #' @docType data
-#' @format data.frame with character strings. 25'631 rows x 7 columns:
+#' @format data.frame with character strings. ca 25k rows x 7 columns:
 #'         \code{res}, \code{var}, \code{per} (see \code{\link{selectDWD}}),
 #'         station \code{id} and time series \code{start} and \code{end}
 #'         according to \code{path}.
@@ -55,7 +55,7 @@ data(fileIndex, envir=environment())
 #'
 #' @name metaIndex
 #' @docType data
-#' @format data.frame with ca 38k rows for 12 columns:
+#' @format data.frame with ca 36k rows for 12 columns:
 #'         \code{Stations_id}, \code{von_datum}, \code{bis_datum}
 #'         \code{Stationshoehe}, \code{geoBreite}, \code{geoLaenge}
 #'         \code{Stationsname}, \code{Bundesland},

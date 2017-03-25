@@ -4,7 +4,7 @@
 \name{metaIndex}
 \alias{metaIndex}
 \title{station info (meta data) available on the DWD CDC FTP server}
-\format{data.frame with ca 38k rows for 12 columns:
+\format{data.frame with ca 36k rows for 12 columns:
         \code{Stations_id}, \code{von_datum}, \code{bis_datum}
         \code{Stationshoehe}, \code{geoBreite}, \code{geoLaenge}
         \code{Stationsname}, \code{Bundesland},
