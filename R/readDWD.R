@@ -27,6 +27,9 @@
 #'               DEFAULT: "DWDdata" at current \code{\link{getwd}()}
 #' @param meta   Logical (vector): is the \code{file} a meta file?
 #'               DEFAULT: TRUE for each file ending in ".txt"
+#' @param html   Logical: read the html file instead of actual data?
+#'               Requires XML to be installed. Experimental: use at own risk!
+#'               DEFAULT: FALSE
 #' @param format Char (vector): if \code{meta=FALSE}: Format passed to
 #'               \code{\link{as.POSIXct}} (see \code{\link{strptime}})
 #'               to convert the date/time column to POSIX time format.\cr
@@ -44,6 +47,7 @@ readDWD <- function(
 file,
 dir="DWDdata",
 meta=substr(file, nchar(file)-3, 1e4)==".txt",
+html=FALSE,
 format=NA,
 tz="GMT",
 progbar=TRUE
@@ -55,6 +59,7 @@ if(missing(progbar) & len==1) progbar <- FALSE
 if(len>1)
   {
   meta   <- rep(meta,   length.out=len)
+  html   <- rep(html,   length.out=len)
   format <- rep(format, length.out=len)
   tz     <- rep(tz,     length.out=len)
   }
@@ -76,6 +81,22 @@ if(!meta[i]) # if data ---------------------------------------------------------
 exdir <- paste0(tempdir(),"/", substr(f, 1, nchar(f)-4))
 unzip(f, exdir=exdir)
 on.exit(unlink(exdir, recursive=TRUE), add=TRUE)
+# experimental: html meta info:
+if(html[i])
+{
+  if(!requireNamespace("XML", quietly=TRUE))
+    stop("in readDWD: Please first install XML:   install.packages('XML')", call.=FALSE)
+  f <- dir(exdir, pattern="*html", full.names=TRUE)
+  tabs <- lapply(f, function(fi)
+    {
+    tab <- XML::readHTMLTable(fi, stringsAsFactors=FALSE)[[1]]
+    tab <- paste(apply(tab,1,paste,collapse=";"), collapse="\n")
+    tab <- read.table(header=TRUE, sep=";",stringsAsFactors=FALSE, text=tab)
+    tab
+    })
+  names(tabs) <- basename(f)
+  return(tabs)
+}
 # new filename - the actual data file:
 f <- dir(exdir, pattern="produkt*", full.names=TRUE)
 # Actually read data

@@ -5,7 +5,7 @@
 \title{Process data from the DWD CDC FTP Server}
 \usage{
 readDWD(file, dir = "DWDdata", meta = substr(file, nchar(file) - 3, 10000)
-  == ".txt", format = NA, tz = "GMT", progbar = TRUE)
+  == ".txt", html = FALSE, format = NA, tz = "GMT", progbar = TRUE)
 }
 \arguments{
 \item{file}{Char (vector): name(s) of the file(s) downloaded with \code{\link{dataDWD}},
@@ -18,6 +18,10 @@ DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
 
 \item{meta}{Logical (vector): is the \code{file} a meta file?
 DEFAULT: TRUE for each file ending in ".txt"}
+
+\item{html}{Logical: read the html file instead of actual data?
+Requires XML to be installed. Experimental: use at own risk!
+DEFAULT: FALSE}
 
 \item{format}{Char (vector): if \code{meta=FALSE}: Format passed to
 \code{\link{as.POSIXct}} (see \code{\link{strptime}})
