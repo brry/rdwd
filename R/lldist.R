@@ -10,7 +10,7 @@
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2016 + Jan 2017.
 #'         Angle formula from Diercke Weltatlas 1996, Page 245
 #' @keywords spatial
-#' @importFrom berryFunctions getColumn almost.equal
+#' @importFrom berryFunctions getColumn
 #'
 #' @param lat,long Latitude (North/South) and longitude (East/West) coordinates in decimal degrees
 #' @param data Optional: data.frame with the columns \code{lat} and \code{long}
@@ -46,7 +46,9 @@ cosinusangle <- sin(y1)*sin(y2) + cos(y1)*cos(y2)*cos(x1-x2)
 cosinusangle <- replace(cosinusangle, cosinusangle>1, 1)
 # angle between lines from earth center to coordinates:
 angle <- acos( cosinusangle )
-samepoint <- almost.equal(x2, x1) & almost.equal(y2, y1) # berryFunctions::almost.equal
+# berryFunctions::almost.equal is too slow in vectorized settings like maxEarthDist
+tol <- sqrt(.Machine$double.eps) # equality tolerance
+samepoint <-    abs(x2-x1) < tol  &   abs(y2-y1) < tol
 angle[samepoint] <- 0 # again, to compensate numerical inaccuracies
 # compute great-circle-distance:
 r*angle
