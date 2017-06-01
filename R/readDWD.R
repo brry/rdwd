@@ -121,11 +121,9 @@ return(dat)
 {
 # Handle German Umlaute:
 lct <- Sys.getlocale("LC_CTYPE")
+on.exit(Sys.setlocale(category="LC_CTYPE", locale=lct), add=TRUE)
 if(!grepl(pattern="german", lct, ignore.case=TRUE))
   {
-  warning("readDWD is changing locale 'LC_CTYPE' to German (to handle Umlaute). ",
-          "To restore previous state, use\n  Sys.setlocale('LC_CTYPE', '",lct,"')",
-          call.=FALSE)
   lctry <- c("German","de_DE","de_DE.UTF-8","de_DE.utf8","de")
   for(lc in lctry) if(suppressWarnings(Sys.setlocale("LC_CTYPE", lc))!="") break
   }
