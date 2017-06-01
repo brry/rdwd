@@ -4,6 +4,18 @@ German Weather Service (Deutscher Wetterdienst, DWD).
 They provide over 25 thousand datasets with weather observations online at 
 <ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate>.
 
+
+###WARNING:
+as of June 1, the FTP server structure has 
+[changed](ftp://ftp-cdc.dwd.de/test/CDC/help/Changes_detail_obsgermany_formats_20170601.pdf).
+Parts of the package currently do not work correctly anymore.
+I'm working on adapting to the changes, please have a bit of patience.
+Sorry for any inconveniences.
+
+\
+
+\
+
 `rdwd` is available on CRAN:
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version-last-release/rdwd)](http://cran.r-project.org/package=rdwd) 
 [![downloads](http://cranlogs.r-pkg.org/badges/rdwd)](http://www.r-pkg.org/services)
