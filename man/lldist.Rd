@@ -23,7 +23,9 @@ are computed. DEFAULT: 1}
 
 \item{each}{Logical: give max dist to all other points for each point separately?
 If FALSE, will return the maximum of the complete distance matrix,
-as if \code{max(maxEarthDist(y,x))}. DEFAULT: TRUE}
+as if \code{max(maxlldist(y,x))}. For examples, see
+\href{https://github.com/brry/OSMscale/blob/master/R/maxEarthDist.R#L14-L33}{OSMscale::maxEarthDist}
+DEFAULT: TRUE}
 
 \item{\dots}{Further arguments passed to fun, like na.rm=TRUE}
 }

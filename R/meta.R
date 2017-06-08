@@ -156,15 +156,8 @@ return(invisible(out))
 #' coordinatewise station info (meta data) available on the DWD CDC FTP server
 #'
 #' \code{\link{metaIndex}} distilled to geographic locations.
-#' \code{geoIndexAll} contains all coordinates.
-#' \code{geoIndex} is an aggregated version where stations (of a single ID) with all unique
-#' coordinates less than 900 m apart are aggregated into one location.
-#' Distance is computed with \url{https://github.com/brry/OSMscale/blob/master/R/maxEarthDist.R}
-#' To reduce package dependency, aggregation is done locally in the last section of
-#' \url{https://github.com/brry/rdwd/blob/master/R/meta.R}
 #'
 #' @name geoIndex
-#' @aliases geoIndex geoIndexAll
 #' @docType data
 #' @format data.frame with ca 7k rows for 9 columns:
 #'         \code{id}, \code{name}, \code{state}
@@ -184,7 +177,6 @@ return(invisible(out))
 #' # example usages are in ?rdwd
 #'
 data(geoIndex, envir=environment())
-data(geoIndexAll, envir=environment())
 
 
 
@@ -215,7 +207,7 @@ apply(x, MARGIN=1, perrow)
 # update Indexes ---------------------------------------------------------------
 
 if(FALSE){
-# commented out to prevent accidental calling
+# FTP indexing commented out to prevent accidental calling:
 # dwdfiles <- indexDWD(sleep=0, filename="")
 # dwdfiles <- indexDWD(dwdfiles, sleep=1, filename="", overwrite=TRUE)
   # potentially needed several times with small sleep values on restrictive FTP servers
@@ -224,92 +216,31 @@ if(FALSE){
 # check for dupliate description files (Monatwerte + Monatswerte, e.g., also in INDEX_OF.txt)
 
 dwdfiles <- readLines("DWDdata/INDEX_of_DWD_.txt") # 25'757 elements (2017-03-14)
-index <- createIndex(dwdfiles, meta=TRUE)
-fileIndex    <- index[[1]]
-metaIndex    <- index[[2]]
- geoIndexAll <- index[[3]]
+index <- createIndex(dwdfiles, meta=TRUE) # ca 15 secs +6 if files are not yet downloaded
+{ # save indexes into package:
+fileIndex <- index[[1]]
+metaIndex <- index[[2]]
+ geoIndex <- index[[3]]
 # save and compress:
-save(fileIndex,     file="data/fileIndex.rda")
-tools::resaveRdaFiles(   "data/fileIndex.rda") #devtools::use_data(fileIndex, internal=TRUE)
-save(metaIndex,     file="data/metaIndex.rda")
-tools::resaveRdaFiles(   "data/metaIndex.rda")
-save( geoIndexAll,  file="data/geoIndexAll.rda")
-tools::resaveRdaFiles(   "data/geoIndexAll.rda")
-
+message("saving index rda files...")
+save(fileIndex, file="data/fileIndex.rda")
+cat(".")
+save(metaIndex, file="data/metaIndex.rda")
+save( geoIndex, file="data/geoIndex.rda")
+message("compressing files...")
+tools::resaveRdaFiles("data/fileIndex.rda") #devtools::use_data(fileIndex, internal=TRUE)
+tools::resaveRdaFiles("data/metaIndex.rda")
+tools::resaveRdaFiles("data/geoIndex.rda")
+message("checking files...")
 # check writing and reading of the files:
 fileIndex2 <- read.table("DWDdata/fileIndex.txt", sep="\t", header=TRUE, colClasses="character")
 stopifnot(all(fileIndex==fileIndex2))
 metaIndex2 <- read.table("DWDdata/metaIndex.txt", sep="\t", header=TRUE, as.is=TRUE)
 stopifnot(all(metaIndex==metaIndex2))
- geoIndexAll2 <- read.table("DWDdata/geoIndexAll.txt",  sep="\t", header=TRUE, as.is=TRUE)
-stopifnot(all( geoIndexAll== geoIndexAll2))
-rm(fileIndex2,metaIndex2,geoIndexAll2)
+ geoIndex2 <- read.table("DWDdata/geoIndex.txt",  sep="\t", header=TRUE, as.is=TRUE)
+stopifnot(all( geoIndex== geoIndex2))
+rm(fileIndex2,metaIndex2,geoIndex2)
 rm(index,dwdfiles)
+} # end saving+checking index files
 
-
-
-# geoIndexAll 2 geoIndex -------------------------------------------------------
-#    data("geoIndexAll")
-
-# compute max distances:
-id <- unique(geoIndexAll$id)
-dist <- pbapply::pbsapply(id, function(i)  # ca 5 secs computing time
-  {
-  g <- geoIndexAll[geoIndexAll$id==i,]
-  if(nrow(g)<2) return(0)
-  OSMscale::maxEarthDist(lat, long, data=g)
-  }) ; names(dist) <- id
-
-# Examine distances:
-if(FALSE){
-logHist(dist, breaks=50, main="Max distance between station locations in km")
-library(leaflet)
-
-farapart <- geoIndexAll[geoIndexAll$id %in% id[dist>0.5],]
-farapart$dist <- dist[as.character(farapart$id)]
-farapart$display <- paste0(farapart$display, "<br>maxDist: ", round(farapart$dist,2))
-col <- seqPal(100)[classify(farapart$dist, method="logspaced", breaks=c(100,1.05))$index]
-#col_leg <- seqPal(100)[classify(1:26/2, method="logspaced", breaks=c(100,1.05),
-#Range=range(farapart$dist))$index]
-mapfarapart <- leaflet(farapart) %>% addTiles() %>%
-   addCircleMarkers(~long,~lat, popup=~display, col="white", opacity=1,
-                    fillOpacity=1, fillColor=col) #%>%
-#   addLegend("bottomright", values=1:26/2, col=col_leg, labels=1:26/2)
-htmlwidgets::saveWidget(mapfarapart, "mapfarapart.html")
-rm(mapfarapart, col, farapart)
-}
-
-# combine stations per ID if closer than 900 m apart (radius of fixed circles):
-geoIndex <- pbapply::pblapply(id, function(i){
-  g <- geoIndexAll[geoIndexAll$id==i,]
-  if(nrow(g)<2) return(g)
-  if(dist[as.character(i)] > 0.9) return(g)
-  nf_co <- strsplit(paste(g$nfiles_coord,"(0"), "(", fixed=TRUE)
-  nf_id <- strsplit(paste(g$nfiles_id,   "(0"), "(", fixed=TRUE)
-  nfc <- as.numeric(sapply(nf_co, "[", 1))
-  nfi <- as.numeric(sapply(nf_id,    "[", 1))
-  nf_co <- sapply(nf_co, "[", 2)
-  nf_id <- sapply(nf_id, "[", 2)
-  nf_co <- gsub("+","",gsub(")","",nf_co,fixed=TRUE), fixed=TRUE)
-  nf_id <- gsub("+","",gsub(")","",nf_id,fixed=TRUE), fixed=TRUE)
-  nfc <- nfc + as.numeric(nf_co)
-  nfi <- nfi + as.numeric(nf_id)
-  g$recentfile <- any(g$recentfile)
-  g$ele <- round(sum(g$ele*nfc/nfi[1],na.rm=TRUE),2)
-  g$nfiles_coord <- paste(g$nfiles_coord, collapse=" + ")
-  return(g[which.max(nfc),])
-})
-
-geoIndex <- do.call(rbind, geoIndex)
-geoIndex$all_elev <- NULL
-geoIndex$display <- NULL
-geoIndex$display <- rowDisplay(geoIndex)
-geoIndex$col <- "blue"
-geoIndex$col[!geoIndex$recentfile] <- "red"
-isnul <- as.numeric(sapply(strsplit(geoIndex$nfiles_id, "(", fixed=TRUE), "[", 1))==0
-geoIndex$col[isnul] <- "black" ;  rm(isnul)
-
-save( geoIndex,  file="data/geoIndex.rda")
-tools::resaveRdaFiles("data/geoIndex.rda")
-
-}
+} # end if FALSE

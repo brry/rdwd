@@ -7,7 +7,7 @@
 createIndex(paths,
   base = "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
   dir = "DWDdata", fname = "fileIndex.txt", meta = FALSE,
-  metadir = "meta", mname = "metaIndex.txt", gname = "geoIndexAll.txt",
+  metadir = "meta", mname = "metaIndex.txt", gname = "geoIndex.txt",
   quiet = FALSE, ...)
 }
 \arguments{
@@ -35,9 +35,9 @@ description files are downloaded to if meta=TRUE. vPassed to
 write \code{\link{metaIndex}}.
 Use \code{mname=""} to suppress writing. DEFAULT: "metaIndex.txt"}
 
-\item{gname}{Ditto for \code{\link{geoIndexAll}}. DEFAULT: "geoIndexAll.txt"}
+\item{gname}{Filename for \code{\link{geoIndex}}. DEFAULT: "geoIndex.txt"}
 
-\item{quiet}{Logical: Suppress messages about directory / filename? DEFAULT: FALSE}
+\item{quiet}{Logical: Suppress messages about progress and filenames? DEFAULT: FALSE}
 
 \item{\dots}{Further arguments passed to \code{\link{dataDWD}} for the meta part.}
 }
@@ -50,7 +50,7 @@ This is mainly an internal function.
 Create data.frames out of the vector index returned by \code{\link{indexDWD}}.
 For \code{\link{fileIndex}} (the first output element) \code{createIndex}
 tries to obtain res, var, per, file, id, start and end from the paths.
-If \code{meta=TRUE}, \code{\link{metaIndex}} and \code{\link{geoIndexAll}} are also
+If \code{meta=TRUE}, \code{\link{metaIndex}} and \code{\link{geoIndex}} are also
 created. They combine all Beschreibung files into a single data.frame.\cr
 If you create your own index as suggested in selectDWD (argument \code{findex}),
 you can read the produced file as shown in the example section.
@@ -69,7 +69,7 @@ lapply(ind2, head)
 # For real usage, see last part of
 if(interactive())
 browseURL("https://github.com/brry/rdwd/blob/master/R/meta.R")
-# where fileIndex and metaIndex are added to the package
+# where the Indexes are added to the package
 
 # Read results in later:
 \dontrun{ ## files normally not yet available:
@@ -83,6 +83,6 @@ metaIndex2 <- read.table("DWDdata/metaIndex.txt", sep="\\t", header=TRUE, as.is=
 \code{\link{indexDWD}}, \code{\link{fileIndex}}, \code{\link{metaIndex}}, \code{\link{selectDWD}}
 }
 \author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Oct-Nov 2016
+Berry Boessenkool, \email{berry-b@gmx.de}, Oct-Nov 2016, June 2017
 }
 \keyword{manip}

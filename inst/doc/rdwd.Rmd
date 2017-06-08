@@ -18,7 +18,7 @@ vignette: >
 
 ### Intro
 
-The [R](https://www.r-project.org/) package `rdwd`, available at [github.com/brry](https://github.com/brry/rdwd), 
+The [R](https://www.r-project.org/) package [`rdwd`](https://github.com/brry/rdwd#rdwd)
 contains code to select, download and read weather data from measuring stations across Germany. 
 The German Weather Service (Deutscher Wetterdienst, DWD) provides 
 over 25 thousand datasets with weather observations through the FTP server online at 
@@ -36,7 +36,7 @@ If you want it to be supported, send me a message to boost it up my priority lis
 To use the observation datasets, `rdwd` has been designed to mainly do 3 things:
 
 * `selectDWD`: facilitate file selection, e.g. for certain station names (with `findID`), 
-by geographical location (see `mapDWD`), by temporal resolution (hourly, daily, monthly), 
+by geographical location (see [map](mapDWD.html) and `nearbyStations`), by temporal resolution (hourly, daily, monthly), 
 variables (temperature, rain, wind, sun, clouds, etc) or
 observation period (historical long term records or the current year)
 
@@ -46,7 +46,7 @@ observation period (historical long term records or the current year)
 
 `selectDWD` uses the result from `indexDWD` which recursively lists all the files on an FTP-server (using RCurl::getURL).
 As this is time consuming, the result is stored in the package dataset `fileIndex`.
-From this, `metaIndex`, `geoIndex`, `mapDWD` and `metaInfo` are derived.
+From this, `metaIndex` and `geoIndex` are derived.
 
 <img src="PackageSchematic.png" width="600">
 
@@ -69,7 +69,7 @@ library(rdwd)
 ```
 
 If direct installation from CRAN doesn't work, your R version might be too old. 
-In that case, an update is really recommendable: [r-project.org](https://www.r-project.org/). 
+In that case it is really recommendable to [update R](https://github.com/brry/rhydro#install). 
 If you can't update R, try installing from source (github) via `instGit` as mentioned above. 
 If that's not possible either, you might be able to `source` some functions from the 
 [package zip folder](https://github.com/brry/rdwd/archive/master.zip)
@@ -109,8 +109,8 @@ par(mar=c(4,4,2,0.5), mgp=c(2.7, 0.8, 0), cex=0.8)
 link <- selectDWD("Potsdam", res="monthly", var="kl", per="h")
 clim <- dataDWD(link, quiet=TRUE)
 clim$month <- substr(clim$MESS_DATUM_BEGINN,5,6)
-temp <- tapply(clim$LUFTTEMPERATUR, clim$month, mean)
-prec <- tapply(clim$NIEDERSCHLAGSHOEHE, clim$month, mean)
+temp <- tapply(clim$MO_TT, clim$month, mean)
+prec <- tapply(clim$MO_RR, clim$month, mean)
 library(berryFunctions)
 climateGraph(temp, prec, main="Potsdam 1893:2015")
 mtext("Source: Deutscher Wetterdienst", adj=-0.05, line=2.8, font=3)
@@ -137,7 +137,7 @@ findID("Koeln", exactmatch=FALSE)
 
 ### Available files
 
-File selection by station name/id and folder happens with `selectDWD`.
+File selection by station name/id and folder happens with [`selectDWD`](../html/selectDWD.html).
 It needs an index of all the available files on the server.
 The package contains such an index (`fileIndex`) that is updated (at least) with each CRAN release of the package.
 The `selectDWD` function documentation contains an overview of the FTP folder structure.
@@ -230,6 +230,10 @@ Meta files may list stations for which there are actually no files.
 For example: Tucheim (5116) is listed in the metadata at
 [.../monthly/more_precip/recent/RR_Monatwerte_Beschreibung_Stationen.txt](ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/monthly/more_precip/recent/RR_Monatwerte_Beschreibung_Stationen.txt),
 but actually has no file in that folder (only in .../monthly/more_precip/__historical__).
+These refer to nonpublic datasets (The DWD cannot publish all datasets because of copyright restrictions).
+To request those, please contact <klima.vertrieb@dwd.de>.
+
+
 
 [TOC](#top)
 

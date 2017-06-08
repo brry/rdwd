@@ -21,8 +21,8 @@ The map is created with the following code:
 ```{r map, fig.height=7, fig.width=7, warning=FALSE}
 library(rdwd)  ;  data(geoIndex)  ;  library(leaflet) 
 leaflet(geoIndex) %>% addTiles() %>%
-        addCircles(~long, ~lat, radius=900, stroke=F, color=~col)%>%
-        addCircleMarkers(~long, ~lat, popup=~display, stroke=F, color=~col)
+        addCircles(~lon, ~lat, radius=900, stroke=F, color=~col)%>%
+        addCircleMarkers(~lon, ~lat, popup=~display, stroke=F, color=~col)
 ```
 
 Open this vignette locally for faster map reaction times than on the CRAN html view:
@@ -33,10 +33,6 @@ vignette("mapDWD")
 The blue dots mark stations for which recent files are available 
 (with >=1 file in 'recent' folder or 'BIS_DATUM' later than one year ago).
 The red dots mark all stations with only historical datasets.
-The black dots mark stations for wich only non-public data is available (hasfile=FALSE).
-To request those datasets, please contact <klima.vertrieb@dwd.de>.
-(The DWD cannot publish all datasets because of copyright restrictions).
-
 
 To see only the stations with recent data, use the following code:
 
@@ -44,24 +40,11 @@ To see only the stations with recent data, use the following code:
 library(rdwd)  ;  library(leaflet)
 data("geoIndex")
 leaflet(data=geoIndex[geoIndex$recentfile,]) %>% addTiles() %>%
-        addCircleMarkers(~long, ~lat, popup=~display, stroke=F)
+        addCircleMarkers(~lon, ~lat, popup=~display, stroke=F)
 ```
 
-Many stations have slightly different coordinates, depending on the description metadata file.
-They may have been corrected over time, station locations may have actually changed, 
-or different variables may be measured at different locations.
-
-All station IDs where the coordinates are no further than 900 m apart (the fix circle radius)
-are aggregated and plotted in the position where most datasets are available.
-For aggregated stations, the popup infobox `nfiles_coord` entry contains more than one value.
-
-To see every location on the map, copypaste the following code:
-
-```{r all, eval=FALSE}
-data("geoIndexAll")
-leaflet(data=geoIndexAll) %>% addTiles() %>%
-        addCircleMarkers(~long, ~lat, popup=~display, stroke=F)
-```
+To request the nonpublic datasets counted in the infobox, please contact <klima.vertrieb@dwd.de>.
+(The DWD cannot publish all datasets because of copyright restrictions).
 
 Note: `geoIndex` is created in the last section of 
-[meta.R](https://github.com/brry/rdwd/blob/master/R/meta.R#L248).
+[meta.R](https://github.com/brry/rdwd/blob/master/R/meta.R#L207).
