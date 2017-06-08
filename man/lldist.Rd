@@ -2,9 +2,12 @@
 % Please edit documentation in R/lldist.R
 \name{lldist}
 \alias{lldist}
+\alias{maxlldist}
 \title{distance between lat-long coordinates}
 \usage{
 lldist(lat, long, data, r = 6371, i = 1L)
+
+maxlldist(lat, long, data, r = 6371, fun = max, each = TRUE, ...)
 }
 \arguments{
 \item{lat, long}{Latitude (North/South) and longitude (East/West) coordinates in decimal degrees}
@@ -15,6 +18,14 @@ lldist(lat, long, data, r = 6371, i = 1L)
 
 \item{i}{Integer: Index element against which all coordinate pairs
 are computed. DEFAULT: 1}
+
+\item{fun}{Function to be applied. DEFAULT: \code{\link{max}}}
+
+\item{each}{Logical: give max dist to all other points for each point separately?
+If FALSE, will return the maximum of the complete distance matrix,
+as if \code{max(maxEarthDist(y,x))}. DEFAULT: TRUE}
+
+\item{\dots}{Further arguments passed to fun, like na.rm=TRUE}
 }
 \value{
 Vector with distance(s) in km (or units of \code{r}, if \code{r} is changed)
@@ -22,7 +33,7 @@ Vector with distance(s) in km (or units of \code{r}, if \code{r} is changed)
 \description{
 Great-circle distance between points at lat-long coordinates.
 Mostly a copy of OSMscale::earthDist Version 0.4.5 (2017-03-02).
-\url{https://github.com/brry/OSMscale/blob/master/R/earthDist.R}.
+\url{https://github.com/brry/OSMscale/blob/master/R/earthDist.R#L57-L102}.
 Copied manually to avoid dependency hell.
 Does not check coordinates. Not exported.
 }

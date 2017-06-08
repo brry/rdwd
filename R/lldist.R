@@ -2,7 +2,7 @@
 #'
 #' Great-circle distance between points at lat-long coordinates.
 #' Mostly a copy of OSMscale::earthDist Version 0.4.5 (2017-03-02).
-#' \url{https://github.com/brry/OSMscale/blob/master/R/earthDist.R}.
+#' \url{https://github.com/brry/OSMscale/blob/master/R/earthDist.R#L57-L102}.
 #' Copied manually to avoid dependency hell.
 #' Does not check coordinates. Not exported.
 #'
@@ -32,8 +32,6 @@ if(!missing(data)) # get lat and long from data.frame
   lat  <- getColumn(substitute(lat) , data)
   long <- getColumn(substitute(long), data)
   }
-# coordinate control:
-###checkLL(lat, long, trace=trace)
 # index control:
 i <- as.integer(i[1])
 # convert degree angles to radians
@@ -46,10 +44,40 @@ cosinusangle <- sin(y1)*sin(y2) + cos(y1)*cos(y2)*cos(x1-x2)
 cosinusangle <- replace(cosinusangle, cosinusangle>1, 1)
 # angle between lines from earth center to coordinates:
 angle <- acos( cosinusangle )
-# berryFunctions::almost.equal is too slow in vectorized settings like maxEarthDist
+# set distance between the same coordinates to exactly zero:
 tol <- sqrt(.Machine$double.eps) # equality tolerance
 samepoint <-    abs(x2-x1) < tol  &   abs(y2-y1) < tol
 angle[samepoint] <- 0 # again, to compensate numerical inaccuracies
 # compute great-circle-distance:
 r*angle
+}
+
+#' @rdname lldist
+#' @param fun   Function to be applied. DEFAULT: \code{\link{max}}
+#' @param each  Logical: give max dist to all other points for each point separately?
+#'              If FALSE, will return the maximum of the complete distance matrix,
+#'              as if \code{max(maxlldist(y,x))}. For examples, see
+#'              \href{https://github.com/brry/OSMscale/blob/master/R/maxEarthDist.R#L14-L33}{OSMscale::maxEarthDist}
+#'              DEFAULT: TRUE
+#' @param \dots Further arguments passed to fun, like na.rm=TRUE
+#'
+maxlldist <- function(
+lat,
+long,
+data,
+r=6371,
+fun=max,
+each=TRUE,
+...
+)
+{
+if(!missing(data)) # get lat and long from data.frame
+  {
+  lat  <- getColumn(substitute(lat) , data)
+  long <- getColumn(substitute(long), data)
+  }
+d <- sapply(seq_along(lat), function(i) lldist(lat,long,r=r,i=i)[-i] )
+if(!each) return(  fun(d, ...)  )   # d[upper.tri(d)]
+if(NCOL(d)==1) return(unlist(d)) # if only one or two points are compared
+apply(d, 2, fun, ...)
 }
