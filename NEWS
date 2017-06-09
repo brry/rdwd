@@ -7,7 +7,6 @@ rdwd ToDo-list / wishlist / issues
 - check out small wrapper on top of data.table::fread() which will read zipped files directly (without preliminary unzipping to disk):
   http://dsnotes.com/post/2017-01-27-lessons-learned-from-outbrain-click-prediction-kaggle-competition/
 - do not export rowDisplay
-- rename indexDWD to indexFTP
 - group index Documentation
 - reference ftp://ftp-cdc.dwd.de/pub/CDC/Readme_intro_CDC_ftp.pdf
 - http://ropensci.org/blog/blog/2017/04/04/gsodr

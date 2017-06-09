@@ -29,7 +29,7 @@ head(fileIndex)
 
 }
 \seealso{
-\code{\link{metaIndex}}, \code{\link{indexDWD}}, \code{\link{selectDWD}}
+\code{\link{metaIndex}}, \code{\link{indexFTP}}, \code{\link{selectDWD}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, June-Nov 2016

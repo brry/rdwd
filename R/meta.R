@@ -24,7 +24,7 @@
 #'         station \code{id} and time series \code{start} and \code{end}
 #'         according to \code{path}.
 #' @source Deutscher WetterDienst / Climata Data Center  FTP Server
-#' @seealso \code{\link{metaIndex}}, \code{\link{indexDWD}}, \code{\link{selectDWD}}
+#' @seealso \code{\link{metaIndex}}, \code{\link{indexFTP}}, \code{\link{selectDWD}}
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June-Nov 2016
 #' @keywords datasets
 #' @examples
@@ -208,8 +208,8 @@ apply(x, MARGIN=1, perrow)
 
 if(FALSE){
 # FTP indexing commented out to prevent accidental calling:
-# dwdfiles <- indexDWD(sleep=0, filename="")
-# dwdfiles <- indexDWD(dwdfiles, sleep=1, filename="", overwrite=TRUE)
+# dwdfiles <- indexFTP(sleep=0, filename="")
+# dwdfiles <- indexFTP(dwdfiles, sleep=1, filename="", overwrite=TRUE)
   # potentially needed several times with small sleep values on restrictive FTP servers
 
 # delete meta folder for truly new data

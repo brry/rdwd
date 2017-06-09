@@ -1,7 +1,7 @@
 #' Create file and meta index of the DWD CDC FTP Server
 #'
 #' This is mainly an internal function.
-#' Create data.frames out of the vector index returned by \code{\link{indexDWD}}.
+#' Create data.frames out of the vector index returned by \code{\link{indexFTP}}.
 #' For \code{\link{fileIndex}} (the first output element) \code{createIndex}
 #' tries to obtain res, var, per, file, id, start and end from the paths.
 #' If \code{meta=TRUE}, \code{\link{metaIndex}} and \code{\link{geoIndex}} are also
@@ -12,7 +12,7 @@
 #' @return invisible data.frame (or if meta=TRUE, list with two data.frames)
 #' with a number of columns inferred from the paths. Each is also written to disc.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct-Nov 2016, June 2017
-#' @seealso \code{\link{indexDWD}}, \code{\link{fileIndex}}, \code{\link{metaIndex}}, \code{\link{selectDWD}}
+#' @seealso \code{\link{indexFTP}}, \code{\link{fileIndex}}, \code{\link{metaIndex}}, \code{\link{selectDWD}}
 #' @keywords manip
 #' @importFrom berryFunctions l2df convertUmlaut newFilename sortDF
 #' @importFrom utils write.table
@@ -41,7 +41,7 @@
 #' metaIndex2 <- read.table("DWDdata/metaIndex.txt", sep="\t", header=TRUE, as.is=TRUE)
 #' }
 #'
-#' @param paths Char: vector of DWD paths returned by \code{\link{indexDWD}} called
+#' @param paths Char: vector of DWD paths returned by \code{\link{indexFTP}} called
 #'              with the same \code{base} value as this function
 #' @param base  Main directory of DWD ftp server, defaulting to observed climatic records.
 #'              DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}

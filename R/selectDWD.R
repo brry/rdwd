@@ -122,11 +122,11 @@
 #'              \code{per} is set to "" if var=="solar". DEFAULT: ""
 #' @param findex Single object: Index used to select filename, as returned by
 #'              \code{\link{createIndex}}.To use a current / custom index, use
-#'              \code{myIndex <- createIndex(indexDWD("/daily/solar"))}
+#'              \code{myIndex <- createIndex(indexFTP("/daily/solar"))}
 #'              (with desired path, of course). DEFAULT: \code{rdwd:::\link{fileIndex}}
 #' @param current Single logical for case 3/4 with given \code{path}: instead of
 #'              \code{findex}, use a list of the currently available files at
-#'              base/res/var/per? This will call \code{\link{indexDWD}}, thus
+#'              base/res/var/per? This will call \code{\link{indexFTP}}, thus
 #'              requires availability of the \code{RCurl} package.
 #'              DEFAULT: FALSE
 #' @param meta  Logical: return metadata txt file name instead of climate data zip file?
@@ -136,7 +136,7 @@
 #' @param outvec Single logical: if \bold{path} or \bold{ID} length > 1,
 #'              instead of a list, return a vector? (via \code{\link{unlist}}).
 #'              DEFAULT: FALSE
-#' @param \dots Further arguments passed to \code{\link{indexDWD}} if \code{current=TRUE},
+#' @param \dots Further arguments passed to \code{\link{indexFTP}} if \code{current=TRUE},
 #'              like dir, quiet
 #'
 selectDWD <- function(
@@ -157,7 +157,7 @@ outvec=FALSE,
 {
 # unused arguments:
 unused <- names(list(...))
-unused <- unused[!unused %in% names(formals(indexDWD))]
+unused <- unused[!unused %in% names(formals(indexFTP))]
 if(length(unused)>0) warning("unused arguments in ", berryFunctions::traceCall(1,"",""), ": ",
                              toString(unused), call.=FALSE)
 # Input checks and processing:
@@ -200,7 +200,7 @@ if(current)
   uniquepaths <- uniquepaths[uniquepaths!="///"]
   if(length(uniquepaths)<1) stop(traceCall(1, "in ", ": "),
                     "current=TRUE, but no valid paths available.", call.=FALSE)
-  findex <- createIndex(indexDWD(uniquepaths, ...), fname="")
+  findex <- createIndex(indexFTP(uniquepaths, ...), fname="")
   findexname <- "currentIndex"
   }
 # convert ID to integer:

@@ -7,7 +7,7 @@
 #' Download and process data sets with \code{\link{dataDWD}} and \code{\link{readDWD}}.\cr
 #' Station selection is done offline with \code{\link{fileIndex}} and
 #' \code{\link{findID}} (which uses \code{\link{metaIndex}}).\cr
-#' The Index objects are created with \code{\link{indexDWD}} and \code{\link{createIndex}}.\cr
+#' The Index objects are created with \code{\link{indexFTP}} and \code{\link{createIndex}}.\cr
 #' For an introduction to the package, see the \href{../doc/rdwd.html}{main vignette}.
 #'
 #' @name rdwd

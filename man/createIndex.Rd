@@ -11,7 +11,7 @@ createIndex(paths,
   quiet = FALSE, ...)
 }
 \arguments{
-\item{paths}{Char: vector of DWD paths returned by \code{\link{indexDWD}} called
+\item{paths}{Char: vector of DWD paths returned by \code{\link{indexFTP}} called
 with the same \code{base} value as this function}
 
 \item{base}{Main directory of DWD ftp server, defaulting to observed climatic records.
@@ -47,7 +47,7 @@ with a number of columns inferred from the paths. Each is also written to disc.
 }
 \description{
 This is mainly an internal function.
-Create data.frames out of the vector index returned by \code{\link{indexDWD}}.
+Create data.frames out of the vector index returned by \code{\link{indexFTP}}.
 For \code{\link{fileIndex}} (the first output element) \code{createIndex}
 tries to obtain res, var, per, file, id, start and end from the paths.
 If \code{meta=TRUE}, \code{\link{metaIndex}} and \code{\link{geoIndex}} are also
@@ -80,7 +80,7 @@ metaIndex2 <- read.table("DWDdata/metaIndex.txt", sep="\\t", header=TRUE, as.is=
 
 }
 \seealso{
-\code{\link{indexDWD}}, \code{\link{fileIndex}}, \code{\link{metaIndex}}, \code{\link{selectDWD}}
+\code{\link{indexFTP}}, \code{\link{fileIndex}}, \code{\link{metaIndex}}, \code{\link{selectDWD}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct-Nov 2016, June 2017

@@ -25,10 +25,10 @@
 #' @export
 #' @examples
 #' \dontrun{ ## Needs internet connection
-#' sol <- indexDWD(folder="/daily/solar")
+#' sol <- indexFTP(folder="/daily/solar")
 #' head(sol)
 #'
-#' mon <- indexDWD(folder="/monthly/kl", verbose=TRUE)
+#' mon <- indexFTP(folder="/monthly/kl", verbose=TRUE)
 #' }
 #'
 #' @param folder  Folder(s) to be indexed recursively, e.g. "/hourly/wind/".
@@ -54,7 +54,7 @@
 #' @param verbose Logical: write a lot of messages from \code{RCurl::\link[RCurl]{getURL}}?
 #'                DEFAULT: FALSE (usually, you dont need all the curl information)
 #'
-indexDWD <- function(
+indexFTP <- function(
 folder="currentfindex",
 base="ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
 sleep=0,
@@ -68,7 +68,7 @@ verbose=FALSE
 {
 # Check if RCurl is available:
 if(!requireNamespace("RCurl", quietly=TRUE))
-  stop("The R package 'RCurl' is not available. rdwd::indexDWD can not obtain file list.\n",
+  stop("The R package 'RCurl' is not available. rdwd::indexFTP can not obtain file list.\n",
        "install.packages('RCurl')       to enable this.")
 # change folder:
 if(all(folder=="currentfindex") & base=="ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate")

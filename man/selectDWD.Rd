@@ -49,12 +49,12 @@ use \code{per="hr"} or \code{per="rh"} (and \code{outvec=TRUE}).
 
 \item{findex}{Single object: Index used to select filename, as returned by
 \code{\link{createIndex}}.To use a current / custom index, use
-\code{myIndex <- createIndex(indexDWD("/daily/solar"))}
+\code{myIndex <- createIndex(indexFTP("/daily/solar"))}
 (with desired path, of course). DEFAULT: \code{rdwd:::\link{fileIndex}}}
 
 \item{current}{Single logical for case 3/4 with given \code{path}: instead of
 \code{findex}, use a list of the currently available files at
-base/res/var/per? This will call \code{\link{indexDWD}}, thus
+base/res/var/per? This will call \code{\link{indexFTP}}, thus
 requires availability of the \code{RCurl} package.
 DEFAULT: FALSE}
 
@@ -67,7 +67,7 @@ DEFAULT: FALSE}
 instead of a list, return a vector? (via \code{\link{unlist}}).
 DEFAULT: FALSE}
 
-\item{\dots}{Further arguments passed to \code{\link{indexDWD}} if \code{current=TRUE},
+\item{\dots}{Further arguments passed to \code{\link{indexFTP}} if \code{current=TRUE},
 like dir, quiet}
 }
 \value{
