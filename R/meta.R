@@ -182,14 +182,17 @@ data(geoIndex, envir=environment())
 
 # rowDisplay ---------------------------------------------------------------------
 
-#' create display character string for leaflet map popup from data.frame rows
+#' Create leaflet map popup from data.frame rows
+#'
+#' Create display character string for leaflet map popup from data.frame rows.
+#' This function is not exported, as it is only internally useful.
+#' A generic version is available in \code{berryFunctions::\link[berryFunctions]{popleaf}}.
 #'
 #' @return Vector of characterstrings, one for each row in x.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Feb 2017
 #' @seealso \code{\link{geoIndex}}
 #' @keywords character
 #' @importFrom berryFunctions removeSpace
-#' @export
 #'
 #' @param x data.frame with colnames
 #'

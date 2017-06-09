@@ -2,7 +2,7 @@
 % Please edit documentation in R/meta.R
 \name{rowDisplay}
 \alias{rowDisplay}
-\title{create display character string for leaflet map popup from data.frame rows}
+\title{Create leaflet map popup from data.frame rows}
 \usage{
 rowDisplay(x)
 }
@@ -13,7 +13,9 @@ rowDisplay(x)
 Vector of characterstrings, one for each row in x.
 }
 \description{
-create display character string for leaflet map popup from data.frame rows
+Create display character string for leaflet map popup from data.frame rows.
+This function is not exported, as it is only internally useful.
+A generic version is available in \code{berryFunctions::\link[berryFunctions]{popleaf}}.
 }
 \seealso{
 \code{\link{geoIndex}}
