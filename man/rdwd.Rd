@@ -27,7 +27,7 @@ USA data: \url{https://www.rdocumentation.org/packages/countyweather},
          \url{https://www.rdocumentation.org/packages/rnoaa}\cr
 }
 \author{
-Berry Boessenkool, \email{berry-b@gmx.de}, June-Nov 2016
+Berry Boessenkool, \email{berry-b@gmx.de}, June-Nov 2016, June 2017
 }
 \keyword{documentation}
 \keyword{package}

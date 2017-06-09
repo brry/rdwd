@@ -31,7 +31,7 @@
 #'
 #' # For real usage, see last part of
 #' if(interactive())
-#' browseURL("https://github.com/brry/rdwd/blob/master/R/meta.R")
+#' browseURL("https://github.com/brry/rdwd/blob/master/R/rdwd-package.R")
 #' # where the Indexes are added to the package
 #'
 #' # Read results in later:
