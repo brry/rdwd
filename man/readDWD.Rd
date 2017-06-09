@@ -4,20 +4,21 @@
 \alias{readDWD}
 \title{Process data from the DWD CDC FTP Server}
 \usage{
-readDWD(file, dir = "DWDdata", meta = substr(file, nchar(file) - 3, 10000)
-  == ".txt", html = FALSE, format = NA, tz = "GMT", progbar = TRUE)
+readDWD(file, meta = substr(file, nchar(file) - 3, 10000) == ".txt",
+  fread = requireNamespace("data.table", quietly = TRUE), html = FALSE,
+  format = NA, tz = "GMT", progbar = TRUE)
 }
 \arguments{
 \item{file}{Char (vector): name(s) of the file(s) downloaded with \code{\link{dataDWD}},
-e.g. "tageswerte_KL_02575_akt.zip" or
-"RR_Stundenwerte_Beschreibung_Stationen.txt"}
-
-\item{dir}{Char: directory name where to read the file. Use \code{"."} or \code{""}
-if \code{file} already includes a (relative or absolute) path.
-DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
+e.g. "DWDdata/tageswerte_KL_02575_akt.zip" or
+"DWDdata/RR_Stundenwerte_Beschreibung_Stationen.txt"}
 
 \item{meta}{Logical (vector): is the \code{file} a meta file?
 DEFAULT: TRUE for each file ending in ".txt"}
+
+\item{fread}{Logical: read faster with \code{data.table::\link[data.table]{fread}}?
+For 30 daily/kl/hist files, 7 instead of 10 seconds.
+DEFAULT: TRUE if data.table is available.}
 
 \item{html}{Logical: read the html file instead of actual data?
 Requires XML to be installed. Experimental: use at own risk!

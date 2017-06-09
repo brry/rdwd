@@ -9,10 +9,9 @@
 library(rdwd)
 
 ## ----basics, eval=TRUE---------------------------------------------------
-tdir <- tempdir()
 link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
-file <- dataDWD(link, read=FALSE, dir=tdir, quiet=TRUE)
-clim <- readDWD(file, dir=tdir)
+file <- dataDWD(link, read=FALSE, dir=tempdir(), quiet=TRUE)
+clim <- readDWD(file)
 
 str(clim)
 

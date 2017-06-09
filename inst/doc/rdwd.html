@@ -122,12 +122,11 @@ berryFunctions::<span class="kw">instGit</span>(<span class="st">&quot;brry/rdwd
 </div>
 <div id="basic-usage" class="section level3">
 <h3>Basic usage</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tdir &lt;-<span class="st"> </span><span class="kw">tempdir</span>()
-link &lt;-<span class="st"> </span><span class="kw">selectDWD</span>(<span class="st">&quot;Potsdam&quot;</span>, <span class="dt">res=</span><span class="st">&quot;daily&quot;</span>, <span class="dt">var=</span><span class="st">&quot;kl&quot;</span>, <span class="dt">per=</span><span class="st">&quot;recent&quot;</span>)
-file &lt;-<span class="st"> </span><span class="kw">dataDWD</span>(link, <span class="dt">read=</span><span class="ot">FALSE</span>, <span class="dt">dir=</span>tdir, <span class="dt">quiet=</span><span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">link &lt;-<span class="st"> </span><span class="kw">selectDWD</span>(<span class="st">&quot;Potsdam&quot;</span>, <span class="dt">res=</span><span class="st">&quot;daily&quot;</span>, <span class="dt">var=</span><span class="st">&quot;kl&quot;</span>, <span class="dt">per=</span><span class="st">&quot;recent&quot;</span>)
+file &lt;-<span class="st"> </span><span class="kw">dataDWD</span>(link, <span class="dt">read=</span><span class="ot">FALSE</span>, <span class="dt">dir=</span><span class="kw">tempdir</span>(), <span class="dt">quiet=</span><span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## build_vignettes $ dataDWD: 1 file already existing and not downloaded again:  'daily_kl_recent_tageswerte_KL_03987_akt.zip'
 ## Now downloading 0 files...</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">clim &lt;-<span class="st"> </span><span class="kw">readDWD</span>(file, <span class="dt">dir=</span>tdir)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">clim &lt;-<span class="st"> </span><span class="kw">readDWD</span>(file)
 
 <span class="kw">str</span>(clim)</code></pre></div>
 <pre><code>## 'data.frame':    550 obs. of  19 variables:

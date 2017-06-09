@@ -156,11 +156,10 @@ if( any(dontdownload)  )
   }
 outfile <- newFilename(outfile, quiet=quiet, ignore=dontdownload, ntrunc=ntrunc)
 # Optional progress bar:
-progbar <- progbar & requireNamespace("pbapply", quietly=TRUE)
 if(progbar) lapply <- pbapply::pblapply
 # ------------------------------------------------------------------------------
 # loop over each filename
-dummy <- lapply(seq_along(file), function(i)
+lapply(seq_along(file), function(i)
   if(!dontdownload[i])
   {
   # Actual file download:
@@ -174,8 +173,9 @@ output <- outfile
 if(read)
   {
   if(progbar) message("Reading ", length(outfile), " file", if(length(outfile)>1)"s", "...")
-  output <- readDWD(file=outfile, dir="", meta=meta, format=format, progbar=progbar)
-  }
+  output <- readDWD(file=outfile, meta=meta, format=format, progbar=progbar)
+  } else
+output <- paste0(dir,"/",output)
 # output:
 return(invisible(output))
 }

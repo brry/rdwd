@@ -20,13 +20,13 @@
 #' # see dataDWD
 #'
 #' @param file   Char (vector): name(s) of the file(s) downloaded with \code{\link{dataDWD}},
-#'               e.g. "tageswerte_KL_02575_akt.zip" or
-#'               "RR_Stundenwerte_Beschreibung_Stationen.txt"
-#' @param dir    Char: directory name where to read the file. Use \code{"."} or \code{""}
-#'               if \code{file} already includes a (relative or absolute) path.
-#'               DEFAULT: "DWDdata" at current \code{\link{getwd}()}
+#'               e.g. "DWDdata/tageswerte_KL_02575_akt.zip" or
+#'               "DWDdata/RR_Stundenwerte_Beschreibung_Stationen.txt"
 #' @param meta   Logical (vector): is the \code{file} a meta file?
 #'               DEFAULT: TRUE for each file ending in ".txt"
+#' @param fread  Logical: read faster with \code{data.table::\link[data.table]{fread}}?
+#'               For 30 daily/kl/hist files, 7 instead of 10 seconds.
+#'               DEFAULT: TRUE if data.table is available.
 #' @param html   Logical: read the html file instead of actual data?
 #'               Requires XML to be installed. Experimental: use at own risk!
 #'               DEFAULT: FALSE
@@ -45,8 +45,8 @@
 #'
 readDWD <- function(
 file,
-dir="DWDdata",
 meta=substr(file, nchar(file)-3, 1e4)==".txt",
+fread=requireNamespace("data.table",quietly=TRUE),
 html=FALSE,
 format=NA,
 tz="GMT",
@@ -59,16 +59,16 @@ if(missing(progbar) & len==1) progbar <- FALSE
 if(len>1)
   {
   meta   <- rep(meta,   length.out=len)
+  fread  <- rep(fread, length.out=len)
   html   <- rep(html,   length.out=len)
   format <- rep(format, length.out=len)
   tz     <- rep(tz,     length.out=len)
   }
-# set directory from which to read downloaded data
-owd <- dirDWD(dir, quiet=TRUE)
-on.exit(setwd(owd), add=TRUE)
 # Optional progress bar:
-progbar <- progbar & requireNamespace("pbapply", quietly=TRUE)
 if(progbar) lapply <- pbapply::pblapply
+if(any(fread))   if(!requireNamespace("data.table", quietly=TRUE))
+     stop("in readDWD: Please first install data.table:",
+          "   install.packages('data.table')", call.=FALSE)
 #
 checkFile(file)
 # loop over each filename
@@ -77,8 +77,19 @@ output <- lapply(seq_along(file), function(i)
 f <- file[i]
 if(!meta[i]) # if data ---------------------------------------------------------
 {
+if(html[i]) fread[i] <- FALSE
+if(fread[i]) # http://dsnotes.com/post/2017-01-27-lessons-learned-from-outbrain-click-prediction-kaggle-competition/
+{
+  fp <- unzip(f, list=T)
+  fp <- fp$Name[grepl("produkt",fp$Name)]
+  dat <- data.table::fread(paste("unzip -p", f, fp), na.strings=na9(),
+                           header=TRUE, sep=";", stringsAsFactors=TRUE)
+  dat <- as.data.frame(dat) # remove data.table class
+} else
+{
 # temporary unzipping directory
-exdir <- paste0(tempdir(),"/", substr(f, 1, nchar(f)-4))
+fn <- tools::file_path_sans_ext(basename(f))
+exdir <- paste0(tempdir(),"/", fn)
 unzip(f, exdir=exdir)
 on.exit(unlink(exdir, recursive=TRUE), add=TRUE)
 # experimental: html meta info:
@@ -101,14 +112,8 @@ if(html[i])
 f <- dir(exdir, pattern="produkt*", full.names=TRUE)
 # Actually read data
 dat <- read.table(f, na.strings=na9(), header=TRUE, sep=";", as.is=FALSE)
-##
-## # The alternative would be to use
-## fn <- unzip(f, list=TRUE)
-## fn <- fn$Name[grep(pattern="produkt", x=fn$Name)]
-## dat <- read.table(unz(f,fn), na.strings=na9(), header=TRUE, sep=";", as.is=FALSE)
-## # but it is not faster and introduces incomplete NA rows at the data.frame end
-## # and also removes the opportunity to potentially add an argument cleanup=FALSE
-##
+} # end if not fread
+#
 # process time-stamp: http://stackoverflow.com/a/13022441
 if(!is.null(format[i]) & "MESS_DATUM" %in% colnames(dat))
   {

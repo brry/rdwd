@@ -3,6 +3,25 @@ context("Development notes of package (not real tests")
 if(FALSE) {
 
 
+# fread speed test
+links <- selectDWD(res="daily", var="kl", per="h")[1:30]
+files <- dataDWD(links, dir="testfread", read=F)
+
+system.time(  data1 <- readDWD(files, fread=FALSE)  )    # 10.4-11.3 secs for 30 files
+system.time(  data2 <- readDWD(files, fread=TRUE )  )    #  7.5- 7.7 secs
+system.time(  data3 <- readDWD(files)               )
+all.equal(data1, data2) # TRUE
+
+
+# not used for fwf meta files, hence the following is useles:
+f <- dir("DWDdata/meta/",full.names=T)
+system.time(  data1 <- readDWD(f, fread=FALSE) )  # 3.7 secs for 26 meta files
+system.time(  data2 <- readDWD(f, fread=TRUE)  )  # 3.7
+
+
+
+
+
 # libcurl returning OS dependent results:
 
 if(!requireNamespace("RCurl", quietly=TRUE)) install.packages("RCurl")
