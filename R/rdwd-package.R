@@ -27,8 +27,9 @@
 #' @docType package
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June-Nov 2016, June 2017
 #' @keywords package documentation
-#' @seealso USA data: \url{https://www.rdocumentation.org/packages/countyweather},
-#'          \url{https://www.rdocumentation.org/packages/rnoaa}\cr
+#' @seealso USA data: \href{https://www.rdocumentation.org/packages/countyweather}{countyweather},
+#'          \href{https://www.rdocumentation.org/packages/rnoaa}{rnoaa}\cr
+#'          World data: \href{https://ropensci.org/blog/blog/2017/04/04/gsodr}{Global Surface Summary of the Day}
 #' @section Searchability Terms:
 #' Weather Data Germany download with R, Climate Data Germany\cr
 #' Deutscher Wetterdienst R Daten download Klimastationen\cr

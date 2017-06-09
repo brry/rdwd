@@ -2,7 +2,7 @@
 #  install.packages("rdwd")
 #  # get the latest development version from github:
 #  berryFunctions::instGit("brry/rdwd")
-#  # For full usage, as needed in indexDWD and metaDWD(..., current=TRUE):
+#  # For full usage, as needed in indexFTP and metaDWD(..., current=TRUE):
 #  install.packages("RCurl") # is only suggested, not mandatory dependency
 
 ## ----library-------------------------------------------------------------
@@ -30,7 +30,7 @@ clim$month <- substr(clim$MESS_DATUM_BEGINN,5,6)
 temp <- tapply(clim$MO_TT, clim$month, mean)
 prec <- tapply(clim$MO_RR, clim$month, mean)
 library(berryFunctions)
-climateGraph(temp, prec, main="Potsdam 1893:2015")
+climateGraph(temp, prec, main="Potsdam 1893:2016")
 mtext("Source: Deutscher Wetterdienst", adj=-0.05, line=2.8, font=3)
 
 ## ----findID, eval=TRUE---------------------------------------------------
@@ -43,11 +43,11 @@ findID("Koeln", exactmatch=FALSE)
 
 ## ----listfiles, eval=FALSE-----------------------------------------------
 #  # recursively list files on the FTP-server:
-#  files <- indexDWD("hourly/sun") # use dir="some_path" to save the output elsewhere
+#  files <- indexFTP("hourly/sun") # use dir="some_path" to save the output elsewhere
 #  berryFunctions::headtail(files, 5, na=TRUE)
 #  
 #  # with other FTP servers, this should also work...
-#  funet <- indexDWD(base="ftp.funet.fi/pub/standards/RFC/ien")
+#  funet <- indexFTP(base="ftp.funet.fi/pub/standards/RFC/ien")
 #  p <- RCurl::getURL("ftp.funet.fi/pub/standards/RFC/ien/",
 #                         verbose=T, ftp.use.epsv=TRUE, dirlistonly=TRUE)
 
@@ -74,7 +74,7 @@ data(metaIndex)
 str(metaIndex, vec.len=2)
 
 ## ----metaView, eval=FALSE------------------------------------------------
-#  View(data.frame(sort(unique(rdwd:::metaIndex$Stationsname)))) # 5831 entries
+#  View(data.frame(sort(unique(rdwd:::metaIndex$Stationsname)))) # ca 6k entries
 
 ## ----meta1, eval=TRUE----------------------------------------------------
 # file with station metadata for a given path:

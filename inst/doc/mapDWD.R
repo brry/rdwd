@@ -8,8 +8,7 @@ leaflet(geoIndex) %>% addTiles() %>%
 #  vignette("mapDWD")
 
 ## ----onlyrecent, eval=FALSE----------------------------------------------
-#  library(rdwd)  ;  library(leaflet)
-#  data("geoIndex")
+#  library(rdwd)  ;  data(geoIndex)  ;  library(leaflet)
 #  leaflet(data=geoIndex[geoIndex$recentfile,]) %>% addTiles() %>%
 #          addCircleMarkers(~lon, ~lat, popup=~display, stroke=F)
 

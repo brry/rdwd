@@ -23,8 +23,9 @@ DWD Daten mit R runterladen, Wetter und Klimadaten in R\cr
 }
 
 \seealso{
-USA data: \url{https://www.rdocumentation.org/packages/countyweather},
-         \url{https://www.rdocumentation.org/packages/rnoaa}\cr
+USA data: \href{https://www.rdocumentation.org/packages/countyweather}{countyweather},
+         \href{https://www.rdocumentation.org/packages/rnoaa}{rnoaa}\cr
+         World data: \href{https://ropensci.org/blog/blog/2017/04/04/gsodr}{Global Surface Summary of the Day}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, June-Nov 2016, June 2017

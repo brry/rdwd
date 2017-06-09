@@ -37,8 +37,7 @@ The red dots mark all stations with only historical datasets.
 To see only the stations with recent data, use the following code:
 
 ```{r onlyrecent, eval=FALSE}
-library(rdwd)  ;  library(leaflet)
-data("geoIndex")
+library(rdwd)  ;  data(geoIndex)  ;  library(leaflet) 
 leaflet(data=geoIndex[geoIndex$recentfile,]) %>% addTiles() %>%
         addCircleMarkers(~lon, ~lat, popup=~display, stroke=F)
 ```
@@ -47,4 +46,4 @@ To request the nonpublic datasets counted in the infobox, please contact <klima.
 (The DWD cannot publish all datasets because of copyright restrictions).
 
 Note: `geoIndex` is created in the last section of 
-[meta.R](https://github.com/brry/rdwd/blob/master/R/meta.R#L207).
+[rdwd-package.R](https://github.com/brry/rdwd/blob/master/R/rdwd-package.R#L208).

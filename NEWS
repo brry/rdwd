@@ -1,13 +1,10 @@
 
 rdwd ToDo-list / wishlist / issues
-- translations for colnames (in doc only? metaIndex / vs current=TRUE)
 - change tests to actually test stuff, maybe add third vignette
 - dataDWD: potentially use curl to download data without sleep need
 - selectDWD: if res/var/per is NA or "", give a selection popup
 - check out small wrapper on top of data.table::fread() which will read zipped files directly (without preliminary unzipping to disk):
   http://dsnotes.com/post/2017-01-27-lessons-learned-from-outbrain-click-prediction-kaggle-competition/
-- reference ftp://ftp-cdc.dwd.de/pub/CDC/Readme_intro_CDC_ftp.pdf
-- http://ropensci.org/blog/blog/2017/04/04/gsodr
 
 
 ---------------------------------------
