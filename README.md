@@ -5,9 +5,9 @@ They provide over 25 thousand datasets with weather observations online at
 <ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate>.
 
 `rdwd` is available on CRAN:
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version-last-release/rdwd)](http://cran.r-project.org/package=rdwd) 
-[![downloads](http://cranlogs.r-pkg.org/badges/rdwd)](http://www.r-pkg.org/services)
-[![Rdoc](http://www.rdocumentation.org/badges/version/rdwd)](http://www.rdocumentation.org/packages/rdwd)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version-last-release/rdwd)](https://cran.r-project.org/package=rdwd) 
+[![downloads](http://cranlogs.r-pkg.org/badges/rdwd)](https://www.r-pkg.org/services)
+[![Rdoc](http://www.rdocumentation.org/badges/version/rdwd)](https://www.rdocumentation.org/packages/rdwd)
 
 It has been presented at [FOSDEM](https://fosdem.org/2017/schedule/event/geo_weather/) in Brussels,
 featured in Rstudios [data package list](https://www.rstudio.com/rviews/2017/02/17/january-new-data-packages/) 
