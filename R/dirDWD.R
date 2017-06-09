@@ -8,7 +8,6 @@
 #' @seealso \code{\link{dataDWD}}
 #' @keywords file
 #' @importFrom berryFunctions traceCall
-#' @export
 #' @examples
 #' # see source code of dataDWD and metaDWD
 #'
