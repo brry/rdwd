@@ -155,6 +155,7 @@ if( any(dontdownload)  )
           "\nNow downloading ",sum(!dontdownload)," files...")
   }
 outfile <- newFilename(outfile, quiet=quiet, ignore=dontdownload, ntrunc=ntrunc)
+# since berryFunctions 1.15.9 (2017-06-14), outfile is now an absolute path
 # Optional progress bar:
 if(progbar) lapply <- pbapply::pblapply
 # ------------------------------------------------------------------------------
@@ -174,8 +175,7 @@ if(read)
   {
   if(progbar) message("Reading ", length(outfile), " file", if(length(outfile)>1)"s", "...")
   output <- readDWD(file=outfile, meta=meta, format=format, progbar=progbar)
-  } else
-output <- paste0(dir,"/",output)
+  }
 # output:
 return(invisible(output))
 }
