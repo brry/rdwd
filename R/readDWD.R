@@ -83,8 +83,7 @@ if(fread[i]) # http://dsnotes.com/post/2017-01-27-lessons-learned-from-outbrain-
   fp <- unzip(f, list=T)
   fp <- fp$Name[grepl("produkt",fp$Name)]
   dat <- data.table::fread(paste("unzip -p", f, fp), na.strings=na9(),
-                           header=TRUE, sep=";", stringsAsFactors=TRUE)
-  dat <- as.data.frame(dat) # remove data.table class
+                           header=TRUE, sep=";", stringsAsFactors=TRUE, data.table=FALSE)
 } else
 {
 # temporary unzipping directory
