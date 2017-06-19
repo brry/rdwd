@@ -5,26 +5,25 @@
 \title{Process data from the DWD CDC FTP Server}
 \usage{
 readDWD(file, meta = substr(file, nchar(file) - 3, 10000) == ".txt",
-  fread = requireNamespace("data.table", quietly = TRUE), html = FALSE,
+  fread = requireNamespace("data.table", quietly = TRUE), minfo = FALSE,
   format = NA, tz = "GMT", progbar = TRUE)
 }
 \arguments{
 \item{file}{Char (vector): name(s) of the file(s) downloaded with \code{\link{dataDWD}},
-e.g. "DWDdata/tageswerte_KL_02575_akt.zip" or
-"DWDdata/RR_Stundenwerte_Beschreibung_Stationen.txt"}
+e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip" or
+"~/DWDdata/RR_Stundenwerte_Beschreibung_Stationen.txt"}
 
-\item{meta}{Logical (vector): is the \code{file} a meta file?
+\item{meta}{Logical (vector): is the \code{file} a meta file (Beschreibung.txt)?
 DEFAULT: TRUE for each file ending in ".txt"}
 
 \item{fread}{Logical: read faster with \code{data.table::\link[data.table]{fread}}?
 For 30 daily/kl/hist files, 7 instead of 10 seconds.
 DEFAULT: TRUE if data.table is available.}
 
-\item{html}{Logical: read the html file instead of actual data?
-Requires XML to be installed. Experimental: use at own risk!
-DEFAULT: FALSE}
+\item{minfo}{Logical: read the meta info txt files in the zip folder (instead of actual data)?
+Returns a named list of data.frames. DEFAULT: FALSE}
 
-\item{format}{Char (vector): if \code{meta=FALSE}: Format passed to
+\item{format}{Char (vector), only used if \code{meta=FALSE}: Format passed to
 \code{\link{as.POSIXct}} (see \code{\link{strptime}})
 to convert the date/time column to POSIX time format.\cr
 If NULL, no conversion is performed (date stays a factor).
@@ -37,7 +36,7 @@ Coordinated). DEFAULT: "GMT"}
 
 \item{progbar}{Logical: present a progress bar with estimated remaining time?
 If missing and length(file)==1, progbar is internally set to FALSE.
-Only works if the R package \code{pbapply} is available. DEFAULT: TRUE}
+DEFAULT: TRUE}
 }
 \value{
 Invisible data.frame of the desired dataset, or a list of data.frames
