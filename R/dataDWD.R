@@ -95,6 +95,7 @@
 #'               only download is performed and the filename(s) returned. DEFAULT: TRUE
 #' @param meta   Logical (vector): is the \code{file} a meta file? Passed to
 #'               \code{\link{readDWD}}. DEFAULT: TRUE for each file ending in ".txt"
+#' @param fread  Fast reading? See \code{\link{readDWD}}. DEFAULT: NA
 #' @param format Char (vector): format used in \code{\link{strptime}} to convert date/time column,
 #'               see \code{\link{readDWD}}. DEFAULT: NA
 #' @param ntrunc Single integer: number of filenames printed in messages
@@ -111,6 +112,7 @@ progbar=!quiet,
 browse=FALSE,
 read=TRUE,
 meta=substr(file, nchar(file)-3, 1e4)==".txt",
+fread=NA,
 format=NA,
 ntrunc=2,
 ...
@@ -174,7 +176,7 @@ output <- outfile
 if(read)
   {
   if(progbar) message("Reading ", length(outfile), " file", if(length(outfile)>1)"s", "...")
-  output <- readDWD(file=outfile, meta=meta, format=format, progbar=progbar)
+  output <- readDWD(file=outfile, meta=meta, fread=fread, format=format, progbar=progbar)
   }
 # output:
 return(invisible(output))

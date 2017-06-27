@@ -6,7 +6,8 @@
 \usage{
 dataDWD(file, dir = "DWDdata", force = FALSE, sleep = 0, quiet = FALSE,
   progbar = !quiet, browse = FALSE, read = TRUE, meta = substr(file,
-  nchar(file) - 3, 10000) == ".txt", format = NA, ntrunc = 2, ...)
+  nchar(file) - 3, 10000) == ".txt", fread = NA, format = NA, ntrunc = 2,
+  ...)
 }
 \arguments{
 \item{file}{Char (vector): complete file URL(s) (including base and filename.zip) as returned by
@@ -38,6 +39,8 @@ only download is performed and the filename(s) returned. DEFAULT: TRUE}
 
 \item{meta}{Logical (vector): is the \code{file} a meta file? Passed to
 \code{\link{readDWD}}. DEFAULT: TRUE for each file ending in ".txt"}
+
+\item{fread}{Fast reading? See \code{\link{readDWD}}. DEFAULT: NA}
 
 \item{format}{Char (vector): format used in \code{\link{strptime}} to convert date/time column,
 see \code{\link{readDWD}}. DEFAULT: NA}
