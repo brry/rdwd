@@ -26,7 +26,7 @@
 #'               DEFAULT: TRUE for each file ending in ".txt"
 #' @param fread  Logical: read faster with \code{data.table::\link[data.table]{fread}}?
 #'               For 30 daily/kl/hist files, 7 instead of 10 seconds.
-#'               DEFAULT: TRUE if data.table is available.
+#'               DEFAULT: NA, which means TRUE if data.table is available.
 #' @param minfo  Logical: read the meta info txt files in the zip folder (instead of actual data)?
 #'               Returns a named list of data.frames. DEFAULT: FALSE
 #' @param format Char (vector), only used if \code{meta=FALSE}: Format passed to
@@ -45,7 +45,7 @@
 readDWD <- function(
 file,
 meta=substr(file, nchar(file)-3, 1e4)==".txt",
-fread=requireNamespace("data.table",quietly=TRUE),
+fread=NA,
 minfo=FALSE,
 format=NA,
 tz="GMT",
@@ -55,6 +55,7 @@ progbar=TRUE
 # recycle meta, format and tz
 len <- length(file)
 if(missing(progbar) & len==1) progbar <- FALSE
+if(anyNA(fread)) fread[is.na(fread)] <- requireNamespace("data.table",quietly=TRUE)
 if(len>1)
   {
   meta   <- rep(meta,   length.out=len)

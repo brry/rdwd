@@ -5,8 +5,7 @@
 \title{Process data from the DWD CDC FTP Server}
 \usage{
 readDWD(file, meta = substr(file, nchar(file) - 3, 10000) == ".txt",
-  fread = requireNamespace("data.table", quietly = TRUE), minfo = FALSE,
-  format = NA, tz = "GMT", progbar = TRUE)
+  fread = NA, minfo = FALSE, format = NA, tz = "GMT", progbar = TRUE)
 }
 \arguments{
 \item{file}{Char (vector): name(s) of the file(s) downloaded with \code{\link{dataDWD}},
@@ -18,7 +17,7 @@ DEFAULT: TRUE for each file ending in ".txt"}
 
 \item{fread}{Logical: read faster with \code{data.table::\link[data.table]{fread}}?
 For 30 daily/kl/hist files, 7 instead of 10 seconds.
-DEFAULT: TRUE if data.table is available.}
+DEFAULT: NA, which means TRUE if data.table is available.}
 
 \item{minfo}{Logical: read the meta info txt files in the zip folder (instead of actual data)?
 Returns a named list of data.frames. DEFAULT: FALSE}
