@@ -147,7 +147,7 @@ on.exit(setwd(owd))
 outfile <- gsub("ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/", "", file)
 outfile <- gsub("/", "_", outfile)
 dontdownload <- file.exists(outfile) & !force
-if( any(dontdownload)  )
+if( any(dontdownload) & !quiet )
   {
   message(traceCall(1, "", ": "), sum(dontdownload), " file", if(sum(dontdownload)>1)"s",
           " already existing and not downloaded again: ",
