@@ -29,7 +29,8 @@
 #' @keywords package documentation
 #' @seealso USA data: \href{https://www.rdocumentation.org/packages/countyweather}{countyweather},
 #'          \href{https://www.rdocumentation.org/packages/rnoaa}{rnoaa}\cr
-#'          World data: \href{https://ropensci.org/blog/blog/2017/04/04/gsodr}{Global Surface Summary of the Day}
+#'          World data: \href{https://ropensci.org/blog/blog/2017/04/04/gsodr}{Global Surface Summary of the Day}\cr
+#'          Durch data: \url{https://github.com/bvhest/KNMIr}\cr
 #' @section Searchability Terms:
 #' Weather Data Germany download with R, Climate Data Germany\cr
 #' Deutscher Wetterdienst R Daten download Klimastationen\cr
