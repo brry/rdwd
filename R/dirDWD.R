@@ -1,7 +1,7 @@
 #' directory management for rdwd
-#'
+#' 
 #' Manage directories with useful messages in the rdwd package.
-#'
+#' 
 #' @name dirDWD
 #' @return dirDWD invisibly returns the prior working directory as per \code{\link{setwd}}.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2016
@@ -10,7 +10,7 @@
 #' @importFrom berryFunctions traceCall
 #' @examples
 #' # see source code of dataDWD and metaDWD
-#'
+#' 
 #' \dontrun{ ## folder creation + deletion
 #' owd <- getwd(); owd
 #' dirDWD("dummydummydummy")
@@ -20,11 +20,11 @@
 #' setwd(owd)
 #' unlink("dummydummydummy")
 #' }
-#'
+#' 
 #' @param dir      Char for dirDWD: writeable directory name. Created if not existent.
 #'                 DEFAULT: "DWDdata" at current \code{\link{getwd}()}
 #' @param quiet    Logical: Suppress messages about creating dir? DEFAULT: FALSE
-#'
+#' 
 dirDWD <- function(
 dir="DWDdata",
 quiet=FALSE

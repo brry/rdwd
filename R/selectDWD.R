@@ -1,5 +1,5 @@
 #' Select data from the DWD CDC FTP Server
-#'
+#' 
 #' Select files for downloading with \code{\link{dataDWD}}.
 #' All arguments (except for \code{mindex}, \code{findex} and \code{base})
 #' can be a vecor and will be recycled to the maximum length of all arguments.
@@ -39,7 +39,7 @@
 #' soil_temperature < \tab | soil_temperature < \tab |               \cr
 #' solar -            \tab | solar -            \tab |               \cr
 #' }
-#'
+#' 
 #' @return Character string with file path and name(s) in the format
 #'         "base/res/var/per/filename.zip"
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2016
@@ -55,26 +55,26 @@
 #' # all files for all stations matching "Koeln":
 #' selectDWD("Koeln", exactmatch=FALSE)
 #' findID("Koeln", FALSE)
-#'
+#' 
 #' # or directly give station ID:
 #' selectDWD(id="00386", res="daily", var="kl", per="historical")
 #' selectDWD(id=386, res="daily", var="kl", per="historical")
 #' # period abbreviatable:
 #' selectDWD(id="00386", res="daily", var="kl", per="h")
 #' selectDWD(id="00386", res="daily", var="kl", per="h", meta=TRUE)
-#'
+#' 
 #' # vectorizable:
 #' selectDWD(id="01050", res="daily", var="kl", per=c("r","h"))
 #' selectDWD(id="01050", res="daily", var="kl", per="rh", outvec=TRUE)
 #' selectDWD(id="01050", res=c("daily","monthly"), var="kl", per="r")
 #' # vectorization gives not the outer product, but elementwise comparison:
 #' selectDWD(id="01050", res=c("daily","monthly"), var="kl", per="hr")
-#'
+#' 
 #' # all zip files in all paths matching id:
 #' selectDWD(id=c(1050, 386))
 #' # all zip files in a given path (if ID is empty):
 #' head(  selectDWD(id="", res="daily", var="kl", per="recent")   )
-#'
+#' 
 #' # See if warnings come as expected and are informative:
 #' selectDWD()
 #' selectDWD(7777)
@@ -85,13 +85,13 @@
 #' selectDWD(res="daily", var="kl")
 #' selectDWD(id="01050", res=c("daily","monthly"), var="kl") # needs 'per'
 #' selectDWD(id="00386", meta=TRUE)
-#'
+#' 
 #' selectDWD("Potsdam", res="daily", var="solar")
 #' # should be an error:
 #' berryFunctions::is.error(  selectDWD(id="Potsdam", res="daily", var="solar"), TRUE)
 #' berryFunctions::is.error(  selectDWD(id="", current=TRUE) , tell=TRUE, force=TRUE)
-#'
-#'
+#' 
+#' 
 #' @param name  Char: station name(s) passed to \code{\link{findID}}, along with the
 #'              next two arguments. All ignored if \code{id} is given. DEFAULT: ""
 #' @param exactmatch Logical passed to \code{\link{findID}}: match \code{name}
@@ -138,7 +138,7 @@
 #'              DEFAULT: FALSE
 #' @param \dots Further arguments passed to \code{\link{indexFTP}} if \code{current=TRUE},
 #'              like dir, quiet
-#'
+#' 
 selectDWD <- function(
 name="",
 exactmatch=TRUE,

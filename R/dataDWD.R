@@ -3,11 +3,11 @@
 # Weather Data Germany download with R, Climate Data Germany
 #
 #' Download data from the DWD CDC FTP Server
-#'
+#' 
 #' Get climate data from the German Weather Service (DWD) FTP-server.
 #' The desired .zip (or .txt) dataset is downloaded into \code{dir}.
 #' If \code{read=TRUE}, it is also read, processed and returned as a data.frame.
-#'
+#' 
 #' @return Presuming downloading and processing were successfull:
 #'         if \code{read=TRUE}, a data.frame of the desired dataset
 #'         (as returned by \code{\link{readDWD}}),
@@ -30,7 +30,7 @@
 #' # actually download and read files
 #' prec <- dataDWD(link, dir="DWDdata") # the default dir
 #' fname <- dataDWD(link, read=FALSE) # filename, no second download (unless force=TRUE)
-#'
+#' 
 #' # current and historical files:
 #' link <- selectDWD("Potsdam", res="daily", var="kl", per="hr", outvec=TRUE); link
 #' potsdam <- dataDWD(link)
@@ -46,7 +46,7 @@
 #' View(err) # WINDGESCHWINDIGKEIT (wind speed) has been slightly changed
 #' # Keep only historical dataset:
 #' potsdam <- potsdam[!duplicated(potsdam$MESS_DATUM),]
-#'
+#' 
 #' # several files:
 #' link <- c(link, selectDWD("Potsdam", res="daily", var="kl", per="hr", outvec=TRUE))
 #' clim <- dataDWD(link)
@@ -54,26 +54,26 @@
 #' clim <- readDWD(fname)
 #' unzip(zipfile=paste0("DWDdata/",fname[1]), exdir="DWDdata/Testunzip")
 #' # There's quite some important meta information there!
-#'
+#' 
 #' plot(prec$MESS_DATUM, prec$NIEDERSCHLAGSHOEHE, main="DWD hourly rain Kupferzell", col="blue",
 #'      xaxt="n", las=1, type="l", xlab="Date", ylab="Hourly rainfall  [mm]")
 #' monthAxis(1, ym=T)
-#'
+#' 
 #' d <- dataDWD(selectDWD(id="05692", res="daily", var="kl", per="recent"))
 #' # writes into the same folder (dir="DWDdata")
-#'
+#' 
 #' folder <- dataDWD(link, browse=T)
 #' folder
-#'
+#' 
 #' # With many files, use sleep
 #' links <- selectDWD(res="daily", var="solar", meta=FALSE)
 #' sol <- dataDWD(links, sleep=20) # random waiting time after download (0 to 20 secs)
-#'
+#' 
 #' # Real life example with data completeness check etc:
 #' browseURL("http://github.com/brry/prectemp/blob/master/Code_example.R")
-#'
+#' 
 #' }
-#'
+#' 
 #' @param file   Char (vector): complete file URL(s) (including base and filename.zip) as returned by
 #'               \code{\link{selectDWD}}. Can be a vector with several filenames.
 #' @param dir    Char: Writeable directory name where to save the downloaded file.

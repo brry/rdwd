@@ -1,22 +1,22 @@
 #' Find DWD stations close to given coordinates
-#'
+#' 
 #' Select DWD stations within a given radius around a set of coordinates
-#'
+#' 
 #' @return \code{\link{metaIndex}} subset with additional columns "dist" and "url"
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Mar 2017
 #' @seealso \code{\link{selectDWD}}, \code{\link{metaIndex}}
 #' @export
 #' @examples
-#'
+#' 
 #' # 1. Basic usage ----
-#'
+#' 
 #' m <- nearbyStations(49.211784, 9.812475, radius=30,
 #'     res=c("daily","hourly"), var= c("precipitation","more_precip","kl") ,
 #'     mindate=20160530, statname="Braunsbach catchment center")
-#'
-#'
+#' 
+#' 
 #' # 2. Remove duplicates ----
-#'
+#' 
 #'# if kl and more_precip are both available, keep only more_precip:
 #' library("berryFunctions")
 #' m <- sortDF(m, "var")
@@ -24,10 +24,10 @@
 #' m <- sortDF(m, "res")
 #' m <- sortDF(m, "dist", decreasing=FALSE)
 #' rownames(m) <- NULL
-#'
-#'
+#' 
+#' 
 #' ## 3. Interactive map ----
-#'
+#' 
 #' \dontrun{## Excluded from CRAN checks because of leaflet dependency
 #' library(leaflet)
 #' m$col <- "red" ; m$col[1] <- "blue"
@@ -35,10 +35,10 @@
 #'   addCircles(lng=9.812475, lat=49.211784, radius=30e3) %>%
 #'   addCircleMarkers(~geoLaenge, ~geoBreite, col=~col, popup=~Stationsname)
 #' }
-#'
-#'
+#' 
+#' 
 #' ## 4. Download and process data ----
-#'
+#' 
 #' \dontrun{## Excluded from CRAN checks because of data download
 #' # Download and process data for the stations, create a list of data.frames:
 #' prec <- dataDWD(m$url) # once downloaded, will only read
@@ -49,14 +49,14 @@
 #' prec29 <- merge(prec29, m[m$res=="daily",c(1,4:7,14)], sort=FALSE)
 #' View(prec29)
 #' }
-#'
-#'
+#' 
+#' 
 #' ## 5. Plot rainfall sum on map
-#'
+#' 
 #' \dontrun{## Excluded from CRAN checks because of map download
 #' plot(geoBreite~geoLaenge, data=m, asp=1)
 #' textField(prec29$geoLaenge, prec29$geoBreite, prec29$precsum, col=2)
-#'
+#' 
 #' # If OSMscale installation fails, go to:
 #' browseURL("https://github.com/brry/OSMscale#installation")
 #' # install.packages("OSMscale")
@@ -69,7 +69,7 @@
 #' title(main="Rainfall sum  2016-05-29  7AM-7AM  [mm]", line=-1)
 #' textField(prec29$x, prec29$y, round(prec29$precsum), font=2, cex=1.5)
 #' }
-#'
+#' 
 #' @param lat,lon     Coordinates [degrees N/S, E/W]
 #' @param radius      Maximum distance [km] within which stations will be selected
 #' @param res,var,per Restrictions for dataset type as documented in
@@ -83,7 +83,7 @@
 #'                    "nearbyStations target location"
 #' @param quiet       Logical: suppress progress messages? DEFAULT: FALSE
 #' @param \dots       Further arguments passed to \code{\link{selectDWD}}
-#'
+#' 
 nearbyStations <- function(
 lat,
 lon,

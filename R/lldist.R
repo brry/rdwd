@@ -1,23 +1,23 @@
 #' distance between lat-long coordinates
-#'
+#' 
 #' Great-circle distance between points at lat-long coordinates.
 #' Mostly a copy of OSMscale::earthDist Version 0.4.5 (2017-03-02).
 #' \url{https://github.com/brry/OSMscale/blob/master/R/earthDist.R#L57-L102}.
 #' Copied manually to avoid dependency hell.
 #' Does not check coordinates. Not exported.
-#'
+#' 
 #' @return Vector with distance(s) in km (or units of \code{r}, if \code{r} is changed)
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2016 + Jan 2017.
 #'         Angle formula from Diercke Weltatlas 1996, Page 245
 #' @keywords spatial
 #' @importFrom berryFunctions getColumn
-#'
+#' 
 #' @param lat,long Latitude (North/South) and longitude (East/West) coordinates in decimal degrees
 #' @param data Optional: data.frame with the columns \code{lat} and \code{long}
 #' @param r radius of the earth. Could be given in miles. DEFAULT: 6371 (km)
 #' @param i Integer: Index element against which all coordinate pairs
 #'          are computed. DEFAULT: 1
-#'
+#' 
 lldist <- function(
 lat,
 long,
@@ -60,7 +60,7 @@ r*angle
 #'              \href{https://github.com/brry/OSMscale/blob/master/R/maxEarthDist.R#L14-L33}{OSMscale::maxEarthDist}
 #'              DEFAULT: TRUE
 #' @param \dots Further arguments passed to fun, like na.rm=TRUE
-#'
+#' 
 maxlldist <- function(
 lat,
 long,

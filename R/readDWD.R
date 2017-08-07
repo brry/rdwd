@@ -1,5 +1,5 @@
 #' Process data from the DWD CDC FTP Server
-#'
+#' 
 #' Read climate (meta) data that was downloaded with \code{\link{dataDWD}}.
 #' The file is read, processed and returned as a data.frame.\cr
 #' \code{file} can be a vector with several filenames. The arguments \code{meta}
@@ -7,7 +7,7 @@
 #' If \code{meta=TRUE}, column widths for \code{\link{read.fwf}} are computed internally.
 #' If needed, readDWD tries to set the locale to German (to handle Umlaute correctly).
 #' They can then be processed with \code{dd$Stations_id <- berryFunctions::convertUmlaut(dd$Stations_id)}.
-#'
+#' 
 #' @return Invisible data.frame of the desired dataset, or a list of data.frames
 #'         if length(file) > 1.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jul-Oct 2016
@@ -18,7 +18,7 @@
 #' @export
 #' @examples
 #' # see dataDWD
-#'
+#' 
 #' @param file   Char (vector): name(s) of the file(s) downloaded with \code{\link{dataDWD}},
 #'               e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip" or
 #'               "~/DWDdata/RR_Stundenwerte_Beschreibung_Stationen.txt"
@@ -41,7 +41,7 @@
 #' @param progbar Logical: present a progress bar with estimated remaining time?
 #'               If missing and length(file)==1, progbar is internally set to FALSE.
 #'               DEFAULT: TRUE
-#'
+#' 
 readDWD <- function(
 file,
 meta=substr(file, nchar(file)-3, 1e4)==".txt",
