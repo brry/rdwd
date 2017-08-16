@@ -21,7 +21,9 @@
 #'          see also \code{berryFunctions::\link[berryFunctions]{climateGraph}}
 #' @keywords data file
 #' @importFrom utils tail download.file browseURL
-#' @importFrom berryFunctions newFilename
+#' @importFrom berryFunctions newFilename traceCall truncMessage
+#' @importFrom pbapply pblapply
+#' @importFrom stats runif
 #' @export
 #' @examples
 #' \dontrun{ ## requires internet connection

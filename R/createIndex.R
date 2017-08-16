@@ -14,9 +14,10 @@
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct-Nov 2016, June 2017
 #' @seealso \code{\link{indexFTP}}, \code{\link{fileIndex}}, \code{\link{metaIndex}}, \code{\link{selectDWD}}
 #' @keywords manip
-#' @importFrom berryFunctions l2df convertUmlaut newFilename sortDF
+#' @importFrom berryFunctions l2df convertUmlaut newFilename sortDF traceCall
 #' @importFrom utils write.table
 #' @importFrom pbapply pbsapply pblapply
+#' @importFrom graphics abline
 #' @export
 #' @examples
 #' \dontrun{ # Not tested with R CMD check because of file writing

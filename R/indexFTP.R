@@ -20,6 +20,7 @@
 # @seealso \code{\link{metaDWD}}, \code{\link{dataDWD}}, \code{\link{readDWD}}
 #' @keywords file
 #' @importFrom stats runif
+#' @importFrom pbapply pblapply
 #' @importFrom utils write.table
 #' @importFrom berryFunctions removeSpace traceCall newFilename
 #' @export

@@ -15,6 +15,8 @@
 #' @keywords file chron
 #' @importFrom utils read.table unzip read.fwf
 #' @importFrom berryFunctions checkFile na9 traceCall
+#' @importFrom pbapply pblapply
+#' @importFrom tools file_path_sans_ext
 #' @export
 #' @examples
 #' # see dataDWD

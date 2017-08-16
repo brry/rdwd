@@ -6,6 +6,7 @@
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Mar 2017
 #' @seealso \code{\link{selectDWD}}, \code{\link{metaIndex}}
 #' @export
+#' @importFrom berryFunctions sortDF
 #' @examples
 #' 
 #' # 1. Basic usage ----

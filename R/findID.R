@@ -7,6 +7,7 @@
 #' @seealso used in \code{\link{selectDWD}}, \code{\link{metaInfo}}
 #' @keywords character
 #' @export
+#' @importFrom berryFunctions traceCall
 #' @examples
 #' \dontrun{
 #' # Give weather station name (must be existing in metaIndex):

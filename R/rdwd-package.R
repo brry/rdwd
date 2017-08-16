@@ -88,6 +88,7 @@ release_questions <- function() {
 #'          \href{../doc/mapDWD.html}{\code{vignette("mapDWD")}}
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June-Nov 2016, June 2017
 #' @keywords datasets
+#' @importFrom utils data
 #' @examples
 #' data(fileIndex)
 #' data(metaIndex)
