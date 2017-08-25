@@ -15,3 +15,4 @@ Encoding: UTF-8
 URL: https://github.com/brry/rdwd
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
+BugReports: https://github.com/brry/rdwd/issues
