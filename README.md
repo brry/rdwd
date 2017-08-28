@@ -36,8 +36,8 @@ clim <- readDWD(file)
 str(clim)
 ```
 
-You can also select datasets with the [interactive map](https://cran.r-project.org/package=rdwd/vignettes/mapDWD.html).
-Further instructions and examples are available in the [package vignette](https://cran.r-project.org/package=rdwd/vignettes/rdwd.html).
+You can also select datasets with the [interactive map](https://cran.r-project.org/package=rdwd/vignettes/mapDWD.html).  
+Installation instructions and more examples are available in the [package vignette](https://cran.r-project.org/package=rdwd/vignettes/rdwd.html).
 
 ```R
 vignette("mapDWD") # interactive map, likely faster than CRAN link above
