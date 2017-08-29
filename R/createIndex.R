@@ -158,7 +158,7 @@ sapply(2:length(cnames), function(i) if(!all(cnames[[i]] == cnames[[1]]))
 #
 # merge:
 if(!quiet) messaget("Merging meta files...")
-metaIndex <- Reduce(function(...) merge(..., all=T), metas)
+metaIndex <- Reduce(function(...) merge(..., all=TRUE), metas)
 if(!quiet) messaget("Processing meta files...")
 metaIndex$Stationsname <- berryFunctions::convertUmlaut(metaIndex$Stationsname)
 metaIndex$Bundesland   <- berryFunctions::convertUmlaut(metaIndex$Bundesland)

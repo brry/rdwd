@@ -123,7 +123,7 @@ if(minfo) fread <- FALSE
 if(fread)
   {
   # http://dsnotes.com/post/2017-01-27-lessons-learned-from-outbrain-click-prediction-kaggle-competition/
-  fp <- unzip(file, list=T) # file produkt*, the actual datafile
+  fp <- unzip(file, list=TRUE) # file produkt*, the actual datafile
   fp <- fp$Name[grepl("produkt",fp$Name)]
   dat <- data.table::fread(paste("unzip -p", file, fp), na.strings=na9(),
                            header=TRUE, sep=";", stringsAsFactors=TRUE, data.table=FALSE)
