@@ -82,6 +82,8 @@
 #'               Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}
 #' @param force  Logical (vector): always download, even if the file already exists in \code{dir}?
 #'               If FALSE, it is still read (or name returned). DEFAULT: FALSE
+#' @param overwrite Logical (vector): if force=TRUE, overwrite the existing file
+#'               rather than append "_1"/"_2" etc to the filename? DEFAULT: FALSE
 #' @param sleep  Number. If not 0, a random number of seconds between 0 and
 #'               \code{sleep} is passed to \code{\link{Sys.sleep}} after each download
 #'               to avoid getting kicked off the FTP-Server. DEFAULT: 0
@@ -108,6 +110,7 @@ dataDWD <- function(
 file,
 dir="DWDdata",
 force=FALSE,
+overwrite=FALSE,
 sleep=0,
 quiet=FALSE,
 progbar=!quiet,
@@ -158,7 +161,8 @@ if( any(dontdownload) & !quiet )
           berryFunctions::truncMessage(outfile[dontdownload], ntrunc=ntrunc, prefix=""),
           "\nNow downloading ",sum(!dontdownload)," files...")
   }
-outfile <- newFilename(outfile, quiet=quiet, ignore=dontdownload, ntrunc=ntrunc)
+outfile <- newFilename(outfile, quiet=quiet, ignore=dontdownload, 
+                       overwrite=overwrite, ntrunc=ntrunc, tellignore=FALSE)
 # since berryFunctions 1.15.9 (2017-06-14), outfile is now an absolute path
 # Optional progress bar:
 if(progbar) lapply <- pbapply::pblapply
