@@ -80,7 +80,7 @@
 #'               \code{\link{selectDWD}}. Can be a vector with several filenames.
 #' @param dir    Char: Writeable directory name where to save the downloaded file.
 #'               Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}
-#' @param force  Logical: always download, even if the file already exists in \code{dir}?
+#' @param force  Logical (vector): always download, even if the file already exists in \code{dir}?
 #'               If FALSE, it is still read (or name returned). DEFAULT: FALSE
 #' @param sleep  Number. If not 0, a random number of seconds between 0 and
 #'               \code{sleep} is passed to \code{\link{Sys.sleep}} after each download

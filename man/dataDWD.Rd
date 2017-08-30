@@ -16,7 +16,7 @@ dataDWD(file, dir = "DWDdata", force = FALSE, sleep = 0, quiet = FALSE,
 \item{dir}{Char: Writeable directory name where to save the downloaded file.
 Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
 
-\item{force}{Logical: always download, even if the file already exists in \code{dir}?
+\item{force}{Logical (vector): always download, even if the file already exists in \code{dir}?
 If FALSE, it is still read (or name returned). DEFAULT: FALSE}
 
 \item{sleep}{Number. If not 0, a random number of seconds between 0 and
