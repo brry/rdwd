@@ -3,6 +3,7 @@ rdwd ToDo-list / wishlist / issues
 - change tests to actually test stuff, maybe add third vignette
 - dataDWD: potentially use curl to download data without sleep need
 - selectDWD: if res/var/per is NA or "", give a selection popup
+- for per="monthly", make readDWD recognize MESS_DATUM_ENDE and _BEGINN, potentially create new column MESS_DATUM yyyy-mm-15
 
 ---------------------------------------
 rdwd: DWD Climate Data access package by Berry Boessenkool, berry-b@gmx.de
