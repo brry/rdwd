@@ -34,7 +34,7 @@ Vector with distance(s) in km (or units of \code{r}, if \code{r} is changed)
 }
 \description{
 Great-circle distance between points at lat-long coordinates.
-Mostly a copy of OSMscale::earthDist Version 0.4.5 (2017-03-02).
+Mostly a copy of OSMscale::earthDist Version 0.5.3 (2017-04-19).
 \url{https://github.com/brry/OSMscale/blob/master/R/earthDist.R#L57-L102}.
 Copied manually to avoid dependency hell.
 Does not check coordinates. Not exported.

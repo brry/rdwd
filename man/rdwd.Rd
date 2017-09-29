@@ -4,7 +4,6 @@
 \name{rdwd}
 \alias{rdwd}
 \alias{rdwd-package}
-\alias{rdwd-package}
 \title{Download Climate Data from DWD (German Weather Service)}
 \description{
 Select weather data from the DWD (Deutscher Wetterdienst) with
