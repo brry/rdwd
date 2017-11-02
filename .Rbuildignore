@@ -8,3 +8,5 @@ cran-comments.md
 PackageSchematic.pptx
 testfread/
 testfread
+inst/shinyapps/
+inst/shinyapps
