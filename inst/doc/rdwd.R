@@ -5,10 +5,8 @@
 #  # For full usage, as needed in indexFTP and metaDWD(..., current=TRUE):
 #  install.packages("RCurl") # is only suggested, not mandatory dependency
 
-## ----library-------------------------------------------------------------
-library(rdwd)
-
 ## ----basics, eval=TRUE---------------------------------------------------
+library(rdwd)
 link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
 file <- dataDWD(link, read=FALSE, dir=tempdir(), quiet=TRUE)
 clim <- readDWD(file)
