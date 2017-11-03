@@ -77,13 +77,13 @@ Character string with file path and name(s) in the format
 \description{
 Select files for downloading with \code{\link{dataDWD}}.
 All arguments (except for \code{mindex}, \code{findex} and \code{base})
-can be a vecor and will be recycled to the maximum length of all arguments.
-If that length > 1, the output is a list of filenames (or vector with \code{outvec=TRUE}).\cr
+can be a vector and will be recycled to the maximum length of all arguments.
+If that length > 1, the output is a list of filenames (or vector if \code{outvec=TRUE}).\cr
 If station \code{name} is given, but \code{id} is empty (""),
 \bold{id} is inferred via \code{mindex}.
 If \code{res/var/per} are given and valid (existing in \code{findex}),
 they are pasted together to form a \bold{path}.
-Here is an overview of the behaviour in each case of availability:
+Here is an overview of the behavior in each case of availability:
 \tabular{llll}{
 case \tab |  \bold{id} \tab |  \bold{path} \tab | output \cr
  1 \tab |  ""  \tab |  ""  \tab | \code{base} (and some warnings) \cr

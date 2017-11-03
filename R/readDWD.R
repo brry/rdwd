@@ -3,7 +3,7 @@
 #' Read climate (meta) data that was downloaded with \code{\link{dataDWD}}.
 #' The file is read, processed and returned as a data.frame.\cr
 #' \code{file} can be a vector with several filenames. The arguments \code{meta}
-#' and \code{format} can also be a vecor and will be recycled to the length of \code{file}.\cr
+#' and \code{format} can also be a vector and will be recycled to the length of \code{file}.\cr
 #' If \code{meta=TRUE}, column widths for \code{\link{read.fwf}} are computed internally.
 #' If needed, readDWD tries to set the locale to German (to handle Umlaute correctly).
 #' They can then be processed with \code{dd$Stations_id <- berryFunctions::convertUmlaut(dd$Stations_id)}.

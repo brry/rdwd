@@ -82,7 +82,7 @@ release_questions <- function() {
 #'         res, var, per, hasfile} \cr
 #' \bold{geoIndex}: data.frame with ca 6k rows for 11 columns:\cr
 #'         \code{id, name, state, lat, lon, ele, nfiles, nonpublic, recentfile, display, col}
-#' @source Deutscher WetterDienst / Climata Data Center  FTP Server
+#' @source Deutscher WetterDienst / Climate Data Center  FTP Server
 #' @seealso \code{\link{createIndex}}, \code{\link{indexFTP}}, \code{\link{selectDWD}},
 #'          \code{\link{findID}}, \code{\link{metaInfo}},
 #'          \href{../doc/mapDWD.html}{\code{vignette("mapDWD")}}
@@ -189,7 +189,7 @@ return(invisible(out))
 #' This function is not exported, as it is only internally useful.
 #' A generic version is available in \code{berryFunctions::\link[berryFunctions]{popleaf}}.
 #' 
-#' @return Vector of characterstrings, one for each row in x.
+#' @return Vector of character strings, one for each row in x.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Feb 2017
 #' @seealso \code{\link{geoIndex}}
 #' @keywords character

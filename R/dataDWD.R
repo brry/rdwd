@@ -8,7 +8,7 @@
 #' The desired .zip (or .txt) dataset is downloaded into \code{dir}.
 #' If \code{read=TRUE}, it is also read, processed and returned as a data.frame.
 #' 
-#' @return Presuming downloading and processing were successfull:
+#' @return Presuming downloading and processing were successful:
 #'         if \code{read=TRUE}, a data.frame of the desired dataset
 #'         (as returned by \code{\link{readDWD}}),
 #'         otherwise the filename as saved on disc

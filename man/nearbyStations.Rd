@@ -23,7 +23,7 @@ Integer in the form of YYYYMMDD, e.g. 20170301. DEFAULT: NA}
 \item{hasfileonly}{Logical: only return entries for which there is an
 open-access file available? DEFAULT: TRUE}
 
-\item{statname}{Character: name for target locatio. DEFAULT:
+\item{statname}{Character: name for target location. DEFAULT:
 "nearbyStations target location"}
 
 \item{quiet}{Logical: suppress progress messages? DEFAULT: FALSE}

@@ -80,7 +80,7 @@
 #'                    Integer in the form of YYYYMMDD, e.g. 20170301. DEFAULT: NA
 #' @param hasfileonly Logical: only return entries for which there is an
 #'                    open-access file available? DEFAULT: TRUE
-#' @param statname    Character: name for target locatio. DEFAULT:
+#' @param statname    Character: name for target location. DEFAULT:
 #'                    "nearbyStations target location"
 #' @param quiet       Logical: suppress progress messages? DEFAULT: FALSE
 #' @param \dots       Further arguments passed to \code{\link{selectDWD}}

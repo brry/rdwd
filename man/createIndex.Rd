@@ -28,7 +28,7 @@ Uses \code{\link{dataDWD}} to download files if not present.
 DEFAULT: FALSE}
 
 \item{metadir}{Char: Directory (subfolder of \code{dir}) where original
-description files are downloaded to if meta=TRUE. vPassed to
+description files are downloaded to if meta=TRUE. Passed to
 \code{\link{dataDWD}}. "" to write in \code{dir}. DEFAULT: "meta"}
 
 \item{mname}{Char: Name of file in \code{dir} (not \code{metadir}) in which to

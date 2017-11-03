@@ -18,7 +18,7 @@
 \bold{geoIndex}: data.frame with ca 6k rows for 11 columns:\cr
         \code{id, name, state, lat, lon, ele, nfiles, nonpublic, recentfile, display, col}}
 \source{
-Deutscher WetterDienst / Climata Data Center  FTP Server
+Deutscher WetterDienst / Climate Data Center  FTP Server
 }
 \description{
 Created with \code{\link{createIndex}} in the last section of

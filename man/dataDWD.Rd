@@ -54,7 +54,7 @@ before they get truncated with message "(and xx more)". DEFAULT: 2}
 \item{\dots}{Further arguments passed to \code{\link{download.file}}}
 }
 \value{
-Presuming downloading and processing were successfull:
+Presuming downloading and processing were successful:
         if \code{read=TRUE}, a data.frame of the desired dataset
         (as returned by \code{\link{readDWD}}),
         otherwise the filename as saved on disc

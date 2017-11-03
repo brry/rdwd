@@ -10,7 +10,7 @@ rowDisplay(x)
 \item{x}{data.frame with colnames}
 }
 \value{
-Vector of characterstrings, one for each row in x.
+Vector of character strings, one for each row in x.
 }
 \description{
 Create display character string for leaflet map popup from data.frame rows.
