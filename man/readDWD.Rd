@@ -4,9 +4,8 @@
 \alias{readDWD}
 \title{Process data from the DWD CDC FTP Server}
 \usage{
-readDWD(file, meta = substr(file, nchar(file) - 3, 10000) == ".txt",
-  fread = FALSE, minfo = FALSE, format = NA, tz = "GMT",
-  progbar = TRUE)
+readDWD(file, meta = grepl(".txt$", file), fread = FALSE, minfo = FALSE,
+  format = NA, tz = "GMT", progbar = TRUE)
 }
 \arguments{
 \item{file}{Char (vector): name(s) of the file(s) downloaded with \code{\link{dataDWD}},

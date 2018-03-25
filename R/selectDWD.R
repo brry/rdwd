@@ -254,7 +254,7 @@ sel <- res[i]==findex$res & var[i]==findex$var & per[i]==findex$per
 # return name of description txt file
 if(meta[i])
   {
-  sel <- sel & substr(findex$path, nchar(findex$path)-3, 1e4)==".txt"
+  sel <- sel & grepl('.txt$', findex$path)
   sel <- sel & grepl("Beschreibung", findex$path)
   # checks:
   if(sum(sel)==0) warning(traceCall(3, "", ": "), "according to file index '",findexname,
@@ -266,7 +266,7 @@ if(meta[i])
 # all filenames EXCEPT metadata (-> only zipfiles)
 if(!givenid & givenpath & !meta[i])
   {
-  sel <- sel & substr(findex$path, nchar(findex$path)-3, 1e4)==".zip"
+  sel <- sel & grepl('.zip$', findex$path)  
   filename <- findex[sel,"path"]
   if(length(filename)<1) warning(traceCall(3, "", ": "), "according to file index '",
                                  findexname, "', there is no file in '", path,

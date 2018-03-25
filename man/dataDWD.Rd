@@ -6,8 +6,8 @@
 \usage{
 dataDWD(file, dir = "DWDdata", force = FALSE, overwrite = FALSE,
   sleep = 0, quiet = FALSE, progbar = !quiet, browse = FALSE,
-  read = TRUE, meta = substr(file, nchar(file) - 3, 10000) == ".txt",
-  fread = FALSE, format = NA, ntrunc = 2, ...)
+  read = TRUE, meta = grepl(".txt$", file), fread = FALSE, format = NA,
+  ntrunc = 2, ...)
 }
 \arguments{
 \item{file}{Char (vector): complete file URL(s) (including base and filename.zip) as returned by

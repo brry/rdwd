@@ -47,7 +47,7 @@
 #' 
 readDWD <- function(
 file,
-meta=substr(file, nchar(file)-3, 1e4)==".txt",
+meta=grepl('.txt$', file),
 fread=FALSE,
 minfo=FALSE,
 format=NA,
