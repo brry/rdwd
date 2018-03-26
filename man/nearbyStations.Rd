@@ -38,6 +38,9 @@ Select DWD stations within a given radius around a set of coordinates
 }
 \examples{
 
+\dontrun{## entirely excluded from CRAN checks 2018 because of computing time
+## Sections 3:5 were already excluded because of map downloads
+
 # 1. Basic usage ----
 
 m <- nearbyStations(49.211784, 9.812475, radius=30,
@@ -55,21 +58,17 @@ m <- sortDF(m, "res")
 m <- sortDF(m, "dist", decreasing=FALSE)
 rownames(m) <- NULL
 
-
 ## 3. Interactive map ----
 
-\dontrun{## Excluded from CRAN checks because of leaflet dependency
 library(leaflet)
 m$col <- "red" ; m$col[1] <- "blue"
 leaflet(m) \%>\% addTiles() \%>\%
   addCircles(lng=9.812475, lat=49.211784, radius=30e3) \%>\%
   addCircleMarkers(~geoLaenge, ~geoBreite, col=~col, popup=~Stationsname)
-}
 
 
 ## 4. Download and process data ----
 
-\dontrun{## Excluded from CRAN checks because of data download
 # Download and process data for the stations, create a list of data.frames:
 prec <- dataDWD(m$url) # once downloaded, will only read
 names(prec) <- m$Stations_id[-1]
@@ -78,12 +77,10 @@ prec29 <- sapply(prec[m$res[-1]=="daily"], function(x)
 prec29 <- data.frame(Stations_id=unlist(prec29[1,]), precsum=unlist(prec29[2,]))
 prec29 <- merge(prec29, m[m$res=="daily",c(1,4:7,14)], sort=FALSE)
 View(prec29)
-}
 
 
 ## 5. Plot rainfall sum on map
 
-\dontrun{## Excluded from CRAN checks because of map download
 plot(geoBreite~geoLaenge, data=m, asp=1)
 textField(prec29$geoLaenge, prec29$geoBreite, prec29$precsum, col=2)
 
