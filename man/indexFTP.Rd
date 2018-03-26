@@ -11,9 +11,11 @@ indexFTP(folder = "currentfindex",
 }
 \arguments{
 \item{folder}{Folder(s) to be indexed recursively, e.g. "/hourly/wind/".
-If it is "currentfindex" (the default) and \code{base} is the default,
-it is changed to all folders in current \code{\link{fileIndex}}:
-\code{unique(dirname(fileIndex$path))}. DEFAULT: "currentfindex"}
+Use \code{folder=""} to search at the location of \code{base} itself.
+If code{folder} is "currentfindex" (the default) and \code{base} 
+is the default, code{folder} is changed to all folders in current 
+\code{\link{fileIndex}}: \code{unique(dirname(fileIndex$path))}. 
+DEFAULT: "currentfindex"}
 
 \item{base}{Main directory of DWD ftp server, defaulting to observed climatic records.
 DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}}
@@ -47,12 +49,15 @@ currently a vector with file paths (output may change in the future)
 \description{
 Create a list of all the files (in subfolders) at the Climate Data Center (CDC)
 FTP-Server from the German Weather Service (DWD, Deutscher WetterDienst) at
-\url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}.\cr
+\url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}.\cr\cr
 The R package \code{RCurl} must be available to do this.
 If \code{RCurl::\link[RCurl]{getURL}} fails, usually because bot access is
 detected and denied, there will still be an output which you can pass in a
 second run via \code{folder} to extract the remaining dirs.
-You might want to wait a bit and set \code{sleep} to a higher value in that case.
+You might want to wait a bit and set \code{sleep} to a higher value in that case. 
+Here's an example:\cr
+\code{gridindex <- indexFTP("grids_germany","ftp://ftp-cdc.dwd.de/pub/CDC")}\cr
+\code{gridindex <- indexFTP(gridindex,"ftp://ftp-cdc.dwd.de/pub/CDC", sleep=1)}\cr
 }
 \details{
 It's not suggested to run this for all folders, as it can take quite some time

@@ -2,12 +2,15 @@
 #' 
 #' Create a list of all the files (in subfolders) at the Climate Data Center (CDC)
 #' FTP-Server from the German Weather Service (DWD, Deutscher WetterDienst) at
-#' \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}.\cr
+#' \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}.\cr\cr
 #' The R package \code{RCurl} must be available to do this.
 #' If \code{RCurl::\link[RCurl]{getURL}} fails, usually because bot access is
 #' detected and denied, there will still be an output which you can pass in a
 #' second run via \code{folder} to extract the remaining dirs.
-#' You might want to wait a bit and set \code{sleep} to a higher value in that case.
+#' You might want to wait a bit and set \code{sleep} to a higher value in that case. 
+#' Here's an example:\cr
+#' \code{gridindex <- indexFTP("grids_germany","ftp://ftp-cdc.dwd.de/pub/CDC")}\cr
+#' \code{gridindex <- indexFTP(gridindex,"ftp://ftp-cdc.dwd.de/pub/CDC", sleep=1)}\cr
 #' 
 #' @details
 #' It's not suggested to run this for all folders, as it can take quite some time
@@ -33,9 +36,11 @@
 #' }
 #' 
 #' @param folder  Folder(s) to be indexed recursively, e.g. "/hourly/wind/".
-#'                If it is "currentfindex" (the default) and \code{base} is the default,
-#'                it is changed to all folders in current \code{\link{fileIndex}}:
-#'                \code{unique(dirname(fileIndex$path))}. DEFAULT: "currentfindex"
+#'                Use \code{folder=""} to search at the location of \code{base} itself.
+#'                If code{folder} is "currentfindex" (the default) and \code{base} 
+#'                is the default, code{folder} is changed to all folders in current 
+#'                \code{\link{fileIndex}}: \code{unique(dirname(fileIndex$path))}. 
+#'                DEFAULT: "currentfindex"
 #' @param base    Main directory of DWD ftp server, defaulting to observed climatic records.
 #'                DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
 #' @param sleep   If not 0, a random number of seconds between 0 and \code{sleep}
@@ -74,6 +79,9 @@ if(!requireNamespace("RCurl", quietly=TRUE))
 # change folder:
 if(all(folder=="currentfindex") & base=="ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate")
    folder <- unique(dirname(fileIndex$path))
+if(base!="ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate")
+ if(missing(folder)) warning('base is not the rdwd default. It is likely you want',
+                             ' to use folder="" instead of "',folder,'".')
 # Progress bar?
 progbar <- progbar & requireNamespace("pbapply", quietly=TRUE)
 if(progbar) lapply <- pbapply::pblapply
