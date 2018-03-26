@@ -81,29 +81,41 @@ compstart <- Sys.time()
 messaget <- function(x) message(x, " (",
           round(difftime(Sys.time(), compstart, units="s")), " secs so far)")
 # All paths should have the same amount of levels before being splitted:
-fileIndex <- gsub("solar/", "solar//", paths)
-fileIndex <- gsub("solar//ignore", "solar/ignore", fileIndex)
+fileIndex <- gsub("y/solar/", "y/solar//", paths) # hourly and daily only
+#fileIndex <- gsub("solar//ignore", "solar/ignore", fileIndex)
 fileIndex <- gsub("multi_annual/", "multi_annual//", fileIndex)
 fileIndex <- gsub("subdaily/standard_format/", "subdaily/standard_format//", fileIndex)
 # remove leading slashes:
 fileIndex <- ifelse(substr(fileIndex,1,1)=="/", substr(fileIndex,2,1e4), fileIndex)
+prec1min <- substr(fileIndex,1,33) == "1_minute/precipitation/historical"
+prec1min <- substr(fileIndex,1,37) != "1_minute/precipitation/historical/ein" & prec1min
 # split into parts:
-fileIndex <- l2df(lapply(fileIndex,function(x) strsplit(x,"/")[[1]]))
-# check if there are actually 4 columns (might be different with non-standard base)
-if(ncol(fileIndex)!=4) stop(traceCall(1, "in ", ": "), "index does not have 4 columns, but ",
+if(!quiet) messaget("Splitting filenames...")
+fileIndex <- l2df(pbapply::pblapply(fileIndex,function(x) strsplit(x,"/")[[1]]))
+# check if there are actually 5 columns (might be different with non-standard base)
+if(ncol(fileIndex)!=5) stop(traceCall(1, "in ", ": "), "index does not have 5 columns, but ",
                             ncol(fileIndex), call.=FALSE)
-colnames(fileIndex) <- c("res","var","per","file")
+fileIndex[prec1min,4] <- fileIndex[prec1min,5]
+colnames(fileIndex) <- c("res","var","per","file","dummyfromyear1minute")
 file <- fileIndex$file
 fileIndex <- fileIndex[,1:3] # file will be re-attached (with path) as the last column
 #
 # Get detailed info from file name elements:
-info <- l2df(lapply(file, function(x) rev(strsplit(x, "[-_.]")[[1]])))
+if(!quiet) messaget("Extracting metadata from filenames...")
+info <- l2df(pbapply::pblapply(file, function(x) rev(strsplit(x, "[-_.]")[[1]])))
 # Station ID (identification number):
-fileIndex$id <- ""
-fileIndex$id <- ifelse(fileIndex$per=="historical" & info[,1]=="zip", info[,5], fileIndex$id)
-fileIndex$id <- ifelse(fileIndex$per=="recent"     & info[,1]=="zip", info[,3], fileIndex$id)
-fileIndex$id <- ifelse(fileIndex$var=="solar"      & info[,1]=="zip", info[,2], fileIndex$id) # var==solar
-fileIndex$id <- ifelse(substr(file,1,2)=="kl", substr(file,4,8), fileIndex$id) # res==subdaily
+id <- ""
+per <- fileIndex$per
+sol <- fileIndex$var=="solar" 
+zip <- info[,1]=="zip"
+id <- ifelse(zip & per=="historical"       , info[,5], id)
+id <- ifelse(zip & per=="recent"           , info[,3], id)
+id <- ifelse(zip & per=="now"              , info[,3], id)
+id <- ifelse(zip & sol & per!="historical" , info[,3], id) # var==solar
+id <- ifelse(zip & per=="meta_data"        , info[,2], id)
+id <- ifelse(substr(file,1,2)=="kl", substr(file,4,8), id) # res==subdaily
+fileIndex$id <- id
+rm(id, per, sol, zip)
 #
 # start and end of time series (according to file name):
 ziphist <- fileIndex$per=="historical"  & info[,1]=="zip"
@@ -124,7 +136,7 @@ owd <- dirDWD(dir, quiet=quiet|fname=="" )
 on.exit(setwd(owd), add=TRUE)
 if(fname!="")
   {
-  outfile <- newFilename(fname, mid=": ", quiet=quiet)
+  outfile <- newFilename(fname, mid=" ", quiet=quiet)
   write.table(fileIndex, file=outfile, sep="\t", row.names=FALSE, quote=FALSE)
   }
 # Potential (DEFAULT) output:
@@ -133,16 +145,19 @@ if(!isTRUE(meta)) return(invisible(fileIndex))
 #
 # metaIndex --------------------------------------------------------------------
 # select Beschreibung_.txt files only:
-sel <- substr(fileIndex$path, nchar(fileIndex$path)-3, 1e4)==".txt"
+sel <- grepl('.txt$', fileIndex$path)
 sel <- sel & grepl("Beschreibung", fileIndex$path)
-sel <- sel & fileIndex$res %in% c("monthly","daily","hourly")
+sel <- sel & fileIndex$res != "subdaily" # has different columns
+#sel <- sel & fileIndex$res %in% c("monthly","daily","hourly")
+# manual correction March 2018 for duplicate description files:
+descdupli <- basename(paths)=="ein_min_rr_Beschreibung_Stationen.txt" & grepl("/20", dirname(paths))
+sel <- sel & !descdupli
+
 if(sum(sel)<2) stop(traceCall(1, "in ", ": "),
               "There need to be at least two 'Beschreibung' files. (There is ",
               sum(sel),")", call.=FALSE)
 # download and read those files:
 metas <- dataDWD(paste0(base,fileIndex[sel, "path"]), dir=metadir, ...)
-# filenames <- substr(gsub("/","_",fileIndex[sel, "path"]),2,1e4)
-# metas <- readDWD(filenames, dir="DWDdata/meta")
 for(i in seq_along(metas))
   {
   metas[[i]]$res <- fileIndex[sel, "res"][i]
@@ -153,8 +168,9 @@ for(i in seq_along(metas))
 # check if all files have the same column names:
 cnames <- lapply(metas, colnames)
 sapply(2:length(cnames), function(i) if(!all(cnames[[i]] == cnames[[1]]))
-    stop(traceCall(1, "in ", ": "), "The file ", fileIndex[sel, "path"][i],
-         "\nhas incorrect column names: ", toString(cnames[[i]]),".", call.=FALSE))
+    warning(traceCall(1, "in ", ": "), "The file ", fileIndex[sel, "path"][i],
+         "\nhas incorrect column names: ", toString(cnames[[i]]),
+         "\n instead of \n", toString(cnames[[1]]), call.=FALSE))
 #
 # merge:
 if(!quiet) messaget("Merging meta files...")
@@ -232,7 +248,7 @@ geoIndex$per <- NULL
 geoIndex$hasfile <- NULL
 #
 # reduction into unique stations:
-geoIndex <- geoIndex[!duplicated(geoIndex), ]  #  6'264 rows (=unique station IDs)
+geoIndex <- geoIndex[!duplicated(geoIndex), ]  #  ca 6k rows (=unique station IDs)
 #
 #
 # Duplication checks:

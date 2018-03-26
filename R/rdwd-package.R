@@ -219,8 +219,8 @@ if(FALSE){
 # delete meta folder for truly new data
 # check for dupliate description files (Monatwerte + Monatswerte, e.g., also in INDEX_OF.txt)
 
-dwdfiles <- readLines("DWDdata/INDEX_of_DWD_.txt") # 25'757 elements (2017-03-14)
-index <- createIndex(dwdfiles, meta=TRUE) # ca 15 secs +6 if files are not yet downloaded
+dwdfiles <- readLines("DWDdata/INDEX_of_DWD_.txt") # 25'757 elements (2017-03-14) 218'593 (2018-03-25)
+index <- createIndex(paths=dwdfiles, meta=TRUE) # ca 70 secs +30 if files are not yet downloaded
 { # save indexes into package:
 fileIndex <- index[[1]]
 metaIndex <- index[[2]]
