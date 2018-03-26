@@ -180,6 +180,8 @@ widths <- diff(c(0,breaks,200))
 # actually read metadata, suppress readLines warning about EOL:
 stats <- suppressWarnings(read.fwf(file, widths=widths, skip=2, strip.white=TRUE, fileEncoding="latin1") )
 # column names:
+# remove duplicate spaces (2018-03 only in subdaily_stand...Beschreibung....txt)
+while( grepl("  ",oneline[1]) )  oneline[1] <- gsub("  ", " ", oneline[1])
 colnames(stats) <- strsplit(oneline[1], " ")[[1]]
 # check classes:
 classes <- c("integer", "integer", "integer", "integer", "numeric", "numeric", "factor", "factor")
