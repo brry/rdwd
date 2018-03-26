@@ -20,7 +20,8 @@
 #' Station selection is done offline with \code{\link{fileIndex}} and
 #' \code{\link{findID}} (which uses \code{\link{metaIndex}}).\cr
 #' The Index objects are created with \code{\link{indexFTP}} and \code{\link{createIndex}}.\cr
-#' For an introduction to the package, see the \href{../doc/rdwd.html}{main vignette}.
+#' For an introduction to the package, see the \href{../doc/rdwd.html}{main vignette}.\cr
+#' For an overview of available data, see \code{\link{selectDWD}}.\cr
 #' 
 #' @name rdwd
 #' @aliases rdwd-package rdwd

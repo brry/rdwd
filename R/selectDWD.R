@@ -18,26 +18,42 @@
 #' }
 #' For case 3 and 4 (\bold{path} given), you can set \code{meta=TRUE}.
 #' Then selectDWD will return the name of the station description file at \bold{path}.
-#' This is why case 3 with \code{meta=FALSE} only returns the data file names (ending in .zip).\cr
+#' This is why case 3 with \code{meta=FALSE} only returns the data file names (ending in .zip).\cr\cr\cr
 #' The following folders in \bold{\code{res/var/per}} notation
 #' (resolution/variable/period) are available at
-#' \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/}
-#' (and a few more at the \code{res} level).\cr
+#' \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/}\cr
 #' "<" signifies a split into the folders \code{per} = "recent" and "historical".\cr
-#' "-" signifies that there are no further sub-folders.
+#' "<<" signifies a split into the folders \code{per} = "now", recent", "historical" and "meta_data".\cr
+#' "-" signifies that there are no further sub-folders. \cr
+#' Please note that both "solar" (-/<<) and "sun" (<) are available!
+#' \tabular{llll}{
+#' \code{res}=\bold{10_minutes} \tab | \code{res}=\bold{hourly} \tab | \code{res}=\bold{daily} \tab | \code{res}=\bold{monthly} \cr
+#' \code{var=}            \tab                      \tab                      \tab                 \cr
+#'                        \tab |                    \tab | kl <               \tab | kl <          \cr
+#'                        \tab |                    \tab | more_precip <      \tab | more_precip < \cr
+#' air_temperature <<     \tab | air_temperature <  \tab |                    \tab |               \cr
+#' extreme_temperature << \tab |                    \tab |                    \tab |               \cr
+#' extreme_wind <<        \tab |                    \tab |                    \tab |               \cr
+#'                        \tab | cloudiness <       \tab |                    \tab |               \cr
+#'                        \tab | cloud_type <       \tab |                    \tab |               \cr
+#' precipitation <<       \tab | precipitation <    \tab |                    \tab |               \cr
+#'                        \tab | pressure <         \tab |                    \tab |               \cr
+#'                        \tab | soil_temperature < \tab | soil_temperature < \tab |               \cr
+#' solar <<               \tab | solar -            \tab | solar -            \tab |               \cr
+#'                        \tab | sun <              \tab |                    \tab |               \cr
+#'                        \tab | visibility <       \tab |                    \tab |               \cr
+#'                        \tab |                    \tab | water_equiv <      \tab |               \cr
+#' wind <<                \tab | wind <             \tab |                    \tab |               \cr
+#' }
+#' \cr Please note that \code{1_minute/precipitation/historical} has subfolders for each year.
 #' \tabular{lll}{
-#' \code{res}=\bold{hourly} \tab | \code{res}=\bold{daily} \tab | \code{res}=\bold{monthly} \cr
-#' \code{var=} \tab \tab \cr
-#'                    \tab | kl <               \tab | kl <          \cr
-#'                    \tab | more_precip <      \tab | more_precip < \cr
-#' air_temperature <  \tab |                    \tab |               \cr
-#' cloudiness <       \tab |                    \tab |               \cr
-#' precipitation <    \tab |                    \tab |               \cr
-#' pressure <         \tab |                    \tab |               \cr
-#' sun <              \tab |                    \tab |               \cr
-#' wind <             \tab |                    \tab |               \cr
-#' soil_temperature < \tab | soil_temperature < \tab |               \cr
-#' solar -            \tab | solar -            \tab |               \cr
+#' \code{res}=\bold{1_minute} \tab | \code{res}=\bold{multi_annual} \tab | \code{res}=\bold{subdaily} \cr
+#' \code{var=}      \tab                \tab                     \cr
+#' precipitation << \tab |              \tab |                   \cr
+#'                  \tab | mean_61-90 - \tab |                   \cr
+#'                  \tab | mean_71-00 - \tab |                   \cr
+#'                  \tab | mean_81-10 - \tab |                   \cr
+#'                  \tab |              \tab | standard_format - \cr
 #' }
 #' 
 #' @return Character string with file path and name(s) in the format
@@ -56,6 +72,7 @@
 #' selectDWD("Koeln", exactmatch=FALSE)
 #' findID("Koeln", FALSE)
 #' 
+#' \dontrun{ # Excluded from CRAN checks to save time
 #' # or directly give station ID:
 #' selectDWD(id="00386", res="daily", var="kl", per="historical")
 #' selectDWD(id=386, res="daily", var="kl", per="historical")
@@ -74,6 +91,7 @@
 #' selectDWD(id=c(1050, 386))
 #' # all zip files in a given path (if ID is empty):
 #' head(  selectDWD(id="", res="daily", var="kl", per="recent")   )
+#' }
 #' 
 #' # See if warnings come as expected and are informative:
 #' selectDWD()
