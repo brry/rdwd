@@ -9,6 +9,7 @@
 library(rdwd)
 link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
 file <- dataDWD(link, read=FALSE, dir=tempdir(), quiet=TRUE)
+# tempdir is only for CRAN vignette checks. In real life, use a real folder.
 clim <- readDWD(file)
 
 str(clim)
@@ -21,13 +22,16 @@ mtext("Source: Deutscher Wetterdienst", adj=-0.1, line=0.5, font=3)
 
 ## ----climgraph, eval=TRUE, fig.height=3, fig.width=7, echo=-1------------
 par(mar=c(4,4,2,0.5), mgp=c(2.7, 0.8, 0), cex=0.8)
-link <- selectDWD("Potsdam", res="monthly", var="kl", per="h")
+link <- selectDWD("Goettingen", res="monthly", var="kl", per="h")
 clim <- dataDWD(link, quiet=TRUE)
 clim$month <- substr(clim$MESS_DATUM_BEGINN,5,6)
-temp <- tapply(clim$MO_TT, clim$month, mean)
-prec <- tapply(clim$MO_RR, clim$month, mean)
+temp <- tapply(clim$MO_TT, clim$month, mean, na.rm=TRUE)
+prec <- tapply(clim$MO_RR, clim$month, mean, na.rm=TRUE)
 library(berryFunctions)
-climateGraph(temp, prec, main="Potsdam 1893:2016")
+headtail(clim[!is.na(clim$MO_TT)&!is.na(clim$MO_RR),])
+# as of 2018-03, there are mostly NAs in MO_RR in many stations.
+# A message has been sent to DWD.
+climateGraph(temp, prec, main="Goettingen 1857:1946")
 mtext("Source: Deutscher Wetterdienst", adj=-0.05, line=2.8, font=3)
 
 ## ----findID, eval=TRUE---------------------------------------------------
@@ -43,9 +47,13 @@ findID("Koeln", exactmatch=FALSE)
 #  files <- indexFTP("hourly/sun") # use dir="some_path" to save the output elsewhere
 #  berryFunctions::headtail(files, 5, na=TRUE)
 #  
+#  # indexFTP uses a folder for resumed indexing after getting banned:
+#  gridindex <- indexFTP("radolan","ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/hourly")
+#  gridindex <- indexFTP(gridindex,"ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/hourly", sleep=1)
+#  
 #  # with other FTP servers, this should also work...
-#  funet <- indexFTP(base="ftp.funet.fi/pub/standards/RFC/ien")
-#  p <- RCurl::getURL("ftp.funet.fi/pub/standards/RFC/ien/",
+#  funet <- indexFTP(base="ftp.funet.fi/pub/standards/w3/TR/xhtml11/", folder="")
+#  p <- RCurl::getURL("ftp.funet.fi/pub/standards/w3/TR/xhtml11/",
 #                         verbose=T, ftp.use.epsv=TRUE, dirlistonly=TRUE)
 
 ## ----select1, eval=FALSE, echo=TRUE--------------------------------------
