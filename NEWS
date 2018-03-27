@@ -7,11 +7,29 @@ rdwd ToDo-list / wishlist / issues
 - readDWD: figure out reason for fread trouble (reported in emails by some users)
 - add list of colum name explanations
 - allow abbreviations of res hourly/daily/monthly
+- metaindex sun instead of solar
+- indexFTP: use dirlistonly=FALSE to alo get dir/folder info
+- handle solar data new(?) hour format in the example below
+file <- dataDWD("ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/hourly/solar/stundenwerte_ST_05906_row.zip", read=FALSE)
+clim <- readDWD(file, format="%Y%m%d%H:%M") # format not autodetected, read.table charstring?
+
 
 ---------------------------------------
 rdwd: DWD Climate Data access package by Berry Boessenkool, berry-b@gmx.de
 Any feedback is welcome, per email or on github.com/brry/rdwd
 ---------------------------------------
+
+
+rdwd Version history
+
+-----------------------------
+-----------------------------
+
+Version 0.10.0 (2018-03-26)
+- created new index with sub-hourly data, reflected in data overview at selectDWD
+- dataDWD,readDWD,selectDWD: file ending checks more elegant
+- createIndex: updated to handle the new files
+- some minor improvements, see https://github.com/brry/rdwd/commits
 
 
 -----------------------------
