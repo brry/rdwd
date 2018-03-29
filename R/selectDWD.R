@@ -45,7 +45,7 @@
 #'                        \tab |                    \tab | water_equiv <      \tab |               \cr
 #' wind <<                \tab | wind <             \tab |                    \tab |               \cr
 #' }
-#' \cr Please note that \code{1_minute/precipitation/historical} has subfolders for each year.
+#' Please note that \code{1_minute/precipitation/historical} has subfolders for each year.
 #' \tabular{lll}{
 #' \code{res}=\bold{1_minute} \tab | \code{res}=\bold{multi_annual} \tab | \code{res}=\bold{subdaily} \cr
 #' \code{var=}      \tab                \tab                     \cr
@@ -91,7 +91,6 @@
 #' selectDWD(id=c(1050, 386))
 #' # all zip files in a given path (if ID is empty):
 #' head(  selectDWD(id="", res="daily", var="kl", per="recent")   )
-#' }
 #' 
 #' # See if warnings come as expected and are informative:
 #' selectDWD()
@@ -108,7 +107,7 @@
 #' # should be an error:
 #' berryFunctions::is.error(  selectDWD(id="Potsdam", res="daily", var="solar"), TRUE)
 #' berryFunctions::is.error(  selectDWD(id="", current=TRUE) , tell=TRUE, force=TRUE)
-#' 
+#' }
 #' 
 #' @param name  Char: station name(s) passed to \code{\link{findID}}, along with the
 #'              next two arguments. All ignored if \code{id} is given. DEFAULT: ""
