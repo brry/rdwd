@@ -75,7 +75,7 @@ sudo apt-get install r-cran-rcurl
 ```
 
 If direct installation from CRAN doesn't work, your R version might be too old. 
-In that case it is really recommendable to [update R](https://github.com/brry/rhydro#install). 
+In that case it is really recommendable to [update R](https://github.com/brry/course#install). 
 If you can't update R, try installing from source (github) via `instGit` as mentioned above. 
 If that's not possible either, you might be able to `source` some functions from the 
 [package zip folder](https://github.com/brry/rdwd/archive/master.zip)
