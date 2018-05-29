@@ -3,3 +3,4 @@
 .RData
 testfread/
 inst/shinyapps/
+developmentNotes.R
