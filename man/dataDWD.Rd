@@ -17,6 +17,7 @@ dataDWD(file, dir = "DWDdata", force = FALSE, overwrite = FALSE,
 Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
 
 \item{force}{Logical (vector): always download, even if the file already exists in \code{dir}?
+Use NA to force re-downloading files older than 24 hours.
 If FALSE, it is still read (or name returned). DEFAULT: FALSE}
 
 \item{overwrite}{Logical (vector): if force=TRUE, overwrite the existing file
@@ -79,7 +80,7 @@ fname <- dataDWD(link, read=FALSE) # filename, no second download (unless force=
 link <- selectDWD("Potsdam", res="daily", var="kl", per="hr", outvec=TRUE); link
 potsdam <- dataDWD(link)
 potsdam <- do.call(rbind, potsdam) # this will partly overlap in time
-plot(LUFTTEMPERATUR~MESS_DATUM, data=tail(potsdam,1000), type="l")
+plot(TMK~MESS_DATUM, data=tail(potsdam,1000), type="l")
 # Straight line marks the jump back in time
 # check for equality:
 dup <- which(duplicated(potsdam$MESS_DATUM))
@@ -99,7 +100,7 @@ clim <- readDWD(fname)
 unzip(zipfile=paste0("DWDdata/",fname[1]), exdir="DWDdata/Testunzip")
 # There's quite some important meta information there!
 
-plot(prec$MESS_DATUM, prec$NIEDERSCHLAGSHOEHE, main="DWD hourly rain Kupferzell", col="blue",
+plot(prec$MESS_DATUM, prec$R1, main="DWD hourly rain Kupferzell", col="blue",
      xaxt="n", las=1, type="l", xlab="Date", ylab="Hourly rainfall  [mm]")
 monthAxis(1, ym=T)
 

@@ -37,7 +37,7 @@
 #' link <- selectDWD("Potsdam", res="daily", var="kl", per="hr", outvec=TRUE); link
 #' potsdam <- dataDWD(link)
 #' potsdam <- do.call(rbind, potsdam) # this will partly overlap in time
-#' plot(LUFTTEMPERATUR~MESS_DATUM, data=tail(potsdam,1000), type="l")
+#' plot(TMK~MESS_DATUM, data=tail(potsdam,1000), type="l")
 #' # Straight line marks the jump back in time
 #' # check for equality:
 #' dup <- which(duplicated(potsdam$MESS_DATUM))
@@ -57,7 +57,7 @@
 #' unzip(zipfile=paste0("DWDdata/",fname[1]), exdir="DWDdata/Testunzip")
 #' # There's quite some important meta information there!
 #' 
-#' plot(prec$MESS_DATUM, prec$NIEDERSCHLAGSHOEHE, main="DWD hourly rain Kupferzell", col="blue",
+#' plot(prec$MESS_DATUM, prec$R1, main="DWD hourly rain Kupferzell", col="blue",
 #'      xaxt="n", las=1, type="l", xlab="Date", ylab="Hourly rainfall  [mm]")
 #' monthAxis(1, ym=T)
 #' 
@@ -81,6 +81,7 @@
 #' @param dir    Char: Writeable directory name where to save the downloaded file.
 #'               Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}
 #' @param force  Logical (vector): always download, even if the file already exists in \code{dir}?
+#'               Use NA to force re-downloading files older than 24 hours.
 #'               If FALSE, it is still read (or name returned). DEFAULT: FALSE
 #' @param overwrite Logical (vector): if force=TRUE, overwrite the existing file
 #'               rather than append "_1"/"_2" etc to the filename? DEFAULT: FALSE
@@ -153,6 +154,13 @@ on.exit(setwd(owd))
 # output file name(s)
 outfile <- gsub("ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/", "", file)
 outfile <- gsub("/", "_", outfile)
+
+# force=NA management
+force_old <- difftime(Sys.time(), file.mtime(outfile), units="h") > 24
+force <- rep(force, length=length(outfile)) # recycle vector
+force[is.na(force) & force_old] <- TRUE # force if old
+force[is.na(force)] <- FALSE # otherwise don't
+
 dontdownload <- file.exists(outfile) & !force
 if( any(dontdownload) & !quiet )
   {
