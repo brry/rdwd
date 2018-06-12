@@ -7,11 +7,11 @@
 \alias{metaIndex}
 \alias{geoIndex}
 \title{Indexes of files and metadata on the DWD CDC FTP server}
-\format{\bold{fileIndex}: data.frame with character strings. ca 25k rows x 7 columns:\cr
+\format{\bold{fileIndex}: data.frame with character strings. ca 219k rows x 7 columns:\cr
         \code{res}, \code{var}, \code{per} (see \code{\link{selectDWD}}),
         station \code{id} and time series \code{start} and \code{end}
         according to \code{path}.\cr
-\bold{metaIndex}: data.frame with ca 35k rows for 12 columns:\cr
+\bold{metaIndex}: data.frame with ca 60k rows for 12 columns:\cr
         \code{Stations_id, von_datum, bis_datum,
         Stationshoehe, geoBreite, geoLaenge, Stationsname, Bundesland,
         res, var, per, hasfile} \cr

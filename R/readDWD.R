@@ -71,7 +71,7 @@ if(len>1)
 if(progbar) lapply <- pbapply::pblapply
 # check package availability:
 if(any(fread))   if(!requireNamespace("data.table", quietly=TRUE))
-    stop("in readDWD: Please first install data.table:",
+    stop("in readDWD: to use fread=TRUE, please first install data.table:",
          "   install.packages('data.table')", call.=FALSE)
 #
 checkFile(file)
