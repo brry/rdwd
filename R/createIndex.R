@@ -89,14 +89,16 @@ fileIndex <- gsub("subdaily/standard_format/", "subdaily/standard_format//", fil
 fileIndex <- ifelse(substr(fileIndex,1,1)=="/", substr(fileIndex,2,1e4), fileIndex)
 prec1min <- substr(fileIndex,1,33) == "1_minute/precipitation/historical"
 prec1min <- substr(fileIndex,1,37) != "1_minute/precipitation/historical/ein" & prec1min
+any1min <- any(prec1min)
+ncolumns <- 4 + any1min # supposed number of columns: 4, 5 if any prec1min in paths
 # split into parts:
 if(!quiet) messaget("Splitting filenames...")
 fileIndex <- l2df(pbapply::pblapply(fileIndex,function(x) strsplit(x,"/")[[1]]))
-# check if there are actually 5 columns (might be different with non-standard base)
-if(ncol(fileIndex)!=5) stop(traceCall(1, "in ", ": "), "index does not have 5 columns, but ",
-                            ncol(fileIndex), call.=FALSE)
-fileIndex[prec1min,4] <- fileIndex[prec1min,5]
-colnames(fileIndex) <- c("res","var","per","file","dummyfromyear1minute")
+# check if there are actually 4/5 columns (might be different with non-standard base)
+if(ncol(fileIndex)!=ncolumns) stop(traceCall(1, "in ", ": "), "index does not have ",
+                        ncolumns," columns, but ", ncol(fileIndex), call.=FALSE)
+if(any1min) fileIndex[prec1min,4] <- fileIndex[prec1min,5]
+colnames(fileIndex) <- c("res","var","per","file",if(any1min) "dummyfromyear1minute")
 file <- fileIndex$file
 fileIndex <- fileIndex[,1:3] # file will be re-attached (with path) as the last column
 #
