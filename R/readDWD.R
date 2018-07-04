@@ -11,7 +11,7 @@
 #' @return Invisible data.frame of the desired dataset, or a list of data.frames
 #'         if length(file) > 1.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jul-Oct 2016
-#' @seealso \code{\link{dataDWD}}, \code{\link{selectDWD}}
+#' @seealso \code{\link{dataDWD}}, \code{\link{readVars}}, \code{\link{selectDWD}}
 #' @keywords file chron
 #' @importFrom utils read.table unzip read.fwf
 #' @importFrom berryFunctions checkFile na9 traceCall

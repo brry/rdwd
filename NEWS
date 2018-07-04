@@ -5,9 +5,7 @@ rdwd ToDo-list / wishlist / issues
 - selectDWD: if res/var/per is NA or "", give a selection popup
 - for per="monthly", make readDWD recognize MESS_DATUM_ENDE and _BEGINN, potentially create new column MESS_DATUM yyyy-mm-15
 - readDWD: figure out reason for fread trouble (reported in emails by some users)
-- add list of colum name explanations
 - allow abbreviations of res hourly/daily/monthly
-- metaindex sun instead of solar
 - indexFTP: use dirlistonly=FALSE to alo get dir/folder info
 - handle solar data new(?) hour format in the example below
 file <- dataDWD("ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/hourly/solar/stundenwerte_ST_05906_row.zip", read=FALSE)

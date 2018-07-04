@@ -56,7 +56,7 @@ They can then be processed with \code{dd$Stations_id <- berryFunctions::convertU
 
 }
 \seealso{
-\code{\link{dataDWD}}, \code{\link{selectDWD}}
+\code{\link{dataDWD}}, \code{\link{readVars}}, \code{\link{selectDWD}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Jul-Oct 2016
