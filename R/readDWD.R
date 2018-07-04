@@ -99,7 +99,8 @@ dat <- readDWD.data(f, minfo=minfo[i], fread=fread[i])
 # process time-stamp: http://stackoverflow.com/a/13022441
 if(!is.null(format[i]) & "MESS_DATUM" %in% colnames(dat) & !minfo[i])
   {
-  if(is.na(format[i])) format <- if(nchar(dat$MESS_DATUM[1])==8) "%Y%m%d" else "%Y%m%d%H"
+  nch <- nchar(as.character(dat$MESS_DATUM[1]))
+  if(is.na(format[i])) format <- if(nch==8) "%Y%m%d" else if(nch==13) "%Y%m%d%H:%M" else"%Y%m%d%H"
   dat$MESS_DATUM <- as.POSIXct(as.character(dat$MESS_DATUM), format=format, tz=tz[i])
   }
 # return dataset:

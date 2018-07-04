@@ -7,9 +7,6 @@ rdwd ToDo-list / wishlist / issues
 - readDWD: figure out reason for fread trouble (reported in emails by some users)
 - allow abbreviations of res hourly/daily/monthly
 - indexFTP: use dirlistonly=FALSE to alo get dir/folder info
-- handle solar data new(?) hour format in the example below
-file <- dataDWD("ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/hourly/solar/stundenwerte_ST_05906_row.zip", read=FALSE)
-clim <- readDWD(file, format="%Y%m%d%H:%M") # format not autodetected, read.table charstring?
 
 
 ---------------------------------------
