@@ -127,7 +127,7 @@ if(fread)
   # http://dsnotes.com/post/2017-01-27-lessons-learned-from-outbrain-click-prediction-kaggle-competition/
   fp <- unzip(file, list=TRUE) # file produkt*, the actual datafile
   fp <- fp$Name[grepl("produkt",fp$Name)]
-  dat <- data.table::fread(paste("unzip -p", file, fp), na.strings=na9(),
+  dat <- data.table::fread(paste("unzip -p", file, fp), na.strings=na9(nspace=0),
                            header=TRUE, sep=";", stringsAsFactors=TRUE, data.table=FALSE)
   return(dat)
   }
