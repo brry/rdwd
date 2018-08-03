@@ -6,8 +6,9 @@
 \usage{
 indexFTP(folder = "currentfindex",
   base = "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
-  sleep = 0, dir = "DWDdata", filename = folder[1], overwrite = FALSE,
-  quiet = FALSE, progbar = !quiet, verbose = FALSE)
+  sleep = 0, dir = "DWDdata", filename = folder[1],
+  overwrite = FALSE, quiet = FALSE, progbar = !quiet,
+  verbose = FALSE)
 }
 \arguments{
 \item{folder}{Folder(s) to be indexed recursively, e.g. "/hourly/wind/".
