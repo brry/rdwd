@@ -6,7 +6,7 @@ rdwd ToDo-list / wishlist / issues
 - for per="monthly", make readDWD recognize MESS_DATUM_ENDE and _BEGINN, potentially create new column MESS_DATUM yyyy-mm-15
 - readDWD: figure out reason for fread trouble (reported in emails by some users)
 - allow abbreviations of res hourly/daily/monthly
-- indexFTP: use dirlistonly=FALSE to alo get dir/folder info
+- indexFTP: use dirlistonly=FALSE to also get dir/folder info
 
 
 ---------------------------------------
