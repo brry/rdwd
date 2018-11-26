@@ -83,60 +83,73 @@ if(base!="ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate")
  if(missing(folder)) warning('base is not the rdwd default. It is likely you want',
                              ' to use folder="" instead of "',folder,'".')
 # Progress bar?
-progbar <- progbar & requireNamespace("pbapply", quietly=TRUE)
 if(progbar) lapply <- pbapply::pblapply
-# central object: f (file/folder names)
-f <- folder
-#
-# as long as f contains folders (charstrings without . ), run the following:
-isfile <- grepl(pattern=".", x=f, fixed=TRUE)
-stoppp <- FALSE
-while(any(!isfile))
-  {
-  f1 <- f[isfile] # these are finished
-  #
-  f2 <- lapply(f[!isfile], function(path) # for the folders, run getURL:
+# single RCurl handle for all FTP requests:
+curl_handle <- RCurl::getCurlHandle(ftp.use.epsv=TRUE)
+
+
+# central object: df_ff (dataframe with file/folder names)
+df_ff <- data.frame(path=folder, isfile=FALSE, stringsAsFactors=FALSE)
+
+
+# List files at a single path, returning files/folders or useful error messages
+# stoppp_ffe will be an object within indexFTP, see below
+getURL_ffe <- function(ff_row) 
+ {
+ if(stoppp_ffe) return(ff_row) # do not attempt if already kicked off the FTP
+ p <- try( RCurl::getURL(paste0(base,"/",ff_row$path,"/"), verbose=verbose, 
+                         ftp.use.epsv=TRUE, curl=curl_handle),      silent=TRUE)
+ # upon failure, exit with a warning (not error):
+ if(inherits(p, "try-error"))
     {
-    # List of files at 'path':
-    if(stoppp) return(path) # do not attempt if already kicked off the FTP
-    p <- try( RCurl::getURL(paste0(base,"/",path,"/"),
-                       verbose=verbose, ftp.use.epsv=TRUE, dirlistonly=TRUE), silent=TRUE)
-    if(inherits(p, "try-error"))
-      {
-      # Prepare warning or note message text:
-      p <- gsub("Error in function (type, msg, asError = TRUE)  : ", "", p, fixed=TRUE)
-      p <- removeSpace(gsub("\n", "", p))
-      if(grepl("Could not resolve host", p)) p <- paste0(p,
-                       "\nThis may mean you are not connected to the internet.")
-      file_nodot <- !grepl(pattern=".", x=path, fixed=TRUE)
-      file_nodot <- file_nodot && p=="Server denied you to change to the given directory"
-      msg <- paste0(traceCall(3, "", ": "), "RCurl::getURL failed for '", path, "/' - ", p)
-      if(file_nodot) msg <- paste0(msg, "\nIf this is a file, not a folder, ignore this message.")
-      # actually warn / notify:
-      if(file_nodot) message("Note in ", msg) else warning(msg, call.=FALSE)
-      assign("isfile", 7777, inherits=TRUE) # to get out of the while loop
-      assign("stoppp", TRUE, inherits=TRUE) # to get out of the lapply loop
-      return(path)
-      }
-    # carriage return / newline is OS-dependent:
-    p <- unlist(strsplit(p,"[\n\r]")) # http://stackoverflow.com/a/40763124/1587132
-    p <- p[nchar(p)>0]
-    # wait some time:
-    if(sleep!=0) Sys.sleep(runif(n=1, min=0, max=sleep))
-    # complete file path:
-    return(paste0(path,"/",p))
-    }) # end lapply loop
-  f <- c(f1,unlist(f2))
-  if(!isfile[1]==7777) isfile <- grepl(pattern=".", x=f, fixed=TRUE)
+     # Prepare warning message text:
+     p <- gsub("Error in function (type, msg, asError = TRUE)  : ", "", p, fixed=TRUE)
+     p <- removeSpace(gsub("\n", "", p))
+     if(grepl("Could not resolve host", p)) 
+       p <- paste0(p,"\nThis may mean you are not connected to the internet.")
+     msg <- paste0(traceCall(3, "", ": "), "RCurl::getURL failed for '", ff_row$path, "/' - ", p)
+     warning(msg, call.=FALSE)
+     assign("stoppp_ffe", TRUE, inherits=TRUE) # to get out of the loop sans error
+     return(ff_row) # exit getURL_ffe
+    }
+ # Process vector of sub-paths:
+ # carriage return / newline is OS-dependent:
+ p <- unlist(strsplit(p,"[\n\r]")) # http://stackoverflow.com/a/40763124/1587132
+ p <- p[nchar(p)>0]
+ #
+ isdir <- substr(p,1,1) =="d" # directory, else file
+ pnames <- read.table(text=p, stringsAsFactors=FALSE)
+ pnames <- pnames[,ncol(pnames)] # only use last column with path names
+ output <- data.frame(path=paste0(ff_row$path,"/",pnames), isfile=!isdir, stringsAsFactors=FALSE)
+ #
+ # wait some time if needed:
+ if(sleep!=0) Sys.sleep(runif(n=1, min=0, max=sleep))
+ # complete file path:
+ return(output)
+}
+
+
+# as long as df_ff contains folders, run the following:
+stoppp_ffe <- FALSE
+while(any(!df_ff$isfile))           # potential ToDo: exclude previously checked empty folders
+  {
+  df_ff1 <- df_ff[df_ff$isfile,] # these are finished
+  df_ff2 <- df_ff[!df_ff$isfile,]
+  df_ff3 <- lapply(1:nrow(df_ff2), function(r) getURL_ffe(df_ff2[r,])) # for the folders, run getURL
+  df_ff <- do.call(rbind, c(list(df_ff1),df_ff3))
+  #duplicated(df_ff$path)
   } # end while loop
-# sort final results alphabetically:
-f <- sort(unlist(f, use.names=FALSE))
+
+# sort final results alphabetically (path only, no f/f info):
+finalpaths <- sort(df_ff$path)
+
 # write output:
 owd <- dirDWD(dir, quiet=quiet)
 on.exit(setwd(owd))
 outfile <- paste0("INDEX_of_DWD_", gsub("/","_",filename),".txt")
 outfile <- newFilename(outfile, ignore=overwrite, pre="", mid="", quiet=quiet)
-write.table(f, file=outfile, row.names=FALSE, col.names=FALSE, quote=FALSE)
+write.table(finalpaths, file=outfile, row.names=FALSE, col.names=FALSE, quote=FALSE)
 # return output:
-return(f)
+return(finalpaths)
 }
+

@@ -1,12 +1,10 @@
 
 rdwd ToDo-list / wishlist / issues
-- change tests to actually test stuff, maybe add third vignette
 - dataDWD: potentially use curl to download data without sleep need
 - selectDWD: if res/var/per is NA or "", give a selection popup
 - for per="monthly", make readDWD recognize MESS_DATUM_ENDE and _BEGINN, potentially create new column MESS_DATUM yyyy-mm-15
 - readDWD: figure out reason for fread trouble (reported in emails by some users)
 - allow abbreviations of res hourly/daily/monthly
-- indexFTP: use dirlistonly=FALSE to also get dir/folder info
 
 
 ---------------------------------------
@@ -16,6 +14,13 @@ Any feedback is welcome, per email or on github.com/brry/rdwd
 
 
 rdwd Version history
+
+-----------------------------
+-----------------------------
+
+Version 0.11.0 (2018-11-26)
+
+
 
 -----------------------------
 -----------------------------

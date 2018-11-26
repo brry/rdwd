@@ -316,16 +316,18 @@ apply(x, MARGIN=1, perrow)
 # update Indexes ---------------------------------------------------------------
 
 if(FALSE){
-# FTP indexing commented out to prevent accidental calling:
-# dwdfiles <- indexFTP(sleep=0, filename="")
-# dwdfiles <- indexFTP(dwdfiles, sleep=1, filename="", overwrite=TRUE)
+dwdfiles <- indexFTP(sleep=0, filename="", overwrite=TRUE)
+dwdfiles <- indexFTP(dwdfiles, sleep=2, filename="", overwrite=TRUE)
   # potentially needed several times with small sleep values on restrictive FTP servers
 
 # delete meta folder for truly new data
 # check for dupliate description files (Monatwerte + Monatswerte, e.g., also in INDEX_OF.txt)
 
-dwdfiles <- readLines("DWDdata/INDEX_of_DWD_.txt") # 25'757 elements (2017-03-14) 218'593 (2018-03-25)
-index <- createIndex(paths=dwdfiles, meta=TRUE) # ca 70 secs +30 if files are not yet downloaded
+dwdfiles <- readLines("DWDdata/INDEX_of_DWD_.txt") 
+#  25'757 elements (2017-03-14) 
+# 218'593 (2018-03-25)
+# 419'585 (2018-11-26)
+index <- createIndex(paths=dwdfiles, meta=TRUE) # ca 100 secs +30 if files are not yet downloaded
 { # save indexes into package:
 fileIndex <- index[[1]]
 metaIndex <- index[[2]]
