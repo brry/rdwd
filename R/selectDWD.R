@@ -26,34 +26,37 @@
 #' "<<" signifies a split into the folders \code{per} = "now", recent", "historical" and "meta_data".\cr
 #' "-" signifies that there are no further sub-folders. \cr
 #' Please note that both "solar" (-/<<) and "sun" (<) are available!
-#' \tabular{llll}{
-#' \code{res}=\bold{10_minutes} \tab | \code{res}=\bold{hourly} \tab | \code{res}=\bold{daily} \tab | \code{res}=\bold{monthly} \cr
-#' \code{var=}            \tab                      \tab                      \tab                 \cr
-#'                        \tab |                    \tab | kl <               \tab | kl <          \cr
-#'                        \tab |                    \tab | more_precip <      \tab | more_precip < \cr
-#' air_temperature <<     \tab | air_temperature <  \tab |                    \tab |               \cr
-#' extreme_temperature << \tab |                    \tab |                    \tab |               \cr
-#' extreme_wind <<        \tab |                    \tab |                    \tab |               \cr
-#'                        \tab | cloudiness <       \tab |                    \tab |               \cr
-#'                        \tab | cloud_type <       \tab |                    \tab |               \cr
-#' precipitation <<       \tab | precipitation <    \tab |                    \tab |               \cr
-#'                        \tab | pressure <         \tab |                    \tab |               \cr
-#'                        \tab | soil_temperature < \tab | soil_temperature < \tab |               \cr
-#' solar <<               \tab | solar -            \tab | solar -            \tab |               \cr
-#'                        \tab | sun <              \tab |                    \tab |               \cr
-#'                        \tab | visibility <       \tab |                    \tab |               \cr
-#'                        \tab |                    \tab | water_equiv <      \tab |               \cr
-#' wind <<                \tab | wind <             \tab |                    \tab |               \cr
+#' \tabular{lllll}{
+#' \code{res}=\bold{10_minutes} \tab | \code{res}=\bold{hourly} \tab | \code{res}=\bold{daily} \tab | \code{res}=\bold{monthly} \tab | \code{res}=\bold{annual} \cr
+#' \code{var=}            \tab                      \tab                      \tab                 \tab                 \cr
+#'                        \tab |                    \tab | kl <               \tab | kl <          \tab | kl <          \cr
+#'                        \tab |                    \tab | more_precip <      \tab | more_precip < \tab | more_precip < \cr
+#' air_temperature <<     \tab | air_temperature <  \tab |                    \tab |               \tab |               \cr
+#' extreme_temperature << \tab |                    \tab |                    \tab |               \tab |               \cr
+#' extreme_wind <<        \tab |                    \tab |                    \tab |               \tab |               \cr
+#'                        \tab | cloudiness <       \tab |                    \tab |               \tab |               \cr
+#'                        \tab | cloud_type <       \tab |                    \tab |               \tab |               \cr
+#' precipitation <<       \tab | precipitation <    \tab |                    \tab |               \tab |               \cr
+#'                        \tab | pressure <         \tab |                    \tab |               \tab |               \cr
+#'                        \tab | soil_temperature < \tab | soil_temperature < \tab |               \tab |               \cr
+#' solar <<               \tab | solar -            \tab | solar -            \tab |               \tab |               \cr
+#'                        \tab | sun <              \tab |                    \tab |               \tab |               \cr
+#'                        \tab | visibility <       \tab |                    \tab |               \tab |               \cr
+#'                        \tab |                    \tab | water_equiv <      \tab |               \tab |               \cr
+#' wind <<                \tab | wind <             \tab |                    \tab |               \tab |               \cr
 #' }
 #' Please note that \code{1_minute/precipitation/historical} has subfolders for each year.
 #' \tabular{lll}{
-#' \code{res}=\bold{1_minute} \tab | \code{res}=\bold{multi_annual} \tab | \code{res}=\bold{subdaily} \cr
+#' \code{res}=\bold{1_minute} \tab | \code{res}=\bold{multi_annual} \tab | \code{res}=\bold{subdaily} \cr 
 #' \code{var=}      \tab                \tab                     \cr
 #' precipitation << \tab |              \tab |                   \cr
 #'                  \tab | mean_61-90 - \tab |                   \cr
 #'                  \tab | mean_71-00 - \tab |                   \cr
 #'                  \tab | mean_81-10 - \tab |                   \cr
+#'                  \tab |              \tab | pressure <        \cr
 #'                  \tab |              \tab | standard_format - \cr
+#'                  \tab |              \tab |                   \cr
+#'                  \tab |              \tab |                   \cr
 #' }
 #' 
 #' @return Character string with file path and name(s) in the format
