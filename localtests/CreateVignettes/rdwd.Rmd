@@ -24,7 +24,7 @@ editor_options:
 The [R](https://www.r-project.org/) package [`rdwd`](https://github.com/brry/rdwd#rdwd)
 contains code to select, download and read weather data from measuring stations across Germany. 
 The German Weather Service (Deutscher Wetterdienst, DWD) provides 
-over 200 thousand datasets with weather observations through the FTP server online at 
+over 228 thousand datasets with weather observations through the FTP server online at 
 
 <ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate>.
 

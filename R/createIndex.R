@@ -203,7 +203,7 @@ if(mname!="")
 #
 # geoIndex ------------------------------------------------------------------
 if(!quiet) messaget("Creating geoIndex...")
-geoIndex <- metaIndex     # June 2017  35'428 rows
+geoIndex <- metaIndex     # June 2017  35'428 rows, 76'772 in Nov 2018
 # lowercase + english column names in desired order
 geoIndex$id <- geoIndex$Stations_id
 geoIndex$name <- geoIndex$Stationsname
@@ -220,7 +220,7 @@ geoIndex$geoLaenge <- NULL
 id_char <- as.character(geoIndex$id)
 #
 # average elevation per station ID:
-#table(tapply(geoIndex$ele, geoIndex$id, function(x) round(diff(range(x)),2) ))
+#table(tapply(geoIndex$Stationshoehe, geoIndex$id, function(x) round(diff(range(x)),2) ))
 # only up to 0.5m diff
 ele <- round(tapply(geoIndex$Stationshoehe, geoIndex$id, mean), 0.1)
 geoIndex$ele <- as.numeric(ele[id_char])
@@ -232,6 +232,9 @@ geoIndex$nfiles    <- table(geoIndex$id[ geoIndex$hasfile])[id_char]
 geoIndex$nonpublic <- table(geoIndex$id[!geoIndex$hasfile])[id_char]
 geoIndex$nfiles   [is.na(geoIndex$nfiles   )] <- 0
 geoIndex$nonpublic[is.na(geoIndex$nonpublic)] <- 0
+geoIndex$nfiles    <- as.numeric(geoIndex$nfiles)
+geoIndex$nonpublic <- as.numeric(geoIndex$nonpublic)
+
 #
 # recent file?:
 recentfile <- geoIndex$per=="recent" | geoIndex$bis_datum >
@@ -276,6 +279,7 @@ if(any(dupli_c))
 #
 # column for interactive map popup display:
 geoIndex$display <- rowDisplay(geoIndex)
+geoIndex$display <- gsub("nfiles", "n public files", geoIndex$display)
 # colors for map:
 geoIndex$col <- "blue"
 geoIndex$col[!geoIndex$recentfile] <- "red"

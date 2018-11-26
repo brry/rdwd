@@ -21,6 +21,13 @@ tools::resaveRdaFiles("data/fileIndex.rda")
 
 
 
+# station with max number of files (for expanding readvars) ----
+data("geoIndex")
+summary(geoIndex)
+whimax <- which(geoIndex$nfiles == max(geoIndex$nfiles)) # 10 stations to choose
+geoIndex[whimax, ]
+
+
 
 
 
