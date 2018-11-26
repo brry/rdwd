@@ -43,6 +43,10 @@
 #'                DEFAULT: "currentfindex"
 #' @param base    Main directory of DWD ftp server, defaulting to observed climatic records.
 #'                DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
+#' @param is.file.if.has.dot Logical: if some of the input paths contain a dot, 
+#'                treat those as files, i.e. do not try to read those as if they
+#'                were a folder. Only set this to FALSE if you know what you're doing.
+#'                DEFAULT: TRUE
 #' @param sleep   If not 0, a random number of seconds between 0 and \code{sleep}
 #'                is passed to \code{\link{Sys.sleep}} after each read folder
 #'                to avoid getting kicked off the FTP-Server. DEFAULT: 0
@@ -63,6 +67,7 @@
 indexFTP <- function(
 folder="currentfindex",
 base="ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
+is.file.if.has.dot=TRUE,
 sleep=0,
 dir="DWDdata",
 filename=folder[1],
@@ -91,6 +96,8 @@ curl_handle <- RCurl::getCurlHandle(ftp.use.epsv=TRUE)
 # central object: df_ff (dataframe with file/folder names)
 df_ff <- data.frame(path=folder, isfile=FALSE, stringsAsFactors=FALSE)
 
+if(is.file.if.has.dot)
+   df_ff$isfile[ grepl(".", df_ff$path, fixed=TRUE) ] <- TRUE
 
 # List files at a single path, returning files/folders or useful error messages
 # stoppp_ffe will be an object within indexFTP, see below
@@ -107,6 +114,8 @@ getURL_ffe <- function(ff_row)
      p <- removeSpace(gsub("\n", "", p))
      if(grepl("Could not resolve host", p)) 
        p <- paste0(p,"\nThis may mean you are not connected to the internet.")
+     if(grepl("Server denied you to change to the given directory", p)) 
+       p <- paste0(p,"\nThis could mean the path is a file, not a folder.")
      msg <- paste0(traceCall(3, "", ": "), "RCurl::getURL failed for '", ff_row$path, "/' - ", p)
      warning(msg, call.=FALSE)
      assign("stoppp_ffe", TRUE, inherits=TRUE) # to get out of the loop sans error
@@ -128,17 +137,19 @@ getURL_ffe <- function(ff_row)
  return(output)
 }
 
-
-# as long as df_ff contains folders, run the following:
 stoppp_ffe <- FALSE
+# as long as df_ff contains folders, run the following:
 while(any(!df_ff$isfile))           # potential ToDo: exclude previously checked empty folders
   {
   df_ff1 <- df_ff[df_ff$isfile,] # these are finished
   df_ff2 <- df_ff[!df_ff$isfile,]
   df_ff3 <- lapply(1:nrow(df_ff2), function(r) getURL_ffe(df_ff2[r,])) # for the folders, run getURL
   df_ff <- do.call(rbind, c(list(df_ff1),df_ff3))
-  #duplicated(df_ff$path)
+  if(stoppp_ffe) break
   } # end while loop
+
+if(anyDuplicated(df_ff$path)) warning("Duplicate paths:", 
+                   truncMessage(df_ff$path[duplicated(df_ff$path)], prefix=""))
 
 # sort final results alphabetically (path only, no f/f info):
 finalpaths <- sort(df_ff$path)
