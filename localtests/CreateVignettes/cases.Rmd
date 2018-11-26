@@ -13,7 +13,8 @@ editor_options:
   chunk_output_type: console
 ---
 
-[Vignette Rmd source code](https://raw.githubusercontent.com/brry/rdwd/master/vignettes/cases.Rmd)
+[Vignette Rmd source code](https://raw.githubusercontent.com/brry/rdwd/master/localtests/CreateVignettes/cases.Rmd)
+(Not on CRAN to reduce load on DWD server through daily new builds and checks of the vignette)
 
 [main rdwd vignette](rdwd.html)
 
@@ -36,7 +37,7 @@ myIndex <- metaIndex[
   metaIndex$bis_datum > 20161231 & metaIndex$hasfile   ,  ]
 data("fileIndex")    
 links <- fileIndex[
-  as.numeric(fileIndex$id) %in% myIndex$Stations_id &
+  suppressWarnings(as.numeric(fileIndex$id)) %in% myIndex$Stations_id &
   fileIndex$res=="daily" &
   fileIndex$var=="more_precip" &
   fileIndex$per=="historical"         , "path" ]  
@@ -90,15 +91,16 @@ str(read2014_2016(localfiles[1])) # test looks good
 Now let's apply this to all our files and merge the result.
 
 ```{r hourlyrain_data_reading}
-if(!requireNamespace("pbapply")) install.packages("pbapply")
 library(pbapply) # progress bar for lapply loop
 
 rain_list <- pblapply(localfiles, read2014_2016)
 rain_df <- Reduce(function(...) merge(..., all=T), rain_list)
 str(rain_df) # looks nice!
-summary(rain_df) # 6 NAs in station 00006
+summary(rain_df) # 9 NAs in station 00006
 ```
 
+
+[TOC](#top)
 
 ### step 4: visual data checks
 
@@ -112,13 +114,11 @@ plot(rain_df[,2:4]) # correlation plot only works for a few columns!
 ```
 
 Let's see the locations of our stations in an interactive map.
-For the static map, OSMscale works nicely but currently still has a Java dependency, see
-<https://github.com/brry/OSMscale#installation>
 
 ```{r hourlyrain_map_interactive, warning=FALSE}
-if(requireNamespace("leaflet")){
+if(requireNamespace("leaflet", quietly=TRUE)){
 data(geoIndex)  ;  library(leaflet) 
-mygeoIndex <- geoIndex[geoIndex$id %in% as.numeric(colnames(rain_df)),]
+mygeoIndex <- geoIndex[geoIndex$id %in% as.numeric(colnames(rain_df)[-1]),]
 
 leaflet(data=mygeoIndex) %>% addTiles() %>%
         addCircleMarkers(~lon, ~lat, popup=~display, stroke=T)

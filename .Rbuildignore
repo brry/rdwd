@@ -5,9 +5,7 @@ DWDdata
 presentation/
 presentation
 cran-comments.md
-PackageSchematic.pptx
-testfread/
-testfread
+localtests/
+localtests
 inst/shinyapps/
 inst/shinyapps
-developmentNotes.R

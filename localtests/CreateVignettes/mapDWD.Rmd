@@ -1,5 +1,5 @@
 ---
-title: "DWD weather stations"
+title: "DWD weather stations map"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -18,7 +18,7 @@ When a point is clicked, an infobox should appear.
 The first line can be copypasted into R to obtain more information on the available files.
 The map is created with the following code:
 
-```{r map, fig.height=7, fig.width=7, warning=FALSE}
+```{r map, fig.height=7, fig.width=7, warning=FALSE, screenshot.force=FALSE}
 library(rdwd)  ;  data(geoIndex)  ;  library(leaflet) 
 leaflet(geoIndex) %>% addTiles() %>%
         addCircles(~lon, ~lat, radius=900, stroke=F, color=~col)%>%

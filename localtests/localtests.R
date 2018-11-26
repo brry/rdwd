@@ -1,4 +1,5 @@
-context("Generic functionality of rdwd")
+library(testthat)
+library(rdwd)
 
 link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
 test_that("selectDWD works", {
