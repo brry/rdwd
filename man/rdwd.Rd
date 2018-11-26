@@ -19,7 +19,7 @@ For an overview of available data, see \code{\link{selectDWD}}.\cr
 
 Weather Data Germany download with R, Climate Data Germany\cr
 Deutscher Wetterdienst R Daten download Klimastationen\cr
-DWD Daten mit R runterladen, Wetter und Klimadaten in R\cr
+DWD Daten mit R runterladen, Wetter und Klimadaten in R
 }
 
 \seealso{
