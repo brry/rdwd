@@ -4,14 +4,19 @@
 \alias{dataDWD}
 \title{Download data from the DWD CDC FTP Server}
 \usage{
-dataDWD(file, dir = "DWDdata", force = FALSE, overwrite = FALSE,
-  sleep = 0, quiet = FALSE, progbar = !quiet, browse = FALSE,
-  read = TRUE, meta = grepl(".txt$", file), fread = FALSE,
-  format = NA, ntrunc = 2, ...)
+dataDWD(file,
+  base = "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/",
+  dir = "DWDdata", force = FALSE, overwrite = FALSE, sleep = 0,
+  quiet = FALSE, progbar = !quiet, browse = FALSE, read = TRUE,
+  meta = grepl(".txt$", file), fread = FALSE, format = NA,
+  ntrunc = 2, ...)
 }
 \arguments{
 \item{file}{Char (vector): complete file URL(s) (including base and filename.zip) as returned by
 \code{\link{selectDWD}}. Can be a vector with several filenames.}
+
+\item{base}{Single char: base URL that will be removed from output file names.
+DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}}
 
 \item{dir}{Char: Writeable directory name where to save the downloaded file.
 Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
