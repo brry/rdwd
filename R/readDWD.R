@@ -13,8 +13,8 @@
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jul-Oct 2016
 #' @seealso \code{\link{dataDWD}}, \code{\link{readVars}}, \code{\link{selectDWD}}
 #' @keywords file chron
-#' @importFrom utils read.table unzip read.fwf
-#' @importFrom berryFunctions checkFile na9 traceCall
+#' @importFrom utils read.table unzip read.fwf untar
+#' @importFrom berryFunctions checkFile na9 traceCall l2df
 #' @importFrom pbapply pblapply
 #' @importFrom tools file_path_sans_ext
 #' @export
@@ -26,12 +26,20 @@
 #'               "~/DWDdata/RR_Stundenwerte_Beschreibung_Stationen.txt"
 #' @param meta   Logical (vector): is the \code{file} a meta file (Beschreibung.txt)?
 #'               DEFAULT: TRUE for each file ending in ".txt"
+#' @param binary Logical (vector): is the \code{file} a binary file, like for the 
+#'               radolan grid files?
+#'               DEFAULT: TRUE for each file ending in ".tar.gz"
+#' @param raster Logical (vector): is the \code{file} a raster file, like for the 
+#'               seasonal grid files?
+#'               DEFAULT: TRUE for each file ending in ".asc.gz"
 #' @param fread  Logical: read faster with \code{data.table::\link[data.table]{fread}}?
 #'               For 30 daily/kl/hist files, 7 instead of 10 seconds.
 #'               NA can also be used, which means TRUE if data.table is available.
 #'               DEFAULT: FALSE
 #' @param minfo  Logical: read the meta info txt files in the zip folder (instead of actual data)?
-#'               Returns a named list of data.frames. DEFAULT: FALSE
+#'               Returns a named list of data.frames. 
+#'               Only used if \code{meta} and \code{binary} are both FALSE. 
+#'               DEFAULT: FALSE
 #' @param format Char (vector), only used if \code{meta=FALSE}: Format passed to
 #'               \code{\link{as.POSIXct}} (see \code{\link{strptime}})
 #'               to convert the date/time column to POSIX time format.\cr
@@ -48,6 +56,8 @@
 readDWD <- function(
 file,
 meta=grepl('.txt$', file),
+binary=grepl('.tar.gz$', file),
+raster=grepl('.asc.gz$', file),
 fread=FALSE,
 minfo=FALSE,
 format=NA,
@@ -62,6 +72,8 @@ if(anyNA(fread)) fread[is.na(fread)] <- requireNamespace("data.table",quietly=TR
 if(len>1)
   {
   meta   <- rep(meta,   length.out=len)
+  binary <- rep(binary, length.out=len)
+  raster <- rep(raster, length.out=len)
   fread  <- rep(fread,  length.out=len)
   minfo  <- rep(minfo,  length.out=len)
   format <- rep(format, length.out=len)
@@ -92,8 +104,10 @@ if(!grepl(pattern="german", lct, ignore.case=TRUE))
 output <- lapply(seq_along(file), function(i)
 {
 f <- file[i]
-# if meta:
+# if meta/binary/raster:
 if(meta[i]) return(readDWD.meta(f))
+if(binary[i]) return(readDWD.binary(f))
+if(raster[i]) return(readDWD.raster(f))
 # if data:
 dat <- readDWD.data(f, minfo=minfo[i], fread=fread[i])
 # process time-stamp: http://stackoverflow.com/a/13022441
@@ -198,4 +212,45 @@ if(!all(actual == classes))
   }
 # return meta data.frame:
 stats
+}
+
+
+
+
+readDWD.binary <- function(file)
+{
+# temporary unzipping directory
+fn <- tools::file_path_sans_ext(basename(file))
+exdir <- paste0(tempdir(),"/", fn)
+untar(file, exdir=exdir) # may take a few seconds
+on.exit(unlink(exdir, recursive=TRUE), add=TRUE)
+
+# hourly files;
+f <- dir(exdir, full.names=TRUE) # 31*24 = 744 files  (daily/hist/2017-12)
+# binary file header:   substr(readLines(f[1], n=1, warn=FALSE), 1, 270)
+# Read the actual binary file:
+rb <- lapply(f, readBin, what="int", size=2, n=900*900, endian="little")
+# list element names (time stamp):
+time <- l2df(strsplit(f,"-"))[,3]
+time <- strptime(time, format="%y%m%d%H%M")
+time <- format(time, "%Y-%m-%d_%H:%M")
+names(rb) <- time
+return(invisible(rb))
+}
+
+
+
+
+readDWD.raster <- function(file)
+{
+if(!requireNamespace("R.utils", quietly=TRUE))
+  stop("To use rdwd:::readDWD.raster, please first install R.utils:",
+       "   install.packages('R.utils')", call.=FALSE)
+if(!requireNamespace("raster", quietly=TRUE))
+ stop("To use rdwd:::readDWD.raster, please first install raster:",
+      "   install.packages('raster')", call.=FALSE)
+#https://stackoverflow.com/questions/5227444/recursively-ftp-download-then-extract-gz-files
+rdata <- R.utils::gunzip(file)
+r <- raster::raster(rdata)
+return(invisible(r))
 }

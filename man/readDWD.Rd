@@ -4,7 +4,8 @@
 \alias{readDWD}
 \title{Process data from the DWD CDC FTP Server}
 \usage{
-readDWD(file, meta = grepl(".txt$", file), fread = FALSE,
+readDWD(file, meta = grepl(".txt$", file), binary = grepl(".tar.gz$",
+  file), raster = grepl(".asc.gz$", file), fread = FALSE,
   minfo = FALSE, format = NA, tz = "GMT", progbar = TRUE)
 }
 \arguments{
@@ -15,13 +16,23 @@ e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip" or
 \item{meta}{Logical (vector): is the \code{file} a meta file (Beschreibung.txt)?
 DEFAULT: TRUE for each file ending in ".txt"}
 
+\item{binary}{Logical (vector): is the \code{file} a binary file, like for the 
+radolan grid files?
+DEFAULT: TRUE for each file ending in ".tar.gz"}
+
+\item{raster}{Logical (vector): is the \code{file} a raster file, like for the 
+seasonal grid files?
+DEFAULT: TRUE for each file ending in ".asc.gz"}
+
 \item{fread}{Logical: read faster with \code{data.table::\link[data.table]{fread}}?
 For 30 daily/kl/hist files, 7 instead of 10 seconds.
 NA can also be used, which means TRUE if data.table is available.
 DEFAULT: FALSE}
 
 \item{minfo}{Logical: read the meta info txt files in the zip folder (instead of actual data)?
-Returns a named list of data.frames. DEFAULT: FALSE}
+Returns a named list of data.frames. 
+Only used if \code{meta} and \code{binary} are both FALSE. 
+DEFAULT: FALSE}
 
 \item{format}{Char (vector), only used if \code{meta=FALSE}: Format passed to
 \code{\link{as.POSIXct}} (see \code{\link{strptime}})

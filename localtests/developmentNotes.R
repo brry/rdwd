@@ -20,6 +20,51 @@ tools::resaveRdaFiles("data/fileIndex.rda")
 }
 
 
+# radolan ----
+# https://wradlib.org for much more extensive radar analysis in Python
+# ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/Unterstuetzungsdokumente/RADOLAN-RADVOR-Kompositformat_2.4.pdf
+# for format description
+# https://stats.idre.ucla.edu/r/faq/how-can-i-read-binary-data-into-r/ for help on developing readDWD.binary
+# this is possible since rdwd 0.11.1 (2018-12-05) with argument base in dataDWD
+# ToDo: if included in use case vignette, change reference in readDWD arg binary
+
+# . list of all Files: ----
+gridbase <- "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany"
+# radolanfiles <- indexFTP(folder="/daily/radolan", base=gridbase, dir="localtests/radolan")
+radolanfiles <- readLines("localtests/radolan/INDEX_of_DWD__daily_radolan_.txt")
+# Files without Bestand folders:
+radfiles <- radolanfiles[grepl("historical/..../SF", radolanfiles)]
+
+# . a single file as example: ----
+gridbase <- "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany"
+radfile <- "/daily/radolan//historical/2017/SF201712.tar.gz"
+# 204 MB, takes a minute to download:
+localfile <- dataDWD(file=paste0(gridbase, radfile), base=gridbase, 
+                dir="localtests/radolan", read=FALSE)
+
+rad <- readDWD(localfile)
+raster::plot(raster::raster(matrix(rad, ncol=900, byrow=TRUE)))
+
+
+
+
+# raster files ----
+rasterbase <- "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/"
+ftp.files <- indexFTP("seasonal/air_temperature_mean/16_DJF",
+                      base=rasterbase, dir=tempdir())
+
+localfiles <- dataDWD(paste0(rasterbase,ftp.files[1:2]), base=rasterbase,
+                      dir=tempdir(), read=FALSE)
+
+# ToDo: filenames are too long
+
+rf <- readDWD(localfiles[1])
+raster::plot(rf/10) # ToDo: move division by ten into function if needed
+
+
+
+
+
 
 # station with max number of files (for expanding readvars) ----
 data("geoIndex")
@@ -31,7 +76,9 @@ geoIndex[whimax, ]
 
 
 
-# fread speed test
+
+
+# fread speed test  ----
 links <- selectDWD(res="daily", var="kl", per="h")[1:30]
 files <- dataDWD(links, dir="testfread", read=F)
 
@@ -50,7 +97,7 @@ system.time(  data2 <- readDWD(f, fread=TRUE)  )  # 3.7
 
 
 
-# libcurl returning OS dependent results:
+# libcurl returning OS dependent results: ----
 
 if(!requireNamespace("RCurl", quietly=TRUE)) install.packages("RCurl")
 link <- "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate"
@@ -81,7 +128,7 @@ gsub("\r", "", strsplit(l, "\n")[[1]])
 
 
 
-# readDWD meta = TRUE
+# readDWD meta = TRUE ----
 # Development process and tests
 
 # in october 2016, DWD slightly changed monthly/kl meta file column widths
@@ -156,9 +203,7 @@ lapply(m, head)
 
 
 
-context("Station coordinates")
-
-# check coordinates:
+# check station coordinates: ----
 coord_ok <- pbsapply(unique(metaIndex$Stationsname), function(n)
 {
  sel <- metaIndex$Stationsname==n
@@ -212,7 +257,7 @@ title(main="DWD stations: data on ftp server", line=3)
 dev.off()
 
 
-# map geoIndex
+# . map geoIndex ----
 
 map <- pointsMap(lat, long, data=geoIndex, fx=0.06, fy=0.06)
 pdf("DWDdata/RainfallStationsMap_nfiles.pdf", width=5)
@@ -226,7 +271,7 @@ title(main="DWD stations: number of files on ftp server", line=3)
 dev.off()
 
 
-# Time series duration:
+# . Time series duration:
 # colPoints <- berryFunctions::colPoints
 colPoints(geoLaenge, geoBreite, Stations_id, data=metaIndex, add=F, asp=1.5)
 colPoints(geoLaenge, geoBreite, Stationshoehe, data=metaIndex, add=F, asp=1.5)
@@ -243,14 +288,12 @@ sum(metaIndex$dauer>50); mean(metaIndex$dauer>50)
 
 
 
+# wind readVars ----
 
 link <- selectDWD("Potsdam", res="10_minutes", var="wind", per="recent")
 file <- dataDWD(link, read=FALSE, dir=tempdir())
 vars <- readVars(file); vars
 
-
-
 file <- dataDWD("ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/hourly/solar/stundenwerte_ST_05906_row.zip", read=FALSE)
 clim <- readDWD(file) # format not autodetected, read.table charstring?
-
 
