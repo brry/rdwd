@@ -1,3 +1,5 @@
+^doc$
+^Meta$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 DWDdata/

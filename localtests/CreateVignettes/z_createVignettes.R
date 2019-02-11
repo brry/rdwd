@@ -44,3 +44,9 @@ createBerrysVignettes(file="localtests/CreateVignettes/cases.Rmd",
                       title="rdwd use cases")
 
 devtools::build_vignettes()
+
+# satisfy install(build_vignettes = TRUE):
+
+file.copy("doc/rdwd.html", "vignettes/rdwd.html", overwrite=TRUE)
+file.copy("doc/mapDWD.html", "vignettes/mapDWD.html", overwrite=TRUE)
+file.copy("doc/cases.html", "vignettes/cases.html", overwrite=TRUE)
