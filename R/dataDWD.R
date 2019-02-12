@@ -79,7 +79,8 @@
 #' @param file   Char (vector): complete file URL(s) (including base and filename.zip) as returned by
 #'               \code{\link{selectDWD}}. Can be a vector with several filenames.
 #' @param base   Single char: base URL that will be removed from output file names.
-#'               DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
+#'               DEFAULT: \code{\link{dwdbase}}:
+#'               \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
 #' @param dir    Char: Writeable directory name where to save the downloaded file.
 #'               Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}
 #' @param force  Logical (vector): always download, even if the file already exists in \code{dir}?
@@ -111,7 +112,7 @@
 #
 dataDWD <- function(
 file,
-base="ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/",
+base=dwdbase,
 dir="DWDdata",
 force=FALSE,
 overwrite=FALSE,

@@ -2,6 +2,7 @@
 # Release questions, code for meta-info related functions, index updating
 
 # rdwd-package
+# dwdbase
 # release_questions
 # fileIndex, metaIndex, geoIndex
 # metaInfo
@@ -38,6 +39,16 @@
 #' Deutscher Wetterdienst R Daten download Klimastationen\cr
 #' DWD Daten mit R runterladen, Wetter und Klimadaten in R
 NULL
+
+
+
+# dwdbase ----
+
+#' @title DWD FTP Server base URL
+#' @export
+#' @description base URL to DWD FTP Server / observed climatic records.\cr
+#'     \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
+dwdbase <- "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate"
 
 
 

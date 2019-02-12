@@ -122,7 +122,7 @@
 #'              Is internally converted to an integer, because some DWD meta data
 #'              files also contain no leading zeros. DEFAULT: findID(name)
 #' @param base  Single char: main directory of DWD ftp server, defaulting to
-#'              observed climatic records.
+#'              observed climatic records (\code{\link{dwdbase}}).
 #'              Must be the same \code{base} used to create \code{findex}.
 #'              DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
 #' @param res   Char: temporal \bold{res}olution available at \code{base}, usually one of
@@ -164,7 +164,7 @@ name="",
 exactmatch=TRUE,
 mindex=metaIndex,
 id=findID(name, exactmatch=exactmatch, mindex=mindex),
-base="ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
+base=dwdbase,
 res="",
 var="",
 per="",

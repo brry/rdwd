@@ -6,9 +6,9 @@
 \usage{
 selectDWD(name = "", exactmatch = TRUE, mindex = metaIndex,
   id = findID(name, exactmatch = exactmatch, mindex = mindex),
-  base = "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
-  res = "", var = "", per = "", findex = fileIndex,
-  current = FALSE, meta = FALSE, outvec = FALSE, ...)
+  base = dwdbase, res = "", var = "", per = "",
+  findex = fileIndex, current = FALSE, meta = FALSE,
+  outvec = FALSE, ...)
 }
 \arguments{
 \item{name}{Char: station name(s) passed to \code{\link{findID}}, along with the
@@ -25,7 +25,7 @@ Is internally converted to an integer, because some DWD meta data
 files also contain no leading zeros. DEFAULT: findID(name)}
 
 \item{base}{Single char: main directory of DWD ftp server, defaulting to
-observed climatic records.
+observed climatic records (\code{\link{dwdbase}}).
 Must be the same \code{base} used to create \code{findex}.
 DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}}
 

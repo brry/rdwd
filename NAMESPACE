@@ -2,6 +2,7 @@
 
 export(createIndex)
 export(dataDWD)
+export(dwdbase)
 export(findID)
 export(indexFTP)
 export(metaInfo)

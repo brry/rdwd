@@ -41,8 +41,9 @@
 #'                is the default, code{folder} is changed to all folders in current 
 #'                \code{\link{fileIndex}}: \code{unique(dirname(fileIndex$path))}. 
 #'                DEFAULT: "currentfindex"
-#' @param base    Main directory of DWD ftp server, defaulting to observed climatic records.
-#'                DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
+#' @param base    Main directory of FTP server, defaulting to DWD observed climatic records.
+#'                DEFAULT: \code{\link{dwdbase}}:
+#'                \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
 #' @param is.file.if.has.dot Logical: if some of the input paths contain a dot, 
 #'                treat those as files, i.e. do not try to read those as if they
 #'                were a folder. Only set this to FALSE if you know what you're doing.
@@ -66,7 +67,7 @@
 #' 
 indexFTP <- function(
 folder="currentfindex",
-base="ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
+base=dwdbase,
 is.file.if.has.dot=TRUE,
 sleep=0,
 dir="DWDdata",
@@ -82,9 +83,9 @@ if(!requireNamespace("RCurl", quietly=TRUE))
   stop("The R package 'RCurl' is not available. rdwd::indexFTP can not obtain file list.\n",
        "install.packages('RCurl')       to enable this.")
 # change folder:
-if(all(folder=="currentfindex") & base=="ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate")
+if(all(folder=="currentfindex") & base==dwdbase)
    folder <- unique(dirname(fileIndex$path))
-if(base!="ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate")
+if(base!=dwdbase)
  if(missing(folder)) warning('base is not the rdwd default. It is likely you want',
                              ' to use folder="" instead of "',folder,'".')
 # Progress bar?

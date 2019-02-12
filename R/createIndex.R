@@ -45,7 +45,8 @@
 #' @param paths Char: vector of DWD paths returned by \code{\link{indexFTP}} called
 #'              with the same \code{base} value as this function
 #' @param base  Main directory of DWD ftp server, defaulting to observed climatic records.
-#'              DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
+#'              DEFAULT: \code{\link{dwdbase}}:
+#'              \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
 #' @param dir   Char: writeable directory name where to save the main output(s).
 #'              Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}
 #' @param fname Char: Name of file in \code{dir} in which to write \code{\link{fileIndex}}.
@@ -65,7 +66,7 @@
 #' 
 createIndex <- function(
 paths,
-base="ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
+base=dwdbase,
 dir="DWDdata",
 fname="fileIndex.txt",
 meta=FALSE,

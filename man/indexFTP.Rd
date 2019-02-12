@@ -4,8 +4,7 @@
 \alias{indexFTP}
 \title{Create a recursive index of the DWD CDC FTP Server}
 \usage{
-indexFTP(folder = "currentfindex",
-  base = "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate",
+indexFTP(folder = "currentfindex", base = dwdbase,
   is.file.if.has.dot = TRUE, sleep = 0, dir = "DWDdata",
   filename = folder[1], overwrite = FALSE, quiet = FALSE,
   progbar = !quiet, verbose = FALSE)
@@ -18,8 +17,9 @@ is the default, code{folder} is changed to all folders in current
 \code{\link{fileIndex}}: \code{unique(dirname(fileIndex$path))}. 
 DEFAULT: "currentfindex"}
 
-\item{base}{Main directory of DWD ftp server, defaulting to observed climatic records.
-DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}}
+\item{base}{Main directory of FTP server, defaulting to DWD observed climatic records.
+DEFAULT: \code{\link{dwdbase}}:
+\url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}}
 
 \item{is.file.if.has.dot}{Logical: if some of the input paths contain a dot, 
 treat those as files, i.e. do not try to read those as if they
