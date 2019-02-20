@@ -156,7 +156,7 @@ if(browse)
 owd <- dirDWD(dir, quiet=quiet)
 on.exit(setwd(owd))
 # output file name(s)
-outfile <- gsub(base, "", file)
+outfile <- gsub(paste0(base,"/"), "", file)
 outfile <- gsub("/", "_", outfile)
 
 # force=NA management
