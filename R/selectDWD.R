@@ -208,7 +208,7 @@ base <- base[1]
 per[substr(per,1,1)=="h"] <- "historical"
 per[substr(per,1,1)=="r"] <- "recent"
 # solar per to ""
-per[var=="solar"] <- ""
+per[var=="solar" & res %in% c("hourly","daily")] <- ""
 # check ids for accidental letters:
 idlett <- grepl("[A-Za-z]", id)
 if(any(idlett)) stop(traceCall(1, "in ", ": "), "id may not contain letters: ",
