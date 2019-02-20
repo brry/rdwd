@@ -142,6 +142,7 @@ stoppp_ffe <- FALSE
 # as long as df_ff contains folders, run the following:
 while(any(!df_ff$isfile))           # potential ToDo: exclude previously checked empty folders
   {
+  df_ff <- unique(df_ff)
   df_ff1 <- df_ff[df_ff$isfile,] # these are finished
   df_ff2 <- df_ff[!df_ff$isfile,]
   df_ff3 <- lapply(1:nrow(df_ff2), function(r) getURL_ffe(df_ff2[r,])) # for the folders, run getURL
