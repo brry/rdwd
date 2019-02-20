@@ -33,12 +33,10 @@ DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}}
 \code{c("hourly","daily","monthly")}, see section 'Description' above.
 \code{res/var/per} together form the \bold{path}. DEFAULT: ""}
 
-\item{var}{Char: weather \bold{var}iable of interest. Usually one of
-\code{c("air_temperature", "cloudiness", "precipitation",
-        "pressure", "sun", "wind")} (only in hourly),
-\code{c("soil_temperature", "solar")} (in hourly and daily), or
-\code{c("kl", "more_precip")} (in daily and monthly).
-See more in \code{View(rdwd:::\link{fileIndex})}. DEFAULT: ""}
+\item{var}{Char: weather \bold{var}iable of interest, like e.g.
+\code{"air_temperature", "cloudiness", "precipitation",
+        "soil_temperature", "solar", "kl", "more_precip"}
+See above and in \code{View(rdwd:::\link{fileIndex})}. DEFAULT: ""}
 
 \item{per}{Char: desired time \bold{per}iod. One of
 "recent" (data from the last year, up to date usually within a few days) or
@@ -59,7 +57,7 @@ requires availability of the \code{RCurl} package.
 DEFAULT: FALSE}
 
 \item{meta}{Logical: return metadata txt file name instead of climate data zip file?
-Relevant only in case 4 (path and id given).
+Relevant only in case 4 (path and id given) and case 3 for res="multi_annual".
 See \code{\link{metaIndex}} for a compilation of all metaData files.
 DEFAULT: FALSE}
 
@@ -128,10 +126,9 @@ precipitation << \tab |              \tab |                   \cr
                  \tab | mean_61-90 - \tab |                   \cr
                  \tab | mean_71-00 - \tab |                   \cr
                  \tab | mean_81-10 - \tab |                   \cr
+                 \tab |              \tab | air_temperature < \cr
                  \tab |              \tab | pressure <        \cr
                  \tab |              \tab | standard_format - \cr
-                 \tab |              \tab |                   \cr
-                 \tab |              \tab |                   \cr
 }
 }
 \examples{

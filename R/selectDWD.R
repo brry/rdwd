@@ -53,10 +53,9 @@
 #'                  \tab | mean_61-90 - \tab |                   \cr
 #'                  \tab | mean_71-00 - \tab |                   \cr
 #'                  \tab | mean_81-10 - \tab |                   \cr
+#'                  \tab |              \tab | air_temperature < \cr
 #'                  \tab |              \tab | pressure <        \cr
 #'                  \tab |              \tab | standard_format - \cr
-#'                  \tab |              \tab |                   \cr
-#'                  \tab |              \tab |                   \cr
 #' }
 #' 
 #' @return Character string with file path and name(s) in the format
@@ -128,12 +127,10 @@
 #' @param res   Char: temporal \bold{res}olution available at \code{base}, usually one of
 #'              \code{c("hourly","daily","monthly")}, see section 'Description' above.
 #'              \code{res/var/per} together form the \bold{path}. DEFAULT: ""
-#' @param var   Char: weather \bold{var}iable of interest. Usually one of
-#'              \code{c("air_temperature", "cloudiness", "precipitation",
-#'                      "pressure", "sun", "wind")} (only in hourly),
-#'              \code{c("soil_temperature", "solar")} (in hourly and daily), or
-#'              \code{c("kl", "more_precip")} (in daily and monthly).
-#'              See more in \code{View(rdwd:::\link{fileIndex})}. DEFAULT: ""
+#' @param var   Char: weather \bold{var}iable of interest, like e.g.
+#'              \code{"air_temperature", "cloudiness", "precipitation",
+#'                      "soil_temperature", "solar", "kl", "more_precip"}
+#'              See above and in \code{View(rdwd:::\link{fileIndex})}. DEFAULT: ""
 #' @param per   Char: desired time \bold{per}iod. One of
 #'              "recent" (data from the last year, up to date usually within a few days) or
 #'              "historical" (long time series). Can be abbreviated (if the first
@@ -150,7 +147,7 @@
 #'              requires availability of the \code{RCurl} package.
 #'              DEFAULT: FALSE
 #' @param meta  Logical: return metadata txt file name instead of climate data zip file?
-#'              Relevant only in case 4 (path and id given).
+#'              Relevant only in case 4 (path and id given) and case 3 for res="multi_annual".
 #'              See \code{\link{metaIndex}} for a compilation of all metaData files.
 #'              DEFAULT: FALSE
 #' @param outvec Single logical: if \bold{path} or \bold{ID} length > 1,
@@ -236,6 +233,7 @@ output <- lapply(seq_len(len), function(i)
 # cases (as in description)
 givenid <- !is.na(id[i])
 givenpath <- res[i]!="" & var[i]!="" # ignore per, because of var=solar possibility (no per)
+if(res[i]=="multi_annual") givenpath <- res[i]!=""
 #
 # 1: id and path are both empty ------------------------------------------------
 # base + warning
@@ -267,15 +265,18 @@ if(givenid & !givenpath)
 path <- paste0("/",res[i],"/",var[i],"/",per[i])
 if(all(!grepl(path, findex$path))) warning(traceCall(3, "", ": "), "according to file index '",
        findexname, "', the path '", path, "' doesn't exist.", call.=FALSE)
+if(res[i]=="multi_annual" & per[i]=="") {per[i] <- var[i]; var[i] <- ""}
 # select entries from file index:
 sel <- res[i]==findex$res & var[i]==findex$var & per[i]==findex$per
 #
 # case 3 or 4 with meta=TRUE
+ismeta <- grepl('.txt$', findex$path) & grepl("Beschreibung", findex$path)
+if(res[i]=="multi_annual") 
+   ismeta <- grepl('.pdf$', findex$path) | grepl("Stationsliste", findex$path)
 # return name of description txt file
 if(meta[i])
   {
-  sel <- sel & grepl('.txt$', findex$path)
-  sel <- sel & grepl("Beschreibung", findex$path)
+  sel <- sel & ismeta
   # checks:
   if(sum(sel)==0) warning(traceCall(3, "", ": "), "according to file index '",findexname,
                      "', there is no description file in '", path, "'.", call.=FALSE)
@@ -286,7 +287,9 @@ if(meta[i])
 # all filenames EXCEPT metadata (-> only zipfiles)
 if(!givenid & givenpath & !meta[i])
   {
-  sel <- sel & grepl('.zip$', findex$path)  
+  isnotmeta <- grepl('.zip$', findex$path)
+  if(res[i]=="multi_annual") isnotmeta <- !ismeta
+  sel <- sel & isnotmeta 
   filename <- findex[sel,"path"]
   if(length(filename)<1) warning(traceCall(3, "", ": "), "according to file index '",
                                  findexname, "', there is no file in '", path,
