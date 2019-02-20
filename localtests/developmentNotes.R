@@ -11,13 +11,58 @@ data("fileIndex")
 currentindexfolders <- unique(dirname(fileIndex$path))
 cat(currentindexfolders, sep="\n")
 hr <- c("historical", "recent")
-new_folders <- c(paste0("/annual/kl/",hr), paste0("/annual/more_precip/",hr), paste0("/subdaily/pressure/",hr))
+new_folders <- c(paste0("/subdaily/air_temperature/",hr), "/1_minute/precipitation/historical/2018")
 cat(new_folders, sep="\n")
 fileIndex <- data.frame(path=c(currentindexfolders,new_folders), stringsAsFactors=FALSE)
 message("saving and compressing reduced data/fileIndex.rda. Please run Index recreation now.")
 save(fileIndex, file="data/fileIndex.rda")
 tools::resaveRdaFiles("data/fileIndex.rda")
 }
+
+
+
+# multi_annual tests ----
+
+selectDWD(res="daily", var="solar")
+selectDWD(res="multi_annual", var="mean_81-10")
+selectDWD(res="multi_annual", var="mean_81-10", meta=TRUE)
+selectDWD("Potsdam", res="multi_annual", var="mean_81-10")
+
+durl <- selectDWD(res="multi_annual", var="mean_81-10")[9] # Temperature aggregates
+murl <- selectDWD(res="multi_annual", var="mean_81-10", meta=TRUE)[11]
+
+localfile <- dataDWD(durl, read=FALSE)
+ma_temp <- readDWD(localfile)
+
+localfile <- dataDWD(murl, read=FALSE)
+ma_meta <- readDWD(localfile)
+
+ma <- merge(ma_meta, ma_temp, all=TRUE)
+berryFunctions::linReg(ma$Stationshoehe, ma$Jahr)
+op <- par(mfrow=c(3,4), mar=c(0.1,2,2,0), mgp=c(3,0.6,0))
+for(m in colnames(ma)[8:19])
+  {
+  berryFunctions::linReg(ma$Stationshoehe, ma[,m], xaxt="n", xlab="", ylab="", main=m)
+  abline(h=0)
+  }
+par(op)
+
+par(bg=8)
+berryFunctions::colPoints(ma$geogr..Laenge, ma$geogr..Breite, ma$Jahr, add=F, asp=1.4)
+
+pdf("MultiAnn.pdf", width=8, height=10)
+par(bg=8)
+for(m in colnames(ma)[8:19])
+  {
+  raster::plot(rdwd::DEU, border="darkgrey")
+  berryFunctions::colPoints(ma[-262,]$geogr..Laenge, ma[-262,]$geogr..Breite, ma[-262,m], 
+                            asp=1.4, # Range=range(ma[-262,8:19]), 
+                            col=berryFunctions::divPal(200, rev=TRUE), zlab=m, add=T)
+  }
+dev.off()
+berryFunctions::openFile("MultiAnn.pdf")
+
+
 
 
 # radolan ----

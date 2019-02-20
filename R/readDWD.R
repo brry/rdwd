@@ -32,6 +32,10 @@
 #' @param raster Logical (vector): is the \code{file} a raster file, like for the 
 #'               seasonal grid files?
 #'               DEFAULT: TRUE for each file ending in ".asc.gz"
+#' @param multia Logical (vector): is the \code{file} a multi_annual file?
+#'               Overrides meta, so set to FALSE manually if meta reading 
+#'               needs to be called on a file ending with "Standort".
+#'               DEFAULT: TRUE for each file ending in "Standort.txt"
 #' @param fread  Logical: read faster with \code{data.table::\link[data.table]{fread}}?
 #'               For 30 daily/kl/hist files, 7 instead of 10 seconds.
 #'               NA can also be used, which means TRUE if data.table is available.
@@ -58,6 +62,7 @@ file,
 meta=grepl('.txt$', file),
 binary=grepl('.tar.gz$', file),
 raster=grepl('.asc.gz$', file),
+multia=grepl('Standort.txt$', file),
 fread=FALSE,
 minfo=FALSE,
 format=NA,
@@ -74,11 +79,13 @@ if(len>1)
   meta   <- rep(meta,   length.out=len)
   binary <- rep(binary, length.out=len)
   raster <- rep(raster, length.out=len)
+  multia <- rep(multia, length.out=len)
   fread  <- rep(fread,  length.out=len)
   minfo  <- rep(minfo,  length.out=len)
   format <- rep(format, length.out=len)
   tz     <- rep(tz,     length.out=len)
   }
+meta[multia] <- FALSE
 # Optional progress bar:
 if(progbar) lapply <- pbapply::pblapply
 # check package availability:
@@ -108,6 +115,7 @@ f <- file[i]
 if(meta[i]) return(readDWD.meta(f))
 if(binary[i]) return(readDWD.binary(f))
 if(raster[i]) return(readDWD.raster(f))
+if(multia[i]) return(readDWD.multia(f))
 # if data:
 dat <- readDWD.data(f, minfo=minfo[i], fread=fread[i])
 # process time-stamp: http://stackoverflow.com/a/13022441
@@ -192,12 +200,23 @@ if(substr(oneline[3],1,1)==" ") breaks <- breaks[-1]
 breaks[3] <- breaks[3] -9 # right-adjusted column
 breaks[4:5] <- breaks[4:5] -1 # right-adjusted columns
 widths <- diff(c(0,breaks,200))
+sdsf <- grepl("subdaily_standard_format", file)
+if(sdsf) widths <- c(6,6,9,10,10,10,10,26,200)
 # actually read metadata, suppress readLines warning about EOL:
 stats <- suppressWarnings(read.fwf(file, widths=widths, skip=2, strip.white=TRUE, fileEncoding="latin1") )
 # column names:
 # remove duplicate spaces (2018-03 only in subdaily_stand...Beschreibung....txt)
 while( grepl("  ",oneline[1]) )  oneline[1] <- gsub("  ", " ", oneline[1])
 colnames(stats) <- strsplit(oneline[1], " ")[[1]]
+if(sdsf)
+ {
+ stats <- stats[ ! stats[,1] %in% c("","ST_KE","-----") , ]
+ tf <- tempfile()
+ write.table(stats[,-1], file=tf, quote=FALSE, sep="\t")
+ stats <- read.table(tf, sep="\t")
+ colnames(stats) <- c("Stations_id", "von_datum", "bis_datum", "Stationshoehe", 
+                      "geoBreite", "geoLaenge", "Stationsname", "Bundesland")
+ }
 # check classes:
 classes <- c("integer", "integer", "integer", "integer", "numeric", "numeric", "factor", "factor")
 actual <- sapply(stats, class)
@@ -254,3 +273,15 @@ rdata <- R.utils::gunzip(file)
 r <- raster::raster(rdata)
 return(invisible(r))
 }
+
+
+
+readDWD.multia <- function(file)
+{
+out <- read.table(file, sep=";", header=TRUE)
+nc <- ncol(out)
+# presumably, all files have a trailing empty column...
+if(colnames(out)[nc]=="X") out <- out[,-nc]
+out
+}
+

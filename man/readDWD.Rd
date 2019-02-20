@@ -5,7 +5,8 @@
 \title{Process data from the DWD CDC FTP Server}
 \usage{
 readDWD(file, meta = grepl(".txt$", file), binary = grepl(".tar.gz$",
-  file), raster = grepl(".asc.gz$", file), fread = FALSE,
+  file), raster = grepl(".asc.gz$", file),
+  multia = grepl("Standort.txt$", file), fread = FALSE,
   minfo = FALSE, format = NA, tz = "GMT", progbar = TRUE)
 }
 \arguments{
@@ -23,6 +24,11 @@ DEFAULT: TRUE for each file ending in ".tar.gz"}
 \item{raster}{Logical (vector): is the \code{file} a raster file, like for the 
 seasonal grid files?
 DEFAULT: TRUE for each file ending in ".asc.gz"}
+
+\item{multia}{Logical (vector): is the \code{file} a multi_annual file?
+Overrides meta, so set to FALSE manually if meta reading 
+needs to be called on a file ending with "Standort".
+DEFAULT: TRUE for each file ending in "Standort.txt"}
 
 \item{fread}{Logical: read faster with \code{data.table::\link[data.table]{fread}}?
 For 30 daily/kl/hist files, 7 instead of 10 seconds.
