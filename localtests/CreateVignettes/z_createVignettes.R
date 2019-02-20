@@ -7,6 +7,8 @@
 
 # Note to Future Berry: just source this entire file and you're done.
 
+install_with_buildvignettes <- TRUE
+
 if(getwd() != "S:/Dropbox/Rpack/rdwd") 
   stop("getwd should be S:/Dropbox/Rpack/rdwd, but is: ", getwd()  )
  
@@ -47,6 +49,10 @@ devtools::build_vignettes()
 
 # satisfy install(build_vignettes = TRUE):
 
-file.copy("doc/rdwd.html", "vignettes/rdwd.html", overwrite=TRUE)
+file.copy("doc/rdwd.html",   "vignettes/rdwd.html",   overwrite=TRUE)
 file.copy("doc/mapDWD.html", "vignettes/mapDWD.html", overwrite=TRUE)
-file.copy("doc/cases.html", "vignettes/cases.html", overwrite=TRUE)
+file.copy("doc/cases.html",  "vignettes/cases.html",  overwrite=TRUE)
+
+
+if(install_with_buildvignettes) install(build_vignettes = TRUE)
+

@@ -150,11 +150,11 @@ if(!isTRUE(meta)) return(invisible(fileIndex))
 # select Beschreibung_.txt files only:
 sel <- grepl('.txt$', fileIndex$path)
 sel <- sel & grepl("Beschreibung", fileIndex$path)
-sel <- sel & fileIndex$res != "subdaily" # has different columns
+# sel <- sel & fileIndex$res != "subdaily" # has different columns
 #sel <- sel & fileIndex$res %in% c("monthly","daily","hourly")
 # manual correction March 2018 for duplicate description files:
-descdupli <- basename(paths)=="ein_min_rr_Beschreibung_Stationen.txt" & grepl("/20", dirname(paths))
-sel <- sel & !descdupli
+#descdupli <- basename(paths)=="ein_min_rr_Beschreibung_Stationen.txt" & grepl("/20", dirname(paths))
+#sel <- sel & !descdupli
 
 if(sum(sel)<2) stop(traceCall(1, "in ", ": "),
               "There need to be at least two 'Beschreibung' files. (There is ",

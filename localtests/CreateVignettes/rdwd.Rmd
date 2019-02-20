@@ -42,9 +42,9 @@ For further details, please consult the
 To use the observation datasets, `rdwd` has been designed to mainly do 3 things:
 
 * [`selectDWD`](../help/selectDWD): facilitate file selection, e.g. for certain station names (with [`findID`](../help/findID)), 
-by geographical location (see [map](mapDWD) and [`nearbyStations`](../help/nearbyStations)), by temporal resolution (hourly, daily, monthly), 
-variables (temperature, rain, wind, sun, clouds, etc) or
-observation period (historical long term records or the current year)
+by geographical location (see [map](mapDWD) and [`nearbyStations`](../help/nearbyStations)), by temporal resolution (**res** = 1/10 minutes, hourly, daily, monthly, annual), 
+variables (**var** = temperature, rain, wind, sun, clouds, etc) or
+observation period (**pre** = historical long term records or the current year)
 
 * [`dataDWD`](../help/dataDWD): download a file (or multiple files, without getting banned by the FTP-server)
 

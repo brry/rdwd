@@ -332,14 +332,15 @@ dwdfiles <- indexFTP(dwdfiles, sleep=2, filename="", overwrite=TRUE)
   # potentially needed several times with small sleep values on restrictive FTP servers
 
 # delete meta folder for truly new data
-# check for dupliate description files (Monatwerte + Monatswerte, e.g., also in INDEX_OF.txt)
+# check for duplicate description files (Monatwerte + Monatswerte, e.g., also in INDEX_OF.txt)
 
 
 dwdfiles <- readLines("DWDdata/INDEX_of_DWD_.txt") 
 #  25'757 elements (2017-03-14) 
 # 218'593 (2018-03-25)
 # 228'830 (2018-11-26)
-index <- createIndex(paths=dwdfiles, meta=TRUE) # ca 70 secs +30 if files are not yet downloaded
+# 240'737 (2018-02-19)
+index <- createIndex(paths=dwdfiles, meta=TRUE) # ca 70 secs +40 if files are not yet downloaded
 { # save indexes into package:
 fileIndex <- index[[1]]
 metaIndex <- index[[2]]
@@ -349,12 +350,13 @@ message("saving index rda files...")
 save(fileIndex, file="data/fileIndex.rda")
 save(metaIndex, file="data/metaIndex.rda")
 save( geoIndex, file="data/geoIndex.rda")
-message("compressing files...")
+message("compressing files:")
 tools::resaveRdaFiles("data/fileIndex.rda") #devtools::use_data(fileIndex, internal=TRUE)
-cat(".")
+cat("1")
 tools::resaveRdaFiles("data/metaIndex.rda")
-cat(".")
+cat("2")
 tools::resaveRdaFiles("data/geoIndex.rda")
+cat("3\n")
 message("checking files...")
 # check writing and reading of the files:
 fileIndex2 <- read.table("DWDdata/fileIndex.txt", sep="\t", header=TRUE, colClasses="character")
