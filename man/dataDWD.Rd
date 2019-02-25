@@ -95,7 +95,7 @@ dup_df <- which(duplicated(potsdam))
 err <- dup[ ! dup \%in\% dup_df]
 err <- potsdam[potsdam$MESS_DATUM \%in\% potsdam$MESS_DATUM[err], ]
 err <- err[order(err$MESS_DATUM),]
-View(err) # WINDGESCHWINDIGKEIT (wind speed) has been slightly changed
+View(err) # some values have been slightly changed
 # Keep only historical dataset:
 potsdam <- potsdam[!duplicated(potsdam$MESS_DATUM),]
 
@@ -109,7 +109,7 @@ unzip(zipfile=paste0("DWDdata/",fname[1]), exdir="DWDdata/Testunzip")
 
 plot(prec$MESS_DATUM, prec$R1, main="DWD hourly rain Kupferzell", col="blue",
      xaxt="n", las=1, type="l", xlab="Date", ylab="Hourly rainfall  [mm]")
-monthAxis(1, ym=T)
+berryFunctions::monthAxis(1, ym=T)
 
 d <- dataDWD(selectDWD(id="05692", res="daily", var="kl", per="recent"))
 # writes into the same folder (dir="DWDdata")

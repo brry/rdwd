@@ -21,7 +21,7 @@
 #'          see also \code{berryFunctions::\link[berryFunctions]{climateGraph}}
 #' @keywords data file
 #' @importFrom utils tail download.file browseURL
-#' @importFrom berryFunctions newFilename traceCall truncMessage
+#' @importFrom berryFunctions newFilename owa traceCall truncMessage
 #' @importFrom pbapply pblapply
 #' @importFrom stats runif
 #' @export
@@ -45,7 +45,7 @@
 #' err <- dup[ ! dup %in% dup_df]
 #' err <- potsdam[potsdam$MESS_DATUM %in% potsdam$MESS_DATUM[err], ]
 #' err <- err[order(err$MESS_DATUM),]
-#' View(err) # WINDGESCHWINDIGKEIT (wind speed) has been slightly changed
+#' View(err) # some values have been slightly changed
 #' # Keep only historical dataset:
 #' potsdam <- potsdam[!duplicated(potsdam$MESS_DATUM),]
 #' 
@@ -59,7 +59,7 @@
 #' 
 #' plot(prec$MESS_DATUM, prec$R1, main="DWD hourly rain Kupferzell", col="blue",
 #'      xaxt="n", las=1, type="l", xlab="Date", ylab="Hourly rainfall  [mm]")
-#' monthAxis(1, ym=T)
+#' berryFunctions::monthAxis(1, ym=T)
 #' 
 #' d <- dataDWD(selectDWD(id="05692", res="daily", var="kl", per="recent"))
 #' # writes into the same folder (dir="DWDdata")
@@ -188,7 +188,7 @@ lapply(seq_along(file), function(i)
   {
   # Actual file download:
   dfdefaults <- list(url=file[i], destfile=outfile[i], quiet=TRUE)
-  do.call(download.file, owa(dfdefaults, dfargs))
+  do.call(download.file, berryFunctions::owa(dfdefaults, dfargs))
   # wait some time to avoid FTP bot recognition:
   if(sleep!=0) Sys.sleep(runif(n=1, min=0, max=sleep))
   })
