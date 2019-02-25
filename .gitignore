@@ -6,3 +6,5 @@ Meta/vignette.rds
 testfread/
 inst/shinyapps/
 localtests/radolan
+localtests/params.txt
+localtests/params.xlsx

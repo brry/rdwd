@@ -7,6 +7,7 @@
 # fileIndex, metaIndex, geoIndex
 # metaInfo
 # rowDisplay
+# DEU Map dataset
 # code to create (and update) indexes
 
 
@@ -54,10 +55,8 @@ dwdbase <- "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate"
 
 # release_questions ----
 
-#' Reminders when using devtools::release
-#' 
-#' Reminders when using devtools::release. Code is in R/rdwd-package.R
-#' 
+#' @title Reminders when using devtools::release
+#' @description  Reminders when using devtools::release. Code is in R/rdwd-package.R
 #' @keywords internal
 
 release_questions <- function() {
@@ -193,89 +192,6 @@ return(invisible(out))
 }
 
 
-# parameter_abbreviations ---------------------------------------------------------------------
-
-#' Parameter abbreviations for data on the DWD CDC FTP server
-#' 
-#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jun 2018
-#' @seealso \code{\link{readVars}}, \code{\link{readDWD}}
-#' @keywords datasets
-#' @export
-#' @examples
-#' head(parameter_abbreviations)
-#' 
-parameter_abbreviations <- read.table(header=TRUE, strip.white=TRUE, 
-                                      stringsAsFactors=FALSE, text="
-Parameter   Kurz
-ATMO_STRAHL Atmospaerenstrahlung
-ATMO_LBERG	 Atmospaerenstrahlung_Stundensumme
-ASH_6       Ausstichsschneehoehe
-NM	         Bedeckungsgrad
-V_N        	Bedeckungsgrad
-V_S1_NS    	Bedeckungsgrad_Schicht1
-V_S2_NS    	Bedeckungsgrad_Schicht2
-V_S3_NS    	Bedeckungsgrad_Schicht3
-V_S4_NS    	Bedeckungsgrad_Schicht4
-VPM        	Dampfdruck
-V_TE002	    Erdbodentemperatur_002cm
-V_TE005	    Erdbodentemperatur_005cm
-V_TE010	    Erdbodentemperatur_010cm
-V_TE020	    Erdbodentemperatur_020cm
-V_TE002M	   Erdbodentemperatur_02cm
-V_TE050	    Erdbodentemperatur_050cm
-V_TE005M	   Erdbodentemperatur_05cm
-V_TE100	    Erdbodentemperatur_100cm
-V_TE010M	   Erdbodentemperatur_10cm
-V_TE020M	   Erdbodentemperatur_20cm
-V_TE050M	   Erdbodentemperatur_50cm
-WASH_6	     Gesamtschneewasseraequivalent
-FG_STRAHL  	Globalstrahlung
-FG_LBERG	   Globalstrahlung_Stundensumme
-FD_STRAHL  	Himmelsstrahlung_diffus
-FD_LBERG	   Himmelsstrahlung_diffus_Stundensumme
-PM	         Luftdruck
-P	          Luftdruck_NN
-P0          Luftdruck_Stationshoehe
-TMK	        Lufttemperatur
-TT_TU       Lufttemperatur
-TGK	        Lufttemperatur_5cm_min
-TXK	        Lufttemperatur_max
-TNK 	       Lufttemperatur_min
-RSKF	       Niederschlagsform
-RSF 	       Niederschlagsform
-WRTR	       Niederschlagsform
-RSK	        Niederschlagshoehe
-RS	         Niederschlagshoehe
-R1	         Niederschlagshoehe
-RS_IND	     Niederschlagsindikator
-UPM	        Relative_Feuchte
-RF_TU 	     Relative_Feuchte
-SHK_TAG    	Schneehoehe
-SH_TAG	     Schneehoehe
-WAAS_6	     Schneewasseraequivalent
-V_VV  	     Sichtweite
-SDK	        Sonnenscheindauer
-SD_STRAHL  	Sonnenscheindauer
-SD_SO	      Sonnenscheindauer
-SD_LBERG    Sonnenscheindauer_Stundensumme
-FM          Windgeschwindigkeit
-F	          Windgeschwindigkeit
-D	          Windrichtung
-FX          Windspitze
-V_S1_CSA    Wolkenart_Abk_Schicht1
-V_S2_CSA    Wolkenart_Abk_Schicht2
-V_S3_CSA    Wolkenart_Abk_Schicht3
-V_S4_CSA    Wolkenart_Abk_Schicht4
-V_S1_CS	    Wolkenart_Schicht1
-V_S2_CS	    Wolkenart_Schicht2
-V_S3_CS	    Wolkenart_Schicht3
-V_S4_CS	    Wolkenart_Schicht4
-V_S1_HHS    Wolkenhoehe_Schicht1
-V_S2_HHS    Wolkenhoehe_Schicht2
-V_S3_HHS    Wolkenhoehe_Schicht3
-V_S4_HHS    Wolkenhoehe_Schicht4
-
-")
 
 # rowDisplay ---------------------------------------------------------------------
 
@@ -319,8 +235,6 @@ apply(x, MARGIN=1, perrow)
 #' @format Formal class 'SpatialPolygons' [package "sp"] with 4 slots
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, May 2018
 #' @keywords datasets
-
-
 
 
 

@@ -51,12 +51,8 @@ exdir <- paste0(tempdir(),"/", fn)
 unzip(f, exdir=exdir)
 on.exit(unlink(exdir, recursive=TRUE), add=TRUE)
 f <- dir(exdir, pattern="Metadaten_Parameter.*txt", full.names=TRUE)
-if(length(f)!=1) stop(traceCall(3, "", ": "), "The number of determined ",
-   "'Metadaten_Parameter*.txt' files should be 1, but is ", length(f), ".\n",
-   if(grepl("10_minutes", fn)) c("10-minute data does not have meta-information ",
-                                 "in the zip folders as of 2018-06.") else 
-    c("Please contact berry-b@gmx.de with reproducible code leading to this error.",
-                      "\nAt least include the DWD path: ", fn), call.=FALSE)
+if(length(f)!=1) return(length(f))
+
 nr <- readLines(f) # number of rows
 nr <- sum(!substr(nr, 1, 7) %in% c("Legende", "generie"))
 tab <- read.table(f, na.strings=na9(), sep=";", header=TRUE, nrows=nr-1, 
@@ -78,7 +74,7 @@ kurzna <- is.na(tab2$Kurz)
 if(any(kurzna)) warning(traceCall(3, "", ": "), "The following entries are not",
                         " abbreviated yet: ", toString(tab2$Parameter[kurzna]),
                         "\nThis occurs in '", fn, "/Metadaten_Parameter*.txt'.",
-                        "\nPlease inform berry-b@gmx.de so this can be included.",
+                        "\nPlease inform berry-b@gmx.de so this can be included!\n",
                         call.=FALSE)
 
 colnames(tab2)[1] <- "Par"
@@ -88,10 +84,262 @@ rownames(tab2) <- tab2$Par
 return(tab2)
 # lapply loop end
 })
-#
+
+# Warn about zip folders with no meta file:
+nometa <- sapply(output, class)=="integer"
+if(any(nometa)) 
+ {
+ msg <- paste(unlist(output[nometa]), file[nometa], sep=" in ")
+ exp <- grepl("_minute", file[nometa]) # expected no meta files
+ mexp <- c("\nThis is expected since 1 and 10 minute data do not have ",
+           "meta-information in most of the zip folders (as of 2019-02).\n")
+ mnexp <- "\nPlease contact berry-b@gmx.de with with a copy of this warning.\n"
+ 
+ warning(traceCall(1, "", ": "), "The number of determined ",
+         "'Metadaten_Parameter*.txt' files should be 1, but is instead:\n", 
+         paste(msg[ exp],collapse="\n"), if(any( exp)) mexp, 
+         paste(msg[!exp],collapse="\n"), if(any(!exp)) mnexp,
+         call.=FALSE)
+ }
+
 #
 output <- if(length(file)==1) output[[1]] else output
 return(invisible(output))
 }
 
 
+
+
+# parameter_abbreviations ---------------------------------------------------------------------
+
+#' Parameter abbreviations for data on the DWD CDC FTP server
+#' 
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jun 2018
+#' @seealso \code{\link{readVars}}, \code{\link{readDWD}}
+#' @keywords datasets
+#' @export
+#' @examples
+#' head(parameter_abbreviations)
+#' 
+parameter_abbreviations <- unique(read.table(header=TRUE, strip.white=TRUE, 
+                                      stringsAsFactors=FALSE, text="
+Parameter	Kurz
+JA_N	Bedeckungsgrad
+JA_N	Bedeckungsgrad
+MO_N	Bedeckungsgrad
+MO_N	Bedeckungsgrad
+NM	Bedeckungsgrad
+NM	Bedeckungsgrad
+V_N	Bedeckungsgrad
+V_N	Bedeckungsgrad
+V_N	Bedeckungsgrad
+V_N	Bedeckungsgrad
+V_S1_NS	Bedeckungsgrad_Schicht1
+V_S1_NS	Bedeckungsgrad_Schicht1
+V_S2_NS	Bedeckungsgrad_Schicht2
+V_S2_NS	Bedeckungsgrad_Schicht2
+V_S3_NS	Bedeckungsgrad_Schicht3
+V_S3_NS	Bedeckungsgrad_Schicht3
+V_S4_NS	Bedeckungsgrad_Schicht4
+V_S4_NS	Bedeckungsgrad_Schicht4
+VPM	Dampfdruck
+VPM	Dampfdruck
+V_TE002	Erdbodentemperatur_002cm
+V_TE002	Erdbodentemperatur_002cm
+V_TE002M	Erdbodentemperatur_002cm
+V_TE002M	Erdbodentemperatur_002cm
+V_TE005	Erdbodentemperatur_005cm
+V_TE005	Erdbodentemperatur_005cm
+V_TE005M	Erdbodentemperatur_005cm
+V_TE005M	Erdbodentemperatur_005cm
+V_TE010	Erdbodentemperatur_010cm
+V_TE010	Erdbodentemperatur_010cm
+V_TE010M	Erdbodentemperatur_010cm
+V_TE010M	Erdbodentemperatur_010cm
+V_TE020	Erdbodentemperatur_020cm
+V_TE020	Erdbodentemperatur_020cm
+V_TE020M	Erdbodentemperatur_020cm
+V_TE020M	Erdbodentemperatur_020cm
+V_TE050	Erdbodentemperatur_050cm
+V_TE050	Erdbodentemperatur_050cm
+V_TE050M	Erdbodentemperatur_050cm
+V_TE050M	Erdbodentemperatur_050cm
+V_TE100	Erdbodentemperatur_100cm
+V_TE100	Erdbodentemperatur_100cm
+PM	Luftdruck
+PM	Luftdruck
+PP_10	Luftdruck
+P	Luftdruck_NN
+P	Luftdruck_NN
+P0	Luftdruck_Stationshoehe
+P0	Luftdruck_Stationshoehe
+PP_TER	Luftdruck_Terminwert
+PP_TER	Luftdruck_Terminwert
+JA_TT	Lufttemperatur
+JA_TT	Lufttemperatur
+MO_TT	Lufttemperatur
+MO_TT	Lufttemperatur
+TMK	Lufttemperatur
+TMK	Lufttemperatur
+TT_10	Lufttemperatur
+TT_TU	Lufttemperatur
+TT_TU	Lufttemperatur
+TM5_10	Lufttemperatur_5cm
+TX5_10	Lufttemperatur_5cm_max
+TGK	Lufttemperatur_5cm_min
+TGK	Lufttemperatur_5cm_min
+TN5_10	Lufttemperatur_5cm_min
+JA_MX_TX	Lufttemperatur_Max
+JA_MX_TX	Lufttemperatur_Max
+JA_TX	Lufttemperatur_Max
+JA_TX	Lufttemperatur_Max
+MO_TX	Lufttemperatur_Max
+MO_TX	Lufttemperatur_Max
+MX_TX	Lufttemperatur_Max
+MX_TX	Lufttemperatur_Max
+TX_10	Lufttemperatur_max
+TXK	Lufttemperatur_Max
+TXK	Lufttemperatur_Max
+JA_MX_TN	Lufttemperatur_Min
+JA_MX_TN	Lufttemperatur_Min
+JA_TN	Lufttemperatur_Min
+JA_TN	Lufttemperatur_Min
+MO_TN	Lufttemperatur_Min
+MO_TN	Lufttemperatur_Min
+MX_TN	Lufttemperatur_Min
+MX_TN	Lufttemperatur_Min
+TN_10	Lufttemperatur_Min
+TNK	Lufttemperatur_Min
+TNK	Lufttemperatur_Min
+TT_TER	Lufttemperatur_Terminwert
+TT_TER	Lufttemperatur_Terminwert
+RWS_DAU_10	Niederschlagsdauer
+RSF	Niederschlagsform
+RSF	Niederschlagsform
+RSKF	Niederschlagsform
+RSKF	Niederschlagsform
+WRTR	Niederschlagsform
+WRTR	Niederschlagsform
+JA_RR	Niederschlagshoehe
+JA_RR	Niederschlagshoehe
+JA_RR	Niederschlagshoehe
+JA_RR	Niederschlagshoehe
+MO_RR	Niederschlagshoehe
+MO_RR	Niederschlagshoehe
+MO_RR	Niederschlagshoehe
+MO_RR	Niederschlagshoehe
+R1	Niederschlagshoehe
+R1	Niederschlagshoehe
+RS	Niederschlagshoehe
+RS	Niederschlagshoehe
+RSK	Niederschlagshoehe
+RSK	Niederschlagshoehe
+RWS_10	Niederschlagshoehe
+JA_MX_RS	Niederschlagshoehe_Max
+JA_MX_RS	Niederschlagshoehe_Max
+JA_MX_RS	Niederschlagshoehe_Max
+JA_MX_RS	Niederschlagshoehe_Max
+MX_RS	Niederschlagshoehe_Max
+MX_RS	Niederschlagshoehe_Max
+MX_RS	Niederschlagshoehe_Max
+MX_RS	Niederschlagshoehe_Max
+RS_IND	Niederschlagsindikator
+RS_IND	Niederschlagsindikator
+RWS_IND_10	Niederschlagsindikator
+RF_10	Relative_Feuchte
+RF_TU	Relative_Feuchte
+RF_TU	Relative_Feuchte
+UPM	Relative_Feuchte
+UPM	Relative_Feuchte
+RF_TER	Relative_Feuchte_Terminwert
+RF_TER	Relative_Feuchte_Terminwert
+JA_SH_S	Schneehoehe
+JA_SH_S	Schneehoehe
+MO_SH_S	Schneehoehe
+MO_SH_S	Schneehoehe
+SH_TAG	Schneehoehe
+SH_TAG	Schneehoehe
+SH_TAG	Schneehoehe
+SH_TAG	Schneehoehe
+SHK_TAG	Schneehoehe
+SHK_TAG	Schneehoehe
+ASH_6	Schneehoehe_Ausstich
+ASH_6	Schneehoehe_Ausstich
+JA_NSH	Schneehoehe_Neu
+JA_NSH	Schneehoehe_Neu
+MO_NSH	Schneehoehe_Neu
+MO_NSH	Schneehoehe_Neu
+WAAS_6	Schneewasseraequivalent
+WAAS_6	Schneewasseraequivalent
+WASH_6	Schneewasseraequivalent_Gesamt
+WASH_6	Schneewasseraequivalent_Gesamt
+V_VV	Sichtweite
+V_VV	Sichtweite
+JA_SD_S	Sonnenscheindauer
+JA_SD_S	Sonnenscheindauer
+MO_SD_S	Sonnenscheindauer
+MO_SD_S	Sonnenscheindauer
+SD_10	Sonnenscheindauer
+SD_LBERG	Sonnenscheindauer
+SD_SO	Sonnenscheindauer
+SD_SO	Sonnenscheindauer
+SD_STRAHL	Sonnenscheindauer
+SDK	Sonnenscheindauer
+SDK	Sonnenscheindauer
+ATMO_LBERG	Strahlung_Atmospaere
+ATMO_STRAHL	Strahlung_Atmospaere
+GS_10	Strahlung_Global
+FG_LBERG	Strahlung_Global_kurzwellig
+FG_STRAHL	Strahlung_Global_kurzwellig
+DS_10	Strahlung_Himmel_diffus
+FD_LBERG	Strahlung_Himmel_diffus
+FD_STRAHL	Strahlung_Himmel_diffus
+LS_10	Strahlung_langwellig
+TD_10	Taupunkttemperatur
+F	Windgeschwindigkeit
+F	Windgeschwindigkeit
+FF_10	Windgeschwindigkeit
+FM	Windgeschwindigkeit
+FM	Windgeschwindigkeit
+FMX_10	Windgeschwindigkeit_Max
+FX_10	Windgeschwindigkeit_Max
+FNX_10	Windgeschwindigkeit_Min
+D	Windrichtung
+D	Windrichtung
+DD_10	Windrichtung
+DX_10	Windrichtung_Maxwind
+JA_MX_FX	Windspitze
+JA_MX_FX	Windspitze
+FX	Windspitze
+FX	Windspitze
+MX_FX	Windspitze
+MX_FX	Windspitze
+JA_FK	Windstaerke
+JA_FK	Windstaerke
+MO_FK	Windstaerke
+MO_FK	Windstaerke
+V_S1_CSA	Wolkenart_Abk_Schicht1
+V_S1_CSA	Wolkenart_Abk_Schicht1
+V_S2_CSA	Wolkenart_Abk_Schicht2
+V_S2_CSA	Wolkenart_Abk_Schicht2
+V_S3_CSA	Wolkenart_Abk_Schicht3
+V_S3_CSA	Wolkenart_Abk_Schicht3
+V_S4_CSA	Wolkenart_Abk_Schicht4
+V_S4_CSA	Wolkenart_Abk_Schicht4
+V_S1_CS	Wolkenart_Schicht1
+V_S1_CS	Wolkenart_Schicht1
+V_S2_CS	Wolkenart_Schicht2
+V_S2_CS	Wolkenart_Schicht2
+V_S3_CS	Wolkenart_Schicht3
+V_S3_CS	Wolkenart_Schicht3
+V_S4_CS	Wolkenart_Schicht4
+V_S4_CS	Wolkenart_Schicht4
+V_S1_HHS	Wolkenhoehe_Schicht1
+V_S1_HHS	Wolkenhoehe_Schicht1
+V_S2_HHS	Wolkenhoehe_Schicht2
+V_S2_HHS	Wolkenhoehe_Schicht2
+V_S3_HHS	Wolkenhoehe_Schicht3
+V_S3_HHS	Wolkenhoehe_Schicht3
+V_S4_HHS	Wolkenhoehe_Schicht4
+V_S4_HHS	Wolkenhoehe_Schicht4
+"))

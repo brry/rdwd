@@ -46,4 +46,4 @@ To request the nonpublic datasets counted in the infobox, please contact <klima.
 (The DWD cannot publish all datasets because of copyright restrictions).
 
 Note: `geoIndex` is created in the last section of 
-[rdwd-package.R](https://github.com/brry/rdwd/blob/master/R/rdwd-package.R#L327).
+[rdwd-package.R](https://github.com/brry/rdwd/blob/master/R/rdwd-package.R#L241).

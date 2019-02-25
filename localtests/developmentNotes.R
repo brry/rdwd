@@ -21,6 +21,20 @@ tools::resaveRdaFiles("data/fileIndex.rda")
 
 
 
+# readVars parameter abbreviations ----
+
+urls <- selectDWD("Potsdam")
+rv <- readVars(dataDWD(urls[1], dir=tempdir(), read=F))  ;  rv
+urls <- urls[!grepl("1_minute", urls)]
+urls <- urls[!  (grepl("10_minutes", urls)&!grepl("meta_data", urls))     ]
+rv <- readVars(dataDWD(urls, dir=tempdir(), read=F))  ;  rv
+rv_df <- do.call(rbind, rv)
+rv_df$Quelle <- rep(substr(urls, 59, 1e3), sapply(rv, nrow))
+rv_df <- berryFunctions::sortDF(rv_df, "Par", decreasing=FALSE)
+write.table(rv_df, "localtests/params.txt", sep="\t", quote=F, row.names=F)
+# Manually adde Kurz in Excel file, then copied to parameter_abbreviations in readVars.R
+
+
 # multi_annual tests ----
 
 selectDWD(res="daily", var="solar")
