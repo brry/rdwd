@@ -7,7 +7,7 @@
 dataDWD(file, base = dwdbase, dir = "DWDdata", force = FALSE,
   overwrite = FALSE, sleep = 0, quiet = FALSE, progbar = !quiet,
   browse = FALSE, read = TRUE, meta = grepl(".txt$", file),
-  fread = FALSE, format = NA, ntrunc = 2, ...)
+  fread = FALSE, format = NA, ntrunc = 2, dfargs = NULL, ...)
 }
 \arguments{
 \item{file}{Char (vector): complete file URL(s) (including base and filename.zip) as returned by
@@ -56,7 +56,10 @@ see \code{\link{readDWD}}. DEFAULT: NA}
 \item{ntrunc}{Single integer: number of filenames printed in messages
 before they get truncated with message "(and xx more)". DEFAULT: 2}
 
-\item{\dots}{Further arguments passed to \code{\link{download.file}}}
+\item{dfargs}{Named list of additional arguments passed to \code{\link{download.file}}}
+
+\item{\dots}{Further arguments passed to \code{\link{readDWD}}. 
+Were passed to \code{\link{download.file}} prior to rdwd 0.11.7 (2019-02-25)}
 }
 \value{
 Presuming downloading and processing were successful:

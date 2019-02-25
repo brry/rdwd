@@ -108,7 +108,9 @@
 #'               see \code{\link{readDWD}}. DEFAULT: NA
 #' @param ntrunc Single integer: number of filenames printed in messages
 #'               before they get truncated with message "(and xx more)". DEFAULT: 2
-#' @param \dots  Further arguments passed to \code{\link{download.file}}
+#' @param dfargs Named list of additional arguments passed to \code{\link{download.file}}
+#' @param \dots  Further arguments passed to \code{\link{readDWD}}. 
+#'               Were passed to \code{\link{download.file}} prior to rdwd 0.11.7 (2019-02-25)
 #
 dataDWD <- function(
 file,
@@ -125,6 +127,7 @@ meta=grepl('.txt$', file),
 fread=FALSE,
 format=NA,
 ntrunc=2,
+dfargs=NULL,
 ...
 )
 {
@@ -184,7 +187,8 @@ lapply(seq_along(file), function(i)
   if(!dontdownload[i])
   {
   # Actual file download:
-  download.file(url=file[i], destfile=outfile[i], quiet=TRUE, ...)
+  dfdefaults <- list(url=file[i], destfile=outfile[i], quiet=TRUE)
+  do.call(download.file, owa(dfdefaults, dfargs))
   # wait some time to avoid FTP bot recognition:
   if(sleep!=0) Sys.sleep(runif(n=1, min=0, max=sleep))
   })
@@ -194,7 +198,7 @@ output <- outfile
 if(read)
   {
   if(progbar) message("Reading ", length(outfile), " file", if(length(outfile)>1)"s", "...")
-  output <- readDWD(file=outfile, meta=meta, fread=fread, format=format, progbar=progbar)
+  output <- readDWD(file=outfile, meta=meta, fread=fread, format=format, progbar=progbar, ...)
   }
 # output:
 return(invisible(output))

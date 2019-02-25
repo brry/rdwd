@@ -56,6 +56,10 @@
 #' @param progbar Logical: present a progress bar with estimated remaining time?
 #'               If missing and length(file)==1, progbar is internally set to FALSE.
 #'               DEFAULT: TRUE
+#' @param \dots  Further arguments passed to the underlying reading function, i.e.
+#'               \code{\link{read.table}}, \code{data.table::\link[data.table]{fread}},
+#'               \code{\link{read.fwf}}, \code{\link{readBin}} or
+#'               \code{raster::\link[raster]{raster}}
 #' 
 readDWD <- function(
 file,
@@ -67,7 +71,8 @@ fread=FALSE,
 minfo=FALSE,
 format=NA,
 tz="GMT",
-progbar=TRUE
+progbar=TRUE,
+...
 )
 {
 # recycle meta, format and tz
@@ -112,12 +117,12 @@ output <- lapply(seq_along(file), function(i)
 {
 f <- file[i]
 # if meta/binary/raster:
-if(meta[i]) return(readDWD.meta(f))
-if(binary[i]) return(readDWD.binary(f))
-if(raster[i]) return(readDWD.raster(f))
-if(multia[i]) return(readDWD.multia(f))
+if(meta[i])   return(readDWD.meta(f, ...))
+if(binary[i]) return(readDWD.binary(f, ...))
+if(raster[i]) return(readDWD.raster(f, ...))
+if(multia[i]) return(readDWD.multia(f, ...))
 # if data:
-dat <- readDWD.data(f, minfo=minfo[i], fread=fread[i])
+dat <- readDWD.data(f, minfo=minfo[i], fread=fread[i], ...)
 # process time-stamp: http://stackoverflow.com/a/13022441
 if(!is.null(format[i]) & "MESS_DATUM" %in% colnames(dat) & !minfo[i])
   {
@@ -141,7 +146,7 @@ return(invisible(output))
 # Base code for data and meta files ----
 
 
-readDWD.data <- function(file, minfo=FALSE, fread=FALSE)
+readDWD.data <- function(file, minfo=FALSE, fread=FALSE, ...)
 {
 if(minfo) fread <- FALSE
 if(fread)
@@ -150,7 +155,7 @@ if(fread)
   fp <- unzip(file, list=TRUE) # file produkt*, the actual datafile
   fp <- fp$Name[grepl("produkt",fp$Name)]
   dat <- data.table::fread(paste("unzip -p", file, fp), na.strings=na9(nspace=0),
-                           header=TRUE, sep=";", stringsAsFactors=TRUE, data.table=FALSE)
+                           header=TRUE, sep=";", stringsAsFactors=TRUE, data.table=FALSE, ...)
   return(dat)
   }
 
@@ -173,7 +178,7 @@ if(minfo)
     nr <- readLines(fi) # number of rows
     nr <- sum(!substr(nr, 1, 7) %in% c("Legende", "generie"))
     # message("reading ", nr, " rows in ", normalizePath(fi, winslash="/"), "...")
-    tab <- read.table(fi, sep=";", header=TRUE, nrows=nr-1)
+    tab <- read.table(fi, sep=";", header=TRUE, nrows=nr-1, ...)
     tab
     })
   names(tabs) <- basename(f)
@@ -182,14 +187,14 @@ if(minfo)
 
 # Read the actual data file:
 f <- dir(exdir, pattern="produkt*", full.names=TRUE)
-dat <- read.table(f, na.strings=na9(), header=TRUE, sep=";", as.is=FALSE)
+dat <- read.table(f, na.strings=na9(), header=TRUE, sep=";", as.is=FALSE, ...)
 return(dat)
 }
 
 
 
 
-readDWD.meta <- function(file)
+readDWD.meta <- function(file, ...)
 {
 # read one line to get column widths and names
 oneline <- readLines(file, n=3, encoding="latin1")
@@ -203,7 +208,8 @@ widths <- diff(c(0,breaks,200))
 sdsf <- grepl("subdaily_standard_format", file)
 if(sdsf) widths <- c(6,6,9,10,10,10,10,26,200)
 # actually read metadata, suppress readLines warning about EOL:
-stats <- suppressWarnings(read.fwf(file, widths=widths, skip=2, strip.white=TRUE, fileEncoding="latin1") )
+stats <- suppressWarnings(read.fwf(file, widths=widths, skip=2, strip.white=TRUE, 
+                                   fileEncoding="latin1", ...) )
 # column names:
 # remove duplicate spaces (2018-03 only in subdaily_stand...Beschreibung....txt)
 while( grepl("  ",oneline[1]) )  oneline[1] <- gsub("  ", " ", oneline[1])
@@ -236,7 +242,7 @@ stats
 
 
 
-readDWD.binary <- function(file)
+readDWD.binary <- function(file, ...)
 {
 # temporary unzipping directory
 fn <- tools::file_path_sans_ext(basename(file))
@@ -248,7 +254,7 @@ on.exit(unlink(exdir, recursive=TRUE), add=TRUE)
 f <- dir(exdir, full.names=TRUE) # 31*24 = 744 files  (daily/hist/2017-12)
 # binary file header:   substr(readLines(f[1], n=1, warn=FALSE), 1, 270)
 # Read the actual binary file:
-rb <- lapply(f, readBin, what="int", size=2, n=900*900, endian="little")
+rb <- lapply(f, readBin, what="int", size=2, n=900*900, endian="little", ...)
 # list element names (time stamp):
 time <- l2df(strsplit(f,"-"))[,3]
 time <- strptime(time, format="%y%m%d%H%M")
@@ -260,7 +266,7 @@ return(invisible(rb))
 
 
 
-readDWD.raster <- function(file)
+readDWD.raster <- function(file, ...)
 {
 if(!requireNamespace("R.utils", quietly=TRUE))
   stop("To use rdwd:::readDWD.raster, please first install R.utils:",
@@ -270,15 +276,15 @@ if(!requireNamespace("raster", quietly=TRUE))
       "   install.packages('raster')", call.=FALSE)
 #https://stackoverflow.com/questions/5227444/recursively-ftp-download-then-extract-gz-files
 rdata <- R.utils::gunzip(file)
-r <- raster::raster(rdata)
+r <- raster::raster(rdata, ...)
 return(invisible(r))
 }
 
 
 
-readDWD.multia <- function(file)
+readDWD.multia <- function(file, ...)
 {
-out <- read.table(file, sep=";", header=TRUE)
+out <- read.table(file, sep=";", header=TRUE, ...)
 nc <- ncol(out)
 # presumably, all files have a trailing empty column...
 if(colnames(out)[nc]=="X") out <- out[,-nc]

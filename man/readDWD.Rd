@@ -7,7 +7,7 @@
 readDWD(file, meta = grepl(".txt$", file), binary = grepl(".tar.gz$",
   file), raster = grepl(".asc.gz$", file),
   multia = grepl("Standort.txt$", file), fread = FALSE,
-  minfo = FALSE, format = NA, tz = "GMT", progbar = TRUE)
+  minfo = FALSE, format = NA, tz = "GMT", progbar = TRUE, ...)
 }
 \arguments{
 \item{file}{Char (vector): name(s) of the file(s) downloaded with \code{\link{dataDWD}},
@@ -54,6 +54,11 @@ Coordinated). DEFAULT: "GMT"}
 \item{progbar}{Logical: present a progress bar with estimated remaining time?
 If missing and length(file)==1, progbar is internally set to FALSE.
 DEFAULT: TRUE}
+
+\item{\dots}{Further arguments passed to the underlying reading function, i.e.
+\code{\link{read.table}}, \code{data.table::\link[data.table]{fread}},
+\code{\link{read.fwf}}, \code{\link{readBin}} or
+\code{raster::\link[raster]{raster}}}
 }
 \value{
 Invisible data.frame of the desired dataset, or a list of data.frames
