@@ -9,7 +9,7 @@
 
 install_with_buildvignettes <- TRUE
 
-if(getwd() != "S:/Dropbox/Rpack/rdwd") 
+if(substr(getwd(),2,100) != ":/Dropbox/Rpack/rdwd") 
   stop("getwd should be S:/Dropbox/Rpack/rdwd, but is: ", getwd()  )
  
 # Function to automate vignette compilation:
@@ -54,5 +54,5 @@ file.copy("doc/mapDWD.html", "vignettes/mapDWD.html", overwrite=TRUE)
 file.copy("doc/cases.html",  "vignettes/cases.html",  overwrite=TRUE)
 
 
-if(install_with_buildvignettes) install(build_vignettes = TRUE)
+if(install_with_buildvignettes) devtools::install(build_vignettes = TRUE)
 

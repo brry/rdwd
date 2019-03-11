@@ -3,7 +3,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 00001 19370130 19580125            478     47.8413    8.8493 Aach                                     Baden-Württemberg                                                                                 
 00003 19360118 20110106            202     50.7827    6.0941 Aachen                                   Nordrhein-Westfalen                                                                               
 00020 20040128 20190131            432     48.9220    9.9129 Abtsgmünd-Untergröningen                 Baden-Württemberg                                                                                 
-00021 19370327 20190218            498     47.6105    9.6983 Achberg-Doberatsweiler                   Baden-Württemberg                                                                                 
+00021 19370327 20190220            498     47.6105    9.6983 Achberg-Doberatsweiler                   Baden-Württemberg                                                                                 
 00029 20070124 20150101            260     49.7175   10.9101 Adelsdorf (Kläranlage)                   Bayern                                                                                            
 00030 20040128 20060308            260     49.4064    9.3914 Adelsheim                                Baden-Württemberg                                                                                 
 00046 20060305 20190208            325     48.9450   12.4639 Aholfing                                 Bayern                                                                                            
@@ -24,7 +24,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 00146 20060109 20110102            730     47.7922   10.0988 Altusried-Muthmannshofen                 Bayern                                                                                            
 00151 20050124 20190210            383     49.4691   11.8546 Amberg-Unterammersricht                  Bayern                                                                                            
 00154 20041220 20190212            515     48.0197   12.2924 Amerang-Pfaffing                         Bayern                                                                                            
-00160 20171217 20190218            682     47.9636   11.1778 Andechs-Erling                           Bayern                                                                                            
+00160 20171217 20190221            682     47.9636   11.1778 Andechs-Erling                           Bayern                                                                                            
 00164 19570102 20180402             54     53.0316   13.9908 Angermünde                               Brandenburg                                                                                       
 00167 20041122 20180305              9     53.8412   13.6846 Anklam                                   Mecklenburg-Vorpommern                                                                            
 00170 20101201 20101231             76     51.7309   13.0546 Annaburg                                 Sachsen-Anhalt                                                                                    
@@ -37,7 +37,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 00191 19880301 20190201            220     49.9695    9.9113 Arnstein-Müdesheim                       Bayern                                                                                            
 00198 19690217 20140202            164     51.3745   11.2920 Artern                                   Thüringen                                                                                         
 00200 20041229 20190206            517     50.0850    6.3161 Lauperath-Scheidchen                     Rheinland-Pfalz                                                                                   
-00203 19610102 20190218            607     47.7860   12.3368 Aschau-Innerkoy                          Bayern                                                                                            
+00203 19610102 20190222            607     47.7860   12.3368 Aschau-Innerkoy                          Bayern                                                                                            
 00213 20090105 20180320            170     51.9375   10.9897 Sargstedt                                Sachsen-Anhalt                                                                                    
 00217 20041220 20170129            672     47.8774   11.3642 Attenkam                                 Bayern                                                                                            
 00222 19911209 20190208            387     50.5907   12.7140 Aue                                      Sachsen                                                                                           
@@ -47,7 +47,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 00257 19981207 20171202            240     48.7270    8.2458 Baden-Baden-Geroldsau                    Baden-Württemberg                                                                                 
 00259 19991220 20180319            273     47.8064    7.6387 Müllheim                                 Baden-Württemberg                                                                                 
 00269 20040102 20190210            596     48.5116    8.3176 Baiersbronn-Mitteltal                    Baden-Württemberg                                                                                 
-00275 20041122 20190218           1037     47.4650   10.1043 Balderschwang                            Bayern                                                                                            
+00275 20041122 20190301           1037     47.4650   10.1043 Balderschwang                            Bayern                                                                                            
 00277 20141203 20190113            571     48.2772    8.8831 Balingen-Heselwangen                     Baden-Württemberg                                                                                 
 00279 20040126 20190113            457     48.7573    9.4514 Baltmannsweiler-Hohengehren              Baden-Württemberg                                                                                 
 00282 19601215 20070126            240     49.8742   10.9206 Bamberg                                  Bayern                                                                                            
@@ -56,7 +56,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 00289 19420111 19420216             45     53.7275   10.2514 Bargteheide                              Schleswig-Holstein                                                                                
 00294 20091219 20110106            110     52.3199    9.4300 Barsinghausen-Hohenbostel                Niedersachsen                                                                                     
 00298 19931124 20030205              3     54.3406   12.7108 Barth                                    Mecklenburg-Vorpommern                                                                            
-00301 20040105 20190218            659     48.7584    9.9855 Bartholomä                               Baden-Württemberg                                                                                 
+00301 20040105 20190225            659     48.7584    9.9855 Bartholomä                               Baden-Württemberg                                                                                 
 00310 20041220 20190213            590     51.0662    8.5375 Battenberg-Hof Karlsburg                 Hessen                                                                                            
 00314 20041122 20190209            232     51.1604   14.5042 Kubschütz, Kr. Bautzen                   Sachsen                                                                                           
 00316 19371118 19500228            310     49.6957    7.8387 Bayerfeld-Steckweiler -Schmalfelderhof   Rheinland-Pfalz                                                                                   
@@ -89,11 +89,11 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 00435 19640109 19791215             45     52.4289   13.2327 Berlin-Zehlendorf                        Berlin                                                                                            
 00438 20070124 20080325            563     50.5241   12.7759 Schwarzenberg-Bermsgrün                  Sachsen                                                                                           
 00440 19410102 19521118            928     47.8150    8.0256 Bernau-Goldbach                          Baden-Württemberg                                                                                 
-00443 20051121 20190210            936     47.7388   10.7448 Bernbeuren-Prachtsried                   Bayern                                                                                            
+00443 20051121 20190303            936     47.7388   10.7448 Bernbeuren-Prachtsried                   Bayern                                                                                            
 00445 20051230 20180320             84     51.8218   11.7109 Bernburg/Saale (Nord)                    Sachsen-Anhalt                                                                                    
 00450 19490213 19520129            120     49.9186    7.0664 Bernkastel-Kues                          Rheinland-Pfalz                                                                                   
 00460 19601219 19961230            363     49.2640    6.6868 Berus                                    Saarland                                                                                          
-00498 20100226 20190218            760     47.7453    8.3111 Ühlingen-Birkendorf                      Baden-Württemberg                                                                                 
+00498 20100226 20190222            760     47.7453    8.3111 Ühlingen-Birkendorf                      Baden-Württemberg                                                                                 
 00502 19850103 20050316            412     49.8747    9.4883 Bischbrunn                               Bayern                                                                                            
 00505 20051219 20060213            332     51.4268   10.0932 Bischhagen                               Thüringen                                                                                         
 00522 20060304 20130204            425     48.7092   10.6283 Bissingen (Kläranlage)                   Bayern                                                                                            
@@ -128,7 +128,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 00691 19510103 20160107              4     53.0450    8.7979 Bremen                                   Bremen                                                                                            
 00701 19850110 20070209              7     53.5332    8.5761 Bremerhaven                              Bremen                                                                                            
 00706 19990113 19990215            234     47.8858    7.6611 Eschbach                                 Baden-Württemberg                                                                                 
-00722 19531220 20190218           1134     51.7986   10.6183 Brocken                                  Sachsen-Anhalt                                                                                    
+00722 19531220 20190310           1134     51.7986   10.6183 Brocken                                  Sachsen-Anhalt                                                                                    
 00723 20041229 20190201            290     50.1841    7.2400 Kail                                     Rheinland-Pfalz                                                                                   
 00729 20060301 20060327            600     50.8282   10.4540 Brotterode                               Thüringen                                                                                         
 00736 19510101 19901221            390     49.6303    7.1148 Brücken                                  Rheinland-Pfalz                                                                                   
@@ -202,8 +202,8 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 01089 20040128 20141231            196     48.5017    7.9943 Durbach-Ebersweier                       Baden-Württemberg                                                                                 
 01091 19930129 20060317            258     51.2806   10.7362 Ebeleben                                 Thüringen                                                                                         
 01093 19580120 19980601            131     49.4600    8.9584 Eberbach (LUBW)                          Baden-Württemberg                                                                                 
-01094 20091212 20170117            611     47.7958   11.1991 Eberfing                                 Bayern                                                                                            
-01103 19970518 20190218            592     48.1002   11.9872 Ebersberg-Halbing                        Bayern                                                                                            
+01094 20091212 20171123            611     47.7958   11.1991 Eberfing                                 Bayern                                                                                            
+01103 19970518 20190220            592     48.1002   11.9872 Ebersberg-Halbing                        Bayern                                                                                            
 01107 19370121 20190126            346     49.8520   10.4990 Ebrach                                   Bayern                                                                                            
 01116 19361028 19580322            435     49.9411   11.4028 Eckersdorf-Busbach                       Bayern                                                                                            
 01119 20051125 20190215            535     49.5767   11.6975 Edelsfeld                                Bayern                                                                                            
@@ -213,7 +213,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 01145 20040121 20070129            745     48.3326    9.6028 Ehingen/Donau-Frankenhofen               Baden-Württemberg                                                                                 
 01158 20060304 20190210            350     48.6360   12.8531 Eichendorf                               Bayern                                                                                            
 01161 19671221 20070126            384     48.8777   11.2349 Eichstätt-Landershofen                   Bayern                                                                                            
-01176 20040102 20190218            976     47.9634    8.2693 Eisenbach                                Baden-Württemberg                                                                                 
+01176 20040102 20190305            976     47.9634    8.2693 Eisenbach                                Baden-Württemberg                                                                                 
 01182 19561225 19570226            146     51.5029   11.5705 Eisleben-Helfta                          Sachsen-Anhalt                                                                                    
 01197 19360102 20190129            460     48.9895   10.1312 Ellwangen-Rindelbach                     Baden-Württemberg                                                                                 
 01207 20060301 20190217            560     50.2705   12.2742 Elster, Bad-Sohl                         Sachsen                                                                                           
@@ -232,13 +232,13 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 01270 19510101 20180318            316     50.9829   10.9608 Erfurt-Weimar                            Thüringen                                                                                         
 01276 19991220 20011224            408     47.6358    9.5392 Eriskirch-Mariabrunn                     Baden-Württemberg                                                                                 
 01279 19550211 20171204            268     49.6497   11.0074 Möhrendorf-Kleinseebach                  Bayern                                                                                            
-01282 20100101 20190218            565     50.3043   12.3834 Erlbach-Eubabrunn                        Sachsen                                                                                           
+01282 20100101 20190304            565     50.3043   12.3834 Erlbach-Eubabrunn                        Sachsen                                                                                           
 01283 19410102 19580327            500     51.0148    8.2824 Erndtebrück-Birkelbach                   Nordrhein-Westfalen                                                                               
 01287 19920217 20060308            198     49.8589    9.2861 Eschau-Hobbach                           Bayern                                                                                            
 01290 20051125 20190207            714     48.1868    8.4672 Eschbronn-Mariazell                      Baden-Württemberg                                                                                 
 01300 20041110 20190204            351     51.2540    8.1565 Eslohe                                   Nordrhein-Westfalen                                                                               
 01303 19501205 20090113            150     51.4041    6.9677 Essen-Bredeney                           Nordrhein-Westfalen                                                                               
-01313 20051123 20190215            940     47.5667   10.9612 Ettal-Linderhof                          Bayern                                                                                            
+01313 20051123 20190308            940     47.5667   10.9612 Ettal-Linderhof                          Bayern                                                                                            
 01320 20050228 20171204            137     51.2610   11.1754 Etzleben                                 Thüringen                                                                                         
 01325 20060213 20060313            525     48.3299   11.1326 Eurasburg-Freienried                     Bayern                                                                                            
 01327 19371208 20190201            147     50.7119    6.7905 Weilerswist-Lommersum                    Nordrhein-Westfalen                                                                               
@@ -246,17 +246,17 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 01333 20070124 20160119            541     50.4688   12.3774 Falkenstein (Talsperre)                  Sachsen                                                                                           
 01343 20051219 20190204            530     47.7688   12.0186 Feilnbach, Bad                           Bayern                                                                                            
 01346 19410305 20140201           1490     47.8749    8.0038 Feldberg/Schwarzwald                     Baden-Württemberg                                                                                 
-01357 19501027 20190218            654     49.9807   11.8376 Fichtelberg/Oberfranken-Hüttstadl        Bayern                                                                                            
+01357 19501027 20190228            654     49.9807   11.8376 Fichtelberg/Oberfranken-Hüttstadl        Bayern                                                                                            
 01358 19510101 20190101           1213     50.4283   12.9535 Fichtelberg                              Sachsen                                                                                           
 01366 20070124 20190209            498     48.2213   11.7989 Finsing (Kraftwerk)                      Bayern                                                                                            
 01373 19310306 19580412            780     47.7000   11.8833 Fischhausen bei Schliersee               Bayern                                                                                            
-01382 20151127 20190218           1101     47.7001   12.1168 Flintsbach/Inn-Asten                     Bayern                                                                                            
+01382 20151127 20190308           1101     47.7001   12.1168 Flintsbach/Inn-Asten                     Bayern                                                                                            
 01404 19360115 20110107            419     51.0894    8.9350 Frankenau                                Hessen                                                                                            
 01411 19910210 20190216            745     50.5309   10.0480 Birx/Rhön                                Thüringen                                                                                         
 01420 19811210 20170111            100     50.0259    8.5213 Frankfurt/Main                           Hessen                                                                                            
 01421 19620202 19840123            125     50.1474    8.6746 Frankfurt/Main (Stadt)                   Hessen                                                                                            
 01425 19360210 19610129            109     50.1213    8.6601 Frankfurt/Main (Feldbergstr.)            Hessen                                                                                            
-01435 20040102 20190218            768     50.5921   10.8575 Frauenwald                               Thüringen                                                                                         
+01435 20040102 20190306            768     50.5921   10.8575 Frauenwald                               Thüringen                                                                                         
 01440 19811130 20030221            481     48.2018    7.9336 Freiamt-Ottoschwanden                    Baden-Württemberg                                                                                 
 01441 19560128 20190209            416     50.9263   13.2711 Freiberg                                 Sachsen                                                                                           
 01443 19840120 19991222            236     48.0233    7.8344 Freiburg                                 Baden-Württemberg                                                                                 
@@ -304,7 +304,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 01721 20061103 20190209            506     49.6640   11.2239 Gräfenberg-Kasberg                       Bayern                                                                                            
 01722 20051125 20080323            492     49.6686   11.2019 Gräfenberg-Rangen                        Bayern                                                                                            
 01726 20160118 20190112            408     50.7041   11.0182 Wolfsberg-Gräfinau-Angstedt              Thüringen                                                                                         
-01735 19960205 20190218            628     48.7893   13.6291 Grainet-Rehberg                          Bayern                                                                                            
+01735 19960205 20190307            628     48.7893   13.6291 Grainet-Rehberg                          Bayern                                                                                            
 01736 20070209 20180402             27     53.5731   10.6797 Grambek                                  Schleswig-Holstein                                                                                
 01748 19380101 20050316            608     50.4788    9.2620 Grebenhain-Herchenhain                   Hessen                                                                                            
 01757 19780203 20180403              2     54.0967   13.4056 Greifswald                               Mecklenburg-Vorpommern                                                                            
@@ -375,21 +375,21 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 02274 20041110 20190210            517     50.0920   12.2132 Hohenberg/Eger                           Bayern                                                                                            
 02278 20050124 20190204            131     51.7640   13.4700 Hohenbucko                               Brandenburg                                                                                       
 02290 19361204 20190101            977     47.8009   11.0108 Hohenpeißenberg                          Bayern                                                                                            
-02292 20040102 20190218            740     48.3551    9.3356 Hohenstein-Bernloch                      Baden-Württemberg                                                                                 
+02292 20040102 20190220            740     48.3551    9.3356 Hohenstein-Bernloch                      Baden-Württemberg                                                                                 
 02294 20041110 20190212            470     48.6573   12.0888 Hohenthann                               Bayern                                                                                            
 02306 20091219 20160108              8     54.3194   10.6732 Hohwacht                                 Schleswig-Holstein                                                                                
-02319 20051118 20190218            685     47.8823   11.6962 Holzkirchen                              Bayern                                                                                            
+02319 20051118 20190301            685     47.8823   11.6962 Holzkirchen                              Bayern                                                                                            
 02323 20090105 20160121            110     51.8529    9.4953 Bevern, Kr. Holzminden                   Niedersachsen                                                                                     
 02372 20071114 20190218            604     50.5466   12.5706 Stützengrün-Hundshübel                   Sachsen                                                                                           
 02374 19500106 19731129              3     54.4752    9.0564 Husum                                    Schleswig-Holstein                                                                                
 02376 20051202 20171230            460     48.6549   13.5078 Büchlberg-Tannöd                         Bayern                                                                                            
 02380 19370121 19370327            105     52.1450    8.0456 Iburg-Glane, Bad                         Niedersachsen                                                                                     
 02387 20041220 20190207            626     48.0374   10.7409 Buchloe                                  Bayern                                                                                            
-02405 20041220 20190218            960     47.6078   10.2020 Immenstadt-Reute                         Bayern                                                                                            
+02405 20041220 20190308            960     47.6078   10.2020 Immenstadt-Reute                         Bayern                                                                                            
 02406 19990113 20020116            209     49.2967    9.6520 Ingelfingen                              Baden-Württemberg                                                                                 
 02409 19490112 19991223            360     48.7662   11.4539 Ingolstadt (Flussmeisterstelle)          Bayern                                                                                            
 02412 19360113 20071231            690     47.7614   12.7532 Inzell                                   Bayern                                                                                            
-02416 20050126 20190218            550     48.2022   12.0382 Isen-Westach                             Bayern                                                                                            
+02416 20050126 20190221            550     48.2022   12.0382 Isen-Westach                             Bayern                                                                                            
 02422 19491212 19520218            230     51.3768    7.7644 Iserlohn-Westig                          Nordrhein-Westfalen                                                                               
 02423 19371112 20030310            712     47.6894   10.0416 Isny                                     Baden-Württemberg                                                                                 
 02424 20040102 20040407            769     47.6724   10.1091 Isny-Bolsternang                         Baden-Württemberg                                                                                 
@@ -422,7 +422,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 02597 19471220 20110112            282     50.2241   10.0792 Kissingen, Bad                           Bayern                                                                                            
 02600 20050302 20180318            188     49.7363   10.1781 Kitzingen                                Bayern                                                                                            
 02601 19360117 20010309            826     50.2218    8.4469 Kleiner Feldberg/Taunus                  Hessen                                                                                            
-02618 19910102 20190218            732     50.8458   10.4803 Kleiner Inselsberg                       Thüringen                                                                                         
+02618 19910102 20190301            732     50.8458   10.4803 Kleiner Inselsberg                       Thüringen                                                                                         
 02625 20050128 20160108             38     52.7390   12.4984 Kleßen                                   Brandenburg                                                                                       
 02627 20041119 20190204            128     51.5555   13.8845 Klettwitz                                Brandenburg                                                                                       
 02629 20041229 20190125             46     51.7612    6.0954 Kleve                                    Nordrhein-Westfalen                                                                               
@@ -438,16 +438,16 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 02693 19420101 19440316            380     50.1855    8.4698 Königstein/Taunus                        Hessen                                                                                            
 02700 20050124 20190208            416     48.8302   11.4872 Kösching                                 Bayern                                                                                            
 02704 19970225 20180322             76     51.7511   12.0094 Köthen (Anhalt)                          Sachsen-Anhalt                                                                                    
-02708 20070124 20190218            740     47.6652   11.0804 Kohlgrub, Bad (Rosshof)                  Bayern                                                                                            
+02708 20070124 20190220            740     47.6652   11.0804 Kohlgrub, Bad (Rosshof)                  Bayern                                                                                            
 02709 20060303 20180205            230     49.9164   10.2363 Kolitzheim                               Bayern                                                                                            
 02712 19811217 20170118            443     47.6774    9.1901 Konstanz                                 Baden-Württemberg                                                                                 
 02718 20030129 20180304            458     51.2880    8.7928 Korbach-Rhena                            Hessen                                                                                            
 02729 20040105 20070131            596     48.0135    9.2456 Krauchenwies                             Baden-Württemberg                                                                                 
 02736 20041220 20051128            458     49.1408   10.1873 Kreßberg-Asbach                          Baden-Württemberg                                                                                 
-02740 19560102 20190215            897     47.6105   11.6462 Kreuth-Glashütte                         Bayern                                                                                            
+02740 19560102 20190308            897     47.6105   11.6462 Kreuth-Glashütte                         Bayern                                                                                            
 02744 19410102 20190201            305     50.9830    7.9682 Kreuztal-Eichen                          Nordrhein-Westfalen                                                                               
 02750 19360102 20190126            312     50.2523   11.3209 Kronach                                  Bayern                                                                                            
-02759 19480117 20190218            873     47.5037   11.2808 Krün                                     Bayern                                                                                            
+02759 19480117 20190310            873     47.5037   11.2808 Krün                                     Bayern                                                                                            
 02783 19661125 19911207            436     48.5126   12.1513 Kumhausen                                Bayern                                                                                            
 02787 20050126 20051228            354     49.2428    9.6786 Kupferzell-Rechbach                      Baden-Württemberg                                                                                 
 02792 20041220 20190208            498     48.3737   10.7604 Diedorf/Schwaben-Biburg                  Bayern                                                                                            
@@ -456,7 +456,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 02814 19510101 20190218            685     48.5121    9.7645 Merklingen                               Baden-Württemberg                                                                                 
 02831 19490110 19560301            393     48.5357   12.1132 Landshut                                 Bayern                                                                                            
 02845 20060118 20060308            525     48.8959   10.8976 Langenaltheim-Büttelbronn                Bayern                                                                                            
-02850 20040128 20190218            777     48.1994    9.3327 Langenenslingen-Ittenhausen              Baden-Württemberg                                                                                 
+02850 20040128 20190220            777     48.1994    9.3327 Langenenslingen-Ittenhausen              Baden-Württemberg                                                                                 
 02856 20040105 20110109             91     51.9173   13.0878 Langenlipsdorf                           Brandenburg                                                                                       
 02872 19470301 19500105             15     52.8457    7.3489 Lathen                                   Niedersachsen                                                                                     
 02878 20180307 20180321            118     51.3910   11.8788 Lauchstädt, Bad                          Sachsen-Anhalt                                                                                    
@@ -475,14 +475,14 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 02947 20080326 20180216            286     51.1333    8.0348 Lennestadt-Theten                        Nordrhein-Westfalen                                                                               
 02949 19501130 20020118            758     48.5396    9.5275 Lenningen-Schopfloch                     Baden-Württemberg                                                                                 
 02951 20050214 20170113             20     53.1007   11.4864 Lenzen/Elbe                              Brandenburg                                                                                       
-02953 20081030 20190218            852     47.8597    8.2308 Lenzkirch-Ruhbühl                        Baden-Württemberg                                                                                 
+02953 20081030 20190221            852     47.8597    8.2308 Lenzkirch-Ruhbühl                        Baden-Württemberg                                                                                 
 02958 20051128 20190208            213     51.0266   14.9356 Ostritz                                  Sachsen                                                                                           
 02965 20070126 20190126            298     50.5563   11.4655 Leutenberg                               Thüringen                                                                                         
 02981 20050119 20060118            422     51.1667    8.8000 Lichtenfels-Rhadern                      Hessen                                                                                            
 02985 19950104 20070129            321     50.9383   14.2093 Lichtenhain-Mittelndorf                  Sachsen                                                                                           
 02992 20041110 20190113            495     50.5276   11.6604 Remptendorf                              Thüringen                                                                                         
 03004 19521127 19851125            185     50.4116    8.0605 Limburg/Lahn-Offheim                     Hessen                                                                                            
-03012 20060102 20190218            740     49.0315   13.3272 Lindberg-Buchenau                        Bayern                                                                                            
+03012 20060102 20190310            740     49.0315   13.3272 Lindberg-Buchenau                        Bayern                                                                                            
 03015 19510101 20190205             98     52.2085   14.1180 Lindenberg                               Brandenburg                                                                                       
 03023 19510102 20130224             22     52.5181    7.3081 Lingen                                   Niedersachsen                                                                                     
 03028 19711125 20130226            157     51.7855    8.8388 Lippspringe, Bad                         Nordrhein-Westfalen                                                                               
@@ -493,7 +493,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 03050 19360102 19580322            500     49.6167   12.4167 Lohma                                    Bayern                                                                                            
 03059 19380103 20190217            663     48.5660    9.9240 Lonsee-Ettlenschieß                      Baden-Württemberg                                                                                 
 03064 20060301 20130227            303     51.2189   11.4203 Finne-Lossa                              Sachsen-Anhalt                                                                                    
-03065 20040102 20190218            662     48.4142    8.4523 Loßburg                                  Baden-Württemberg                                                                                 
+03065 20040102 20190221            662     48.4142    8.4523 Loßburg                                  Baden-Württemberg                                                                                 
 03072 19371115 19580417            540     49.9500   11.0833 Ludwag                                   Bayern                                                                                            
 03080 20041110 20190210            520     50.5131   11.3665 Ludwigsstadt-Lauenstein                  Bayern                                                                                            
 03083 20050128 20170112             57     51.9267   13.8797 Lübben-Blumenfelde                       Brandenburg                                                                                       
@@ -506,7 +506,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 03103 19500202 19960223             11     53.2657   10.4240 Lüneburg                                 Niedersachsen                                                                                     
 03113 20101124 20160118            528     50.7663   10.7201 Luisenthal (Talsperre)                   Thüringen                                                                                         
 03114 20170108 20180116             20     52.9213   14.1093 Lunow                                    Brandenburg                                                                                       
-03121 20041110 20190218            676     49.9114   12.5276 Mähring                                  Bayern                                                                                            
+03121 20041110 20190225            676     49.9114   12.5276 Mähring                                  Bayern                                                                                            
 03126 19360210 20170122             76     52.1029   11.5827 Magdeburg                                Sachsen-Anhalt                                                                                    
 03153 20050128 20190210            447     48.6187   12.6232 Mamming-Schneiderberg                    Bayern                                                                                            
 03155 19630216 20190207            413     50.1015    6.8009 Manderscheid-Sonnenhof                   Rheinland-Pfalz                                                                                   
@@ -522,7 +522,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 03204 19920217 20190118            427     50.7334   10.8815 Martinroda                               Thüringen                                                                                         
 03206 19491212 19580315            398     48.8478    8.4459 Marxzell-Schielberg                      Baden-Württemberg                                                                                 
 03207 20091221 20180319            326     50.1797   10.2720 Maßbach                                  Bayern                                                                                            
-03211 19410426 20190218           1011     48.9359   13.5747 Mauth-Finsterau                          Bayern                                                                                            
+03211 19410426 20190308           1011     48.9359   13.5747 Mauth-Finsterau                          Bayern                                                                                            
 03215 19550102 20190201            375     51.1683    8.7125 Medebach-Berge                           Nordrhein-Westfalen                                                                               
 03216 19371210 19580412            660     51.2333    8.6000 Medebach-Küstelberg                      Nordrhein-Westfalen                                                                               
 03220 20060301 20190126            450     50.3564   10.8828 Meeder-Ottowind                          Bayern                                                                                            
@@ -534,8 +534,8 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 03236 19910214 19910221             89     52.2044    8.3382 Melle                                    Niedersachsen                                                                                     
 03241 19421231 20090220            337     50.4488   10.3437 Mellrichstadt-Mühlfeld                   Bayern                                                                                            
 03247 20080321 20190111            567     48.0557    9.3185 Mengen-Ennetach                          Baden-Württemberg                                                                                 
-03248 20071114 20190218            516     50.3904   11.1324 Frankenblick-Mengersgereuth-Hämmern      Thüringen                                                                                         
-03253 19981118 20190218            885     47.8309    8.0699 Sankt Blasien-Menzenschwand              Baden-Württemberg                                                                                 
+03248 20071114 20190220            516     50.3904   11.1324 Frankenblick-Mengersgereuth-Hämmern      Thüringen                                                                                         
+03253 19981118 20190308            885     47.8309    8.0699 Sankt Blasien-Menzenschwand              Baden-Württemberg                                                                                 
 03257 20050218 20180322            250     49.4773    9.7622 Mergentheim, Bad-Neunkirchen             Baden-Württemberg                                                                                 
 03258 20060210 20190207            510     48.2708   10.9768 Mering (Bauhof)                          Bayern                                                                                            
 03271 19471205 19480115            313     48.8548   12.9189 Metten                                   Bayern                                                                                            
@@ -545,7 +545,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 03289 20041220 20190130            355     50.7281   11.7838 Schmieritz-Weltwitz                      Thüringen                                                                                         
 03293 19360102 20190211            590     48.0649   10.4835 Mindelheim                               Bayern                                                                                            
 03304 20081124 20190126            296     51.2326   10.7693 Freienbessingen                          Thüringen                                                                                         
-03307 20080404 20190218            981     47.4779   11.2653 Mittenwald-Buckelwiesen                  Bayern                                                                                            
+03307 20080404 20190310            981     47.4779   11.2653 Mittenwald-Buckelwiesen                  Bayern                                                                                            
 03308 20051230 20170203             72     53.1846   13.6546 Mittenwalde/Uckermark                    Brandenburg                                                                                       
 03316 19410101 19561226            234     51.4926    8.0639 Möhnesee (Möhnetalsperre)                Nordrhein-Westfalen                                                                               
 03319 20090216 20141231            239     49.7644    9.2530 Röllbach                                 Bayern                                                                                            
@@ -559,7 +559,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 03376 19530103 20170201             63     52.5176   14.1232 Müncheberg                               Brandenburg                                                                                       
 03379 19910524 20100312            515     48.1631   11.5429 München-Stadt                            Bayern                                                                                            
 03390 19520107 19920219            529     48.1369   11.7094 München-Riem                             Bayern                                                                                            
-03402 19410102 20190218            750     48.3851    9.4837 Münsingen-Apfelstetten                   Baden-Württemberg                                                                                 
+03402 19410102 20190222            750     48.3851    9.4837 Münsingen-Apfelstetten                   Baden-Württemberg                                                                                 
 03404 19600116 19850121             62     51.9494    7.5906 Münster                                  Nordrhein-Westfalen                                                                               
 03415 20060403 20091230            710     50.4119   12.4065 Grünbach-Muldenberg (Talsperre)          Sachsen                                                                                           
 03418 20040126 20190210            594     48.2754    9.6355 Ehingen-Kirchen                          Baden-Württemberg                                                                                 
@@ -575,7 +575,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 03478 19770114 20030203             81     53.5468   13.1914 Neubrandenburg                           Mecklenburg-Vorpommern                                                                            
 03485 20051228 20190207            486     48.3115   10.3773 Neuburg/Kammel-Langenhaslach             Bayern                                                                                            
 03490 19420228 20130313            111     50.5346    7.0853 Neuenahr, Bad-Ahrweiler                  Rheinland-Pfalz                                                                                   
-03491 20041110 20190218            738     50.4410   11.2401 Judenbach-Neuenbau                       Thüringen                                                                                         
+03491 20041110 20190227            738     50.4410   11.2401 Judenbach-Neuenbau                       Thüringen                                                                                         
 03497 20041110 20190126            336     50.1228   11.5597 Ludwigschorgast                          Bayern                                                                                            
 03509 20050126 20180205             77     53.1020   13.0421 Menz                                     Brandenburg                                                                                       
 03512 19631213 19661201            820     50.5000   11.1500 Neuhaus                                  Thüringen                                                                                         
@@ -611,22 +611,22 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 03660 19950329 20160226            485     50.3601    6.8697 Nürburg-Barweiler                        Rheinland-Pfalz                                                                                   
 03667 19831207 20190205            368     49.4258   11.2538 Nürnberg-Netzstall                       Bayern                                                                                            
 03668 19560209 20190126            314     49.5030   11.0549 Nürnberg                                 Bayern                                                                                            
-03677 20041108 20190217            835     47.6029   11.0607 Oberammergau                             Bayern                                                                                            
+03677 20041108 20190306            835     47.6029   11.0607 Oberammergau                             Bayern                                                                                            
 03678 19410102 19480223            674     47.5588   11.1270 Oberau                                   Bayern                                                                                            
-03679 19410102 20190218            518     47.6187   12.1666 Kiefersfelden-Gach                       Bayern                                                                                            
+03679 19410102 20190306            518     47.6187   12.1666 Kiefersfelden-Gach                       Bayern                                                                                            
 03681 20060118 20190201            426     49.9185   10.5963 Oberaurach-Fatschenbrunn                 Bayern                                                                                            
 03683 20070126 20070129            430     50.8671   13.4608 Oberbobritzsch                           Sachsen                                                                                           
 03685 19360102 19580324            431     49.4114   10.4331 Oberdachstetten                          Bayern                                                                                            
 03689 19360102 20071231            821     47.8344   10.3682 Untrasried-Maneberg                      Bayern                                                                                            
 03700 20051223 20190204            470     50.2662    9.7728 Oberleichtersbach-Modlos                 Bayern                                                                                            
 03705 19951120 20030224            480     48.3147    8.5735 Oberndorf/Neckar-Aistaig                 Baden-Württemberg                                                                                 
-03714 20041220 20190218            903     47.5538    9.9407 Oberreute                                Bayern                                                                                            
+03714 20041220 20190309            903     47.5538    9.9407 Oberreute                                Bayern                                                                                            
 03722 19831208 20190208            484     48.2443   11.5528 Oberschleißheim                          Bayern                                                                                            
 03729 19521204 20100321            748     47.5577   10.0938 Oberstaufen-Thalkirchdorf                Bayern                                                                                            
 03730 19361021 20131224            806     47.3986   10.2760 Oberstdorf                               Bayern                                                                                            
 03734 20040128 20150101            230     49.1280    9.3525 Obersulm-Willsbach                       Baden-Württemberg                                                                                 
 03735 19481217 19511215            455     48.2635   12.2760 Obertaufkirchen                          Bayern                                                                                            
-03739 20041110 20190218            596     49.4521   12.4366 Oberviechtach                            Bayern                                                                                            
+03739 20041110 20190222            596     49.4521   12.4366 Oberviechtach                            Bayern                                                                                            
 03740 20081123 20190209            195     50.9933   13.9808 Lohmen/Sachsen                           Sachsen                                                                                           
 03752 19591210 19810319           1014     50.0300   11.8074 Ochsenkopf                               Bayern                                                                                            
 03761 19470101 20100217            276     49.2070    9.5175 Öhringen                                 Baden-Württemberg                                                                                 
@@ -638,9 +638,9 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 03815 19590112 20010122             95     52.2553    8.0534 Osnabrück                                Niedersachsen                                                                                     
 03836 20060306 20180204            312     50.4538   10.2211 Ostheim v.d. Rhön                        Bayern                                                                                            
 03848 19470110 19570221             17     53.1403    9.1517 Ottersberg-Otterstedt                    Niedersachsen                                                                                     
-03849 20131130 20190218            665     47.9302   10.3099 Ottobeuren                               Bayern                                                                                            
-03857 20050103 20190218            885     47.6362   10.3892 Oy-Mittelberg-Petersthal                 Bayern                                                                                            
-03875 20050124 20190218            549     49.1510   11.6896 Parsberg/Oberpfalz-Eglwang               Bayern                                                                                            
+03849 20131130 20190221            665     47.9302   10.3099 Ottobeuren                               Bayern                                                                                            
+03857 20050103 20190309            885     47.6362   10.3892 Oy-Mittelberg-Petersthal                 Bayern                                                                                            
+03875 20050124 20190219            549     49.1510   11.6896 Parsberg/Oberpfalz-Eglwang               Bayern                                                                                            
 03878 19530113 19560227            327     48.5807   13.4152 Passau-Maierhof                          Bayern                                                                                            
 03879 19501106 19970101            409     48.5779   13.4694 Passau-Oberhaus                          Bayern                                                                                            
 03886 20060301 20160104            420     49.7408   11.5553 Pegnitz (Kläranlage)                     Bayern                                                                                            
@@ -650,7 +650,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 03920 19360101 19811208            470     48.6923   11.9022 Pfeffenhausen-Ludmannsdorf               Bayern                                                                                            
 03924 19981207 20050307            246     48.9059    8.7412 Pforzheim-Eutingen                       Baden-Württemberg                                                                                 
 03925 20051228 20171218            333     48.9329    8.6973 Pforzheim-Ispringen                      Baden-Württemberg                                                                                 
-03926 20060102 20190218            884     47.6063   10.5593 Pfronten-Rehbichel                       Bayern                                                                                            
+03926 20060102 20190222            884     47.6063   10.5593 Pfronten-Rehbichel                       Bayern                                                                                            
 03927 20040102 20190208            630     47.9344    9.2869 Pfullendorf                              Baden-Württemberg                                                                                 
 03930 19421123 19440422            917     48.8807   13.6633 Philippsreut                             Bayern                                                                                            
 03945 20050302 20180402             66     53.4585   12.2417 Plau am See                              Mecklenburg-Vorpommern                                                                            
@@ -663,7 +663,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 03987 19460114 20180307             81     52.3813   13.0622 Potsdam                                  Brandenburg                                                                                       
 03998 19361121 19401031            450     49.7722   11.9371 Pressath                                 Bayern                                                                                            
 03999 20041110 20190215            595     49.7845   12.0329 Pressath-Mühlberg                        Bayern                                                                                            
-04000 20051121 20190218            640     50.2277   11.5486 Presseck                                 Bayern                                                                                            
+04000 20051121 20190221            640     50.2277   11.5486 Presseck                                 Bayern                                                                                            
 04024 19561225 19561231             40     54.3643   13.4771 Putbus                                   Mecklenburg-Vorpommern                                                                            
 04032 19910210 20180322            142     51.7953   11.1320 Quedlinburg                              Sachsen-Anhalt                                                                                    
 04036 20050126 20180319            204     51.3895   11.5412 Querfurt-Mühle Lodersleben               Sachsen-Anhalt                                                                                    
@@ -682,7 +682,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 04127 20050119 20190207            350     50.9906    7.6958 Reichshof-Eckenhagen                     Nordrhein-Westfalen                                                                               
 04134 20050223 20110104            165     49.8244    8.8237 Reinheim                                 Hessen                                                                                            
 04135 20071224 20190126            336     51.4248   10.1898 Reinholterode                            Thüringen                                                                                         
-04149 20060403 20190218            764     50.5602   13.2222 Marienberg-Reitzenhain                   Sachsen                                                                                           
+04149 20060403 20190310            764     50.5602   13.2222 Marienberg-Reitzenhain                   Sachsen                                                                                           
 04154 20121202 20130317            345     51.1800    7.2505 Remscheid-Lennep                         Nordrhein-Westfalen                                                                               
 04159 20041220 20190125            522     48.8104   10.9359 Tagmersheim-Blossenau                    Bayern                                                                                            
 04160 20040102 20190201            478     48.7425    8.9240 Renningen-Ihinger Hof                    Baden-Württemberg                                                                                 
@@ -713,7 +713,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 04308 20100210 20171218            403     50.0517    7.8876 Rüdesheim-Presberg                       Hessen                                                                                            
 04310 20051228 20141228            105     49.1609    8.3009 Rülzheim                                 Rheinland-Pfalz                                                                                   
 04313 20041119 20180122            370     51.4966    8.4342 Rüthen                                   Nordrhein-Westfalen                                                                               
-04315 20051118 20190218            916     48.5615    8.2229 Baiersbronn-Ruhestein                    Baden-Württemberg                                                                                 
+04315 20051118 20190307            916     48.5615    8.2229 Baiersbronn-Ruhestein                    Baden-Württemberg                                                                                 
 04319 20071123 20150410            746     47.7110   12.6212 Ruhpolding-Seehaus                       Bayern                                                                                            
 04323 20030105 20190202            461     49.6468    7.8837 Ruppertsecken                            Rheinland-Pfalz                                                                                   
 04327 19360102 19710319            797     48.8765   13.0490 Rusel-Irlmoos                            Bayern                                                                                            
@@ -723,18 +723,18 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 04350 19840120 19901220            339     47.5619    7.9399 Säckingen, Bad                           Baden-Württemberg                                                                                 
 04367 19940331 19990602            175     52.0781    9.5520 Salzhemmendorf-Lauenstein                Niedersachsen                                                                                     
 04371 19360206 20060306            135     52.1042    8.7521 Salzuflen, Bad                           Nordrhein-Westfalen                                                                               
-04374 20051128 20190218            687     47.7774   12.2102 Samerberg-Geisenkam                      Bayern                                                                                            
+04374 20051128 20190224            687     47.7774   12.2102 Samerberg-Geisenkam                      Bayern                                                                                            
 04377 19650106 20190209            510     50.3517   10.0034 Sandberg                                 Bayern                                                                                            
 04381 20091221 20120213            179     51.4776   11.3123 Sangerhausen                             Sachsen-Anhalt                                                                                    
 04386 19410104 19490311            795     47.7610    8.1247 Sankt Blasien                            Baden-Württemberg                                                                                 
 04393 20010226 20121209              5     54.3279    8.6031 Sankt Peter-Ording                       Schleswig-Holstein                                                                                
 04409 20141228 20190207            630     47.9874    9.4583 Saulgau, Bad-Bolstern                    Baden-Württemberg                                                                                 
-04413 20041220 20190218            557     47.9767   11.4693 Schäftlarn-Kloster Schäftlarn            Bayern                                                                                            
+04413 20041220 20190225            557     47.9767   11.4693 Schäftlarn-Kloster Schäftlarn            Bayern                                                                                            
 04419 19990113 19990215            212     47.9556    7.7134 Schallstadt-Mengen                       Baden-Württemberg                                                                                 
 04433 19881121 20030207            519     48.1994    9.7700 Schemmerhofen-Ingerkingen                Baden-Württemberg                                                                                 
 04441 20041227 20190210            481     48.5025   11.4543 Scheyern                                 Bayern                                                                                            
 04442 19811210 20060313            155     51.9119    9.1533 Schieder                                 Nordrhein-Westfalen                                                                               
-04445 19510101 20190218            609     51.7658   10.6533 Wernigerode-Schierke                     Sachsen-Anhalt                                                                                    
+04445 19510101 20190221            609     51.7658   10.6533 Wernigerode-Schierke                     Sachsen-Anhalt                                                                                    
 04463 20080321 20080323            572     50.5188    6.3990 Schleiden-Schöneseiffen                  Nordrhein-Westfalen                                                                               
 04464 19931122 20010425            501     50.5679   11.8041 Schleiz                                  Thüringen                                                                                         
 04466 19501206 20180330             43     54.5275    9.5487 Schleswig                                Schleswig-Holstein                                                                                
@@ -750,10 +750,10 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 04490 20081123 20190202            223     49.4149    6.8360 Schmelz-Hüttersdorf                      Saarland                                                                                          
 04493 20060118 20190210            416     49.4117   12.0760 Schmidgaden                              Bayern                                                                                            
 04494 20050202 20190210            453     49.2806   11.9140 Schmidmühlen                             Bayern                                                                                            
-04501 19790101 20190218            937     50.6546   10.7693 Schmücke                                 Thüringen                                                                                         
-04508 19601222 20190204            649     50.2968    6.4194 Schneifelforsthaus                       Rheinland-Pfalz                                                                                   
+04501 19790101 20190308            937     50.6546   10.7693 Schmücke                                 Thüringen                                                                                         
+04508 19601222 20190209            649     50.2968    6.4194 Schneifelforsthaus                       Rheinland-Pfalz                                                                                   
 04530 20070202 20111230            555     50.5435   10.8798 Schönbrunn (Talsperre)                   Thüringen                                                                                         
-04546 20041220 20190218            685     49.5272   12.5703 Schönsee-Dietersdorf                     Bayern                                                                                            
+04546 20041220 20190227            685     49.5272   12.5703 Schönsee-Dietersdorf                     Bayern                                                                                            
 04548 19371220 19580417            609     50.2046   12.1435 Selb/Oberfranken-Lauterbach              Bayern                                                                                            
 04559 19961230 20190209            399     49.1643   12.6175 Schorndorf-Knöbling                      Bayern                                                                                            
 04560 19490110 20130225            265     50.4925    9.1226 Schotten                                 Hessen                                                                                            
@@ -771,7 +771,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 04610 20110202 20130331            787     50.2790   11.6478 Schwarzenbach am Wald (Döbraberg)        Bayern                                                                                            
 04618 20050302 20160108             30     52.7470   11.9792 Schwarzholz                              Sachsen-Anhalt                                                                                    
 04620 19371209 19480126            723     47.6816    7.8816 Schopfheim-Schweigmatt                   Baden-Württemberg                                                                                 
-04623 20040303 20190217            835     48.1043    8.9958 Schwenningen, Kreis Sigmaringen          Baden-Württemberg                                                                                 
+04623 20040303 20190220            835     48.1043    8.9958 Schwenningen, Kreis Sigmaringen          Baden-Württemberg                                                                                 
 04625 19471216 20121214             59     53.6425   11.3872 Schwerin                                 Mecklenburg-Vorpommern                                                                            
 04626 20130112 20140131             48     53.6110   11.3854 Schwerin-Görries                         Mecklenburg-Vorpommern                                                                            
 04629 19951229 19990113             37     54.5166    9.1420 Schwesing                                Schleswig-Holstein                                                                                
@@ -782,7 +782,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 04694 20060210 20150126            380     48.7629   11.8430 Siegenburg (Kläranlage)                  Bayern                                                                                            
 04697 19510101 20050214            828     47.7933   12.6193 Siegsdorf-Maria Eck                      Bayern                                                                                            
 04703 19981127 20190205            580     48.0719    9.1942 Sigmaringen-Laiz                         Baden-Württemberg                                                                                 
-04704 20051123 20190218            507     47.5776    9.7404 Sigmarszell-Zeisertsweiler               Bayern                                                                                            
+04704 20051123 20190220            507     47.5776    9.7404 Sigmarszell-Zeisertsweiler               Bayern                                                                                            
 04706 20050223 20190209            360     48.2719   13.0273 Simbach/Inn                              Bayern                                                                                            
 04709 20130120 20190202            445     49.9996    7.5981 Simmern-Wahlbach                         Rheinland-Pfalz                                                                                   
 04710 19440207 20170131            720     48.6190    8.5244 Simmersfeld                              Baden-Württemberg                                                                                 
@@ -790,9 +790,9 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 04745 19590110 20011231             75     52.9604    9.7930 Soltau                                   Niedersachsen                                                                                     
 04748 20081125 20101217            221     51.3520   10.9059 Sondershausen                            Thüringen                                                                                         
 04752 19510101 20011126            626     50.3746   11.1828 Sonneberg-Neufang                        Thüringen                                                                                         
-04755 20100104 20190218            847     48.6819   13.7351 Sonnen                                   Bayern                                                                                            
-04757 19370210 20190218            783     48.4064    9.1891 Sonnenbühl-Genkingen                     Baden-Württemberg                                                                                 
-04760 20071126 20190218            730     47.5219   10.2613 Sonthofen (Flussmeisterstelle)           Bayern                                                                                            
+04755 20100104 20190308            847     48.6819   13.7351 Sonnen                                   Bayern                                                                                            
+04757 19370210 20190220            783     48.4064    9.1891 Sonnenbühl-Genkingen                     Baden-Württemberg                                                                                 
+04760 20071126 20190306            730     47.5219   10.2613 Sonthofen (Flussmeisterstelle)           Bayern                                                                                            
 04790 20081123 20180317             98     52.2054    9.5668 Springe                                  Niedersachsen                                                                                     
 04798 20120215 20190204            470     50.4604   10.5947 Sankt Bernhard                           Thüringen                                                                                         
 04801 20050202 20190207            460     50.0070   11.2052 Stadelhofen                              Bayern                                                                                            
@@ -801,8 +801,8 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 04821 20070209 20190111            217     51.6794   11.3641 Arnstein-Ulzigerode                      Sachsen-Anhalt                                                                                    
 04827 20041220 20190217            540     47.7941   12.4860 Grassau                                  Bayern                                                                                            
 04846 19360102 19580320            616     50.4424   11.3753 Steinbach am Wald                        Bayern                                                                                            
-04850 20100102 20190218            782     47.7112   10.8758 Steingaden-Lauterbach                    Bayern                                                                                            
-04854 20070103 20190218            792     50.4714   11.0840 Neuhaus-Steinheid                        Thüringen                                                                                         
+04850 20100102 20190301            782     47.7112   10.8758 Steingaden-Lauterbach                    Bayern                                                                                            
+04854 20070103 20190304            792     50.4714   11.0840 Neuhaus-Steinheid                        Thüringen                                                                                         
 04858 20050124 20170115            485     48.3773   12.0927 Steinkirchen-Hofstarring                 Bayern                                                                                            
 04864 20150201 20190126            380     51.3954   11.0728 Kyffhäuserland-Steinthaleben             Thüringen                                                                                         
 04867 20071114 20101229            544     50.4638   11.9333 Tanna-Spielmes                           Thüringen                                                                                         
@@ -823,17 +823,17 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 04958 20051125 20180211            332     50.2419   10.5670 Sulzdorf an der Lederhecke               Bayern                                                                                            
 04970 20170106 20181029            756     48.0091    8.6589 Talheim                                  Baden-Württemberg                                                                                 
 04978 19380101 19470101            395     50.6390   10.0228 Tann/Rhön                                Hessen                                                                                            
-04982 20041122 20190218            532     50.6074   12.9390 Tannenberg                               Sachsen                                                                                           
+04982 20041122 20190220            532     50.6074   12.9390 Tannenberg                               Sachsen                                                                                           
 04984 20050126 20170111             46     53.2252   14.3300 Hohenreinkendorf                         Brandenburg                                                                                       
 04987 19870221 19981211            179     49.6122    9.6747 Tauberbischofsheim-Dittigheim            Baden-Württemberg                                                                                 
 04991 19550301 19580322            420     50.1255    8.1685 Taunusstein-Eiserne Hand                 Hessen                                                                                            
 04997 20050302 20190205            196     50.9771   12.3419 Starkenberg-Tegkwitz                     Thüringen                                                                                         
 05000 20050202 20190210            496     47.8527   12.8281 Teisendorf                               Bayern                                                                                            
-05002 20060301 20190218            400     49.0426   12.9942 Teisnach                                 Bayern                                                                                            
+05002 20060301 20190221            400     49.0426   12.9942 Teisnach                                 Bayern                                                                                            
 05009 19530205 20180402             38     53.7610   12.5574 Teterow                                  Mecklenburg-Vorpommern                                                                            
-05013 20071115 20190210            350     49.2222   12.0768 Teublitz (Kläranlage)                    Bayern                                                                                            
+05013 20071115 20190210            350     49.2187   12.0624 Teublitz (Kläranlage)                    Bayern                                                                                            
 05014 20070209 20160108              7     53.2758    8.9857 Worpswede-Hüttenbusch                    Niedersachsen                                                                                     
-05017 19641204 20190218            633     50.4002   11.3889 Teuschnitz                               Bayern                                                                                            
+05017 19641204 20190223            633     50.4002   11.3889 Teuschnitz                               Bayern                                                                                            
 05020 20101201 20101231            300     50.9160   10.3934 Ruhla-Thal                               Thüringen                                                                                         
 05023 20040126 20190207            417     49.0871   11.2236 Thalmässing                              Bayern                                                                                            
 05029 19811217 20020121            386     49.4738    7.0386 Tholey                                   Saarland                                                                                          
@@ -854,7 +854,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 05100 19601222 20150202            265     49.7479    6.6582 Trier-Petrisberg                         Rheinland-Pfalz                                                                                   
 05103 20070323 20080302            348     49.3544    7.7948 Trippstadt-Neuhof                        Rheinland-Pfalz                                                                                   
 05108 20141229 20190206            100     51.5975   13.4252 Tröbitz                                  Brandenburg                                                                                       
-05111 20070124 20190218            559     48.0311   12.5396 Trostberg                                Bayern                                                                                            
+05111 20070124 20190220            559     48.0311   12.5396 Trostberg                                Bayern                                                                                            
 05127 19990201 20030226            649     48.0083    8.8179 Tuttlingen                               Baden-Württemberg                                                                                 
 05137 20101210 20101211            175     51.0476   11.1344 Udestedt                                 Thüringen                                                                                         
 05142 19510215 20040107              1     53.7444   14.0697 Ueckermünde                              Mecklenburg-Vorpommern                                                                            
@@ -862,25 +862,25 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 05149 19371118 20141231            308     49.5741   10.1916 Gollhofen                                Bayern                                                                                            
 05155 19371118 20030226            567     48.3837    9.9524 Ulm                                      Baden-Württemberg                                                                                 
 05159 19480119 19660331            840     47.6167   11.0167 Unterammergau                            Bayern                                                                                            
-05161 20041110 20190218            575     48.5598   13.7494 Untergriesbach-Glotzing                  Bayern                                                                                            
-05162 19610102 20190218            495     48.5996   13.6458 Untergriesbach-Schaibing                 Bayern                                                                                            
-05169 20041220 20190218            831     47.7674   10.4605 Kraftisried                              Bayern                                                                                            
+05161 20041110 20190303            575     48.5598   13.7494 Untergriesbach-Glotzing                  Bayern                                                                                            
+05162 19610102 20190302            495     48.5996   13.6458 Untergriesbach-Schaibing                 Bayern                                                                                            
+05169 20041220 20190303            831     47.7674   10.4605 Kraftisried                              Bayern                                                                                            
 05171 20051125 20170224            647     47.7105   12.4652 Unterwössen-Hinterwössen                 Bayern                                                                                            
 05187 20091221 20180228            591     48.0347   11.0527 Utting-Achselschwang                     Bayern                                                                                            
 05199 20130114 20130329             86     52.2098   10.3212 Lengede                                  Niedersachsen                                                                                     
 05215 19490305 20040308            455     49.0807   12.8967 Viechtach                                Bayern                                                                                            
 05227 20041220 20190215            685     47.9688   10.9156 Vilgertshofen-Pflugdorf                  Bayern                                                                                            
-05229 19880123 20190218            720     48.0453    8.4608 Villingen-Schwenningen                   Baden-Württemberg                                                                                 
+05229 19880123 20190219            720     48.0453    8.4608 Villingen-Schwenningen                   Baden-Württemberg                                                                                 
 05230 20050126 20190210            461     48.4527   12.3382 Vilsbiburg                               Bayern                                                                                            
 05231 20101201 20101231            400     49.6150   11.8153 Vilseck                                  Bayern                                                                                            
 05250 19990210 19990212            223     48.0908    7.6353 Vogtsburg-Oberrotweil                    Baden-Württemberg                                                                                 
-05262 20041124 20190218            815     47.7564   11.6928 Waakirchen-Demmelberg                    Bayern                                                                                            
+05262 20041124 20190307            815     47.7564   11.6928 Waakirchen-Demmelberg                    Bayern                                                                                            
 05266 19371209 19381230            220     50.6230    7.1373 Wachtberg-Berkum                         Nordrhein-Westfalen                                                                               
 05275 20040128 20141231            105     49.2445    8.5374 Waghäusel-Kirrlach                       Baden-Württemberg                                                                                 
 05276 20051128 20190218            475     47.9237   12.7558 Waging am See                            Bayern                                                                                            
 05280 20090211 20180329             35     53.9224   10.2267 Wittenborn                               Schleswig-Holstein                                                                                
 05282 19420130 19660316            246     51.1197   13.6744 Wahnsdorf bei Dresden                    Sachsen                                                                                           
-05285 20041110 20190218            499     49.6180   12.4895 Waidhaus-Pfrentsch                       Bayern                                                                                            
+05285 20041110 20190221            499     49.6180   12.4895 Waidhaus-Pfrentsch                       Bayern                                                                                            
 05295 20070126 20170104            444     51.0020   14.6459 Eibau-Walddorf                           Sachsen                                                                                           
 05297 19370126 19560130            300     51.2428    8.9714 Waldeck-Alraft                           Hessen                                                                                            
 05300 20050209 20190201            380     50.2596    8.3607 Waldems-Reinborn                         Hessen                                                                                            
@@ -892,7 +892,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 05356 19610102 19940416            795     47.8238   11.7658 Warngau-Taubenberg                       Bayern                                                                                            
 05361 19641204 20051229            270     50.6271    9.4420 Wartenberg-Angersbach                    Hessen                                                                                            
 05370 19491210 19580410            481     48.0451   12.1927 Wasserburg/Inn-Reisach                   Bayern                                                                                            
-05371 19461029 20190218            921     50.4973    9.9428 Wasserkuppe                              Hessen                                                                                            
+05371 19461029 20190306            921     50.4973    9.9428 Wasserkuppe                              Hessen                                                                                            
 05374 20060210 20190129            420     49.0340   10.6031 Wassertrüdingen (Kläranlage)             Bayern                                                                                            
 05395 20081212 20190126            340     50.7676   11.9810 Harth-Pöllnitz Neundorf                  Thüringen                                                                                         
 05397 19471222 20090227            440     49.6663   12.1845 Weiden                                   Bayern                                                                                            
@@ -912,7 +912,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 05484 20050124 20190126            240     51.5835   10.7090 Ellrich-Werna                            Thüringen                                                                                         
 05490 19510101 19561231            233     51.8454   10.7686 Wernigerode                              Sachsen-Anhalt                                                                                    
 05501 20051230 20190205            415     48.5701   10.6976 Wertingen                                Bayern                                                                                            
-05511 19371112 20190218            823     48.5206    9.6187 Westerheim                               Baden-Württemberg                                                                                 
+05511 19371112 20190228            823     48.5206    9.6187 Westerheim                               Baden-Württemberg                                                                                 
 05516 19970319 20150205              3     54.5284   11.0605 Fehmarn                                  Schleswig-Holstein                                                                                
 05538 20041220 20190208            550     47.8827   11.1576 Wielenbach (Demollstr.)                  Bayern                                                                                            
 05546 19930222 20141231            187     52.1207   12.4585 Wiesenburg                               Brandenburg                                                                                       
@@ -932,7 +932,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 05653 19360102 19480118            465     49.2553   10.2469 Wörnitz                                  Bayern                                                                                            
 05664 20040128 20181216            291     48.2953    8.2391 Wolfach                                  Baden-Württemberg                                                                                 
 05676 20101209 20180317             82     52.3962   10.6892 Wolfsburg (Südwest)                      Niedersachsen                                                                                     
-05688 20040102 20190218            880     47.7003    8.1057 Dachsberg-Wolpadingen                    Baden-Württemberg                                                                                 
+05688 20040102 20190228            880     47.7003    8.1057 Dachsberg-Wolpadingen                    Baden-Württemberg                                                                                 
 05692 20050228 20170111             88     49.6051    8.3659 Worms                                    Rheinland-Pfalz                                                                                   
 05699 20041119 20180215            312     51.5427    8.7784 Wünnenberg-Eilern                        Nordrhein-Westfalen                                                                               
 05705 19510104 20141230            268     49.7703    9.9577 Würzburg                                 Bayern                                                                                            
@@ -960,7 +960,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 05856 19970103 20140131            476     48.5451   13.3531 Fürstenzell                              Bayern                                                                                            
 05871 19981130 20160224            497     49.9462    7.2645 Hahn                                     Rheinland-Pfalz                                                                                   
 05906 19500201 20110101             98     49.5062    8.5585 Mannheim                                 Baden-Württemberg                                                                                 
-05941 19361007 20190218            685     47.6754   12.4698 Reit im Winkl                            Bayern                                                                                            
+05941 19361007 20190310            685     47.6754   12.4698 Reit im Winkl                            Bayern                                                                                            
 05943 20071112 20190210            460     50.8377   14.0719 Rosenthal-Bielatal                       Sachsen                                                                                           
 06084 20090105 20101227             96     52.2911    9.4961 Barsinghausen-Egestorf                   Niedersachsen                                                                                     
 06086 19980606 19981028             71     52.7786   13.7590 Melchow-Schönholz                        Brandenburg                                                                                       
@@ -972,14 +972,14 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 06161 20041222 20190128            310     48.7576   13.0131 Osterhofen-Thundorf                      Bayern                                                                                            
 06169 20041220 20090330            761     47.7610   10.8601 Steingaden-Riesen                        Bayern                                                                                            
 06170 20041119 20180116             40     52.0192   14.7254 Coschen                                  Brandenburg                                                                                       
-06190 20050302 20190218            600     47.6392   13.0068 Berchtesgaden                            Bayern                                                                                            
-06191 20050121 20190218            683     48.9023   13.1442 Kirchberg/Niederbayern -Zell             Bayern                                                                                            
+06190 20050302 20190310            600     47.6392   13.0068 Berchtesgaden                            Bayern                                                                                            
+06191 20050121 20190302            683     48.9023   13.1442 Kirchberg/Niederbayern -Zell             Bayern                                                                                            
 06199 20050124 20180402             16     54.2484   13.0418 Steinhagen-Negast                        Mecklenburg-Vorpommern                                                                            
 06200 20051125 20180205            259     50.0786   10.4887 Königsberg/Bayern-Holzhausen             Bayern                                                                                            
-06215 20050202 20190218            692     49.2154   13.0662 Lam-Lambach                              Bayern                                                                                            
+06215 20050202 20190303            692     49.2154   13.0662 Lam-Lambach                              Bayern                                                                                            
 06249 20050209 20190126            350     50.3482   11.0304 Rödental-Schönstädt (Speicher)           Bayern                                                                                            
 06252 20081211 20160121            376     49.2105   11.1843 Rothsee bei Allersberg                   Bayern                                                                                            
-06257 20061103 20190218            720     47.6279   11.5166 Jachenau-Tannern                         Bayern                                                                                            
+06257 20061103 20190309            720     47.6279   11.5166 Jachenau-Tannern                         Bayern                                                                                            
 06258 20030131 20190204            459     47.6845    9.4409 Friedrichshafen-Unterraderach            Baden-Württemberg                                                                                 
 06259 20041110 20190201            523     49.0210    9.6032 Großerlach-Mannenweiler                  Baden-Württemberg                                                                                 
 06260 20030131 20190112            385     49.3328    9.7040 Ingelfingen-Stachenhausen                Baden-Württemberg                                                                                 
@@ -1003,14 +1003,14 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 06285 20051125 20180321            420     49.6546    9.2609 Amorbach-Neudorf                         Bayern                                                                                            
 06286 20051219 20190210            400     48.2612   12.4292 Ampfing (Kläranlage)                     Bayern                                                                                            
 06287 20050223 20141228            160     50.1141    9.7350 Gräfendorf,Kr.Main-Spessart (Kläranlage) Bayern                                                                                            
-06290 20071108 20190213           1100     47.3597   10.4572 Hinterhornbach/Österreich                Tirol                                                                                             
-06293 20051118 20190218            737     47.5899   11.5504 Lenggries (Sylvenstein)                  Bayern                                                                                            
-06294 20060301 20190218            600     47.5738    9.9033 Weiler-Simmerberg (Kläranlage)           Bayern                                                                                            
-06295 20051205 20190218            650     47.8030   11.8250 Miesbach (Kläranlage)                    Bayern                                                                                            
+06290 20071108 20190307           1100     47.3597   10.4572 Hinterhornbach/Österreich                Tirol                                                                                             
+06293 20051118 20190310            737     47.5899   11.5504 Lenggries (Sylvenstein)                  Bayern                                                                                            
+06294 20060301 20190308            600     47.5738    9.9033 Weiler-Simmerberg (Kläranlage)           Bayern                                                                                            
+06295 20051205 20190308            650     47.8030   11.8250 Miesbach (Kläranlage)                    Bayern                                                                                            
 06296 20190105 20190203            320     48.7751   12.9578 Moos,Kr. Deggendorf-Maxmühle             Bayern                                                                                            
 06297 20060301 20150209            450     48.3014   12.6025 Pleiskirchen                             Bayern                                                                                            
 06298 20050204 20190211            530     49.8128   12.3293 Plößberg-Liebenstein (Speicher)          Bayern                                                                                            
-06299 20051123 20190218            650     47.7733   12.6441 Ruhpolding (Kläranlage)                  Bayern                                                                                            
+06299 20051123 20190306            650     47.7733   12.6441 Ruhpolding (Kläranlage)                  Bayern                                                                                            
 06300 20060301 20170420            796     47.5768   10.7179 Schwangau-Horn (LfW)                     Bayern                                                                                            
 06305 20050126 20160123            193     51.2061   10.4978 Mühlhausen/Thüringen-Görmar              Thüringen                                                                                         
 06307 20050103 20150317            825     47.4772   10.9403 Garmisch-Partenkirchen-Griesen           Bayern                                                                                            
@@ -1027,14 +1027,14 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 06347 20051125 20180206            304     50.0579   10.2972 Schonungen-Mainberg                      Bayern                                                                                            
 07077 20141229 20180228             54     53.5255   13.0161 Groß Lukow                               Mecklenburg-Vorpommern                                                                            
 07099 20081122 20110106            187     52.0111   10.3966 Liebenburg-Othfresen                     Niedersachsen                                                                                     
-07105 20051118 20190218            721     47.8350   12.6548 Siegsdorf-Höll                           Bayern                                                                                            
+07105 20051118 20190308            721     47.8350   12.6548 Siegsdorf-Höll                           Bayern                                                                                            
 07134 20111216 20130211           1047     47.8563    7.9491 Todtnau-Todtnauberg                      Baden-Württemberg                                                                                 
 07135 19671220 19931229            565     47.9655    9.6804 Aulendorf-Haslach                        Baden-Württemberg                                                                                 
-07138 20041220 20190218            682     48.2962    9.0701 Burladingen-Hausen                       Baden-Württemberg                                                                                 
+07138 20041220 20190220            682     48.2962    9.0701 Burladingen-Hausen                       Baden-Württemberg                                                                                 
 07187 20050221 20180319            193     49.7636    9.4063 Freudenberg/Main-Boxtal                  Baden-Württemberg                                                                                 
 07244 19931122 20011231             62     53.1424   13.0319 Neuglobsow (HM)                          Brandenburg                                                                                       
 07285 20051230 20130324             68     52.4153   11.0758 Bösdorf                                  Sachsen-Anhalt                                                                                    
-07287 20051207 20190218            980     47.6050   13.0153 Berchtesgaden/Jenner                     Bayern                                                                                            
+07287 20051207 20190310            980     47.6050   13.0153 Berchtesgaden/Jenner                     Bayern                                                                                            
 07298 20091217 20180305              5     54.5268    9.0425 Hattstedt                                Schleswig-Holstein                                                                                
 07319 20050302 20190112            435     48.7374   10.7393 Donauwörth-Osterweiler                   Bayern                                                                                            
 07321 20081125 20171204            160     51.1507   11.3321 Olbersleben                              Thüringen                                                                                         
@@ -1043,14 +1043,14 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 07329 20051219 20190209            465     50.5467   12.2863 Treuen                                   Sachsen                                                                                           
 07330 20051230 20090112            159     51.4634    7.9780 Arnsberg-Neheim                          Nordrhein-Westfalen                                                                               
 07331 20051219 20150213            468     48.6099   10.2674 Hermaringen-Allewind                     Baden-Württemberg                                                                                 
-07333 20070126 20190213            727     50.5803   13.2966 Marienberg-Rübenau                       Sachsen                                                                                           
+07333 20070126 20190228            727     50.5803   13.2966 Marienberg-Rübenau                       Sachsen                                                                                           
 07335 20060313 20190208            128     51.3658   13.5801 Strauch                                  Sachsen                                                                                           
 07337 20071112 20190210            332     51.0577   14.6128 Dürrhennersdorf                          Sachsen                                                                                           
-07343 20060403 20190218            688     50.6199   13.4816 Deutschneudorf-Brüderwiese               Sachsen                                                                                           
-07350 20070126 20190214            588     49.1088   12.8231 Prackenbach-Neuhäusl                     Bayern                                                                                            
+07343 20060403 20190310            688     50.6199   13.4816 Deutschneudorf-Brüderwiese               Sachsen                                                                                           
+07350 20070126 20190301            588     49.1088   12.8231 Prackenbach-Neuhäusl                     Bayern                                                                                            
 07364 20090113 20180319             74     51.6820   12.3042 Jeßnitz                                  Sachsen-Anhalt                                                                                    
 07372 20091222 20180307             35     52.7321   11.7124 Ballerstedt                              Sachsen-Anhalt                                                                                    
-07382 20070124 20190218            666     47.7095    9.8659 Wangen/Allgäu-Schwaderberg               Baden-Württemberg                                                                                 
+07382 20070124 20190228            666     47.7095    9.8659 Wangen/Allgäu-Schwaderberg               Baden-Württemberg                                                                                 
 07389 20070209 20170203             82     52.7461   13.8427 Heckelberg                               Brandenburg                                                                                       
 07419 20081212 20190208            389     50.6610   12.0756 Langenwetzendorf-Göttendorf              Thüringen                                                                                         
 07420 20081125 20130321            246     51.1044   11.7112 Naumburg/Saale-Kreipitzsch               Sachsen-Anhalt                                                                                    
@@ -1060,12 +1060,12 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 07428 20071114 20190209            397     50.4167   10.8156 Veilsdorf                                Thüringen                                                                                         
 07429 20070126 20190202            334     49.4250    9.3314 Seckach                                  Baden-Württemberg                                                                                 
 07430 20081204 20130314            258     50.0614   10.8129 Rentweinsdorf-Treinfeld                  Bayern                                                                                            
-07431 20071116 20190218            604     48.0130   11.5524 Oberhaching-Laufzorn                     Bayern                                                                                            
+07431 20071116 20190225            604     48.0130   11.5524 Oberhaching-Laufzorn                     Bayern                                                                                            
 13654 20081125 20190209            288     51.0063   13.4710 Wilsdruff-Mohorn                         Sachsen                                                                                           
 13670 20090106 20110105             24     51.5088    6.7018 Duisburg-Baerl                           Nordrhein-Westfalen                                                                               
 13672 20081124 20110223            593     48.5537    9.9877 Weidenstetten                            Baden-Württemberg                                                                                 
 13675 20121214 20180317             77     52.0818    9.4077 Hameln-Hastenbeck                        Niedersachsen                                                                                     
-13694 20071101 20190218            590     47.8317   12.8222 Teisendorf-Babing                        Bayern                                                                                            
+13694 20071101 20190225            590     47.8317   12.8222 Teisendorf-Babing                        Bayern                                                                                            
 13695 20071120 20190108            780     47.8219   12.7715 Teisendorf-Neukirchen (Wildberg)         Bayern                                                                                            
 13696 20090109 20190201             60     51.5966    7.4049 Waltrop-Abdinghof                        Nordrhein-Westfalen                                                                               
 13698 20081211 20190205            503     48.8767   10.2414 Lauchheim (Berghof)                      Baden-Württemberg                                                                                 
@@ -1077,18 +1077,18 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 13774 20081125 20190205            327     50.8138   12.2985 Crimmitschau-Mannichswalde               Sachsen                                                                                           
 13777 20090105 20130321            110     52.2467   10.9592 Helmstedt-Emmerstedt                     Niedersachsen                                                                                     
 13786 20140127 20190208            435     48.5504   11.1209 Pöttmes-Schnellmannskreuth               Bayern                                                                                            
-13965 19271214 20190218            619     48.2639    8.8134 Balingen-Bronnhaupten                    Baden-Württemberg                                                                                 
+13965 19271214 20190310            619     48.2639    8.8134 Balingen-Bronnhaupten                    Baden-Württemberg                                                                                 
 14130 20101128 20101129            203     51.0207   12.5737 Kohren-Sahlis-Gnandstein                 Sachsen                                                                                           
 14301 20101129 20180208            415     48.7301   13.2742 Eging am See-Rohrbachholz                Bayern                                                                                            
 14309 20091221 20100131            331     50.5274    7.9472 Guckheim                                 Rheinland-Pfalz                                                                                   
-14351 20140204 20190218            610     47.8529   11.4999 Geretsried (Feuerwehrschule)             Bayern                                                                                            
+14351 20140204 20190301            610     47.8529   11.4999 Geretsried (Feuerwehrschule)             Bayern                                                                                            
 15000 20120131 20170123            231     50.7983    6.0244 Aachen-Orsbach                           Nordrhein-Westfalen                                                                               
 15003 20170114 20180402             20     53.8754   13.2101 Schmarsow                                Mecklenburg-Vorpommern                                                                            
 15235 20141227 20190112            478     48.3257    9.9066 Erbach (Alb-Donau-Kreis)                 Baden-Württemberg                                                                                 
 15478 20150205 20190205            514     48.2094   10.0655 Dietenheim                               Baden-Württemberg                                                                                 
 15490 20170111 20190201            298     50.8053    8.3382 Eschenburg-Eibelshausen                  Hessen                                                                                            
-15555 20161107 20190218            816     47.8761   10.5848 Kaufbeuren-Oberbeuren                    Bayern                                                                                            
+15555 20161107 20190225            816     47.8761   10.5848 Kaufbeuren-Oberbeuren                    Bayern                                                                                            
 15928 19360102 19540417            590     49.0119   13.2404 Zwiesel (Hindenburgstraße)               Bayern                                                                                            
-15936 20171121 20190218            737     50.6742   10.7907 Gehlberg                                 Thüringen                                                                                         
-16087 20181210 20190218            839     51.1799    8.4883 Kahler Asten (Astenturm)                 Nordrhein-Westfalen                                                                               
+15936 20171121 20190228            737     50.6742   10.7907 Gehlberg                                 Thüringen                                                                                         
+16087 20181210 20190306            839     51.1799    8.4883 Kahler Asten (Astenturm)                 Nordrhein-Westfalen                                                                               
 19087 19571231 19950329            637     48.8170   13.5500 Wolfstein bei Freyung                    Bayern                                                                                            
