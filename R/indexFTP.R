@@ -84,7 +84,10 @@ if(!requireNamespace("RCurl", quietly=TRUE))
        "install.packages('RCurl')       to enable this.")
 # change folder:
 if(all(folder=="currentfindex") & base==dwdbase)
+   {
    folder <- unique(dirname(fileIndex$path))
+   folder <- folder[folder != "/1_minute/precipitation/historical"]
+   }
 if(base!=dwdbase)
  if(missing(folder)) warning('base is not the rdwd default. It is likely you want',
                              ' to use folder="" instead of "',folder,'".')
