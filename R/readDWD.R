@@ -118,11 +118,19 @@ if(multia[i]) return(readDWD.multia(f, ...))
 # if data:
 dat <- readDWD.data(f, fread=fread[i], ...)
 # process time-stamp: http://stackoverflow.com/a/13022441
-if(!is.null(format[i]) & "MESS_DATUM" %in% colnames(dat))
+if(!is.null(format[i]))
   {
-  nch <- nchar(as.character(dat$MESS_DATUM[1]))
-  if(is.na(format[i])) format <- if(nch==8) "%Y%m%d" else if(nch==13) "%Y%m%d%H:%M" else"%Y%m%d%H"
-  dat$MESS_DATUM <- as.POSIXct(as.character(dat$MESS_DATUM), format=format, tz=tz[i])
+  # for res=monthly data:
+  if("MESS_DATUM_BEGINN" %in% colnames(dat))
+    dat <- cbind(dat[,1, drop=FALSE], MESS_DATUM=dat$MESS_DATUM_BEGINN + 15, dat[,-1])
+  if(!"MESS_DATUM" %in% colnames(dat)) 
+    warning("There is no column 'MESS_DATUM' in ",f, call.=FALSE) else
+    {
+    nch <- nchar(as.character(dat$MESS_DATUM[1]))
+    if(is.na(format[i])) format <- if(nch==8) "%Y%m%d" else 
+                                  if(nch==13) "%Y%m%d%H:%M" else"%Y%m%d%H"
+    dat$MESS_DATUM <- as.POSIXct(as.character(dat$MESS_DATUM), format=format, tz=tz[i])
+    }
   }
 # return dataset:
 return(dat)
