@@ -183,15 +183,34 @@ outfile <- newFilename(outfile, quiet=quiet, ignore=dontdownload,
 if(progbar) lapply <- pbapply::pblapply
 # ------------------------------------------------------------------------------
 # loop over each filename
-lapply(seq_along(file), function(i)
+dl_results <- lapply(seq_along(file), function(i)
   if(!dontdownload[i])
   {
   # Actual file download:
   dfdefaults <- list(url=file[i], destfile=outfile[i], quiet=TRUE)
-  do.call(download.file, berryFunctions::owa(dfdefaults, dfargs))
+  e <- try(suppressWarnings(do.call(download.file, 
+                         berryFunctions::owa(dfdefaults, dfargs))), silent=TRUE)
   # wait some time to avoid FTP bot recognition:
   if(sleep!=0) Sys.sleep(runif(n=1, min=0, max=sleep))
+  return(e)
   })
+
+# check for download errors:
+iserror <- sapply(dl_results, inherits, "try-error")
+if(any(iserror))
+  { 
+  ne <- sum(iserror)
+  msg <- paste0(ne, " Download", if(ne>1) "s have" else " has", 
+                " failed (out of ",length(iserror),").", 
+                if(read)" Setting read=FALSE.","\n")
+  read <- FALSE
+  if(any(substr(file[iserror], 1, 4) != "ftp:"))
+     msg <- paste0(msg, "dataDWD needs urls starting with 'ftp://'.\n")
+  msg <- paste0(msg, "download.file error",if(ne>1) "s",":\n")
+  msg2 <- sapply(dl_results[iserror], function(e)attr(e,"condition")$message)
+  msg <- paste0(msg, paste(msg2, collapse="\n"))
+  warning(msg, call.=FALSE)
+  }
 # ------------------------------------------------------------------------------
 # Output: Read the file or outfile name:
 output <- outfile
