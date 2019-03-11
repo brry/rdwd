@@ -6,8 +6,8 @@
 \usage{
 readDWD(file, meta = grepl(".txt$", file), binary = grepl(".tar.gz$",
   file), raster = grepl(".asc.gz$", file),
-  multia = grepl("Standort.txt$", file), fread = FALSE,
-  minfo = FALSE, format = NA, tz = "GMT", progbar = TRUE, ...)
+  multia = grepl("Standort.txt$", file), fread = FALSE, format = NA,
+  tz = "GMT", progbar = TRUE, ...)
 }
 \arguments{
 \item{file}{Char (vector): name(s) of the file(s) downloaded with \code{\link{dataDWD}},
@@ -35,11 +35,6 @@ For 30 daily/kl/hist files, 7 instead of 10 seconds.
 NA can also be used, which means TRUE if data.table is available.
 DEFAULT: FALSE}
 
-\item{minfo}{Logical: read the meta info txt files in the zip folder (instead of actual data)?
-Returns a named list of data.frames. 
-Only used if \code{meta} and \code{binary} are both FALSE. 
-DEFAULT: FALSE}
-
 \item{format}{Char (vector), only used if \code{meta=FALSE}: Format passed to
 \code{\link{as.POSIXct}} (see \code{\link{strptime}})
 to convert the date/time column to POSIX time format.\cr
@@ -65,7 +60,7 @@ Invisible data.frame of the desired dataset, or a list of data.frames
         if length(file) > 1.
 }
 \description{
-Read climate (meta) data that was downloaded with \code{\link{dataDWD}}.
+Read climate data that was downloaded with \code{\link{dataDWD}}.
 The file is read, processed and returned as a data.frame.\cr
 \code{file} can be a vector with several filenames. The arguments \code{meta}
 and \code{format} can also be a vector and will be recycled to the length of \code{file}.\cr
@@ -78,7 +73,7 @@ They can then be processed with \code{dd$Stations_id <- berryFunctions::convertU
 
 }
 \seealso{
-\code{\link{dataDWD}}, \code{\link{readVars}}, \code{\link{selectDWD}}
+\code{\link{dataDWD}}, \code{\link{readVars}}, \code{\link{readMeta}}, \code{\link{selectDWD}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Jul-Oct 2016

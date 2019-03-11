@@ -1,6 +1,6 @@
 #' Process data from the DWD CDC FTP Server
 #' 
-#' Read climate (meta) data that was downloaded with \code{\link{dataDWD}}.
+#' Read climate data that was downloaded with \code{\link{dataDWD}}.
 #' The file is read, processed and returned as a data.frame.\cr
 #' \code{file} can be a vector with several filenames. The arguments \code{meta}
 #' and \code{format} can also be a vector and will be recycled to the length of \code{file}.\cr
@@ -11,7 +11,7 @@
 #' @return Invisible data.frame of the desired dataset, or a list of data.frames
 #'         if length(file) > 1.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jul-Oct 2016
-#' @seealso \code{\link{dataDWD}}, \code{\link{readVars}}, \code{\link{selectDWD}}
+#' @seealso \code{\link{dataDWD}}, \code{\link{readVars}}, \code{\link{readMeta}}, \code{\link{selectDWD}}
 #' @keywords file chron
 #' @importFrom utils read.table unzip read.fwf untar
 #' @importFrom berryFunctions checkFile na9 traceCall l2df
@@ -40,10 +40,6 @@
 #'               For 30 daily/kl/hist files, 7 instead of 10 seconds.
 #'               NA can also be used, which means TRUE if data.table is available.
 #'               DEFAULT: FALSE
-#' @param minfo  Logical: read the meta info txt files in the zip folder (instead of actual data)?
-#'               Returns a named list of data.frames. 
-#'               Only used if \code{meta} and \code{binary} are both FALSE. 
-#'               DEFAULT: FALSE
 #' @param format Char (vector), only used if \code{meta=FALSE}: Format passed to
 #'               \code{\link{as.POSIXct}} (see \code{\link{strptime}})
 #'               to convert the date/time column to POSIX time format.\cr
@@ -68,7 +64,6 @@ binary=grepl('.tar.gz$', file),
 raster=grepl('.asc.gz$', file),
 multia=grepl('Standort.txt$', file),
 fread=FALSE,
-minfo=FALSE,
 format=NA,
 tz="GMT",
 progbar=TRUE,
@@ -86,7 +81,6 @@ if(len>1)
   raster <- rep(raster, length.out=len)
   multia <- rep(multia, length.out=len)
   fread  <- rep(fread,  length.out=len)
-  minfo  <- rep(minfo,  length.out=len)
   format <- rep(format, length.out=len)
   tz     <- rep(tz,     length.out=len)
   }
@@ -122,9 +116,9 @@ if(binary[i]) return(readDWD.binary(f, ...))
 if(raster[i]) return(readDWD.raster(f, ...))
 if(multia[i]) return(readDWD.multia(f, ...))
 # if data:
-dat <- readDWD.data(f, minfo=minfo[i], fread=fread[i], ...)
+dat <- readDWD.data(f, fread=fread[i], ...)
 # process time-stamp: http://stackoverflow.com/a/13022441
-if(!is.null(format[i]) & "MESS_DATUM" %in% colnames(dat) & !minfo[i])
+if(!is.null(format[i]) & "MESS_DATUM" %in% colnames(dat))
   {
   nch <- nchar(as.character(dat$MESS_DATUM[1]))
   if(is.na(format[i])) format <- if(nch==8) "%Y%m%d" else if(nch==13) "%Y%m%d%H:%M" else"%Y%m%d%H"
@@ -146,9 +140,8 @@ return(invisible(output))
 # Base code for data and meta files ----
 
 
-readDWD.data <- function(file, minfo=FALSE, fread=FALSE, ...)
+readDWD.data <- function(file, fread=FALSE, ...)
 {
-if(minfo) fread <- FALSE
 if(fread)
   {
   # http://dsnotes.com/post/2017-01-27-lessons-learned-from-outbrain-click-prediction-kaggle-competition/
@@ -164,27 +157,6 @@ fn <- tools::file_path_sans_ext(basename(file))
 exdir <- paste0(tempdir(),"/", fn)
 unzip(file, exdir=exdir)
 on.exit(unlink(exdir, recursive=TRUE), add=TRUE)
-
-# meta info from all txt files:
-if(minfo)
-  {
-  f <- dir(exdir, pattern="*.txt", full.names=TRUE)
-  f <- f[substr(basename(f),1,7)!="produkt"]
-  tabs <- lapply(f, function(fi)
-    {
-    #tab <- XML::readHTMLTable(fi, stringsAsFactors=FALSE)[[1]]
-    #tab <- paste(apply(tab,1,paste,collapse=";"), collapse="\n")
-    #tab <- read.table(header=TRUE, sep=";",stringsAsFactors=FALSE, text=tab)
-    nr <- readLines(fi) # number of rows
-    nr <- sum(!substr(nr, 1, 7) %in% c("Legende", "generie"))
-    # message("reading ", nr, " rows in ", normalizePath(fi, winslash="/"), "...")
-    tab <- read.table(fi, sep=";", header=TRUE, nrows=nr-1, ...)
-    tab
-    })
-  names(tabs) <- basename(f)
-  return(tabs)
-  }
-
 # Read the actual data file:
 f <- dir(exdir, pattern="produkt*", full.names=TRUE)
 dat <- read.table(f, na.strings=na9(), header=TRUE, sep=";", as.is=FALSE, ...)

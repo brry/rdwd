@@ -81,7 +81,13 @@ If \code{read=TRUE}, it is also read, processed and returned as a data.frame.
 link <- selectDWD("Kupferzell-Rechbach", res="hourly", var="precipitation", per="recent")
 # actually download and read files
 prec <- dataDWD(link, dir="DWDdata") # the default dir
-fname <- dataDWD(link, read=FALSE) # filename, no second download (unless force=TRUE)
+# file name instead of content:
+fname <- dataDWD(link, read=FALSE) # no second download (unless force=TRUE)
+
+precdata <- readDWD(fname)
+stopifnot(all.equal(prec, precdata))
+metafiles <- readMeta(fname)
+column_names <- readVars(fname)
 
 # current and historical files:
 link <- selectDWD("Potsdam", res="daily", var="kl", per="hr", outvec=TRUE); link
