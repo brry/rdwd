@@ -146,7 +146,7 @@
 #'              DEFAULT: FALSE
 #' @param outvec Single logical: if \bold{path} or \bold{ID} length > 1,
 #'              instead of a list, return a vector? (via \code{\link{unlist}}).
-#'              DEFAULT: \code{per %in% c("rh","hr")}
+#'              DEFAULT: \code{per \%in\% c("rh","hr")}
 #' @param \dots Further arguments passed to \code{\link{indexFTP}} if \code{current=TRUE},
 #'              like dir, quiet
 #' 
