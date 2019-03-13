@@ -71,23 +71,25 @@
 #' @export
 #' @examples
 #' # Give weather station name (must be existing in metaIndex):
-#' findID("Potsdam", exactmatch=FALSE)
 #' selectDWD("Potsdam", res="daily", var="kl", per="historical")
+#' 
 #' # all files for all stations matching "Koeln":
 #' selectDWD("Koeln", res="", var="", per="", exactmatch=FALSE)
 #' findID("Koeln", FALSE)
 #' 
 #' \dontrun{ # Excluded from CRAN checks to save time
-#' # or directly give station ID:
-#' selectDWD(id="00386", res="daily", var="kl", per="historical")
+#' 
+#' selectDWD("Potsdam") # interactive selection of res/var/per
+#' 
+#' # directly give station ID, can also be id="00386" :
 #' selectDWD(id=386, res="daily", var="kl", per="historical")
-#' # period abbreviatable:
+#' 
+#' # period can be abbreviated:
 #' selectDWD(id="00386", res="daily", var="kl", per="h")
 #' selectDWD(id="00386", res="daily", var="kl", per="h", meta=TRUE)
 #' 
 #' # vectorizable:
-#' selectDWD(id="01050", res="daily", var="kl", per=c("r","h")) # list
-#' selectDWD(id="01050", res="daily", var="kl", per="rh") # vector
+#' selectDWD(id="01050", res="daily", var="kl", per="rh") # list if outvec=F
 #' selectDWD(id="01050", res=c("daily","monthly"), var="kl", per="r")
 #' # vectorization gives not the outer product, but elementwise comparison:
 #' selectDWD(id="01050", res=c("daily","monthly"), var="kl", per="hr")
@@ -97,21 +99,6 @@
 #' # all zip files in a given path (if ID is empty):
 #' head(  selectDWD(id="", res="daily", var="kl", per="recent")   )
 #' 
-#' # See if warnings come as expected and are informative:
-#' selectDWD(res="",var="",per="")
-#' selectDWD(7777, res="",var="",per="")
-#' selectDWD(id=7777, res="",var="",per="")
-#' selectDWD(id="", res="dummy", var="dummy", per="")
-#' selectDWD(res="dummy", var="", per="")
-#' selectDWD(res="daily", var="", per="r")
-#' selectDWD(res="daily", var="kl", per="")
-#' selectDWD(id="01050", res=c("daily","monthly"), var="kl", per="") # needs 'per'
-#' selectDWD(id="00386", res="",var="",per="", meta=TRUE)
-#' 
-#' selectDWD("Potsdam", res="daily", var="solar")
-#' # should be an error:
-#' berryFunctions::is.error(  selectDWD(id="Potsdam", res="daily", var="solar"), TRUE)
-#' berryFunctions::is.error(  selectDWD(id="", current=TRUE, res="",var="",per="") , tell=TRUE, force=TRUE)
 #' }
 #' 
 #' @param name  Char: station name(s) passed to \code{\link{findID}}, along with
