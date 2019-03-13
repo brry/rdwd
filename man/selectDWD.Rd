@@ -4,10 +4,11 @@
 \alias{selectDWD}
 \title{Select data from the DWD CDC FTP Server}
 \usage{
-selectDWD(name = "", res = "", var = "", per = "",
+selectDWD(name = "", res = NA, var = NA, per = NA,
   exactmatch = TRUE, mindex = metaIndex, id = findID(name, exactmatch
   = exactmatch, mindex = mindex), base = dwdbase, findex = fileIndex,
-  current = FALSE, meta = FALSE, outvec = FALSE, ...)
+  current = FALSE, meta = FALSE, outvec = any(per \%in\% c("rh",
+  "hr")), ...)
 }
 \arguments{
 \item{name}{Char: station name(s) passed to \code{\link{findID}}, along with
@@ -16,19 +17,22 @@ All 3 arguments are ignored if \code{id} is given. DEFAULT: ""}
 
 \item{res}{Char: temporal \bold{res}olution available at \code{base}, usually one of
 \code{c("hourly","daily","monthly")}, see section 'Description' above.
-\code{res/var/per} together form the \bold{path}. DEFAULT: ""}
+\code{res/var/per} together form the \bold{path}. 
+DEFAULT: NA for interactive selection}
 
 \item{var}{Char: weather \bold{var}iable of interest, like e.g.
 \code{"air_temperature", "cloudiness", "precipitation",
         "soil_temperature", "solar", "kl", "more_precip"}
-See above and in \code{View(rdwd:::\link{fileIndex})}. DEFAULT: ""}
+See above and in \code{View(rdwd:::\link{fileIndex})}. 
+DEFAULT: NA for interactive selection}
 
 \item{per}{Char: desired time \bold{per}iod. One of
 "recent" (data from the last year, up to date usually within a few days) or
 "historical" (long time series). Can be abbreviated (if the first
 letter is "r" or "h", full names are used). To get both datasets,
 use \code{per="hr"} or \code{per="rh"} (and \code{outvec=TRUE}).
-\code{per} is set to "" if var=="solar". DEFAULT: ""}
+\code{per} is set to "" if var=="solar". 
+DEFAULT: NA for interactive selection}
 
 \item{exactmatch}{Logical passed to \code{\link{findID}}: match \code{name}
 with \code{\link{==}})? Else with \code{\link{grepl}}. DEFAULT: TRUE}
@@ -61,10 +65,6 @@ Relevant only in case 4 (path and id given) and case 3 for res="multi_annual".
 See \code{\link{metaIndex}} for a compilation of all metaData files.
 DEFAULT: FALSE}
 
-\item{outvec}{Single logical: if \bold{path} or \bold{ID} length > 1,
-instead of a list, return a vector? (via \code{\link{unlist}}).
-DEFAULT: FALSE}
-
 \item{\dots}{Further arguments passed to \code{\link{indexFTP}} if \code{current=TRUE},
 like dir, quiet}
 }
@@ -89,6 +89,8 @@ case \tab |  \bold{id} \tab |  \bold{path} \tab | output \cr
  3 \tab |  ""  \tab | "xx" \tab | The zip file names at \bold{path} \cr
  4 \tab | "xx" \tab | "xx" \tab | Regular single data file name \cr
 }
+For case 2, you can explicitly set \code{res="",var="",per=""} to avoid the 
+default interactive selection.\cr
 For case 3 and 4 (\bold{path} given), you can set \code{meta=TRUE}.
 Then selectDWD will return the name of the station description file at \bold{path}.
 This is why case 3 with \code{meta=FALSE} only returns the data file names (ending in .zip).\cr\cr\cr
@@ -136,7 +138,7 @@ precipitation << \tab |              \tab |                   \cr
 findID("Potsdam", exactmatch=FALSE)
 selectDWD("Potsdam", res="daily", var="kl", per="historical")
 # all files for all stations matching "Koeln":
-selectDWD("Koeln", exactmatch=FALSE)
+selectDWD("Koeln", res="", var="", per="", exactmatch=FALSE)
 findID("Koeln", FALSE)
 
 \dontrun{ # Excluded from CRAN checks to save time
@@ -148,32 +150,32 @@ selectDWD(id="00386", res="daily", var="kl", per="h")
 selectDWD(id="00386", res="daily", var="kl", per="h", meta=TRUE)
 
 # vectorizable:
-selectDWD(id="01050", res="daily", var="kl", per=c("r","h"))
-selectDWD(id="01050", res="daily", var="kl", per="rh", outvec=TRUE)
+selectDWD(id="01050", res="daily", var="kl", per=c("r","h")) # list
+selectDWD(id="01050", res="daily", var="kl", per="rh") # vector
 selectDWD(id="01050", res=c("daily","monthly"), var="kl", per="r")
 # vectorization gives not the outer product, but elementwise comparison:
 selectDWD(id="01050", res=c("daily","monthly"), var="kl", per="hr")
 
 # all zip files in all paths matching id:
-selectDWD(id=c(1050, 386))
+selectDWD(id=c(1050, 386), res="",var="",per="")
 # all zip files in a given path (if ID is empty):
 head(  selectDWD(id="", res="daily", var="kl", per="recent")   )
 
 # See if warnings come as expected and are informative:
-selectDWD()
-selectDWD(7777)
-selectDWD(id=7777)
-selectDWD(id="", res="dummy", var="dummy")
-selectDWD(res="dummy")
-selectDWD(res="daily", per="r")
-selectDWD(res="daily", var="kl")
-selectDWD(id="01050", res=c("daily","monthly"), var="kl") # needs 'per'
-selectDWD(id="00386", meta=TRUE)
+selectDWD(res="",var="",per="")
+selectDWD(7777, res="",var="",per="")
+selectDWD(id=7777, res="",var="",per="")
+selectDWD(id="", res="dummy", var="dummy", per="")
+selectDWD(res="dummy", var="", per="")
+selectDWD(res="daily", var="", per="r")
+selectDWD(res="daily", var="kl", per="")
+selectDWD(id="01050", res=c("daily","monthly"), var="kl", per="") # needs 'per'
+selectDWD(id="00386", res="",var="",per="", meta=TRUE)
 
 selectDWD("Potsdam", res="daily", var="solar")
 # should be an error:
 berryFunctions::is.error(  selectDWD(id="Potsdam", res="daily", var="solar"), TRUE)
-berryFunctions::is.error(  selectDWD(id="", current=TRUE) , tell=TRUE, force=TRUE)
+berryFunctions::is.error(  selectDWD(id="", current=TRUE, res="",var="",per="") , tell=TRUE, force=TRUE)
 }
 
 }
