@@ -4,30 +4,15 @@
 \alias{selectDWD}
 \title{Select data from the DWD CDC FTP Server}
 \usage{
-selectDWD(name = "", exactmatch = TRUE, mindex = metaIndex,
-  id = findID(name, exactmatch = exactmatch, mindex = mindex),
-  base = dwdbase, res = "", var = "", per = "",
-  findex = fileIndex, current = FALSE, meta = FALSE,
-  outvec = FALSE, ...)
+selectDWD(name = "", res = "", var = "", per = "",
+  exactmatch = TRUE, mindex = metaIndex, id = findID(name, exactmatch
+  = exactmatch, mindex = mindex), base = dwdbase, findex = fileIndex,
+  current = FALSE, meta = FALSE, outvec = FALSE, ...)
 }
 \arguments{
-\item{name}{Char: station name(s) passed to \code{\link{findID}}, along with the
-next two arguments. All ignored if \code{id} is given. DEFAULT: ""}
-
-\item{exactmatch}{Logical passed to \code{\link{findID}}: match \code{name}
-with \code{\link{==}})? Else with \code{\link{grepl}}. DEFAULT: TRUE}
-
-\item{mindex}{Single object: Index with metadata passed to \code{\link{findID}}.
-DEFAULT: \code{rdwd:::\link{metaIndex}}}
-
-\item{id}{Char/Number: station ID with or without leading zeros, e.g. "00614" or 614.
-Is internally converted to an integer, because some DWD meta data
-files also contain no leading zeros. DEFAULT: findID(name)}
-
-\item{base}{Single char: main directory of DWD ftp server, defaulting to
-observed climatic records (\code{\link{dwdbase}}).
-Must be the same \code{base} used to create \code{findex}.
-DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}}
+\item{name}{Char: station name(s) passed to \code{\link{findID}}, along with
+\code{exactmatch} and \code{mindex}. 
+All 3 arguments are ignored if \code{id} is given. DEFAULT: ""}
 
 \item{res}{Char: temporal \bold{res}olution available at \code{base}, usually one of
 \code{c("hourly","daily","monthly")}, see section 'Description' above.
@@ -44,6 +29,21 @@ See above and in \code{View(rdwd:::\link{fileIndex})}. DEFAULT: ""}
 letter is "r" or "h", full names are used). To get both datasets,
 use \code{per="hr"} or \code{per="rh"} (and \code{outvec=TRUE}).
 \code{per} is set to "" if var=="solar". DEFAULT: ""}
+
+\item{exactmatch}{Logical passed to \code{\link{findID}}: match \code{name}
+with \code{\link{==}})? Else with \code{\link{grepl}}. DEFAULT: TRUE}
+
+\item{mindex}{Single object: Index with metadata passed to \code{\link{findID}}.
+DEFAULT: \code{rdwd:::\link{metaIndex}}}
+
+\item{id}{Char/Number: station ID with or without leading zeros, e.g. "00614" or 614.
+Is internally converted to an integer, because some DWD meta data
+files also contain no leading zeros. DEFAULT: findID(name, exaxtmatch, mindex)}
+
+\item{base}{Single char: main directory of DWD ftp server, defaulting to
+observed climatic records (\code{\link{dwdbase}}).
+Must be the same \code{base} used to create \code{findex}.
+DEFAULT: \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}}
 
 \item{findex}{Single object: Index used to select filename, as returned by
 \code{\link{createIndex}}.To use a current / custom index, use
