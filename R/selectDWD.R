@@ -217,6 +217,8 @@ if(anyNA(per)) per[is.na(per)] <- selectPrompt("periods",     "per", res=res, va
 # 
 # recycle input vectors
 len <- max(length(id), length(res), length(var), length(per), length(meta)  )
+# outside of the loop, the slowest part of the code is getting length(id)
+# because findID obtains id from name. All computing time happens in tolower
 if(len>1)
   {
   id   <- rep(id,   length.out=len)
@@ -232,6 +234,7 @@ per[substr(per,1,1)=="h"] <- "historical"
 per[substr(per,1,1)=="r"] <- "recent"
 # solar per to ""
 per[var=="solar" & res %in% c("hourly","daily")] <- ""
+per[var=="standard_format" & res=="subdaily"] <- ""
 # check ids for accidental letters:
 idlett <- grepl("[A-Za-z]", id)
 if(any(idlett)) stop(traceCall(1, "in ", ": "), "id may not contain letters: ",
@@ -248,7 +251,6 @@ if(current)
   }
 # convert ID to integer:
 id <- suppressWarnings(as.integer(id))
-findex$id <- suppressWarnings(as.integer(findex$id))
 #
 # ------------------------------------------------------------------------------
 #
@@ -289,20 +291,18 @@ if(givenid & !givenpath)
 #
 # Case 3 and 4 (path given) - path existence check ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 path <- paste0("/",res[i],"/",var[i],"/",per[i])
-if(all(!grepl(path, findex$path))) warning(traceCall(3, "", ": "), "according to file index '",
-       findexname, "', the path '", path, "' doesn't exist.", call.=FALSE)
 if(res[i]=="multi_annual" & per[i]=="") {per[i] <- var[i]; var[i] <- ""}
 # select entries from file index:
 sel <- res[i]==findex$res & var[i]==findex$var & per[i]==findex$per
+# within the loop, computing time seems to come from the selection
+if(sum(sel)<1) warning(traceCall(3, "", ": "), "according to file index '",
+           findexname, "', the path '", path, "' doesn't exist.", call.=FALSE)
 #
 # case 3 or 4 with meta=TRUE
-ismeta <- grepl('.txt$', findex$path) & grepl("Beschreibung", findex$path)
-if(res[i]=="multi_annual") 
-   ismeta <- grepl('.pdf$', findex$path) | grepl("Stationsliste", findex$path)
 # return name of description txt file
 if(meta[i])
   {
-  sel <- sel & ismeta
+  sel <- sel & findex$ismeta
   # checks:
   if(sum(sel)==0) warning(traceCall(3, "", ": "), "according to file index '",findexname,
                      "', there is no description file in '", path, "'.", call.=FALSE)
@@ -314,7 +314,7 @@ if(meta[i])
 if(!givenid & givenpath & !meta[i])
   {
   isnotmeta <- grepl('.zip$', findex$path)
-  if(res[i]=="multi_annual") isnotmeta <- !ismeta
+  if(res[i]=="multi_annual") isnotmeta <- !findex$ismeta
   sel <- sel & isnotmeta 
   filename <- findex[sel,"path"]
   if(length(filename)<1) warning(traceCall(3, "", ": "), "according to file index '",

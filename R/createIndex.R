@@ -111,16 +111,18 @@ id <- ""
 per <- fileIndex$per
 sol <- fileIndex$var=="solar" 
 zip <- info[,1]=="zip"
+if(!quiet) messaget("Extracting station IDs from filenames...")
 id <- ifelse(zip & per=="historical"       , info[,5], id)
 id <- ifelse(zip & per=="recent"           , info[,3], id)
 id <- ifelse(zip & per=="now"              , info[,3], id)
 id <- ifelse(zip & sol & per!="historical" , info[,3], id) # var==solar
 id <- ifelse(zip & per=="meta_data"        , info[,2], id)
 id <- ifelse(substr(file,1,2)=="kl", substr(file,4,8), id) # res==subdaily
-fileIndex$id <- id
+fileIndex$id <- suppressWarnings(as.integer(id))
 rm(id, per, sol, zip)
 #
 # start and end of time series (according to file name):
+if(!quiet) messaget("Extracting time series range from filenames...")
 ziphist <- fileIndex$per=="historical"  & info[,1]=="zip"
 multi <-  fileIndex$res=="multi_annual" & info[,1]=="txt" & info[,3]!="Stationsliste"
 # actual selection:
@@ -129,6 +131,13 @@ fileIndex$start <- ifelse(ziphist|multi, info[,4], fileIndex$start)
 # Analogous for end:
 fileIndex$end <- ""
 fileIndex$end <- ifelse(ziphist|multi, info[,3], fileIndex$end)
+#
+# is the file a metafile?
+ma <- fileIndex$res=="multi_annual"
+ismeta1 <- !ma & grepl('.txt$', paths) & grepl("Beschreibung", paths)
+ismeta2 <-  ma & grepl("Stationsliste", paths)
+fileIndex$ismeta <- ismeta1 | ismeta2 | grepl('.pdf$', paths) | grepl('.html$', paths)
+rm(ma, ismeta1, ismeta2)
 #
 # Append path for accurate file reading later on, e.g. with dataDWD:
 fileIndex$path <- paths
