@@ -4,7 +4,7 @@
 #' The metadata file is read, processed and returned as a data.frame.\cr
 #' \code{file} can be a vector with several filenames. 
 #' 
-#' @return Invisible data.frame of the desired dataset, or a list of data.frames
+#' @return data.frame of the desired dataset, or a list of data.frames
 #'         if length(file) > 1.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jun 2018
 #' @seealso \code{\link{dataDWD}}, \code{\link{readDWD}}, \code{\link{parameter_abbreviations}}
@@ -104,7 +104,7 @@ if(any(nometa))
 
 #
 output <- if(length(file)==1) output[[1]] else output
-return(invisible(output))
+return(output)
 }
 
 

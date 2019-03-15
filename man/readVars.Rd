@@ -15,7 +15,7 @@ If missing and length(file)==1, progbar is internally set to FALSE.
 DEFAULT: TRUE}
 }
 \value{
-Invisible data.frame of the desired dataset, or a list of data.frames
+data.frame of the desired dataset, or a list of data.frames
         if length(file) > 1.
 }
 \description{
