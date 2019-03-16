@@ -1,3 +1,4 @@
+Meta/
 doc
 Meta/vignette.rds
 .Rproj.user
@@ -8,3 +9,4 @@ inst/shinyapps/
 localtests/radolan
 localtests/params.txt
 localtests/params.xlsx
+localtests/CreateVignettes/DWDdata/

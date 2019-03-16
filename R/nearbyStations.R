@@ -9,64 +9,13 @@
 #' @importFrom berryFunctions sortDF
 #' @examples
 #' 
-#' \dontrun{## entirely excluded from CRAN checks 2018 because of computing time
-#' ## Sections 3:5 were already excluded because of map downloads
-#' 
-#' # 1. Basic usage ----
-#' 
 #' m <- nearbyStations(49.211784, 9.812475, radius=30,
 #'     res=c("daily","hourly"), var= c("precipitation","more_precip","kl") ,
 #'     mindate=20160530, statname="Braunsbach catchment center")
-#' 
-#' 
-#' # 2. Remove duplicates ----
-#' 
-#'# if kl and more_precip are both available, keep only more_precip:
-#' library("berryFunctions")
-#' m <- sortDF(m, "var")
-#' m <- m[!duplicated(paste0(m$Stations_id, m$res)),]
-#' m <- sortDF(m, "res")
-#' m <- sortDF(m, "dist", decreasing=FALSE)
-#' rownames(m) <- NULL
-#' 
-#' ## 3. Interactive map ----
-#' 
-#' library(leaflet)
-#' m$col <- "red" ; m$col[1] <- "blue"
-#' leaflet(m) %>% addTiles() %>%
-#'   addCircles(lng=9.812475, lat=49.211784, radius=30e3) %>%
-#'   addCircleMarkers(~geoLaenge, ~geoBreite, col=~col, popup=~Stationsname)
-#' 
-#' 
-#' ## 4. Download and process data ----
-#' 
-#' # Download and process data for the stations, create a list of data.frames:
-#' prec <- dataDWD(m$url) # once downloaded, will only read
-#' names(prec) <- m$Stations_id[-1]
-#' prec29 <- sapply(prec[m$res[-1]=="daily"], function(x)
-#'          x[x$MESS_DATUM==as.POSIXct(as.Date("2016-05-29")), c("STATIONS_ID","NIEDERSCHLAGSHOEHE")])
-#' prec29 <- data.frame(Stations_id=unlist(prec29[1,]), precsum=unlist(prec29[2,]))
-#' prec29 <- merge(prec29, m[m$res=="daily",c(1,4:7,14)], sort=FALSE)
-#' View(prec29)
-#' 
-#' 
-#' ## 5. Plot rainfall sum on map
-#' 
-#' plot(geoBreite~geoLaenge, data=m, asp=1)
-#' textField(prec29$geoLaenge, prec29$geoBreite, prec29$precsum, col=2)
-#' 
-#' # If OSMscale installation fails, go to:
-#' browseURL("https://github.com/brry/OSMscale#installation")
-#' # install.packages("OSMscale")
-#' library(OSMscale)
-#' map <- pointsMap(geoBreite,geoLaenge, data=m, type="maptoolkit-topo")
-#' pp <- projectPoints("geoBreite", "geoLaenge", data=prec29, to=map$tiles[[1]]$projection)
-#' prec29 <- cbind(prec29,pp) ; rm(pp)
-#' plot(map, removeMargin=FALSE)
-#' scaleBar(map, cex=1.5, type="line", y=0.82)
-#' title(main="Rainfall sum  2016-05-29  7AM-7AM  [mm]", line=-1)
-#' textField(prec29$x, prec29$y, round(prec29$precsum), font=2, cex=1.5)
-#' }
+#' View(m)
+#'     
+#' # see the use cases vignette for a continued example of this:
+#' vignette("cases")
 #' 
 #' @param lat,lon     Coordinates [degrees N/S, E/W]
 #' @param radius      Maximum distance [km] within which stations will be selected
