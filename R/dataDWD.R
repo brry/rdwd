@@ -50,7 +50,7 @@
 #' potsdam <- do.call(rbind, potsdam) # this will partly overlap in time
 #' plot(TMK~MESS_DATUM, data=tail(potsdam,1500), type="l")
 #' # The straight line marks the jump back in time
-#' # Keep only historical dataset:
+#' # Keep only historical data in the overlap time period:
 #' potsdam <- potsdam[!duplicated(potsdam$MESS_DATUM),]
 #' 
 #' 

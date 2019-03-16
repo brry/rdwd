@@ -1,12 +1,22 @@
 library(testthat)
 library(rdwd)
 
-# dataDWD ----------------------------------------------------------------------
-message("dataDWD, readDWD")
+# reusable data location without version control
+# to avoid multiple downloads of the same file
+datadir <- berryFunctions::packagePath()
+datadir <- paste0(datadir, "/localtests/CreateVignettes/DWDdata")
 
-file <- dataDWD(link, read=FALSE, dir=tempdir(), quiet=TRUE)
+
+# dataDWD ----------------------------------------------------------------------
+
+message("dataDWD, readDWD")
+link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
+
+file <- dataDWD(link, read=FALSE, dir=datadir, quiet=TRUE)
 test_that("dataDWD works", {
- expect_equal(basename(file), "daily_kl_recent_tageswerte_KL_03987_akt.zip")
+expect_equal(basename(file), "daily_kl_recent_tageswerte_KL_03987_akt.zip")
+links <- selectDWD(id=c(5302,5711,6295),res="daily",var="more_precip",per="h")
+expect_error(dataDWD(links, dir=datadir), "file must be a vector, not a list")
 })
 
 
@@ -17,7 +27,7 @@ supposedcolnames <- c("STATIONS_ID", "MESS_DATUM", "QN_3", "FX", "FM", "QN_4",
                       "RSK", "RSKF", "SDK", "SHK_TAG", "NM", "VPM", "PM", "TMK", 
                       "UPM", "TXK", "TNK", "TGK", "eor")
 test_that("readDWD works", {
- expect_equal(colnames(clim), supposedcolnames)
+expect_equal(colnames(clim), supposedcolnames)
 })
 
 
@@ -37,22 +47,22 @@ expect_equal(findID(), "")
 
 
 # selectDWD --------------------------------------------------------------------
+
 message("selectDWD")
 
-link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
 test_that("selectDWD works", {
- expect_equal(link, paste0(dwdbase,"/daily/kl/recent/tageswerte_KL_03987_akt.zip"))
+expect_equal(link, paste0(dwdbase,"/daily/kl/recent/tageswerte_KL_03987_akt.zip"))
 expect_equal(selectDWD("Potsdam", res="daily", var="solar"),
              paste0(dwdbase,"/daily/solar/tageswerte_ST_03987_row.zip"))
 })
 
 test_that("selectDWD id input can be numeric or character", {
- expect_equal(selectDWD(id="00386", res="daily", var="kl", per="historical"),
-              selectDWD(id=386,     res="daily", var="kl", per="historical"))
+expect_equal(selectDWD(id="00386", res="daily", var="kl", per="historical"),
+             selectDWD(id=386,     res="daily", var="kl", per="historical"))
 })
 
 test_that("selectDWD can choose Beschreibung meta files", {
- expect_equal(selectDWD(id="00386", res="daily", var="kl", per="h", meta=TRUE),
+expect_equal(selectDWD(id="00386", res="daily", var="kl", per="h", meta=TRUE),
   paste0(dwdbase, "/daily/kl/historical/KL_Tageswerte_Beschreibung_Stationen.txt"))
 })
 
@@ -71,6 +81,7 @@ expect_gte(length(allzip_folder), 573)
 
 
 # selectDWD warnings -----------------------------------------------------------
+
 message("selectDWD warnings")
 
 test_that("selectDWD warns as intended", {
@@ -113,9 +124,34 @@ links <- selectDWD("Potsdam","","","")
 toexclude <- grep("1_minute", links)
 toexclude <- toexclude[-(length(toexclude)-3)]
 toexclude <- c(toexclude, grep("10_minutes", links)[-1])
-files <- dataDWD(links[-toexclude], dir=tempdir(), read=FALSE)
+files <- dataDWD(links[-toexclude], dir=datadir, force=NA, read=FALSE)
 contents <- readDWD(files)
 })
+
+
+test_that("historical files have been updated by DWD", {
+data("fileIndex")
+lastyear <- as.numeric(format(Sys.Date(), "%Y"))-1 # the last completed year
+outdated <- fileIndex$end==paste0(lastyear-1, "1231") & # ends 1 year before lastyear
+            fileIndex$per=="historical" & 
+            fileIndex$res!="1_minute"
+sum(outdated)
+#View(fileIndex[outdated,])
+if(any(outdated)){
+rvp <- unique(fileIndex[outdated,1:3])
+alloutdated <- sapply(1:nrow(rvp), function(r) 
+ {
+ fi <- fileIndex$res==rvp[r, "res"] &
+  fileIndex$var==rvp[r, "var"] &
+  fileIndex$per==rvp[r, "per"]
+ all(fi[outdated])
+ })
+rvp <- apply(rvp, 1, paste, collapse="/")
+rvp <- unname(rvp)
+if(any(alloutdated)) stop("The DWD has not yet updated any historical files in ",
+                          "the following ", sum(alloutdated), " folders:\n", 
+                          toString(rvp[alloutdated]))
+}})
 
 
 # Testing examples -------------------------------------------------------------
@@ -124,3 +160,4 @@ devtools::document()
 berryFunctions::testExamples(logfolder="localtests/ExampleTests")
 
 message("Testing finished!")
+
