@@ -92,7 +92,7 @@ Vectorize(source)(dir("path/you_unzipped_to/rdwd-master/R", full=T))
 ```{r basics, eval=TRUE}
 library(rdwd)
 link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
-file <- dataDWD(link, read=FALSE, dir=tempdir(), quiet=TRUE)
+file <- dataDWD(link, read=FALSE, dir="DWDdata", quiet=TRUE)
 # tempdir is only for CRAN vignette checks. In real life, use a real folder.
 clim <- readDWD(file)
 
@@ -193,25 +193,28 @@ p <- RCurl::getURL("ftp.funet.fi/pub/standards/w3/TR/xhtml11/",
 # inputs can be vectorized, and period can be abbreviated:
 selectDWD(c("Potsdam","Wuerzburg"), res="hourly", var="sun", per="hist")
 ```
+If res/var/per are left NA, an interactive selection is opened with the available 
+options for the given station.
 
 ```{r select2, eval=TRUE, echo=FALSE}
-lapply(selectDWD(c("Potsdam","Wuerzburg"), res="hourly", var="sun", per="hist"), function(x) gsub("ical/", "ical/ ", x))
+lapply(selectDWD(c("Potsdam","Wuerzburg"), res="hourly", var="sun", per="hist"), 
+       function(x) gsub("ical/", "ical/ ", x))
 ```
 
 ```{r select3, eval=FALSE, echo=TRUE}
 # Time period can be doubled to get both filenames:
-selectDWD("Potsdam", res="daily", var="kl", per="rh", outvec=TRUE)
+selectDWD("Potsdam", res="daily", var="kl", per="rh")
 ```
 
 ```{r select4, eval=TRUE, echo=FALSE}
-gsub("/tages", "/ tages", selectDWD("Potsdam", res="daily", var="kl", per="rh", outvec=TRUE))
+gsub("/tages", "/ tages", selectDWD("Potsdam", res="daily", var="kl", per="rh"))
 ```
 
 There may be a differing number of available files for several stations across all folders.
-That's why the default outvec is FALSE.
+That's why the default outvec is FALSE (unless `per="hr"`).
 
 ```{r select5, eval=TRUE}
-lapply(selectDWD(id=c(3467,5116)), substr, 58, 1e4)
+lapply(selectDWD(id=c(3467,5116), "","",""), substr, 58, 1e4)
 ```
 
 [TOC](#top)
@@ -238,7 +241,7 @@ m_link <- selectDWD(res="monthly", var="more_precip", per="hist", meta=TRUE)
 substr(m_link, 50, 1e4) # (Monatswerte = monthly values, Beschreibung = description)
 ```
 ```{r meta2, eval=FALSE}
-meta_monthly_rain <- dataDWD(m_link, dir=tdir) # not executed in vignette creation
+meta_monthly_rain <- dataDWD(m_link) # not executed in vignette creation
 str(meta_monthly_rain)
 ```
 
