@@ -79,7 +79,7 @@
 #' 
 #' \dontrun{ # Excluded from CRAN checks to save time
 #' 
-#' selectDWD("Potsdam") # interactive selection of res/var/per
+#' # selectDWD("Potsdam") # interactive selection of res/var/per
 #' 
 #' # directly give station ID, can also be id="00386" :
 #' selectDWD(id=386, res="daily", var="kl", per="historical")

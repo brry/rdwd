@@ -27,7 +27,6 @@ Character string (vector) with ID(s)
 Identify DWD weather station ID from station name
 }
 \examples{
-\dontrun{
 # Give weather station name (must be existing in metaIndex):
 findID("Potsdam")
 findID("potsDam") # capitalization is ignored
@@ -41,16 +40,6 @@ findID(c("Potsdam","Berlin-Buch"))
 # German Umlauts are changed to ue, ae, oe, ss
 findID("Muenchen", FALSE)
 berryFunctions::convertUmlaut("M?nchen") # use this to convert umlauts in lists
-
-# See if warnings come as expected and are informative:
-findID("this_is_not_a_city")
-findID(c("Wuppertal"," this_is_not_a_city") )
-
-findID()
-findID(7777)
-findID("01050")
-
-}
 
 }
 \seealso{

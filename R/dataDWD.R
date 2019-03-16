@@ -27,58 +27,39 @@
 #' @export
 #' @examples
 #' \dontrun{ ## requires internet connection
-#' # find files for a given station name and file path:
-#' link <- selectDWD("Kupferzell-Rechbach", res="hourly", var="precipitation", per="recent")
-#' # actually download and read files
-#' prec <- dataDWD(link, dir="DWDdata") # the default dir
-#' # file name instead of content:
-#' fname <- dataDWD(link, read=FALSE) # no second download (unless force=TRUE)
+#' # find FTP files for a given station name and file path:
+#' link <- selectDWD("Fuerstenzell", res="hourly", var="wind", per="recent")
+#' # download file:
+#' fname <- dataDWD(link, dir=tempdir(), read=FALSE) ; fname
+#' # dir="DWDdata" is the default directory to store files
+#' # unless force=TRUE, already obtained files will not be downloaded again
 #' 
-#' precdata <- readDWD(fname)
-#' stopifnot(all.equal(prec, precdata))
-#' metafiles <- readMeta(fname)
-#' column_names <- readVars(fname)
+#' # read and plot file:
+#' wind <- readDWD(fname)          ; head(wind)
+#' metafiles <- readMeta(fname)    ; str(metafiles, max.level=1)
+#' column_names <- readVars(fname) ; head(column_names)
+#' 
+#' plot(wind$MESS_DATUM, wind$F, main="DWD hourly wind Fuerstenzell", col="blue",
+#'      xaxt="n", las=1, type="l", xlab="Date", ylab="Hourly Wind speed  [m/s]")
+#' berryFunctions::monthAxis(1, ym=T)
+#' 
 #' 
 #' # current and historical files:
-#' link <- selectDWD("Potsdam", res="daily", var="kl", per="hr", outvec=TRUE); link
-#' potsdam <- dataDWD(link)
+#' link <- selectDWD("Potsdam", res="daily", var="kl", per="hr"); link
+#' potsdam <- dataDWD(link, dir=tempdir())
 #' potsdam <- do.call(rbind, potsdam) # this will partly overlap in time
-#' plot(TMK~MESS_DATUM, data=tail(potsdam,1000), type="l")
-#' # Straight line marks the jump back in time
-#' # check for equality:
-#' dup <- which(duplicated(potsdam$MESS_DATUM))
-#' dup_df <- which(duplicated(potsdam))
-#' err <- dup[ ! dup %in% dup_df]
-#' err <- potsdam[potsdam$MESS_DATUM %in% potsdam$MESS_DATUM[err], ]
-#' err <- err[order(err$MESS_DATUM),]
-#' View(err) # some values have been slightly changed
+#' plot(TMK~MESS_DATUM, data=tail(potsdam,1500), type="l")
+#' # The straight line marks the jump back in time
 #' # Keep only historical dataset:
 #' potsdam <- potsdam[!duplicated(potsdam$MESS_DATUM),]
 #' 
-#' # several files:
-#' link <- c(link, selectDWD("Potsdam", res="daily", var="kl", per="hr", outvec=TRUE))
-#' clim <- dataDWD(link)
-#' fname <- dataDWD(link, read=FALSE)
-#' clim <- readDWD(fname)
-#' unzip(zipfile=paste0("DWDdata/",fname[1]), exdir="DWDdata/Testunzip")
-#' # There's quite some important meta information there!
 #' 
-#' plot(prec$MESS_DATUM, prec$R1, main="DWD hourly rain Kupferzell", col="blue",
-#'      xaxt="n", las=1, type="l", xlab="Date", ylab="Hourly rainfall  [mm]")
-#' berryFunctions::monthAxis(1, ym=T)
-#' 
-#' d <- dataDWD(selectDWD(id="05692", res="daily", var="kl", per="recent"))
-#' # writes into the same folder (dir="DWDdata")
-#' 
-#' folder <- dataDWD(link, browse=T)
-#' folder
-#' 
-#' # With many files, use sleep
-#' links <- selectDWD(res="daily", var="solar", meta=FALSE)
-#' sol <- dataDWD(links, sleep=20) # random waiting time after download (0 to 20 secs)
+#' # With many files (>>50), use sleep to avoid getting kicked off the FTP server
+#' #links <- selectDWD(res="daily", var="solar")
+#' #sol <- dataDWD(links, sleep=20) # random waiting time after download (0 to 20 secs)
 #' 
 #' # Real life example with data completeness check etc:
-#' browseURL("http://github.com/brry/prectemp/blob/master/Code_example.R")
+#' browseURL("https://github.com/brry/prectemp/blob/master/Code_analysis.R")
 #' 
 #' }
 #' 

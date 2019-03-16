@@ -15,13 +15,7 @@
 #' @importFrom tools file_path_sans_ext
 #' @export
 #' @examples
-#' \dontrun{ ## Excluded from CRAN checks
-#' link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
-#' file <- dataDWD(link, read=FALSE, dir=tempdir())
-#' clim <- readDWD(file)
-#' vars <- readVars(file)
-#' 
-#' }
+#' # see dataDWD
 #' 
 #' @param file   Char (vector): name(s) of the file(s) downloaded with \code{\link{dataDWD}},
 #'               e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip" 

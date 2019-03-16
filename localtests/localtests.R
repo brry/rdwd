@@ -21,6 +21,21 @@ test_that("readDWD works", {
 })
 
 
+# findID -----------------------------------------------------------------------
+
+test_that("findID warns as wanted", {
+expect_warning(findID("this_is_not_a_city"),
+               "findID: no ID could be determined from name 'this_is_not_a_city'.")
+expect_warning(findID(c("Wuppertal"," this_is_not_a_city") ),
+               "findID: no ID could be determined from name 'this_is_not_a_city'.")
+expect_warning(findID(7777),
+               "findID: no ID could be determined from name '7777'.")
+expect_warning(findID("01050"),
+               "findID: no ID could be determined from name '01050'.")
+expect_equal(findID(), "")
+})
+
+
 # selectDWD --------------------------------------------------------------------
 message("selectDWD")
 
@@ -87,5 +102,25 @@ expect_error(selectDWD(id="Potsdam", res="daily", var="solar"),
 expect_error(selectDWD(id="", current=TRUE, res="",var="",per=""),
              "selectDWD: current=TRUE, but no valid paths available.")
 })
+
+
+# Index up to date? ------------------------------------------------------------
+
+message("index up to date?")
+# simply try all files for Potsdam (for 1_minute and 10_minutes only 1 each)
+test_that("index is up to date", {
+links <- selectDWD("Potsdam","","","")
+toexclude <- grep("1_minute", links)
+toexclude <- toexclude[-(length(toexclude)-3)]
+toexclude <- c(toexclude, grep("10_minutes", links)[-1])
+files <- dataDWD(links[-toexclude], dir=tempdir(), read=FALSE)
+contents <- readDWD(files)
+})
+
+
+# Testing examples -------------------------------------------------------------
+
+devtools::document()
+berryFunctions::testExamples(logfolder="localtests/ExampleTests")
 
 message("Testing finished!")

@@ -35,13 +35,6 @@
 #' browseURL("https://github.com/brry/rdwd/blob/master/R/rdwd-package.R")
 #' # where the Indexes are added to the package
 #' 
-#' # Read results in later:
-#' \dontrun{ ## files normally not yet available:
-#' fileIndex2 <- read.table("DWDdata/fileIndex.txt", sep="\t", header=TRUE,
-#'                          colClasses="character")
-#' metaIndex2 <- read.table("DWDdata/metaIndex.txt", sep="\t", header=TRUE, as.is=TRUE)
-#' }
-#' 
 #' @param paths Char: vector of DWD paths returned by \code{\link{indexFTP}} called
 #'              with the same \code{base} value as this function
 #' @param base  Main directory of DWD ftp server, defaulting to observed climatic records.

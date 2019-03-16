@@ -71,13 +71,6 @@ if(interactive())
 browseURL("https://github.com/brry/rdwd/blob/master/R/rdwd-package.R")
 # where the Indexes are added to the package
 
-# Read results in later:
-\dontrun{ ## files normally not yet available:
-fileIndex2 <- read.table("DWDdata/fileIndex.txt", sep="\\t", header=TRUE,
-                         colClasses="character")
-metaIndex2 <- read.table("DWDdata/metaIndex.txt", sep="\\t", header=TRUE, as.is=TRUE)
-}
-
 }
 \seealso{
 \code{\link{indexFTP}}, \code{\link{fileIndex}}, \code{\link{metaIndex}}, \code{\link{selectDWD}}

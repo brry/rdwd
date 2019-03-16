@@ -29,10 +29,10 @@
 #' @export
 #' @examples
 #' \dontrun{ ## Needs internet connection
-#' sol <- indexFTP(folder="/daily/solar")
+#' sol <- indexFTP(folder="/daily/solar", dir=tempdir())
 #' head(sol)
 #' 
-#' mon <- indexFTP(folder="/monthly/kl", verbose=TRUE)
+#' # mon <- indexFTP(folder="/monthly/kl", dir=tempdir(), verbose=TRUE)
 #' }
 #' 
 #' @param folder  Folder(s) to be indexed recursively, e.g. "/hourly/wind/".

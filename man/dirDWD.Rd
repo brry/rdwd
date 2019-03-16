@@ -21,16 +21,6 @@ Manage directories with useful messages in the rdwd package.
 \examples{
 # see source code of dataDWD and metaDWD
 
-\dontrun{ ## folder creation + deletion
-owd <- getwd(); owd
-dirDWD("dummydummydummy")
-getwd()
-setwd(owd)
-dirDWD("dummydummydummy")
-setwd(owd)
-unlink("dummydummydummy")
-}
-
 }
 \seealso{
 \code{\link{dataDWD}}

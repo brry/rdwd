@@ -73,10 +73,10 @@ If it is out of date, please let me know!
 }
 \examples{
 \dontrun{ ## Needs internet connection
-sol <- indexFTP(folder="/daily/solar")
+sol <- indexFTP(folder="/daily/solar", dir=tempdir())
 head(sol)
 
-mon <- indexFTP(folder="/monthly/kl", verbose=TRUE)
+# mon <- indexFTP(folder="/monthly/kl", dir=tempdir(), verbose=TRUE)
 }
 
 }

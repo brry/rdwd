@@ -24,13 +24,7 @@ The metadata file is read, processed and returned as a data.frame.\cr
 \code{file} can be a vector with several filenames.
 }
 \examples{
-\dontrun{ ## Excluded from CRAN checks
-link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
-file <- dataDWD(link, read=FALSE, dir=tempdir())
-clim <- readDWD(file)
-vars <- readVars(file)
-
-}
+# see dataDWD
 
 }
 \seealso{

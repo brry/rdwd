@@ -11,16 +11,6 @@
 #' @examples
 #' # see source code of dataDWD and metaDWD
 #' 
-#' \dontrun{ ## folder creation + deletion
-#' owd <- getwd(); owd
-#' dirDWD("dummydummydummy")
-#' getwd()
-#' setwd(owd)
-#' dirDWD("dummydummydummy")
-#' setwd(owd)
-#' unlink("dummydummydummy")
-#' }
-#' 
 #' @param dir      Char for dirDWD: writeable directory name. Created if not existent.
 #'                 DEFAULT: "DWDdata" at current \code{\link{getwd}()}
 #' @param quiet    Logical: Suppress messages about creating dir? DEFAULT: FALSE
@@ -32,7 +22,7 @@ quiet=FALSE
 {
 dir <- dir[1]
 # Remove trailing slashes to avoid Windows warning in dir.create(dir): 'folder' already exists
-while(any(grepl("/$", dir)))  dir <- sub("/$","",dir) 
+while(grepl("/$", dir))  dir <- sub("/$","",dir) 
 if(dir=="")
   {
   if(!quiet) message(traceCall(1, "", ": "), "no directory is created, getwd remains at '", getwd(), "'")

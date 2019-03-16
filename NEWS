@@ -1,9 +1,10 @@
 
 rdwd ToDo-list / wishlist / issues
 - dataDWD: potentially use curl to download data without sleep need
-- expand + automate localtests, e.g. with all non-cran-run examples
 - readDWD: figure out reason for fread trouble (reported in emails by some users)
 - allow abbreviations of res hourly/daily/monthly
+- run tests on readDWD.xxx functions
+- readDWD + readVars: name list elements with filename
 
 
 ---------------------------------------
