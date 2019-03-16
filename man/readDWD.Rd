@@ -56,8 +56,8 @@ DEFAULT: TRUE}
 \code{raster::\link[raster]{raster}}}
 }
 \value{
-Invisible data.frame of the desired dataset, or a list of data.frames
-        if length(file) > 1.
+Invisible data.frame of the desired dataset, 
+        or a named list of data.frames if length(file) > 1.
 }
 \description{
 Read climate data that was downloaded with \code{\link{dataDWD}}.

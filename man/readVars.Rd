@@ -15,8 +15,8 @@ If missing and length(file)==1, progbar is internally set to FALSE.
 DEFAULT: TRUE}
 }
 \value{
-data.frame of the desired dataset, or a list of data.frames
-        if length(file) > 1.
+data.frame of the desired dataset, 
+        or a named list of data.frames if length(file) > 1.
 }
 \description{
 Read climate variables (column meta data) from files downloaded with \code{\link{dataDWD}}.

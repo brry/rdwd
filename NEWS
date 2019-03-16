@@ -4,7 +4,6 @@ rdwd ToDo-list / wishlist / issues
 - readDWD: figure out reason for fread trouble (reported in emails by some users)
 - allow abbreviations of res hourly/daily/monthly
 - run tests on readDWD.xxx functions
-- readDWD + readVars: name list elements with filename
 
 
 ---------------------------------------

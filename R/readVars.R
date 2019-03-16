@@ -4,8 +4,8 @@
 #' The metadata file is read, processed and returned as a data.frame.\cr
 #' \code{file} can be a vector with several filenames. 
 #' 
-#' @return data.frame of the desired dataset, or a list of data.frames
-#'         if length(file) > 1.
+#' @return data.frame of the desired dataset, 
+#'         or a named list of data.frames if length(file) > 1.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jun 2018
 #' @seealso \code{\link{dataDWD}}, \code{\link{readDWD}}, \code{\link{parameter_abbreviations}}
 #' @keywords file
@@ -97,6 +97,7 @@ if(any(nometa))
  }
 
 #
+names(output) <- tools::file_path_sans_ext(basename(file))
 output <- if(length(file)==1) output[[1]] else output
 return(output)
 }

@@ -8,8 +8,8 @@
 #' If needed, readDWD tries to set the locale to German (to handle Umlaute correctly).
 #' They can then be processed with \code{dd$Stations_id <- berryFunctions::convertUmlaut(dd$Stations_id)}.
 #' 
-#' @return Invisible data.frame of the desired dataset, or a list of data.frames
-#'         if length(file) > 1.
+#' @return Invisible data.frame of the desired dataset, 
+#'         or a named list of data.frames if length(file) > 1.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jul-Oct 2016
 #' @seealso \code{\link{dataDWD}}, \code{\link{readVars}}, \code{\link{readMeta}}, \code{\link{selectDWD}}
 #' @keywords file chron
@@ -137,7 +137,7 @@ return(dat)
 # lapply loop end
 })
 #
-#
+names(output) <- tools::file_path_sans_ext(basename(file))
 output <- if(length(file)==1) output[[1]] else output
 return(invisible(output))
 }
