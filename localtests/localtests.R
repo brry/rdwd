@@ -4,11 +4,12 @@ library(rdwd)
 # reusable data location without version control
 # to avoid multiple downloads of the same file
 datadir <- paste0(berryFunctions::packagePath(), "/localtests/CreateVignettes/DWDdata")
+begintime <- Sys.time()
 
 
 # dataDWD ----------------------------------------------------------------------
 
-message("dataDWD, readDWD")
+message("++ Testing dataDWD, readDWD")
 
 test_that("dataDWD works", {
 link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
@@ -30,6 +31,8 @@ supposedcolnames <- c("STATIONS_ID", "MESS_DATUM", "QN_3", "FX", "FM", "QN_4",
                       "RSK", "RSKF", "SDK", "SHK_TAG", "NM", "VPM", "PM", "TMK", 
                       "UPM", "TXK", "TNK", "TGK", "eor")
 expect_equal(colnames(clim), supposedcolnames)
+climf <- readDWD(file, fread=TRUE)
+expect_equal(clim, climf)
 })
 
 # . readDWD.meta ----
@@ -52,20 +55,22 @@ radfile <- "/daily/radolan/historical/2017/SF201712.tar.gz"
 localfile <- dataDWD(file=paste0(gridbase, radfile), base=gridbase, 
                      dir=datadir, read=FALSE)
 rad <- readDWD(localfile, selection=1:10) # no need to read all 24*31=744 files
-if(length(rad)!=1) stop("length(rad) should be 1, but is ", length(rad))
+if(length(rad)!=10) stop("length(rad) should be 10, but is ", length(rad))
 # ToDo: make sense of the values, read them correctly!
 warning("readDWD.binary does not yet read the binary files correctly.")
 raster::plot(raster::raster(matrix(rad[[1]], ncol=900, byrow=TRUE)))
 })
 
+message("++ Testing readDWD raster + multia methods")
 
 # . readDWD.raster ----
 test_that("readDWD.raster works for raster data", {
 rasterbase <- "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/seasonal/air_temperature_mean"
 ftp.files <- indexFTP("/16_DJF", base=rasterbase, dir=tempdir())
-localfiles <- dataDWD(paste0(rasterbase,ftp.files[1:2]), base=rasterbase,
+localfiles <- dataDWD(paste0(rasterbase,"/",ftp.files[1:2]), base=rasterbase,
                       dir=datadir, read=FALSE)
 rf <- readDWD(localfiles[1])
+rf <- readDWD(localfiles[1]) # needs to be able to run a second time
 raster::plot(rf) 
 expect_equal(raster::cellStats(rf, range), c(-8.2,4.4))
 })
@@ -74,7 +79,7 @@ expect_equal(raster::cellStats(rf, range), c(-8.2,4.4))
 # . readDWD.multia ----
 test_that("readDWD.multia works for multi_annual data", {
 durl <- selectDWD(res="multi_annual", var="mean_81-10", per="")[9] # Temperature aggregates
-murl <- selectDWD(res="multi_annual", var="mean_81-10", per="", meta=TRUE)[11]
+murl <- selectDWD(res="multi_annual", var="mean_81-10", per="", meta=TRUE)[9]
 ma_temp <- dataDWD(durl, dir=datadir)
 ma_meta <- dataDWD(murl, dir=datadir)
 })
@@ -85,7 +90,7 @@ ma_meta <- dataDWD(murl, dir=datadir)
 test_that("findID warns as wanted", {
 expect_warning(findID("this_is_not_a_city"),
                "findID: no ID could be determined from name 'this_is_not_a_city'.")
-expect_warning(findID(c("Wuppertal"," this_is_not_a_city") ),
+expect_warning(findID(c("Wuppertal","this_is_not_a_city") ),
                "findID: no ID could be determined from name 'this_is_not_a_city'.")
 expect_warning(findID(7777),
                "findID: no ID could be determined from name '7777'.")
@@ -97,9 +102,10 @@ expect_equal(findID(), "")
 
 # selectDWD --------------------------------------------------------------------
 
-message("selectDWD")
+message("++ Testing selectDWD")
 
 test_that("selectDWD works", {
+link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
 expect_equal(link, paste0(dwdbase,"/daily/kl/recent/tageswerte_KL_03987_akt.zip"))
 expect_equal(selectDWD("Potsdam", res="daily", var="solar"),
              paste0(dwdbase,"/daily/solar/tageswerte_ST_03987_row.zip"))
@@ -115,6 +121,7 @@ expect_equal(selectDWD(id="00386", res="daily", var="kl", per="h", meta=TRUE),
   paste0(dwdbase, "/daily/kl/historical/KL_Tageswerte_Beschreibung_Stationen.txt"))
 })
 
+
 test_that("selectDWD properly vectorizes", {
 expect_type(selectDWD(id="01050", res="daily", var="kl", per=c("r","h")), "list")
 expect_type(selectDWD(id="01050", res="daily", var="kl", per="rh"), "character")
@@ -123,7 +130,7 @@ allzip_id <- selectDWD(id=c(1050, 386), res="",var="",per="")
 # all zip files in a given path (if ID is empty):
 allzip_folder <- selectDWD(id="", res="daily", var="kl", per="recent") 
 expect_equal(length(allzip_id), 2)
-expect_gte(length(allzip_id[[1]]), 211)
+expect_gte(length(allzip_id[[1]]), 200)
 expect_gte(length(allzip_id[[2]]), 7)
 expect_gte(length(allzip_folder), 573)
 })
@@ -131,7 +138,7 @@ expect_gte(length(allzip_folder), 573)
 
 # selectDWD warnings -----------------------------------------------------------
 
-message("selectDWD warnings")
+message("++ Testing selectDWD warnings")
 
 test_that("selectDWD warns as intended", {
 expect_warning(selectDWD(res="",var="",per=""), 
@@ -166,7 +173,8 @@ expect_error(selectDWD(id="", current=TRUE, res="",var="",per=""),
 
 # Index up to date? ------------------------------------------------------------
 
-message("index up to date?")
+message("++ Testing index up to date?")
+
 # simply try all files for Potsdam (for 1_minute and 10_minutes only 1 each)
 test_that("index is up to date", {
 links <- selectDWD("Potsdam","","","")
@@ -208,5 +216,6 @@ if(any(alloutdated)) stop("The DWD has not yet updated any historical files in "
 devtools::document()
 berryFunctions::testExamples(logfolder="localtests/ExampleTests")
 
-message("Testing finished!")
+message("++ Testing finished!  Total run time: ", 
+        round(difftime(Sys.time(), begintime, units="min"),1), " minutes")
 
