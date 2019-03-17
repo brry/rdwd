@@ -23,7 +23,7 @@ tools::resaveRdaFiles("data/fileIndex.rda")
 
 # readVars parameter abbreviations ----
 
-urls <- selectDWD("Potsdam")
+urls <- selectDWD("Potsdam","","","")
 rv <- readVars(dataDWD(urls[1], dir=tempdir(), read=F))  ;  rv
 urls <- urls[!grepl("1_minute", urls)]
 urls <- urls[!  (grepl("10_minutes", urls)&!grepl("meta_data", urls))     ]
@@ -38,12 +38,12 @@ write.table(rv_df, "localtests/params.txt", sep="\t", quote=F, row.names=F)
 # multi_annual tests ----
 
 selectDWD(res="daily", var="solar")
-selectDWD(res="multi_annual", var="mean_81-10")
-selectDWD(res="multi_annual", var="mean_81-10", meta=TRUE)
-selectDWD("Potsdam", res="multi_annual", var="mean_81-10")
+selectDWD(res="multi_annual", var="mean_81-10", per="")
+selectDWD(res="multi_annual", var="mean_81-10", per="", meta=TRUE)
+selectDWD("Potsdam", res="multi_annual", var="mean_81-10", per="")
 
-durl <- selectDWD(res="multi_annual", var="mean_81-10")[9] # Temperature aggregates
-murl <- selectDWD(res="multi_annual", var="mean_81-10", meta=TRUE)[11]
+durl <- selectDWD(res="multi_annual", var="mean_81-10", per="")[9] # Temperature aggregates
+murl <- selectDWD(res="multi_annual", var="mean_81-10", per="", meta=TRUE)[11]
 
 localfile <- dataDWD(durl, read=FALSE)
 ma_temp <- readDWD(localfile)
@@ -86,6 +86,7 @@ berryFunctions::openFile("MultiAnn.pdf")
 # https://stats.idre.ucla.edu/r/faq/how-can-i-read-binary-data-into-r/ for help on developing readDWD.binary
 # this is possible since rdwd 0.11.1 (2018-12-05) with argument base in dataDWD
 # ToDo: if included in use case vignette, change reference in readDWD arg binary
+# ToDo: make sense of the data values
 
 # . list of all Files: ----
 gridbase <- "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany"
@@ -353,6 +354,7 @@ link <- selectDWD("Potsdam", res="10_minutes", var="wind", per="recent")
 file <- dataDWD(link, read=FALSE, dir=tempdir())
 vars <- readVars(file); vars
 
-file <- dataDWD("ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/hourly/solar/stundenwerte_ST_05906_row.zip", read=FALSE)
-clim <- readDWD(file) # format not autodetected, read.table charstring?
+file <- dataDWD(paste0(dwdbase,"/hourly/solar/stundenwerte_ST_05906_row.zip"), 
+                read=FALSE, dir=datadir)
+clim <- readDWD(file) # format now autodetected, read.table charstring?
 
