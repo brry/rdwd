@@ -144,6 +144,8 @@
 #'              Relevant only in case 4 (path and id given) and case 3 for res="multi_annual".
 #'              See \code{\link{metaIndex}} for a compilation of all metaData files.
 #'              DEFAULT: FALSE
+#' @param meta_txt_only Logical: if \code{meta}, only return .txt files, not the 
+#'              pdf and html files? DEFAULT: TRUE
 #' @param outvec Single logical: if \bold{path} or \bold{ID} length > 1,
 #'              instead of a list, return a vector? (via \code{\link{unlist}}).
 #'              DEFAULT: \code{per \%in\% c("rh","hr")}
@@ -162,6 +164,7 @@ base=dwdbase,
 findex=fileIndex,
 current=FALSE,
 meta=FALSE,
+meta_txt_only=TRUE,
 outvec=any(per %in% c("rh","hr")),
 ...
 )
@@ -226,7 +229,8 @@ if(len>1)
   var  <- rep(var,  length.out=len)
   per  <- rep(per,  length.out=len)
   meta <- rep(meta, length.out=len)
-}
+  meta_txt_only <- rep(meta_txt_only, length.out=len)
+  }
 # be safe from accidental vector input
 base <- base[1]
 # per partial matching (abbreviation):
@@ -303,6 +307,7 @@ if(sum(sel)<1) warning(traceCall(3, "", ": "), "according to file index '",
 if(meta[i])
   {
   sel <- sel & findex$ismeta
+  if(meta_txt_only[i]) sel <- sel & ! grepl(".pdf$", findex$path)
   # checks:
   if(sum(sel)==0) warning(traceCall(3, "", ": "), "according to file index '",findexname,
                      "', there is no description file in '", path, "'.", call.=FALSE)

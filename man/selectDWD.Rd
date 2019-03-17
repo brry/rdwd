@@ -7,8 +7,8 @@
 selectDWD(name = "", res = NA, var = NA, per = NA,
   exactmatch = TRUE, mindex = metaIndex, id = findID(name, exactmatch
   = exactmatch, mindex = mindex), base = dwdbase, findex = fileIndex,
-  current = FALSE, meta = FALSE, outvec = any(per \%in\% c("rh",
-  "hr")), ...)
+  current = FALSE, meta = FALSE, meta_txt_only = TRUE,
+  outvec = any(per \%in\% c("rh", "hr")), ...)
 }
 \arguments{
 \item{name}{Char: station name(s) passed to \code{\link{findID}}, along with
@@ -64,6 +64,9 @@ DEFAULT: FALSE}
 Relevant only in case 4 (path and id given) and case 3 for res="multi_annual".
 See \code{\link{metaIndex}} for a compilation of all metaData files.
 DEFAULT: FALSE}
+
+\item{meta_txt_only}{Logical: if \code{meta}, only return .txt files, not the 
+pdf and html files? DEFAULT: TRUE}
 
 \item{outvec}{Single logical: if \bold{path} or \bold{ID} length > 1,
 instead of a list, return a vector? (via \code{\link{unlist}}).
