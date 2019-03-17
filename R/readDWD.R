@@ -158,7 +158,7 @@ if(fread)
   # http://dsnotes.com/post/2017-01-27-lessons-learned-from-outbrain-click-prediction-kaggle-competition/
   fp <- unzip(file, list=TRUE) # file produkt*, the actual datafile
   fp <- fp$Name[grepl("produkt",fp$Name)]
-  dat <- data.table::fread(paste("unzip -p", file, fp), na.strings=na9(nspace=0),
+  dat <- data.table::fread(cmd=paste("unzip -p", file, fp), na.strings=na9(nspace=0),
                            header=TRUE, sep=";", stringsAsFactors=TRUE, data.table=FALSE, ...)
   return(dat)
   }
@@ -170,6 +170,8 @@ unzip(file, exdir=exdir)
 on.exit(unlink(exdir, recursive=TRUE), add=TRUE)
 # Read the actual data file:
 f <- dir(exdir, pattern="produkt*", full.names=TRUE)
+if(length(f)!=1) stop("There should be a single 'produkt*' file, but there are ",
+                      length(f), " in\n  ", file, "\n  Consider re-downloading (with force=TRUE).")
 dat <- read.table(f, na.strings=na9(), header=TRUE, sep=";", as.is=FALSE, ...)
 return(dat)
 }
@@ -260,7 +262,7 @@ if(!requireNamespace("raster", quietly=TRUE))
  stop("To use rdwd:::readDWD.raster, please first install raster:",
       "   install.packages('raster')", call.=FALSE)
 #https://stackoverflow.com/questions/5227444/recursively-ftp-download-then-extract-gz-files
-rdata <- R.utils::gunzip(file)
+rdata <- R.utils::gunzip(file, remove=FALSE, overwrite=TRUE)
 r <- raster::raster(rdata, ...)
 if(dividebyten) r <- r/10
 return(invisible(r))

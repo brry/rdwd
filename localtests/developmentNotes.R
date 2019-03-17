@@ -108,22 +108,6 @@ raster::plot(raster::raster(matrix(rad, ncol=900, byrow=TRUE)))
 
 
 
-# raster files ----
-rasterbase <- "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/"
-ftp.files <- indexFTP("seasonal/air_temperature_mean/16_DJF",
-                      base=rasterbase, dir=tempdir())
-
-localfiles <- dataDWD(paste0(rasterbase,ftp.files[1:2]), base=rasterbase,
-                      dir=tempdir(), read=FALSE)
-
-# ToDo: filenames are too long
-
-rf <- readDWD(localfiles[1])
-raster::plot(rf/10) # ToDo: move division by ten into function if needed
-
-
-
-
 
 
 # station with max number of files (for expanding readvars) ----
