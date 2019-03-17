@@ -2,7 +2,6 @@
 rdwd ToDo-list / wishlist / issues
 - dataDWD: potentially use curl to download data without sleep need
 - readDWD: figure out reason for fread trouble (reported in emails by some users)
-- allow abbreviations of res hourly/daily/monthly
 
 
 ---------------------------------------
@@ -12,6 +11,28 @@ Any feedback is welcome, per email or on github.com/brry/rdwd
 
 
 rdwd Version history
+
+-----------------------------
+-----------------------------
+
+Version 1.0.0 (2019-03-17)
+First major version increase!
+Tests are now systematic and comprehensive (albeit run locally and manually to reduce CRAN load and enable local file writing).
+selectDWD got a very noticable performance boost and an interactive res/var/per selection.
+Handling raster files is now supported in rdwd.
+Examples and vignettes have been refined.
+Detailed changes can be found on https://github.com/brry/rdwd/commits, here's the main overview:
+
+- dataDWD: dots now passed to readDWD, download errors checked and returned as informative warning
+- readDWD: reading functions added for binary, raster and multi_annual files, MESS_DATUM POSIXct column added in monthly data, list output now named
+- indexFTP: now removes duplicates from file list, sped up in default 1min/prec usage
+- rdwd now works fine with multi_annual and subdaily data
+- readVars: parameter abbreviations completed, output now visible
+- selectDWD: order of arguments changed, interactive res/var/per selection enabled, computing speed extremely increased
+- localtests.R heavily expanded, examples reduced and refined
+- indexes + vignettes updated, use cases expanded with nearbyStations example
+New functions and objects: readMeta, dwdbase (central package base url)
+
 
 -----------------------------
 -----------------------------
