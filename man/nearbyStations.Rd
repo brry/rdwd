@@ -41,7 +41,7 @@ Select DWD stations within a given radius around a set of coordinates
 m <- nearbyStations(49.211784, 9.812475, radius=30,
     res=c("daily","hourly"), var= c("precipitation","more_precip","kl") ,
     mindate=20160530, statname="Braunsbach catchment center")
-View(m)
+# View(m)
     
 # see the use cases vignette for a continued example of this:
 vignette("cases")
