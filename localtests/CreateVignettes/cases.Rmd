@@ -103,7 +103,7 @@ summary(rain_df) # 9 NAs in station 00006
 
 ### step 4: visual data checks
 
-```{r hourlyrain_vis}
+```{r hourlyrain_vis, fig.height=3, fig.width=6}
 plot(rain_df$date, rain_df[,2], type="n", ylim=range(rain_df[,-1], na.rm=T), 
      las=1, xaxt="n", xlab="Date", ylab="Daily rainfall sum  [mm]")
 berryFunctions::monthAxis()
@@ -114,25 +114,21 @@ plot(rain_df[,2:4]) # correlation plot only works for a few columns!
 
 Let's see the locations of our stations in an interactive map.
 
-```{r hourlyrain_map_interactive, warning=FALSE}
-if(requireNamespace("leaflet", quietly=TRUE)){
+```{r hourlyrain_map_interactive, warning=FALSE, fig.height=3, fig.width=6}
 data(geoIndex)  ;  library(leaflet) 
 mygeoIndex <- geoIndex[geoIndex$id %in% as.numeric(colnames(rain_df)[-1]),]
 
 leaflet(data=mygeoIndex) %>% addTiles() %>%
         addCircleMarkers(~lon, ~lat, popup=~display, stroke=T)
-}
 ```    
 
 For a static map with scaleBar, OSMscale works nicely but currently still has a Java dependency, see
 <https://github.com/brry/OSMscale#installation>
 
-```{r hourlyrain_map_static, message=FALSE}
-if(requireNamespace("OSMscale")){
+```{r hourlyrain_map_static, message=FALSE, fig.height=2, fig.width=6}
 library(OSMscale)
 pointsMap("lat", "lon", mygeoIndex, fx=2, fy=1, pargs=list(lwd=3), 
                     col="blue", zoom=5)
-}
 ```    
 
 
@@ -144,7 +140,7 @@ pointsMap("lat", "lon", mygeoIndex, fx=2, fy=1, pargs=list(lwd=3),
 
 ```{r rainregion_nearbyStations, message=FALSE}
 m <- nearbyStations(49.211784, 9.812475, radius=30,
-    res=c("daily","hourly"), var= c("precipitation","more_precip","kl") ,
+    res=c("daily","hourly"), var=c("precipitation","more_precip","kl"),
     mindate=20160530, statname="Braunsbach catchment center")
 # Remove duplicates. if kl and more_precip are both available, keep only more_precip:
 library("berryFunctions")
@@ -157,7 +153,7 @@ head(m[,-14]) # don't show url column with long urls
 ```
 
 Interactive map of just the meteo station locations:
-```{r rainregion_interactive_map, message=FALSE}
+```{r rainregion_interactive_map, message=FALSE, fig.height=3, fig.width=4}
 library(leaflet)
 m$col <- "red" ; m$col[1] <- "blue"
 leaflet(m) %>% addTiles() %>%
@@ -167,7 +163,7 @@ leaflet(m) %>% addTiles() %>%
 
 [TOC](#top)
 
-### 2. Download and process data ----
+### 2. Download and process data
 
 Download and process data for the stations, get the rainfall sums of a particular day (Braunsbach flood May 2016):
 ```{r rainregion_download_data, message=FALSE}
@@ -199,10 +195,10 @@ But it's nicer to have an actual map.
 If OSMscale installation fails, go to <https://github.com/brry/OSMscale#installation>
 ```{r rainregion_static_map, message=FALSE}
 library(OSMscale)
-map <- pointsMap(geoBreite,geoLaenge, data=m, type="osm")
+map <- pointsMap(geoBreite,geoLaenge, data=m, type="osm", plot=FALSE)
 pp <- projectPoints("geoBreite", "geoLaenge", data=prec29, to=map$tiles[[1]]$projection)
 prec29 <- cbind(prec29,pp) ; rm(pp)
-plot(map, removeMargin=FALSE)
+plot(map)
 scaleBar(map, cex=1.5, type="line", y=0.82)
 title(main="Rainfall sum  2016-05-29  7AM-7AM  [mm]", line=-1)
 textField(prec29$x, prec29$y, round(prec29$precsum), font=2, cex=1.5)

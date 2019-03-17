@@ -8,6 +8,7 @@
 # Note to Future Berry: just source this entire file and you're done.
 
 install_with_buildvignettes <- TRUE
+begintime <- Sys.time()
 
 if(substr(getwd(),2,100) != ":/Dropbox/Rpack/rdwd") 
   stop("getwd should be S:/Dropbox/Rpack/rdwd, but is: ", getwd()  )
@@ -56,3 +57,5 @@ file.copy("doc/cases.html",  "vignettes/cases.html",  overwrite=TRUE)
 
 if(install_with_buildvignettes) devtools::install(build_vignettes = TRUE)
 
+message("Vignette creation finished!  Total run time: ", 
+        round(difftime(Sys.time(), begintime, units="min"),1), " minutes")

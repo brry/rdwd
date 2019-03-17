@@ -30,8 +30,7 @@ over 228 thousand datasets with weather observations through the FTP server onli
 
 For data interpolated onto a 1 km raster, including radar data up to the last hour, 
 see <ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/>. 
-Management of these (very large!) datasets is not yet included in rdwd.
-If you want it to be supported, send me a message to boost it up my priority list.
+Raster and binary reading functions are included since `rdwd 1.1.0` (March 2019), although the latter doesn't read the radolan binary files completely correct yet, see [Development notes](https://github.com/brry/rdwd/blob/master/localtests/developmentNotes.R#L82).
 
 For further details, please consult the 
 [DWD FTP server documentation](ftp://ftp-cdc.dwd.de/pub/CDC/Readme_intro_CDC_ftp.pdf)
@@ -44,7 +43,7 @@ To use the observation datasets, `rdwd` has been designed to mainly do 3 things:
 * [`selectDWD`](../help/selectDWD): facilitate file selection, e.g. for certain station names (with [`findID`](../help/findID)), 
 by geographical location (see [map](mapDWD) and [`nearbyStations`](../help/nearbyStations)), by temporal resolution (**res** = 1/10 minutes, hourly, daily, monthly, annual), 
 variables (**var** = temperature, rain, wind, sun, clouds, etc) or
-observation period (**pre** = historical long term records or the current year)
+observation period (**per** = historical long term records or the current year)
 
 * [`dataDWD`](../help/dataDWD): download a file (or multiple files, without getting banned by the FTP-server)
 
@@ -81,7 +80,7 @@ If you can't update R, try installing from source (github) via `instGit` as ment
 If that's not possible either, you might be able to `source` some functions from the 
 [package zip folder](https://github.com/brry/rdwd/archive/master.zip)
 ```R
-Vectorize(source)(dir("path/you_unzipped_to/rdwd-master/R", full=T))
+Vectorize(source)(dir("path_you_unzipped_to/rdwd-master/R", full=T))
 ```
 
 [TOC](#top)
@@ -93,7 +92,6 @@ Vectorize(source)(dir("path/you_unzipped_to/rdwd-master/R", full=T))
 library(rdwd)
 link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
 file <- dataDWD(link, read=FALSE, dir="DWDdata", quiet=TRUE)
-# tempdir is only for CRAN vignette checks. In real life, use a real folder.
 clim <- readDWD(file)
 
 str(clim)
@@ -106,7 +104,7 @@ str(clim)
 Recent temperature time series:
 ```{r plot, eval=TRUE, fig.height=3, fig.width=7}
 par(mar=c(4,4,2,0.5), mgp=c(2.7, 0.8, 0), cex=0.8)
-plot(clim[,c(2,4)], type="l", xaxt="n", las=1, main="Daily temp Potsdam")
+plot(clim[,c(2,14)], type="l", xaxt="n", las=1, main="Daily temp Potsdam")
 berryFunctions::monthAxis(ym=TRUE)   ;   abline(h=0)
 mtext("Source: Deutscher Wetterdienst", adj=-0.1, line=0.5, font=3)
 ```
@@ -119,11 +117,7 @@ clim <- dataDWD(link, quiet=TRUE)
 clim$month <- substr(clim$MESS_DATUM_BEGINN,5,6)
 temp <- tapply(clim$MO_TT, clim$month, mean, na.rm=TRUE)
 prec <- tapply(clim$MO_RR, clim$month, mean, na.rm=TRUE)
-library(berryFunctions)
-headtail(clim[!is.na(clim$MO_TT)&!is.na(clim$MO_RR),])
-# as of 2018-03, there are mostly NAs in MO_RR in many stations.
-# A message has been sent to DWD.
-climateGraph(temp, prec, main="Goettingen 1857:1946")
+berryFunctions::climateGraph(temp, prec, main="Goettingen")
 mtext("Source: Deutscher Wetterdienst", adj=-0.05, line=2.8, font=3)
 ```
 
@@ -165,20 +159,21 @@ links <- selectDWD(res="monthly", var="more_precip", per="hist", current=TRUE)
 ```
 
 [`fileIndex`](../help/fileIndex) is created with the function [`indexFTP`](../help/indexFTP) used in the last section of 
-[rdwd-package.R](https://github.com/brry/rdwd/blob/master/R/rdwd-package.R#L208).
+[rdwd-package.R](https://github.com/brry/rdwd/blob/master/R/rdwd-package.R#L241).
 
 ```{r listfiles, eval=FALSE}
+### This chunk is not evaluated ###
 # recursively list files on the FTP-server:
 files <- indexFTP("hourly/sun") # use dir="some_path" to save the output elsewhere
 berryFunctions::headtail(files, 5, na=TRUE)
 
-# indexFTP uses a folder for resumed indexing after getting banned:
+# indexFTP uses a folder to resume indexing after getting banned:
 gridindex <- indexFTP("radolan","ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/hourly")
 gridindex <- indexFTP(gridindex,"ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/hourly", sleep=1)
 
 # with other FTP servers, this should also work...
 funet <- indexFTP(base="ftp.funet.fi/pub/standards/w3/TR/xhtml11/", folder="")
-p <- RCurl::getURL("ftp.funet.fi/pub/standards/w3/TR/xhtml11/",
+p <- RCurl::getURL(    "ftp.funet.fi/pub/standards/w3/TR/xhtml11/",
                        verbose=T, ftp.use.epsv=TRUE, dirlistonly=TRUE)
 ```
 
@@ -193,13 +188,13 @@ p <- RCurl::getURL("ftp.funet.fi/pub/standards/w3/TR/xhtml11/",
 # inputs can be vectorized, and period can be abbreviated:
 selectDWD(c("Potsdam","Wuerzburg"), res="hourly", var="sun", per="hist")
 ```
-If res/var/per are left NA, an interactive selection is opened with the available 
-options for the given station.
 
 ```{r select2, eval=TRUE, echo=FALSE}
 lapply(selectDWD(c("Potsdam","Wuerzburg"), res="hourly", var="sun", per="hist"), 
        function(x) gsub("ical/", "ical/ ", x))
 ```
+If res/var/per are left NA, an interactive selection is opened with the available 
+options for the given station.
 
 ```{r select3, eval=FALSE, echo=TRUE}
 # Time period can be doubled to get both filenames:
@@ -207,14 +202,14 @@ selectDWD("Potsdam", res="daily", var="kl", per="rh")
 ```
 
 ```{r select4, eval=TRUE, echo=FALSE}
-gsub("/tages", "/ tages", selectDWD("Potsdam", res="daily", var="kl", per="rh"))
+gsub("/daily", "/ daily", selectDWD("Potsdam", res="daily", var="kl", per="rh"))
 ```
 
 There may be a differing number of available files for several stations across all folders.
 That's why the default outvec is FALSE (unless `per="hr"`).
 
-```{r select5, eval=TRUE}
-lapply(selectDWD(id=c(3467,5116), "","",""), substr, 58, 1e4)
+```{r select5, eval=TRUE, warning=FALSE}
+lapply(selectDWD(id=c(3467,5116), res="",var="",per=""), substr, 58, 1e4)
 ```
 
 [TOC](#top)
