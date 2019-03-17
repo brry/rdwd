@@ -3,17 +3,16 @@ library(rdwd)
 
 # reusable data location without version control
 # to avoid multiple downloads of the same file
-datadir <- berryFunctions::packagePath()
-datadir <- paste0(datadir, "/localtests/CreateVignettes/DWDdata")
+datadir <- paste0(berryFunctions::packagePath(), "/localtests/CreateVignettes/DWDdata")
 
 
 # dataDWD ----------------------------------------------------------------------
 
 message("dataDWD, readDWD")
-link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
 
-file <- dataDWD(link, read=FALSE, dir=datadir, quiet=TRUE)
 test_that("dataDWD works", {
+link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
+file <- dataDWD(link, read=FALSE, dir=datadir, quiet=TRUE)
 expect_equal(basename(file), "daily_kl_recent_tageswerte_KL_03987_akt.zip")
 links <- selectDWD(id=c(5302,5711,6295),res="daily",var="more_precip",per="h")
 expect_error(dataDWD(links, dir=datadir), "file must be a vector, not a list")
@@ -22,12 +21,62 @@ expect_error(dataDWD(links, dir=datadir), "file must be a vector, not a list")
 
 # readDWD ----------------------------------------------------------------------
 
+# . readDWD.data ----
+test_that("readDWD.data works for regular data", {
+link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
+file <- dataDWD(link, read=FALSE, dir=datadir, quiet=TRUE)
 clim <- readDWD(file)
 supposedcolnames <- c("STATIONS_ID", "MESS_DATUM", "QN_3", "FX", "FM", "QN_4", 
                       "RSK", "RSKF", "SDK", "SHK_TAG", "NM", "VPM", "PM", "TMK", 
                       "UPM", "TXK", "TNK", "TGK", "eor")
-test_that("readDWD works", {
 expect_equal(colnames(clim), supposedcolnames)
+})
+
+# . readDWD.meta ----
+test_that("readDWD.meta works for Beschreibung data", {
+link <- selectDWD(res="daily", var="kl", per="r", meta=TRUE)
+if(length(link)!=1) stop("length of link should be 1, but is ", length(link), 
+                         ":\n", berryFunctions::truncMessage(link,prefix="",sep="\n"))
+meta <- dataDWD(link, dir=datadir)
+cnm <- colnames(meta)
+if(length(cnm)!=8) stop("number of columns should be 8, but is ", length(cnm),
+                        ":\n", toString(cnm))
+})
+
+
+# . readDWD.binary ----
+test_that("readDWD.binary works for radolan grid data", {
+gridbase <- "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany"
+radfile <- "/daily/radolan/historical/2017/SF201712.tar.gz"
+# 204 MB, takes a minute to download:
+localfile <- dataDWD(file=paste0(gridbase, radfile), base=gridbase, 
+                     dir=datadir, read=FALSE)
+rad <- readDWD(localfile, selection=1:10) # no need to read all 24*31=744 files
+if(length(rad)!=1) stop("length(rad) should be 1, but is ", length(rad))
+# ToDo: make sense of the values, read them correctly!
+warning("readDWD.binary does not yet read the binary files correctly.")
+raster::plot(raster::raster(matrix(rad[[1]], ncol=900, byrow=TRUE)))
+})
+
+
+# . readDWD.raster ----
+test_that("readDWD.raster works for raster data", {
+rasterbase <- "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/seasonal/air_temperature_mean"
+ftp.files <- indexFTP("/16_DJF", base=rasterbase, dir=tempdir())
+localfiles <- dataDWD(paste0(rasterbase,ftp.files[1:2]), base=rasterbase,
+                      dir=datadir, read=FALSE)
+rf <- readDWD(localfiles[1])
+raster::plot(rf) 
+expect_equal(raster::cellStats(rf, range), c(-8.2,4.4))
+})
+
+
+# . readDWD.multia ----
+test_that("readDWD.multia works for multi_annual data", {
+durl <- selectDWD(res="multi_annual", var="mean_81-10", per="")[9] # Temperature aggregates
+murl <- selectDWD(res="multi_annual", var="mean_81-10", per="", meta=TRUE)[11]
+ma_temp <- dataDWD(durl, dir=datadir)
+ma_meta <- dataDWD(murl, dir=datadir)
 })
 
 

@@ -27,10 +27,13 @@
 #' @param meta   Logical (vector): is the \code{file} a meta file (Beschreibung.txt)?
 #'               DEFAULT: TRUE for each file ending in ".txt"
 #' @param binary Logical (vector): is the \code{file} a binary file, like for the 
-#'               radolan grid files?
+#'               radolan grid files? The argument \code{selection} (DEFAULT: NULL)
+#'               can be used to read only a subset of the ~24*31=744 files
+#'               (called as \code{f[selection]}).
 #'               DEFAULT: TRUE for each file ending in ".tar.gz"
 #' @param raster Logical (vector): is the \code{file} a raster file, like for the 
-#'               seasonal grid files?
+#'               seasonal grid files? The argument \code{dividebyten} (DEFAULT: TRUE)
+#'               can be used the devide the values by ten.
 #'               DEFAULT: TRUE for each file ending in ".asc.gz"
 #' @param multia Logical (vector): is the \code{file} a multi_annual file?
 #'               Overrides meta, so set to FALSE manually if meta reading 
@@ -72,7 +75,7 @@ progbar=TRUE,
 {
 # recycle meta, format and tz
 len <- length(file)
-if(missing(progbar) & len==1) progbar <- FALSE
+if(missing(progbar) & len==1 & all(!binary)) progbar <- FALSE
 if(anyNA(fread)) fread[is.na(fread)] <- requireNamespace("data.table",quietly=TRUE)
 if(len>1)
   {
@@ -112,7 +115,7 @@ output <- lapply(seq_along(file), function(i)
 f <- file[i]
 # if meta/binary/raster:
 if(meta[i])   return(readDWD.meta(f, ...))
-if(binary[i]) return(readDWD.binary(f, ...))
+if(binary[i]) return(readDWD.binary(f, ..., progbar=progbar))
 if(raster[i]) return(readDWD.raster(f, ...))
 if(multia[i]) return(readDWD.multia(f, ...))
 # if data:
@@ -222,7 +225,7 @@ stats
 
 
 
-readDWD.binary <- function(file, ...)
+readDWD.binary <- function(file, progbar=TRUE, selection=NULL, ...)
 {
 # temporary unzipping directory
 fn <- tools::file_path_sans_ext(basename(file))
@@ -232,7 +235,9 @@ on.exit(unlink(exdir, recursive=TRUE), add=TRUE)
 
 # hourly files;
 f <- dir(exdir, full.names=TRUE) # 31*24 = 744 files  (daily/hist/2017-12)
+if(!is.null(selection)) f <- f[selection]
 # binary file header:   substr(readLines(f[1], n=1, warn=FALSE), 1, 270)
+if(progbar) lapply <- pbapply::pblapply
 # Read the actual binary file:
 rb <- lapply(f, readBin, what="int", size=2, n=900*900, endian="little", ...)
 # list element names (time stamp):
@@ -246,7 +251,7 @@ return(invisible(rb))
 
 
 
-readDWD.raster <- function(file, ...)
+readDWD.raster <- function(file, dividebyten=TRUE, ...)
 {
 if(!requireNamespace("R.utils", quietly=TRUE))
   stop("To use rdwd:::readDWD.raster, please first install R.utils:",
@@ -257,6 +262,7 @@ if(!requireNamespace("raster", quietly=TRUE))
 #https://stackoverflow.com/questions/5227444/recursively-ftp-download-then-extract-gz-files
 rdata <- R.utils::gunzip(file)
 r <- raster::raster(rdata, ...)
+if(dividebyten) r <- r/10
 return(invisible(r))
 }
 

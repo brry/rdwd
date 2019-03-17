@@ -18,11 +18,14 @@ e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip" or
 DEFAULT: TRUE for each file ending in ".txt"}
 
 \item{binary}{Logical (vector): is the \code{file} a binary file, like for the 
-radolan grid files?
+radolan grid files? The argument \code{selection} (DEFAULT: NULL)
+can be used to read only a subset of the ~24*31=744 files
+(called as \code{f[selection]}).
 DEFAULT: TRUE for each file ending in ".tar.gz"}
 
 \item{raster}{Logical (vector): is the \code{file} a raster file, like for the 
-seasonal grid files?
+seasonal grid files? The argument \code{dividebyten} (DEFAULT: TRUE)
+can be used the devide the values by ten.
 DEFAULT: TRUE for each file ending in ".asc.gz"}
 
 \item{multia}{Logical (vector): is the \code{file} a multi_annual file?
