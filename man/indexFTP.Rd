@@ -14,11 +14,11 @@ indexFTP(folder = "currentfindex", base = dwdbase,
 Use \code{folder=""} to search at the location of \code{base} itself.
 If code{folder} is "currentfindex" (the default) and \code{base} 
 is the default, code{folder} is changed to all folders in current 
-\code{\link{fileIndex}}: \code{unique(dirname(fileIndex$path))}. 
-DEFAULT: "currentfindex"}
+\code{\link{fileIndex}}: \code{unique(dirname(fileIndex$path))}.
+Leading slashes will be removed. DEFAULT: "currentfindex"}
 
 \item{base}{Main directory of FTP server, defaulting to DWD observed climatic records.
-DEFAULT: \code{\link{dwdbase}}:
+Trailing slashes will be removed. DEFAULT: \code{\link{dwdbase}}:
 \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}}
 
 \item{is.file.if.has.dot}{Logical: if some of the input paths contain a dot, 
