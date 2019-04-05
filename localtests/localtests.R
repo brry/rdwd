@@ -3,6 +3,7 @@ library(rdwd)
 
 # reusable data location without version control
 # to avoid multiple downloads of the same file
+# datadir ----
 datadir <- paste0(berryFunctions::packagePath(), "/localtests/CreateVignettes/DWDdata")
 begintime <- Sys.time()
 
