@@ -3,13 +3,17 @@
 \docType{data}
 \name{parameter_abbreviations}
 \alias{parameter_abbreviations}
-\title{Parameter abbreviations for data on the DWD CDC FTP server}
+\title{DWD parameter abbreviations}
 \format{An object of class \code{data.frame} with 118 rows and 2 columns.}
 \usage{
 parameter_abbreviations
 }
 \description{
-Parameter abbreviations for data on the DWD CDC FTP server
+Short German parameter explanations for the DWD abbreviations on the CDC FTP server.
+These are manually created by me and might need to be expanded if the DWD adds
+more abbreviations.\cr
+\code{\link{readVars}} maps them to the variables in any
+given zip folder and will warn about missing entries.
 }
 \examples{
 head(parameter_abbreviations)

@@ -2,6 +2,7 @@
 #' 
 #' Read climate data that was downloaded with \code{\link{dataDWD}}.
 #' The file is read, processed and returned as a data.frame.\cr
+#' New users are advised to set varnames=TRUE.\cr
 #' \code{file} can be a vector with several filenames. The arguments \code{meta}
 #' and \code{format} can also be a vector and will be recycled to the length of \code{file}.\cr
 #' If \code{meta=TRUE}, column widths for \code{\link{read.fwf}} are computed internally.
@@ -42,7 +43,13 @@
 #' @param fread  Logical: read faster with \code{data.table::\link[data.table]{fread}}?
 #'               For 30 daily/kl/hist files, 7 instead of 10 seconds.
 #'               NA can also be used, which means TRUE if data.table is available.
+#'               Keep \code{varnames=FALSE} for the speed gain!
 #'               DEFAULT: FALSE
+#' @param varnames Logical (vector): add a short description to the DWD variable 
+#'               abbreviations in the column names?
+#'               E.g. change \code{FX,TNK} to \code{FX.Windspitze,TNK.Lufttemperatur_Min},
+#'               see \code{link{newColumnNames}}.
+#'               DEFAULT: FALSE (for backwards compatibility) 
 #' @param format Char (vector), only used if \code{meta=FALSE}: Format passed to
 #'               \code{\link{as.POSIXct}} (see \code{\link{strptime}})
 #'               to convert the date/time column to POSIX time format.\cr
@@ -67,6 +74,7 @@ binary=grepl('.tar.gz$', file),
 raster=grepl('.asc.gz$', file),
 multia=grepl('Standort.txt$', file),
 fread=FALSE,
+varnames=FALSE,
 format=NA,
 tz="GMT",
 progbar=TRUE,
@@ -84,6 +92,7 @@ if(len>1)
   raster <- rep(raster, length.out=len)
   multia <- rep(multia, length.out=len)
   fread  <- rep(fread,  length.out=len)
+  varnames<-rep(varnames,length.out=len)
   format <- rep(format, length.out=len)
   tz     <- rep(tz,     length.out=len)
   }
@@ -119,7 +128,7 @@ if(binary[i]) return(readDWD.binary(f, ..., progbar=progbar))
 if(raster[i]) return(readDWD.raster(f, ...))
 if(multia[i]) return(readDWD.multia(f, ...))
 # if data:
-dat <- readDWD.data(f, fread=fread[i], ...)
+dat <- readDWD.data(f, fread=fread[i], varnames=varnames[i], ...)
 # process time-stamp: http://stackoverflow.com/a/13022441
 if(!is.null(format[i]))
   {
@@ -151,7 +160,7 @@ return(invisible(output))
 # Base code for data and meta files ----
 
 
-readDWD.data <- function(file, fread=FALSE, ...)
+readDWD.data <- function(file, fread=FALSE, varnames, ...)
 {
 if(fread)
   {
@@ -160,6 +169,7 @@ if(fread)
   fp <- fp$Name[grepl("produkt",fp$Name)]
   dat <- data.table::fread(cmd=paste("unzip -p", file, fp), na.strings=na9(nspace=0),
                            header=TRUE, sep=";", stringsAsFactors=TRUE, data.table=FALSE, ...)
+  if(varnames) dat <- newColumnNames(dat, readVars(file))
   return(dat)
   }
 
@@ -173,6 +183,14 @@ f <- dir(exdir, pattern="produkt*", full.names=TRUE)
 if(length(f)!=1) stop("There should be a single 'produkt*' file, but there are ",
                       length(f), " in\n  ", file, "\n  Consider re-downloading (with force=TRUE).")
 dat <- read.table(f, na.strings=na9(), header=TRUE, sep=";", as.is=FALSE, ...)
+if(varnames) 
+  {
+  vars <- dir(exdir, pattern="Metadaten_Parameter.*txt", full.names=TRUE)
+  if(length(vars)!=1) warning("No Metadaten_Parameter.*txt file available in\n",
+                              file)
+  vars <- readVars.internal(vars, fn) # much quicker if already unzipped!
+  dat <- newColumnNames(dat, vars)
+  }
 return(dat)
 }
 

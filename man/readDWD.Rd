@@ -6,8 +6,8 @@
 \usage{
 readDWD(file, meta = grepl(".txt$", file), binary = grepl(".tar.gz$",
   file), raster = grepl(".asc.gz$", file),
-  multia = grepl("Standort.txt$", file), fread = FALSE, format = NA,
-  tz = "GMT", progbar = TRUE, ...)
+  multia = grepl("Standort.txt$", file), fread = FALSE,
+  varnames = FALSE, format = NA, tz = "GMT", progbar = TRUE, ...)
 }
 \arguments{
 \item{file}{Char (vector): name(s) of the file(s) downloaded with \code{\link{dataDWD}},
@@ -36,7 +36,14 @@ DEFAULT: TRUE for each file ending in "Standort.txt"}
 \item{fread}{Logical: read faster with \code{data.table::\link[data.table]{fread}}?
 For 30 daily/kl/hist files, 7 instead of 10 seconds.
 NA can also be used, which means TRUE if data.table is available.
+Keep \code{varnames=FALSE} for the speed gain!
 DEFAULT: FALSE}
+
+\item{varnames}{Logical (vector): add a short description to the DWD variable 
+abbreviations in the column names?
+E.g. change \code{FX,TNK} to \code{FX.Windspitze,TNK.Lufttemperatur_Min},
+see \code{link{newColumnNames}}.
+DEFAULT: FALSE (for backwards compatibility)}
 
 \item{format}{Char (vector), only used if \code{meta=FALSE}: Format passed to
 \code{\link{as.POSIXct}} (see \code{\link{strptime}})
@@ -65,6 +72,7 @@ Invisible data.frame of the desired dataset,
 \description{
 Read climate data that was downloaded with \code{\link{dataDWD}}.
 The file is read, processed and returned as a data.frame.\cr
+New users are advised to set varnames=TRUE.\cr
 \code{file} can be a vector with several filenames. The arguments \code{meta}
 and \code{format} can also be a vector and will be recycled to the length of \code{file}.\cr
 If \code{meta=TRUE}, column widths for \code{\link{read.fwf}} are computed internally.

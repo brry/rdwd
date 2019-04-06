@@ -32,7 +32,7 @@ link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
 file <- dataDWD(link, read=FALSE)
 
 # Read the file from the zip folder:
-clim <- readDWD(file)
+clim <- readDWD(file, varnames=TRUE)
 
 # Inspect the data.frame:
 str(clim)

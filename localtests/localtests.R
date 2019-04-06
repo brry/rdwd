@@ -1,9 +1,9 @@
+# datadir ----
 library(testthat)
 library(rdwd)
 
 # reusable data location without version control
 # to avoid multiple downloads of the same file
-# datadir ----
 datadir <- paste0(berryFunctions::packagePath(), "/localtests/CreateVignettes/DWDdata")
 begintime <- Sys.time()
 
@@ -34,6 +34,11 @@ supposedcolnames <- c("STATIONS_ID", "MESS_DATUM", "QN_3", "FX", "FM", "QN_4",
 expect_equal(colnames(clim), supposedcolnames)
 climf <- readDWD(file, fread=TRUE)
 expect_equal(clim, climf)
+#
+clim_vn  <- readDWD(file, varnames=TRUE)
+clim_vnf <- readDWD(file, varnames=TRUE, fread=TRUE)
+expect_equivalent(clim, clim_vn)
+expect_equal(clim_vn, clim_vnf)
 })
 
 # . readDWD.meta ----

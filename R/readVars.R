@@ -38,7 +38,6 @@ checkFile(file)
 output <- lapply(seq_along(file), function(i)
 {
 f <- file[i]
-
 # temporary unzipping directory
 fn <- tools::file_path_sans_ext(basename(f))
 exdir <- paste0(tempdir(),"/", fn)
@@ -46,39 +45,10 @@ unzip(f, exdir=exdir)
 on.exit(unlink(exdir, recursive=TRUE), add=TRUE)
 f <- dir(exdir, pattern="Metadaten_Parameter.*txt", full.names=TRUE)
 if(length(f)!=1) return(length(f))
-
-nr <- readLines(f) # number of rows
-nr <- sum(!substr(nr, 1, 7) %in% c("Legende", "generie"))
-tab <- read.table(f, na.strings=na9(), sep=";", header=TRUE, nrows=nr-1, 
-                  stringsAsFactors=FALSE)
-
-tab <- tab[,c("Parameter", "Parameterbeschreibung", "Einheit")]
-tab <- unique(tab)
-
-dupli <- duplicated(tab$Parameter)
-if(any(dupli)) warning(traceCall(3, "", ": "), "The following entries are",
-                       " duplicated: ", toString(unique(tab$Parameter[dupli])),
-                       "\nThis occurs in '", fn, "/Metadaten_Parameter*.txt'",
-                       call.=FALSE)
-rownames(tab) <- NULL
-
-# Merge with short variable descriptions:
-tab2 <- merge(parameter_abbreviations, tab, all.y=TRUE)
-kurzna <- is.na(tab2$Kurz)
-if(any(kurzna)) warning(traceCall(3, "", ": "), "The following entries are not",
-                        " abbreviated yet: ", toString(tab2$Parameter[kurzna]),
-                        "\nThis occurs in '", fn, "/Metadaten_Parameter*.txt'.",
-                        "\nPlease inform berry-b@gmx.de so this can be included!\n",
-                        call.=FALSE)
-
-colnames(tab2)[1] <- "Par"
-rownames(tab2) <- tab2$Par
-
-# return column metadata:
-return(tab2)
+return(readVars.internal(f, fn)) # needed also in readDWD.data with varnames=TRUE
 # lapply loop end
 })
-
+#
 # Warn about zip folders with no meta file:
 nometa <- sapply(output, class)=="integer"
 if(any(nometa)) 
@@ -88,14 +58,12 @@ if(any(nometa))
  mexp <- c("\nThis is expected since 1 and 10 minute data do not have ",
            "meta-information in most of the zip folders (as of 2019-02).\n")
  mnexp <- "\nPlease contact berry-b@gmx.de with with a copy of this warning.\n"
- 
  warning(traceCall(1, "", ": "), "The number of determined ",
          "'Metadaten_Parameter*.txt' files should be 1, but is instead:\n", 
          paste(msg[ exp],collapse="\n"), if(any( exp)) mexp, 
          paste(msg[!exp],collapse="\n"), if(any(!exp)) mnexp,
          call.=FALSE)
  }
-
 #
 names(output) <- tools::file_path_sans_ext(basename(file))
 output <- if(length(file)==1) output[[1]] else output
@@ -105,9 +73,52 @@ return(output)
 
 
 
+readVars.internal <- function(
+f, # unzipped "Metadaten_Parameter.*txt" filename
+fn # zip file basename (for warnings)
+)
+{
+nr <- readLines(f) # number of rows
+nr <- sum(!substr(nr, 1, 7) %in% c("Legende", "generie"))
+tab <- read.table(f, na.strings=na9(), sep=";", header=TRUE, nrows=nr-1, 
+                  stringsAsFactors=FALSE)
+#
+tab <- tab[,c("Parameter", "Parameterbeschreibung", "Einheit")]
+tab <- unique(tab)
+#
+dupli <- duplicated(tab$Parameter)
+if(any(dupli)) warning(traceCall(3, "", ": "), "The following entries are",
+                       " duplicated: ", toString(unique(tab$Parameter[dupli])),
+                       "\nThis occurs in '", fn, "/Metadaten_Parameter*.txt'",
+                       call.=FALSE)
+rownames(tab) <- NULL
+#
+# Merge with short variable descriptions:
+tab2 <- merge(parameter_abbreviations, tab, all.y=TRUE)
+kurzna <- is.na(tab2$Kurz)
+if(any(kurzna)) warning(traceCall(3, "", ": "), "The following entries are not",
+                        " abbreviated yet: ", toString(tab2$Parameter[kurzna]),
+                        "\nThis occurs in '", fn, "/Metadaten_Parameter*.txt'.",
+                        "\nPlease inform berry-b@gmx.de so this can be included!\n",
+                        call.=FALSE)
+#
+colnames(tab2)[1] <- "Par"
+rownames(tab2) <- tab2$Par
+# return column metadata:
+return(tab2)
+}
+
+
+
+
 # parameter_abbreviations ---------------------------------------------------------------------
 
-#' Parameter abbreviations for data on the DWD CDC FTP server
+#' @title DWD parameter abbreviations
+#' @description Short German parameter explanations for the DWD abbreviations on the CDC FTP server.
+#' These are manually created by me and might need to be expanded if the DWD adds
+#' more abbreviations.\cr
+#' \code{\link{readVars}} maps them to the variables in any
+#' given zip folder and will warn about missing entries.
 #' 
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jun 2018
 #' @seealso \code{\link{readVars}}, \code{\link{readDWD}}
