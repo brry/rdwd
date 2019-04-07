@@ -18,6 +18,8 @@ file <- dataDWD(link, read=FALSE, dir=datadir, quiet=TRUE)
 expect_equal(basename(file), "daily_kl_recent_tageswerte_KL_03987_akt.zip")
 links <- selectDWD(id=c(5302,5711,6295),res="daily",var="more_precip",per="h")
 expect_error(dataDWD(links, dir=datadir), "file must be a vector, not a list")
+expect_warning(dataDWD("multi/mean/Temp.txt", quiet=TRUE), 
+               "dataDWD needs urls starting with 'ftp://'.")
 })
 
 
