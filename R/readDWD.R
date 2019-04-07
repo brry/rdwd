@@ -133,6 +133,8 @@ if(!grepl(pattern="german", lct, ignore.case=TRUE))
   }
 }
 #
+if(progbar) message("Reading ", length(file), " file", if(length(file)>1)"s", "...")
+#
 # loop over each filename
 output <- lapply(seq_along(file), function(i)
 {
