@@ -1,7 +1,9 @@
 #' Process data from the DWD CDC FTP Server
 #' 
-#' Read climate variables (column meta data) from files downloaded with \code{\link{dataDWD}}.
-#' The metadata file is read, processed and returned as a data.frame.\cr
+#' Read climate variables (column meta data) from zip folders downloaded with 
+#' \code{\link{dataDWD}}.
+#' The metadata file \code{"Metadaten_Parameter.*txt"} in the zip folder \code{file} 
+#' is read, processed and returned as a data.frame.\cr
 #' \code{file} can be a vector with several filenames. 
 #' 
 #' @return data.frame of the desired dataset, 
@@ -10,7 +12,7 @@
 #' @seealso \code{\link{dataDWD}}, \code{\link{readDWD}}, \code{\link{parameter_abbreviations}}
 #' @keywords file
 #' @importFrom utils read.table unzip
-#' @importFrom berryFunctions checkFile na9
+#' @importFrom berryFunctions checkFile na9 traceCall
 #' @importFrom pbapply pblapply
 #' @importFrom tools file_path_sans_ext
 #' @export
@@ -114,11 +116,13 @@ return(tab2)
 # parameter_abbreviations ---------------------------------------------------------------------
 
 #' @title DWD parameter abbreviations
-#' @description Short German parameter explanations for the DWD abbreviations on the CDC FTP server.
+#' @description Short German parameter explanations for the DWD abbreviations
+#' on the CDC FTP server.\cr
 #' These are manually created by me and might need to be expanded if the DWD adds
 #' more abbreviations.\cr
-#' \code{\link{readVars}} maps them to the variables in any
-#' given zip folder and will warn about missing entries.
+#' \code{\link{readVars}} maps them to the variable abbreviations in the
+#' \code{"Metadaten_Parameter.*txt"} file in any given zip folder
+#' and will warn about missing entries.
 #' 
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jun 2018
 #' @seealso \code{\link{readVars}}, \code{\link{readDWD}}

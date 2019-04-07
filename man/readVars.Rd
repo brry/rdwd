@@ -19,8 +19,10 @@ data.frame of the desired dataset,
         or a named list of data.frames if length(file) > 1.
 }
 \description{
-Read climate variables (column meta data) from files downloaded with \code{\link{dataDWD}}.
-The metadata file is read, processed and returned as a data.frame.\cr
+Read climate variables (column meta data) from zip folders downloaded with 
+\code{\link{dataDWD}}.
+The metadata file \code{"Metadaten_Parameter.*txt"} in the zip folder \code{file} 
+is read, processed and returned as a data.frame.\cr
 \code{file} can be a vector with several filenames.
 }
 \examples{

@@ -24,8 +24,8 @@
 #' @keywords file
 #' @importFrom stats runif
 #' @importFrom pbapply pblapply
-#' @importFrom utils write.table
-#' @importFrom berryFunctions removeSpace traceCall newFilename
+#' @importFrom utils write.table read.table
+#' @importFrom berryFunctions removeSpace traceCall newFilename truncMessage
 #' @export
 #' @examples
 #' \dontrun{ ## Needs internet connection

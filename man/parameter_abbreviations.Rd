@@ -9,11 +9,13 @@
 parameter_abbreviations
 }
 \description{
-Short German parameter explanations for the DWD abbreviations on the CDC FTP server.
+Short German parameter explanations for the DWD abbreviations
+on the CDC FTP server.\cr
 These are manually created by me and might need to be expanded if the DWD adds
 more abbreviations.\cr
-\code{\link{readVars}} maps them to the variables in any
-given zip folder and will warn about missing entries.
+\code{\link{readVars}} maps them to the variable abbreviations in the
+\code{"Metadaten_Parameter.*txt"} file in any given zip folder
+and will warn about missing entries.
 }
 \examples{
 head(parameter_abbreviations)

@@ -4,34 +4,16 @@
 \alias{readDWD}
 \title{Process data from the DWD CDC FTP Server}
 \usage{
-readDWD(file, meta = grepl(".txt$", file), binary = grepl(".tar.gz$",
-  file), raster = grepl(".asc.gz$", file),
-  multia = grepl("Standort.txt$", file), fread = FALSE,
-  varnames = FALSE, format = NA, tz = "GMT", progbar = TRUE, ...)
+readDWD(file, fread = FALSE, varnames = FALSE, format = NA,
+  tz = "GMT", progbar = TRUE, meta = grepl(".txt$", file),
+  binary = grepl(".tar.gz$", file), raster = grepl(".asc.gz$", file),
+  multia = grepl("Standort.txt$", file), ...)
 }
 \arguments{
-\item{file}{Char (vector): name(s) of the file(s) downloaded with \code{\link{dataDWD}},
+\item{file}{Char (vector): name(s) of the file(s) downloaded with 
+\code{\link{dataDWD}},
 e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip" or
 "~/DWDdata/RR_Stundenwerte_Beschreibung_Stationen.txt"}
-
-\item{meta}{Logical (vector): is the \code{file} a meta file (Beschreibung.txt)?
-DEFAULT: TRUE for each file ending in ".txt"}
-
-\item{binary}{Logical (vector): is the \code{file} a binary file, like for the 
-radolan grid files? The argument \code{selection} (DEFAULT: NULL)
-can be used to read only a subset of the ~24*31=744 files
-(called as \code{f[selection]}).
-DEFAULT: TRUE for each file ending in ".tar.gz"}
-
-\item{raster}{Logical (vector): is the \code{file} a raster file, like for the 
-seasonal grid files? The argument \code{dividebyten} (DEFAULT: TRUE)
-can be used the devide the values by ten.
-DEFAULT: TRUE for each file ending in ".asc.gz"}
-
-\item{multia}{Logical (vector): is the \code{file} a multi_annual file?
-Overrides meta, so set to FALSE manually if meta reading 
-needs to be called on a file ending with "Standort".
-DEFAULT: TRUE for each file ending in "Standort.txt"}
 
 \item{fread}{Logical: read faster with \code{data.table::\link[data.table]{fread}}?
 For 30 daily/kl/hist files, 7 instead of 10 seconds.
@@ -42,10 +24,10 @@ DEFAULT: FALSE}
 \item{varnames}{Logical (vector): add a short description to the DWD variable 
 abbreviations in the column names?
 E.g. change \code{FX,TNK} to \code{FX.Windspitze,TNK.Lufttemperatur_Min},
-see \code{link{newColumnNames}}.
+see \code{\link{newColumnNames}}.
 DEFAULT: FALSE (for backwards compatibility)}
 
-\item{format}{Char (vector), only used if \code{meta=FALSE}: Format passed to
+\item{format}{Char (vector): Format passed to
 \code{\link{as.POSIXct}} (see \code{\link{strptime}})
 to convert the date/time column to POSIX time format.\cr
 If NULL, no conversion is performed (date stays a factor).
@@ -60,10 +42,39 @@ Coordinated). DEFAULT: "GMT"}
 If missing and length(file)==1, progbar is internally set to FALSE.
 DEFAULT: TRUE}
 
+\item{meta}{Logical (vector): is the \code{file} a meta file (Beschreibung.txt)?
+Column widths for \code{\link{read.fwf}} are computed internally.
+if(any(meta)), \code{readDWD} tries to set the locale to German 
+(to handle Umlaute correctly). Names can later be changed to 
+ascii with \code{berryFunctions::\link{convertUmlaut}}.
+DEFAULT: TRUE for each file ending in ".txt"}
+
+\item{binary}{Logical (vector): is the \code{file} a binary file, like for the 
+radolan grid files? The argument \code{selection} (DEFAULT: NULL)
+can be used to read only a subset of the ~24*31=744 files
+(called as \code{f[selection]}).
+Note that, as of 2019-03, the results are not yet correct for
+the tested data (grids_germany/daily/radolan/historical).
+Hints are welcome!
+DEFAULT: TRUE for each file ending in ".tar.gz"}
+
+\item{raster}{Logical (vector): is the \code{file} a raster file, like for the 
+seasonal grid files? The argument \code{dividebyten} (DEFAULT: TRUE)
+can be used the devide the values by ten.
+DEFAULT: TRUE for each file ending in ".asc.gz"}
+
+\item{multia}{Logical (vector): is the \code{file} a multi_annual file?
+Overrides \code{meta}, so set to FALSE manually if meta reading 
+needs to be called on a file ending with "Standort.txt".
+DEFAULT: TRUE for each file ending in "Standort.txt"}
+
 \item{\dots}{Further arguments passed to the underlying reading function, i.e.
-\code{\link{read.table}}, \code{data.table::\link[data.table]{fread}},
-\code{\link{read.fwf}}, \code{\link{readBin}} or
-\code{raster::\link[raster]{raster}}}
+\code{\link{read.table}} or \code{data.table::\link[data.table]{fread}}
+for readDWD.data,
+\code{\link{read.fwf}} for readDWD.meta, 
+\code{\link{readBin}} for readDWD.binary,
+\code{raster::\link[raster]{raster}} for readDWD.raster,
+\code{\link{read.table}} for readDWD.multia}
 }
 \value{
 Invisible data.frame of the desired dataset, 
@@ -71,23 +82,25 @@ Invisible data.frame of the desired dataset,
 }
 \description{
 Read climate data that was downloaded with \code{\link{dataDWD}}.
-The file is read, processed and returned as a data.frame.\cr
-New users are advised to set varnames=TRUE.\cr
-\code{file} can be a vector with several filenames. The arguments \code{meta}
-and \code{format} can also be a vector and will be recycled to the length of \code{file}.\cr
-If \code{meta=TRUE}, column widths for \code{\link{read.fwf}} are computed internally.
-If needed, readDWD tries to set the locale to German (to handle Umlaute correctly).
-They can then be processed with \code{dd$Stations_id <- berryFunctions::convertUmlaut(dd$Stations_id)}.
+The data is unzipped and subsequently, the file is read, processed and
+returned as a data.frame.\cr
+New users are advised to set \code{varnames=TRUE} to obtain more informative
+column names.\cr
+\code{file} can be a vector with several filenames. Most other arguments can
+also be a vector and will be recycled to the length of \code{file}.\cr
+The arguments \code{fread,varnames,format,tz} are only used if 
+\code{meta,binary,raster,multia} are all \code{FALSE}.\cr
 }
 \examples{
 # see dataDWD
 
 }
 \seealso{
-\code{\link{dataDWD}}, \code{\link{readVars}}, \code{\link{readMeta}}, \code{\link{selectDWD}}
+\code{\link{dataDWD}}, \code{\link{readVars}}, 
+         \code{\link{readMeta}}, \code{\link{selectDWD}}
 }
 \author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Jul-Oct 2016
+Berry Boessenkool, \email{berry-b@gmx.de}, Jul-Oct 2016, Winter 2018/19
 }
 \keyword{chron}
 \keyword{file}
