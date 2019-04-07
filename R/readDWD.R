@@ -65,9 +65,10 @@
 #'               Hints are welcome!
 #'               DEFAULT: TRUE for each file ending in ".tar.gz"
 #' @param raster Logical (vector): is the \code{file} a raster file, like for the 
-#'               seasonal grid files? The argument \code{dividebyten} (DEFAULT: TRUE)
-#'               can be used the devide the values by ten.
+#'               seasonal grid files?
 #'               DEFAULT: TRUE for each file ending in ".asc.gz"
+#' @param dividebyten Logical (vector): Divide the values in raster files by ten? 
+#'               DEFAULT (based on grids_g/seas/air_mean/16_DJF): TRUE
 #' @param multia Logical (vector): is the \code{file} a multi_annual file?
 #'               Overrides \code{meta}, so set to FALSE manually if meta reading 
 #'               needs to be called on a file ending with "Standort.txt".
@@ -90,6 +91,7 @@ progbar=TRUE,
 meta=  grepl(        '.txt$', file),
 binary=grepl(     '.tar.gz$', file),
 raster=grepl(     '.asc.gz$', file),
+dividebyten=TRUE,
 multia=grepl('Standort.txt$', file),
 ...
 )
@@ -108,6 +110,7 @@ if(len>1)
   varnames<- rep(varnames,length.out=len)
   format  <- rep(format,  length.out=len)
   tz      <- rep(tz,      length.out=len)
+  dividebyten <- rep(dividebyten, length.out=len)
   }
 meta[multia] <- FALSE
 # Optional progress bar:
@@ -136,7 +139,7 @@ output <- lapply(seq_along(file), function(i)
 # if meta/binary/raster/multia:
 if(meta[i])   return(readDWD.meta(  file[i], ...))
 if(binary[i]) return(readDWD.binary(file[i], progbar=progbar, ...))
-if(raster[i]) return(readDWD.raster(file[i], ...))
+if(raster[i]) return(readDWD.raster(file[i], dividebyten=dividebyten[i], ...))
 if(multia[i]) return(readDWD.multia(file[i], ...))
 # if data:
 readDWD.data(file[i], fread=fread[i], varnames=varnames[i], 
@@ -281,7 +284,7 @@ return(invisible(rb))
 
 
 
-readDWD.raster <- function(file, dividebyten=TRUE, ...)
+readDWD.raster <- function(file, dividebyten, ...)
 {
 if(!requireNamespace("R.utils", quietly=TRUE))
   stop("To use rdwd:::readDWD.raster, please first install R.utils:",

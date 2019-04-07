@@ -46,7 +46,8 @@ test_that("readDWD.meta works for Beschreibung data", {
 link <- selectDWD(res="daily", var="kl", per="r", meta=TRUE)
 if(length(link)!=1) stop("length of link should be 1, but is ", length(link), 
                          ":\n", berryFunctions::truncMessage(link,prefix="",sep="\n"))
-meta <- dataDWD(link, dir=datadir)
+file <- dataDWD(link, dir=datadir, read=FALSE)
+meta <- readDWD(file)
 cnm <- colnames(meta)
 if(length(cnm)!=8) stop("number of columns should be 8, but is ", length(cnm),
                         ":\n", toString(cnm))
@@ -79,6 +80,9 @@ rf <- readDWD(localfiles[1])
 rf <- readDWD(localfiles[1]) # needs to be able to run a second time
 raster::plot(rf) 
 expect_equal(raster::cellStats(rf, range), c(-8.2,4.4))
+rf10 <- readDWD(localfiles[1], dividebyten=FALSE)
+raster::plot(rf10)
+expect_equal(raster::cellStats(rf10, range), c(-82,44))
 })
 
 
@@ -183,7 +187,7 @@ message("++ Testing index up to date?")
 
 # simply try all files for Potsdam (for 1_minute and 10_minutes only 1 each)
 test_that("index is up to date", {
-links <- selectDWD("Potsdam","","","")
+links <- selectDWD("Potsdam","","","") # does not include multi_annual data!
 toexclude <- grep("1_minute", links)
 toexclude <- toexclude[-(length(toexclude)-3)]
 toexclude <- c(toexclude, grep("10_minutes", links)[-1])

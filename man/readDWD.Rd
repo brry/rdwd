@@ -7,7 +7,7 @@
 readDWD(file, fread = FALSE, varnames = FALSE, format = NA,
   tz = "GMT", progbar = TRUE, meta = grepl(".txt$", file),
   binary = grepl(".tar.gz$", file), raster = grepl(".asc.gz$", file),
-  multia = grepl("Standort.txt$", file), ...)
+  dividebyten = TRUE, multia = grepl("Standort.txt$", file), ...)
 }
 \arguments{
 \item{file}{Char (vector): name(s) of the file(s) downloaded with 
@@ -59,9 +59,11 @@ Hints are welcome!
 DEFAULT: TRUE for each file ending in ".tar.gz"}
 
 \item{raster}{Logical (vector): is the \code{file} a raster file, like for the 
-seasonal grid files? The argument \code{dividebyten} (DEFAULT: TRUE)
-can be used the devide the values by ten.
+seasonal grid files?
 DEFAULT: TRUE for each file ending in ".asc.gz"}
+
+\item{dividebyten}{Logical (vector): Divide the values in raster files by ten? 
+DEFAULT (based on grids_g/seas/air_mean/16_DJF): TRUE}
 
 \item{multia}{Logical (vector): is the \code{file} a multi_annual file?
 Overrides \code{meta}, so set to FALSE manually if meta reading 
