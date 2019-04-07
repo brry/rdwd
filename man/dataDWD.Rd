@@ -77,9 +77,9 @@ fname <- dataDWD(link, dir=tempdir(), read=FALSE) ; fname
 # unless force=TRUE, already obtained files will not be downloaded again
 
 # read and plot file:
-wind <- readDWD(fname)          ; head(wind)
-metafiles <- readMeta(fname)    ; str(metafiles, max.level=1)
-column_names <- readVars(fname) ; head(column_names)
+wind <- readDWD(fname, varnames=TRUE) ; head(wind)
+metafiles <- readMeta(fname)          ; str(metafiles, max.level=1)
+column_names <- readVars(fname)       ; head(column_names)
 
 plot(wind$MESS_DATUM, wind$F, main="DWD hourly wind Fuerstenzell", col="blue",
      xaxt="n", las=1, type="l", xlab="Date", ylab="Hourly Wind speed  [m/s]")
