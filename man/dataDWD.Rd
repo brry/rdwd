@@ -6,8 +6,7 @@
 \usage{
 dataDWD(file, base = dwdbase, dir = "DWDdata", force = FALSE,
   overwrite = FALSE, sleep = 0, quiet = FALSE, progbar = !quiet,
-  browse = FALSE, read = TRUE, meta = grepl(".txt$", file),
-  fread = FALSE, format = NA, ntrunc = 2, dfargs = NULL, ...)
+  browse = FALSE, read = TRUE, ntrunc = 2, dfargs = NULL, ...)
 }
 \arguments{
 \item{file}{Char (vector): complete file URL(s) (including base and filename.zip) as returned by
@@ -45,21 +44,14 @@ DEFAULT: FALSE}
 \item{read}{Logical: read the file(s) with \code{\link{readDWD}}? If FALSE,
 only download is performed and the filename(s) returned. DEFAULT: TRUE}
 
-\item{meta}{Logical (vector): is the \code{file} a meta file? Passed to
-\code{\link{readDWD}}. DEFAULT: TRUE for each file ending in ".txt"}
-
-\item{fread}{Fast reading? See \code{\link{readDWD}}. DEFAULT: FALSE}
-
-\item{format}{Char (vector): format used in \code{\link{strptime}} to convert date/time column,
-see \code{\link{readDWD}}. DEFAULT: NA}
-
 \item{ntrunc}{Single integer: number of filenames printed in messages
 before they get truncated with message "(and xx more)". DEFAULT: 2}
 
 \item{dfargs}{Named list of additional arguments passed to \code{\link{download.file}}}
 
-\item{\dots}{Further arguments passed to \code{\link{readDWD}}. 
-Were passed to \code{\link{download.file}} prior to rdwd 0.11.7 (2019-02-25)}
+\item{\dots}{Further arguments passed to \code{\link{readDWD}}, 
+like fread, varnames etc. Dots were passed to 
+\code{\link{download.file}} prior to rdwd 0.11.7 (2019-02-25)}
 }
 \value{
 Presuming downloading and processing were successful:
