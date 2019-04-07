@@ -128,26 +128,8 @@ if(binary[i]) return(readDWD.binary(f, ..., progbar=progbar))
 if(raster[i]) return(readDWD.raster(f, ...))
 if(multia[i]) return(readDWD.multia(f, ...))
 # if data:
-dat <- readDWD.data(f, fread=fread[i], varnames=varnames[i], ...)
-# process time-stamp: http://stackoverflow.com/a/13022441
-if(!is.null(format[i]))
-  {
-  # for res=monthly data:
-  if("MESS_DATUM_BEGINN" %in% colnames(dat))
-    dat <- cbind(dat[,1, drop=FALSE], MESS_DATUM=dat$MESS_DATUM_BEGINN + 15, dat[,-1])
-  if(!"MESS_DATUM" %in% colnames(dat)) 
-    warning("There is no column 'MESS_DATUM' in ",f, call.=FALSE) else
-    {
-    nch <- nchar(as.character(dat$MESS_DATUM[1]))
-    if(is.na(format[i])) format <- if(nch==8) "%Y%m%d" else 
-                                  if(nch==13) "%Y%m%d%H:%M" else"%Y%m%d%H"
-    dat$MESS_DATUM <- as.POSIXct(as.character(dat$MESS_DATUM), format=format, tz=tz[i])
-    }
-  }
-# return dataset:
-return(dat)
-# lapply loop end
-})
+readDWD.data(f, fread=fread[i], varnames=varnames[i], format=format[i], tz=tz[i], ...)
+}) # lapply loop end
 #
 names(output) <- tools::file_path_sans_ext(basename(file))
 output <- if(length(file)==1) output[[1]] else output
@@ -157,10 +139,9 @@ return(invisible(output))
 
 
 
-# Base code for data and meta files ----
+# internal code for each file type ----
 
-
-readDWD.data <- function(file, fread=FALSE, varnames, ...)
+readDWD.data <- function(file, fread=FALSE, varnames, format, tz, ...)
 {
 if(fread)
   {
@@ -170,9 +151,8 @@ if(fread)
   dat <- data.table::fread(cmd=paste("unzip -p", file, fp), na.strings=na9(nspace=0),
                            header=TRUE, sep=";", stringsAsFactors=TRUE, data.table=FALSE, ...)
   if(varnames) dat <- newColumnNames(dat, readVars(file))
-  return(dat)
-  }
-
+  } else
+{
 # temporary unzipping directory
 fn <- tools::file_path_sans_ext(basename(file))
 exdir <- paste0(tempdir(),"/", fn)
@@ -191,6 +171,24 @@ if(varnames)
   vars <- readVars.internal(vars, fn) # much quicker if already unzipped!
   dat <- newColumnNames(dat, vars)
   }
+} # end if(!fread)
+#
+# process time-stamp: http://stackoverflow.com/a/13022441
+if(!is.null(format))
+  {
+  # for res=monthly data:
+  if("MESS_DATUM_BEGINN" %in% colnames(dat))
+    dat <- cbind(dat[,1, drop=FALSE], MESS_DATUM=dat$MESS_DATUM_BEGINN + 15, dat[,-1])
+  if(!"MESS_DATUM" %in% colnames(dat)) 
+    warning("There is no column 'MESS_DATUM' in ",file, call.=FALSE) else
+    {
+    nch <- nchar(as.character(dat$MESS_DATUM[1]))
+    if(is.na(format)) format <- if(nch== 8) "%Y%m%d" else 
+                                if(nch==13) "%Y%m%d%H:%M" else"%Y%m%d%H"
+    dat$MESS_DATUM <- as.POSIXct(as.character(dat$MESS_DATUM), format=format, tz=tz)
+    }
+  }
+# final output:
 return(dat)
 }
 
