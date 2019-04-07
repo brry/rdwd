@@ -8,7 +8,9 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-[rdwd main vignette](rdwd.html)
+[Vignette Rmd source code](https://github.com/brry/rdwd/blob/master/localtests/CreateVignettes/mapDWD.Rmd)  
+[rdwd main vignette](rdwd.html)  
+[use cases vignette](cases.html)
 
 The `rdwd` package provides a collection of all the metafiles on the 
 [DWD data server](ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate).
@@ -45,5 +47,5 @@ leaflet(data=geoIndex[geoIndex$recentfile,]) %>% addTiles() %>%
 To request the nonpublic datasets counted in the infobox, please contact <klima.vertrieb@dwd.de>.
 (The DWD cannot publish all datasets because of copyright restrictions).
 
-Note: `geoIndex` is created in the last section of 
+Note: [`geoIndex`](../help/geoIndex) is created in the last section of 
 [rdwd-package.R](https://github.com/brry/rdwd/blob/master/R/rdwd-package.R#L241).

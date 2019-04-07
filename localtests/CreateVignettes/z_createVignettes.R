@@ -59,3 +59,5 @@ if(install_with_buildvignettes) devtools::install(build_vignettes = TRUE)
 
 message("Vignette creation finished!  Total run time: ", 
         round(difftime(Sys.time(), begintime, units="min"),1), " minutes")
+
+.rs.restartR()

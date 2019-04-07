@@ -13,12 +13,23 @@ editor_options:
   chunk_output_type: console
 ---
 
-[Vignette Rmd source code](https://raw.githubusercontent.com/brry/rdwd/master/localtests/CreateVignettes/cases.Rmd)
-(Not on CRAN to reduce load on DWD server through daily new builds and checks of the vignette)
-
-[main rdwd vignette](rdwd.html)
-
+[Vignette Rmd source code](https://github.com/brry/rdwd/blob/master/localtests/CreateVignettes/cases.Rmd)  
+[main rdwd vignette](rdwd.html)  
 [Interactive map vignette](mapDWD.html)
+
+
+## Rainfall intensity depends on temperature
+
+Clausius-Clapeyron scaling holds even for very high temperatures, 
+we just don't have enough data yet to have observed the expected extreme rainfall intensities.
+
+Code (with a much older version of `rdwd`, might not run out of the box any more):
+<https://github.com/brry/prectemp/blob/master/Code_analysis.R>  
+Publication:
+<http://www.nat-hazards-earth-syst-sci-discuss.net/nhess-2016-183>
+
+
+[TOC](#top)
 
 
 ## Get all hourly rainfall data 2014:2016
@@ -167,7 +178,7 @@ leaflet(m) %>% addTiles() %>%
 
 Download and process data for the stations, get the rainfall sums of a particular day (Braunsbach flood May 2016):
 ```{r rainregion_download_data, message=FALSE}
-prec <- dataDWD(m$url)
+prec <- dataDWD(m$url, fread=TRUE)
 names(prec) <- m$Stations_id[-1]
 prec29 <- sapply(prec[m$res[-1]=="daily"], function(x)
          {
@@ -193,15 +204,15 @@ textField(prec29$geoLaenge, prec29$geoBreite, prec29$precsum, col=2)
 
 But it's nicer to have an actual map.
 If OSMscale installation fails, go to <https://github.com/brry/OSMscale#installation>
-```{r rainregion_static_map, message=FALSE}
+```{r rainregion_static_map, message=FALSE, fig.height=4.1, fig.width=4}
 library(OSMscale)
 map <- pointsMap(geoBreite,geoLaenge, data=m, type="osm", plot=FALSE)
 pp <- projectPoints("geoBreite", "geoLaenge", data=prec29, to=map$tiles[[1]]$projection)
 prec29 <- cbind(prec29,pp) ; rm(pp)
-plot(map)
+pointsMap(geoBreite,geoLaenge, data=m, map=map, scale=FALSE)
 scaleBar(map, cex=1.5, type="line", y=0.82)
-title(main="Rainfall sum  2016-05-29  7AM-7AM  [mm]", line=-1)
 textField(prec29$x, prec29$y, round(prec29$precsum), font=2, cex=1.5)
+title(main="Rainfall sum  2016-05-29  7AM-7AM  [mm]", line=-1)
 ```
 
 [TOC](#top)

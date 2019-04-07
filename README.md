@@ -39,22 +39,22 @@ str(clim)
 ```
 
 You can also select datasets with the [interactive map](https://cran.r-project.org/package=rdwd/vignettes/mapDWD.html).  
-Installation instructions and more examples are available in the [package vignette](https://cran.r-project.org/package=rdwd/vignettes/rdwd.html).
+Installation instructions and more examples are available in the [package vignette](https://cran.r-project.org/package=rdwd/vignettes/rdwd.html).  
+Long actual-usage examples can be found in the [use cases vignette](https://cran.r-project.org/package=rdwd/vignettes/cases.html).
 
 ```R
 vignette("mapDWD") # interactive map, likely faster than CRAN link above
 vignette("rdwd")   # package instructions and examples
+vignette("cases")  # longer use case examples
 ```
 
-A real-life usage example of the package can be found at
-<https://github.com/brry/prectemp/blob/master/Code_analysis.R>
 
 # help
-I'm looking for someone to help implement multiple downloads in [dataDWD](https://github.com/brry/rdwd/blob/master/R/dataDWD.R#L167) via e.g. `curl` or `wget`.
+I'm looking for someone to help implement multiple downloads in [dataDWD](https://github.com/brry/rdwd/blob/master/R/dataDWD.R#L176) via e.g. `curl` or `wget`.
 The requirements are as follows:
 
 * works cross-platform
 * is called from R
 * has as few dependencies as possible
+* does not fail completely at a single failure, e.g. can be called within `try` 
 * optimally enables a progress bar
-

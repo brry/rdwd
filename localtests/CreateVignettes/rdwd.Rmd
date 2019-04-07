@@ -13,10 +13,12 @@ editor_options:
   chunk_output_type: console
 ---
 
-[Vignette Rmd source code](https://raw.githubusercontent.com/brry/rdwd/master/localtests/CreateVignettes/rdwd.Rmd)
-(Not on CRAN to reduce load on DWD server through daily new builds and checks of the vignette)
+[Vignette Rmd source code](https://github.com/brry/rdwd/blob/master/localtests/CreateVignettes/rdwd.Rmd)
+(Not on CRAN to reduce load on DWD server through daily new builds and checks of the vignette)  
+[Interactive map vignette](mapDWD.html)  
+[use cases vignette](cases.html)
 
-[Interactive map vignette](mapDWD.html)
+*Links to the function help pages lead to 404 on CRAN, but work in locally opened vignettes.*
 
 
 ### Intro
@@ -65,7 +67,7 @@ From this, [`metaIndex`](../help/metaIndex) and [`geoIndex`](../help/geoIndex) a
 install.packages("rdwd")
 # get the latest development version from github:
 berryFunctions::instGit("brry/rdwd") 
-# For full usage, as needed in indexFTP and metaDWD(..., current=TRUE):
+# For full usage, as needed in indexFTP and selectDWD(..., current=TRUE):
 install.packages("RCurl") # is only suggested, not mandatory dependency
 ```
 
@@ -91,11 +93,12 @@ Vectorize(source)(dir("path_you_unzipped_to/rdwd-master/R", full=T))
 ```{r basics, eval=TRUE}
 library(rdwd)
 link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
-file <- dataDWD(link, read=FALSE, dir="DWDdata", quiet=TRUE)
-clim <- readDWD(file)
+file <- dataDWD(link, read=FALSE, dir="DWDdata", quiet=TRUE, force=NA)
+clim <- readDWD(file, varnames=TRUE)
 
 str(clim)
 ```
+
 [TOC](#top)
 
 
