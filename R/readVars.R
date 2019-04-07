@@ -9,7 +9,7 @@
 #' @return data.frame of the desired dataset, 
 #'         or a named list of data.frames if length(file) > 1.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jun 2018
-#' @seealso \code{\link{dataDWD}}, \code{\link{readDWD}}, \code{\link{parameter_abbreviations}}
+#' @seealso \code{\link{dataDWD}}, \code{\link{readDWD}}, \code{\link{dwdparams}}
 #' @keywords file
 #' @importFrom utils read.table unzip
 #' @importFrom berryFunctions checkFile na9 traceCall
@@ -96,7 +96,7 @@ if(any(dupli)) warning(traceCall(3, "", ": "), "The following entries are",
 rownames(tab) <- NULL
 #
 # Merge with short variable descriptions:
-tab2 <- merge(parameter_abbreviations, tab, all.y=TRUE)
+tab2 <- merge(dwdparams, tab, all.y=TRUE)
 kurzna <- is.na(tab2$Kurz)
 if(any(kurzna)) warning(traceCall(3, "", ": "), "The following entries are not",
                         " abbreviated yet: ", toString(tab2$Parameter[kurzna]),
@@ -113,9 +113,9 @@ return(tab2)
 
 
 
-# parameter_abbreviations ---------------------------------------------------------------------
+# dwdparams --------------------------------------------------------------------
 
-#' @title DWD parameter abbreviations
+#' @title DWD parameter explanations
 #' @description Short German parameter explanations for the DWD abbreviations
 #' on the CDC FTP server.\cr
 #' These are manually created by me and might need to be expanded if the DWD adds
@@ -129,10 +129,10 @@ return(tab2)
 #' @keywords datasets
 #' @export
 #' @examples
-#' head(parameter_abbreviations)
+#' head(dwdparams)
 #' 
-parameter_abbreviations <- unique(read.table(header=TRUE, strip.white=TRUE, 
-                                      stringsAsFactors=FALSE, text="
+dwdparams <- unique(read.table(header=TRUE, strip.white=TRUE,
+                               stringsAsFactors=FALSE, text="
 Parameter	Kurz
 JA_N	Bedeckungsgrad
 JA_N	Bedeckungsgrad

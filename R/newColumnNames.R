@@ -1,11 +1,11 @@
 #' @title Enhance readDWD column names
 #' @description Add short German parameter descriptions to the DWD abbreviations.
-#' This uses \code{\link{parameter_abbreviations}} to create column names like
+#' This uses \code{\link{dwdparams}} to create column names like
 #' "TT_TU.Lufttemperatur" and "RSK.Niederschlagshoehe."
 #' Column names not in the abbreviation list will be left untouched.
 #' @return The \code{dataframe} with new column names
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Apr 2019
-#' @seealso \code{\link{parameter_abbreviations}}, \code{\link{readVars}},
+#' @seealso \code{\link{dwdparams}}, \code{\link{readVars}},
 #'          \code{\link{readDWD}} argument \code{varnames}
 #' @export
 #' @examples

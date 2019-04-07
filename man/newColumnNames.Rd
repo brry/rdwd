@@ -20,7 +20,7 @@ The \code{dataframe} with new column names
 }
 \description{
 Add short German parameter descriptions to the DWD abbreviations.
-This uses \code{\link{parameter_abbreviations}} to create column names like
+This uses \code{\link{dwdparams}} to create column names like
 "TT_TU.Lufttemperatur" and "RSK.Niederschlagshoehe."
 Column names not in the abbreviation list will be left untouched.
 }
@@ -29,7 +29,7 @@ Column names not in the abbreviation list will be left untouched.
 
 }
 \seealso{
-\code{\link{parameter_abbreviations}}, \code{\link{readVars}},
+\code{\link{dwdparams}}, \code{\link{readVars}},
          \code{\link{readDWD}} argument \code{varnames}
 }
 \author{
