@@ -4,10 +4,10 @@
 \alias{readDWD}
 \title{Process data from the DWD CDC FTP Server}
 \usage{
-readDWD(file, fread = FALSE, varnames = FALSE, format = NA,
-  tz = "GMT", progbar = TRUE, meta = grepl(".txt$", file),
+readDWD(file, progbar = TRUE, fread = FALSE, varnames = FALSE,
+  format = NA, tz = "GMT", dividebyten = TRUE,
+  meta = grepl(".txt$", file), multia = grepl("Standort.txt$", file),
   binary = grepl(".tar.gz$", file), raster = grepl(".asc.gz$", file),
-  dividebyten = TRUE, multia = grepl("Standort.txt$", file),
   asc = grepl(".tar$", file), ...)
 }
 \arguments{
@@ -16,76 +16,54 @@ readDWD(file, fread = FALSE, varnames = FALSE, format = NA,
 e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip" or
 "~/DWDdata/RR_Stundenwerte_Beschreibung_Stationen.txt"}
 
-\item{fread}{Logical: read faster with \code{data.table::\link[data.table]{fread}}?
-For 30 daily/kl/hist files, 7 instead of 10 seconds.
-NA can also be used, which means TRUE if data.table is available.
-Keep \code{varnames=FALSE} for the speed gain!
-DEFAULT: FALSE}
-
-\item{varnames}{Logical (vector): add a short description to the DWD variable 
-abbreviations in the column names?
-E.g. change \code{FX,TNK} to \code{FX.Windspitze,TNK.Lufttemperatur_Min},
-see \code{\link{newColumnNames}}.
-DEFAULT: FALSE (for backwards compatibility)}
-
-\item{format}{Char (vector): Format passed to
-\code{\link{as.POSIXct}} (see \code{\link{strptime}})
-to convert the date/time column to POSIX time format.\cr
-If NULL, no conversion is performed (date stays a factor).
-If NA, \code{readDWD} tries to find suitable format based
-on the number of characters. DEFAULT: NA}
-
-\item{tz}{Char (vector): time zone for \code{\link{as.POSIXct}}.
-"" is the current time zone, and "GMT" is UTC (Universal Time,
-Coordinated). DEFAULT: "GMT"}
-
 \item{progbar}{Logical: present a progress bar with estimated remaining time?
 If missing and length(file)==1, progbar is internally set to FALSE.
 DEFAULT: TRUE}
 
+\item{fread}{Logical (vector): read fast? See \code{\link{readDWD.data}}.
+DEFAULT: FALSE (some users complain it doesn't work on their PC)}
+
+\item{varnames}{Logical (vector): Expand column names? 
+See \code{\link{readDWD.data}}. DEFAULT: FALSE}
+
+\item{format, tz}{Format and time zone of time stamps, see \code{\link{readDWD.data}}}
+
+\item{dividebyten}{Logical (vector): Divide the values in raster files by ten?
+Used in \code{\link{readDWD.raster}} and \code{\link{readDWD.asc}}.
+DEFAULT: TRUE}
+
 \item{meta}{Logical (vector): is the \code{file} a meta file (Beschreibung.txt)?
-Column widths for \code{\link{read.fwf}} are computed internally.
-if(any(meta)), \code{readDWD} tries to set the locale to German 
-(to handle Umlaute correctly). Names can later be changed to 
-ascii with \code{berryFunctions::\link{convertUmlaut}}.
+See \code{\link{readDWD.meta}}.
 DEFAULT: TRUE for each file ending in ".txt"}
 
-\item{binary}{Logical (vector): is the \code{file} a binary file, like for the 
-radolan grid files? The argument \code{selection} (DEFAULT: NULL)
-can be used to read only a subset of the ~24*31=744 files
-(called as \code{f[selection]}).
-Note that, as of 2019-03, the results are not yet correct for
-the tested data (grids_germany/daily/radolan/historical).
-Hints are welcome!
-DEFAULT: TRUE for each file ending in ".tar.gz"}
-
-\item{raster}{Logical (vector): is the \code{file} a raster file, like for 
-.../grids_germany/seasonal/air_temperature_mean?
-DEFAULT: TRUE for each file ending in ".asc.gz"}
-
-\item{dividebyten}{Logical (vector): Divide the values in raster files by ten? 
-DEFAULT (based on grids_g/seas/air_mean/16_DJF): TRUE}
-
 \item{multia}{Logical (vector): is the \code{file} a multi_annual file?
-Overrides \code{meta}, so set to FALSE manually if meta reading 
-needs to be called on a file ending with "Standort.txt".
+Overrides \code{meta}, so set to FALSE manually if 
+\code{\link{readDWD.meta}} needs to be called on a file ending
+with "Standort.txt". See \code{\link{readDWD.multia}}.
 DEFAULT: TRUE for each file ending in "Standort.txt"}
 
-\item{asc}{Logical (vector): does the \code{file} contain asc files, like for 
-.../grids_germany/hourly/radolan/historical/asc?
+\item{binary}{Logical (vector): does the \code{file} contain binary files?
+See \code{\link{readDWD.binary}}.
+DEFAULT: TRUE for each file ending in ".tar.gz"}
+
+\item{raster}{Logical (vector): does the \code{file} contain a raster file?
+See \code{\link{readDWD.raster}}.
+DEFAULT: TRUE for each file ending in ".asc.gz"}
+
+\item{asc}{Logical (vector): does the \code{file} contain asc files?
+See \code{\link{readDWD.asc}}.
 DEFAULT: TRUE for each file ending in ".tar"}
 
-\item{\dots}{Further arguments passed to the underlying reading function, i.e.
-\code{\link{read.table}} or \code{data.table::\link[data.table]{fread}}
-for readDWD.data,
-\code{\link{read.fwf}} for readDWD.meta, 
-\code{\link{readBin}} for readDWD.binary,
-\code{raster::\link[raster]{raster}} for readDWD.raster,
-\code{\link{read.table}} for readDWD.multia}
+\item{\dots}{Further arguments passed to the internal \code{readDWD.*} 
+functions and from those to the underlying reading functions
+documented in each internal function.}
 }
 \value{
 Invisible data.frame of the desired dataset, 
         or a named list of data.frames if length(file) > 1.
+        \code{\link{readDWD.binary}} returns a vector, 
+        \code{\link{readDWD.raster}} and \code{\link{readDWD.asc}} 
+        return raster objects instead of data.frames.
 }
 \description{
 Read climate data that was downloaded with \code{\link{dataDWD}}.
@@ -93,10 +71,14 @@ The data is unzipped and subsequently, the file is read, processed and
 returned as a data.frame.\cr
 New users are advised to set \code{varnames=TRUE} to obtain more informative
 column names.\cr
+\code{readDWD} will call internal (but documented) functions depending on the
+arguments \code{meta, binary, raster, multia, asc}. Not all arguments to
+\code{readDWD} are used for all functions, e.g. \code{fread} is used only by
+\code{\link{readDWD.data}} (for observational data), while \code{dividebyten} 
+is used in \code{\link{readDWD.raster}} and \code{\link{readDWD.asc}}
+(for interpolated gridded data).\cr
 \code{file} can be a vector with several filenames. Most other arguments can
-also be a vector and will be recycled to the length of \code{file}.\cr
-The arguments \code{fread,varnames,format,tz} are only used if 
-\code{meta,binary,raster,multia} are all \code{FALSE}.\cr
+also be a vector and will be recycled to the length of \code{file}.
 }
 \examples{
 # see dataDWD
