@@ -43,6 +43,19 @@ rv[sapply(rv, function(x) sum(duplicated(x[,"Kurz"]))>0)]
 which(sapply(rv, function(x)any(!x$Par %in% parameter_abbreviations$Parameter)))
 
 
+# readDWD.asc nonraster version with arrays ----
+hournames <- gsub("RW_","", gsub(".asc$","",basename(hourfiles)))
+##meta <- read.table(hourfiles[1], nrows=6); meta
+dat <- lapply(hourfiles, read.table, skip=6, na.strings=-1, ...) # ToDo: NA.char from meta?
+if(progbar) message("Converting into matrices...")
+dat <- base::lapply(dat, as.matrix)
+dat <- base::lapply(dat, function(x) {colnames(x) <- NULL; x})
+names(dat) <- hournames
+if(progbar) message("Converting into array...")
+dat <- berryFunctions::l2array(dat)
+if(dividebyten) dat <- dat/10
+return(invisible(dat))
+
 
 # multi_annual tests ----
 

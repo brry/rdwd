@@ -97,6 +97,20 @@ ma_meta <- dataDWD(murl, dir=datadir)
 })
 
 
+# . readDWD.asc ----
+
+test_that("readDWD.asc works for radolan asc data", {
+# File selection and download:
+radbase <-"ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/hourly/radolan/historical/asc/" 
+radfile <- "2018/RW-201809.tar" # 25 MB to download
+file <- dataDWD(paste0(radbase,"/",radfile), base=radbase, dir=datadir,
+                dfargs=list(mode="wb"), read=FALSE) # download with mode=wb!!!
+#asc <- readDWD(file) # 4 GB in mem. ~ 20 secs unzip, 30 secs read, 10 min divide
+asc <- readDWD(file, selection=1:5, setpe=TRUE)
+})
+
+
+
 # findID -----------------------------------------------------------------------
 
 test_that("findID warns as wanted", {
