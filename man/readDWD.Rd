@@ -7,7 +7,8 @@
 readDWD(file, fread = FALSE, varnames = FALSE, format = NA,
   tz = "GMT", progbar = TRUE, meta = grepl(".txt$", file),
   binary = grepl(".tar.gz$", file), raster = grepl(".asc.gz$", file),
-  dividebyten = TRUE, multia = grepl("Standort.txt$", file), ...)
+  dividebyten = TRUE, multia = grepl("Standort.txt$", file),
+  asc = grepl(".tar$", file), ...)
 }
 \arguments{
 \item{file}{Char (vector): name(s) of the file(s) downloaded with 
@@ -58,8 +59,8 @@ the tested data (grids_germany/daily/radolan/historical).
 Hints are welcome!
 DEFAULT: TRUE for each file ending in ".tar.gz"}
 
-\item{raster}{Logical (vector): is the \code{file} a raster file, like for the 
-seasonal grid files?
+\item{raster}{Logical (vector): is the \code{file} a raster file, like for 
+.../grids_germany/seasonal/air_temperature_mean?
 DEFAULT: TRUE for each file ending in ".asc.gz"}
 
 \item{dividebyten}{Logical (vector): Divide the values in raster files by ten? 
@@ -69,6 +70,10 @@ DEFAULT (based on grids_g/seas/air_mean/16_DJF): TRUE}
 Overrides \code{meta}, so set to FALSE manually if meta reading 
 needs to be called on a file ending with "Standort.txt".
 DEFAULT: TRUE for each file ending in "Standort.txt"}
+
+\item{asc}{Logical (vector): does the \code{file} contain asc files, like for 
+.../grids_germany/hourly/radolan/historical/asc?
+DEFAULT: TRUE for each file ending in ".tar"}
 
 \item{\dots}{Further arguments passed to the underlying reading function, i.e.
 \code{\link{read.table}} or \code{data.table::\link[data.table]{fread}}

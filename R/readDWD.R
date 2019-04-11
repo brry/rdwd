@@ -64,8 +64,8 @@
 #'               the tested data (grids_germany/daily/radolan/historical).
 #'               Hints are welcome!
 #'               DEFAULT: TRUE for each file ending in ".tar.gz"
-#' @param raster Logical (vector): is the \code{file} a raster file, like for the 
-#'               seasonal grid files?
+#' @param raster Logical (vector): is the \code{file} a raster file, like for 
+#'               .../grids_germany/seasonal/air_temperature_mean?
 #'               DEFAULT: TRUE for each file ending in ".asc.gz"
 #' @param dividebyten Logical (vector): Divide the values in raster files by ten? 
 #'               DEFAULT (based on grids_g/seas/air_mean/16_DJF): TRUE
@@ -73,6 +73,9 @@
 #'               Overrides \code{meta}, so set to FALSE manually if meta reading 
 #'               needs to be called on a file ending with "Standort.txt".
 #'               DEFAULT: TRUE for each file ending in "Standort.txt"
+#' @param asc    Logical (vector): does the \code{file} contain asc files, like for 
+#'               .../grids_germany/hourly/radolan/historical/asc?
+#'               DEFAULT: TRUE for each file ending in ".tar"
 #' @param \dots  Further arguments passed to the underlying reading function, i.e.
 #'               \code{\link{read.table}} or \code{data.table::\link[data.table]{fread}}
 #'               for readDWD.data,
@@ -93,12 +96,13 @@ binary=grepl(     '.tar.gz$', file),
 raster=grepl(     '.asc.gz$', file),
 dividebyten=TRUE,
 multia=grepl('Standort.txt$', file),
+asc=   grepl(        '.tar$', file),
 ...
 )
 {
 # recycle meta, format and tz
 len <- length(file)
-if(missing(progbar) & len==1 & all(!binary)) progbar <- FALSE
+if(missing(progbar) & len==1 & all(!binary) & all(!asc)) progbar <- FALSE
 if(anyNA(fread)) fread[is.na(fread)] <- requireNamespace("data.table",quietly=TRUE)
 if(len>1)
   {
@@ -106,6 +110,7 @@ if(len>1)
   binary  <- rep(binary,  length.out=len)
   raster  <- rep(raster,  length.out=len)
   multia  <- rep(multia,  length.out=len)
+  asc     <- reap(asc,    length.out=len) 
   fread   <- rep(fread,   length.out=len)
   varnames<- rep(varnames,length.out=len)
   format  <- rep(format,  length.out=len)
@@ -143,6 +148,7 @@ if(meta[i])   return(readDWD.meta(  file[i], ...))
 if(binary[i]) return(readDWD.binary(file[i], progbar=progbar, ...))
 if(raster[i]) return(readDWD.raster(file[i], dividebyten=dividebyten[i], ...))
 if(multia[i]) return(readDWD.multia(file[i], ...))
+if(asc[i])    return(readDWD.asc(   file[i], progbar=progbar, dividebyten=dividebyten[i], ...))
 # if data:
 readDWD.data(file[i], fread=fread[i], varnames=varnames[i], 
              format=format[i], tz=tz[i], ...)
@@ -312,3 +318,58 @@ if(colnames(out)[nc]=="X") out <- out[,-nc]
 out
 }
 
+
+
+
+readDWD.asc <- function(file, exdir=NULL, setpe=FALSE, proj=NULL, extent=NULL, 
+                        dividebyten=TRUE, selection=NULL, progbar=TRUE, ...)
+# proj/extent = NULL means internal default (provided 2019-04 by Antonia Hengst)
+# if dividebyten=FALSE, save your work on disc - things won't work after exdir is removed! -> Error in .local(.Object, ...)
+{
+if(progbar) lapply <- pbapply::pblapply
+# prepare to untar data (two layers):
+fn <- tools::file_path_sans_ext(basename(file))
+if(is.null(exdir)) exdir <- paste0(tempdir(),"/", fn)
+#
+# untar layer 1:
+daydir <- paste0(exdir,"/dayfiles")
+untar(file, exdir=daydir) # 30/31 .tar.gz files (one for each day). overwrites existing files
+dayfiles <- dir(daydir, full.names=TRUE)
+#
+# untar layer 2:
+if(progbar) message("\nChecking if already unpacked: ", file, "...")
+to_untar <- lapply(dayfiles, untar, list=TRUE)
+untarred <- dir(exdir, pattern=".asc$")
+to_untar <- !sapply(to_untar, function(x) all(x %in% untarred))
+if(any(to_untar)){
+  if(progbar) message("Unpacking tar files into ",exdir,"...")
+  lapply(dayfiles[to_untar], untar, exdir=exdir) 
+} else if(progbar) message("Tar file was already unpacked into ",exdir," :)")
+# yields 31 * 24 .asc files each 1.7MB, takes ~20 secs
+#
+#
+# read data:
+hourfiles <- dir(exdir, pattern=".asc$", full.names=TRUE) # 720 files
+if(!is.null(selection)) hourfiles <- hourfiles[selection]
+if(progbar) message("Reading ",length(hourfiles)," files...")
+dat <- lapply(hourfiles, raster::raster, ...)
+#
+# divide by ten (takes ~9 min!)
+if(progbar & dividebyten) message("Dividing values by ten...")
+if(dividebyten) dat <- lapply(dat, function(x) x/10)
+#
+# stack layers:
+dat <- raster::stack(dat)
+#
+# set projection + extent:
+if(setpe)
+  {
+  if(is.null(proj)) proj <- sp::CRS("+proj=stere +lat_0=90 +lat_ts=90 +lon_0=10 
+    +k=0.93301270189 +x_0=0 +y_0=0 +a=6370040 +b=6370040 +to_meter=1000 +no_defs")
+  if(is.null(extent)) extent <- raster::extent(-523.4622,376.5378,-4658.645,-3758.645)
+  raster::projection(dat) <- proj
+  raster::extent(    dat) <- extent
+  }
+# output:
+return(invisible(dat))
+}
