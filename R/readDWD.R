@@ -214,7 +214,7 @@ if(!is.null(format))
   {
   # for res=monthly data:
   if("MESS_DATUM_BEGINN" %in% colnames(dat))
-    dat <- cbind(dat[,1, drop=FALSE], MESS_DATUM=dat$MESS_DATUM_BEGINN + 15, dat[,-1])
+    dat <- cbind(dat[,1, drop=FALSE], MESS_DATUM=dat$MESS_DATUM_BEGINN + 14, dat[,-1])
   if(!"MESS_DATUM" %in% colnames(dat)) 
     warning("There is no column 'MESS_DATUM' in ",file, call.=FALSE) else
     {
