@@ -10,7 +10,7 @@ begintime <- Sys.time()
 
 # dataDWD ----------------------------------------------------------------------
 
-message("++ Testing dataDWD, readDWD")
+message("++ Testing dataDWD, readDWD observational files")
 
 test_that("dataDWD works", {
 link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
@@ -56,6 +56,16 @@ if(length(cnm)!=8) stop("number of columns should be 8, but is ", length(cnm),
 })
 
 
+# . readDWD.multia ----
+test_that("readDWD.multia works for multi_annual data", {
+durl <- selectDWD(res="multi_annual", var="mean_81-10", per="")[9] # Temperature aggregates
+murl <- selectDWD(res="multi_annual", var="mean_81-10", per="", meta=TRUE)[9]
+ma_temp <- dataDWD(durl, dir=datadir)
+ma_meta <- dataDWD(murl, dir=datadir)
+})
+
+message("++ Testing readDWD gridded data methods")
+
 # . readDWD.binary ----
 test_that("readDWD.binary works for radolan grid data", {
 gridbase <- "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany"
@@ -70,7 +80,6 @@ warning("readDWD.binary does not yet read the binary files correctly.")
 raster::plot(raster::raster(matrix(rad[[1]], ncol=900, byrow=TRUE)))
 })
 
-message("++ Testing readDWD raster + multia methods")
 
 # . readDWD.raster ----
 test_that("readDWD.raster works for raster data", {
@@ -88,15 +97,6 @@ expect_equal(raster::cellStats(rf10, range), c(-82,44))
 })
 
 
-# . readDWD.multia ----
-test_that("readDWD.multia works for multi_annual data", {
-durl <- selectDWD(res="multi_annual", var="mean_81-10", per="")[9] # Temperature aggregates
-murl <- selectDWD(res="multi_annual", var="mean_81-10", per="", meta=TRUE)[9]
-ma_temp <- dataDWD(durl, dir=datadir)
-ma_meta <- dataDWD(murl, dir=datadir)
-})
-
-
 # . readDWD.asc ----
 
 test_that("readDWD.asc works for radolan asc data", {
@@ -110,6 +110,8 @@ asc <- readDWD(file, selection=1:5, setpe=TRUE)
 })
 
 
+
+message("++ Testing findID + selectDWD")
 
 # findID -----------------------------------------------------------------------
 
@@ -127,8 +129,6 @@ expect_equal(findID(), "")
 
 
 # selectDWD --------------------------------------------------------------------
-
-message("++ Testing selectDWD")
 
 test_that("selectDWD works", {
 link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
@@ -207,7 +207,7 @@ links <- selectDWD("Potsdam","","","") # does not include multi_annual data!
 toexclude <- grep("1_minute", links)
 toexclude <- toexclude[-(length(toexclude)-3)]
 toexclude <- c(toexclude, grep("10_minutes", links)[-1])
-files <- dataDWD(links[-toexclude], dir=datadir, force=NA, read=FALSE)
+files <- dataDWD(links[-toexclude], dir=datadir, force=NA, overwrite=TRUE, read=FALSE)
 contents <- readDWD(files)
 })
 
