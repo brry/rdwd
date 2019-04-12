@@ -20,7 +20,8 @@ Usage of the package usually looks something like the following:
 ```R
 # download and install the rdwd package (only needed once):
 install.packages("rdwd")
-berryFunctions::instGit("brry/rdwd") # latest development version (if wanted)
+# if wanted, latest development version, incl. vignettes:
+remotes::install_github("brry/rdwd", build_opts="--no-manual")
 
 # load the package into library (needed in every R session):
 library(rdwd)
