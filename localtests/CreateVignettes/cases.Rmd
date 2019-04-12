@@ -39,7 +39,7 @@ Publication:
 ```{r hourlyrain_data_selection, warning=FALSE}
 library(rdwd)
 links <- selectDWD(res="daily", var="more_precip", per="hist")
-length(links) # 5583 stations - would take very long to download
+length(links) # ca 5k stations - would take very long to download
 
 # select only the relevant files:
 data("metaIndex")
@@ -52,7 +52,7 @@ links <- fileIndex[
   fileIndex$res=="daily" &
   fileIndex$var=="more_precip" &
   fileIndex$per=="historical"         , "path" ]  
-links <- paste0("ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/", links)
+links <- paste0("ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate", links)
 
 length(links) # 2001 elements - much better
 ```
@@ -215,7 +215,88 @@ textField(prec29$x, prec29$y, round(prec29$precsum), font=2, cex=1.5)
 title(main="Rainfall sum  2016-05-29  7AM-7AM  [mm]", line=-1)
 ```
 
+
 [TOC](#top)
+
+
+## map climate data to Landkreise
+
+Shapefile of Landkreis districts:  
+<https://public.opendatasoft.com/explore/dataset/landkreise-in-germany/export/>
+(file size 4 MB, unzipped 10 MB)
+
+### a) find available meteo stations for each district
+
+```{r climdistrict_data_selection}
+# Select monthly climate data:
+data("metaIndex") ; m <- metaIndex
+m <- m[m$res=="monthly" & m$var=="kl" & m$per=="recent" & m$hasfile, ]
+# Transform into spatial object:
+msf <- sf::st_as_sf(m, coords=c("geoLaenge", "geoBreite"), crs=4326)
+
+# Read district shapefile, see link above:
+lk <- sf::st_read("landkreise/landkreise-in-germany.shp", quiet=TRUE)
+
+# intersections: list with msf rownumbers for each district:
+int <- sf::st_intersects(lk, msf)
+```
+
+<https://gis.stackexchange.com/a/318629/36710>
+
+```{r climdistrict_plot, fig.height=5}
+# plot to check projection:
+plot(lk[,"id_2"], reset=FALSE)
+colPoints("geoLaenge", "geoBreite", "Stationshoehe", data=m, add=T, legend=F)
+# berryFunctions::colPointsLegend + sf plots = set margins, see note there!
+axis(1, line=-1); axis(2, line=-1, las=1)
+points(m[int[[2]], c("geoLaenge", "geoBreite")], pch=16, col=2, cex=1.8)
+```
+
+
+### b) Average data per district
+
+Running analysis for a few selected districts only to reduce computation time.  
+Monthly rainfall average per Landkreis.
+```{r climdistrict_data_download}
+landkreis_rain <- function(lki) # LandKreisIndex (row number in lk)
+{
+rnr <- int[[lki]] # msf row number
+if(length(rnr)<1)
+  {
+  warning("No rainfall data available for Landkreis ", lki, ": ", lk$name_2[lki], call.=FALSE)
+  out <- data.frame(NA,NA)[FALSE,]
+  colnames(out) <- c("MESS_DATUM", as.character(lk$name_2[lki]))
+  return(out)
+  }
+urls <- selectDWD(id=m[rnr, "Stations_id"], # set dir if needed
+                  res="monthly", var="kl", per="r", outvec=TRUE)
+clims <- dataDWD(urls, varnames=FALSE, quiet=TRUE)
+if(length(urls)==1) 
+  {rainmean <- clims$MO_RR 
+  monthlyrain <- clims[c("MESS_DATUM", "MO_RR")]
+  } else
+{
+monthlyrain <- lapply(seq_along(clims), function(n) 
+ {
+ out <- clims[[n]][c("MESS_DATUM", "MO_RR")]
+ colnames(out)[2] <- names(clims)[n] # no duplicate names
+ out
+ })
+monthlyrain <- Reduce(function(...) merge(..., by="MESS_DATUM",all=TRUE), monthlyrain)
+rainmean <- rowMeans(monthlyrain[,-1], na.rm=TRUE) # check also with median, variation is huge!
+}
+out <- data.frame(monthlyrain[,1], rainmean)
+colnames(out) <- c("MESS_DATUM", as.character(lk$name_2[lki]))
+return(out)
+}
+
+rainLK <- pbapply::pblapply(c(133,277,300,389), landkreis_rain)
+rainLK <- Reduce(function(...) merge(..., by="MESS_DATUM",all=TRUE), rainLK)
+head(rainLK)
+```
+
+[TOC](#top)
+
 
 Any feedback on this package (or this vignette) is very welcome via 
 [github](https://github.com/brry/rdwd) or <berry-b@gmx.de>!
