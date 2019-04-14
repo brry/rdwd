@@ -58,9 +58,8 @@
 #' #links <- selectDWD(res="daily", var="solar")
 #' #sol <- dataDWD(links, sleep=20) # random waiting time after download (0 to 20 secs)
 #' 
-#' # Real life example with data completeness check etc:
-#' browseURL("https://github.com/brry/prectemp/blob/master/Code_analysis.R")
-#' 
+#' # Real life examples can be found in the use cases vignette:
+#' vignette("cases")
 #' }
 #' 
 #' @param file   Char (vector): complete file URL(s) (including base and filename.zip) as returned by
@@ -68,6 +67,8 @@
 #' @param base   Single char: base URL that will be removed from output file names.
 #'               DEFAULT: \code{\link{dwdbase}}:
 #'               \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
+#' @param joinbf Logical: paste \code{base} and \code{file} together? 
+#'               DEFAULT: FALSE (selectDWD returns complete URLs already)
 #' @param dir    Char: Writeable directory name where to save the downloaded file.
 #'               Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}
 #' @param force  Logical (vector): always download, even if the file already exists in \code{dir}?
@@ -98,6 +99,7 @@
 dataDWD <- function(
 file,
 base=dwdbase,
+joinbf=FALSE,
 dir="DWDdata",
 force=FALSE,
 overwrite=FALSE,
@@ -113,6 +115,9 @@ dfargs=NULL,
 {
 if(!is.atomic(file)) stop("file must be a vector, not a ", class(file))
 if(!is.character(file)) stop("file must be char, not ", class(file))
+base <- sub("/$","",base) # remove accidental trailing slash
+file <- sub("^/","",file) # remove accidental leading slash
+if(joinbf)  file <- paste0(base,"/",file)
 if(missing(progbar) & length(file)==1) progbar <- FALSE
 if(any(file==""))
 {

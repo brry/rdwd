@@ -4,9 +4,10 @@
 \alias{dataDWD}
 \title{Download data from the DWD CDC FTP Server}
 \usage{
-dataDWD(file, base = dwdbase, dir = "DWDdata", force = FALSE,
-  overwrite = FALSE, sleep = 0, quiet = FALSE, progbar = !quiet,
-  browse = FALSE, read = TRUE, ntrunc = 2, dfargs = NULL, ...)
+dataDWD(file, base = dwdbase, joinbf = FALSE, dir = "DWDdata",
+  force = FALSE, overwrite = FALSE, sleep = 0, quiet = FALSE,
+  progbar = !quiet, browse = FALSE, read = TRUE, ntrunc = 2,
+  dfargs = NULL, ...)
 }
 \arguments{
 \item{file}{Char (vector): complete file URL(s) (including base and filename.zip) as returned by
@@ -15,6 +16,9 @@ dataDWD(file, base = dwdbase, dir = "DWDdata", force = FALSE,
 \item{base}{Single char: base URL that will be removed from output file names.
 DEFAULT: \code{\link{dwdbase}}:
 \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}}
+
+\item{joinbf}{Logical: paste \code{base} and \code{file} together? 
+DEFAULT: FALSE (selectDWD returns complete URLs already)}
 
 \item{dir}{Char: Writeable directory name where to save the downloaded file.
 Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
@@ -100,9 +104,8 @@ potsdam <- potsdam[!duplicated(potsdam$MESS_DATUM),]
 #links <- selectDWD(res="daily", var="solar")
 #sol <- dataDWD(links, sleep=20) # random waiting time after download (0 to 20 secs)
 
-# Real life example with data completeness check etc:
-browseURL("https://github.com/brry/prectemp/blob/master/Code_analysis.R")
-
+# Real life examples can be found in the use cases vignette:
+vignette("cases")
 }
 
 }
