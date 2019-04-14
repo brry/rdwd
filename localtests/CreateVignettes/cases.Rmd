@@ -52,7 +52,7 @@ links <- fileIndex[
   fileIndex$res=="daily" &
   fileIndex$var=="more_precip" &
   fileIndex$per=="historical"         , "path" ]  
-links <- paste0("ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate", links)
+links <- paste0(dwdbase, links)
 
 length(links) # 2001 elements - much better
 ```

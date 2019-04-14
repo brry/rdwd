@@ -7,6 +7,7 @@ library(rdwd)
 datadir <- paste0(berryFunctions::packagePath(), "/localtests/CreateVignettes/DWDdata")
 begintime <- Sys.time()
 
+download_all_Potsdam_files <- TRUE # reduce test time a lot by setting this to FALSE
 
 # dataDWD ----------------------------------------------------------------------
 
@@ -68,10 +69,9 @@ message("++ Testing readDWD gridded data methods")
 
 # . readDWD.binary ----
 test_that("readDWD.binary works for radolan grid data", {
-gridbase <- "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany"
 radfile <- "/daily/radolan/historical/2017/SF201712.tar.gz"
 # 204 MB, takes a minute to download:
-localfile <- dataDWD(file=paste0(gridbase, radfile), base=gridbase, 
+localfile <- dataDWD(file=radfile, base=gridbase, joinbf=TRUE,
                      dir=datadir, read=FALSE)
 rad <- readDWD(localfile, selection=1:10) # no need to read all 24*31=744 files
 if(length(rad)!=10) stop("length(rad) should be 10, but is ", length(rad))
@@ -82,10 +82,12 @@ raster::plot(raster::raster(matrix(rad[[1]], ncol=900, byrow=TRUE)))
 
 
 # . readDWD.raster ----
+message("++ Testing readDWD.raster")
+
 test_that("readDWD.raster works for raster data", {
-rasterbase <- "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/seasonal/air_temperature_mean"
+rasterbase <- paste0(gridbase,"/seasonal/air_temperature_mean")
 ftp.files <- indexFTP("/16_DJF", base=rasterbase, dir=tempdir())
-localfiles <- dataDWD(paste0(rasterbase,"/",ftp.files[1:2]), base=rasterbase,
+localfiles <- dataDWD(ftp.files[1:2], base=rasterbase, joinbf=TRUE,
                       dir=datadir, read=FALSE)
 rf <- readDWD(localfiles[1])
 rf <- readDWD(localfiles[1]) # needs to be able to run a second time
@@ -98,12 +100,13 @@ expect_equal(raster::cellStats(rf10, range), c(-82,44))
 
 
 # . readDWD.asc ----
+message("++ Testing readDWD.asc")
 
 test_that("readDWD.asc works for radolan asc data", {
 # File selection and download:
-radbase <-"ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/hourly/radolan/historical/asc/" 
+radbase <- paste0(gridbase,"/hourly/radolan/historical/asc/")
 radfile <- "2018/RW-201809.tar" # 25 MB to download
-file <- dataDWD(paste0(radbase,"/",radfile), base=radbase, dir=datadir,
+file <- dataDWD(radfile, base=radbase, joinbf=TRUE, dir=datadir,
                 dfargs=list(mode="wb"), read=FALSE) # download with mode=wb!!!
 #asc <- readDWD(file) # 4 GB in mem. ~ 20 secs unzip, 30 secs read, 10 min divide
 asc <- readDWD(file, selection=1:5, setpe=TRUE)
@@ -202,7 +205,7 @@ expect_error(selectDWD(id="", current=TRUE, res="",var="",per=""),
 message("++ Testing index up to date?")
 
 # simply try all files for Potsdam (for 1_minute and 10_minutes only 1 each)
-test_that("index is up to date", {
+if(download_all_Potsdam_files) test_that("index is up to date", {
 links <- selectDWD("Potsdam","","","") # does not include multi_annual data!
 toexclude <- grep("1_minute", links)
 toexclude <- toexclude[-(length(toexclude)-3)]

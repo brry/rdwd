@@ -415,12 +415,12 @@ return(invisible(r))
 #' @param \dots       Further arguments passed to \code{raster::\link[raster]{raster}}
 # @importFrom raster raster stack crs projection extent plot
 #' @examples 
-#' \dontrun{ # Excludedfrom CRAN checks
+#' \dontrun{ # Excluded from CRAN checks
 #' # File selection and download:
 #' datadir <- paste0(berryFunctions::packagePath(), "/localtests/CreateVignettes/DWDdata")
-#' radbase <-"ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/hourly/radolan/historical/asc/" 
+#' radbase <- paste0(gridbase,"/hourly/radolan/historical/asc/")
 #' radfile <- "2018/RW-201809.tar" # 25 MB to download
-#' file <- dataDWD(paste0(radbase,"/",radfile), base=radbase, dir=datadir,
+#' file <- dataDWD(radfile, base=radbase, joinbf=TRUE, dir=datadir,
 #'                 dfargs=list(mode="wb"), read=FALSE) # download with mode=wb!!!
 #'                 
 #' #asc <- readDWD(file) # 4 GB in mem. ~ 20 secs unzip, 30 secs read, 10 min divide
