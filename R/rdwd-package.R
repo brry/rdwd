@@ -46,11 +46,16 @@ NULL
 # dwdbase ----
 
 #' @title DWD FTP Server base URL
+#' @aliases gridbase
 #' @export
-#' @description base URL to DWD FTP Server / observed climatic records.\cr
-#'     \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
+#' @description base URL to DWD FTP Server\cr\cr
+#' \code{dwdbase}: observed climatic records at\cr
+#' \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}\cr\cr
+#' \code{gridbase}: spatially interpolated gridded data at\cr
+#' \url{ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany}
+#' 
 dwdbase <- "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate"
-
+gridbase <- "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany"
 
 
 # release_questions ----

@@ -3,13 +3,17 @@
 \docType{data}
 \name{dwdbase}
 \alias{dwdbase}
+\alias{gridbase}
 \title{DWD FTP Server base URL}
 \format{An object of class \code{character} of length 1.}
 \usage{
 dwdbase
 }
 \description{
-base URL to DWD FTP Server / observed climatic records.\cr
-    \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
+base URL to DWD FTP Server\cr\cr
+\code{dwdbase}: observed climatic records at\cr
+\url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}\cr\cr
+\code{gridbase}: spatially interpolated gridded data at\cr
+\url{ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany}
 }
 \keyword{datasets}
