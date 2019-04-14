@@ -411,7 +411,7 @@ return(invisible(r))
 #'                    keep progbar=TRUE for asc files, even if length(file)==1.
 #'                    DEFAULT: TRUE
 #' @param selection   Optionally read only a subset of the ~24*31=744 files.
-#'                    Called as \code{hourfiles[selection]}. DEFAULT: NULL (ignored)
+#'                    Called as \code{f[selection]}. DEFAULT: NULL (ignored)
 #' @param \dots       Further arguments passed to \code{raster::\link[raster]{raster}}
 # @importFrom raster raster stack crs projection extent plot
 #' @examples 
@@ -470,11 +470,11 @@ if(any(to_untar)){
 # yields 31 * 24 .asc files each 1.7MB, takes ~20 secs
 #
 #
-# read data:
-hourfiles <- dir(exdir, pattern=".asc$", full.names=TRUE) # 720 files
-if(!is.null(selection)) hourfiles <- hourfiles[selection]
-if(progbar) message("Reading ",length(hourfiles)," files...")
-dat <- lapply(hourfiles, raster::raster, ...)
+# read data (hourly files):
+f <- dir(exdir, pattern=".asc$", full.names=TRUE) # 720 files
+if(!is.null(selection)) f <- f[selection]
+if(progbar) message("Reading ",length(f)," files...")
+dat <- lapply(f, raster::raster, ...)
 #
 # divide by ten (takes ~9 min!)
 if(progbar & dividebyten) message("Dividing values by ten...")

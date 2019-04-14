@@ -33,7 +33,7 @@ DEFAULT: NULL (internal value, provided 2019-04 by Antonia Hengst)}
 DEFAULT: NULL (internal value, provided 2019-04 by Antonia Hengst)}
 
 \item{selection}{Optionally read only a subset of the ~24*31=744 files.
-Called as \code{hourfiles[selection]}. DEFAULT: NULL (ignored)}
+Called as \code{f[selection]}. DEFAULT: NULL (ignored)}
 
 \item{progbar}{Show messages and progress bars? \code{\link{readDWD}} will
 keep progbar=TRUE for asc files, even if length(file)==1.
