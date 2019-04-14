@@ -32,7 +32,7 @@ over 228 thousand datasets with weather observations through the FTP server onli
 
 For data interpolated onto a 1 km raster, including radar data up to the last hour, 
 see <ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/>. 
-Raster and binary reading functions are included since `rdwd 1.1.0` (March 2019), although the latter doesn't read the radolan binary files completely correct yet, see [Development notes](https://github.com/brry/rdwd/blob/master/localtests/developmentNotes.R#L82).
+Raster and binary reading functions are included since `rdwd 1.1.0` (March 2019), although the latter doesn't read the radolan binary files completely correct yet, see [`?readDWD.binary`](../help/readDWD.binary).
 
 For further details, please consult the 
 [DWD FTP server documentation](ftp://ftp-cdc.dwd.de/pub/CDC/Readme_intro_CDC_ftp.pdf)
@@ -162,7 +162,7 @@ links <- selectDWD(res="monthly", var="more_precip", per="hist", current=TRUE)
 ```
 
 [`fileIndex`](../help/fileIndex) is created with the function [`indexFTP`](../help/indexFTP) used in the last section of 
-[rdwd-package.R](https://github.com/brry/rdwd/blob/master/R/rdwd-package.R#L241).
+[rdwd-package.R](https://github.com/brry/rdwd/blob/master/R/rdwd-package.R#L246).
 
 ```{r listfiles, eval=FALSE}
 ### This chunk is not evaluated ###
