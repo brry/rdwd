@@ -44,7 +44,7 @@ data.frame
 read regular dwd data
 }
 \seealso{
-\code{\link{readDWD}}
+\code{\link{readDWD}}, Examples in \code{\link{dataDWD}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}

@@ -12,13 +12,14 @@ readDWD.asc(file, exdir = NULL, dividebyten = TRUE, setpe = FALSE,
 \item{file}{Name of file on harddrive, like e.g. 
 DWDdata/grids_germany/hourly/radolan/historical/asc/
 2018_RW-201809.tar.
-Must be downloaded with \code{mode="wb"}!}
+Must have been downloaded with \code{mode="wb"}!}
 
 \item{exdir}{Directory to unzip into. Unpacked files existing therein
 will not be untarred again, saving up to 15 secs per file.
 DEFAULT: NULL (subfolder of \code{\link{tempdir}()})}
 
-\item{dividebyten}{Divide numerical values by 10? If dividebyten=FALSE, save 
+\item{dividebyten}{Divide numerical values by 10? 
+If dividebyten=FALSE and exdir left at NULL (tempdir), save 
 the result on disc with \code{raster::\link[raster]{writeRaster}}.
 Accessing out-of-memory raster objects won't work if 
 exdir is removed! -> Error in .local(.Object, ...)
@@ -51,16 +52,17 @@ All layers (following \code{selection} if given) in all .tar.gz files are
 combined into a raster stack with \code{raster::\link[raster]{stack}}.
 }
 \examples{
-\dontrun{ # Excluded from CRAN checks
+\dontrun{ # Excluded from CRAN checks, but run in localtests
+
 # File selection and download:
-datadir <- paste0(berryFunctions::packagePath(), "/localtests/CreateVignettes/DWDdata")
+datadir <- localtestdir()
 radbase <- paste0(gridbase,"/hourly/radolan/historical/asc/")
 radfile <- "2018/RW-201809.tar" # 25 MB to download
 file <- dataDWD(radfile, base=radbase, joinbf=TRUE, dir=datadir,
                 dfargs=list(mode="wb"), read=FALSE) # download with mode=wb!!!
                 
 #asc <- readDWD(file) # 4 GB in mem. ~ 20 secs unzip, 30 secs read, 10 min divide
-asc <- readDWD(file, selection=1:20, setpe=TRUE, dividebyten=FALSE)
+asc <- readDWD(file, selection=1:20, setpe=TRUE, dividebyten=TRUE)
 
 rng <- range(raster::cellStats(asc, "range"))
 nframes <- 3 # raster::nlayers(asc) for all (time intensive!)
@@ -75,6 +77,8 @@ berryFunctions::openFile(paste0(viddir,"/Radolan_001.png"))
 # Time series of a given point in space:
 plot(as.vector(asc[800,800,]), type="l", xlab="Time [hours]")
 
+# if dividebyten=FALSE, raster stores things out of memory in the exdir.
+# by default, this is in tempdir, hence you would need to save asc manually:
 # raster::writeRaster(asc, paste0(datadir,"/RW2018-09"), overwrite=TRUE) 
 }
 }

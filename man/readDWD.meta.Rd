@@ -24,6 +24,22 @@ read dwd metadata (Beschreibung*.txt files).
  Names can later be changed to ascii with 
  \code{berryFunctions::\link{convertUmlaut}}.
 }
+\examples{
+\dontrun{ # Excluded from CRAN checks, but run in localtests
+
+link <- selectDWD(res="daily", var="kl", per="r", meta=TRUE)
+if(length(link)!=1) stop("length of link should be 1, but is ", length(link), 
+                ":\\n", berryFunctions::truncMessage(link,prefix="",sep="\\n"))
+
+file <- dataDWD(link, dir=localtestdir(), read=FALSE)
+meta <- readDWD(file)
+head(meta)
+
+cnm <- colnames(meta)
+if(length(cnm)!=8) stop("number of columns should be 8, but is ", length(cnm),
+                        ":\\n", toString(cnm))
+}
+}
 \seealso{
 \code{\link{readDWD}}
 }

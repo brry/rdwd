@@ -4,14 +4,14 @@ library(rdwd)
 
 # reusable data location without version control
 # to avoid multiple downloads of the same file
-datadir <- paste0(berryFunctions::packagePath(), "/localtests/CreateVignettes/DWDdata")
+datadir <- localtestdir()
 begintime <- Sys.time()
 
 download_all_Potsdam_files <- TRUE # reduce test time a lot by setting this to FALSE
 
 # dataDWD ----------------------------------------------------------------------
 
-message("++ Testing dataDWD, readDWD observational files")
+message("++ Testing dataDWD + readDWD.data")
 
 test_that("dataDWD works", {
 link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
@@ -24,9 +24,8 @@ expect_warning(dataDWD("multi/mean/Temp.txt", quiet=TRUE),
 })
 
 
-# readDWD ----------------------------------------------------------------------
+# readDWD.data -----------------------------------------------------------------
 
-# . readDWD.data ----
 test_that("readDWD.data works for regular data", {
 link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
 file <- dataDWD(link, read=FALSE, dir=datadir, quiet=TRUE)
@@ -44,73 +43,8 @@ expect_equivalent(clim, clim_vn)
 expect_equal(clim_vn, clim_vnf)
 })
 
-# . readDWD.meta ----
-test_that("readDWD.meta works for Beschreibung data", {
-link <- selectDWD(res="daily", var="kl", per="r", meta=TRUE)
-if(length(link)!=1) stop("length of link should be 1, but is ", length(link), 
-                         ":\n", berryFunctions::truncMessage(link,prefix="",sep="\n"))
-file <- dataDWD(link, dir=datadir, read=FALSE)
-meta <- readDWD(file)
-cnm <- colnames(meta)
-if(length(cnm)!=8) stop("number of columns should be 8, but is ", length(cnm),
-                        ":\n", toString(cnm))
-})
-
-
-# . readDWD.multia ----
-test_that("readDWD.multia works for multi_annual data", {
-durl <- selectDWD(res="multi_annual", var="mean_81-10", per="")[9] # Temperature aggregates
-murl <- selectDWD(res="multi_annual", var="mean_81-10", per="", meta=TRUE)[9]
-ma_temp <- dataDWD(durl, dir=datadir)
-ma_meta <- dataDWD(murl, dir=datadir)
-})
-
-message("++ Testing readDWD gridded data methods")
-
-# . readDWD.binary ----
-test_that("readDWD.binary works for radolan grid data", {
-radfile <- "/daily/radolan/historical/2017/SF201712.tar.gz"
-# 204 MB, takes a minute to download:
-localfile <- dataDWD(file=radfile, base=gridbase, joinbf=TRUE,
-                     dir=datadir, read=FALSE)
-rad <- readDWD(localfile, selection=1:10) # no need to read all 24*31=744 files
-if(length(rad)!=10) stop("length(rad) should be 10, but is ", length(rad))
-# ToDo: make sense of the values, read them correctly!
-warning("readDWD.binary does not yet read the binary files correctly.")
-raster::plot(raster::raster(matrix(rad[[1]], ncol=900, byrow=TRUE)))
-})
-
-
-# . readDWD.raster ----
-message("++ Testing readDWD.raster")
-
-test_that("readDWD.raster works for raster data", {
-rasterbase <- paste0(gridbase,"/seasonal/air_temperature_mean")
-ftp.files <- indexFTP("/16_DJF", base=rasterbase, dir=tempdir())
-localfiles <- dataDWD(ftp.files[1:2], base=rasterbase, joinbf=TRUE,
-                      dir=datadir, read=FALSE)
-rf <- readDWD(localfiles[1])
-rf <- readDWD(localfiles[1]) # needs to be able to run a second time
-raster::plot(rf) 
-expect_equal(raster::cellStats(rf, range), c(-8.2,4.4))
-rf10 <- readDWD(localfiles[1], dividebyten=FALSE)
-raster::plot(rf10)
-expect_equal(raster::cellStats(rf10, range), c(-82,44))
-})
-
-
-# . readDWD.asc ----
-message("++ Testing readDWD.asc")
-
-test_that("readDWD.asc works for radolan asc data", {
-# File selection and download:
-radbase <- paste0(gridbase,"/hourly/radolan/historical/asc/")
-radfile <- "2018/RW-201809.tar" # 25 MB to download
-file <- dataDWD(radfile, base=radbase, joinbf=TRUE, dir=datadir,
-                dfargs=list(mode="wb"), read=FALSE) # download with mode=wb!!!
-#asc <- readDWD(file) # 4 GB in mem. ~ 20 secs unzip, 30 secs read, 10 min divide
-asc <- readDWD(file, selection=1:5, setpe=TRUE)
-})
+# readDWD.*** "tests" are in the examples of readDWD.*** to avoid duplicates.
+# The examples are executed at the end of this localtests file.
 
 
 
@@ -205,7 +139,8 @@ expect_error(selectDWD(id="", current=TRUE, res="",var="",per=""),
 message("++ Testing index up to date?")
 
 # simply try all files for Potsdam (for 1_minute and 10_minutes only 1 each)
-if(download_all_Potsdam_files) test_that("index is up to date", {
+if(download_all_Potsdam_files) 
+test_that("index is up to date - all files can be downloaded and read", {
 links <- selectDWD("Potsdam","","","") # does not include multi_annual data!
 toexclude <- grep("1_minute", links)
 toexclude <- toexclude[-(length(toexclude)-3)]
@@ -216,6 +151,7 @@ contents <- readDWD(files)
 
 
 test_that("historical files have been updated by DWD", {
+# assuming that fileIndex has been updated manually (see end of R/rdwd-package.R)
 data("fileIndex")
 lastyear <- as.numeric(format(Sys.Date(), "%Y"))-1 # the last completed year
 outdated <- fileIndex$end==paste0(lastyear-1, "1231") & # ends 1 year before lastyear

@@ -26,8 +26,36 @@ vector
 This does not work correctly yet for the tested data 
 (grids_germany/daily/radolan/historical)! Hints are welcome!
 }
+\examples{
+\dontrun{ # Excluded from CRAN checks, but run in localtests
+
+# a single file as example: ----
+radfile <- "/daily/radolan/historical/2017/SF201712.tar.gz"
+# 204 MB, takes a minute to download:
+localfile <- dataDWD(file=radfile, base=gridbase, joinbf=TRUE,
+                     dir=localtestdir(), read=FALSE)
+rad <- readDWD(localfile, selection=1:10) # no need to read all 24*31=744 files
+if(length(rad)!=10) stop("length(rad) should be 10, but is ", length(rad))
+
+# ToDo: make sense of the values, read them correctly!
+warning("readDWD.binary does not yet read the binary files correctly.")
+raster::plot(raster::raster(matrix(rad[[1]], ncol=900, byrow=TRUE)))
+
+
+# list of all Files: ----
+# radolanfiles <- indexFTP(folder="/daily/radolan", base=gridbase, dir=localtestdir())
+radolanfiles <- readLines(localtestdir(file="INDEX_of_DWD_daily_radolan.txt"))
+# Files without Bestand folders:
+radfiles <- radolanfiles[grepl("historical/..../SF", radolanfiles)]
+}
+}
 \seealso{
-\code{\link{readDWD}}
+\code{\link{readDWD}}\cr
+  \url{https://wradlib.org} for much more extensive radar analysis in Python\cr
+  \url{ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/Unterstuetzungsdokumente/RADOLAN-RADVOR-Kompositformat_2.4.pdf}
+  for format description\cr
+  \url{https://stats.idre.ucla.edu/r/faq/how-can-i-read-binary-data-into-r} 
+  for help I used developing readDWD.binary
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Dec 2018

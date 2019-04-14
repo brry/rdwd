@@ -34,7 +34,7 @@ rv_df <- do.call(rbind, rv)
 rv_df$Quelle <- rep(substr(urls, 59, 1e3), sapply(rv, nrow))
 rv_df <- berryFunctions::sortDF(rv_df, "Par", decreasing=FALSE)
 write.table(rv_df, "localtests/params.txt", sep="\t", quote=F, row.names=F)
-# Manually adde Kurz in Excel file, then copied to parameter_abbreviations in readVars.R
+# Manually added "Kurz" in Excel file, then copied to parameter_abbreviations in readVars.R
 
 # check for duplicates:
 rv[sapply(rv, function(x) sum(duplicated(x[,"Kurz"]))>0)]
@@ -43,104 +43,12 @@ rv[sapply(rv, function(x) sum(duplicated(x[,"Kurz"]))>0)]
 which(sapply(rv, function(x)any(!x$Par %in% parameter_abbreviations$Parameter)))
 
 
-# readDWD.asc nonraster version with arrays ----
-hournames <- gsub("RW_","", gsub(".asc$","",basename(hourfiles)))
-##meta <- read.table(hourfiles[1], nrows=6); meta
-dat <- lapply(hourfiles, read.table, skip=6, na.strings=-1, ...) # ToDo: NA.char from meta?
-if(progbar) message("Converting into matrices...")
-dat <- base::lapply(dat, as.matrix)
-dat <- base::lapply(dat, function(x) {colnames(x) <- NULL; x})
-names(dat) <- hournames
-if(progbar) message("Converting into array...")
-dat <- berryFunctions::l2array(dat)
-if(dividebyten) dat <- dat/10
-return(invisible(dat))
-
-
-# multi_annual tests ----
-
-selectDWD(res="daily", var="solar")
-selectDWD(res="multi_annual", var="mean_81-10", per="")
-selectDWD(res="multi_annual", var="mean_81-10", per="", meta=TRUE)
-selectDWD("Potsdam", res="multi_annual", var="mean_81-10", per="")
-
-durl <- selectDWD(res="multi_annual", var="mean_81-10", per="")[9] # Temperature aggregates
-murl <- selectDWD(res="multi_annual", var="mean_81-10", per="", meta=TRUE)[11]
-
-localfile <- dataDWD(durl, read=FALSE)
-ma_temp <- readDWD(localfile)
-
-localfile <- dataDWD(murl, read=FALSE)
-ma_meta <- readDWD(localfile)
-
-ma <- merge(ma_meta, ma_temp, all=TRUE)
-berryFunctions::linReg(ma$Stationshoehe, ma$Jahr)
-op <- par(mfrow=c(3,4), mar=c(0.1,2,2,0), mgp=c(3,0.6,0))
-for(m in colnames(ma)[8:19])
-  {
-  berryFunctions::linReg(ma$Stationshoehe, ma[,m], xaxt="n", xlab="", ylab="", main=m)
-  abline(h=0)
-  }
-par(op)
-
-par(bg=8)
-berryFunctions::colPoints(ma$geogr..Laenge, ma$geogr..Breite, ma$Jahr, add=F, asp=1.4)
-
-pdf("MultiAnn.pdf", width=8, height=10)
-par(bg=8)
-for(m in colnames(ma)[8:19])
-  {
-  raster::plot(rdwd::DEU, border="darkgrey")
-  berryFunctions::colPoints(ma[-262,]$geogr..Laenge, ma[-262,]$geogr..Breite, ma[-262,m], 
-                            asp=1.4, # Range=range(ma[-262,8:19]), 
-                            col=berryFunctions::divPal(200, rev=TRUE), zlab=m, add=T)
-  }
-dev.off()
-berryFunctions::openFile("MultiAnn.pdf")
-
-
-
-
-# radolan ----
-# https://wradlib.org for much more extensive radar analysis in Python
-# ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/Unterstuetzungsdokumente/RADOLAN-RADVOR-Kompositformat_2.4.pdf
-# for format description
-# https://stats.idre.ucla.edu/r/faq/how-can-i-read-binary-data-into-r/ for help on developing readDWD.binary
-# this is possible since rdwd 0.11.1 (2018-12-05) with argument base in dataDWD
-# ToDo: if included in use case vignette, change reference in readDWD arg binary
-# ToDo: make sense of the data values
-
-# . list of all Files: ----
-gridbase <- "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany"
-# radolanfiles <- indexFTP(folder="/daily/radolan", base=gridbase, dir="localtests/radolan")
-radolanfiles <- readLines("localtests/radolan/INDEX_of_DWD__daily_radolan_.txt")
-# Files without Bestand folders:
-radfiles <- radolanfiles[grepl("historical/..../SF", radolanfiles)]
-
-# . a single file as example: ----
-gridbase <- "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany"
-radfile <- "/daily/radolan//historical/2017/SF201712.tar.gz"
-# 204 MB, takes a minute to download:
-localfile <- dataDWD(file=paste0(gridbase, radfile), base=gridbase, 
-                dir="localtests/radolan", read=FALSE)
-
-rad <- readDWD(localfile)
-raster::plot(raster::raster(matrix(rad, ncol=900, byrow=TRUE)))
-
-
-
-
-
 
 # station with max number of files (for expanding readvars) ----
 data("geoIndex")
 summary(geoIndex)
 whimax <- which(geoIndex$nfiles == max(geoIndex$nfiles)) # 10 stations to choose
-geoIndex[whimax, ]
-
-
-
-
+geoIndex[whimax, 1:9]
 
 
 
@@ -152,14 +60,6 @@ system.time(  data1 <- readDWD(files, fread=FALSE)  )    # 10.4-11.3 secs for 30
 system.time(  data2 <- readDWD(files, fread=TRUE )  )    #  7.5- 7.7 secs
 system.time(  data3 <- readDWD(files)               )
 all.equal(data1, data2) # TRUE
-
-
-# not used for fwf meta files, hence the following is useles:
-f <- dir("DWDdata/meta/",full.names=T)
-system.time(  data1 <- readDWD(f, fread=FALSE) )  # 3.7 secs for 26 meta files
-system.time(  data2 <- readDWD(f, fread=TRUE)  )  # 3.7
-
-
 
 
 

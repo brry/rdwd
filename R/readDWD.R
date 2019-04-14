@@ -6,13 +6,16 @@
 #' The data is unzipped and subsequently, the file is read, processed and
 #' returned as a data.frame.\cr
 #' New users are advised to set \code{varnames=TRUE} to obtain more informative
-#' column names.\cr
+#' column names.\cr\cr
 #' \code{readDWD} will call internal (but documented) functions depending on the
-#' arguments \code{meta, binary, raster, multia, asc}. Not all arguments to
-#' \code{readDWD} are used for all functions, e.g. \code{fread} is used only by
-#' \code{\link{readDWD.data}} (for observational data), while \code{dividebyten} 
-#' is used in \code{\link{readDWD.raster}} and \code{\link{readDWD.asc}}
-#' (for interpolated gridded data).\cr
+#' arguments \code{meta, binary, raster, multia, asc}:\cr
+#' to read observational data: \code{\link{readDWD.data},
+#'          \link{readDWD.meta}, \link{readDWD.multia}}\cr
+#' to read interpolated gridded data: \code{\link{readDWD.binary},
+#'          \link{readDWD.raster}, \link{readDWD.asc}}\cr
+#' Not all arguments to \code{readDWD} are used for all functions, e.g. 
+#' \code{fread} is used only by \code{.data}, while \code{dividebyten} 
+#' is used in \code{.raster} and \code{.asc}.\cr\cr
 #' \code{file} can be a vector with several filenames. Most other arguments can
 #' also be a vector and will be recycled to the length of \code{file}.
 #' 
@@ -153,7 +156,7 @@ return(invisible(output))
 #' @title read regular dwd data
 #' @return data.frame
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}
-#' @seealso \code{\link{readDWD}}
+#' @seealso \code{\link{readDWD}}, Examples in \code{\link{dataDWD}}
 #' @param file     Name of file on harddrive, like e.g. 
 #'                 DWDdata/daily_kl_recent_tageswerte_KL_03987_akt.zip
 #' @param fread    Logical: read faster with \code{data.table::\link[data.table]{fread}}?
@@ -241,6 +244,21 @@ return(dat)
 #' @return data.frame
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}
 #' @seealso \code{\link{readDWD}}
+#' @examples
+#' \dontrun{ # Excluded from CRAN checks, but run in localtests
+#' 
+#' link <- selectDWD(res="daily", var="kl", per="r", meta=TRUE)
+#' if(length(link)!=1) stop("length of link should be 1, but is ", length(link), 
+#'                 ":\n", berryFunctions::truncMessage(link,prefix="",sep="\n"))
+#' 
+#' file <- dataDWD(link, dir=localtestdir(), read=FALSE)
+#' meta <- readDWD(file)
+#' head(meta)
+#' 
+#' cnm <- colnames(meta)
+#' if(length(cnm)!=8) stop("number of columns should be 8, but is ", length(cnm),
+#'                         ":\n", toString(cnm))
+#' }
 #' @param file  Name of file on harddrive, like e.g. 
 #'              DWDdata/daily_kl_recent_KL_Tageswerte_Beschreibung_Stationen.txt
 #' @param \dots Further arguments passed to \code{\link{read.fwf}}
@@ -298,6 +316,45 @@ stats
 #' @return data.frame
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Feb 2019
 #' @seealso \code{\link{readDWD}}
+#' @examples
+#' \dontrun{ # Excluded from CRAN checks, but run in localtests
+#' 
+#' # Temperature aggregates (2019-04 the 9th file):
+#' durl <- selectDWD(res="multi_annual", var="mean_81-10", per="")[9]
+#' murl <- selectDWD(res="multi_annual", var="mean_81-10", per="", meta=TRUE)[9]
+#' 
+#' ma_temp <- dataDWD(durl, dir=localtestdir())
+#' ma_meta <- dataDWD(murl, dir=localtestdir())
+#' 
+#' head(ma_temp)
+#' head(ma_meta)
+#' 
+#' ma <- merge(ma_meta, ma_temp, all=TRUE)
+#' berryFunctions::linReg(ma$Stationshoehe, ma$Jahr)
+#' op <- par(mfrow=c(3,4), mar=c(0.1,2,2,0), mgp=c(3,0.6,0))
+#' for(m in colnames(ma)[8:19])
+#'   {
+#'   berryFunctions::linReg(ma$Stationshoehe, ma[,m], xaxt="n", xlab="", ylab="", main=m)
+#'   abline(h=0)
+#'   }
+#' par(op)
+#' 
+#' par(bg=8)
+#' berryFunctions::colPoints(ma$geogr..Laenge, ma$geogr..Breite, ma$Jahr, add=F, asp=1.4)
+#' 
+#' data("DEU")
+#' pdf("MultiAnn.pdf", width=8, height=10)
+#' par(bg=8)
+#' for(m in colnames(ma)[8:19])
+#'   {
+#'   raster::plot(DEU, border="darkgrey")
+#'   berryFunctions::colPoints(ma[-262,]$geogr..Laenge, ma[-262,]$geogr..Breite, ma[-262,m], 
+#'                             asp=1.4, # Range=range(ma[-262,8:19]), 
+#'                             col=berryFunctions::divPal(200, rev=TRUE), zlab=m, add=T)
+#'   }
+#' dev.off()
+#' berryFunctions::openFile("MultiAnn.pdf")
+#' }
 #' @param file  Name of file on harddrive, like e.g. 
 #'              DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_aktStandort.txt or
 #'              DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_Stationsliste_aktStandort.txt
@@ -320,7 +377,34 @@ out
 #' (grids_germany/daily/radolan/historical)! Hints are welcome!
 #' @return vector
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2018
-#' @seealso \code{\link{readDWD}}
+#' @seealso \code{\link{readDWD}}\cr
+#'   \url{https://wradlib.org} for much more extensive radar analysis in Python\cr
+#'   \url{ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/Unterstuetzungsdokumente/RADOLAN-RADVOR-Kompositformat_2.4.pdf}
+#'   for format description\cr
+#'   \url{https://stats.idre.ucla.edu/r/faq/how-can-i-read-binary-data-into-r} 
+#'   for help I used developing readDWD.binary
+#' @examples
+#' \dontrun{ # Excluded from CRAN checks, but run in localtests
+#' 
+#' # a single file as example: ----
+#' radfile <- "/daily/radolan/historical/2017/SF201712.tar.gz"
+#' # 204 MB, takes a minute to download:
+#' localfile <- dataDWD(file=radfile, base=gridbase, joinbf=TRUE,
+#'                      dir=localtestdir(), read=FALSE)
+#' rad <- readDWD(localfile, selection=1:10) # no need to read all 24*31=744 files
+#' if(length(rad)!=10) stop("length(rad) should be 10, but is ", length(rad))
+#' 
+#' # ToDo: make sense of the values, read them correctly!
+#' warning("readDWD.binary does not yet read the binary files correctly.")
+#' raster::plot(raster::raster(matrix(rad[[1]], ncol=900, byrow=TRUE)))
+#' 
+#' 
+#' # list of all Files: ----
+#' # radolanfiles <- indexFTP(folder="/daily/radolan", base=gridbase, dir=localtestdir())
+#' radolanfiles <- readLines(localtestdir(file="INDEX_of_DWD_daily_radolan.txt"))
+#' # Files without Bestand folders:
+#' radfiles <- radolanfiles[grepl("historical/..../SF", radolanfiles)]
+#' }
 #' @param file      Name of file on harddrive, like e.g. 
 #'                  DWDdata/grids_germany_daily_radolan_historical_2017_SF201712.tar.gz
 #' @param progbar   Show messages and progress bars? \code{\link{readDWD}} will
@@ -359,6 +443,22 @@ return(invisible(rb))
 #' @return \code{raster::\link[raster]{raster}} object
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2018
 #' @seealso \code{\link{readDWD}}
+#' @examples
+#' \dontrun{ # Excluded from CRAN checks, but run in localtests
+#' 
+#' rasterbase <- paste0(gridbase,"/seasonal/air_temperature_mean")
+#' ftp.files <- indexFTP("/16_DJF", base=rasterbase, dir=tempdir())
+#' localfiles <- dataDWD(ftp.files[1:2], base=rasterbase, joinbf=TRUE,
+#'                       dir=localtestdir(), read=FALSE)
+#' rf <- readDWD(localfiles[1])
+#' rf <- readDWD(localfiles[1]) # needs to be able to run a second time
+#' raster::plot(rf)
+#' 
+#' testthat::expect_equal(raster::cellStats(rf, range), c(-8.2,4.4))
+#' rf10 <- readDWD(localfiles[1], dividebyten=FALSE)
+#' raster::plot(rf10)
+#' testthat::expect_equal(raster::cellStats(rf10, range), c(-82,44))
+#' }
 #' @param file        Name of file on harddrive, like e.g. 
 #'                    DWDdata/grids_germany/seasonal/air_temperature_mean/
 #'                    16_DJF_grids_germany_seasonal_air_temp_mean_188216.asc.gz
@@ -393,11 +493,12 @@ return(invisible(r))
 #' @param file        Name of file on harddrive, like e.g. 
 #'                    DWDdata/grids_germany/hourly/radolan/historical/asc/
 #'                    2018_RW-201809.tar.
-#'                    Must be downloaded with \code{mode="wb"}!
+#'                    Must have been downloaded with \code{mode="wb"}!
 #' @param exdir       Directory to unzip into. Unpacked files existing therein
 #'                    will not be untarred again, saving up to 15 secs per file.
 #'                    DEFAULT: NULL (subfolder of \code{\link{tempdir}()})
-#' @param dividebyten Divide numerical values by 10? If dividebyten=FALSE, save 
+#' @param dividebyten Divide numerical values by 10? 
+#'                    If dividebyten=FALSE and exdir left at NULL (tempdir), save 
 #'                    the result on disc with \code{raster::\link[raster]{writeRaster}}.
 #'                    Accessing out-of-memory raster objects won't work if 
 #'                    exdir is removed! -> Error in .local(.Object, ...)
@@ -415,16 +516,17 @@ return(invisible(r))
 #' @param \dots       Further arguments passed to \code{raster::\link[raster]{raster}}
 # @importFrom raster raster stack crs projection extent plot
 #' @examples 
-#' \dontrun{ # Excluded from CRAN checks
+#' \dontrun{ # Excluded from CRAN checks, but run in localtests
+#' 
 #' # File selection and download:
-#' datadir <- paste0(berryFunctions::packagePath(), "/localtests/CreateVignettes/DWDdata")
+#' datadir <- localtestdir()
 #' radbase <- paste0(gridbase,"/hourly/radolan/historical/asc/")
 #' radfile <- "2018/RW-201809.tar" # 25 MB to download
 #' file <- dataDWD(radfile, base=radbase, joinbf=TRUE, dir=datadir,
 #'                 dfargs=list(mode="wb"), read=FALSE) # download with mode=wb!!!
 #'                 
 #' #asc <- readDWD(file) # 4 GB in mem. ~ 20 secs unzip, 30 secs read, 10 min divide
-#' asc <- readDWD(file, selection=1:20, setpe=TRUE, dividebyten=FALSE)
+#' asc <- readDWD(file, selection=1:20, setpe=TRUE, dividebyten=TRUE)
 #' 
 #' rng <- range(raster::cellStats(asc, "range"))
 #' nframes <- 3 # raster::nlayers(asc) for all (time intensive!)
@@ -439,6 +541,8 @@ return(invisible(r))
 #' # Time series of a given point in space:
 #' plot(as.vector(asc[800,800,]), type="l", xlab="Time [hours]")
 #' 
+#' # if dividebyten=FALSE, raster stores things out of memory in the exdir.
+#' # by default, this is in tempdir, hence you would need to save asc manually:
 #' # raster::writeRaster(asc, paste0(datadir,"/RW2018-09"), overwrite=TRUE) 
 #' }
 readDWD.asc <- function(file, exdir=NULL, dividebyten=TRUE, 

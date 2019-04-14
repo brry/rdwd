@@ -22,6 +22,23 @@ DEFAULT: TRUE}
 \description{
 read dwd gridded raster data
 }
+\examples{
+\dontrun{ # Excluded from CRAN checks, but run in localtests
+
+rasterbase <- paste0(gridbase,"/seasonal/air_temperature_mean")
+ftp.files <- indexFTP("/16_DJF", base=rasterbase, dir=tempdir())
+localfiles <- dataDWD(ftp.files[1:2], base=rasterbase, joinbf=TRUE,
+                      dir=localtestdir(), read=FALSE)
+rf <- readDWD(localfiles[1])
+rf <- readDWD(localfiles[1]) # needs to be able to run a second time
+raster::plot(rf)
+
+testthat::expect_equal(raster::cellStats(rf, range), c(-8.2,4.4))
+rf10 <- readDWD(localfiles[1], dividebyten=FALSE)
+raster::plot(rf10)
+testthat::expect_equal(raster::cellStats(rf10, range), c(-82,44))
+}
+}
 \seealso{
 \code{\link{readDWD}}
 }
