@@ -358,10 +358,16 @@ stats
 #' @param file  Name of file on harddrive, like e.g. 
 #'              DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_aktStandort.txt or
 #'              DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_Stationsliste_aktStandort.txt
+#' @param fileEncoding \link{read.table} \link{file} encoding.
+#'              DEFAULT: "latin1" (needed on Linux, optional but not hurting on windows)
+#' @param comment.char \link{read.table} comment character.
+#'              DEFAULT: "\\032" (needed 2019-04 to ignore the binary 
+#'              control character at the end of multi_annual files)
 #' @param \dots Further arguments passed to \code{\link{read.table}}
-readDWD.multia <- function(file, ...)
+readDWD.multia <- function(file, fileEncoding="latin1", comment.char="\032", ...)
 {
-out <- read.table(file, sep=";", header=TRUE, ...)
+out <- read.table(file, sep=";", header=TRUE, fileEncoding=fileEncoding, 
+                  comment.char=comment.char, ...)
 nc <- ncol(out)
 # presumably, all files have a trailing empty column...
 if(colnames(out)[nc]=="X") out <- out[,-nc]

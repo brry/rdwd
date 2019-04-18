@@ -4,12 +4,20 @@
 \alias{readDWD.multia}
 \title{read multi_annual dwd data}
 \usage{
-readDWD.multia(file, ...)
+readDWD.multia(file, fileEncoding = "latin1", comment.char = "\\032",
+  ...)
 }
 \arguments{
 \item{file}{Name of file on harddrive, like e.g. 
 DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_aktStandort.txt or
 DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_Stationsliste_aktStandort.txt}
+
+\item{fileEncoding}{\link{read.table} \link{file} encoding.
+DEFAULT: "latin1" (needed on Linux, optional but not hurting on windows)}
+
+\item{comment.char}{\link{read.table} comment character.
+DEFAULT: "\\032" (needed 2019-04 to ignore the binary 
+control character at the end of multi_annual files)}
 
 \item{\dots}{Further arguments passed to \code{\link{read.table}}}
 }
