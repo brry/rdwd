@@ -72,14 +72,14 @@ returned as a data.frame.\cr
 New users are advised to set \code{varnames=TRUE} to obtain more informative
 column names.\cr\cr
 \code{readDWD} will call internal (but documented) functions depending on the
-arguments \code{meta, binary, raster, multia, asc}, i.e.:\cr
+arguments \code{meta, binary, raster, multia, asc}:\cr
 to read observational data: \code{\link{readDWD.data},
          \link{readDWD.meta}, \link{readDWD.multia}}\cr
 to read interpolated gridded data: \code{\link{readDWD.binary},
          \link{readDWD.raster}, \link{readDWD.asc}}\cr
 Not all arguments to \code{readDWD} are used for all functions, e.g. 
-\code{fread} is used only by \code{\link{readDWD.data}}, while \code{dividebyten} 
-is used in \code{\link{readDWD.raster}} and \code{\link{readDWD.asc}}.\cr\cr
+\code{fread} is used only by \code{.data}, while \code{dividebyten} 
+is used in \code{.raster} and \code{.asc}.\cr\cr
 \code{file} can be a vector with several filenames. Most other arguments can
 also be a vector and will be recycled to the length of \code{file}.
 }
