@@ -126,6 +126,10 @@ expect_warning(selectDWD(id="01050", res=c("daily","monthly"), var="kl", per="")
                "according to file index 'fileIndex', there is no file in '/daily/kl/' with ID 1050.") 
 expect_warning(selectDWD(id="00386", res="",var="",per="", meta=TRUE),
                "selectDWD: meta is ignored if id is given, but path is not given.")
+expect_warning(selectDWD("Potsdam", res="multi_annual", var="mean_81-10", per=""),
+               "selectDWD: multi_annual data is not organized by station ID")
+expect_warning(selectDWD(res="multi_annual", var="mean_81-10", per="r"),
+               "selectDWD: multi_annual data is not organized in period folders")
 
 expect_error(selectDWD(id="Potsdam", res="daily", var="solar"),
              "selectDWD: id may not contain letters: Potsdam")
