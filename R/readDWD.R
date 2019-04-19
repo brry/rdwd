@@ -29,7 +29,7 @@
 #'          \code{\link{readMeta}}, \code{\link{selectDWD}}
 #' @keywords file chron
 #' @importFrom utils read.table unzip read.fwf untar write.table
-#' @importFrom berryFunctions checkFile na9 traceCall l2df
+#' @importFrom berryFunctions checkFile na9 traceCall l2df owa
 #' @importFrom pbapply pblapply
 #' @importFrom tools file_path_sans_ext
 #' @export
@@ -437,6 +437,8 @@ return(invisible(rb))
 
 
 #' @title read dwd gridded raster data
+#' @description Read gridded raster data. Note that \code{R.utils} must be 
+#' installed to unzip the .asc.gz files.
 #' @return \code{raster::\link[raster]{raster}} object
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2018
 #' @seealso \code{\link{readDWD}}
@@ -448,7 +450,7 @@ return(invisible(rb))
 #' localfiles <- dataDWD(ftp.files[1:2], base=rasterbase, joinbf=TRUE,
 #'                       dir=localtestdir(), read=FALSE)
 #' rf <- readDWD(localfiles[1])
-#' rf <- readDWD(localfiles[1]) # needs to be able to run a second time
+#' rf <- readDWD(localfiles[1]) # runs faster at second time due to skip=TRUE
 #' raster::plot(rf)
 #' 
 #' testthat::expect_equal(raster::cellStats(rf, range), c(-8.2,4.4))
@@ -459,10 +461,21 @@ return(invisible(rb))
 #' @param file        Name of file on harddrive, like e.g. 
 #'                    DWDdata/grids_germany/seasonal/air_temperature_mean/
 #'                    16_DJF_grids_germany_seasonal_air_temp_mean_188216.asc.gz
+#' @param gargs       Named list of arguments passed to 
+#'                    \code{R.utils::\link[R.utils]{gunzip}}. The internal 
+#'                    defaults are: \code{remove=FALSE} (recommended to keep this
+#'                    so \code{file} does not get deleted) and \code{skip=TRUE}
+#'                    (which reads previously unzipped files as is).
+#'                    If \code{file} has changed, you might want to use 
+#'                    \code{gargs=list(skip=FALSE, overwrite=TRUE)}
+#'                    or alternatively \code{gargs=list(temporary=TRUE)}.
+#'                    The \code{gunzip} default \code{destname} means that the 
+#'                    unzipped file is stored at the same path as \code{file}.
+#'                    DEFAULT gargs: NULL
 #' @param dividebyten Logical: Divide the numerical values by 10?
 #'                    DEFAULT: TRUE
 #' @param \dots       Further arguments passed to \code{raster::\link[raster]{raster}}
-readDWD.raster <- function(file, dividebyten, ...)
+readDWD.raster <- function(file, gargs=NULL, dividebyten, ...)
 {
 if(!requireNamespace("R.utils", quietly=TRUE))
   stop("To use rdwd:::readDWD.raster, please first install R.utils:",
@@ -471,7 +484,11 @@ if(!requireNamespace("raster", quietly=TRUE))
  stop("To use rdwd:::readDWD.raster, please first install raster:",
       "   install.packages('raster')", call.=FALSE)
 #https://stackoverflow.com/questions/5227444/recursively-ftp-download-then-extract-gz-files
-rdata <- R.utils::gunzip(file, remove=FALSE, overwrite=TRUE)
+# gunzip arguments:
+gdef <- list(filename=file, remove=FALSE, skip=TRUE)
+gfinal <- berryFunctions::owa(gdef, gargs, "filename")
+rdata <- do.call(R.utils::gunzip, gfinal)
+# raster reading:
 r <- raster::raster(rdata, ...)
 if(dividebyten) r <- r/10
 return(invisible(r))
