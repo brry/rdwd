@@ -4,14 +4,15 @@
 \alias{newColumnNames}
 \title{Enhance readDWD column names}
 \usage{
-newColumnNames(dataframe, variables, separator = ".")
+newColumnNames(dataframe, variables = dwdparams, separator = ".")
 }
 \arguments{
 \item{dataframe}{Dataframe as returned by \code{\link{readDWD}.data}}
 
 \item{variables}{Dataframe as returned by \code{\link{readVars}} for a
 single file. Rownames must be variable abbreviations.
-There must be a "Kurz" column.}
+There must be a "Kurz" column.
+DEFAULT: \code{\link{dwdparams}}}
 
 \item{separator}{Separator between abbreviation and long name. DEFAULT: "."}
 }

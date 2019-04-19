@@ -14,7 +14,6 @@ DWDdata/daily_kl_recent_tageswerte_KL_03987_akt.zip}
 \item{fread}{Logical: read faster with \code{data.table::\link[data.table]{fread}}?
 When reading many large historical files, speedup is significant.
 NA can also be used, which means TRUE if data.table is available.
-Keep \code{varnames=FALSE} for the speed gain!
 DEFAULT: FALSE}
 
 \item{varnames}{Logical (vector): add a short description to the DWD variable 

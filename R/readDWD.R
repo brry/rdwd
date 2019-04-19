@@ -162,7 +162,6 @@ return(invisible(output))
 #' @param fread    Logical: read faster with \code{data.table::\link[data.table]{fread}}?
 #'                 When reading many large historical files, speedup is significant.
 #'                 NA can also be used, which means TRUE if data.table is available.
-#'                 Keep \code{varnames=FALSE} for the speed gain!
 #'                 DEFAULT: FALSE
 #' @param varnames Logical (vector): add a short description to the DWD variable 
 #'                 abbreviations in the column names?
@@ -189,7 +188,6 @@ if(fread)
   fp <- fp$Name[grepl("produkt",fp$Name)]
   dat <- data.table::fread(cmd=paste("unzip -p", file, fp), na.strings=na9(nspace=0),
                            header=TRUE, sep=";", stringsAsFactors=TRUE, data.table=FALSE, ...)
-  if(varnames) dat <- newColumnNames(dat, readVars(file))
   } else
 {
 # temporary unzipping directory
@@ -202,16 +200,9 @@ f <- dir(exdir, pattern="produkt*", full.names=TRUE)
 if(length(f)!=1) stop("There should be a single 'produkt*' file, but there are ",
                       length(f), " in\n  ", file, "\n  Consider re-downloading (with force=TRUE).")
 dat <- read.table(f, na.strings=na9(), header=TRUE, sep=";", as.is=FALSE, ...)
-if(varnames) 
-  {
-  vars <- dir(exdir, pattern="Metadaten_Parameter.*txt", full.names=TRUE)
-  if(length(vars)!=1) warning("No Metadaten_Parameter.*txt file available in\n",
-                              file)
-  vars <- readVars.internal(vars, fn) # much quicker if already unzipped!
-  dat <- newColumnNames(dat, vars)
-  }
 } # end if(!fread)
 #
+if(varnames)  dat <- newColumnNames(dat)
 # process time-stamp: http://stackoverflow.com/a/13022441
 if(!is.null(format))
   {

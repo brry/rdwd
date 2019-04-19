@@ -11,15 +11,16 @@
 #' @examples
 #' # mainly for internal usage
 #'
+#' @param dataframe Dataframe as returned by \code{\link{readDWD}.data}
 #' @param variables Dataframe as returned by \code{\link{readVars}} for a
 #'                  single file. Rownames must be variable abbreviations.
 #'                  There must be a "Kurz" column.
-#' @param dataframe Dataframe as returned by \code{\link{readDWD}.data}
+#'                  DEFAULT: \code{\link{dwdparams}}
 #' @param separator Separator between abbreviation and long name. DEFAULT: "."
 #'
 newColumnNames <- function(
 dataframe,
-variables,
+variables=dwdparams,
 separator="."
 )
 {

@@ -47,39 +47,6 @@ unzip(f, exdir=exdir)
 on.exit(unlink(exdir, recursive=TRUE), add=TRUE)
 f <- dir(exdir, pattern="Metadaten_Parameter.*txt", full.names=TRUE)
 if(length(f)!=1) return(length(f))
-return(readVars.internal(f, fn)) # needed also in readDWD.data with varnames=TRUE
-# lapply loop end
-})
-#
-# Warn about zip folders with no meta file:
-nometa <- sapply(output, class)=="integer"
-if(any(nometa)) 
- {
- msg <- paste(unlist(output[nometa]), file[nometa], sep=" in ")
- exp <- grepl("_minute", file[nometa]) # expected no meta files
- mexp <- c("\nThis is expected since 1 and 10 minute data do not have ",
-           "meta-information in most of the zip folders (as of 2019-02).\n")
- mnexp <- "\nPlease contact berry-b@gmx.de with with a copy of this warning.\n"
- warning(traceCall(1, "", ": "), "The number of determined ",
-         "'Metadaten_Parameter*.txt' files should be 1, but is instead:\n", 
-         paste(msg[ exp],collapse="\n"), if(any( exp)) mexp, 
-         paste(msg[!exp],collapse="\n"), if(any(!exp)) mnexp,
-         call.=FALSE)
- }
-#
-names(output) <- tools::file_path_sans_ext(basename(file))
-output <- if(length(file)==1) output[[1]] else output
-return(output)
-}
-
-
-
-
-readVars.internal <- function(
-f, # unzipped "Metadaten_Parameter.*txt" filename
-fn # zip file basename (for warnings)
-)
-{
 nr <- readLines(f) # number of rows
 nr <- sum(!substr(nr, 1, 7) %in% c("Legende", "generie"))
 tab <- read.table(f, na.strings=na9(), sep=";", header=TRUE, nrows=nr-1, 
@@ -108,8 +75,29 @@ colnames(tab2)[1] <- "Par"
 rownames(tab2) <- tab2$Par
 # return column metadata:
 return(tab2)
+# lapply loop end
+})
+#
+# Warn about zip folders with no meta file:
+nometa <- sapply(output, class)=="integer"
+if(any(nometa)) 
+ {
+ msg <- paste(unlist(output[nometa]), file[nometa], sep=" in ")
+ exp <- grepl("_minute", file[nometa]) # expected no meta files
+ mexp <- c("\nThis is expected since 1 and 10 minute data do not have ",
+           "meta-information in most of the zip folders (as of 2019-02).\n")
+ mnexp <- "\nPlease contact berry-b@gmx.de with with a copy of this warning.\n"
+ warning(traceCall(1, "", ": "), "The number of determined ",
+         "'Metadaten_Parameter*.txt' files should be 1, but is instead:\n", 
+         paste(msg[ exp],collapse="\n"), if(any( exp)) mexp, 
+         paste(msg[!exp],collapse="\n"), if(any(!exp)) mnexp,
+         call.=FALSE)
+ }
+#
+names(output) <- tools::file_path_sans_ext(basename(file))
+output <- if(length(file)==1) output[[1]] else output
+return(output)
 }
-
 
 
 
@@ -353,3 +341,4 @@ V_S3_HHS	Wolkenhoehe_Schicht3
 V_S4_HHS	Wolkenhoehe_Schicht4
 V_S4_HHS	Wolkenhoehe_Schicht4
 "))
+rownames(dwdparams) <- dwdparams$Parameter
