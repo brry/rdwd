@@ -2,6 +2,9 @@
 rdwd ToDo-list / wishlist / issues
 - dataDWD: potentially use curl to download data without sleep need
 - readDWD: figure out reason for fread trouble (reported in emails by some users)
+- readDWD.binary: make it work correctly
+- createVignetttes: parallize markdown rendering, use pkgdown
+- development notes: material for use case vignettes? material to remove?
 
 
 ---------------------------------------
