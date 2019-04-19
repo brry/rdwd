@@ -55,6 +55,7 @@ NULL
 #' \url{ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany}
 #' 
 dwdbase <- "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate"
+#' @export
 gridbase <- "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany"
 
 
