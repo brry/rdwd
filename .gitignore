@@ -12,3 +12,5 @@ localtests/params.xlsx
 localtests/CreateVignettes/DWDdata/
 localtests/CreateVignettes/landkreise/
 localtests/ExampleTests
+DWDdata/RainfallStationsMap_2.pdf
+DWDdata/RainfallStationsMap_nfiles_2.pdf

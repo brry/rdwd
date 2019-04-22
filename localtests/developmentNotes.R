@@ -2,10 +2,9 @@
 stop("Don't source this document")
 
 # add new folders to fileIndex ----
-# If rdwd has new folders, add them to fileIndex manually, in order to still use
+# If CDC has new folders, add them to fileIndex manually, in order to still use
 # indexFTP with folder="currentfindex".
 # Don't forget to update the overview in selectDWD as well!
-
 {
 data("fileIndex")
 currentindexfolders <- unique(dirname(fileIndex$path))
@@ -23,84 +22,29 @@ tools::resaveRdaFiles("data/fileIndex.rda")
 
 # readVars parameter abbreviations ----
 
-datadir <- paste0(berryFunctions::packagePath(), "/localtests/CreateVignettes/DWDdata")
-
 urls <- selectDWD("Potsdam","","","")
 urls <- urls[!grepl("1_minute", urls)]
 urls <- urls[!  (grepl("10_minutes", urls)&!grepl("meta_data", urls))     ]
-files <- dataDWD(urls, dir=datadir, read=F)
+files <- dataDWD(urls, dir=localtestdir(), read=F)
 rv <- readVars(files)  ;  rv
 rv_df <- do.call(rbind, rv)
 rv_df$Quelle <- rep(substr(urls, 59, 1e3), sapply(rv, nrow))
 rv_df <- berryFunctions::sortDF(rv_df, "Par", decreasing=FALSE)
 write.table(rv_df, "localtests/params.txt", sep="\t", quote=F, row.names=F)
 # Manually added "Kurz" in Excel file, then copied to parameter_abbreviations in readVars.R
-
+#
 # check for duplicates:
 rv[sapply(rv, function(x) sum(duplicated(x[,"Kurz"]))>0)]
-
 # check for new entries:
 which(sapply(rv, function(x)any(!x$Par %in% parameter_abbreviations$Parameter)))
 
 
 
-# station with max number of files (for expanding readvars) ----
-data("geoIndex")
-summary(geoIndex)
-whimax <- which(geoIndex$nfiles == max(geoIndex$nfiles)) # 10 stations to choose
-geoIndex[whimax, 1:9]
 
-
-
-# fread speed test  ----
-links <- selectDWD(res="daily", var="kl", per="h")[1:30]
-files <- dataDWD(links, dir="testfread", read=F)
-
-system.time(  data1 <- readDWD(files, fread=FALSE)  )    # 10.4-11.3 secs for 30 files
-system.time(  data2 <- readDWD(files, fread=TRUE )  )    #  7.5- 7.7 secs
-system.time(  data3 <- readDWD(files)               )
-all.equal(data1, data2) # TRUE
-
-
-
-# libcurl returning OS dependent results: ----
-
-if(!requireNamespace("RCurl", quietly=TRUE)) install.packages("RCurl")
-link <- "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate"
-RCurl::getURL(link, ftp.use.epsv=TRUE, dirlistonly=TRUE)
-Sys.info()['sysname']
-.Platform$OS.type
-
-library(curl)
-readLines(curl(link, handle=new_handle(dirlistonly=TRUE, ftp_use_epsv=TRUE)))
-
-
-wp <- curl::curl(link, handle=curl::new_handle(dirlistonly=TRUE, ftp_use_epsv=TRUE))
-readLines(wp)
-
-# Windows / windows:
-w <- "climate\r\nphenology\r\nradiosondes\r\nclimate_urban\r\n"
-# Linux / unix:
-l <- "climate\nphenology\nradiosondes\nclimate_urban\n"
-# Darwin? (Mac)
-# SunOS? (Solaris)
-
-# generic solution:
-gsub("\r", "", strsplit(w, "\n")[[1]])
-gsub("\r", "", strsplit(l, "\n")[[1]])
-
-
-
-
-
-
-# readDWD meta = TRUE ----
+# readDWD.meta ----
 # Development process and tests
-
 # in october 2016, DWD slightly changed monthly/kl meta file column widths
 # Here are alternative thoughs on how to automatize width detection
-
-
 "
 > spaces
 [1]   6  15  24  25  26  27  28  29  30
@@ -119,8 +63,6 @@ gsub("\r", "", strsplit(l, "\n")[[1]])
 [118] 176 177 178 179 180 181 182 183 184
 [127] 185 186 187 188 189 190 191 192 193
 [136] 194 195 196 197 198 199 200
-
-
 > sb
 [1]   1   2   3   4   5   6   7   8   9
 [10]  10  12  21  30  31  32  33  34  35
@@ -140,7 +82,6 @@ gsub("\r", "", strsplit(l, "\n")[[1]])
 [136] 190 191 192 193 194 195 196 197 198
 [145] 199 200
 "
-
 #             .        .        ..                .          .      .                                        .                      .
 #             6        15       24   -   34   38-42      50-53      60   65               -                101                 119-200
 a="00001 18910101 19860630           478     47.8413    8.8493 Aach                                     Baden-Württemberg                                                                                  "
@@ -152,17 +93,14 @@ sb <- unlist(gregexpr(" ", b)) # daily   kl          historical
 sa[which(diff(sa)!=1)]
 sa[which(diff(sa)!=1)+1]
 sb[which(diff(sb)!=1)]
-
-
+#
 # Check a couple different styles with:
 mf <- selectDWD(res=c(rep("hourly",3), "monthly", "daily"), var=c("cloudiness","solar","sun","kl","kl"),
                 time=c(rep("r",4), "h"), meta=TRUE, outvec=T, current=TRUE)
-
 m <- dataDWD(mf)
 lapply(m, head)
-
+#
 # Also removed from readDWD (see note on selectDWD id argument):
-
 #                ID           VON         BIS        HOEHE    LAT       LONG      NAME     BUNDESLAND
 #colClasses <- c("character", "integer", "integer", "numeric","numeric","numeric","factor","factor")
 # some meta files have no leading zeros, so this package uses integer all the time. # colClasses=colClasses
@@ -170,6 +108,7 @@ lapply(m, head)
 
 
 # check station coordinates: ----
+data("metaIndex")
 coord_ok <- pbsapply(unique(metaIndex$Stationsname), function(n)
 {
  sel <- metaIndex$Stationsname==n
@@ -198,6 +137,7 @@ checkdupli("Bundesland", "Stationsname") # $`Holzdorf (Flugplatz)` "Sachsen-Anha
 checkdupli("Stations_id", "Stationsname") # $Hoerstel 2254 15559
 checkdupli("Stationsname", "Stations_id") # 53 with 2
 
+data("geoIndex")
 checkdupli("name", "id", geoIndex) # 44 with 2
 
 sum(geoIndex$nfiles_coord) # 25482
@@ -210,8 +150,9 @@ if(!requireNameSpace("OSMscale")) install.packages("OSMscale")
 library("OSMscale")
 
 # Map of all precipitation stations (metaindex):
-map <- pointsMap(geoBreite, geoLaenge, data=metaIndex, fx=0.28, fy=0.06)
-pdf("DWDdata/RainfallStationsMap.pdf")
+if(!exists("map")) map <- pointsMap(geoBreite, geoLaenge, data=metaIndex, fx=0.28, fy=0.06)
+pdf("DWDdata/RainfallStationsMap_2.pdf")
+# pointsMap(geoBreite, geoLaenge, data=metaIndex, map=map, pch=NA, scale=FALSE)
 plot(map)
 scaleBar(map, x=0.05, y=0.03, abslen=200)
 pp <- projectPoints(geoBreite, geoLaenge, data=metaIndex, to=posm())
@@ -225,14 +166,14 @@ dev.off()
 
 # . map geoIndex ----
 
-map <- pointsMap(lat, long, data=geoIndex, fx=0.06, fy=0.06)
-pdf("DWDdata/RainfallStationsMap_nfiles.pdf", width=5)
+map <- pointsMap(lat, lon, data=geoIndex, fx=0.06, fy=0.06)
+pdf("DWDdata/RainfallStationsMap_nfiles_2.pdf", width=5)
 plot(map)
 scaleBar(map, x=0.05, y=0.03, abslen=200)
-geoIndex <- sortDF(geoIndex, "nfiles_coord", decreasing=FALSE)
-pp <- projectPoints(lat, long, data=geoIndex, to=posm())
+geoIndex <- sortDF(geoIndex, "nfiles", decreasing=FALSE)
+pp <- projectPoints(lat, lon, data=geoIndex, to=posm())
 points(pp, cex=0.6)
-colPoints(pp$x, pp$y, geoIndex$nfiles_coord, cex=0.6, zlab="")
+colPoints(pp$x, pp$y, geoIndex$nfiles, cex=0.6, zlab="")
 title(main="DWD stations: number of files on ftp server", line=3)
 dev.off()
 
@@ -251,16 +192,4 @@ hist(metaIndex$bis_jahr, breaks=50, col="purple")
 hist(metaIndex$dauer, breaks=50, col="purple")
 sum(metaIndex$dauer>50); mean(metaIndex$dauer>50)
 # 45% of stations with more than 50 years of data (according to metadata)
-
-
-
-# wind readVars ----
-
-link <- selectDWD("Potsdam", res="10_minutes", var="wind", per="recent")
-file <- dataDWD(link, read=FALSE, dir=tempdir())
-vars <- readVars(file); vars
-
-file <- dataDWD(paste0(dwdbase,"/hourly/solar/stundenwerte_ST_05906_row.zip"), 
-                read=FALSE, dir=datadir)
-clim <- readDWD(file) # format now autodetected, read.table charstring?
 
