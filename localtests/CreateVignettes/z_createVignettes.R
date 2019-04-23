@@ -13,49 +13,52 @@ begintime <- Sys.time()
 if(substr(getwd(),2,100) != ":/Dropbox/Rpack/rdwd") 
   stop("getwd should be S:/Dropbox/Rpack/rdwd, but is: ", getwd()  )
  
+
+# vignette files to render:
+vigfiles <- read.table(stringsAsFactors=FALSE, sep="/", text="
+rdwd.Rmd   ; rdwd: climate data from the German Weather Service
+cases.Rmd  ; rdwd use cases
+mapDWD.Rmd ; DWD weather stations map")
+
+
 # Function to automate vignette compilation:
-createBerrysVignettes <- function(file, title)
+# equivalent in function to devtools::build_vignettes()
+createBerrysVignettes <- function(rownumber)
   {
+  ft <- strsplit(vigfiles[rownumber, 1], ";")[[1]]
+  file  <- berryFunctions::removeSpace(ft[1])
+  title <- berryFunctions::removeSpace(ft[2])
+  # filenames:
+  fname <- tools::file_path_sans_ext(basename(file))
+  f2render <- paste0("localtests/CreateVignettes/",  file)
+  f_vig    <- paste0("vignettes/", fname, ".html")
+  f_asis   <- paste0("vignettes/", fname, ".html.asis")
   # knit to html
-  vig_file <- rmarkdown::render(file, output_dir="vignettes", envir=new.env())
-  #
+  frendered <- rmarkdown::render(f2render, output_dir=tempdir(), envir=new.env())
+  # rendered in tempdir to avoid cases_files folder
+  file.copy(frendered, f_vig, overwrite=TRUE)
   # html.asis file, see:
   # https://cran.r-project.org/web/packages/R.rsp/vignettes/R_packages-Static_PDF_and_HTML_vignettes.pdf
-  #
-  asis_file <- paste0("vignettes/", tools::file_path_sans_ext(basename(file)), ".html.asis")
   cat(paste0("
 %\\VignetteIndexEntry{", title, "}
 %\\VignetteEngine{R.rsp::asis}
 %\\VignetteKeyword{HTML}
 %\\VignetteKeyword{vignette}
-%\\VignetteKeyword{package}\n"), file=asis_file)
-  # 
-  # inform:
-  message("Created 2 files: '", vig_file, "', '", asis_file, "'.")
+%\\VignetteKeyword{package}\n"), file=f_asis)
   }
 
 
-# actual usage:
-
-createBerrysVignettes(file="localtests/CreateVignettes/rdwd.Rmd",
-                      title="rdwd: climate data from the German Weather Service")
-
-createBerrysVignettes(file="localtests/CreateVignettes/mapDWD.Rmd",
-                      title="DWD weather stations map")
-
-createBerrysVignettes(file="localtests/CreateVignettes/cases.Rmd",
-                      title="rdwd use cases")
-
-devtools::build_vignettes()
-
-# satisfy install(build_vignettes = TRUE):
-
-file.copy("doc/rdwd.html",   "vignettes/rdwd.html",   overwrite=TRUE)
-file.copy("doc/mapDWD.html", "vignettes/mapDWD.html", overwrite=TRUE)
-file.copy("doc/cases.html",  "vignettes/cases.html",  overwrite=TRUE)
+nv <- nrow(vigfiles)
+library(pbapply); library(parallel) # for parallel lapply execution
+nc <- detectCores()
+if(nc>nv) nc <- nv
+cl <- makeCluster(nc)
+clusterExport(cl, "vigfiles")
+dummy <- pblapply(X=1:nv, cl=cl, FUN=createBerrysVignettes)
+stopCluster(cl); gc()
 
 
-if(install_with_buildvignettes) devtools::install(build_vignettes = TRUE)
+if(install_with_buildvignettes) devtools::install(build_vignettes=TRUE)
 
 message("Vignette creation finished!  Total run time: ", 
         round(difftime(Sys.time(), begintime, units="min"),1), " minutes")
