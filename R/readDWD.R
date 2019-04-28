@@ -154,6 +154,8 @@ return(invisible(output))
 # read observational data ----
 
 #' @title read regular dwd data
+#' @description Read regular dwd data. 
+#' Intended to be called via \code{\link{readDWD}}.
 #' @return data.frame
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}
 #' @seealso \code{\link{readDWD}}, Examples in \code{\link{dataDWD}}
@@ -226,6 +228,7 @@ return(dat)
 
 #' @title read dwd metadata (Beschreibung*.txt files)
 #' @description read dwd metadata (Beschreibung*.txt files).
+#'  Intended to be called via \code{\link{readDWD}}.\cr
 #'  Column widths for \code{\link{read.fwf}} are computed internally.\cr
 #'  if(any(meta)), \code{\link{readDWD}} tries to set the locale to German 
 #'  (to handle Umlaute correctly). It is hence not recommended to call
@@ -301,7 +304,9 @@ stats
 
 
 #' @title read multi_annual dwd data
-#' @description All other observational data at \code{\link{dwdbase}} 
+#' @description read multi_annual dwd data. 
+#' Intended to be called via \code{\link{readDWD}}.\cr
+#' All other observational data at \code{\link{dwdbase}} 
 #' (\url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}) can be read
 #' with \code{\link{readDWD.data}}, except for the multi_annual data.
 #' @return data.frame
@@ -370,7 +375,9 @@ out
 # read gridded data ----
 
 #' @title read dwd gridded radolan binary data
-#' @description This does not work correctly yet for the tested data 
+#' @description read gridded radolan binary data.
+#' Intended to be called via \code{\link{readDWD}}.\cr
+#' This does not work correctly yet for the tested data 
 #' (grids_germany/daily/radolan/historical)! Hints are welcome!
 #' @return vector
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2018
@@ -437,8 +444,9 @@ return(invisible(rb))
 
 
 #' @title read dwd gridded raster data
-#' @description Read gridded raster data. Note that \code{R.utils} must be 
-#' installed to unzip the .asc.gz files.
+#' @description Read gridded raster data. 
+#' Intended to be called via \code{\link{readDWD}}.\cr
+#' Note that \code{R.utils} must be installed to unzip the .asc.gz files.
 #' @return \code{raster::\link[raster]{raster}} object
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2018
 #' @seealso \code{\link{readDWD}}
@@ -497,8 +505,9 @@ return(invisible(r))
 
 
 #' @title read dwd gridded radolan asc data
-#' @description read grid-interpolated radolan asc data. See 
-#' \url{ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/hourly/radolan/README.txt}
+#' @description read grid-interpolated radolan asc data. 
+#' Intended to be called via \code{\link{readDWD}}.\cr
+#' See \url{ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/hourly/radolan/README.txt}
 #' All layers (following \code{selection} if given) in all .tar.gz files are 
 #' combined into a raster stack with \code{raster::\link[raster]{stack}}.
 #' @return data.frame

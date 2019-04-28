@@ -25,6 +25,8 @@ control character at the end of multi_annual files)}
 data.frame
 }
 \description{
+read multi_annual dwd data. 
+Intended to be called via \code{\link{readDWD}}.\cr
 All other observational data at \code{\link{dwdbase}} 
 (\url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}) can be read
 with \code{\link{readDWD.data}}, except for the multi_annual data.

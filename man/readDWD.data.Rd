@@ -40,7 +40,8 @@ Coordinated). DEFAULT: "GMT"}
 data.frame
 }
 \description{
-read regular dwd data
+Read regular dwd data. 
+Intended to be called via \code{\link{readDWD}}.
 }
 \seealso{
 \code{\link{readDWD}}, Examples in \code{\link{dataDWD}}

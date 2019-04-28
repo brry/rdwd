@@ -46,8 +46,9 @@ DEFAULT: TRUE}
 data.frame
 }
 \description{
-read grid-interpolated radolan asc data. See 
-\url{ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/hourly/radolan/README.txt}
+read grid-interpolated radolan asc data. 
+Intended to be called via \code{\link{readDWD}}.\cr
+See \url{ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/hourly/radolan/README.txt}
 All layers (following \code{selection} if given) in all .tar.gz files are 
 combined into a raster stack with \code{raster::\link[raster]{stack}}.
 }

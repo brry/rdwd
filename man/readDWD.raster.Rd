@@ -32,8 +32,9 @@ DEFAULT: TRUE}
 \code{raster::\link[raster]{raster}} object
 }
 \description{
-Read gridded raster data. Note that \code{R.utils} must be 
-installed to unzip the .asc.gz files.
+Read gridded raster data. 
+Intended to be called via \code{\link{readDWD}}.\cr
+Note that \code{R.utils} must be installed to unzip the .asc.gz files.
 }
 \examples{
 \dontrun{ # Excluded from CRAN checks, but run in localtests

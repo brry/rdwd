@@ -23,6 +23,8 @@ Called as \code{f[selection]}. DEFAULT: NULL (ignored)}
 vector
 }
 \description{
+read gridded radolan binary data.
+Intended to be called via \code{\link{readDWD}}.\cr
 This does not work correctly yet for the tested data 
 (grids_germany/daily/radolan/historical)! Hints are welcome!
 }
