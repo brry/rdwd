@@ -190,34 +190,7 @@ if(any(per=="hr"|per=="rh", na.rm=TRUE))
   per[per=="rh"] <- "r"
   rm(i)
   }
-# res/var/per interactive selection:
-selectPrompt <- function(question, column, res="", var="", index=findex)
- {
- if(all(var=="solar" & res %in% c("hourly","daily"))) return("")
- question <- paste("Which of the following", question, "would you like to use?")
- options <- index[,column]
- if(any(res!=""))
-   options <- index[index$res %in% res, column]
- if(any(var!=""))
-  options <- index[index$res %in% res & index$var %in% var, column]
- options <- sort(unique(options))
- if("hourly" %in% options) # order resolution manually:
-   {
-   names(options) <- options
-   ord <- c("1_minute","10_minutes","hourly","subdaily","daily","monthly","annual")
-   ord <- c(ord, options[!options %in% ord]) # potentially further resolutions
-   options <- options[ord]
-   names(options) <- NULL
-   }
- #options <- c(options, "''")
- sel <- menu(options, title=question)
- if(sel==0) return("")
- options[sel]
-}
-if(anyNA(res)) res[is.na(res)] <- selectPrompt("resolutions", "res")
-if(anyNA(var)) var[is.na(var)] <- selectPrompt("variables",   "var", res=res)
-if(anyNA(per)) per[is.na(per)] <- selectPrompt("periods",     "per", res=res, var=var)
-# 
+#
 # recycle input vectors
 len <- max(length(id), length(res), length(var), length(per), length(meta)  )
 # outside of the loop, the slowest part of the code is getting length(id)
@@ -267,6 +240,46 @@ if(current)
 # convert ID to integer:
 id <- suppressWarnings(as.integer(id))
 #
+# res/var/per interactive selection:
+selectPrompt <- function(column, RES="", VAR="", PER="", ID="", index=findex)
+ {
+ # input arguments capitalized to avoid restarting interrupted promise evaluation
+ RES[is.na(RES)] <- ""
+ VAR[is.na(VAR)] <- ""
+ PER[is.na(PER)] <- ""
+ if(all(VAR=="solar" & RES %in% c("hourly","daily"))) return("")
+ question <- if(column=="res") "resolutions" else 
+             if(column=="var") "variables"   else "periods"
+ question <- paste("Which of the following", question, "would you like to use?")
+ sid  <- if(any(ID !="")) index$id  %in% ID  else TRUE
+ sres <- if(any(RES!="")) index$res %in% RES else TRUE
+ svar <- if(any(VAR!="")) index$var %in% VAR else TRUE
+ sper <- if(any(PER!="")) index$per %in% PER else TRUE
+ options <- index[sid & sres & svar & sper , column]
+ options <- sort(unique(options))
+ if(length(options)<1) 
+   {
+   warning("For interactive selection, no options were found for your request. ",
+           "Proceeding with ", column,"=''.", call.=FALSE)
+   return("")
+   }
+ if("hourly" %in% options) # order resolution manually:
+   {
+   names(options) <- options
+   ord <- c("1_minute","10_minutes","hourly","subdaily","daily","monthly","annual")
+   ord <- c(ord, options[!options %in% ord]) # potentially further resolutions
+   options <- options[ord]
+   names(options) <- NULL
+   }
+ #options <- c(options, "''")
+ sel <- menu(options, title=question)
+ if(sel==0) return("")
+ options[sel]
+ }
+if(anyNA(res)) res[is.na(res)] <- selectPrompt("res", res, var, per, id)
+if(anyNA(var)) var[is.na(var)] <- selectPrompt("var", res, var, per, id)
+if(anyNA(per)) per[is.na(per)] <- selectPrompt("per", res, var, per, id)
+# 
 # ------------------------------------------------------------------------------
 #
 # loop over each input element:
