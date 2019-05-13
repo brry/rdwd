@@ -17,7 +17,8 @@
 #' # see the use cases vignette for a continued example of this:
 #' vignette("cases")
 #' 
-#' @param lat,lon     Coordinates [degrees N/S, E/W]
+#' @param lat         Coordinates y component [degrees N/S, range 47:55]
+#' @param lon         Coordinates x component [degrees E/W, range 6:15]
 #' @param radius      Maximum distance [km] within which stations will be selected
 #' @param res,var,per Restrictions for dataset type as documented in
 #'                    \code{\link{selectDWD}}. Each can be a vector of entries.
@@ -48,6 +49,8 @@ quiet=FALSE,
 # input checks:
 if(length(lat)>1) stop("lat mus be a single value, not ", length(lat))
 if(length(lon)>1) stop("lon mus be a single value, not ", length(lon))
+if(any(lon>lat)) warning("lon>lat, but lon should be smaller than lat in Germany.",
+                         immediate.=TRUE)
 if(length(mindate)>1) stop("mindate mus be a single value, not ", length(mindate))
 if(radius>1000) warning("radius is supposed to be given in km. ",
                         "Your value seems irreasonably high: ", radius)

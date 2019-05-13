@@ -9,7 +9,9 @@ nearbyStations(lat, lon, radius, res = NA, var = NA, per = NA,
   statname = "nearbyStations target location", quiet = FALSE, ...)
 }
 \arguments{
-\item{lat, lon}{Coordinates [degrees N/S, E/W]}
+\item{lat}{Coordinates y component [degrees N/S, range 47:55]}
+
+\item{lon}{Coordinates x component [degrees E/W, range 6:15]}
 
 \item{radius}{Maximum distance [km] within which stations will be selected}
 
