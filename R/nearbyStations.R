@@ -75,6 +75,8 @@ m$dist <- lldist("geoBreite","geoLaenge", data=m)
 m <- m[m$dist<radius,]
 m <- sortDF(m, "dist", decreasing=FALSE)
 
+if(nrow(m)<=1) stop("No data was found for this query. Try increasing the radius.")
+
 # add downloading URLS that can be passed to dataDWD:
 if(!quiet) message("Preparing URLs...")
 m$url <- ""
