@@ -193,6 +193,9 @@ if(any(per=="hr"|per=="rh", na.rm=TRUE))
 #
 # recycle input vectors
 len <- max(length(id), length(res), length(var), length(per), length(meta)  )
+lmin <-  c(length(id), length(res), length(var), length(per), length(meta)  )
+if(any(lmin==0)) stop(sum(lmin==0), " input vectors have length zero: ", 
+                      toString(c("id","res","var","per","meta")[lmin==0]))
 # outside of the loop, the slowest part of the code is getting length(id)
 # because findID obtains id from name. All computing time happens in tolower
 if(len>1)
