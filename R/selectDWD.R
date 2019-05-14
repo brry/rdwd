@@ -247,6 +247,7 @@ id <- suppressWarnings(as.integer(id))
 selectPrompt <- function(column, RES="", VAR="", PER="", ID="", index=findex)
  {
  # input arguments capitalized to avoid restarting interrupted promise evaluation
+  ID[is.na(ID )] <- ""
  RES[is.na(RES)] <- ""
  VAR[is.na(VAR)] <- ""
  PER[is.na(PER)] <- ""
