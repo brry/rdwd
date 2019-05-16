@@ -1,24 +1,6 @@
 
 stop("Don't source this document")
 
-# add new folders to fileIndex ----
-# If CDC has new folders, add them to fileIndex manually, in order to still use
-# indexFTP with folder="currentfindex".
-# Don't forget to update the overview in selectDWD as well!
-{
-data("fileIndex")
-currentindexfolders <- unique(dirname(fileIndex$path))
-cat(currentindexfolders, sep="\n")
-hr <- c("historical", "recent")
-new_folders <- c("/1_minute/precipitation/historical/2019")
-cat(new_folders, sep="\n")
-fileIndex <- data.frame(path=c(currentindexfolders,new_folders), stringsAsFactors=FALSE)
-message("saving and compressing reduced data/fileIndex.rda. Please run Index recreation now.")
-save(fileIndex, file="data/fileIndex.rda")
-tools::resaveRdaFiles("data/fileIndex.rda")
-}
-
-
 
 # readVars parameter abbreviations ----
 

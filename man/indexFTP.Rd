@@ -2,7 +2,7 @@
 % Please edit documentation in R/indexFTP.R
 \name{indexFTP}
 \alias{indexFTP}
-\title{Create a recursive index of the DWD CDC FTP Server}
+\title{Create a recursive index of an FTP Server}
 \usage{
 indexFTP(folder = "currentfindex", base = dwdbase,
   is.file.if.has.dot = TRUE, sleep = 0, dir = "DWDdata",
@@ -11,15 +11,15 @@ indexFTP(folder = "currentfindex", base = dwdbase,
 }
 \arguments{
 \item{folder}{Folder(s) to be indexed recursively, e.g. "/hourly/wind/".
+Leading slashes will be removed. 
 Use \code{folder=""} to search at the location of \code{base} itself.
-If code{folder} is "currentfindex" (the default) and \code{base} 
+If \code{folder} is "currentfindex" (the default) and \code{base} 
 is the default, code{folder} is changed to all folders in current 
-\code{\link{fileIndex}}: \code{unique(dirname(fileIndex$path))}.
-Leading slashes will be removed. DEFAULT: "currentfindex"}
+tree file at \url{ftp://opendata.dwd.de/weather/tree.html}.
+DEFAULT: "currentfindex"}
 
-\item{base}{Main directory of FTP server, defaulting to DWD observed climatic records.
-Trailing slashes will be removed. DEFAULT: \code{\link{dwdbase}}:
-\url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}}
+\item{base}{Main directory of FTP server. Trailing slashes will be removed. 
+DEFAULT: \code{\link{dwdbase}}}
 
 \item{is.file.if.has.dot}{Logical: if some of the input paths contain a dot, 
 treat those as files, i.e. do not try to read those as if they
@@ -43,32 +43,31 @@ DEFAULT: FALSE}
 
 \item{quiet}{Suppress progbars and message about directory/files? DEFAULT: FALSE}
 
-\item{progbar}{Logical: present a progress bar in each level?
-Only works if the R package pbapply is available. DEFAULT: TRUE}
+\item{progbar}{Logical: present a progress bar in each level? DEFAULT: TRUE}
 
 \item{verbose}{Logical: write a lot of messages from \code{RCurl::\link[RCurl]{getURL}}?
 DEFAULT: FALSE (usually, you dont need all the curl information)}
 }
 \value{
-currently a vector with file paths (output may change in the future)
+a vector with file paths
 }
 \description{
-Create a list of all the files (in subfolders) at the Climate Data Center (CDC)
-FTP-Server from the German Weather Service (DWD, Deutscher WetterDienst) at
-\url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}.\cr\cr
+Create a list of all the files (in all subfolders) of an FTP server.
+Defaults to the German Weather Service (DWD, Deutscher WetterDienst) OpenData server at
+\url{ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/}.\cr\cr
 The R package \code{RCurl} must be available to do this.
 If \code{RCurl::\link[RCurl]{getURL}} fails, usually because bot access is
 detected and denied, there will still be an output which you can pass in a
 second run via \code{folder} to extract the remaining dirs.
 You might want to wait a bit and set \code{sleep} to a higher value in that case. 
 Here's an example:\cr
-\code{gridindex <- indexFTP("grids_germany","ftp://ftp-cdc.dwd.de/pub/CDC")}\cr
-\code{gridindex <- indexFTP(gridindex,"ftp://ftp-cdc.dwd.de/pub/CDC", sleep=1)}\cr
+\code{gridindex <- indexFTP("", gridbase)}\cr
+\code{gridindex <- indexFTP(gridindex, gridbase, sleep=1)}\cr
 }
 \details{
 It's not suggested to run this for all folders, as it can take quite some time
 and you may get kicked off the FTP-Server. This package contains an index
-of the climatic observations at weather stations: \code{View(rdwd:::\link{fileIndex})}
+of the climatic observations at weather stations: \code{View(rdwd:::\link{fileIndex})}.
 If it is out of date, please let me know!
 }
 \examples{
@@ -79,6 +78,9 @@ head(sol)
 # mon <- indexFTP(folder="/monthly/kl", dir=tempdir(), verbose=TRUE)
 }
 
+}
+\seealso{
+\code{\link{createIndex}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2016
