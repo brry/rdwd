@@ -205,6 +205,12 @@ dat <- read.table(f, na.strings=na9(), header=TRUE, sep=";", as.is=FALSE, ...)
 } # end if(!fread)
 #
 if(varnames)  dat <- newColumnNames(dat)
+# return if file is empty, e.g. for daily/more_precip/hist_05988 2019-05-16:
+if(nrow(dat)==0)
+  {
+  warning("File contains no rows: ", file)
+  return(dat)
+  }
 # process time-stamp: http://stackoverflow.com/a/13022441
 if(!is.null(format))
   {
@@ -377,12 +383,14 @@ out
 #' @description read gridded radolan binary data.
 #' Intended to be called via \code{\link{readDWD}}.\cr
 #' This does not work correctly yet for the tested data 
-#' (grids_germany/daily/radolan/historical)! Hints are welcome!
+#' (grids_germany/daily/radolan/historical)! I am working on this (late May 2019), 
+#' so check out the github development version at \url{https://github.com/brry/rdwd#rdwd}.
+#' It might already be working ;-).
 #' @return vector
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2018
 #' @seealso \code{\link{readDWD}}\cr
 #'   \url{https://wradlib.org} for much more extensive radar analysis in Python\cr
-#'   \url{ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/Unterstuetzungsdokumente/RADOLAN-RADVOR-Kompositformat_2.4.pdf}
+#'   Kompositformatbeschreibung at \url{https://www.dwd.de/DE/leistungen/radolan/radolan.html}
 #'   for format description\cr
 #'   \url{https://stats.idre.ucla.edu/r/faq/how-can-i-read-binary-data-into-r} 
 #'   for help I used developing readDWD.binary
@@ -398,6 +406,7 @@ out
 #' if(length(rad)!=10) stop("length(rad) should be 10, but is ", length(rad))
 #' 
 #' # ToDo: make sense of the values, read them correctly!
+#' # Check out the github dev version for the latest changes on this.
 #' warning("readDWD.binary does not yet read the binary files correctly.")
 #' raster::plot(raster::raster(matrix(rad[[1]], ncol=900, byrow=TRUE)))
 #' 

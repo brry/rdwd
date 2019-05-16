@@ -181,6 +181,7 @@ prec <- dataDWD(m$url, fread=TRUE)
 names(prec) <- m$Stations_id[-1]
 prec29 <- sapply(prec[m$res[-1]=="daily"], function(x)
          {
+         if(nrow(x)==0) return(NA)
          col <- "RS"
          if(!col %in% colnames(x)) col <- "R1"
          if(!col %in% colnames(x)) col <- "RSK"
