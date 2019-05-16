@@ -318,7 +318,7 @@ if(givenid & !givenpath)
   if(length(filename)>1) warning(traceCall(3, "", ": "), "in file index '", findexname,
                                  "', there are ", length(filename), " files with ID ",
                                  id[i], ".", call.=FALSE)
-  return(   paste0(base, filename)   )
+  return(   paste0(base,"/",filename)   )
   }
 #
 # Case 3 and 4 (path given) - path existence check ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -340,7 +340,7 @@ if(meta[i])
   if(sum(sel)==0) warning(traceCall(3, "", ": "), "according to file index '",findexname,
                      "', there is no description file in '", path, "'.", call.=FALSE)
   filename <- findex[sel,"path"]
-  return(   paste0(base, filename)   )
+  return(   paste0(base,"/",filename)   )
   }
 # 3: id is empty, path is given ------------------------------------------------
 # all filenames EXCEPT metadata (-> only zipfiles)
@@ -353,7 +353,7 @@ if(!givenid & givenpath & !meta[i])
   if(length(filename)<1) warning(traceCall(3, "", ": "), "according to file index '",
                                  findexname, "', there is no file in '", path,
                                  "' with ID ", id[i], ".", call.=FALSE)
-  return(   paste0(base, filename)   )
+  return(   paste0(base,"/",filename)   )
   }
 # 4: id and path are both given ------------------------------------------------
 # regular single data file name
@@ -368,7 +368,7 @@ if(givenid & givenpath & !meta[i])
                                  length(filename),") were selected:",
                                  berryFunctions::truncMessage(filename, prefix=""),
                                  call.=FALSE)
-  return(   paste0(base, filename)   )
+  return(   paste0(base,"/",filename)   )
   }
 }) # loop end
 output <- if(len==1) output[[1]] else output

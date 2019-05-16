@@ -52,7 +52,6 @@ links <- fileIndex[
   fileIndex$res=="daily" &
   fileIndex$var=="more_precip" &
   fileIndex$per=="historical"         , "path" ]  
-links <- paste0(dwdbase, links)
 
 length(links) # 2001 elements - much better
 ```
@@ -69,7 +68,7 @@ you definitely want to set `sleep` to a much higher value.
 For speed, we'll only work with the first 3 urls.
 
 ```{r hourlyrain_data_download, message=FALSE}
-localfiles <- dataDWD(links[1:3], sleep=0.2, read=FALSE)
+localfiles <- dataDWD(links[1:3], joinbf=TRUE, sleep=0.2, read=FALSE)
 ```
 
 
