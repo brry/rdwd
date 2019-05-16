@@ -116,6 +116,7 @@ extreme_temperature << \tab |                    \tab |                    \tab 
 extreme_wind <<        \tab |                    \tab |                    \tab |               \tab |               \cr
                        \tab | cloudiness <       \tab |                    \tab |               \tab |               \cr
                        \tab | cloud_type <       \tab |                    \tab |               \tab |               \cr
+                       \tab | dew_point <        \tab |                    \tab |               \tab |               \cr
 precipitation <<       \tab | precipitation <    \tab |                    \tab |               \tab |               \cr
                        \tab | pressure <         \tab |                    \tab |               \tab |               \cr
                        \tab | soil_temperature < \tab | soil_temperature < \tab |               \tab |               \cr
@@ -124,6 +125,7 @@ solar <<               \tab | solar -            \tab | solar -            \tab 
                        \tab | visibility <       \tab |                    \tab |               \tab |               \cr
                        \tab |                    \tab | water_equiv <      \tab |               \tab |               \cr
 wind <<                \tab | wind <             \tab |                    \tab |               \tab |               \cr
+                       \tab | wind_synop <       \tab |                    \tab |               \tab |               \cr
 }
 Please note that \code{1_minute/precipitation/historical} has subfolders for each year.
 \tabular{lll}{
@@ -134,8 +136,13 @@ precipitation << \tab |              \tab |                   \cr
                  \tab | mean_71-00 - \tab |                   \cr
                  \tab | mean_81-10 - \tab |                   \cr
                  \tab |              \tab | air_temperature < \cr
+                 \tab |              \tab | cloudiness <      \cr
+                 \tab |              \tab | moisture <        \cr
                  \tab |              \tab | pressure <        \cr
+                 \tab |              \tab | soil <            \cr
                  \tab |              \tab | standard_format - \cr
+                 \tab |              \tab | visibility <      \cr
+                 \tab |              \tab | wind <            \cr
 }
 }
 \examples{
