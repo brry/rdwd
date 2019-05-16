@@ -26,7 +26,9 @@ vector
 read gridded radolan binary data.
 Intended to be called via \code{\link{readDWD}}.\cr
 This does not work correctly yet for the tested data 
-(grids_germany/daily/radolan/historical)! Hints are welcome!
+(grids_germany/daily/radolan/historical)! I am working on this (late May 2019), 
+so check out the github development version at \url{https://github.com/brry/rdwd#rdwd}.
+It might already be working ;-).
 }
 \examples{
 \dontrun{ # Excluded from CRAN checks, but run in localtests
@@ -40,6 +42,7 @@ rad <- readDWD(localfile, selection=1:10) # no need to read all 24*31=744 files
 if(length(rad)!=10) stop("length(rad) should be 10, but is ", length(rad))
 
 # ToDo: make sense of the values, read them correctly!
+# Check out the github dev version for the latest changes on this.
 warning("readDWD.binary does not yet read the binary files correctly.")
 raster::plot(raster::raster(matrix(rad[[1]], ncol=900, byrow=TRUE)))
 
