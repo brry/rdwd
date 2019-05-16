@@ -7,7 +7,17 @@
 
 # Note to Future Berry: just source this entire file and you're done.
 
+install_clean_first <- TRUE
+build_in_parallel <- TRUE # faster, but harder to debug
 install_with_buildvignettes <- TRUE
+
+
+if(install_clean_first) # create vignettes with current + clean version
+  {
+  rm(list=ls(pattern="[^install_with_buildvignettes]"))
+  devtools::install(quick=TRUE)
+  }
+
 begintime <- Sys.time()
 
 if(substr(getwd(),2,100) != ":/Dropbox/Rpack/rdwd") 
@@ -48,14 +58,18 @@ createBerrysVignettes <- function(rownumber)
   }
 
 
-nv <- nrow(vigfiles)
-library(pbapply); library(parallel) # for parallel lapply execution
-nc <- detectCores()
-if(nc>nv) nc <- nv
-cl <- makeCluster(nc)
-clusterExport(cl, "vigfiles")
-dummy <- pblapply(X=1:nv, cl=cl, FUN=createBerrysVignettes)
-stopCluster(cl); gc()
+if(build_in_parallel)
+ {
+ nv <- nrow(vigfiles)
+ library(pbapply); library(parallel) # for parallel lapply execution
+ nc <- detectCores()
+ if(nc>nv) nc <- nv
+ cl <- makeCluster(nc)
+ clusterExport(cl, "vigfiles")
+ dummy <- pblapply(X=1:nv, cl=cl, FUN=createBerrysVignettes)
+ stopCluster(cl); gc()
+ } else
+for(curVig in 1:nrow(vigfiles)) createBerrysVignettes(curVig)
 
 
 if(install_with_buildvignettes) devtools::install(build_vignettes=TRUE)

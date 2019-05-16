@@ -108,7 +108,7 @@ Recent temperature time series:
 ```{r plot, eval=TRUE, fig.height=3, fig.width=7}
 par(mar=c(4,4,2,0.5), mgp=c(2.7, 0.8, 0), cex=0.8)
 plot(clim[,c(2,14)], type="l", xaxt="n", las=1, main="Daily temp Potsdam")
-berryFunctions::monthAxis(ym=TRUE)   ;   abline(h=0)
+berryFunctions::monthAxis()   ;   abline(h=0)
 mtext("Source: Deutscher Wetterdienst", adj=-0.1, line=0.5, font=3)
 ```
 
@@ -244,11 +244,8 @@ str(meta_monthly_rain)
 ```
 
 Meta files may list stations for which there are actually no files.
-For example: Tucheim (5116) is listed in the metadata at
-[.../monthly/more_precip/recent/RR_Monatwerte_Beschreibung_Stationen.txt](ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/monthly/more_precip/recent/RR_Monatswerte_Beschreibung_Stationen.txt),
-but actually has no file in that folder (only in .../monthly/more_precip/__historical__).
 These refer to nonpublic datasets (The DWD cannot publish all datasets because of copyright restrictions).
-To request those, please contact <klima.vertrieb@dwd.de>.
+To request those, please contact <cdc.daten@dwd.de>.
 
 
 
