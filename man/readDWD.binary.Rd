@@ -54,7 +54,7 @@ radfiles <- radolanfiles[grepl("historical/..../SF", radolanfiles)]
 \seealso{
 \code{\link{readDWD}}\cr
   \url{https://wradlib.org} for much more extensive radar analysis in Python\cr
-  \url{ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/Unterstuetzungsdokumente/RADOLAN-RADVOR-Kompositformat_2.4.pdf}
+  Kompositformatbeschreibung at \url{https://www.dwd.de/DE/leistungen/radolan/radolan.html}
   for format description\cr
   \url{https://stats.idre.ucla.edu/r/faq/how-can-i-read-binary-data-into-r} 
   for help I used developing readDWD.binary

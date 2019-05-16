@@ -25,17 +25,17 @@ editor_options:
 
 The [R](https://www.r-project.org/) package [`rdwd`](https://github.com/brry/rdwd#rdwd)
 contains code to select, download and read weather data from measuring stations across Germany. 
-The German Weather Service (Deutscher Wetterdienst, DWD) provides 
-over 228 thousand datasets with weather observations through the FTP server online at 
+The German Weather Service (Deutscher Wetterdienst, DWD) provides thousands of datasets with weather observations through the FTP server online at 
 
-<ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate>.
+<ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate>.
 
 For data interpolated onto a 1 km raster, including radar data up to the last hour, 
-see <ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/>. 
+see <ftp://opendata.dwd.de/climate_environment/CDC/grids_germany/>. 
 Raster and binary reading functions are included since `rdwd 1.1.0` (March 2019), although the latter doesn't read the radolan binary files completely correct yet, see [`?readDWD.binary`](../help/readDWD.binary).
 
 For further details, please consult the 
-[DWD FTP server documentation](ftp://ftp-cdc.dwd.de/pub/CDC/Readme_intro_CDC_ftp.pdf)
+[DWD FTP server documentation](ftp://opendata.dwd.de/climate_environment/CDC/Readme_intro_CDC_ftp.pdf)  
+Please note that, as of June 2019, the old server at <ftp://ftp-cdc.dwd.de> will be phased out.
 
 
 ### Package structure
@@ -171,8 +171,8 @@ files <- indexFTP("hourly/sun") # use dir="some_path" to save the output elsewhe
 berryFunctions::headtail(files, 5, na=TRUE)
 
 # indexFTP uses a folder to resume indexing after getting banned:
-gridindex <- indexFTP("radolan","ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/hourly")
-gridindex <- indexFTP(gridindex,"ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/hourly", sleep=1)
+gridindex <- indexFTP("radolan","ftp://opendata.dwd.de/climate_environment/CDC/grids_germany/hourly")
+gridindex <- indexFTP(gridindex,"ftp://opendata.dwd.de/climate_environment/CDC/grids_germany/hourly", sleep=1)
 
 # with other FTP servers, this should also work...
 funet <- indexFTP(base="ftp.funet.fi/pub/standards/w3/TR/xhtml11/", folder="")

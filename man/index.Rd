@@ -25,7 +25,7 @@ Created with \code{\link{createIndex}} in the last section of
 \url{https://github.com/brry/rdwd/blob/master/R/rdwd-package.R}
 In functions, you can access them with \code{rdwd:::fileIndex} etc.\cr
 \bold{fileIndex}: A data.frame with the filenames at the default \code{base} value
-\url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/}.\cr
+\code{\link{dwdbase}}.\cr
 \bold{metaIndex}: A data.frame with the contents of all the station description files
 (..._Beschreibung_Stationen.txt) in the folders hourly, daily and monthly at \code{base}.\cr
 \bold{geoIndex}: \code{metaIndex} distilled to geographic locations.

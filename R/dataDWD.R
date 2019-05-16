@@ -65,8 +65,7 @@
 #' @param file   Char (vector): complete file URL(s) (including base and filename.zip) as returned by
 #'               \code{\link{selectDWD}}. Can be a vector with several filenames.
 #' @param base   Single char: base URL that will be removed from output file names.
-#'               DEFAULT: \code{\link{dwdbase}}:
-#'               \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}
+#'               DEFAULT: \code{\link{dwdbase}}
 #' @param joinbf Logical: paste \code{base} and \code{file} together? 
 #'               DEFAULT: FALSE (selectDWD returns complete URLs already)
 #' @param dir    Char: Writeable directory name where to save the downloaded file.

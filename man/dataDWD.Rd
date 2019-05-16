@@ -14,8 +14,7 @@ dataDWD(file, base = dwdbase, joinbf = FALSE, dir = "DWDdata",
 \code{\link{selectDWD}}. Can be a vector with several filenames.}
 
 \item{base}{Single char: base URL that will be removed from output file names.
-DEFAULT: \code{\link{dwdbase}}:
-\url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}}
+DEFAULT: \code{\link{dwdbase}}}
 
 \item{joinbf}{Logical: paste \code{base} and \code{file} together? 
 DEFAULT: FALSE (selectDWD returns complete URLs already)}

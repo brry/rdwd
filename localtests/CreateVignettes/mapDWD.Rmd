@@ -13,7 +13,7 @@ vignette: >
 [use cases vignette](cases.html)
 
 The `rdwd` package provides a collection of all the metafiles on the 
-[DWD data server](ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate).
+[DWD data server](ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate).
 It is presented as an interactive map below.
 
 When a point is clicked, an infobox should appear.

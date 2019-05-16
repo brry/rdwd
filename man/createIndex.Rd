@@ -14,8 +14,7 @@ createIndex(paths, base = dwdbase, dir = "DWDdata",
 with the same \code{base} value as this function}
 
 \item{base}{Main directory of DWD ftp server, defaulting to observed climatic records.
-DEFAULT: \code{\link{dwdbase}}:
-\url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}}
+DEFAULT: \code{\link{dwdbase}}}
 
 \item{dir}{Char: writeable directory name where to save the main output(s).
 Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}}

@@ -50,13 +50,13 @@ NULL
 #' @export
 #' @description base URL to DWD FTP Server\cr\cr
 #' \code{dwdbase}: observed climatic records at\cr
-#' \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}\cr\cr
+#' \url{ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate}\cr\cr
 #' \code{gridbase}: spatially interpolated gridded data at\cr
-#' \url{ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany}
+#' \url{ftp://opendata.dwd.de/climate_environment/CDC/grids_germany}
 #' 
-dwdbase <- "ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate"
+dwdbase <- "ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate"
 #' @export
-gridbase <- "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany"
+gridbase <- "ftp://opendata.dwd.de/climate_environment/CDC/grids_germany"
 
 
 # release_questions ----
@@ -81,7 +81,7 @@ release_questions <- function() {
 #' \url{https://github.com/brry/rdwd/blob/master/R/rdwd-package.R}
 #' In functions, you can access them with \code{rdwd:::fileIndex} etc.\cr
 #' \bold{fileIndex}: A data.frame with the filenames at the default \code{base} value
-#' \url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate/}.\cr
+#' \code{\link{dwdbase}}.\cr
 #' \bold{metaIndex}: A data.frame with the contents of all the station description files
 #' (..._Beschreibung_Stationen.txt) in the folders hourly, daily and monthly at \code{base}.\cr
 #' \bold{geoIndex}: \code{metaIndex} distilled to geographic locations.
@@ -159,7 +159,7 @@ nonpubmes <- ""
 nonpub <- !metaIndex[sel,"hasfile"]
 if(any(nonpub)&hasfileonly) nonpubmes <- paste0("\nAdditionally, there are ",
       sum(nonpub), " non-public files. Display all with  metaInfo(",id,",FALSE)",
-      "\nTo request those datasets, please contact  klima.vertrieb@dwd.de")
+      "\nTo request those datasets, please contact  cdc.daten@dwd.de")
 if(hasfileonly) sel <- sel & metaIndex$hasfile
 # Output preparation:
 out <- metaIndex[sel,]
@@ -255,33 +255,36 @@ dwdfiles <- indexFTP(dwdfiles, sleep=2, filename="", overwrite=TRUE)
 # check for duplicate description files (Monatwerte + Monatswerte, e.g., also in INDEX_OF.txt)
 
 
-dwdfiles <- readLines("DWDdata/INDEX_of_DWD_.txt") 
+dwdfiles <- readLines("DWDdata/INDEX_of_DWD_.txt")
 #  25'757 elements (2017-03-14) 
 # 218'593 (2018-03-25)
 # 228'830 (2018-11-26)
 # 240'737 (2019-02-19)
 # 242'584 (2019-03-11)
-index <- createIndex(paths=dwdfiles, meta=TRUE) # ca 70 secs +40 if files are not yet downloaded
+# 266'860 (2019-05-15)
+index <- createIndex(paths=dwdfiles, meta=TRUE) # ca 200 secs +40 if files are not yet downloaded
 { # save indexes into package:
 fileIndex <- index[[1]]
 metaIndex <- index[[2]]
  geoIndex <- index[[3]]
 # save and compress:
 message("saving index rda files...")
-save(fileIndex, file="data/fileIndex.rda")
-save(metaIndex, file="data/metaIndex.rda")
-save( geoIndex, file="data/geoIndex.rda")
+# to enable R versions <3.5.0 (2018-04, only one year old at time of writing)
+# version=2 see https://github.com/r-lib/devtools/issues/1912
+save(fileIndex, file="data/fileIndex.rda", version=2)
+save(metaIndex, file="data/metaIndex.rda", version=2)
+save( geoIndex, file="data/geoIndex.rda" , version=2)
 message("compressing files:")
-tools::resaveRdaFiles("data/fileIndex.rda") #devtools::use_data(fileIndex, internal=TRUE)
+tools::resaveRdaFiles("data/fileIndex.rda", version=2) #devtools::use_data(fileIndex, internal=TRUE)
 cat("1")
-tools::resaveRdaFiles("data/metaIndex.rda")
+tools::resaveRdaFiles("data/metaIndex.rda", version=2)
 cat("2")
-tools::resaveRdaFiles("data/geoIndex.rda")
+tools::resaveRdaFiles("data/geoIndex.rda" , version=2)
 cat("3\n")
 message("checking files...")
 # check writing and reading of the files:
 fileIndex2 <- read.table("DWDdata/fileIndex.txt", sep="\t", header=TRUE, colClasses="character")
-stopifnot(all(fileIndex==fileIndex2))
+stopifnot(all(fileIndex==fileIndex2, na.rm=TRUE)) # NAs in ID for subdaily/multi_annual
 metaIndex2 <- read.table("DWDdata/metaIndex.txt", sep="\t", header=TRUE, as.is=TRUE)
 stopifnot(all(metaIndex==metaIndex2))
  geoIndex2 <- read.table("DWDdata/geoIndex.txt",  sep="\t", header=TRUE, as.is=TRUE)

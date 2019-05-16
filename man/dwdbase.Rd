@@ -12,8 +12,8 @@ dwdbase
 \description{
 base URL to DWD FTP Server\cr\cr
 \code{dwdbase}: observed climatic records at\cr
-\url{ftp://ftp-cdc.dwd.de/pub/CDC/observations_germany/climate}\cr\cr
+\url{ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate}\cr\cr
 \code{gridbase}: spatially interpolated gridded data at\cr
-\url{ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany}
+\url{ftp://opendata.dwd.de/climate_environment/CDC/grids_germany}
 }
 \keyword{datasets}
