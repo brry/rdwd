@@ -3,6 +3,8 @@ rdwd ToDo-list / wishlist / issues
 - dataDWD: potentially use curl to download data without sleep need
 - readDWD: figure out reason for fread trouble (reported in emails by some users)
 - readDWD.binary: make it work correctly
+- expand parameter abbreviations
+- create (unexported) function checkIndex with code currently in createIndex + more
 
 
 ---------------------------------------

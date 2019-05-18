@@ -469,6 +469,9 @@ return(invisible(rb))
 #' rf <- readDWD(localfiles[1]) # runs faster at second time due to skip=TRUE
 #' raster::plot(rf)
 #' 
+#' rfp <- projectRastDWD(rfp)
+#' raster::plot(rfp, asp=1.8) # ToDo: doesn't seem quite right...
+#' 
 #' testthat::expect_equal(raster::cellStats(rf, range), c(-8.2,4.4))
 #' rf10 <- readDWD(localfiles[1], dividebyten=FALSE)
 #' raster::plot(rf10)
@@ -517,7 +520,8 @@ return(invisible(r))
 #' Intended to be called via \code{\link{readDWD}}.\cr
 #' See \url{ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/hourly/radolan/README.txt}
 #' All layers (following \code{selection} if given) in all .tar.gz files are 
-#' combined into a raster stack with \code{raster::\link[raster]{stack}}.
+#' combined into a raster stack with \code{raster::\link[raster]{stack}}.\cr
+#' To project the data, use \code{\link{projectRasterDWD}}
 #' @return data.frame
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, April 2019
 #' @seealso \code{\link{readDWD}}
@@ -534,11 +538,6 @@ return(invisible(r))
 #'                    Accessing out-of-memory raster objects won't work if 
 #'                    exdir is removed! -> Error in .local(.Object, ...)
 #'                    DEFAULT: TRUE
-#' @param setpe       Set projection and extent? DEFAULT: FALSE
-#' @param proj        Projection set (if setpe) with \code{raster::\link[raster]{projection}}.
-#'                    DEFAULT: NULL (internal value, provided 2019-04 by Antonia Hengst)
-#' @param extent      Extent set (if setpe) with \code{raster::\link[raster]{extent}}.
-#'                    DEFAULT: NULL (internal value, provided 2019-04 by Antonia Hengst)
 #' @param progbar     Show messages and progress bars? \code{\link{readDWD}} will
 #'                    keep progbar=TRUE for asc files, even if length(file)==1.
 #'                    DEFAULT: TRUE
@@ -551,13 +550,16 @@ return(invisible(r))
 #' 
 #' # File selection and download:
 #' datadir <- localtestdir()
+#' # 2019-05-18, hourly radolan files not yet copied to new ftp, hence:
+#' gridbase <- "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany" 
 #' radbase <- paste0(gridbase,"/hourly/radolan/historical/asc/")
 #' radfile <- "2018/RW-201809.tar" # 25 MB to download
 #' file <- dataDWD(radfile, base=radbase, joinbf=TRUE, dir=datadir,
 #'                 dfargs=list(mode="wb"), read=FALSE) # download with mode=wb!!!
 #'                 
 #' #asc <- readDWD(file) # 4 GB in mem. ~ 20 secs unzip, 30 secs read, 10 min divide
-#' asc <- readDWD(file, selection=1:20, setpe=TRUE, dividebyten=TRUE)
+#' asc <- readDWD(file, selection=1:20, dividebyten=TRUE)
+#' asc <- projectRasterDWD(asc)
 #' 
 #' rng <- range(raster::cellStats(asc, "range"))
 #' nframes <- 3 # raster::nlayers(asc) for all (time intensive!)
@@ -577,7 +579,6 @@ return(invisible(r))
 #' # raster::writeRaster(asc, paste0(datadir,"/RW2018-09"), overwrite=TRUE) 
 #' }
 readDWD.asc <- function(file, exdir=NULL, dividebyten=TRUE, 
-                        setpe=FALSE, proj=NULL, extent=NULL, 
                         selection=NULL, progbar=TRUE, ...)
 {
 if(!requireNamespace("raster", quietly=TRUE))
@@ -618,15 +619,63 @@ if(dividebyten) dat <- lapply(dat, function(x) x/10)
 # stack layers:
 dat <- raster::stack(dat)
 #
-# set projection + extent:
-if(setpe)
-  {
-  if(is.null(proj)) proj <- raster::crs("+proj=stere +lat_0=90 +lat_ts=90 +lon_0=10 
-    +k=0.93301270189 +x_0=0 +y_0=0 +a=6370040 +b=6370040 +to_meter=1000 +no_defs")
-  if(is.null(extent)) extent <- raster::extent(-523.4622,376.5378,-4658.645,-3758.645)
-  raster::projection(dat) <- proj
-  raster::extent(    dat) <- extent
-  }
 # output:
 return(invisible(dat))
+}
+
+
+
+# helper functionality ----
+
+#' @title project DWD raster data
+#' @description Set projection and extent for DWD raster data. Optionally (and
+#' per default) also reprojects to latlon data.
+#' The internal defaults are extracted from the
+#' Kompositformatbeschreibung at \url{https://www.dwd.de/DE/leistungen/radolan/radolan.html},
+#' as provided 2019-04 by Antonia Hengst.
+#' @return Raster object with projection and extent, invisible
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, May 2019
+#' @seealso \code{raster::\link[raster]{crs}}, 
+#'          \code{raster::\link[raster]{projection}},
+#'          \code{raster::\link[raster]{extent}},
+#'          \code{raster::\link[raster]{projectRaster}},
+#'          \code{\link{readDWD.binary}, \link{readDWD.raster}, \link{readDWD.asc}}
+#' @keywords aplot
+#' @export
+#' @examples
+#' # To be used after readDWD.binary, readDWD.raster, readDWD.asc
+#' @param r        Raster object
+#' @param proj     Desired \code{\link[raster]{crs}} to be set with
+#'                 \code{raster::\link[raster]{projection}}.
+#'                 Set to NULL to not set proj+extent but still consider \code{latlon}.
+#'                 DEFAULT: NA (internally defined per DWD standard)
+#' @param extent   Desired \code{\link[raster]{extent}}.
+#'                 DEFAULT: NA (internally defined per DWD standard)
+#' @param latlon   Logical: reproject \code{r} to lat-lon crs? DEFAULT: TRUE
+#'
+projectRasterDWD <- function(r, proj=NA, extent=NA, latlon=TRUE)
+{
+# package check
+if(!requireNamespace("raster", quietly=TRUE))
+ stop("To use rdwd::projectRasterDWD, please first install raster:",
+      "   install.packages('raster')", call.=FALSE)
+#
+# Default projection and extent:
+# Projection as per Kompositbeschreibung 1.5
+if(is.na(proj)) proj <- raster::crs("+proj=stere +lat_0=90 +lat_ts=90 +lon_0=10 
+  +k=0.93301270189 +x_0=0 +y_0=0 +a=6370040 +b=6370040 +to_meter=1000 +no_defs")
+# Extent as per Kompositbeschreibung 1.4 
+if(is.na(extent)) extent <- raster::extent(-523.4622,376.5378,-4658.645,-3758.645)
+# lat-lon projection:
+proj_ll <- raster::crs("+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
+#
+# actually project:
+if(!is.null(proj))
+  {
+  raster::projection(r) <- proj
+  raster::extent(    r) <- extent
+  }
+if(latlon) r <- raster::projectRaster(r, crs=proj_ll)
+# invisible output:
+return(invisible(r))
 }

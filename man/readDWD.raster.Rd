@@ -47,6 +47,9 @@ rf <- readDWD(localfiles[1])
 rf <- readDWD(localfiles[1]) # runs faster at second time due to skip=TRUE
 raster::plot(rf)
 
+rfp <- projectRastDWD(rfp)
+raster::plot(rfp, asp=1.8) # ToDo: doesn't seem quite right...
+
 testthat::expect_equal(raster::cellStats(rf, range), c(-8.2,4.4))
 rf10 <- readDWD(localfiles[1], dividebyten=FALSE)
 raster::plot(rf10)

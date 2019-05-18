@@ -4,9 +4,8 @@
 \alias{readDWD.asc}
 \title{read dwd gridded radolan asc data}
 \usage{
-readDWD.asc(file, exdir = NULL, dividebyten = TRUE, setpe = FALSE,
-  proj = NULL, extent = NULL, selection = NULL, progbar = TRUE,
-  ...)
+readDWD.asc(file, exdir = NULL, dividebyten = TRUE, selection = NULL,
+  progbar = TRUE, ...)
 }
 \arguments{
 \item{file}{Name of file on harddrive, like e.g. 
@@ -25,14 +24,6 @@ Accessing out-of-memory raster objects won't work if
 exdir is removed! -> Error in .local(.Object, ...)
 DEFAULT: TRUE}
 
-\item{setpe}{Set projection and extent? DEFAULT: FALSE}
-
-\item{proj}{Projection set (if setpe) with \code{raster::\link[raster]{projection}}.
-DEFAULT: NULL (internal value, provided 2019-04 by Antonia Hengst)}
-
-\item{extent}{Extent set (if setpe) with \code{raster::\link[raster]{extent}}.
-DEFAULT: NULL (internal value, provided 2019-04 by Antonia Hengst)}
-
 \item{selection}{Optionally read only a subset of the ~24*31=744 files.
 Called as \code{f[selection]}. DEFAULT: NULL (ignored)}
 
@@ -50,20 +41,24 @@ read grid-interpolated radolan asc data.
 Intended to be called via \code{\link{readDWD}}.\cr
 See \url{ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/hourly/radolan/README.txt}
 All layers (following \code{selection} if given) in all .tar.gz files are 
-combined into a raster stack with \code{raster::\link[raster]{stack}}.
+combined into a raster stack with \code{raster::\link[raster]{stack}}.\cr
+To project the data, use \code{\link{projectRasterDWD}}
 }
 \examples{
 \dontrun{ # Excluded from CRAN checks, but run in localtests
 
 # File selection and download:
 datadir <- localtestdir()
+# 2019-05-18, hourly radolan files not yet copied to new ftp, hence:
+gridbase <- "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany" 
 radbase <- paste0(gridbase,"/hourly/radolan/historical/asc/")
 radfile <- "2018/RW-201809.tar" # 25 MB to download
 file <- dataDWD(radfile, base=radbase, joinbf=TRUE, dir=datadir,
                 dfargs=list(mode="wb"), read=FALSE) # download with mode=wb!!!
                 
 #asc <- readDWD(file) # 4 GB in mem. ~ 20 secs unzip, 30 secs read, 10 min divide
-asc <- readDWD(file, selection=1:20, setpe=TRUE, dividebyten=TRUE)
+asc <- readDWD(file, selection=1:20, dividebyten=TRUE)
+asc <- projectRasterDWD(asc)
 
 rng <- range(raster::cellStats(asc, "range"))
 nframes <- 3 # raster::nlayers(asc) for all (time intensive!)
