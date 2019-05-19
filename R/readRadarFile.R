@@ -13,7 +13,7 @@
 # testing with first file in /daily/radolan/historical/2017/SF201712.tar.gz
 if(FALSE){
 examplefile <- paste0(desktop,"/raa01-sf_10000-1712010050-dwd---bin")
-ddd <- readRadarFile(examplefile)
+ddd <- rdwd:::readRadarFile(examplefile)
 drast <- raster::raster(t(ddd$dat)) # if t is correct, put in function
 drast <- projectRasterDWD(drast)
 raster::plot(drast, main=ddd$meta$date)
@@ -28,6 +28,7 @@ raster::plot(drast, main=ddd$meta$date)
 #'         Maintained by Berry Boessenkool, \email{berry-b@@gmx.de}, May 2019
 #' @seealso \code{\link{readDWD.binary}}
 #' @keywords file binary
+#' @useDynLib rdwd
 # @importFrom package fun1 fun2
 # @export
 #' @examples
@@ -82,7 +83,7 @@ dat <- readBin(openfile,what=raw(),n=DIM[1]*DIM[2]*2,endian="little")
 close(openfile)
 
 # convert into a two byte set and then into values with fortran routines:
-if(PRODUCT=="RX")
+if(PRODUCT=="RX") # WX,RX,EX?
   {
   dim(dat) <- c(1,DIM[1]*DIM[2])
   dat.val <- as.numeric(bin2num(dat,DIM,na,clutter, RX=TRUE)) # see function definition below
@@ -122,9 +123,20 @@ return(list(dat=dat.mat, meta=meta))
 
 # non-exported + non-documented helper function
 # likely to be turned into Fortran interface (55 vs 700 ms per file)
-bin2num <- function(dat, dim, na=NA, clutter=NA, RX=FALSE) 
+bin2num <- function(dat, dims, na=NA, clutter=NA, RX=FALSE) 
 {
-if(RX) stop("Conversion of RX files is not yet implemented.")
+fortranfunction <- if(RX) "binary_to_num_RX" else "binary_to_num"
+fNAval <- -32767L
+fCLUTTERval <- -32766L
+out <- .Fortran(fortranfunction, raw=dat, dims=as.integer(dims),
+                numeric=as.integer(array(0,dim=c(dims[1]*dims[2]))),
+                fNAval=fNAval, fCLUTTERval=fCLUTTERval)
+out <- out$numeric
+out[out==fNAval] <- na
+out[out==fCLUTTERval] <- clutter
+return(out)
+
+# Pure R version for binary_to_num kept for reference:
 bits <- matrix(rawToBits(dat), ncol=16, byrow=TRUE) # bits 1-12: data
 b2n <- function(i) as.numeric(bits[,i])*2^(i-1)
 val <- b2n(1)+b2n(2)+b2n(3)+b2n(4)+b2n(5)+b2n(6)+b2n(7)+b2n(8)+b2n(9)+b2n(10)+b2n(11)+b2n(12)
