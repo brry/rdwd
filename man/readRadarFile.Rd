@@ -4,13 +4,17 @@
 \alias{readRadarFile}
 \title{read binary radolan radar file}
 \usage{
-readRadarFile(binfile)
+readRadarFile(binfile, na = NA, clutter = NA)
 }
 \arguments{
 \item{binfile}{Name of a single binary file}
+
+\item{na}{Value to be set for missing data (bit 14). DEFAULT: NA}
+
+\item{clutter}{Value to be set for clutter data (bit 16). DEFAULT: NA}
 }
 \value{
-A list with dat (matrix/raster???) and meta (list with elements from header)
+A list with dat (matrix) and meta (list with elements from header)
 }
 \description{
 Read a single binary DWD Radolan file.

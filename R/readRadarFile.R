@@ -23,7 +23,7 @@ raster::plot(drast, main=ddd$meta$date)
 #' @title read binary radolan radar file
 #' @description Read a single binary DWD Radolan file.
 #'              To be used in \code{\link{readDWD.binary}}
-#' @return A list with dat (matrix/raster???) and meta (list with elements from header)
+#' @return A list with dat (matrix) and meta (list with elements from header)
 #' @author Original codebase by Henning Rust & Christoph Ritschel at FU Berlin.\cr
 #'         Maintained by Berry Boessenkool, \email{berry-b@@gmx.de}, May 2019
 #' @seealso \code{\link{readDWD.binary}}
@@ -33,8 +33,10 @@ raster::plot(drast, main=ddd$meta$date)
 #' @examples
 #' # currently in progress
 #' @param binfile Name of a single binary file
+#' @param na      Value to be set for missing data (bit 14). DEFAULT: NA
+#' @param clutter Value to be set for clutter data (bit 16). DEFAULT: NA
 #'
-readRadarFile <- function(binfile)
+readRadarFile <- function(binfile, na=NA, clutter=NA)
 {
 openfile <- file(binfile,"rb") # will be read successively
 # helper function to read elements of the header:
@@ -83,12 +85,12 @@ close(openfile)
 if(PRODUCT=="RX")
   {
   dim(dat) <- c(1,DIM[1]*DIM[2])
-  dat.val <- as.numeric(Radolan:::RADconvRX(dat,DIM,NA,NA))
+  dat.val <- as.numeric(bin2num(dat,DIM,na,clutter, RX=TRUE)) # see function definition below
   }else 
   # for SF (and RW?)
   {
   dim(dat) <- c(2,DIM[1]*DIM[2])
-  dat.val <- as.numeric(Radolan:::RADconv(dat,DIM,NA,NA))
+  dat.val <- as.numeric(bin2num(dat,DIM,na,clutter))
   }
   
 # apply precission given in the header:
@@ -114,4 +116,21 @@ daytime <- strptime(paste0(DDHHMM,"00-",MMYY), format="%d%H%M%S-%m%y")
 meta <- list(filename=binfile, date=daytime, prod=PRODUCT, loc=LOCATION, 
              id=ID, ver=VER, prec=PREC, dt=DT, dim=DIM, radars=RADS)
 return(list(dat=dat.mat, meta=meta))
+}
+
+
+
+# non-exported + non-documented helper function
+# likely to be turned into Fortran interface (55 vs 700 ms per file)
+bin2num <- function(dat, dim, na=NA, clutter=NA, RX=FALSE) 
+{
+if(RX) stop("Conversion of RX files is not yet implemented.")
+bits <- matrix(rawToBits(dat), ncol=16, byrow=TRUE) # bits 1-12: data
+b2n <- function(i) as.numeric(bits[,i])*2^(i-1)
+val <- b2n(1)+b2n(2)+b2n(3)+b2n(4)+b2n(5)+b2n(6)+b2n(7)+b2n(8)+b2n(9)+b2n(10)+b2n(11)+b2n(12)
+#                                       # bit 13: flag for interpolated
+val[bits[,14]==1] <- na                 # bit 14: flag for missing
+val[bits[,15]==1] <- -val[bits[,15]==1] # bit 15: flag for negative
+val[bits[,16]==1] <- clutter            # bit 16: flag for clutter
+return(as.integer(val))
 }
