@@ -382,33 +382,29 @@ out
 #' @title read dwd gridded radolan binary data
 #' @description read gridded radolan binary data.
 #' Intended to be called via \code{\link{readDWD}}.\cr
-#' This does not work correctly yet for the tested data 
-#' (grids_germany/daily/radolan/historical)! I am working on this (late May 2019), 
-#' so check out the github development version at \url{https://github.com/brry/rdwd#rdwd}.
-#' It might already be working ;-).
 #' @return vector
-#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2018
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2018. 
+#'         Significant input for the underlying \code{\link{readRadarFile}} came
+#'         from Henning Rust at FU Berlin.
 #' @seealso \code{\link{readDWD}}\cr
 #'   \url{https://wradlib.org} for much more extensive radar analysis in Python\cr
 #'   Kompositformatbeschreibung at \url{https://www.dwd.de/DE/leistungen/radolan/radolan.html}
-#'   for format description\cr
-#'   \url{https://stats.idre.ucla.edu/r/faq/how-can-i-read-binary-data-into-r} 
-#'   for help I used developing readDWD.binary
+#'   for format description
 #' @examples
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
 #' 
 #' # a single file as example: ----
-#' radfile <- "/daily/radolan/historical/2017/SF201712.tar.gz"
+#' radfile <- "/daily/radolan/historical/bin/2017/SF201712.tar.gz"
 #' # 204 MB, takes a minute to download:
 #' localfile <- dataDWD(file=radfile, base=gridbase, joinbf=TRUE,
 #'                      dir=localtestdir(), read=FALSE)
 #' rad <- readDWD(localfile, selection=1:10) # no need to read all 24*31=744 files
 #' if(length(rad)!=10) stop("length(rad) should be 10, but is ", length(rad))
 #' 
-#' # ToDo: make sense of the values, read them correctly!
-#' # Check out the github dev version for the latest changes on this.
-#' warning("readDWD.binary does not yet read the binary files correctly.")
-#' raster::plot(raster::raster(matrix(rad[[1]], ncol=900, byrow=TRUE)))
+#' rad1 <- projectRasterDWD(raster::raster(t(rad[[1]]$dat)))
+#' rad2 <- projectRasterDWD(raster::raster(t(rad[[2]]$dat)))
+#' raster::plot(rad1, main=names(rad)[1])
+#' raster::plot(rad2, main=names(rad)[2])
 #' 
 #' 
 #' # list of all Files: ----
@@ -418,13 +414,13 @@ out
 #' radfiles <- radolanfiles[grepl("historical/..../SF", radolanfiles)]
 #' }
 #' @param file      Name of file on harddrive, like e.g. 
-#'                  DWDdata/grids_germany_daily_radolan_historical_2017_SF201712.tar.gz
+#'                  DWDdata/daily_radolan_historical_bin_2017_SF201712.tar.gz
 #' @param progbar   Show messages and progress bars? \code{\link{readDWD}} will
 #'                  keep progbar=TRUE for binary files, even if length(file)==1.
 #'                  DEFAULT: TRUE
 #' @param selection Optionally read only a subset of the ~24*31=744 files.
 #'                  Called as \code{f[selection]}. DEFAULT: NULL (ignored)
-#' @param \dots     Further arguments passed to \code{\link{readBin}}
+#' @param \dots     Further arguments passed to \code{\link{readRadarFile}}
 readDWD.binary <- function(file, progbar=TRUE, selection=NULL, ...)
 {
 # temporary unzipping directory
@@ -439,11 +435,9 @@ if(!is.null(selection)) f <- f[selection]
 # binary file header:   substr(readLines(f[1], n=1, warn=FALSE), 1, 270)
 if(progbar) lapply <- pbapply::pblapply
 # Read the actual binary file:
-rb <- lapply(f, readBin, what="int", size=2, n=900*900, endian="little", ...)
+rb <- lapply(f, readRadarFile, ...)
 # list element names (time stamp):
-time <- l2df(strsplit(f,"-"))[,3]
-time <- strptime(time, format="%y%m%d%H%M")
-time <- format(time, "%Y-%m-%d_%H:%M")
+time <- sapply(rb, function(x) as.character(x$meta$date))
 names(rb) <- time
 return(invisible(rb))
 }

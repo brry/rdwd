@@ -31,7 +31,7 @@ The German Weather Service (Deutscher Wetterdienst, DWD) provides thousands of d
 
 For data interpolated onto a 1 km raster, including radar data up to the last hour, 
 see <ftp://opendata.dwd.de/climate_environment/CDC/grids_germany/>. 
-Raster and binary reading functions are included since `rdwd 1.1.0` (March 2019), although the latter doesn't read the radolan binary files completely correct yet, see [`?readDWD.binary`](../help/readDWD.binary).
+Raster and binary reading functions for the Radolan data are included since `rdwd 1.1.0 /1.1.1` (March/May 2019).
 
 For further details, please consult the 
 [DWD FTP server documentation](ftp://opendata.dwd.de/climate_environment/CDC/Readme_intro_CDC_ftp.pdf)  
