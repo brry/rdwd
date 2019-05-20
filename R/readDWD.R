@@ -379,13 +379,15 @@ out
 
 # read gridded data ----
 
+# ~ binary ----
+
 #' @title read dwd gridded radolan binary data
 #' @description read gridded radolan binary data.
 #' Intended to be called via \code{\link{readDWD}}.\cr
 #' @return vector
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2018. 
 #'         Significant input for the underlying \code{\link{readRadarFile}} came
-#'         from Henning Rust at FU Berlin.
+#'         from Henning Rust & Christoph Ritschel at FU Berlin.
 #' @seealso \code{\link{readDWD}}\cr
 #'   \url{https://wradlib.org} for much more extensive radar analysis in Python\cr
 #'   Kompositformatbeschreibung at \url{https://www.dwd.de/DE/leistungen/radolan/radolan.html}
@@ -401,17 +403,17 @@ out
 #' rad <- readDWD(localfile, selection=1:10) # no need to read all 24*31=744 files
 #' if(length(rad)!=10) stop("length(rad) should be 10, but is ", length(rad))
 #' 
-#' rad1 <- projectRasterDWD(raster::raster(t(rad[[1]]$dat)))
-#' rad2 <- projectRasterDWD(raster::raster(t(rad[[2]]$dat)))
+#' rad1 <- projectRasterDWD(raster::raster(rad[[1]]$dat))
+#' rad2 <- projectRasterDWD(raster::raster(rad[[2]]$dat))
 #' raster::plot(rad1, main=names(rad)[1])
 #' raster::plot(rad2, main=names(rad)[2])
 #' 
+#' data(DEU)
+#' raster::plot(DEU, add=TRUE)
 #' 
 #' # list of all Files: ----
 #' # radolanfiles <- indexFTP(folder="/daily/radolan", base=gridbase, dir=localtestdir())
 #' radolanfiles <- readLines(localtestdir(file="INDEX_of_DWD_daily_radolan.txt"))
-#' # Files without Bestand folders:
-#' radfiles <- radolanfiles[grepl("historical/..../SF", radolanfiles)]
 #' }
 #' @param file      Name of file on harddrive, like e.g. 
 #'                  DWDdata/daily_radolan_historical_bin_2017_SF201712.tar.gz

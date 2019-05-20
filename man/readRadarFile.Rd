@@ -14,21 +14,29 @@ readRadarFile(binfile, na = NA, clutter = NA)
 \item{clutter}{Value to be set for clutter data (bit 16). DEFAULT: NA}
 }
 \value{
-A list with dat (matrix) and meta (list with elements from header)
+A list with dat (matrix) and meta (list with elements from header, 
+  see Kompositformatbeschreibung)
 }
 \description{
 Read a single binary DWD Radolan file.
-             To be used in \code{\link{readDWD.binary}}
+  To be used in \code{\link{readDWD.binary}}.\cr
+  If any files ar not read correctly, please let me know. So far, tests have 
+  only been conducted for daily SF files. Optimally, check the 
+  Kompositformatbeschreibung at \url{https://www.dwd.de/DE/leistungen/radolan/radolan.html}
+  and let me know what needs to be changed.\cr
+  Binary bits are converted to decimal numbers with Fortran routines, see
+  \url{https://github.com/brry/rdwd/tree/master/src}. 
+  They are called in an unexported function called \code{bin2num}.
 }
 \examples{
-# currently in progress
+# see readDWD.binary
 }
 \seealso{
 \code{\link{readDWD.binary}}
 }
 \author{
-Original codebase by Henning Rust & Christoph Ritschel at FU Berlin.\cr
-        Maintained by Berry Boessenkool, \email{berry-b@gmx.de}, May 2019
+Maintained by Berry Boessenkool, \email{berry-b@gmx.de}, May 2019.\cr
+  Original codebase by Henning Rust & Christoph Ritschel at FU Berlin
 }
 \keyword{binary}
 \keyword{file}
