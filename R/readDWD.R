@@ -533,25 +533,6 @@ return(invisible(r))
 #' @return data.frame
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, April 2019
 #' @seealso \code{\link{readDWD}}
-#' @param file        Name of file on harddrive, like e.g. 
-#'                    DWDdata/grids_germany/hourly/radolan/historical/asc/
-#'                    2018_RW-201809.tar.
-#'                    Must have been downloaded with \code{mode="wb"}!
-#' @param exdir       Directory to unzip into. Unpacked files existing therein
-#'                    will not be untarred again, saving up to 15 secs per file.
-#'                    DEFAULT: NULL (subfolder of \code{\link{tempdir}()})
-#' @param dividebyten Divide numerical values by 10? 
-#'                    If dividebyten=FALSE and exdir left at NULL (tempdir), save 
-#'                    the result on disc with \code{raster::\link[raster]{writeRaster}}.
-#'                    Accessing out-of-memory raster objects won't work if 
-#'                    exdir is removed! -> Error in .local(.Object, ...)
-#'                    DEFAULT: TRUE
-#' @param progbar     Show messages and progress bars? \code{\link{readDWD}} will
-#'                    keep progbar=TRUE for asc files, even if length(file)==1.
-#'                    DEFAULT: TRUE
-#' @param selection   Optionally read only a subset of the ~24*31=744 files.
-#'                    Called as \code{f[selection]}. DEFAULT: NULL (ignored)
-#' @param \dots       Further arguments passed to \code{raster::\link[raster]{raster}}
 # @importFrom raster raster stack crs projection extent plot
 #' @examples 
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
@@ -590,6 +571,25 @@ return(invisible(r))
 #' # by default, this is in tempdir, hence you would need to save asc manually:
 #' # raster::writeRaster(asc, paste0(datadir,"/RW2018-09"), overwrite=TRUE) 
 #' }
+#' @param file        Name of file on harddrive, like e.g. 
+#'                    DWDdata/grids_germany/hourly/radolan/historical/asc/
+#'                    2018_RW-201809.tar.
+#'                    Must have been downloaded with \code{mode="wb"}!
+#' @param exdir       Directory to unzip into. Unpacked files existing therein
+#'                    will not be untarred again, saving up to 15 secs per file.
+#'                    DEFAULT: NULL (subfolder of \code{\link{tempdir}()})
+#' @param dividebyten Divide numerical values by 10? 
+#'                    If dividebyten=FALSE and exdir left at NULL (tempdir), save 
+#'                    the result on disc with \code{raster::\link[raster]{writeRaster}}.
+#'                    Accessing out-of-memory raster objects won't work if 
+#'                    exdir is removed! -> Error in .local(.Object, ...)
+#'                    DEFAULT: TRUE
+#' @param progbar     Show messages and progress bars? \code{\link{readDWD}} will
+#'                    keep progbar=TRUE for asc files, even if length(file)==1.
+#'                    DEFAULT: TRUE
+#' @param selection   Optionally read only a subset of the ~24*31=744 files.
+#'                    Called as \code{f[selection]}. DEFAULT: NULL (ignored)
+#' @param \dots       Further arguments passed to \code{raster::\link[raster]{raster}}
 readDWD.asc <- function(file, exdir=NULL, dividebyten=TRUE, 
                         selection=NULL, progbar=TRUE, ...)
 {
