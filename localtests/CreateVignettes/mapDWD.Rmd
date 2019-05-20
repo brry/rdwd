@@ -44,7 +44,7 @@ leaflet(data=geoIndex[geoIndex$recentfile,]) %>% addTiles() %>%
         addCircleMarkers(~lon, ~lat, popup=~display, stroke=F)
 ```
 
-To request the nonpublic datasets counted in the infobox, please contact <cdc.daten@dwd.de>.
+To request the nonpublic datasets counted in the infobox, please contact <cdc.daten@dwd.de> or <klima.vertrieb@dwd.de>.
 (The DWD cannot publish all datasets because of copyright restrictions).
 
 Note: [`geoIndex`](../help/geoIndex) is created in the last section of 

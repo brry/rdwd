@@ -245,7 +245,7 @@ str(meta_monthly_rain)
 
 Meta files may list stations for which there are actually no files.
 These refer to nonpublic datasets (The DWD cannot publish all datasets because of copyright restrictions).
-To request those, please contact <cdc.daten@dwd.de>.
+To request those, please contact <cdc.daten@dwd.de> or <klima.vertrieb@dwd.de>.
 
 
 

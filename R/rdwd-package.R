@@ -159,7 +159,7 @@ nonpubmes <- ""
 nonpub <- !metaIndex[sel,"hasfile"]
 if(any(nonpub)&hasfileonly) nonpubmes <- paste0("\nAdditionally, there are ",
       sum(nonpub), " non-public files. Display all with  metaInfo(",id,",FALSE)",
-      "\nTo request those datasets, please contact  cdc.daten@dwd.de")
+      "\nTo request those datasets, please contact cdc.daten@dwd.de or klima.vertrieb@dwd.de")
 if(hasfileonly) sel <- sel & metaIndex$hasfile
 # Output preparation:
 out <- metaIndex[sel,]
