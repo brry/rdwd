@@ -153,6 +153,8 @@ return(invisible(output))
 
 # read observational data ----
 
+# ~ data ----
+
 #' @title read regular dwd data
 #' @description Read regular dwd data. 
 #' Intended to be called via \code{\link{readDWD}}.
@@ -232,6 +234,8 @@ return(dat)
 
 
 
+# ~ meta ----
+
 #' @title read dwd metadata (Beschreibung*.txt files)
 #' @description read dwd metadata (Beschreibung*.txt files).
 #'  Intended to be called via \code{\link{readDWD}}.\cr
@@ -308,6 +312,8 @@ stats
 }
 
 
+
+# ~ multia ----
 
 #' @title read multi_annual dwd data
 #' @description read multi_annual dwd data. 
@@ -447,6 +453,8 @@ return(invisible(rb))
 
 
 
+# ~ raster ----
+
 #' @title read dwd gridded raster data
 #' @description Read gridded raster data. 
 #' Intended to be called via \code{\link{readDWD}}.\cr
@@ -465,8 +473,10 @@ return(invisible(rb))
 #' rf <- readDWD(localfiles[1]) # runs faster at second time due to skip=TRUE
 #' raster::plot(rf)
 #' 
-#' rfp <- projectRastDWD(rfp)
+#' rfp <- projectRasterDWD(rf)
 #' raster::plot(rfp, asp=1.8) # ToDo: doesn't seem quite right...
+#' data(DEU)
+#' raster::plot(DEU, add=TRUE)
 #' 
 #' testthat::expect_equal(raster::cellStats(rf, range), c(-8.2,4.4))
 #' rf10 <- readDWD(localfiles[1], dividebyten=FALSE)
@@ -510,6 +520,8 @@ return(invisible(r))
 }
 
 
+
+# ~ asc ----
 
 #' @title read dwd gridded radolan asc data
 #' @description read grid-interpolated radolan asc data. 
@@ -556,6 +568,10 @@ return(invisible(r))
 #' #asc <- readDWD(file) # 4 GB in mem. ~ 20 secs unzip, 30 secs read, 10 min divide
 #' asc <- readDWD(file, selection=1:20, dividebyten=TRUE)
 #' asc <- projectRasterDWD(asc)
+#' 
+#' raster::plot(asc[[1]], main=names(asc)[1])
+#' data(DEU)
+#' raster::plot(DEU, add=TRUE)
 #' 
 #' rng <- range(raster::cellStats(asc, "range"))
 #' nframes <- 3 # raster::nlayers(asc) for all (time intensive!)
