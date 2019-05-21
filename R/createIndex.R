@@ -257,28 +257,6 @@ geoIndex$hasfile <- NULL
 # reduction into unique stations:
 geoIndex <- geoIndex[!duplicated(geoIndex), ]  #  ca 6k rows (=unique station IDs)
 #
-#
-# Duplication checks:
-dupli <- list(name=paste("rdwd::createIndex coordinate checks", Sys.time()))
-coord <- paste(geoIndex$lon, geoIndex$lat, sep="_")
-# stations at the same locations:
-dupli_c <- duplicated(coord) | duplicated(coord, fromLast=TRUE)
-if(any(dupli_c))
-  {
-  warning("There are ", sum(dupli_c)/2, " sets of coordinates used for more than ",
-          "one station id.\nTo see them, type    .Last.value$dupli")
-  dupli$ids_at_one_loc <- sortDF(geoIndex[dupli_c, ], "lon", decreasing=FALSE)
-  }
-# several locations for one station ID:
-dupli_c <- tapply(coord, geoIndex$id, function(x)length(unique(x)) ) > 1
-if(any(dupli_c))
-  {
-  warning("There are ", sum(dupli_c), " stations with more than one set of coordinates.",
-          "\nTo see them, type    .Last.value$dupli")
-  dupli$locs_at_one_id <- geoIndex[dupli_c, ]
-  }
-#
-#
 # column for interactive map popup display:
 geoIndex$display <- rowDisplay(geoIndex)
 geoIndex$display <- gsub("nfiles", "n public files", geoIndex$display)
@@ -294,10 +272,13 @@ if(gname!="")
   write.table(geoIndex, file=outfile, sep="\t", row.names=FALSE, quote=FALSE)
   }
 #
+# Check all indexes:
+checks <- checkIndex(fileIndex, metaIndex, geoIndex)
 #
 # Output -----------------------------------------------------------------------
 if(!quiet) messaget("Done.")
-return(invisible(list(fileIndex=fileIndex, metaIndex=metaIndex, geoIndex=geoIndex, dupli=dupli)))
+return(invisible(list(fileIndex=fileIndex, metaIndex=metaIndex, geoIndex=geoIndex, 
+                      checks=checks)))
 }
 
 

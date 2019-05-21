@@ -6,7 +6,6 @@ rdwd ToDo-list / wishlist / issues
 - readDWD.binary: add option to transform list of matrixes to raster stack
 - readDWD.raster project example correctly
 - expand parameter abbreviations
-- create (unexported) function checkIndex with code currently in createIndex + more
 
 
 ---------------------------------------
