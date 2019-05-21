@@ -406,7 +406,11 @@ out
 #' # 204 MB, takes a minute to download:
 #' localfile <- dataDWD(file=radfile, base=gridbase, joinbf=TRUE,
 #'                      dir=localtestdir(), read=FALSE)
-#' rad <- readDWD(localfile, selection=1:10) # no need to read all 24*31=744 files
+#' # exdir radardir set to speed up my tests:
+#' radardir <- "C:/Users/berry/Desktop/DWDbinary"
+#' if(!file.exists(radardir)) radardir <- tempdir()
+#' # no need to read all 24*31=744 files, so setting selection:
+#' rad <- readDWD(localfile, selection=1:10, exdir=radardir) 
 #' if(length(rad)!=10) stop("length(rad) should be 10, but is ", length(rad))
 #' 
 #' rad1 <- projectRasterDWD(raster::raster(rad[[1]]$dat))
@@ -423,24 +427,41 @@ out
 #' }
 #' @param file      Name of file on harddrive, like e.g. 
 #'                  DWDdata/daily_radolan_historical_bin_2017_SF201712.tar.gz
+#' @param exdir     Directory to unzip into. If existing, only the needed files
+#'                  will be unpacked with \code{\link{untar}}. Note that exdir
+#'                  size will be around 1.1 GB. exdir can contain other files, 
+#'                  these will be ignored for the actual reading with 
+#'                  \code{\link{readRadarFile}} (function not exported, but documented).
+#'                  DEFAULT exdir: sub(".tar.gz$", "", file)
 #' @param progbar   Show messages and progress bars? \code{\link{readDWD}} will
 #'                  keep progbar=TRUE for binary files, even if length(file)==1.
 #'                  DEFAULT: TRUE
 #' @param selection Optionally read only a subset of the ~24*31=744 files.
 #'                  Called as \code{f[selection]}. DEFAULT: NULL (ignored)
-#' @param \dots     Further arguments passed to \code{\link{readRadarFile}}
-readDWD.binary <- function(file, progbar=TRUE, selection=NULL, ...)
+#' @param \dots     Further arguments passed to \code{\link{readRadarFile}}, 
+#'                  i.e. \code{na} and \code{clutter}
+readDWD.binary <- function(file, exdir=sub(".tar.gz$", "", file), 
+                           progbar=TRUE, selection=NULL, ...)
 {
-# temporary unzipping directory
-fn <- tools::file_path_sans_ext(basename(file))
-exdir <- paste0(tempdir(),"/", fn)
-untar(file, exdir=exdir) # may take a few seconds
-on.exit(unlink(exdir, recursive=TRUE), add=TRUE)
-
-# hourly files;
+pmessage <- function(...) if(progbar) message(...)
+# Untar as needed:
+pmessage("\nChecking which files need to be untarred to ", exdir, "...")
+lf <- untar(file, list=TRUE)
+tountar <- !lf %in% dir(exdir)
+if(any(tountar)) 
+  {
+  pmessage("Unpacking ",sum(tountar), " of ",length(lf), " files in ",file,"...")
+  untar(file, files=lf[tountar], exdir=exdir)
+  } else 
+  pmessage("All files were already untarred.")
+#
+# hourly files:
 f <- dir(exdir, full.names=TRUE) # 31*24 = 744 files  (daily/hist/2017-12)
+# read only the ones from file, not other stuff at exdir:
+f <- f[basename(f) %in% lf]
 if(!is.null(selection)) f <- f[selection]
-# binary file header:   substr(readLines(f[1], n=1, warn=FALSE), 1, 270)
+#
+pmessage("Reading ",length(f)," binary files...")
 if(progbar) lapply <- pbapply::pblapply
 # Read the actual binary file:
 rb <- lapply(f, readRadarFile, ...)

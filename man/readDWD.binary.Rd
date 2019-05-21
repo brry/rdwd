@@ -4,11 +4,19 @@
 \alias{readDWD.binary}
 \title{read dwd gridded radolan binary data}
 \usage{
-readDWD.binary(file, progbar = TRUE, selection = NULL, ...)
+readDWD.binary(file, exdir = sub(".tar.gz$", "", file), progbar = TRUE,
+  selection = NULL, ...)
 }
 \arguments{
 \item{file}{Name of file on harddrive, like e.g. 
 DWDdata/daily_radolan_historical_bin_2017_SF201712.tar.gz}
+
+\item{exdir}{Directory to unzip into. If existing, only the needed files
+will be unpacked with \code{\link{untar}}. Note that exdir
+size will be around 1.1 GB. exdir can contain other files, 
+these will be ignored for the actual reading with 
+\code{\link{readRadarFile}} (function not exported, but documented).
+DEFAULT exdir: sub(".tar.gz$", "", file)}
 
 \item{progbar}{Show messages and progress bars? \code{\link{readDWD}} will
 keep progbar=TRUE for binary files, even if length(file)==1.
@@ -17,7 +25,8 @@ DEFAULT: TRUE}
 \item{selection}{Optionally read only a subset of the ~24*31=744 files.
 Called as \code{f[selection]}. DEFAULT: NULL (ignored)}
 
-\item{\dots}{Further arguments passed to \code{\link{readRadarFile}}}
+\item{\dots}{Further arguments passed to \code{\link{readRadarFile}}, 
+i.e. \code{na} and \code{clutter}}
 }
 \value{
 vector
@@ -34,7 +43,11 @@ radfile <- "/daily/radolan/historical/bin/2017/SF201712.tar.gz"
 # 204 MB, takes a minute to download:
 localfile <- dataDWD(file=radfile, base=gridbase, joinbf=TRUE,
                      dir=localtestdir(), read=FALSE)
-rad <- readDWD(localfile, selection=1:10) # no need to read all 24*31=744 files
+# exdir radardir set to speed up my tests:
+radardir <- "C:/Users/berry/Desktop/DWDbinary"
+if(!file.exists(radardir)) radardir <- tempdir()
+# no need to read all 24*31=744 files, so setting selection:
+rad <- readDWD(localfile, selection=1:10, exdir=radardir) 
 if(length(rad)!=10) stop("length(rad) should be 10, but is ", length(rad))
 
 rad1 <- projectRasterDWD(raster::raster(rad[[1]]$dat))
