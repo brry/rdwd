@@ -26,6 +26,7 @@
 readRadarFile <- function(binfile, na=NA, clutter=NA)
 {
 openfile <- file(binfile,"rb") # will be read successively
+on.exit(close(openfile), add=TRUE)
 # helper function to read elements of the header:
 readheader <- function(n, confile=openfile, asnum=FALSE)
  {
@@ -64,9 +65,6 @@ ETX      <- readheader(1) # "\003" End of Text
 
 # read the remaining binary data set:
 dat <- readBin(openfile,what=raw(),n=DIM[1]*DIM[2]*2,endian="little")
-
-# close the data stream:
-close(openfile)
 
 # convert into a two byte set and then into values with fortran routines:
 if(PRODUCT=="RX") # WX,RX,EX?
