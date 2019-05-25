@@ -8,14 +8,14 @@
 #' @seealso \code{\link{createIndex}}
 #' @examples 
 #' data(fileIndex) ; data(metaIndex) ; data(geoIndex)
-#' # rdwd:::checkIndex(findex=fileIndex, mindex=metaIndex, gindex=geoIndex)
+#' # ci <- checkIndex(findex=fileIndex, mindex=metaIndex, gindex=geoIndex)
 #' @param findex    \code{\link{fileIndex}}. DEFAULT: NULL
 #' @param mindex    \code{\link{metaIndex}}. DEFAULT: NULL
 #' @param gindex    \code{\link{geoIndex}}.  DEFAULT: NULL
 #' @param excludefp Exclude false positives from geoIndex coordinate check results?
 #'                  DEFAULT: TRUE
-#'
-checkIndex <- function(findex=NULL, mindex=NULL, gindex=NULL, excludefp=TRUE)
+#' @param fast      Exclude the 3-minute location per ID check? DEFAULT: FALSE
+checkIndex <- function(findex=NULL, mindex=NULL, gindex=NULL, excludefp=TRUE, fast=FALSE)
 {
 # helper function:
 alldupli <- function(x) duplicated(x) | duplicated(x, fromLast=TRUE)
@@ -46,65 +46,55 @@ if(nrow(duplifile)>0)
 
 if(!is.null(mindex)){
 message("Checking metaIndex...")
+# helper functions:
+newmes <- function(log, text) paste0(wmes, "\n- There are ", sum(log), " stations with ", 
+                                     text, ", see output ", deparse(substitute(log)))
+newout <- function(ids,colcomp,column,textvar,unit="") sapply(ids, function(i) 
+    {tt <- sort(table(mindex[colcomp==i,column]), decreasing=TRUE)
+     unname(paste0(textvar,"=",i, ": ", paste0(tt,"x",names(tt),unit, collapse=", ")))
+    })
+id_uni <- unique(mindex$Stations_id)
+
 # ID elevation inconsistencies:
 eletol <- 2.1 # m tolerance
-id_uni <- unique(mindex$Stations_id)
 id_ele <- pbapply::pbsapply(id_uni, function(i) 
                  any(abs(diff(mindex[mindex$Stations_id==i,"Stationshoehe"]))>eletol))
 if(any(id_ele))
   {
-  wmes <- paste0(wmes, "\n- There are ", sum(id_ele), " stations with elevation ",
-                 "inconsistencies across Beschreibung files, see outputs ",
-                 "id_elev and id_elev_summary")
-  out$id_elev <- mindex[mindex$Stations_id %in% id_uni[id_ele], ]
-  rownames(out$id_elev) <- NULL
-  out$id_elev_summary <- sapply(id_uni[id_ele], function(i) 
-    {tt <- sort(table(mindex[mindex$Stations_id==i,"Stationshoehe"]), decreasing=TRUE)
-     paste0("ID=",i, ": ", paste0(tt,"x",names(tt),"m", collapse=", "))
-    })
+  wmes <- newmes(id_ele, "elevation inconsistencies across Beschreibung files")
+  out$id_elev <- newout(id_uni[id_ele], mindex$Stations_id, "Stationshoehe", "ID", "m")
   }
 
 # several locations for one station ID:
+if(!fast){
 loctol <- 0.050 # km
 id_loc <- pbapply::pbsapply(id_uni, function(i) 
     maxlldist("geoBreite","geoLaenge", mindex[mindex$Stations_id==i,], each=FALSE)>loctol)
+mindex$coord <- paste(mindex$geoBreite, mindex$geoLaenge, sep="_")
 if(any(id_loc))
   {
-  wmes <- paste0(wmes, "\n- There are ", sum(id_loc), " stations with more ",
-                 "than one set of coordinates, see outputs locs_at_one_id and id_locs_summary")
-  out$locs_at_one_id <- mindex[mindex$Stations_id %in% id_uni[id_loc], ]
-  rownames(out$locs_at_one_id) <- NULL
-  coord <- paste(mindex$geoBreite, mindex$geoLaenge, sep="_")
-  out$id_loc_summary <- sapply(id_uni[id_loc], function(i) 
-    {tt <- sort(table(coord[mindex$Stations_id==i]), decreasing=TRUE)
-     paste0("ID=",i, ": ", paste0(tt,"x",names(tt), collapse=", "))
-    })
+  wmes <- newmes(id_loc, "more than one set of coordinates")
+  out$id_loc <- newout(id_uni[id_loc], mindex$Stations_id, "coord", "ID") 
   }
+}
 
 # Different names per ID:
 id_name <- pbapply::pbsapply(id_uni, function(i) 
                   length(unique(mindex[mindex$Stations_id==i,"Stationsname"]))>1)
 if(any(id_name))
   {
-  wmes <- paste0(wmes, "\n- There are ", sum(id_name), 
-                 " stations with more than one name per id, see output id_name")
-  out$id_name <- sapply(id_uni[id_name], function(i) 
-    {tt <- sort(table(mindex[mindex$Stations_id==i,"Stationsname"]), decreasing=TRUE)
-     paste0("ID=",i, ": ", paste0(tt,"x",names(tt), collapse=", "))
-    })
+  wmes <- newmes(id_name, "more than one name per id")
+  out$id_name <- newout(id_uni[id_name], mindex$Stations_id, "Stationsname", "ID")
   }
+
 # Different IDs per name:
 name_uni <- unique(mindex$Stationsname)
 name_id <- pbapply::pbsapply(name_uni, function(n) 
                   length(unique(mindex[mindex$Stationsname==n,"Stations_id"]))>1)
 if(any(name_id))
   {
-  wmes <- paste0(wmes, "\n- There are ", sum(name_id), 
-                 " stations with more than one id per name, see output id_per_name")
-  out$id_per_name <- unname(sapply(name_uni[name_id], function(n) 
-    {tt <- sort(table(mindex[mindex$Stationsname==n,"Stations_id"]), decreasing=TRUE)
-     paste0("Name=",n, ": ", paste0(tt,"x",names(tt), collapse=", "))
-    }))
+  wmes <- newmes(name_id, "more than one id per name")
+  out$name_id <- newout(name_uni[name_id], mindex$Stationsname,"Stations_id", "Name")
   }
 }
 
