@@ -390,7 +390,7 @@ out
 #' @title read dwd gridded radolan binary data
 #' @description read gridded radolan binary data.
 #' Intended to be called via \code{\link{readDWD}}.\cr
-#' @return vector
+#' @return list depending on argument \code{toraster}, see there for details
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2018. 
 #'         Significant input for the underlying \code{\link{readRadarFile}} came
 #'         from Henning Rust & Christoph Ritschel at FU Berlin.
@@ -410,13 +410,11 @@ out
 #' radardir <- "C:/Users/berry/Desktop/DWDbinary"
 #' if(!file.exists(radardir)) radardir <- tempdir()
 #' # no need to read all 24*31=744 files, so setting selection:
-#' rad <- readDWD(localfile, selection=1:10, exdir=radardir) 
-#' if(length(rad)!=10) stop("length(rad) should be 10, but is ", length(rad))
+#' rad <- readDWD(localfile, selection=1:10, exdir=radardir) #with toraster=TRUE 
+#' if(length(rad)!=2) stop("length(rad) should be 2, but is ", length(rad))
 #' 
-#' rad1 <- projectRasterDWD(raster::raster(rad[[1]]$dat))
-#' rad2 <- projectRasterDWD(raster::raster(rad[[2]]$dat))
-#' raster::plot(rad1, main=names(rad)[1])
-#' raster::plot(rad2, main=names(rad)[2])
+#' radp <- projectRasterDWD(rad$data)
+#' raster::plot(radp[[1]], main=rad$meta$date[1])
 #' 
 #' data(DEU)
 #' raster::plot(DEU, add=TRUE)
@@ -433,6 +431,10 @@ out
 #'                  these will be ignored for the actual reading with 
 #'                  \code{\link{readRadarFile}} (function not exported, but documented).
 #'                  DEFAULT exdir: sub(".tar.gz$", "", file)
+#' @param toraster  Logical: convert output (list of matrixes + meta informations)
+#'                  to a list with data (\code{raster \link[raster]{stack}}) + 
+#'                  meta (list from the first subfile, but with vector of dates)?
+#'                  DEFAULT: TRUE
 #' @param progbar   Show messages and progress bars? \code{\link{readDWD}} will
 #'                  keep progbar=TRUE for binary files, even if length(file)==1.
 #'                  DEFAULT: TRUE
@@ -441,7 +443,7 @@ out
 #' @param \dots     Further arguments passed to \code{\link{readRadarFile}}, 
 #'                  i.e. \code{na} and \code{clutter}
 readDWD.binary <- function(file, exdir=sub(".tar.gz$", "", file), 
-                           progbar=TRUE, selection=NULL, ...)
+                           toraster=TRUE, progbar=TRUE, selection=NULL, ...)
 {
 pmessage <- function(...) if(progbar) message(...)
 # Untar as needed:
@@ -468,7 +470,25 @@ rb <- lapply(f, readRadarFile, ...)
 # list element names (time stamp):
 time <- sapply(rb, function(x) as.character(x$meta$date))
 names(rb) <- time
-return(invisible(rb))
+if(!toraster) return(invisible(rb))
+# else if toraster:
+if(!requireNamespace("raster", quietly=TRUE))
+ stop("To use rdwd:::readDWD.binary with toraster=TRUE, please first install raster:",
+      "   install.packages('raster')", call.=FALSE)
+pmessage("Converting to raster stack....")
+rbmat <- base::lapply(rb,"[[",1)
+rbmat <- base::lapply(rbmat, raster::raster)
+rbmat <- raster::stack(rbmat)
+# rbmeta <- base::lapply(rb,"[[",2)
+# rbmeta <- base::lapply(rbmeta, function(x){x$radars <- toString(x$radars);
+#                                            x$radarn <- toString(x$radarn);
+#                                            x$dim    <- toString(x$dim)   ; x})
+# mnames <- names(rbmeta[[1]])[-(1:2)] # filename and date will differ
+# sapply(mnames, function(mn) length(unique(sapply(rbmeta, "[[", mn)))) # all equal
+rbmeta <- rb[[1]]$meta
+rbmeta$filename <- file
+rbmeta$date <- as.POSIXct(time)
+return(invisible(list(data=rbmat, meta=rbmeta)))
 }
 
 

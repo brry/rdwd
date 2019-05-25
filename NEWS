@@ -3,7 +3,6 @@ rdwd ToDo-list / wishlist / issues
 - dataDWD: potentially use curl to download data without sleep need
 - readDWD: figure out reason for fread trouble (reported in emails by some users)
 - readRadarFile: check with RX file, see if NA assignment is redundant
-- readDWD.binary: add option to transform list of matrixes to raster stack
 - readDWD.raster project example correctly
 - expand parameter abbreviations
 

@@ -4,8 +4,8 @@
 \alias{readDWD.binary}
 \title{read dwd gridded radolan binary data}
 \usage{
-readDWD.binary(file, exdir = sub(".tar.gz$", "", file), progbar = TRUE,
-  selection = NULL, ...)
+readDWD.binary(file, exdir = sub(".tar.gz$", "", file),
+  toraster = TRUE, progbar = TRUE, selection = NULL, ...)
 }
 \arguments{
 \item{file}{Name of file on harddrive, like e.g. 
@@ -18,6 +18,11 @@ these will be ignored for the actual reading with
 \code{\link{readRadarFile}} (function not exported, but documented).
 DEFAULT exdir: sub(".tar.gz$", "", file)}
 
+\item{toraster}{Logical: convert output (list of matrixes + meta informations)
+to a list with data (\code{raster \link[raster]{stack}}) + 
+meta (list from the first subfile, but with vector of dates)?
+DEFAULT: TRUE}
+
 \item{progbar}{Show messages and progress bars? \code{\link{readDWD}} will
 keep progbar=TRUE for binary files, even if length(file)==1.
 DEFAULT: TRUE}
@@ -29,7 +34,7 @@ Called as \code{f[selection]}. DEFAULT: NULL (ignored)}
 i.e. \code{na} and \code{clutter}}
 }
 \value{
-vector
+list depending on argument \code{toraster}, see there for details
 }
 \description{
 read gridded radolan binary data.
@@ -47,13 +52,11 @@ localfile <- dataDWD(file=radfile, base=gridbase, joinbf=TRUE,
 radardir <- "C:/Users/berry/Desktop/DWDbinary"
 if(!file.exists(radardir)) radardir <- tempdir()
 # no need to read all 24*31=744 files, so setting selection:
-rad <- readDWD(localfile, selection=1:10, exdir=radardir) 
-if(length(rad)!=10) stop("length(rad) should be 10, but is ", length(rad))
+rad <- readDWD(localfile, selection=1:10, exdir=radardir) #with toraster=TRUE 
+if(length(rad)!=2) stop("length(rad) should be 2, but is ", length(rad))
 
-rad1 <- projectRasterDWD(raster::raster(rad[[1]]$dat))
-rad2 <- projectRasterDWD(raster::raster(rad[[2]]$dat))
-raster::plot(rad1, main=names(rad)[1])
-raster::plot(rad2, main=names(rad)[2])
+radp <- projectRasterDWD(rad$data)
+raster::plot(radp[[1]], main=rad$meta$date[1])
 
 data(DEU)
 raster::plot(DEU, add=TRUE)
