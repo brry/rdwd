@@ -73,33 +73,35 @@ release_questions <- function() {
 
 
 
-# fileIndex, metaIndex, geoIndex ----
+# fileIndex, metaIndex, geoIndex, gridIndex ----
 
 #' Indexes of files and metadata on the DWD CDC FTP server
 #' 
 #' Created with \code{\link{createIndex}} in the last section of
 #' \url{https://github.com/brry/rdwd/blob/master/R/rdwd-package.R}
 #' In functions, you can access them with \code{rdwd:::fileIndex} etc.\cr
-#' \bold{fileIndex}: A data.frame with the filenames at the default \code{base} value
-#' \code{\link{dwdbase}}.\cr
+#' \bold{fileIndex}: A data.frame with the filenames (and derived information)
+#' at the default \code{base} value \code{\link{dwdbase}}.\cr
 #' \bold{metaIndex}: A data.frame with the contents of all the station description files
-#' (..._Beschreibung_Stationen.txt) in the folders hourly, daily and monthly at \code{base}.\cr
-#' \bold{geoIndex}: \code{metaIndex} distilled to geographic locations.
+#' (..._Beschreibung_Stationen.txt) under \code{\link{dwdbase}}.\cr
+#' \bold{geoIndex}: \code{metaIndex} distilled to geographic locations.\cr
+#' \bold{gridIndex}: Vector of file paths at \code{\link{gridbase}}.
 #' 
 #' @name index
 #' @aliases fileIndex metaIndex geoIndex
 #' @docType data
 #' @format
-#' \bold{fileIndex}: data.frame with character strings. ca 243k rows x 8 columns:\cr
+#' \bold{fileIndex}: data.frame with character strings. ca 270k rows x 8 columns:\cr
 #'         \code{res}, \code{var}, \code{per} (see \code{\link{selectDWD}}),
 #'         station \code{id}, time series \code{start} and \code{end}, and
 #'         \code{ismeta} information, all according to \code{path}.\cr
-#' \bold{metaIndex}: data.frame with ca 82k rows for 12 columns:\cr
+#' \bold{metaIndex}: data.frame with ca 97k rows for 12 columns:\cr
 #'         \code{Stations_id, von_datum, bis_datum,
 #'         Stationshoehe, geoBreite, geoLaenge, Stationsname, Bundesland,
 #'         res, var, per, hasfile} \cr
 #' \bold{geoIndex}: data.frame with ca 6k rows for 11 columns:\cr
-#'         \code{id, name, state, lat, lon, ele, nfiles, nonpublic, recentfile, display, col}
+#'         \code{id, name, state, lat, lon, ele, nfiles, nonpublic, recentfile, display, col}\cr
+#' \bold{gridIndex}: Vector with ca 50k file paths at \code{\link{gridbase}}
 #' @source Deutscher WetterDienst / Climate Data Center  FTP Server
 #' @seealso \code{\link{createIndex}}, \code{\link{indexFTP}}, \code{\link{selectDWD}},
 #'          \code{\link{findID}}, \code{\link{metaInfo}},
@@ -251,6 +253,9 @@ dwdfiles <- indexFTP(sleep=0, filename="", overwrite=TRUE)
 dwdfiles <- indexFTP(dwdfiles, sleep=2, filename="", overwrite=TRUE)
   # potentially needed several times with small sleep values on restrictive FTP servers
 
+grdfiles <- indexFTP("currentgindex",   filename="grids", base=gridbase, overwrite=TRUE)
+grdfiles <- indexFTP(grdfiles, sleep=2, filename="grids", base=gridbase, overwrite=TRUE)
+
 # delete meta folder for truly new data
 # check for duplicate description files (Monatwerte + Monatswerte, e.g., also in INDEX_OF.txt)
 
@@ -263,11 +268,15 @@ dwdfiles <- readLines("DWDdata/INDEX_of_DWD_.txt")
 # 240'737 (2019-02-19)
 # 242'584 (2019-03-11)
 # 266'860 (2019-05-15)
+grdfiles <- readLines("DWDdata/INDEX_of_DWD_grids.txt")
+#  49'247 (2019-05-26)
+#
 index <- createIndex(paths=dwdfiles, meta=TRUE) # ca 200 secs +40 if files are not yet downloaded
 { # save indexes into package:
 fileIndex <- index[[1]]
 metaIndex <- index[[2]]
  geoIndex <- index[[3]]
+gridIndex <- grdfiles
 # save and compress:
 message("saving index rda files...")
 # to enable R versions <3.5.0 (2018-04, only one year old at time of writing)
@@ -275,13 +284,16 @@ message("saving index rda files...")
 save(fileIndex, file="data/fileIndex.rda", version=2)
 save(metaIndex, file="data/metaIndex.rda", version=2)
 save( geoIndex, file="data/geoIndex.rda" , version=2)
+save(gridIndex, file="data/gridIndex.rda", version=2)
 message("compressing files:")
 tools::resaveRdaFiles("data/fileIndex.rda", version=2) #devtools::use_data(fileIndex, internal=TRUE)
 cat("1")
 tools::resaveRdaFiles("data/metaIndex.rda", version=2)
 cat("2")
 tools::resaveRdaFiles("data/geoIndex.rda" , version=2)
-cat("3\n")
+cat("3")
+tools::resaveRdaFiles("data/gridIndex.rda", version=2)
+cat("4\n")
 message("checking files...")
 # check writing and reading of the files:
 fileIndex2 <- read.table("DWDdata/fileIndex.txt", sep="\t", header=TRUE, colClasses="character")

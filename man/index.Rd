@@ -7,16 +7,17 @@
 \alias{metaIndex}
 \alias{geoIndex}
 \title{Indexes of files and metadata on the DWD CDC FTP server}
-\format{\bold{fileIndex}: data.frame with character strings. ca 243k rows x 8 columns:\cr
+\format{\bold{fileIndex}: data.frame with character strings. ca 270k rows x 8 columns:\cr
         \code{res}, \code{var}, \code{per} (see \code{\link{selectDWD}}),
         station \code{id}, time series \code{start} and \code{end}, and
         \code{ismeta} information, all according to \code{path}.\cr
-\bold{metaIndex}: data.frame with ca 82k rows for 12 columns:\cr
+\bold{metaIndex}: data.frame with ca 97k rows for 12 columns:\cr
         \code{Stations_id, von_datum, bis_datum,
         Stationshoehe, geoBreite, geoLaenge, Stationsname, Bundesland,
         res, var, per, hasfile} \cr
 \bold{geoIndex}: data.frame with ca 6k rows for 11 columns:\cr
-        \code{id, name, state, lat, lon, ele, nfiles, nonpublic, recentfile, display, col}}
+        \code{id, name, state, lat, lon, ele, nfiles, nonpublic, recentfile, display, col}\cr
+\bold{gridIndex}: Vector with ca 50k file paths at \code{\link{gridbase}}}
 \source{
 Deutscher WetterDienst / Climate Data Center  FTP Server
 }
@@ -24,11 +25,12 @@ Deutscher WetterDienst / Climate Data Center  FTP Server
 Created with \code{\link{createIndex}} in the last section of
 \url{https://github.com/brry/rdwd/blob/master/R/rdwd-package.R}
 In functions, you can access them with \code{rdwd:::fileIndex} etc.\cr
-\bold{fileIndex}: A data.frame with the filenames at the default \code{base} value
-\code{\link{dwdbase}}.\cr
+\bold{fileIndex}: A data.frame with the filenames (and derived information)
+at the default \code{base} value \code{\link{dwdbase}}.\cr
 \bold{metaIndex}: A data.frame with the contents of all the station description files
-(..._Beschreibung_Stationen.txt) in the folders hourly, daily and monthly at \code{base}.\cr
-\bold{geoIndex}: \code{metaIndex} distilled to geographic locations.
+(..._Beschreibung_Stationen.txt) under \code{\link{dwdbase}}.\cr
+\bold{geoIndex}: \code{metaIndex} distilled to geographic locations.\cr
+\bold{gridIndex}: Vector of file paths at \code{\link{gridbase}}.
 }
 \examples{
 data(fileIndex)

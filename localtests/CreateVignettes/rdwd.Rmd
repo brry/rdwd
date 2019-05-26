@@ -157,7 +157,7 @@ links <- selectDWD(res="monthly", var="more_precip", per="hist", current=TRUE)
 ```
 
 [`fileIndex`](../help/fileIndex) is created with the function [`indexFTP`](../help/indexFTP) used in the last section of 
-[rdwd-package.R](https://github.com/brry/rdwd/blob/master/R/rdwd-package.R#L246).
+[rdwd-package.R](https://github.com/brry/rdwd/blob/master/R/rdwd-package.R#L249).
 
 ```{r listfiles, eval=FALSE}
 ### This chunk is not evaluated ###
