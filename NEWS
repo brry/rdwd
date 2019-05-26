@@ -4,7 +4,6 @@ rdwd ToDo-list / wishlist / issues
 - readDWD: figure out reason for fread trouble (reported in emails by some users)
 - readRadarFile: check with RX file, see if NA assignment is redundant
 - readDWD.raster project example correctly
-- expand parameter abbreviations
 
 
 ---------------------------------------

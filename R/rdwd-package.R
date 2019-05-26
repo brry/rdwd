@@ -254,6 +254,7 @@ dwdfiles <- indexFTP(dwdfiles, sleep=2, filename="", overwrite=TRUE)
 # delete meta folder for truly new data
 # check for duplicate description files (Monatwerte + Monatswerte, e.g., also in INDEX_OF.txt)
 
+# update dwdparams as well, see developmentNotes.R
 
 dwdfiles <- readLines("DWDdata/INDEX_of_DWD_.txt")
 #  25'757 elements (2017-03-14) 
