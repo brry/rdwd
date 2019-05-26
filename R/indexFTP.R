@@ -39,8 +39,10 @@
 #'                Leading slashes will be removed. 
 #'                Use \code{folder=""} to search at the location of \code{base} itself.
 #'                If \code{folder} is "currentfindex" (the default) and \code{base} 
-#'                is the default, code{folder} is changed to all folders in current 
-#'                tree file at \url{ftp://opendata.dwd.de/weather/tree.html}.
+#'                is the default, code{folder} is changed to all observational 
+#'                folders listed in the current tree file at 
+#'                \url{ftp://opendata.dwd.de/weather/tree.html}. With "currentgindex" 
+#'                and \code{gridbase}, the grid folders in the tree are used.
 #'                DEFAULT: "currentfindex"
 #' @param base    Main directory of FTP server. Trailing slashes will be removed. 
 #'                DEFAULT: \code{\link{dwdbase}}
@@ -82,12 +84,14 @@ if(!requireNamespace("RCurl", quietly=TRUE))
   stop("The R package 'RCurl' is not available. rdwd::indexFTP can not obtain file list.\n",
        "install.packages('RCurl')       to enable this.")
 # change folder:
-if(all(folder=="currentfindex") & base==dwdbase)
+if(all(folder %in% c("currentfindex","currentgindex")) & base %in% c(dwdbase, gridbase))
   {
   if(!quiet) message("Reading current index tree file...")
   tree <- readLines("ftp://opendata.dwd.de/weather/tree.html")
   if(!quiet) message("Processing index tree file...")
   urlpart <- "\"https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/"
+  if(folder=="currentgindex") 
+     urlpart <- sub("observations_germany/climate", "grids_germany", urlpart)
   tree <- grep(urlpart, tree, value=TRUE)
   tree <- sapply(strsplit(tree, "href="), "[", 2)
   tree <- sub(urlpart, "/", tree)
@@ -97,7 +101,7 @@ if(all(folder=="currentfindex") & base==dwdbase)
   tree <- tree[!tree %in% dirname(tree)]
   folder <- tree
   }
-if(!quiet) message("Determining the content of the folder(s)...")
+if(!quiet) message("Determining the content of the ",length(folder)," folder(s)...")
 if(base!=dwdbase)
  if(missing(folder)) warning('base is not the rdwd default. It is likely you want',
                              ' to use folder="" instead of "',folder,'".')
@@ -132,8 +136,10 @@ getURL_ffe <- function(ff_row)
      if(grepl("Could not resolve host", p)) 
        p <- paste0(p,"\nThis may mean you are not connected to the internet.")
      if(grepl("Server denied you to change to the given directory", p)) 
-       p <- paste0(p,"\nThis could mean the path is a file, not a folder.")
-     msg <- paste0(traceCall(3, "", ": "), "RCurl::getURL failed for '", ff_row$path, "/' - ", p)
+       p <- paste0(p,"\nThis could mean the path is a file, not a folder",
+                   " or that it doesn't exist at base\n", base)
+     msg <- paste0(traceCall(3, "", ": "), "RCurl::getURL failed for '", 
+                   ff_row$path, "/' with error:\n - ", p)
      warning(msg, call.=FALSE)
      assign("stoppp_ffe", TRUE, inherits=TRUE) # to get out of the loop sans error
      return(ff_row) # exit getURL_ffe

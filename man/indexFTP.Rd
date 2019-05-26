@@ -14,8 +14,10 @@ indexFTP(folder = "currentfindex", base = dwdbase,
 Leading slashes will be removed. 
 Use \code{folder=""} to search at the location of \code{base} itself.
 If \code{folder} is "currentfindex" (the default) and \code{base} 
-is the default, code{folder} is changed to all folders in current 
-tree file at \url{ftp://opendata.dwd.de/weather/tree.html}.
+is the default, code{folder} is changed to all observational 
+folders listed in the current tree file at 
+\url{ftp://opendata.dwd.de/weather/tree.html}. With "currentgindex" 
+and \code{gridbase}, the grid folders in the tree are used.
 DEFAULT: "currentfindex"}
 
 \item{base}{Main directory of FTP server. Trailing slashes will be removed. 
