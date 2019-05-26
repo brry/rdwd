@@ -14,7 +14,7 @@
 #'   Original codebase by Henning Rust & Christoph Ritschel at FU Berlin
 #' @seealso \code{\link{readDWD.binary}}
 #' @keywords file binary
-#' @useDynLib rdwd
+#' @useDynLib rdwd, .registration=TRUE
 # @importFrom package fun1 fun2
 # @export
 #' @examples
