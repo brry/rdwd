@@ -63,19 +63,20 @@ TLEN2    <- readheader(3, asnum=TRUE) # 120 characters
 RADB     <- unlist(strsplit(gsub("<|>|","",readheader(TLEN2)),",")) # similar to rads
 ETX      <- readheader(1) # "\003" End of Text 
 
+LEN <- DIM[1]*DIM[2]
 # read the remaining binary data set:
-dat <- readBin(openfile,what=raw(),n=DIM[1]*DIM[2]*2,endian="little")
+dat <- readBin(openfile, what=raw(), n=LEN*2, endian="little")
 
 # convert into a two byte set and then into values with fortran routines:
 if(PRODUCT=="RX") # WX,RX,EX?
   {
-  dim(dat) <- c(1,DIM[1]*DIM[2])
-  dat.val <- as.numeric(bin2num(dat,DIM,na,clutter, RX=TRUE)) # see function definition below
+  dim(dat) <- c(1,LEN)
+  dat.val <- bin2num(dat,LEN,na,clutter, RX=TRUE) # see function definition below
   }else 
   # for SF (and RW?)
   {
-  dim(dat) <- c(2,DIM[1]*DIM[2])
-  dat.val <- as.numeric(bin2num(dat,DIM,na,clutter))
+  dim(dat) <- c(2,LEN)
+  dat.val <- bin2num(dat,LEN,na,clutter)
   }
   
 # apply precision given in the header:
@@ -107,17 +108,19 @@ return(list(dat=dat.mat, meta=meta))
 
 
 # non-exported + non-documented helper function
-bin2num <- function(dat, dims, na=NA, clutter=NA, RX=FALSE) 
+bin2num <- function(dat, len, na=NA, clutter=NA, RX=FALSE) 
 {
-fortranfunction <- if(RX) "binary_to_num_RX" else "binary_to_num"
-fNAval <- -32767L
-fCLUTTERval <- -32766L
-out <- .Fortran(fortranfunction, raw=dat, dims=as.integer(dims),
-                numeric=as.integer(array(0,dim=c(dims[1]*dims[2]))),
-                fNAval=fNAval, fCLUTTERval=fCLUTTERval)
+Fna <- -32767L
+Fclutter <- -32766L
+if(RX)
+out <- .Fortran("binary_to_num_rx", raw=dat, Flength=as.integer(len),
+                numeric=as.integer(array(0,dim=len)), Fna=Fna, Fclutter=Fclutter)
+else
+out <- .Fortran("binary_to_num", raw=dat, Flength=as.integer(len),
+                numeric=as.integer(array(0,dim=len)), Fna=Fna, Fclutter=Fclutter)
 out <- out$numeric
-out[out==fNAval] <- na
-out[out==fCLUTTERval] <- clutter
+out[out==Fna] <- na
+out[out==Fclutter] <- clutter
 return(out)
 }
 
