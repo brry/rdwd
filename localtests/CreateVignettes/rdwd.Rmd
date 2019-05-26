@@ -31,7 +31,7 @@ The German Weather Service (Deutscher Wetterdienst, DWD) provides thousands of d
 
 For data interpolated onto a 1 km raster, including radar data up to the last hour, 
 see <ftp://opendata.dwd.de/climate_environment/CDC/grids_germany/>. 
-Raster and binary reading functions for the Radolan data are included since `rdwd 1.1.0 /1.1.1` (March/May 2019).
+Raster and binary reading functions for the Radolan data are included in `rdwd` since May 2019.
 
 For further details, please consult the 
 [DWD FTP server documentation](ftp://opendata.dwd.de/climate_environment/CDC/Readme_intro_CDC_ftp.pdf)  
@@ -65,8 +65,8 @@ From this, [`metaIndex`](../help/metaIndex) and [`geoIndex`](../help/geoIndex) a
 
 ```{r install, eval=FALSE}
 install.packages("rdwd")
-# get the latest development version from github:
-berryFunctions::instGit("brry/rdwd") 
+# get the latest development version from github, incl. vignettes:
+remotes::install_github("brry/rdwd", build_opts="--no-manual")
 # For full usage, as needed in indexFTP and selectDWD(..., current=TRUE):
 install.packages("RCurl") # is only suggested, not mandatory dependency
 ```
@@ -77,13 +77,8 @@ sudo apt-get install r-cran-rcurl
 ```
 
 If direct installation from CRAN doesn't work, your R version might be too old. 
-In that case it is really recommendable to [update R](https://github.com/brry/course#install). 
-If you can't update R, try installing from source (github) via `instGit` as mentioned above. 
-If that's not possible either, you might be able to `source` some functions from the 
-[package zip folder](https://github.com/brry/rdwd/archive/master.zip)
-```R
-Vectorize(source)(dir("path_you_unzipped_to/rdwd-master/R", full=T))
-```
+In that case you'll need to [update R](https://github.com/brry/course#install). 
+
 
 [TOC](#top)
 
