@@ -40,6 +40,7 @@ readheader <- function(n, confile=openfile, asnum=FALSE)
 # 120<boo 24,drs 24,eis 24,emd 24,ess 24,fbg 24,fld 24,hnr 24,isn 24,mem 24,neu 24,
 #   nhb 24,oft 24,pro 24,ros 24,tur 24,umd 24>ETX
 PRODUCT  <- readheader(2) # SF
+rw <- PRODUCT=="RW"
 DDHHMM   <- readheader(6) # 010050
 LOCATION <- readheader(5) # 10000
 MMYY     <- readheader(4) # 1217
@@ -53,15 +54,24 @@ PR       <- readheader(2) # PR
 PREC     <- as.numeric(sub("^ ", "1", readheader(5))) # " E-01" to 0.1
 INT      <- readheader(3) # INT
 DT       <- readheader(4, asnum=TRUE) # 1440 minutes
+if(rw) U0<- readheader(2)
 GP       <- readheader(2) # GP
 DIM      <- as.numeric(unlist(strsplit(readheader(9),"x"))) # " 900x 900" to c(900,900)
 MS       <- readheader(2) # MS
+if(rw) VR<- readheader(21) # " 00000001VR2017.002MS"
 TLEN     <- readheader(3, asnum=TRUE) # 70 characters
 RADS     <- unlist(strsplit(gsub("<|>| ","",readheader(TLEN)),",")) # Radarstandortkuerzel (boo, ros, emd, ...)
+if(rw)
+  {  ETX <- readheader(1) ; RADB <- NA } else {
 ST       <- readheader(2) # ST
 TLEN2    <- readheader(3, asnum=TRUE) # 120 characters
 RADB     <- unlist(strsplit(gsub("<|>|","",readheader(TLEN2)),",")) # similar to rads
 ETX      <- readheader(1) # "\003" End of Text 
+  } # end not rw
+
+if(ETX!="\003") stop("rdwd:::readRadarFile: header could not be read correctly in:\n", 
+           binfile, "\nPlease contact berry-b@gmx.de with the DWD file name, ",
+           "so that this can be corrected. Sorry for the inconvenience...", call.=FALSE)
 
 LEN <- DIM[1]*DIM[2]
 # read the remaining binary data set:
@@ -90,11 +100,18 @@ if(PRODUCT=="RX")
   dat.val <- dat.val/2 - 32.5
   }
 
-# convert into a matrix:
-dat.mat <- t(matrix(dat.val,DIM[1],DIM[2])) # i=lon, j=lat
-
-# give row and column names according to RADOLAN convention:
-dimnames(dat.mat) <- list(x.nrs=1:DIM[1]-1, y.nrs=1:DIM[2]-1)
+# convert into a matrix + give row and column names according to RADOLAN convention:
+if(rw)
+  {
+  dat.mat <- matrix(dat.val, ncol=DIM[2], byrow=TRUE) # ToDo: not sure about this
+  dat.mat <- apply(dat.mat, 2, rev)
+  dimnames(dat.mat) <- list(x.nrs=1:DIM[1]-1, y.nrs=1:DIM[2]-1)
+  }
+else
+  {
+  dat.mat <- t(matrix(dat.val,DIM[1],DIM[2])) # i=lon, j=lat
+  dimnames(dat.mat) <- list(x.nrs=1:DIM[2]-1, y.nrs=1:DIM[1]-1) # reversed because of t()
+  }
 
 # meta data:
 daytime <- strptime(paste0(DDHHMM,"00-",MMYY), format="%d%H%M%S-%m%y")
