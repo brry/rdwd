@@ -713,6 +713,8 @@ if(!requireNamespace("raster", quietly=TRUE))
  stop("To use rdwd::projectRasterDWD, please first install raster:",
       "   install.packages('raster')", call.=FALSE)
 #
+pnull <- is.null(proj)
+if(pnull) proj <- ""
 # Default projection and extent:
 # Projection as per Kompositbeschreibung 1.5
 if(is.na(proj)) proj <- raster::crs("+proj=stere +lat_0=90 +lat_ts=90 +lon_0=10 
@@ -723,7 +725,7 @@ if(is.na(extent)) extent <- raster::extent(-523.4622,376.5378,-4658.645,-3758.64
 proj_ll <- raster::crs("+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
 #
 # actually project:
-if(!is.null(proj))
+if(!pnull)
   {
   raster::projection(r) <- proj
   raster::extent(    r) <- extent
