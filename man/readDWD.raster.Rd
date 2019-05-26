@@ -47,8 +47,8 @@ rf <- readDWD(localfiles[1])
 rf <- readDWD(localfiles[1]) # runs faster at second time due to skip=TRUE
 raster::plot(rf)
 
-rfp <- projectRasterDWD(rf)
-raster::plot(rfp, asp=1.8) # ToDo: doesn't seem quite right...
+rfp <- projectRasterDWD(rf, proj="seasonal", extent=rf@extent)
+raster::plot(rfp)
 data(DEU)
 raster::plot(DEU, add=TRUE)
 

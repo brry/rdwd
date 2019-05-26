@@ -4,18 +4,21 @@
 \alias{projectRasterDWD}
 \title{project DWD raster data}
 \usage{
-projectRasterDWD(r, proj = NA, extent = NA, latlon = TRUE)
+projectRasterDWD(r, proj = "radolan", extent = "radolan",
+  latlon = TRUE)
 }
 \arguments{
 \item{r}{Raster object}
 
-\item{proj}{Desired \code{\link[raster]{crs}} to be set with
-\code{raster::\link[raster]{projection}}.
-Set to NULL to not set proj+extent but still consider \code{latlon}.
-DEFAULT: NA (internally defined per DWD standard)}
+\item{proj}{Desired projection. Can be a \code{raster::\link[raster]{crs}} output,
+a projection character string (will be passed to \code{crs}), 
+"radolan" or "seasonal" with internal defaults defined per DWD standard, 
+or NULL to not set proj+extent but still consider \code{latlon}.
+DEFAULT: "radolan"}
 
-\item{extent}{Desired \code{\link[raster]{extent}}.
-DEFAULT: NA (internally defined per DWD standard)}
+\item{extent}{Desired \code{\link[raster]{extent}}. Can be an extent object,
+a vector with 4 numbers, or "radolan" / "seasonal" with internal defaults.
+DEFAULT: "radolan"}
 
 \item{latlon}{Logical: reproject \code{r} to lat-lon crs? DEFAULT: TRUE}
 }

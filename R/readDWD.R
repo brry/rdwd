@@ -514,8 +514,8 @@ return(invisible(list(data=rbmat, meta=rbmeta)))
 #' rf <- readDWD(localfiles[1]) # runs faster at second time due to skip=TRUE
 #' raster::plot(rf)
 #' 
-#' rfp <- projectRasterDWD(rf)
-#' raster::plot(rfp, asp=1.8) # ToDo: doesn't seem quite right...
+#' rfp <- projectRasterDWD(rf, proj="seasonal", extent=rf@extent)
+#' raster::plot(rfp)
 #' data(DEU)
 #' raster::plot(DEU, add=TRUE)
 #' 
@@ -698,38 +698,58 @@ return(invisible(dat))
 #' @examples
 #' # To be used after readDWD.binary, readDWD.raster, readDWD.asc
 #' @param r        Raster object
-#' @param proj     Desired \code{\link[raster]{crs}} to be set with
-#'                 \code{raster::\link[raster]{projection}}.
-#'                 Set to NULL to not set proj+extent but still consider \code{latlon}.
-#'                 DEFAULT: NA (internally defined per DWD standard)
-#' @param extent   Desired \code{\link[raster]{extent}}.
-#'                 DEFAULT: NA (internally defined per DWD standard)
+#' @param proj     Desired projection. Can be a \code{raster::\link[raster]{crs}} output,
+#'                 a projection character string (will be passed to \code{crs}), 
+#'                 "radolan" or "seasonal" with internal defaults defined per DWD standard, 
+#'                 or NULL to not set proj+extent but still consider \code{latlon}.
+#'                 DEFAULT: "radolan"
+#' @param extent   Desired \code{\link[raster]{extent}}. Can be an extent object,
+#'                 a vector with 4 numbers, or "radolan" / "seasonal" with internal defaults.
+#'                 DEFAULT: "radolan"
 #' @param latlon   Logical: reproject \code{r} to lat-lon crs? DEFAULT: TRUE
 #'
-projectRasterDWD <- function(r, proj=NA, extent=NA, latlon=TRUE)
+projectRasterDWD <- function(r, proj="radolan", extent="radolan", latlon=TRUE)
 {
 # package check
 if(!requireNamespace("raster", quietly=TRUE))
  stop("To use rdwd::projectRasterDWD, please first install raster:",
       "   install.packages('raster')", call.=FALSE)
 #
-pnull <- is.null(proj)
-if(pnull) proj <- ""
+if(!is.null(proj))
+{
 # Default projection and extent:
 # Projection as per Kompositbeschreibung 1.5
-if(is.na(proj)) proj <- raster::crs("+proj=stere +lat_0=90 +lat_ts=90 +lon_0=10 
-  +k=0.93301270189 +x_0=0 +y_0=0 +a=6370040 +b=6370040 +to_meter=1000 +no_defs")
-# Extent as per Kompositbeschreibung 1.4 
-if(is.na(extent)) extent <- raster::extent(-523.4622,376.5378,-4658.645,-3758.645)
-# lat-lon projection:
-proj_ll <- raster::crs("+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
+p_radolan <- "+proj=stere +lat_0=90 +lat_ts=90 +lon_0=10 +k=0.93301270189
+              +x_0=0 +y_0=0 +a=6370040 +b=6370040 +to_meter=1000 +no_defs"
+# ftp://opendata.dwd.de/climate_environment/CDC/grids_germany/seasonal/air_temperature_max/
+#       BESCHREIBUNG_gridsgermany_seasonal_air_temperature_max_de.pdf
+p_seasonal <- "+proj=tmerc +lat_0=0 +lon_0=9 +k=1 +x_0=3500000 +y_0=0 
+               +ellps=bessel +datum=potsdam +units=m +no_defs"
+#
+if(is.character(proj))
+  {   
+  if(proj=="radolan")  proj <- p_radolan
+  if(proj=="seasonal") proj <- p_seasonal
+  }
+if(!inherits(proj, "CRS")) proj <- raster::crs(proj)
+#
+# Extent as per Kompositbeschreibung 1.4 / seasonal DESCRIPTION pdf:
+e_radolan <- c(-523.4622,376.5378,-4658.645,-3758.645)
+e_seasonal <- c(3280414.71163347, 3934414.71163347, 5237500.62890625, 6103500.62890625)
+if(is.character(extent))
+  {  
+  if(extent=="radolan")  extent <- e_radolan
+  if(extent=="seasonal") extent <- e_seasonal
+  }
+if(!inherits(extent,"Extent")) extent <- raster::extent(extent)
 #
 # actually project:
-if(!pnull)
-  {
-  raster::projection(r) <- proj
-  raster::extent(    r) <- extent
-  }
+raster::projection(r) <- proj
+raster::extent(    r) <- extent
+} # end if not null proj
+#
+# lat-lon projection:
+proj_ll <- raster::crs("+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
 if(latlon) r <- raster::projectRaster(r, crs=proj_ll)
 # invisible output:
 return(invisible(r))
