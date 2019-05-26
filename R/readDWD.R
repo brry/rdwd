@@ -401,27 +401,41 @@ out
 #' @examples
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
 #' 
-#' # a single file as example: ----
-#' radfile <- "/daily/radolan/historical/bin/2017/SF201712.tar.gz"
-#' # 204 MB, takes a minute to download:
-#' localfile <- dataDWD(file=radfile, base=gridbase, joinbf=TRUE,
+#' # SF file as example: ----
+#' 
+#' SF_link <- "/daily/radolan/historical/bin/2017/SF201712.tar.gz"
+#' SF_file <- dataDWD(file=SF_link, base=gridbase, joinbf=TRUE,   # 204 MB
 #'                      dir=localtestdir(), read=FALSE)
 #' # exdir radardir set to speed up my tests:
-#' radardir <- "C:/Users/berry/Desktop/DWDbinary"
-#' if(!file.exists(radardir)) radardir <- tempdir()
+#' SF_exdir <- "C:/Users/berry/Desktop/DWDbinarySF"
+#' if(!file.exists(SF_exdir)) SF_exdir <- tempdir()
 #' # no need to read all 24*31=744 files, so setting selection:
-#' rad <- readDWD(localfile, selection=1:10, exdir=radardir) #with toraster=TRUE 
-#' if(length(rad)!=2) stop("length(rad) should be 2, but is ", length(rad))
+#' SF_rad <- readDWD(SF_file, selection=1:10, exdir=SF_exdir) #with toraster=TRUE 
+#' if(length(SF_rad)!=2) stop("length(SF_rad) should be 2, but is ", length(SF_rad))
 #' 
-#' radp <- projectRasterDWD(rad$data)
-#' raster::plot(radp[[1]], main=rad$meta$date[1])
-#' 
+#' SF_radp <- projectRasterDWD(SF_rad$data)
+#' raster::plot(SF_radp[[1]], main=SF_rad$meta$date[1])
 #' data(DEU)
 #' raster::plot(DEU, add=TRUE)
 #' 
+#' 
+#' # RW file as example: ----
+#' 
+#' RW_link <- "hourly/radolan/reproc/2017_002/bin/2017/RW2017.002_201712.tar.gz"
+#' RW_file <- dataDWD(file=RW_link, base=gridbase, joinbf=TRUE,   # 25 MB
+#'                   dir=localtestdir(), read=FALSE)
+#' RW_exdir <- "C:/Users/berry/Desktop/DWDbinaryRW"
+#' if(!file.exists(RW_exdir)) RW_exdir <- tempdir()
+#' RW_rad <- readDWD(RW_file, selection=1:10, exdir=RW_exdir)
+#' RW_radp <- projectRasterDWD(RW_rad$data, extent="rw")
+#' raster::plot(RW_radp[[1]], main=RW_rad$meta$date[1])
+#' raster::plot(DEU, add=TRUE)
+#' 
+#' # ToDo: why are values + patterns not the same?
+#' 
 #' # list of all Files: ----
-#' # radolanfiles <- indexFTP(folder="/daily/radolan", base=gridbase, dir=localtestdir())
-#' radolanfiles <- readLines(localtestdir(file="INDEX_of_DWD_daily_radolan.txt"))
+#' data(gridIndex)
+#' head(grep("historical", gridIndex, value=TRUE))
 #' }
 #' @param file      Name of file on harddrive, like e.g. 
 #'                  DWDdata/daily_radolan_historical_bin_2017_SF201712.tar.gz
