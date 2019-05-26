@@ -17,7 +17,8 @@ or NULL to not set proj+extent but still consider \code{latlon}.
 DEFAULT: "radolan"}
 
 \item{extent}{Desired \code{\link[raster]{extent}}. Can be an extent object,
-a vector with 4 numbers, or "radolan" / "seasonal" with internal defaults.
+a vector with 4 numbers, or "radolan" / "rw" / "seasonal" 
+with internal defaults.
 DEFAULT: "radolan"}
 
 \item{latlon}{Logical: reproject \code{r} to lat-lon crs? DEFAULT: TRUE}

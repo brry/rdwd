@@ -704,7 +704,8 @@ return(invisible(dat))
 #'                 or NULL to not set proj+extent but still consider \code{latlon}.
 #'                 DEFAULT: "radolan"
 #' @param extent   Desired \code{\link[raster]{extent}}. Can be an extent object,
-#'                 a vector with 4 numbers, or "radolan" / "seasonal" with internal defaults.
+#'                 a vector with 4 numbers, or "radolan" / "rw" / "seasonal" 
+#'                 with internal defaults.
 #'                 DEFAULT: "radolan"
 #' @param latlon   Logical: reproject \code{r} to lat-lon crs? DEFAULT: TRUE
 #'
@@ -728,17 +729,20 @@ p_seasonal <- "+proj=tmerc +lat_0=0 +lon_0=9 +k=1 +x_0=3500000 +y_0=0
 #
 if(is.character(proj))
   {   
-  if(proj=="radolan")  proj <- p_radolan
+  if(proj=="radolan")  proj <- p_radolan else
   if(proj=="seasonal") proj <- p_seasonal
   }
 if(!inherits(proj, "CRS")) proj <- raster::crs(proj)
 #
 # Extent as per Kompositbeschreibung 1.4 / seasonal DESCRIPTION pdf:
 e_radolan <- c(-523.4622,376.5378,-4658.645,-3758.645)
+e_rw <-      c(-443.4622,456.5378,-4758.645,-3658.645) # 1.2, Abb 3
+# e_radolan <- c(-673.4656656,726.5343344,-5008.642536,-3508.642536) # ME
 e_seasonal <- c(3280414.71163347, 3934414.71163347, 5237500.62890625, 6103500.62890625)
 if(is.character(extent))
   {  
-  if(extent=="radolan")  extent <- e_radolan
+  if(extent=="radolan")  extent <- e_radolan else
+  if(extent=="rw")       extent <- e_rw      else
   if(extent=="seasonal") extent <- e_seasonal
   }
 if(!inherits(extent,"Extent")) extent <- raster::extent(extent)
