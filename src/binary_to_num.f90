@@ -65,10 +65,10 @@ contains
     do i=1, Flength
        numeric(i) = IBITS(raw(i), 0, 7)
        if (numeric(i) == 250_c_int) then ! check for missing 
-          numeric(i)=Fna
+          numeric(i) = Fna
        end if
        if (numeric(i) == 249_c_int) then ! check for clutter 
-          numeric(i)=Fclutter
+          numeric(i) = Fclutter
        end if
     end do
   
