@@ -3,6 +3,7 @@ rdwd ToDo-list / wishlist / issues
 - dataDWD: potentially use curl to download data without sleep need
 - readDWD: figure out reason for fread trouble (reported in emails by some users)
 - readRadarFile: check with RX file, see if NA assignment is redundant
+- readDWD.nc for grids_germany/daily/Project_TRY ?
 
 
 ---------------------------------------
@@ -12,6 +13,45 @@ Any feedback is welcome, per email or on github.com/brry/rdwd
 
 
 rdwd Version history
+
+-----------------------------
+-----------------------------
+
+Version 1.1.0 (2019-05-)
+Highlights:
+- Binary Radolan data can now be read correctly
+- The new FTP server is used
+- Raster data can easily be projected
+- All readDWD subfunctions now have their own documentation
+
+Important changes:
+- dataDWD arguments to readDWD removed (can be passed with ...)
+- dataDWD gains joinbf argument to join base and relative url path
+- readDWD can expand DWD abbreviations in column names (varnames=TRUE)
+- readDWD source code structure is improved.
+- readDWD.multia ignores EndOfFile characters in multiannual data on Unix
+- readDWD.raster accepts gunzip arguments, reads faster on second calls
+- readDWD.data informatively handles empty files
+- readDWD.binary+raster+asc overlay Germany maps in example plots
+- readDWD.binary unzips into a given exdir (and reads faster on second calls)
+- readDWD.binary transforms output to a raster stack
+- selectDWD suggests only available data in interactive option
+- selectDWD and nearbyStations fail informatively for typical errors
+- fileIndex loses the unnnecessary leading slashes
+- indexFTP uses tree of files at new FTP server
+
+New user-visible functions + objects: 
+- newColumnNames
+- dwdparams (renamed from parameter_abreviations)
+- gridbase
+- projectRasterDWD
+- localtestdir (though mainly for internal usage)
+
+New unexported functions:
+- readDWD.asc
+- readRadarfile + bin2num + FORTRAN code
+- checkIndex
+
 
 -----------------------------
 -----------------------------
