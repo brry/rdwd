@@ -489,9 +489,9 @@ if(!toraster) return(invisible(rb))
 if(!requireNamespace("raster", quietly=TRUE))
  stop("To use rdwd:::readDWD.binary with toraster=TRUE, please first install raster:",
       "   install.packages('raster')", call.=FALSE)
-pmessage("Converting to raster stack....")
+pmessage("Converting to raster...")
 rbmat <- base::lapply(rb,"[[",1)
-rbmat <- base::lapply(rbmat, raster::raster)
+rbmat <- lapply(rbmat, raster::raster)
 rbmat <- raster::stack(rbmat)
 # rbmeta <- base::lapply(rb,"[[",2)
 # rbmeta <- base::lapply(rbmeta, function(x){x$radars <- toString(x$radars);
