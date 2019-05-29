@@ -61,7 +61,7 @@ MS       <- readheader(2) # MS
 if(rw) VR<- readheader(21) # " 00000001VR2017.002MS"
 TLEN     <- readheader(3, asnum=TRUE) # 70 characters
 RADS     <- unlist(strsplit(gsub("<|>| ","",readheader(TLEN)),",")) # Radarstandortkuerzel (boo, ros, emd, ...)
-if(rw)
+if(rw | PRODUCT=="RX")
   {  ETX <- readheader(1) ; RADB <- NA } else {
 ST       <- readheader(2) # ST
 TLEN2    <- readheader(3, asnum=TRUE) # 120 characters
@@ -92,7 +92,7 @@ if(PRODUCT=="RX") # WX,RX,EX?
 # apply precision given in the header:
 dat.val <- dat.val*PREC
 
-if(PRODUCT=="RX")
+if(PRODUCT=="RX") # WX,RX,EX?
   {
   dat.val <- dat.val + 128
   dat.val[dat.val==250] <- NA # ToDo: isn't this already in the fortran routine?
