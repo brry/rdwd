@@ -11,3 +11,6 @@ localtests/
 localtests
 inst/shinyapps/
 inst/shinyapps
+src/binary_to_num.o
+src/init.o
+src/rdwd.dll
