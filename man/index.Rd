@@ -6,6 +6,7 @@
 \alias{fileIndex}
 \alias{metaIndex}
 \alias{geoIndex}
+\alias{gridIndex}
 \title{Indexes of files and metadata on the DWD CDC FTP server}
 \format{\bold{fileIndex}: data.frame with character strings. ca 270k rows x 8 columns:\cr
         \code{res}, \code{var}, \code{per} (see \code{\link{selectDWD}}),

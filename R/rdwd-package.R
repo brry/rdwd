@@ -88,7 +88,7 @@ release_questions <- function() {
 #' \bold{gridIndex}: Vector of file paths at \code{\link{gridbase}}.
 #' 
 #' @name index
-#' @aliases fileIndex metaIndex geoIndex
+#' @aliases fileIndex metaIndex geoIndex gridIndex
 #' @docType data
 #' @format
 #' \bold{fileIndex}: data.frame with character strings. ca 270k rows x 8 columns:\cr

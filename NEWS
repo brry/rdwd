@@ -17,7 +17,7 @@ rdwd Version history
 -----------------------------
 -----------------------------
 
-Version 1.1.0 (2019-05-)
+Version 1.1.0 (2019-05-30)
 Highlights:
 - Binary Radolan data can now be read correctly
 - The new FTP server is used
@@ -44,6 +44,7 @@ New user-visible functions + objects:
 - newColumnNames
 - dwdparams (renamed from parameter_abreviations)
 - gridbase
+- gridIndex
 - projectRasterDWD
 - localtestdir (though mainly for internal usage)
 
