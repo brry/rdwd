@@ -86,7 +86,7 @@ column_names <- readVars(fname)       ; head(column_names)
 
 plot(wind$MESS_DATUM, wind$F, main="DWD hourly wind Fuerstenzell", col="blue",
      xaxt="n", las=1, type="l", xlab="Date", ylab="Hourly Wind speed  [m/s]")
-berryFunctions::monthAxis(1, ym=T)
+berryFunctions::monthAxis(1)
 
 
 # current and historical files:
