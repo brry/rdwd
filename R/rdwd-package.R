@@ -268,9 +268,10 @@ dwdfiles <- readLines("DWDdata/INDEX_of_DWD_.txt")
 # 240'737 (2019-02-19)
 # 242'584 (2019-03-11)
 # 266'860 (2019-05-15)
+# 254'446 (2019-05-30)
 grdfiles <- readLines("DWDdata/INDEX_of_DWD_grids.txt")
 #  49'247 (2019-05-26)
-#
+#  49'402 (2019-05-30)
 index <- createIndex(paths=dwdfiles, meta=TRUE) # ca 200 secs +40 if files are not yet downloaded
 { # save indexes into package:
 fileIndex <- index[[1]]

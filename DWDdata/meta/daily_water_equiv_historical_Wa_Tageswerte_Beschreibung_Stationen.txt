@@ -119,7 +119,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 00633 20050126 20190210            125     51.4041   14.5682 Boxberg                                  Sachsen                                                                                           
 00647 19360102 20100319            592     49.9589   11.9126 Brand/Oberpfalz                          Bayern                                                                                            
 00650 19910211 20010326             35     52.4136   12.5503 Brandenburg-Görden                       Brandenburg                                                                                       
-00653 20051123 20190208            481     47.7241   12.1091 Brannenburg-Degerndorf                   Bayern                                                                                            
+00653 20051123 20190208            483     47.7241   12.1092 Brannenburg-Degerndorf                   Bayern                                                                                            
 00656 19501204 19990416            607     51.7234   10.6021 Braunlage                                Niedersachsen                                                                                     
 00660 19480220 19530217             83     52.2744   10.5656 Braunschweig-Gliesmarode                 Niedersachsen                                                                                     
 00662 19610124 20051230             81     52.2915   10.4464 Braunschweig                             Niedersachsen                                                                                     
@@ -508,7 +508,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 03114 20170108 20180116             20     52.9213   14.1093 Lunow                                    Brandenburg                                                                                       
 03121 20041110 20190225            676     49.9114   12.5276 Mähring                                  Bayern                                                                                            
 03126 19360210 20170122             76     52.1029   11.5827 Magdeburg                                Sachsen-Anhalt                                                                                    
-03153 20050128 20190210            447     48.6187   12.6232 Mamming-Schneiderberg                    Bayern                                                                                            
+03153 20050128 20190210            449     48.6189   12.6233 Mamming-Schneiderberg                    Bayern                                                                                            
 03155 19630216 20190207            413     50.1015    6.8009 Manderscheid-Sonnenhof                   Rheinland-Pfalz                                                                                   
 03158 19931122 20060120             12     52.5468   14.5452 Manschnow                                Brandenburg                                                                                       
 03164 19501214 19891213            187     50.8492    8.7746 Cölbe, Kr. Marburg-Biedenkopf            Hessen                                                                                            
@@ -613,7 +613,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 03668 19560209 20190126            314     49.5030   11.0549 Nürnberg                                 Bayern                                                                                            
 03677 20041108 20190306            835     47.6029   11.0607 Oberammergau                             Bayern                                                                                            
 03678 19410102 19480223            674     47.5588   11.1270 Oberau                                   Bayern                                                                                            
-03679 19410102 20190307            518     47.6187   12.1666 Kiefersfelden-Gach                       Bayern                                                                                            
+03679 19410102 20190307            518     47.6187   12.1665 Kiefersfelden-Gach                       Bayern                                                                                            
 03681 20060118 20190201            426     49.9185   10.5963 Oberaurach-Fatschenbrunn                 Bayern                                                                                            
 03683 20070126 20070129            430     50.8671   13.4608 Oberbobritzsch                           Sachsen                                                                                           
 03685 19360102 19580324            431     49.4114   10.4331 Oberdachstetten                          Bayern                                                                                            
@@ -623,7 +623,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 03714 20041220 20190506            903     47.5538    9.9407 Oberreute                                Bayern                                                                                            
 03722 19831208 20190208            484     48.2443   11.5528 Oberschleißheim                          Bayern                                                                                            
 03729 19521204 20100321            748     47.5577   10.0938 Oberstaufen-Thalkirchdorf                Bayern                                                                                            
-03730 19361021 20131224            806     47.3986   10.2760 Oberstdorf                               Bayern                                                                                            
+03730 19100101 20131224            806     47.3986   10.2760 Oberstdorf                               Bayern                                                                                            
 03734 20040128 20150101            230     49.1280    9.3525 Obersulm-Willsbach                       Baden-Württemberg                                                                                 
 03735 19481217 19511215            455     48.2635   12.2760 Obertaufkirchen                          Bayern                                                                                            
 03739 20041110 20190222            596     49.4521   12.4366 Oberviechtach                            Bayern                                                                                            
@@ -828,7 +828,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 04987 19870221 19981211            179     49.6122    9.6747 Tauberbischofsheim-Dittigheim            Baden-Württemberg                                                                                 
 04991 19550301 19580322            420     50.1255    8.1685 Taunusstein-Eiserne Hand                 Hessen                                                                                            
 04997 20050302 20190205            196     50.9771   12.3419 Starkenberg-Tegkwitz                     Thüringen                                                                                         
-05000 20050202 20190210            496     47.8527   12.8281 Teisendorf                               Bayern                                                                                            
+05000 20050202 20190210            498     47.8526   12.8282 Teisendorf                               Bayern                                                                                            
 05002 20060301 20190221            400     49.0426   12.9942 Teisnach                                 Bayern                                                                                            
 05009 19530205 20180402             38     53.7610   12.5574 Teterow                                  Mecklenburg-Vorpommern                                                                            
 05013 20071115 20190210            350     49.2187   12.0624 Teublitz (Kläranlage)                    Bayern                                                                                            
@@ -874,7 +874,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 05230 20050126 20190210            461     48.4527   12.3382 Vilsbiburg                               Bayern                                                                                            
 05231 20101201 20101231            400     49.6150   11.8153 Vilseck                                  Bayern                                                                                            
 05250 19990210 19990212            223     48.0908    7.6353 Vogtsburg-Oberrotweil                    Baden-Württemberg                                                                                 
-05262 20041124 20190423            815     47.7564   11.6928 Waakirchen-Demmelberg                    Bayern                                                                                            
+05262 20041124 20190423            814     47.7564   11.6928 Waakirchen-Demmelberg                    Bayern                                                                                            
 05266 19371209 19381230            220     50.6230    7.1373 Wachtberg-Berkum                         Nordrhein-Westfalen                                                                               
 05275 20040128 20141231            105     49.2445    8.5374 Waghäusel-Kirrlach                       Baden-Württemberg                                                                                 
 05276 20051128 20190218            475     47.9237   12.7558 Waging am See                            Bayern                                                                                            
@@ -1023,11 +1023,11 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 06338 20050302 20190215            608     50.3618   11.6223 Steben, Bad                              Bayern                                                                                            
 06341 20130118 20130227            658     47.9603   11.0136 Dießen/Ammersee-Dettenschwang            Bayern                                                                                            
 06342 20051121 20190214            609     47.6572   11.3187 Schlehdorf                               Bayern                                                                                            
-06346 20050202 20190207            530     48.2070   11.2035 Maisach-Galgen                           Bayern                                                                                            
+06346 20050202 20190207            531     48.2070   11.2035 Maisach-Galgen                           Bayern                                                                                            
 06347 20051125 20180206            304     50.0579   10.2972 Schonungen-Mainberg                      Bayern                                                                                            
 07077 20141229 20180228             54     53.5255   13.0161 Groß Lukow                               Mecklenburg-Vorpommern                                                                            
 07099 20081122 20110106            187     52.0111   10.3966 Liebenburg-Othfresen                     Niedersachsen                                                                                     
-07105 20051118 20190308            721     47.8350   12.6548 Siegsdorf-Höll                           Bayern                                                                                            
+07105 20051118 20190308            719     47.8350   12.6548 Siegsdorf-Höll                           Bayern                                                                                            
 07134 20111216 20130211           1047     47.8563    7.9491 Todtnau-Todtnauberg                      Baden-Württemberg                                                                                 
 07135 19671220 19931229            565     47.9655    9.6804 Aulendorf-Haslach                        Baden-Württemberg                                                                                 
 07138 20041220 20190220            682     48.2962    9.0701 Burladingen-Hausen                       Baden-Württemberg                                                                                 
@@ -1056,7 +1056,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 07420 20081125 20130321            246     51.1044   11.7112 Naumburg/Saale-Kreipitzsch               Sachsen-Anhalt                                                                                    
 07421 20070323 20190126            383     50.3250   11.2395 Neuhaus-Schierschnitz                    Thüringen                                                                                         
 07423 20080102 20190209            163     51.3443   14.8387 Hähnichen-Trebus                         Sachsen                                                                                           
-07424 20070124 20190206            458     47.7724   12.9073 Piding                                   Bayern                                                                                            
+07424 20070124 20190206            457     47.7724   12.9073 Piding                                   Bayern                                                                                            
 07428 20071114 20190209            397     50.4167   10.8156 Veilsdorf                                Thüringen                                                                                         
 07429 20070126 20190202            334     49.4250    9.3314 Seckach                                  Baden-Württemberg                                                                                 
 07430 20081204 20130314            258     50.0614   10.8129 Rentweinsdorf-Treinfeld                  Bayern                                                                                            
@@ -1077,7 +1077,7 @@ Stations_id von_datum bis_datum Stationshoehe geoBreite geoLaenge Stationsname B
 13774 20081125 20190205            327     50.8138   12.2985 Crimmitschau-Mannichswalde               Sachsen                                                                                           
 13777 20090105 20130321            110     52.2467   10.9592 Helmstedt-Emmerstedt                     Niedersachsen                                                                                     
 13786 20140127 20190208            435     48.5504   11.1209 Pöttmes-Schnellmannskreuth               Bayern                                                                                            
-13965 19271214 20190507            619     48.2639    8.8134 Balingen-Bronnhaupten                    Baden-Württemberg                                                                                 
+13965 19100101 20190507            619     48.2639    8.8134 Balingen-Bronnhaupten                    Baden-Württemberg                                                                                 
 14130 20101128 20101129            203     51.0207   12.5737 Kohren-Sahlis-Gnandstein                 Sachsen                                                                                           
 14301 20101129 20180208            415     48.7300   13.2741 Eging am See-Rohrbachholz                Bayern                                                                                            
 14309 20091221 20100131            331     50.5274    7.9472 Guckheim                                 Rheinland-Pfalz                                                                                   
