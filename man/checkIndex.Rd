@@ -20,7 +20,7 @@ DEFAULT: TRUE}
 \item{fast}{Exclude the 3-minute location per ID check? DEFAULT: FALSE}
 }
 \value{
-named list with issues (if any)
+Charstring with issues (if any) to be printed with \code{cat()}.
 }
 \description{
 check indexes. Mainly for internal usage in \code{\link{createIndex}}.
@@ -30,6 +30,7 @@ check indexes. Mainly for internal usage in \code{\link{createIndex}}.
 \examples{
 data(fileIndex) ; data(metaIndex) ; data(geoIndex)
 # ci <- checkIndex(findex=fileIndex, mindex=metaIndex, gindex=geoIndex)
+# cat(ci)
 }
 \seealso{
 \code{\link{createIndex}}
