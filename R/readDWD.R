@@ -467,7 +467,11 @@ tountar <- !lf %in% dir(exdir)
 if(any(tountar)) 
   {
   pmessage("Unpacking ",sum(tountar), " of ",length(lf), " files in ",file,"...")
-  untar(file, files=lf[tountar], exdir=exdir)
+  ufiles <- if(any(!tountar)) lf[tountar] else NULL
+  # warning message if all(tountar) for non-empty exdir
+  # cannot read the message because of max options(warning.length) 8170
+  # but this workaround does the job, so whatever.
+  untar(file, files=ufiles, exdir=exdir)
   } else 
   pmessage("All files were already untarred.")
 #
