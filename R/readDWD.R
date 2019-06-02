@@ -732,14 +732,16 @@ return(invisible(dat))
 #'                 with internal defaults.
 #'                 DEFAULT: "radolan"
 #' @param latlon   Logical: reproject \code{r} to lat-lon crs? DEFAULT: TRUE
+#' @param quiet    Logical: suppress progress messages? DEFAULT: FALSE
 #'
-projectRasterDWD <- function(r, proj="radolan", extent="radolan", latlon=TRUE)
+projectRasterDWD <- function(r, proj="radolan", extent="radolan", latlon=TRUE, quiet=FALSE)
 {
 # package check
 if(!requireNamespace("raster", quietly=TRUE))
  stop("To use rdwd::projectRasterDWD, please first install raster:",
       "   install.packages('raster')", call.=FALSE)
 #
+starttime <- Sys.time()
 if(!is.null(proj))
 {
 # Default projection and extent:
@@ -772,13 +774,21 @@ if(is.character(extent))
 if(!inherits(extent,"Extent")) extent <- raster::extent(extent)
 #
 # actually project:
+if(!quiet) message("Setting raster projection to ", proj, " ...")
 raster::projection(r) <- proj
+if(!quiet) message("Setting raster extent to ", toString(sapply(extent, I)), " ...")
 raster::extent(    r) <- extent
 } # end if not null proj
 #
 # lat-lon projection:
 proj_ll <- raster::crs("+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
-if(latlon) r <- raster::projectRaster(r, crs=proj_ll)
+if(latlon) 
+ {
+ if(!quiet) message("Reprojecting raster to lat-lon ...")
+ r <- raster::projectRaster(r, crs=proj_ll)
+ }
+dt <- difftime(Sys.time(),starttime)
+if(!quiet) message("projectRasterDWD took ", round(dt,1), " ", attr(dt, "units"))
 # invisible output:
 return(invisible(r))
 }

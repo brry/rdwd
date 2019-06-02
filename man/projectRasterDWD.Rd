@@ -5,7 +5,7 @@
 \title{project DWD raster data}
 \usage{
 projectRasterDWD(r, proj = "radolan", extent = "radolan",
-  latlon = TRUE)
+  latlon = TRUE, quiet = FALSE)
 }
 \arguments{
 \item{r}{Raster object}
@@ -22,6 +22,8 @@ with internal defaults.
 DEFAULT: "radolan"}
 
 \item{latlon}{Logical: reproject \code{r} to lat-lon crs? DEFAULT: TRUE}
+
+\item{quiet}{Logical: suppress progress messages? DEFAULT: FALSE}
 }
 \value{
 Raster object with projection and extent, invisible
