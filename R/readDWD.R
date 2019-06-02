@@ -462,12 +462,13 @@ readDWD.binary <- function(file, exdir=sub(".tar.gz$", "", file),
 pmessage <- function(...) if(progbar) message(...)
 # Untar as needed:
 pmessage("\nChecking which files need to be untarred to ", exdir, "...")
-lf <- untar(file, list=TRUE)
-tountar <- !lf %in% dir(exdir)
+f <- untar(file, list=TRUE)
+if(!is.null(selection)) f <- f[selection]
+tountar <- !f %in% dir(exdir)
 if(any(tountar)) 
   {
-  pmessage("Unpacking ",sum(tountar), " of ",length(lf), " files in ",file,"...")
-  ufiles <- if(any(!tountar)) lf[tountar] else NULL
+  pmessage("Unpacking ",sum(tountar), " of ",length(f), " files in ",file,"...")
+  ufiles <- if(any(!tountar)) f[tountar] else NULL
   # warning message if all(tountar) for non-empty exdir
   # cannot read the message because of max options(warning.length) 8170
   # but this workaround does the job, so whatever.
@@ -476,10 +477,9 @@ if(any(tountar))
   pmessage("All files were already untarred.")
 #
 # hourly files:
-f <- dir(exdir, full.names=TRUE) # 31*24 = 744 files  (daily/hist/2017-12)
+fd <- dir(exdir, full.names=TRUE) # 31*24 = 744 files  (daily/hist/2017-12)
 # read only the ones from file, not other stuff at exdir:
-f <- f[basename(f) %in% lf]
-if(!is.null(selection)) f <- f[selection]
+f <- fd[basename(fd) %in% f]
 #
 pmessage("Reading ",length(f)," binary files...")
 if(progbar) lapply <- pbapply::pblapply
