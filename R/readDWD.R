@@ -8,7 +8,7 @@
 #' New users are advised to set \code{varnames=TRUE} to obtain more informative
 #' column names.\cr\cr
 #' \code{readDWD} will call internal (but documented) functions depending on the
-#' arguments \code{meta, binary, raster, multia, asc}:\cr
+#' arguments \code{meta, multia, binary, raster, asc}:\cr
 #' to read observational data: \code{\link{readDWD.data},
 #'          \link{readDWD.meta}, \link{readDWD.multia}}\cr
 #' to read interpolated gridded data: \code{\link{readDWD.binary},
@@ -20,8 +20,8 @@
 #' also be a vector and will be recycled to the length of \code{file}.
 #' 
 #' @return Invisible data.frame of the desired dataset, 
-#'         or a named list of data.frames if length(file) > 1.
-#'         \code{\link{readDWD.binary}} returns a vector, 
+#'         or a named list of data.frames if length(file) > 1.\cr
+#'         \code{\link{readDWD.binary}}, 
 #'         \code{\link{readDWD.raster}} and \code{\link{readDWD.asc}} 
 #'         return raster objects instead of data.frames.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jul-Oct 2016, Winter 2018/19
