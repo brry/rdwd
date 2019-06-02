@@ -480,7 +480,13 @@ if(!is.null(selection)) f <- f[selection]
 pmessage("Reading ",length(f)," binary files...")
 if(progbar) lapply <- pbapply::pblapply
 # Read the actual binary file:
-rb <- lapply(f, readRadarFile, ...)
+readRadarFileSafe <- function(bf, ...) 
+  {
+  e <- try(readRadarFile(bf, ...))
+  if(inherits(e,"try-error")) warning(e, "\nin file: ", bf)
+  e
+  }
+rb <- lapply(f, readRadarFileSafe, ...)
 # list element names (time stamp):
 time <- sapply(rb, function(x) as.character(x$meta$date))
 names(rb) <- time
