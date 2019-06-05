@@ -1,9 +1,11 @@
 
 rdwd ToDo-list / wishlist / issues
-- readDWD: figure out reason for fread trouble (reported in emails by some users)
+- readDWD.data: figure out reason for fread trouble (reported in emails by some users)
 - readRadarFile: check with RX file, see if NA assignment is redundant
 - readDWD.nc for grids_germany/daily/Project_TRY ?
-- right before next CRAN release: move vignette sources to R folder for easy access, change localtestdir
+- move vignettes to bookdown page, restructure, include a referral vig in rdwd?
+- call (simplified) Fortran functions through C interface, see PR #6
+
 
 
 ---------------------------------------
