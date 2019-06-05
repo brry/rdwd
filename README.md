@@ -50,14 +50,3 @@ vignette("mapDWD") # interactive map, likely faster than CRAN link above
 vignette("rdwd")   # package instructions and examples
 vignette("cases")  # longer use case examples
 ```
-
-
-# help
-I'm looking for someone to help implement multiple downloads in [dataDWD](https://github.com/brry/rdwd/blob/master/R/dataDWD.R#L176) via e.g. `curl` or `wget`.
-The requirements are as follows:
-
-* works cross-platform
-* is called from R
-* has as few dependencies as possible
-* does not fail completely at a single failure, e.g. can be called within `try` 
-* optimally enables a progress bar
