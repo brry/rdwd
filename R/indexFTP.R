@@ -148,6 +148,7 @@ getURL_ffe <- function(ff_row)
  # carriage return / newline is OS-dependent:
  p <- unlist(strsplit(p,"[\n\r]")) # http://stackoverflow.com/a/40763124/1587132
  p <- p[nchar(p)>0]
+ p <- p[!grepl("latest-dwd---bin", p)] # for opendata.dwd.de/weather/radar/radolan/
  #
  isdir <- substr(p,1,1) =="d" # directory, else file
  pnames <- read.table(text=p, stringsAsFactors=FALSE)
