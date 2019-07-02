@@ -25,6 +25,7 @@
 #'
 readRadarFile <- function(binfile, na=NA, clutter=NA)
 {
+finalOut <- try({
 openfile <- file(binfile,"rb") # will be read successively
 on.exit(close(openfile), add=TRUE)
 # helper function to read elements of the header:
@@ -120,6 +121,9 @@ meta <- list(filename=binfile, date=daytime, product=PRODUCT,
              precision=PREC, interval_minutes=DT, dim=DIM, 
              radius_format=FORMATV, radars=RADS, radarn=RADB)
 return(list(dat=dat.mat, meta=meta))
+})
+if(inherits(finalOut,"try-error")) warning(finalOut, "\nin file: ", bf)
+  finalOut
 }
 
 
