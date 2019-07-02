@@ -28,6 +28,60 @@ which(sapply(rv, function(x)any(!x$Par %in% dwdparams$Parameter)))
 
 
 
+# recent radar for false files on Server
+
+
+# ~ recrad ----
+
+#' @param recrad Logical (vector): does the \code{file} contain recent radolan binary files?
+#'               See \code{\link{readDWD.recrad}}.
+#'               DEFAULT: TRUE for each file ending in ".gz"
+
+#recrad=grepl(         '.gz$', file),
+#recrad      <- rep(recrad,      length.out=len)
+#if(recrad[i]) return(readDWD.recrad(file[i], ...))
+
+
+#' @title read recent dwd gridded radolan binary data
+#' @description read recent gridded radolan binary data.
+#' Intended to be called via \code{\link{readDWD}}.\cr
+#' Used for data at \url{ftp://opendata.dwd.de/weather/radar/radolan/rw}
+#' @return list with dat and meta
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jul 2019. 
+#' @seealso \code{\link{readDWD}}, \code{\link{readDWD.binary}}
+#' @examples
+#' \dontrun{ # Excluded from CRAN checks, but run in localtests
+#' # File
+#' RR_rad <- readDWD(RW_file)
+#' RR_radp <- projectRasterDWD(RR_rad$data, extent="rw")
+#' raster::plot(RR_radp, main=RR_rad$meta$date[1])
+#' raster::plot(DEU, add=TRUE)
+#' }
+#' @param file      Name of file on harddrive, like e.g. 
+#'                  DWDdata/ToDo
+#' @param toraster  Logical: convert matrix to \code{\link[raster]{raster}}?
+#'                  DEFAULT: TRUE
+#' @param \dots     Further arguments passed to \code{\link{readRadarFile}}, 
+#'                  i.e. \code{na} and \code{clutter}
+readDWD.recrad <- function(file, toraster=TRUE, ...)
+{
+# Unpack file:
+# TODO!
+rfile <- file
+# Read the actual binary file:
+rb <- readRadarFile(rfile, ...)
+if(!toraster) return(invisible(rb))
+# else if toraster:
+if(!requireNamespace("raster", quietly=TRUE))
+ stop("To use rdwd:::readDWD.recrad with toraster=TRUE, please first install raster:",
+      "   install.packages('raster')", call.=FALSE)
+rb$dat <- raster::raster(rb$dat)
+return(invisible(rb))
+}
+
+
+
+
 # readDWD.meta ----
 # Development process and tests
 # in october 2016, DWD slightly changed monthly/kl meta file column widths
