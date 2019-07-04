@@ -1,4 +1,5 @@
 # datadir ----
+if(!grepl("rdwd$", getwd())) stop("getwd must be in package root folder.")
 library(testthat)
 library(rdwd)
 
@@ -48,9 +49,33 @@ expect_equal(clim_vn, clim_vnf)
 
 
 
-message("++ Testing findID + selectDWD")
+# readRadarFile ----------------------------------------------------------------
+
+message("++ Testing readRadarFile")
+
+test_that("readRadarFile works", {
+data("DEU")
+testReadRad <- function(file, ext="radolan")
+  {
+  main <- deparse(substitute(file))
+  file2 <- localtestdir(folder="localtests", file=file)
+  rrf <- rdwd:::readRadarFile(file2)
+  rrr <- raster::raster(rrf$dat)
+  rrp <- projectRasterDWD(rrr, extent=ext)
+  raster::plot(rrp, main=main)
+  raster::plot(DEU, add=TRUE)
+  return(list(rrp=rrp, meta=rrf$meta))
+  }
+ex_rx <- testReadRad("raa01-rx_10000-1605290600-dwd---bin_Braunsbach")
+ex_rw <- testReadRad("raa01-rw_10000-1907010950-dwd---bin_weatherRadolan")
+ex_sf <- testReadRad("raa01-sf_10000-1605010450-dwd---bin_dailyRadHist")
+ex_ww <- testReadRad("raa01-rw2017.002_10000-1712310850-dwd---bin_hourRadReproc", "rw")
+})
+
 
 # findID -----------------------------------------------------------------------
+
+message("++ Testing findID + selectDWD")
 
 test_that("findID warns as wanted", {
 expect_warning(findID("this_is_not_a_city"),

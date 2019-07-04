@@ -103,7 +103,7 @@ if(PRODUCT=="RX") # WX,RX,EX?
   }
 
 # convert into a matrix + give row and column names according to RADOLAN convention:
-if(rw)
+if(rw | PRODUCT=="SF")
   {
   dat.mat <- matrix(dat.val, ncol=DIM[2], byrow=TRUE) # ToDo: not sure about this
   dat.mat <- apply(dat.mat, 2, rev)
