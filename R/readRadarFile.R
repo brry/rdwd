@@ -72,9 +72,8 @@ RADB     <- unlist(strsplit(gsub("<|>|","",readheader(TLEN2)),",")) # similar to
 ETX      <- readheader(1) # "\003" End of Text 
   } # end not rw
 
-if(ETX!="\003") stop("rdwd:::readRadarFile: header could not be read correctly in:\n", 
-           binfile, "\nPlease contact berry-b@gmx.de with the DWD file name, ",
-           "so that this can be corrected. Sorry for the inconvenience...", call.=FALSE)
+if(ETX!="\003") stop("rdwd:::readRadarFile: header could not be read correctly.",
+           " Please send the DWD file name to berry-b@gmx.de", call.=FALSE)
 
 LEN <- DIM[1]*DIM[2]
 # read the remaining binary data set:
@@ -123,9 +122,9 @@ meta <- list(filename=binfile, date=daytime, product=PRODUCT,
              precision=PREC, interval_minutes=DT, dim=DIM, 
              radius_format=FORMATV, radars=RADS, radarn=RADB)
 return(list(dat=dat.mat, meta=meta))
-})
-if(inherits(finalOut,"try-error")) warning(finalOut, "\nin file: ", bf)
-  finalOut
+}, silent=TRUE) # end of try
+if(inherits(finalOut,"try-error")) warning(finalOut, "in file: ", binfile, call.=FALSE)
+return(invisible(finalOut))
 }
 
 
