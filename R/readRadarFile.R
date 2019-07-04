@@ -55,12 +55,13 @@ PR       <- readheader(2) # PR
 PREC     <- as.numeric(sub("^ ", "1", readheader(5))) # " E-01" to 0.1
 INT      <- readheader(3) # INT
 DT       <- readheader(4, asnum=TRUE) # 1440 minutes
-if(rw) U0<- readheader(2)
-if(rw & U0!="GP")
+U0 <- if(rw)readheader(2) else ""
+if(U0!="GP")
 GP       <- readheader(2) # GP
 DIM      <- as.numeric(unlist(strsplit(readheader(9),"x"))) # " 900x 900" to c(900,900)
 MS       <- readheader(2) # MS
-if(rw) VR<- readheader(if(MS=="MF") 11 else 21) # " 00000001VR2017.002MS"
+if(rw) VR<- readheader(11) # " 00000001MS" / " 00000001VR2017.002MS"
+if(rw) if(substr(VR,10,11)=="VR") VR2 <- readheader(10)
 TLEN     <- readheader(3, asnum=TRUE) # 70 characters
 RADS     <- unlist(strsplit(gsub("<|>| ","",readheader(TLEN)),",")) # Radarstandortkuerzel (boo, ros, emd, ...)
 if(rw | PRODUCT=="RX")
