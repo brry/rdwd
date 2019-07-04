@@ -462,13 +462,13 @@ readDWD.binary <- function(file, exdir=sub(".tar.gz$", "", file),
 pmessage <- function(...) if(progbar) message(...)
 # Untar as needed:
 pmessage("\nChecking which files need to be untarred to ", exdir, "...")
-f <- untar(file, list=TRUE)
+f <- sort(untar(file, list=TRUE))
 if(!is.null(selection)) f <- f[selection]
 tountar <- !f %in% dir(exdir)
 if(any(tountar)) 
   {
-  pmessage("Unpacking ",sum(tountar), " of ",length(f), " files in ",file,"...")
-  ufiles <- if(any(!tountar)) f[tountar] else NULL
+  pmessage("Unpacking ",sum(tountar), " of ",length(f), " files from ",file,"...")
+  ufiles <- if(any(!tountar) | !is.null(selection)) f[tountar] else NULL
   # warning message if all(tountar) for non-empty exdir
   # cannot read the message because of max options(warning.length) 8170
   # but this workaround does the job, so whatever.
