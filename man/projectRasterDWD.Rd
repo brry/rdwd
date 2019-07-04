@@ -10,10 +10,12 @@ projectRasterDWD(r, proj = "radolan", extent = "radolan",
 \arguments{
 \item{r}{Raster object}
 
-\item{proj}{Desired projection. Can be a \code{raster::\link[raster]{crs}} output,
-a projection character string (will be passed to \code{crs}), 
-"radolan" or "seasonal" with internal defaults defined per DWD standard, 
-or NULL to not set proj+extent but still consider \code{latlon}.
+\item{proj}{Desired projection. 
+Use NULL to not set proj+extent but still consider \code{latlon}.
+Can be a \code{raster::\link[raster]{crs}} output,
+a projection character string (will be passed to \code{crs}),
+or a special charstring for internal defaults, namely:
+"radolan" (see readDWD.binary + .asc) or "seasonal" (.raster).
 DEFAULT: "radolan"}
 
 \item{extent}{Desired \code{\link[raster]{extent}}. Can be an extent object,

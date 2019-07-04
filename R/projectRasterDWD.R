@@ -16,10 +16,12 @@
 #' @examples
 #' # To be used after readDWD.binary, readDWD.raster, readDWD.asc
 #' @param r        Raster object
-#' @param proj     Desired projection. Can be a \code{raster::\link[raster]{crs}} output,
-#'                 a projection character string (will be passed to \code{crs}), 
-#'                 "radolan" or "seasonal" with internal defaults defined per DWD standard, 
-#'                 or NULL to not set proj+extent but still consider \code{latlon}.
+#' @param proj     Desired projection. 
+#'                 Use NULL to not set proj+extent but still consider \code{latlon}.
+#'                 Can be a \code{raster::\link[raster]{crs}} output,
+#'                 a projection character string (will be passed to \code{crs}),
+#'                 or a special charstring for internal defaults, namely:
+#'                 "radolan" (see readDWD.binary + .asc) or "seasonal" (.raster).
 #'                 DEFAULT: "radolan"
 #' @param extent   Desired \code{\link[raster]{extent}}. Can be an extent object,
 #'                 a vector with 4 numbers, or "radolan" / "rw" / "seasonal" 
