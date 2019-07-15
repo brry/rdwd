@@ -1,0 +1,245 @@
+---
+title: "rdwd: climate data from the German Weather Service"
+author: "Berry Boessenkool, <berry-b@gmx.de>"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteIndexEntry{rdwd: climate data from the German Weather Service}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+[Vignette Rmd source code](https://github.com/brry/rdwd/blob/master/misc/vign/rdwd.Rmd)
+(Not on CRAN to reduce load on DWD server through daily new builds and checks of the vignette)  
+[Interactive map vignette](mapDWD.html)  
+[use cases vignette](cases.html)
+
+*Links to the function help pages lead to 404 on CRAN, but work in locally opened vignettes.*
+
+
+### Intro
+
+The [R](https://www.r-project.org/) package [`rdwd`](https://github.com/brry/rdwd#rdwd)
+contains code to select, download and read weather data from measuring stations across Germany. 
+The German Weather Service (Deutscher Wetterdienst, DWD) provides thousands of datasets with weather observations through the FTP server online at 
+
+<ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate>.
+
+For data interpolated onto a 1 km raster, including radar data up to the last hour, 
+see <ftp://opendata.dwd.de/climate_environment/CDC/grids_germany/>. 
+Raster and binary reading functions for the Radolan data are included in `rdwd` since May 2019.
+
+For further details, please consult the 
+[DWD FTP server documentation](ftp://opendata.dwd.de/climate_environment/CDC/Readme_intro_CDC_ftp.pdf)  
+Please note that, as of June 2019, the old server at <ftp://ftp-cdc.dwd.de> will be phased out.
+
+
+### Package structure
+
+To use the observation datasets, `rdwd` has been designed to mainly do 3 things:
+
+* [`selectDWD`](../help/selectDWD): facilitate file selection, e.g. for certain station names (with [`findID`](../help/findID)), 
+by geographical location (see [map](mapDWD.html) and [`nearbyStations`](../help/nearbyStations)), by temporal resolution (**res** = 1/10 minutes, hourly, daily, monthly, annual), 
+variables (**var** = temperature, rain, wind, sun, clouds, etc) or
+observation period (**per** = historical long term records or the current year)
+
+* [`dataDWD`](../help/dataDWD): download a file (or multiple files, without getting banned by the FTP-server)
+
+* [`readDWD`](../help/readDWD): read that data into R (including useful defaults for metadata)
+
+[`selectDWD`](../help/selectDWD) uses the result from [`indexFTP`](../help/indexFTP) which recursively lists all the files on an FTP-server (using RCurl::getURL).
+As this is time consuming, the result is stored in the package dataset [`fileIndex`](../help/fileIndex).
+From this, [`metaIndex`](../help/metaIndex) and [`geoIndex`](../help/geoIndex) are derived.
+
+<img src="PackageSchematic.png" width="600">
+
+[TOC](#top)
+
+
+
+### Package installation
+
+```{r install, eval=FALSE}
+install.packages("rdwd")
+# get the latest development version from github, incl. vignettes:
+remotes::install_github("brry/rdwd", build_opts="--no-manual")
+# For full usage, as needed in indexFTP and selectDWD(..., current=TRUE):
+install.packages("RCurl") # is only suggested, not mandatory dependency
+```
+
+On Linux, instead of the last line above, use in the terminal (with lowercase rcurl):
+```
+sudo apt-get install r-cran-rcurl
+```
+
+If direct installation from CRAN doesn't work, your R version might be too old. 
+In that case you'll need to [update R](https://github.com/brry/course#install). 
+
+
+[TOC](#top)
+
+
+### Basic usage
+
+```{r basics, eval=TRUE}
+library(rdwd)
+link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
+file <- dataDWD(link, read=FALSE, dir="../localdata", quiet=TRUE, force=NA)
+clim <- readDWD(file, varnames=TRUE)
+
+str(clim)
+```
+
+[TOC](#top)
+
+
+### Plotting examples
+
+Recent temperature time series:
+```{r plot, eval=TRUE, fig.height=3, fig.width=7}
+par(mar=c(4,4,2,0.5), mgp=c(2.7, 0.8, 0), cex=0.8)
+plot(clim[,c(2,14)], type="l", xaxt="n", las=1, main="Daily temp Potsdam")
+berryFunctions::monthAxis()   ;   abline(h=0)
+mtext("Source: Deutscher Wetterdienst", adj=-0.1, line=0.5, font=3)
+```
+
+Long term climate graph:
+```{r climgraph, eval=TRUE, fig.height=3, fig.width=7, echo=-1}
+par(mar=c(4,4,2,0.5), mgp=c(2.7, 0.8, 0), cex=0.8)
+link <- selectDWD("Goettingen", res="monthly", var="kl", per="h")
+clim <- dataDWD(link, quiet=TRUE, dir="../localdata")
+clim$month <- substr(clim$MESS_DATUM_BEGINN,5,6)
+temp <- tapply(clim$MO_TT, clim$month, mean, na.rm=TRUE)
+prec <- tapply(clim$MO_RR, clim$month, mean, na.rm=TRUE)
+berryFunctions::climateGraph(temp, prec, main="Goettingen")
+mtext("Source: Deutscher Wetterdienst", adj=-0.05, line=2.8, font=3)
+```
+
+
+[TOC](#top)
+
+
+### Station selection
+
+Weather stations can be selected geographically with the [interactive map](mapDWD.html).
+All stations within a certain radius around a given lat-long position can be obtained with
+[nearbyStations](../help/nearbyStations).
+
+The DWD station IDs can be obtained from station names with
+```{r findID, eval=TRUE}
+findID("Potsdam")
+findID("Koeln", exactmatch=FALSE)
+```
+
+[TOC](#top)
+
+
+### Available files
+
+File selection by station name/id and folder happens with [`selectDWD`](../help/selectDWD).
+It needs an index of all the available files on the server.
+The package contains such an index ([`fileIndex`](../help/fileIndex)) that is updated (at least) with each CRAN release of the package.
+The [selectDWD documentation](../help/selectDWD) contains an overview of the FTP folder structure.
+
+<!-- ```{r fileIndex, eval=TRUE} -->
+<!-- head(rdwd:::fileIndex) # 28'798 rows in Jan 2017 (with some almost duplicate files) -->
+<!-- ``` -->
+If you find the file index to be outdated (Error in download.file ... : cannot open URL),
+please let me know and I will update it. Meanwhile, use current=TRUE in [`selectDWD`](../help/selectDWD):
+
+```{r files, eval=FALSE}
+# all files at a given path, with current file index (RCurl required):
+links <- selectDWD(res="monthly", var="more_precip", per="hist", current=TRUE)
+```
+
+[`fileIndex`](../help/fileIndex) is created with the function [`indexFTP`](../help/indexFTP) used in the last section of 
+[rdwd-package.R](https://github.com/brry/rdwd/blob/master/R/rdwd-package.R#L249).
+
+```{r listfiles, eval=FALSE}
+### This chunk is not evaluated ###
+# recursively list files on the FTP-server:
+files <- indexFTP("hourly/sun") # use dir="some_path" to save the output elsewhere
+berryFunctions::headtail(files, 5, na=TRUE)
+
+# indexFTP uses a folder to resume indexing after getting banned:
+radfiles <- indexFTP("hourly/radolan/recent", gridbase)
+radfiles <- indexFTP(radfiles,gridbase, sleep=1)
+
+# with other FTP servers, this should also work...
+funet <- indexFTP(base="ftp.funet.fi/pub/standards/w3/TR/xhtml11/", folder="")
+p <- RCurl::getURL(    "ftp.funet.fi/pub/standards/w3/TR/xhtml11/",
+                       verbose=T, ftp.use.epsv=TRUE, dirlistonly=TRUE)
+```
+
+[TOC](#top)
+
+
+### File selection
+
+[`selectDWD`](../help/selectDWD) is designed to be very flexible:
+
+```{r select1, eval=FALSE, echo=TRUE}
+# inputs can be vectorized, and period can be abbreviated:
+selectDWD(c("Potsdam","Wuerzburg"), res="hourly", var="sun", per="hist")
+```
+
+```{r select2, eval=TRUE, echo=FALSE}
+lapply(selectDWD(c("Potsdam","Wuerzburg"), res="hourly", var="sun", per="hist"), 
+       function(x) gsub("ical/", "ical/ ", x))
+```
+If res/var/per are left NA, an interactive selection is opened with the available 
+options for the given station.
+
+```{r select3}
+# Time period can be doubled to get both filenames:
+selectDWD("Potsdam", res="daily", var="kl", per="rh")
+```
+
+There may be a differing number of available files for several stations across all folders.
+That's why the default outvec is FALSE (unless `per="hr"`).
+
+```{r select5, eval=TRUE, warning=FALSE}
+lapply(selectDWD(id=c(3467,5116), res="",var="",per=""), substr, 76, 1e4)
+```
+
+[TOC](#top)
+
+
+### Metadata
+
+[`selectDWD`](../help/selectDWD) also uses a complete data.frame with meta information,
+[`metaIndex`](../help/metaIndex) 
+(derived from the "Beschreibung" files in [`fileIndex`](../help/fileIndex)).
+```{r meta23, eval=TRUE}
+# All metadata at all folders:
+data(metaIndex)
+str(metaIndex, vec.len=2)
+```
+```{r metaView, eval=FALSE}
+View(data.frame(sort(unique(rdwd:::metaIndex$Stationsname)))) # ca 6k entries
+```
+
+[`dataDWD`](../help/dataDWD) can download (and [`readDWD`](../help/readDWD) can correctly read) such a data.frame from any folder on the FTP server:
+```{r meta1, eval=TRUE}
+# file with station metadata for a given path:
+m_link <- selectDWD(res="monthly", var="more_precip", per="hist", meta=TRUE)
+substr(m_link, 76, 1e4) # (Monatswerte = monthly values, Beschreibung = description)
+```
+```{r meta2, eval=FALSE}
+meta_monthly_rain <- dataDWD(m_link) # not executed in vignette creation
+str(meta_monthly_rain)
+```
+
+Meta files may list stations for which there are actually no files.
+These refer to nonpublic datasets (The DWD cannot publish all datasets because of copyright restrictions).
+To request those, please contact <cdc.daten@dwd.de> or <klima.vertrieb@dwd.de>.
+
+
+
+[TOC](#top)
+
+Any feedback on this package (or this vignette) is very welcome via [github](https://github.com/brry/rdwd) or <berry-b@gmx.de>!

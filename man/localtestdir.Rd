@@ -4,13 +4,12 @@
 \alias{localtestdir}
 \title{local test data directory}
 \usage{
-localtestdir(packdir = ".",
-  folder = "localtests/CreateVignettes/DWDdata", file = NULL)
+localtestdir(packdir = ".", folder = "misc/localdata", file = NULL)
 }
 \arguments{
 \item{packdir}{Path to package directory. DEFAULT: "."}
 
-\item{folder}{Path inside package. DEFAULT: "localtests/CreateVignettes/DWDdata"}
+\item{folder}{Path inside package. DEFAULT: "misc/localdata"}
 
 \item{file}{Optional: path(s) at \code{folder}. DEFAULT: NULL}
 }
@@ -21,7 +20,7 @@ charstring (directory)
 returns a directory used for local tests on Berry's computers.
 This is used in many examples to reduce the number of downloads by saving 
 the downloaded DWD data in this directory.
-My local test script is at \url{https://github.com/brry/rdwd/blob/master/localtests/localtests.R}.
+My local test script is at \url{https://github.com/brry/rdwd/blob/master/misc/localtests.R}.
 It runs all the examples, even the dontrun sections.
 }
 \examples{
