@@ -1,12 +1,11 @@
 # rdwd
 `rdwd` is an [R](https://www.r-project.org/) package to select, download and read climate data from the 
 German Weather Service (Deutscher Wetterdienst, DWD).  
-They provide thousands of datasets with weather observations online at 
-[opendata.dwd.de](https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate).  
+<img src="https://github.com/brry/rdwd/blob/master/misc/hex/hex.png" width="104" height="120">
+The DWD provides thousands of datasets with weather observations online at 
+[opendata.dwd.de](https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate).
 Since May 2019, `rdwd` also supports reading the Radolan (binary) raster data at 
 [grids_germany](https://opendata.dwd.de/climate_environment/CDC/grids_germany).
-
-<img src="https://github.com/brry/rdwd/blob/master/misc/hex/hex.png" width="52" heigh="60">
 
 `rdwd` is available on CRAN:
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version-last-release/rdwd)](https://cran.r-project.org/package=rdwd) 
