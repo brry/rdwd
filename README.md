@@ -19,14 +19,27 @@ and [UseR!2017](https://user2017.sched.com/event/Axr3/rdwd-manage-german-weather
 featured in Rstudios [data package list](https://www.rstudio.com/rviews/2017/02/17/january-new-data-packages/) 
 and written about in [OSOR](https://joinup.ec.europa.eu/community/osor/news/study-german-weather-data-made-easy-rdwd).
 
+
+## Installation
+
+```R
+# download and install the package:
+install.packages("rdwd")
+
+# latest development version (incl. vignettes), if wanted:
+if(!requireNamespace("remotes", quietly=TRUE)) install.packages("remotes")
+remotes::install_github("brry/rdwd", build_opts="--no-manual")
+```
+Note for the latter: on Windows, you need to have [Rtools](https://cran.r-project.org/bin/windows/Rtools/)
+installed directly at `C:/Rtools`  
+(Compiler paths may not have spaces, as there would be with `C:/Program Files/R/Rtools/mingw_32/bin/gfortran`).
+
+
+## Usage
+
 Usage of the package usually looks something like the following:
 
 ```R
-# download and install the rdwd package (only needed once):
-install.packages("rdwd")
-# if wanted, latest development version, incl. vignettes:
-remotes::install_github("brry/rdwd", build_opts="--no-manual")
-
 # load the package into library (needed in every R session):
 library(rdwd)
 
