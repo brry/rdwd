@@ -20,7 +20,7 @@ featured in Rstudios [data package list](https://www.rstudio.com/rviews/2017/02/
 and written about in [OSOR](https://joinup.ec.europa.eu/community/osor/news/study-german-weather-data-made-easy-rdwd).
 
 
-## Installation
+### Installation
 
 ```R
 # download and install the package:
@@ -32,10 +32,10 @@ remotes::install_github("brry/rdwd", build_opts="--no-manual")
 ```
 Note for the latter: on Windows, you need to have [Rtools](https://cran.r-project.org/bin/windows/Rtools/)
 installed directly at `C:/Rtools`  
-(Compiler paths may not have spaces, as there would be with `C:/Program Files/R/Rtools/mingw_32/bin/gfortran`).
+(Compiler paths may not have spaces, as there would be with `C:/Program Files/R/Rtools/`).
 
 
-## Usage
+### Usage
 
 Usage of the package usually looks something like the following:
 
