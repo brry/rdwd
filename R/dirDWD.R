@@ -31,7 +31,7 @@ if(dir=="")
 #
 if(!file.exists(dir))
   {
-  dir.create(dir)
+  dir.create(dir, recursive=TRUE)
   if(!quiet) message(traceCall(1, "", ": "), "creating directory '",   normalizePath(dir, winslash="/"), "'")
   } else
   if(!quiet) message(traceCall(1, "", ": "), "adding to directory '", normalizePath(dir, winslash="/"), "'")
