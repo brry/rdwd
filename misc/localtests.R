@@ -107,6 +107,9 @@ expect_equal(selectDWD(id="00386", res="daily", var="kl", per="historical"),
 test_that("selectDWD can choose Beschreibung meta files", {
 expect_equal(selectDWD(id="00386", res="daily", var="kl", per="h", meta=TRUE),
   paste0(dwdbase, "/daily/kl/historical/KL_Tageswerte_Beschreibung_Stationen.txt"))
+  
+expect_equal(selectDWD(id="00386", res="daily", var="kl", per="h", meta=TRUE),
+  selectDWD(res="daily", var="kl", per="h", meta=TRUE))
 })
 
 

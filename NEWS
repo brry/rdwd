@@ -10,7 +10,6 @@ rdwd ToDo-list / wishlist / issues
 - ftp://opendata.dwd.de/climate_environment/CDC/grids_germany/hourly/radolan/recent/bin/
 - indexFTP: read tree with data.table/vroom
 - create overview slide (see below)
-- selectDWD("Potsdam") # Error in if (any(rma)) { : missing value where TRUE/FALSE needed
 
 
 overview slides: short + verbose

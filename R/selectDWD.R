@@ -222,12 +222,12 @@ per[var=="solar" & res %in% c("hourly","daily")] <- ""
 per[var=="standard_format" & res=="subdaily"] <- ""
 # multiannual data has no id, remove if given:
 rma <- res=="multi_annual"
-if(any(rma))
+if(any(rma, na.rm=TRUE))
   {
-  if(any(id[rma]!="")) warning(traceCall(1, "", ": "), "multi_annual data is not ", 
+  if(any(id[rma]!="", na.rm=TRUE)) warning(traceCall(1, "", ": "), "multi_annual data is not ", 
       "organized by station ID. Setting id to ''.", call.=FALSE)
   id[rma] <- ""
-  if(any(per[rma]!="")) warning(traceCall(1, "", ": "), "multi_annual data is not ", 
+  if(any(per[rma]!="", na.rm=TRUE)) warning(traceCall(1, "", ": "), "multi_annual data is not ", 
       "organized in period folders. Setting per to ''.", call.=FALSE)
   per[rma] <- ""
   }
