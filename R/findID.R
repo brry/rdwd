@@ -33,11 +33,13 @@
 #'              DEFAULT: TRUE
 #' @param mindex Single object: Index used to select \code{id} if \code{name}
 #'              is given. DEFAULT: \code{rdwd:::\link{metaIndex}}
-#' 
+#' @param quiet Logical: suppress length warnings? DEFAULT: FALSE
+#'  
 findID <- function(
 name="",
 exactmatch=TRUE,
-mindex=metaIndex
+mindex=metaIndex,
+quiet=FALSE
 )
 {
 # Input checks and processing:
@@ -56,10 +58,10 @@ output <- lapply(seq_len(len), function(i)
   if(length(id)<1)
     {
     id <- NA
-    warning(traceCall(3, "", ": "), "no ID could be determined from name '",
+    if(!quiet) warning(traceCall(3, "", ": "), "no ID could be determined from name '",
                              name[i], "'.", call.=FALSE)
     }
-  if(length(id)>1) warning(traceCall(3, "", ": "), "ID determined from name '",
+  if(length(id)>1 & !quiet) warning(traceCall(3, "", ": "), "ID determined from name '",
                              name[i], "' has ", length(id), " elements (",
                              toString(sort(id)), ").", call.=FALSE)
   # ID names:

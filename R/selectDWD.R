@@ -130,6 +130,7 @@
 #'              with \code{\link{==}})? Else with \code{\link{grepl}}. DEFAULT: TRUE
 #' @param mindex Single object: Index with metadata passed to \code{\link{findID}}.
 #'              DEFAULT: \code{rdwd:::\link{metaIndex}}
+#' @param quiet Suppress id length warnings?
 #' @param id    Char/Number: station ID with or without leading zeros, e.g. "00614" or 614.
 #'              Is internally converted to an integer, because some DWD meta data
 #'              files also contain no leading zeros. DEFAULT: findID(name, exaxtmatch, mindex)
@@ -155,7 +156,7 @@
 #'              instead of a list, return a vector? (via \code{\link{unlist}}).
 #'              DEFAULT: \code{per \%in\% c("rh","hr")}
 #' @param \dots Further arguments passed to \code{\link{indexFTP}} if \code{current=TRUE},
-#'              like dir, quiet
+#'              except folder and base.
 #' 
 selectDWD <- function(
 name="",
@@ -164,7 +165,8 @@ var=NA,
 per=NA,
 exactmatch=TRUE,
 mindex=metaIndex,
-id=findID(name, exactmatch=exactmatch, mindex=mindex),
+quiet=FALSE,
+id=findID(name, exactmatch=exactmatch, mindex=mindex, quiet=quiet),
 base=dwdbase,
 findex=fileIndex,
 current=FALSE,
@@ -242,7 +244,7 @@ if(current)
   uniquepaths <- uniquepaths[uniquepaths!="///"]
   if(length(uniquepaths)<1) stop(traceCall(1, "in ", ": "),
                     "current=TRUE, but no valid paths available.", call.=FALSE)
-  findex <- createIndex(indexFTP(uniquepaths, ...), fname="")
+  findex <- createIndex(indexFTP(folder=uniquepaths, base=base, quiet=quiet, ...), fname="")
   findexname <- "currentIndex"
   }
 # convert ID to integer:
@@ -317,12 +319,11 @@ if(givenid & !givenpath)
   filename <- findex[findex$id %in% id[i], "path"]
   filename <- filename[!is.na(filename)]
   # check output length
-  if(length(filename)<1) warning(traceCall(3, "", ": "), "in file index '", findexname,
-                                 "', no filename could be detected with ID ",
-                                 id[i], ".", call.=FALSE)
-  if(length(filename)>1) warning(traceCall(3, "", ": "), "in file index '", findexname,
-                                 "', there are ", length(filename), " files with ID ",
-                                 id[i], ".", call.=FALSE)
+  if(length(filename)<1 & !quiet) warning(traceCall(3, "", ": "), "in file index '", 
+     findexname, "', no filename could be detected with ID ", id[i], ".", call.=FALSE)
+  if(length(filename)>1 & !quiet) warning(traceCall(3, "", ": "), "in file index '", 
+     findexname, "', there are ", length(filename), " files with ID ",id[i], ".", 
+     call.=FALSE)
   return(   paste0(base,"/",filename)   )
   }
 #

@@ -4,7 +4,8 @@
 \alias{findID}
 \title{find DWD weather station ID from name}
 \usage{
-findID(name = "", exactmatch = TRUE, mindex = metaIndex)
+findID(name = "", exactmatch = TRUE, mindex = metaIndex,
+  quiet = FALSE)
 }
 \arguments{
 \item{name}{Char: station name(s) that will be matched in \code{mindex} to obtain
@@ -19,6 +20,8 @@ DEFAULT: TRUE}
 
 \item{mindex}{Single object: Index used to select \code{id} if \code{name}
 is given. DEFAULT: \code{rdwd:::\link{metaIndex}}}
+
+\item{quiet}{Logical: suppress length warnings? DEFAULT: FALSE}
 }
 \value{
 Character string (vector) with ID(s)

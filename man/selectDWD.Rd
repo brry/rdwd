@@ -5,10 +5,11 @@
 \title{Select data from the DWD CDC FTP Server}
 \usage{
 selectDWD(name = "", res = NA, var = NA, per = NA,
-  exactmatch = TRUE, mindex = metaIndex, id = findID(name, exactmatch
-  = exactmatch, mindex = mindex), base = dwdbase, findex = fileIndex,
-  current = FALSE, meta = FALSE, meta_txt_only = TRUE,
-  outvec = any(per \%in\% c("rh", "hr")), ...)
+  exactmatch = TRUE, mindex = metaIndex, quiet = FALSE,
+  id = findID(name, exactmatch = exactmatch, mindex = mindex, quiet =
+  quiet), base = dwdbase, findex = fileIndex, current = FALSE,
+  meta = FALSE, meta_txt_only = TRUE, outvec = any(per \%in\% c("rh",
+  "hr")), ...)
 }
 \arguments{
 \item{name}{Char: station name(s) passed to \code{\link{findID}}, along with
@@ -39,6 +40,8 @@ with \code{\link{==}})? Else with \code{\link{grepl}}. DEFAULT: TRUE}
 
 \item{mindex}{Single object: Index with metadata passed to \code{\link{findID}}.
 DEFAULT: \code{rdwd:::\link{metaIndex}}}
+
+\item{quiet}{Suppress id length warnings?}
 
 \item{id}{Char/Number: station ID with or without leading zeros, e.g. "00614" or 614.
 Is internally converted to an integer, because some DWD meta data
@@ -72,7 +75,7 @@ instead of a list, return a vector? (via \code{\link{unlist}}).
 DEFAULT: \code{per \%in\% c("rh","hr")}}
 
 \item{\dots}{Further arguments passed to \code{\link{indexFTP}} if \code{current=TRUE},
-like dir, quiet}
+except folder and base.}
 }
 \value{
 Character string with file path and name(s) in the format
