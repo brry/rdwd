@@ -79,7 +79,7 @@ fileIndex <- gsub("y/solar/", "y/solar//", paths) # hourly and daily only
 fileIndex <- gsub("multi_annual/", "multi_annual//", fileIndex)
 fileIndex <- gsub("subdaily/standard_format/", "subdaily/standard_format//", fileIndex)
 # remove leading slashes:
-fileIndex <- ifelse(substr(fileIndex,1,1)=="/", substr(fileIndex,2,1e4), fileIndex)
+fileIndex <- sub("^/","",fileIndex)
 prec1min <- substr(fileIndex,1,33) == "1_minute/precipitation/historical"
 prec1min <- substr(fileIndex,1,37) != "1_minute/precipitation/historical/ein" & prec1min
 any1min <- any(prec1min)
