@@ -598,8 +598,6 @@ return(invisible(r))
 #' 
 #' # File selection and download:
 #' datadir <- localtestdir()
-#' # 2019-05-18, hourly radolan files not yet copied to new ftp, hence:
-#' gridbase <- "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany" 
 #' radbase <- paste0(gridbase,"/hourly/radolan/historical/asc/")
 #' radfile <- "2018/RW-201809.tar" # 25 MB to download
 #' file <- dataDWD(radfile, base=radbase, joinbf=TRUE, dir=datadir,

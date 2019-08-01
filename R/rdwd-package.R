@@ -250,16 +250,13 @@ apply(x, MARGIN=1, perrow)
 
 if(FALSE){
 dwdfiles <- indexFTP(sleep=0, filename="", overwrite=TRUE)
-dwdfiles <- indexFTP(dwdfiles, sleep=2, filename="", overwrite=TRUE)
+  # dwdfiles <- indexFTP(dwdfiles, sleep=2, filename="", overwrite=TRUE)
   # potentially needed several times with small sleep values on restrictive FTP servers
 
 grdfiles <- indexFTP("currentgindex",   filename="grids", base=gridbase, overwrite=TRUE)
-grdfiles <- indexFTP(grdfiles, sleep=2, filename="grids", base=gridbase, overwrite=TRUE)
 
 # delete meta folder for truly new data
 # check for duplicate description files (Monatwerte + Monatswerte, e.g., also in INDEX_OF.txt)
-
-# update dwdparams as well, see developmentNotes.R
 
 dwdfiles <- readLines("DWDdata/INDEX_of_DWD_.txt")
 #  25'757 elements (2017-03-14) 
@@ -269,10 +266,13 @@ dwdfiles <- readLines("DWDdata/INDEX_of_DWD_.txt")
 # 242'584 (2019-03-11)
 # 266'860 (2019-05-15)
 # 254'446 (2019-05-30)
+# 255'252 (2019-07-31)
 grdfiles <- readLines("DWDdata/INDEX_of_DWD_grids.txt")
 #  49'247 (2019-05-26)
 #  49'402 (2019-05-30)
+#  54'314 (2019-07-31)
 index <- createIndex(paths=dwdfiles, meta=TRUE) # ca 200 secs +40 if files are not yet downloaded
+cat(index$checks)
 { # save indexes into package:
 fileIndex <- index[[1]]
 metaIndex <- index[[2]]
@@ -305,6 +305,8 @@ stopifnot(all(metaIndex==metaIndex2))
 stopifnot(all( geoIndex== geoIndex2))
 rm(fileIndex2,metaIndex2,geoIndex2)
 rm(index,dwdfiles)
+#
+message("Now update dwdparams as well, see misc/developmentNotes.R")
 } # end saving+checking index files
 
 } # end if FALSE

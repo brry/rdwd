@@ -17,8 +17,8 @@ rv_df$Quelle <- rep(substr(urls, 76, 1e3), sapply(rv, nrow))
 rv_df <- berryFunctions::sortDF(rv_df, "Par", decreasing=FALSE)
 rv_df <- berryFunctions::sortDF(rv_df, "Kurz", decreasing=FALSE)
 colnames(rv_df)[1] <- "Parameter"
-write.table(rv_df, "localtests/params.txt", sep="\t", quote=F, row.names=F)
-# Manually added "Kurz" in Excel file, then copied to dwdparams in readVars.R
+write.table(rv_df, "misc/params.txt", sep="\t", quote=F, row.names=F)
+# Manually added "Kurz" in Excel file, then copied to dwdparams in R/readVars.R
 #
 # check for duplicates:
 rv[sapply(rv, function(x) sum(duplicated(x[,"Kurz"]))>0)]
