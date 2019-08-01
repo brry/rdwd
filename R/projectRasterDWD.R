@@ -33,9 +33,7 @@
 projectRasterDWD <- function(r, proj="radolan", extent="radolan", latlon=TRUE, quiet=FALSE)
 {
 # package check
-if(!requireNamespace("raster", quietly=TRUE))
- stop("To use rdwd::projectRasterDWD, please first install raster:",
-      "   install.packages('raster')", call.=FALSE)
+checkSuggestedPackage("raster", "rdwd::projectRasterDWD")
 #
 starttime <- Sys.time()
 if(!is.null(proj))

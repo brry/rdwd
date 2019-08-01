@@ -228,6 +228,30 @@ apply(x, MARGIN=1, perrow)
 
 
 
+# checkSuggestedPackage --------------------------------------------------------
+
+#' @title check suggested package for availability
+#' @description check suggested package for availability, 
+#'              yielding an instructive error message if not
+#' @return invisible success logical value from \code{\link{requireNamespace}}
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019
+#' @seealso \code{\link{requireNamespace}}
+#' @keywords package
+# @export # only needed internally, I think
+#'
+#' @param package      Charstring: package to be checked for loadability
+#' @param functionname Charstring: function name to be used in the message
+#'
+checkSuggestedPackage <- function(package, functionname)
+{
+available <- requireNamespace(package, quietly=TRUE)
+if(!available) stop("To use ",functionname, ", please first install ",
+                    package,":    install.packages('",package,"')", call.=FALSE)
+return(invisible(available))
+}
+
+
+
 # DEU Map dataset --------------------------------------------------------------
 
 #' Map of German states (Bundeslaender) from GADM through the \code{raster} package

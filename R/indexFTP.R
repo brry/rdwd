@@ -80,9 +80,7 @@ verbose=FALSE
 )
 {
 # Check if RCurl is available:
-if(!requireNamespace("RCurl", quietly=TRUE))
-  stop("The R package 'RCurl' is not available. rdwd::indexFTP can not obtain file list.\n",
-       "install.packages('RCurl')       to enable this.")
+checkSuggestedPackage("RCurl", "rdwd::indexFTP")
 # change folder:
 if(all(folder %in% c("currentfindex","currentgindex")) & base %in% c(dwdbase, gridbase))
   {

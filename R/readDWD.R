@@ -114,9 +114,7 @@ meta[multia] <- FALSE
 # Optional progress bar:
 if(progbar) lapply <- pbapply::pblapply
 # check package availability:
-if(any(fread))   if(!requireNamespace("data.table", quietly=TRUE))
-    stop("in rdwd::readDWD: to use fread=TRUE, please first install data.table:",
-         "   install.packages('data.table')", call.=FALSE)
+if(any(fread))  checkSuggestedPackage("data.table", "rdwd::readDWD with fread=TRUE") 
 #
 checkFile(file)
 # Handle German Umlaute:
@@ -439,17 +437,13 @@ out
 #'                  i.e. \code{na} and \code{clutter}
 readDWD.radar <- function(file, gargs=NULL, toraster=TRUE, ...)
 {
-if(!requireNamespace("R.utils", quietly=TRUE))
-  stop("To use rdwd:::readDWD.radar, please first install R.utils:",
-       "   install.packages('R.utils')", call.=FALSE)
+checkSuggestedPackage("R.utils", "rdwd:::readDWD.radar")
 # gunzip arguments:
 gdef <- list(filename=file, remove=FALSE, skip=TRUE)
 gfinal <- berryFunctions::owa(gdef, gargs, "filename")
 rdata <- do.call(R.utils::gunzip, gfinal)
 rf <- readRadarFile(rdata, ...)
-if(toraster) if(!requireNamespace("raster", quietly=TRUE))
-  stop("To use rdwd:::readDWD.radar, please first install raster:",
-       "   install.packages('raster')", call.=FALSE)
+if(toraster) checkSuggestedPackage("raster", "rdwd:::readDWD.radar with toraster=TRUE")
 if(toraster) rf$dat <- raster::raster(rf$dat)
 return(invisible(rf))
 }
@@ -561,9 +555,7 @@ time <- sapply(rb, function(x) as.character(x$meta$date))
 names(rb) <- time
 if(!toraster) return(invisible(rb))
 # else if toraster:
-if(!requireNamespace("raster", quietly=TRUE))
- stop("To use rdwd:::readDWD.binary with toraster=TRUE, please first install raster:",
-      "   install.packages('raster')", call.=FALSE)
+checkSuggestedPackage("raster", "rdwd:::readDWD.binary with toraster=TRUE")
 pmessage("Converting to raster...")
 rbmat <- base::lapply(rb,"[[",1)
 rbmat <- lapply(rbmat, raster::raster)
@@ -632,12 +624,8 @@ return(invisible(list(data=rbmat, meta=rbmeta)))
 #' @param \dots       Further arguments passed to \code{raster::\link[raster]{raster}}
 readDWD.raster <- function(file, gargs=NULL, dividebyten, ...)
 {
-if(!requireNamespace("R.utils", quietly=TRUE))
-  stop("To use rdwd:::readDWD.raster, please first install R.utils:",
-       "   install.packages('R.utils')", call.=FALSE)
-if(!requireNamespace("raster", quietly=TRUE))
- stop("To use rdwd:::readDWD.raster, please first install raster:",
-      "   install.packages('raster')", call.=FALSE)
+checkSuggestedPackage("R.utils", "rdwd:::readDWD.raster")
+checkSuggestedPackage("raster",  "rdwd:::readDWD.raster")
 #https://stackoverflow.com/questions/5227444/recursively-ftp-download-then-extract-gz-files
 # gunzip arguments:
 gdef <- list(filename=file, remove=FALSE, skip=TRUE)
@@ -721,9 +709,7 @@ return(invisible(r))
 readDWD.asc <- function(file, exdir=NULL, dividebyten=TRUE, 
                         selection=NULL, progbar=TRUE, ...)
 {
-if(!requireNamespace("raster", quietly=TRUE))
-stop("To use rdwd:::readDWD.asc, please first install raster:",
-     "   install.packages('raster')", call.=FALSE)
+checkSuggestedPackage("raster", "rdwd:::readDWD.asc")
 if(progbar) lapply <- pbapply::pblapply
 # prepare to untar data (two layers):
 fn <- tools::file_path_sans_ext(basename(file))
