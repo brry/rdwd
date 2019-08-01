@@ -418,8 +418,8 @@ out
 #' raster::plot(DEU, add=TRUE)
 #' }
 #' @param file      Name of file on harddrive, like e.g. 
-#'                  DWDdata/grids_germany/seasonal/air_temperature_mean/
-#'                  16_DJF_grids_germany_seasonal_air_temp_mean_188216.asc.gz
+#'                  DWDdata/hourly/radolan/recent/bin/
+#'                  raa01-rw_10000-1802020250-dwd---bin.gz
 #' @param gargs     Named list of arguments passed to 
 #'                  \code{R.utils::\link[R.utils]{gunzip}}. The internal 
 #'                  defaults are: \code{remove=FALSE} (recommended to keep this
