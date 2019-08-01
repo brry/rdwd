@@ -7,8 +7,8 @@
 readDWD(file, progbar = TRUE, fread = FALSE, varnames = FALSE,
   format = NA, tz = "GMT", dividebyten = TRUE,
   meta = grepl(".txt$", file), multia = grepl("Standort.txt$", file),
-  binary = grepl(".tar.gz$", file), raster = grepl(".asc.gz$", file),
-  asc = grepl(".tar$", file), ...)
+  radar = grepl(".gz$", file), binary = grepl(".tar.gz$", file),
+  raster = grepl(".asc.gz$", file), asc = grepl(".tar$", file), ...)
 }
 \arguments{
 \item{file}{Char (vector): name(s) of the file(s) downloaded with 
@@ -42,6 +42,9 @@ Overrides \code{meta}, so set to FALSE manually if
 with "Standort.txt". See \code{\link{readDWD.multia}}.
 DEFAULT: TRUE for each file ending in "Standort.txt"}
 
+\item{radar}{Logical (vector): does the \code{file} contain a single binary file?
+See \code{\link{readDWD.radar}}.}
+
 \item{binary}{Logical (vector): does the \code{file} contain binary files?
 See \code{\link{readDWD.binary}}.
 DEFAULT: TRUE for each file ending in ".tar.gz"}
@@ -66,22 +69,7 @@ Invisible data.frame of the desired dataset,
         return raster objects instead of data.frames.
 }
 \description{
-Read climate data that was downloaded with \code{\link{dataDWD}}.
-The data is unzipped and subsequently, the file is read, processed and
-returned as a data.frame.\cr
-New users are advised to set \code{varnames=TRUE} to obtain more informative
-column names.\cr\cr
-\code{readDWD} will call internal (but documented) functions depending on the
-arguments \code{meta, multia, binary, raster, asc}:\cr
-to read observational data: \code{\link{readDWD.data},
-         \link{readDWD.meta}, \link{readDWD.multia}}\cr
-to read interpolated gridded data: \code{\link{readDWD.binary},
-         \link{readDWD.raster}, \link{readDWD.asc}}\cr
-Not all arguments to \code{readDWD} are used for all functions, e.g. 
-\code{fread} is used only by \code{.data}, while \code{dividebyten} 
-is used in \code{.raster} and \code{.asc}.\cr\cr
-\code{file} can be a vector with several filenames. Most other arguments can
-also be a vector and will be recycled to the length of \code{file}.
+Process data from the DWD CDC FTP Server
 }
 \examples{
 # see dataDWD

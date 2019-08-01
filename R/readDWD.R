@@ -1,4 +1,4 @@
-# read dwd data ----
+# read dwd ----
 
 #' Process data from the DWD CDC FTP Server
 #' 
@@ -11,7 +11,7 @@
 #' arguments \code{meta, multia, binary, raster, asc}:\cr
 #' to read observational data: \code{\link{readDWD.data},
 #'          \link{readDWD.meta}, \link{readDWD.multia}}\cr
-#' to read interpolated gridded data: \code{\link{readDWD.binary},
+#' to read interpolated gridded data: \code{\link{readDWD.radar}, \code{\link{readDWD.binary},
 #'          \link{readDWD.raster}, \link{readDWD.asc}}\cr
 #' Not all arguments to \code{readDWD} are used for all functions, e.g. 
 #' \code{fread} is used only by \code{.data}, while \code{dividebyten} 
@@ -60,6 +60,8 @@
 #'               \code{\link{readDWD.meta}} needs to be called on a file ending
 #'               with "Standort.txt". See \code{\link{readDWD.multia}}.
 #'               DEFAULT: TRUE for each file ending in "Standort.txt"
+#' @param radar  Logical (vector): does the \code{file} contain a single binary file?
+#'               See \code{\link{readDWD.radar}}.
 #' @param binary Logical (vector): does the \code{file} contain binary files?
 #'               See \code{\link{readDWD.binary}}.
 #'               DEFAULT: TRUE for each file ending in ".tar.gz"
@@ -83,6 +85,7 @@ tz="GMT",
 dividebyten=TRUE,
 meta=  grepl(        '.txt$', file),
 multia=grepl('Standort.txt$', file),
+radar =grepl(         '.gz$', file),
 binary=grepl(     '.tar.gz$', file),
 raster=grepl(     '.asc.gz$', file),
 asc=   grepl(        '.tar$', file),
@@ -102,6 +105,7 @@ if(len>1)
   dividebyten <- rep(dividebyten, length.out=len)
   meta        <- rep(meta,        length.out=len)
   multia      <- rep(multia,      length.out=len)
+  radar       <- rep(radar,       length.out=len)
   binary      <- rep(binary,      length.out=len)
   raster      <- rep(raster,      length.out=len)
   asc         <- rep(asc,         length.out=len) 
@@ -132,11 +136,12 @@ if(progbar) message("Reading ", length(file), " file", if(length(file)>1)"s", ".
 # loop over each filename
 output <- lapply(seq_along(file), function(i)
 {
-# if meta/binary/raster/multia:
+# if meta/multia/radar/binary/raster/asc:
 if(meta[i])   return(readDWD.meta(  file[i], ...))
+if(multia[i]) return(readDWD.multia(file[i], ...))
+if(radar[i])  return(readDWD.radar( file[i], ...))
 if(binary[i]) return(readDWD.binary(file[i], progbar=progbar, ...))
 if(raster[i]) return(readDWD.raster(file[i], dividebyten=dividebyten[i], ...))
-if(multia[i]) return(readDWD.multia(file[i], ...))
 if(asc[i])    return(readDWD.asc(   file[i], progbar=progbar, dividebyten=dividebyten[i], ...))
 # if data:
 readDWD.data(file[i], fread=fread[i], varnames=varnames[i], 
@@ -386,6 +391,71 @@ out
 
 # read gridded data ----
 
+# ~ radar ----
+
+#' @title read dwd gridded radolan radar data
+#' @description read gridded radolan radar data.
+#' Intended to be called via \code{\link{readDWD}}.\cr
+#' @return Invisible list with \code{dat} (matrix or raster, depending on \code{toraster}) 
+#' and \code{meta} (list with elements from header)
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019. 
+#'         Significant input for the underlying \code{\link{readRadarFile}} came
+#'         from Henning Rust & Christoph Ritschel at FU Berlin.
+#' @seealso \code{\link{readDWD}}, especially \code{\link{readDWD.binary}}\cr
+#'   \url{https://wradlib.org} for much more extensive radar analysis in Python\cr
+#'   Kompositformatbeschreibung at \url{https://www.dwd.de/DE/leistungen/radolan/radolan.html}
+#'   for format description
+#' @examples
+#' \dontrun{ # Excluded from CRAN checks, but run in localtests
+#' # recent radar files 
+#' rrf <- indexFTP("hourly/radolan/recent/bin", base=gridbase, dir=tempdir())
+#' lrf <- dataDWD(rrf[773], base=gridbase, joinbf=TRUE, dir=tempdir(), read=FALSE)
+#' r <- readDWD(lrf)
+#' 
+#' rp <- projectRasterDWD(r$dat)
+#' raster::plot(rp, main=r$meta$date)
+#' data(DEU)
+#' raster::plot(DEU, add=TRUE)
+#' }
+#' @param file      Name of file on harddrive, like e.g. 
+#'                  DWDdata/grids_germany/seasonal/air_temperature_mean/
+#'                  16_DJF_grids_germany_seasonal_air_temp_mean_188216.asc.gz
+#' @param gargs     Named list of arguments passed to 
+#'                  \code{R.utils::\link[R.utils]{gunzip}}. The internal 
+#'                  defaults are: \code{remove=FALSE} (recommended to keep this
+#'                  so \code{file} does not get deleted) and \code{skip=TRUE}
+#'                  (which reads previously unzipped files as is).
+#'                  If \code{file} has changed, you might want to use 
+#'                  \code{gargs=list(skip=FALSE, overwrite=TRUE)}
+#'                  or alternatively \code{gargs=list(temporary=TRUE)}.
+#'                  The \code{gunzip} default \code{destname} means that the 
+#'                  unzipped file is stored at the same path as \code{file}.
+#'                  DEFAULT gargs: NULL
+#' @param toraster  Logical: convert output (list of matrixes + meta informations)
+#'                  to a list with data (\code{raster \link[raster]{stack}}) + 
+#'                  meta (list from the first subfile, but with vector of dates)?
+#'                  DEFAULT: TRUE
+#' @param \dots     Further arguments passed to \code{\link{readRadarFile}}, 
+#'                  i.e. \code{na} and \code{clutter}
+readDWD.radar <- function(file, gargs=NULL, toraster=TRUE, ...)
+{
+if(!requireNamespace("R.utils", quietly=TRUE))
+  stop("To use rdwd:::readDWD.radar, please first install R.utils:",
+       "   install.packages('R.utils')", call.=FALSE)
+# gunzip arguments:
+gdef <- list(filename=file, remove=FALSE, skip=TRUE)
+gfinal <- berryFunctions::owa(gdef, gargs, "filename")
+rdata <- do.call(R.utils::gunzip, gfinal)
+rf <- readRadarFile(rdata, ...)
+if(toraster) if(!requireNamespace("raster", quietly=TRUE))
+  stop("To use rdwd:::readDWD.radar, please first install raster:",
+       "   install.packages('raster')", call.=FALSE)
+if(toraster) rf$dat <- raster::raster(rf$dat)
+return(invisible(rf))
+}
+
+
+
 # ~ binary ----
 
 #' @title read dwd gridded radolan binary data
@@ -395,7 +465,7 @@ out
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2018. 
 #'         Significant input for the underlying \code{\link{readRadarFile}} came
 #'         from Henning Rust & Christoph Ritschel at FU Berlin.
-#' @seealso \code{\link{readDWD}}\cr
+#' @seealso \code{\link{readDWD}}, especially \code{\link{readDWD.radar}}\cr
 #'   \url{https://wradlib.org} for much more extensive radar analysis in Python\cr
 #'   Kompositformatbeschreibung at \url{https://www.dwd.de/DE/leistungen/radolan/radolan.html}
 #'   for format description

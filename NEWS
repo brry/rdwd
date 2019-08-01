@@ -5,8 +5,8 @@ rdwd ToDo-list / wishlist / issues
 - readDWD.nc for grids_germany/daily/Project_TRY ?
 - readDWD.asc gridbase now on new server
 - call (simplified) Fortran functions through C interface, see PR #6
-- ftp://opendata.dwd.de/climate_environment/CDC/grids_germany/hourly/radolan/recent/bin/
 - indexFTP: read tree with data.table/vroom
+- DEU: EUR dataset with neighbouring countries
 
 vignette ToDos: 
 - pack struct + stat sel: less overlap
