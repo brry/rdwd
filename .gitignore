@@ -11,4 +11,8 @@ misc/presentation
 misc/contacts.txt
 misc/params.txt
 misc/params.xlsx
+misc/vign/_book
+misc/vign/_bookdown_files
+misc/vign/libs
+misc/vign/rsconnect
 src/rdwd.dll

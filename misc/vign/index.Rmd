@@ -1,0 +1,599 @@
+---
+title: "rdwd"
+author: "Berry Boessenkool, <berry-b@gmx.de>"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+output:
+  bookdown::gitbook: default
+---
+
+# Intro
+
+This vignette is build with source code and files available [here](https://github.com/brry/rdwd/tree/master/misc/vign).  
+For further details on the data, please consult the 
+[DWD FTP server documentation](ftp://opendata.dwd.de/climate_environment/CDC/Readme_intro_CDC_ftp.pdf).  
+Any feedback on rdwd (or this vignette) is very welcome via [github](https://github.com/brry/rdwd) or <berry-b@gmx.de>!  
+The remainder of this intro chapter is a copy of the [github README file](https://github.com/brry/rdwd#rdwd).
+
+----
+
+```{r readmecontent, echo=FALSE, message=FALSE, results='asis'}
+# mirror section of README
+reme <- readLines('../../README.md')
+doc <- grep("## Documentation", reme) + 0:4
+reme <- gsub("###", "##", reme)
+cat(reme[-c(1,doc)], sep='\n')
+```
+
+```{r helplink_macro, echo=FALSE}
+helplink <- function(doc) paste0("[`",doc,"`](https://www.rdocumentation.org/packages/rdwd/topics/",doc,")")
+```
+
+```{r lib_rdwd, echo=FALSE}
+library(rdwd)
+print_short <- function(x) 
+  {out <- lapply(x, gsub, pattern=dwdbase, replacement="---")
+  if(is.list(x)) out else unlist(out)}
+```
+
+
+# Interactive map
+
+The `rdwd` package provides a collection of all the metafiles on the 
+[DWD data server](ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate).
+It is presented as an interactive map below.
+
+When a point is clicked, an infobox should appear.
+The first line can be copypasted into R to obtain more information on the available files.
+The map is created with the following code:
+
+```{r map, fig.height=7, fig.width=7, warning=FALSE, screenshot.force=FALSE}
+library(rdwd)  ;  data(geoIndex)  ;  library(leaflet) 
+leaflet(geoIndex) %>% addTiles() %>%
+        addCircles(~lon, ~lat, radius=900, stroke=F, color=~col) %>%
+        addCircleMarkers(~lon, ~lat, popup=~display, stroke=F, color=~col)
+```
+
+The blue dots mark stations for which recent files are available 
+(with >=1 file in 'recent' folder or 'BIS_DATUM' later than one year ago).
+The red dots mark all stations with only historical datasets.
+
+To see only the stations with recent data, use the following code:
+
+```{r onlyrecent, eval=FALSE}
+library(rdwd)  ;  data(geoIndex)  ;  library(leaflet) 
+leaflet(data=geoIndex[geoIndex$recentfile,]) %>% addTiles() %>%
+        addCircleMarkers(~lon, ~lat, popup=~display, stroke=F)
+```
+
+To request the nonpublic datasets counted in the infobox, please contact <cdc.daten@dwd.de> or <klima.vertrieb@dwd.de>.
+(The DWD cannot publish all datasets because of copyright restrictions).
+
+Note: `r helplink("geoIndex")` is created in the last section of 
+[rdwd-package.R](https://github.com/brry/rdwd/blob/master/R/rdwd-package.R).
+
+
+
+# Available datasets
+
+*overview of the FTP folder structure*
+
+The following folders in **`res/var/per`** notation (resolution/variable/period) are available at
+[`dwdbase`](ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate).
+
+"<" signifies a split into the folders `per` = "recent" and "historical".  
+"<<" signifies a split into the folders `per` = "now", "recent", "historical" and "meta_data".  
+"-" signifies that there are no further sub-folders.  
+Please note that both "solar" (-/<<) and "sun" (<) are available!  
+Please note that `1_minute/precipitation/historical` has a subfolder for each year.  
+
+```{r ftp_folders_1, echo=FALSE}
+library(magrittr); library(huxtable)
+f <- readODS::read_ods("FTP_folders.ods", sheet="folders", col_types=NA)
+ht <- huxtable::hux(f, add_colnames=TRUE)
+ht %>%
+  set_background_color(value="white") %>% 
+  set_all_borders(1) %>%
+  # set_bottom_border(1, everywhere, 2) %>%
+  set_bold(1, -1, TRUE) %>% 
+  set_rotation(1, -1, 90) %>%
+  set_align(everywhere, -1, "center") %>% 
+  set_valign(row=1, col=1, "bottom") %>% 
+  map_background_color(by_values("<<"="gray95")) %>% 
+  map_background_color(by_values( "<"="gray95")) %>% 
+  map_background_color(by_values( "-"="gray95")) %>% 
+  set_position("center")
+```
+
+
+```{r ftp_folders_missing, echo=FALSE}
+detach("package:huxtable", unload=TRUE) # to suppress further autoformatting of tables
+library(rdwd)
+data("fileIndex")
+# online and table folder comparison
+on <- paste(fileIndex$res, fileIndex$var, fileIndex$per, sep="/")
+on <- unique(on)
+
+tab <- lapply(colnames(f)[-1], function(r) 
+  {
+  if(r=="multi_annual") return(paste0(r,"//",f[f[,r]=="-",1]))
+  per4 <- c("now", "recent", "historical", "meta_data")
+  per2 <- c("recent", "historical")
+  r0 <- f[,r]=="-"
+  r2 <- f[,r]=="<"
+  r4 <- f[,r]=="<<"
+  rv0 <- paste0(r,"/", f[r0, 1], "/")
+  rv2 <- paste0(r,"/", f[r2, 1], "/")
+  rv4 <- paste0(r,"/", f[r4, 1], "/")
+  rv0 <- if(any(r0)) rv0 else ""[0]
+  rv2 <- if(any(r2)) paste0(rep(rv2, each=length(per2)), per2) else ""[0]
+  rv4 <- if(any(r4)) paste0(rep(rv4, each=length(per4)), per4) else ""[0]
+  c(rv0,rv2,rv4)
+  })
+tab <- unlist(tab)
+
+miss <- on[!on %in% tab]
+l <- length(miss)
+if(l>0) stop("\n\nThe following ", l, " FTP folders must yet be added to the ",
+             "table (FTP_folder.ods) in section 'Available datasets':\n", 
+             paste(miss, collapse="\n"))
+miss <- tab[!tab %in% on]
+l <- length(miss)
+if(l>0) stop("\n\nThe following ", l, " table entries in section 'Available datasets' (from FTP_folder.ods)",
+             " are no longer in the FTP folder:\n", paste(miss, collapse="\n"))
+```
+
+
+
+# Package structure
+
+To use the observational datasets, `rdwd` has been designed to mainly do 3 things:
+
+* `r helplink("selectDWD")`: facilitate file selection, e.g. for certain station names (with `r helplink("findID")`), 
+by geographical location (see the [interactive map](interactive-map.html) and `r helplink("nearbyStations")`), by temporal resolution (**res** = 1/10 minutes, hourly, daily, monthly, annual), 
+variables (**var** = temperature, rain, wind, sun, clouds, etc) or
+observation period (**per** = historical long term records or the current year)
+
+* `r helplink("dataDWD")`: download a file (or multiple files, without getting banned by the FTP-server)
+
+* `r helplink("readDWD")`: read that data into R (including useful defaults for metadata)
+
+`r helplink("selectDWD")` uses the result from `r helplink("indexFTP")` which recursively lists all the files on an FTP-server (using `RCurl::getURL`).
+As this is time consuming, the result is stored in the package dataset `r helplink("fileIndex")`.
+From this, `r helplink("metaIndex")` and `r helplink("geoIndex")` are derived.
+
+<img src="PackageSchematic.png" width="600">
+
+
+
+# Station selection
+
+`print_short` in this chapter is just a helper function to replace 
+[dwdbase](ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate)
+with `---` for shorter output in the vignette.
+
+## by location
+
+Weather stations can be selected geographically with the [interactive map](interactive-map.html).
+All stations within a certain radius around a given lat-long position can be obtained with
+`r helplink("nearbyStations")`.
+
+## by ID
+
+The DWD station IDs can be obtained from station names with
+```{r findID, eval=TRUE}
+findID("Potsdam")
+findID("Koeln", exactmatch=FALSE, quiet=TRUE)
+```
+
+## by name
+
+File selection by station name/id and folder can happen directly with `r helplink("selectDWD")`.
+It needs an index of all the available files on the server.
+The package contains such an index (`r helplink("fileIndex")`) that is updated (at least) with each CRAN release of the package.
+More on that in the next subchapter.
+
+`r helplink("selectDWD")` is designed to be very flexible:
+
+```{r select1, eval=FALSE, echo=TRUE}
+# inputs can be vectorized, and period can be abbreviated:
+selectDWD(c("Potsdam","Wuerzburg"), res="hourly", var="sun", per="hist") %>% print_short
+```
+
+```{r select2, eval=TRUE, echo=FALSE}
+selectDWD(c("Potsdam","Wuerzburg"), res="hourly", var="sun", per="hist") %>% print_short
+```
+If res/var/per are left NA, an interactive selection is opened with the 
+[available folder options](available-datasets.html) for the given station.
+
+The time period can be doubled to get both filenames:
+```{r select3}
+selectDWD("Potsdam", res="daily", var="kl", per="rh") %>% print_short
+```
+
+There may be a differing number of available files for several stations across all folders.
+That's why the default outvec is FALSE (unless `per="hr"`).
+
+```{r select5, eval=TRUE}
+selectDWD(id=c(3467,5116), res="",var="",per="", quiet=TRUE) %>% print_short
+```
+
+
+
+## fileIndex
+
+If you find the file index to be outdated (Error in download.file ... : cannot open URL),
+please let me know and I will update it. Meanwhile, use current=TRUE in `r helplink("selectDWD")`:
+
+```{r files, eval=FALSE}
+# all files at a given path, with current file index (RCurl required):
+links <- selectDWD(res="monthly", var="more_precip", per="hist", current=TRUE)
+```
+
+`r helplink("fileIndex")` is created with the function `r helplink("indexFTP")` used in the last section of 
+[rdwd-package.R](https://github.com/brry/rdwd/blob/master/R/rdwd-package.R#L249).
+
+```{r listfiles, eval=FALSE}
+### This chunk is not evaluated ###
+# recursively list files on the FTP-server:
+files <- indexFTP("hourly/sun") # use dir="some_path" to save the output elsewhere
+berryFunctions::headtail(files, 5, na=TRUE)
+
+# indexFTP uses a folder to resume indexing after getting banned:
+radfiles <- indexFTP("hourly/radolan/recent", gridbase)
+radfiles <- indexFTP(radfiles,gridbase, sleep=1)
+
+# with other FTP servers, this should also work...
+funet <- indexFTP(base="ftp.funet.fi/pub/standards/w3/TR/xhtml11/", folder="")
+p <- RCurl::getURL(    "ftp.funet.fi/pub/standards/w3/TR/xhtml11/",
+                       verbose=T, ftp.use.epsv=TRUE, dirlistonly=TRUE)
+```
+
+
+## metaIndex
+
+`r helplink("selectDWD")` also uses a complete data.frame with meta information,
+`r helplink("metaIndex")` 
+(derived from the "Beschreibung" files in `r helplink("fileIndex")`).
+```{r meta23, eval=TRUE}
+# All metadata at all folders:
+data(metaIndex)
+str(metaIndex, vec.len=2)
+```
+```{r metaView, eval=FALSE}
+View(data.frame(sort(unique(rdwd:::metaIndex$Stationsname)))) # ca 6k entries
+```
+
+`r helplink("dataDWD")` can download (and `r helplink("readDWD")` can correctly read) such a data.frame from any folder on the FTP server:
+```{r meta1, eval=TRUE}
+# file with station metadata for a given path:
+m_link <- selectDWD(res="monthly", var="more_precip", per="hist", meta=TRUE)
+print_short(m_link) # (Monatswerte = monthly values, Beschreibung = description)
+```
+```{r meta2, eval=FALSE}
+meta_monthly_rain <- dataDWD(m_link) # not executed in vignette creation
+str(meta_monthly_rain)
+```
+
+Meta files may list stations for which there are actually no files.
+These refer to nonpublic datasets (The DWD cannot publish all datasets because of copyright restrictions).
+To request those, please contact <cdc.daten@dwd.de> or <klima.vertrieb@dwd.de>.
+
+
+# Raster data
+
+For data interpolated onto a 1 km raster, including radar data up to the last hour, see the examples at  
+`r helplink("readDWD")`
+
+
+# - use case: recent time series
+
+## download & read data
+
+```{r uc_recent_time_series_data, eval=TRUE, fig.height=3, fig.width=7}
+library(rdwd)
+link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
+file <- dataDWD(link, read=FALSE, dir="../localdata", quiet=TRUE, force=NA)
+clim <- readDWD(file, varnames=TRUE)
+
+str(clim)
+```
+
+## plot time series
+
+```{r uc_recent_time_series_plot, eval=TRUE, fig.height=3, fig.width=7}
+par(mar=c(4,4,2,0.5), mgp=c(2.7, 0.8, 0), cex=0.8)
+plot(clim[,c(2,14)], type="l", xaxt="n", las=1, main="Daily temp Potsdam")
+berryFunctions::monthAxis()   ;   abline(h=0)
+mtext("Source: Deutscher Wetterdienst", adj=-0.1, line=0.5, font=3)
+```
+
+# - use case: long term climate graph
+
+```{r uc_climgraph, eval=TRUE, fig.height=3, fig.width=7, echo=-1}
+par(mar=c(4,4,2,0.5), mgp=c(2.7, 0.8, 0), cex=0.8)
+link <- selectDWD("Goettingen", res="monthly", var="kl", per="h")
+clim <- dataDWD(link, quiet=TRUE, dir="../localdata")
+
+clim$month <- substr(clim$MESS_DATUM_BEGINN,5,6)
+temp <- tapply(clim$MO_TT, clim$month, mean, na.rm=TRUE)
+prec <- tapply(clim$MO_RR, clim$month, mean, na.rm=TRUE)
+
+berryFunctions::climateGraph(temp, prec, main="Goettingen")
+mtext("Source: Deutscher Wetterdienst", adj=-0.05, line=2.8, font=3)
+```
+
+
+# - use case: Rainfall intensity depends on temperature
+
+Clausius-Clapeyron scaling holds even for very high temperatures, 
+we just don't have enough data yet to have observed the expected extreme rainfall intensities.
+
+If quantiles are estimated by appropriately fitting a GDP and using its quantiles,
+extreme rainfall intensity estimates continue to rise with air temperature.
+
+<img src="CC_rainfall.PNG" width="600">
+
+
+Code (with a much older version of `rdwd`, might not run out of the box any more):
+<https://github.com/brry/prectemp/blob/master/Code_analysis.R>  
+Publication:
+<http://www.nat-hazards-earth-syst-sci-discuss.net/nhess-2016-183>
+
+# - use case: Get all hourly rainfall data 2014:2016
+
+## get the URLS of data to be downloaded
+
+```{r hourlyrain_data_selection, warning=FALSE}
+library(rdwd)
+links <- selectDWD(res="daily", var="more_precip", per="hist")
+length(links) # ca 5k stations - would take very long to download
+
+# select only the relevant files:
+data("metaIndex")
+myIndex <- metaIndex[
+  metaIndex$von_datum < 20140101 &
+  metaIndex$bis_datum > 20161231 & metaIndex$hasfile   ,  ]
+data("fileIndex")    
+links <- fileIndex[
+  suppressWarnings(as.numeric(fileIndex$id)) %in% myIndex$Stations_id &
+  fileIndex$res=="daily" &
+  fileIndex$var=="more_precip" &
+  fileIndex$per=="historical"         , "path" ]  
+
+length(links) # 2001 elements - much better
+```
+
+
+## download the data
+
+If some downloads fail (mostly because you'll get kicked off the FTP server),
+you can just run the same code again and only the missing files will be downloaded.
+
+If you really want to download 2k historical (large!) datasets, 
+you might need to set `sleep` in `r helplink("dataDWD")` to a relatively high value.
+
+For speed, we'll only work with the first 3 urls.
+
+```{r hourlyrain_data_download, message=FALSE}
+localfiles <- dataDWD(links[1:3], joinbf=TRUE, sleep=0.2, read=FALSE, dir="../localdata")
+```
+
+
+## read the data
+
+2k large datasets probably is way too much for memory, so we'll use a custom reading function.
+It will only select the relevant time section and rainfall column.
+The latter will be named with the id extracted from the filename.
+
+```{r hourlyrain_reading_function, message=FALSE}
+readVars(localfiles[1])[,-3] # we want the RS column
+
+read2014_2016 <- function(file, fread=TRUE, ...)
+{
+ out <- readDWD(file, fread=fread, ...)
+ out <- out[out$MESS_DATUM > as.POSIXct(as.Date("2014-01-01")) & 
+            out$MESS_DATUM < as.POSIXct(as.Date("2016-12-31"))    , ]
+ out <- out[ , c("MESS_DATUM", "RS")]
+ out$MESS_DATUM <- as.Date(out$MESS_DATUM) # might save some memory space...
+ # Station id as column name:
+ idstringloc <- unlist(gregexpr(pattern="tageswerte_RR_", file))
+ idstring <- substring(file, idstringloc+14, idstringloc+18)
+ colnames(out) <- c("date",  idstring)
+ return(out)
+}
+str(read2014_2016(localfiles[1])) # test looks good
+```
+
+Now let's apply this to all our files and merge the result.
+
+```{r hourlyrain_data_reading, message=FALSE}
+library(pbapply) # progress bar for lapply loop
+
+rain_list <- pblapply(localfiles, read2014_2016)
+rain_df <- Reduce(function(...) merge(..., all=T), rain_list)
+str(rain_df) # looks nice!
+summary(rain_df) # 9 NAs in station 00006
+```
+
+
+## visual data checks
+
+```{r hourlyrain_vis, fig.height=3, fig.width=6}
+plot(rain_df$date, rain_df[,2], type="n", ylim=range(rain_df[,-1], na.rm=T), 
+     las=1, xaxt="n", xlab="Date", ylab="Daily rainfall sum  [mm]")
+berryFunctions::monthAxis()
+for(i in 2:ncol(rain_df)) lines(rain_df$date, rain_df[,i], col=sample(colours(), size=1))
+
+plot(rain_df[,2:4]) # correlation plot only works for a few columns!
+```
+
+Let's see the locations of our stations in an interactive map.
+
+```{r hourlyrain_map_interactive, warning=FALSE, fig.height=3, fig.width=6}
+data(geoIndex)  ;  library(leaflet) 
+mygeoIndex <- geoIndex[geoIndex$id %in% as.numeric(colnames(rain_df)[-1]),]
+
+leaflet(data=mygeoIndex) %>% addTiles() %>%
+        addCircleMarkers(~lon, ~lat, popup=~display, stroke=T)
+```    
+
+For a static map with scaleBar, OSMscale works nicely but has a Java dependency, see
+<https://github.com/brry/OSMscale#installation>
+
+```{r hourlyrain_map_static, message=FALSE, fig.height=2, fig.width=6}
+library(OSMscale)
+pointsMap("lat", "lon", mygeoIndex, fx=2, fy=1, pargs=list(lwd=3), 
+                    col="blue", zoom=5)
+```    
+
+
+
+
+# - use case: plot all rainfall values around a given point
+
+## Find meteo stations around a given point
+
+```{r rainregion_nearbyStations, message=FALSE}
+m <- nearbyStations(49.211784, 9.812475, radius=30,
+    res=c("daily","hourly"), var=c("precipitation","more_precip","kl"),
+    mindate=20160530, statname="Braunsbach catchment center")
+# Remove duplicates. if kl and more_precip are both available, keep only more_precip:
+library("berryFunctions")
+m <- sortDF(m, "var")
+m <- m[!duplicated(paste0(m$Stations_id, m$res)),]
+m <- sortDF(m, "res")
+m <- sortDF(m, "dist", decreasing=FALSE)
+rownames(m) <- NULL
+DT::datatable(m, options=list(pageLength=5, scrollX=TRUE))
+```
+
+Interactive map of just the meteo station locations:
+```{r rainregion_interactive_map, message=FALSE, fig.height=3, fig.width=4}
+library(leaflet)
+m$col <- "red" ; m$col[1] <- "blue"
+leaflet(m) %>% addTiles() %>%
+  addCircles(lng=9.812475, lat=49.211784, radius=30e3) %>%
+  addCircleMarkers(~geoLaenge, ~geoBreite, col=~col, popup=~Stationsname)
+```
+
+## Download and process data
+
+Download and process data for the stations, get the rainfall sums of a particular day (Braunsbach flood May 2016):
+```{r rainregion_download_data, message=FALSE, warning=FALSE}
+prec <- dataDWD(m$url, fread=TRUE, dir="../localdata")
+names(prec) <- m$Stations_id[-1]
+prec29 <- sapply(prec[m$res[-1]=="daily"], function(x)
+         {
+         if(nrow(x)==0) return(NA)
+         col <- "RS"
+         if(!col %in% colnames(x)) col <- "R1"
+         if(!col %in% colnames(x)) col <- "RSK"
+         x[x$MESS_DATUM==as.POSIXct(as.Date("2016-05-29")), col]
+         })
+prec29 <- data.frame(Stations_id=names(prec29), precsum=unname(prec29))
+prec29 <- merge(prec29, m[m$res=="daily",c(1,4:7,14)], sort=FALSE)
+head(prec29[,-7]) # don't show url column with long urls
+```
+
+7 of the files contain no rows. readDWD warns about this (but the warnings are suppressed in this vignette).  
+One example is daily/more_precip/historical/tageswerte_RR_07495_20070114_20181231_hist.zip
+
+## Plot rainfall sum on map
+
+For a quick look without a map, this works:
+```{r rainregion_static_points, eval=FALSE}
+plot(geoBreite~geoLaenge, data=m, asp=1)
+textField(prec29$geoLaenge, prec29$geoBreite, prec29$precsum, col=2)
+```
+
+But it's nicer to have an actual map.
+If OSMscale installation fails, go to <https://github.com/brry/OSMscale#installation>
+```{r rainregion_static_map, message=FALSE, fig.height=4.1, fig.width=4}
+library(OSMscale)
+map <- pointsMap(geoBreite,geoLaenge, data=m, type="osm", plot=FALSE)
+pp <- projectPoints("geoBreite", "geoLaenge", data=prec29, to=map$tiles[[1]]$projection)
+prec29 <- cbind(prec29,pp) ; rm(pp)
+pointsMap(geoBreite,geoLaenge, data=m, map=map, scale=FALSE)
+textField(prec29$x, prec29$y, round(prec29$precsum), font=2, cex=1.5)
+scaleBar(map, cex=1.5, type="line", y=0.82)
+title(main="Rainfall sum  2016-05-29  7AM-7AM  [mm]", line=-1)
+```
+
+
+# - use case: map climate data to Landkreise
+
+Shapefile of Landkreis districts:  
+<https://public.opendatasoft.com/explore/dataset/landkreise-in-germany/export/>
+(file size 4 MB, unzipped 10 MB)
+
+## find available meteo stations for each district
+
+```{r climdistrict_data_selection}
+# Select monthly climate data:
+data("metaIndex") ; m <- metaIndex
+m <- m[m$res=="monthly" & m$var=="kl" & m$per=="recent" & m$hasfile, ]
+# Transform into spatial object:
+msf <- sf::st_as_sf(m, coords=c("geoLaenge", "geoBreite"), crs=4326)
+
+# Read district shapefile, see link above:
+lk <- sf::st_read("landkreise-in-germany.shp", quiet=TRUE)
+
+# intersections: list with msf rownumbers for each district:
+int <- sf::st_intersects(lk, msf)
+```
+
+<https://gis.stackexchange.com/a/318629/36710>
+
+```{r climdistrict_plot, fig.height=5}
+# plot to check projection:
+plot(lk[,"id_2"], reset=FALSE)
+colPoints("geoLaenge", "geoBreite", "Stationshoehe", data=m, add=T, legend=F)
+# berryFunctions::colPointsLegend + sf plots = set margins, see note there!
+axis(1, line=-1); axis(2, line=-1, las=1)
+points(m[int[[2]], c("geoLaenge", "geoBreite")], pch=16, col=2, cex=1.8)
+```
+
+
+## Average data per district
+
+Running analysis for a few selected districts only to reduce computation time.  
+Monthly rainfall average per Landkreis.
+```{r climdistrict_data_download}
+landkreis_rain <- function(lki) # LandKreisIndex (row number in lk)
+{
+rnr <- int[[lki]] # msf row number
+if(length(rnr)<1)
+  {
+  warning("No rainfall data available for Landkreis ", lki, ": ", lk$name_2[lki], call.=FALSE)
+  out <- data.frame(NA,NA)[FALSE,]
+  colnames(out) <- c("MESS_DATUM", as.character(lk$name_2[lki]))
+  return(out)
+  }
+urls <- selectDWD(id=m[rnr, "Stations_id"], # set dir if needed
+                  res="monthly", var="kl", per="r", outvec=TRUE)
+clims <- dataDWD(urls, varnames=FALSE, quiet=TRUE, dir="../localdata")
+if(length(urls)==1) 
+  {rainmean <- clims$MO_RR 
+  monthlyrain <- clims[c("MESS_DATUM", "MO_RR")]
+  } else
+{
+monthlyrain <- lapply(seq_along(clims), function(n) 
+ {
+ out <- clims[[n]][c("MESS_DATUM", "MO_RR")]
+ colnames(out)[2] <- names(clims)[n] # no duplicate names
+ out
+ })
+monthlyrain <- Reduce(function(...) merge(..., by="MESS_DATUM",all=TRUE), monthlyrain)
+rainmean <- rowMeans(monthlyrain[,-1], na.rm=TRUE) # check also with median, variation is huge!
+}
+out <- data.frame(monthlyrain[,1], rainmean)
+colnames(out) <- c("MESS_DATUM", as.character(lk$name_2[lki]))
+return(out)
+}
+
+rainLK <- pbapply::pblapply(c(133,277,300,389), landkreis_rain)
+rainLK <- Reduce(function(...) merge(..., by="MESS_DATUM",all=TRUE), rainLK)
+head(rainLK)
+```
