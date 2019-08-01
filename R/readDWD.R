@@ -26,7 +26,8 @@
 #'         return raster objects instead of data.frames.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jul-Oct 2016, Winter 2018/19
 #' @seealso \code{\link{dataDWD}}, \code{\link{readVars}}, 
-#'          \code{\link{readMeta}}, \code{\link{selectDWD}}
+#'          \code{\link{readMeta}}, \code{\link{selectDWD}}\cr
+#'          \url{https://bookdown.org/brry/rdwd}
 #' @keywords file chron
 #' @importFrom utils read.table unzip read.fwf untar write.table
 #' @importFrom berryFunctions checkFile na9 traceCall l2df owa

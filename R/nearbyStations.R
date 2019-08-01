@@ -14,8 +14,9 @@
 #'     mindate=20160530, statname="Braunsbach catchment center")
 #' # View(m)
 #'     
-#' # see the use cases vignette for a continued example of this:
-#' vignette("cases")
+#' # for a continued example of this, see the vignette in chapter
+#' # use case: plot all rainfall values around a given point
+#' # browseURL("https://bookdown.org/brry/rdwd")
 #' 
 #' @param lat         Coordinates y component [degrees N/S, range 47:55]
 #' @param lon         Coordinates x component [degrees E/W, range 6:15]

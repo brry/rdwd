@@ -16,7 +16,8 @@
 #'         If length(file)>1, the output is a list of data.frames / vector of filenames.\cr
 #'         The output is always invisible.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jun-Oct 2016
-#' @seealso \code{\link{selectDWD}}. \code{\link{readDWD}}, \code{\link{download.file}}.
+#' @seealso \code{\link{selectDWD}}. \code{\link{readDWD}}, \code{\link{download.file}}.\cr
+#'          \url{https://bookdown.org/brry/rdwd}\cr
 #'          Helpful for plotting: \code{berryFunctions::\link[berryFunctions]{monthAxis}},
 #'          see also \code{berryFunctions::\link[berryFunctions]{climateGraph}}
 #' @keywords data file
@@ -58,8 +59,8 @@
 #' #links <- selectDWD(res="daily", var="solar")
 #' #sol <- dataDWD(links, sleep=20) # random waiting time after download (0 to 20 secs)
 #' 
-#' # Real life examples can be found in the use cases vignette:
-#' vignette("cases")
+#' # Real life examples can be found in the use cases section of the vignette:
+#' # browseURL("https://bookdown.org/brry/rdwd")
 #' }
 #' 
 #' @param file   Char (vector): complete file URL(s) (including base and filename.zip) as returned by

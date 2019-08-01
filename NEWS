@@ -4,12 +4,16 @@ rdwd ToDo-list / wishlist / issues
 - readRadarFile: check with RX file, see if NA assignment is redundant
 - readDWD.nc for grids_germany/daily/Project_TRY ?
 - readDWD.asc gridbase now on new server
-- move vignettes to bookdown page, restructure, include a referral vig in rdwd?
 - call (simplified) Fortran functions through C interface, see PR #6
-- use case example phenology data, see issue #8
 - ftp://opendata.dwd.de/climate_environment/CDC/grids_germany/hourly/radolan/recent/bin/
 - indexFTP: read tree with data.table/vroom
-- create overview slide (see below)
+
+vignette ToDos: 
+- pack struct + stat sel: less overlap
+- rast dat: add overview
+- more use of linking to docs with `r helplink("some_function")`
+- use case example phenology data, see issue #8
+- use case / test multi_annual data
 
 
 overview slides: short + verbose

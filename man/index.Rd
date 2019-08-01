@@ -49,7 +49,7 @@ head(geoIndex)
 \seealso{
 \code{\link{createIndex}}, \code{\link{indexFTP}}, \code{\link{selectDWD}},
          \code{\link{findID}}, \code{\link{metaInfo}},
-         \href{../doc/mapDWD.html}{\code{vignette("mapDWD")}}
+         \url{https://bookdown.org/brry/rdwd}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, June-Nov 2016, June 2017

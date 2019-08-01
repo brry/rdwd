@@ -89,7 +89,8 @@ also be a vector and will be recycled to the length of \code{file}.
 }
 \seealso{
 \code{\link{dataDWD}}, \code{\link{readVars}}, 
-         \code{\link{readMeta}}, \code{\link{selectDWD}}
+         \code{\link{readMeta}}, \code{\link{selectDWD}}\cr
+         \url{https://bookdown.org/brry/rdwd}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Jul-Oct 2016, Winter 2018/19

@@ -45,8 +45,9 @@ m <- nearbyStations(49.211784, 9.812475, radius=30,
     mindate=20160530, statname="Braunsbach catchment center")
 # View(m)
     
-# see the use cases vignette for a continued example of this:
-vignette("cases")
+# for a continued example of this, see the vignette in chapter
+# use case: plot all rainfall values around a given point
+# browseURL("https://bookdown.org/brry/rdwd")
 
 }
 \seealso{

@@ -103,13 +103,14 @@ potsdam <- potsdam[!duplicated(potsdam$MESS_DATUM),]
 #links <- selectDWD(res="daily", var="solar")
 #sol <- dataDWD(links, sleep=20) # random waiting time after download (0 to 20 secs)
 
-# Real life examples can be found in the use cases vignette:
-vignette("cases")
+# Real life examples can be found in the use cases section of the vignette:
+# browseURL("https://bookdown.org/brry/rdwd")
 }
 
 }
 \seealso{
-\code{\link{selectDWD}}. \code{\link{readDWD}}, \code{\link{download.file}}.
+\code{\link{selectDWD}}. \code{\link{readDWD}}, \code{\link{download.file}}.\cr
+         \url{https://bookdown.org/brry/rdwd}\cr
          Helpful for plotting: \code{berryFunctions::\link[berryFunctions]{monthAxis}},
          see also \code{berryFunctions::\link[berryFunctions]{climateGraph}}
 }

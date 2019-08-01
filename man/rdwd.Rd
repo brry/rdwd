@@ -4,16 +4,16 @@
 \name{rdwd}
 \alias{rdwd}
 \alias{rdwd-package}
-\title{Download Climate Data from DWD (German Weather Service)}
+\title{Handle Climate Data from DWD (German Weather Service)}
 \description{
-Select weather data from the DWD (Deutscher Wetterdienst) with
-\code{\link{selectDWD}} or \code{\link{nearbyStations}}. \cr
-Download and process data sets with \code{\link{dataDWD}} and \code{\link{readDWD}}.\cr
-Station selection is done offline with \code{\link{fileIndex}} and
-\code{\link{findID}} (which uses \code{\link{metaIndex}}).\cr
-The Index objects are created with \code{\link{indexFTP}} and \code{\link{createIndex}}.\cr
-For an introduction to the package, see the \href{../doc/rdwd.html}{main vignette}.\cr
-For an overview of available data, see \code{\link{selectDWD}}.\cr
+- find, select, download + read data from the German weather service DWD\cr
+- vectorized, progress bars, no re-downloads\cr
+- index of files + meta data\cr
+- observational time series from 6k meteorological recording stations (2.5k active)\cr
+  -> rain, temperature, wind, sunshine, pressure, cloudiness, humidity, snow, ...\cr
+- gridded raster data from radar + interpolation\cr
+- european data stock slowly growing\cr
+For an introduction to the package, see \url{https://bookdown.org/brry/rdwd}.\cr
 }
 \section{Searchability Terms}{
 
