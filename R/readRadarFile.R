@@ -2,23 +2,24 @@
 #' @description Read a single binary DWD Radolan file.
 #'   To be used in \code{\link{readDWD.binary}}.\cr
 #'   If any files ar not read correctly, please let me know. So far, tests have 
-#'   only been conducted for daily SF files. Optimally, check the 
+#'   only been conducted for some files. Optimally, check the 
 #'   Kompositformatbeschreibung at \url{https://www.dwd.de/DE/leistungen/radolan/radolan.html}
 #'   and let me know what needs to be changed.\cr
 #'   Binary bits are converted to decimal numbers with Fortran routines, see
 #'   \url{https://github.com/brry/rdwd/tree/master/src}. 
 #'   They are called in an unexported function called \code{bin2num}.
-#' @return A list with dat (matrix) and meta (list with elements from header, 
-#'   see Kompositformatbeschreibung)
+#' @return Invisible list with \code{dat} (matrix) and \code{meta} 
+#' (list with elements from header, see Kompositformatbeschreibung)
 #' @author Maintained by Berry Boessenkool, \email{berry-b@@gmx.de}, May 2019.\cr
 #'   Original codebase by Henning Rust & Christoph Ritschel at FU Berlin
-#' @seealso \code{\link{readDWD.binary}}
+#' @seealso \code{\link{readDWD.binary}}, \code{\link{readDWD.radar}}
 #' @keywords file binary
 #' @useDynLib rdwd, .registration=TRUE
 # @importFrom package fun1 fun2
-# @export
+#' @export
 #' @examples
-#' # see readDWD.binary
+#' # See readDWD.radar and readDWD.binary
+#' 
 #' @param binfile Name of a single binary file
 #' @param na      Value to be set for missing data (bit 14). DEFAULT: NA
 #' @param clutter Value to be set for clutter data (bit 16). DEFAULT: NA
@@ -126,6 +127,8 @@ return(list(dat=dat.mat, meta=meta))
 if(inherits(finalOut,"try-error")) warning(finalOut, "in file: ", binfile, call.=FALSE)
 return(invisible(finalOut))
 }
+
+
 
 
 

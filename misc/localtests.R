@@ -59,7 +59,7 @@ testReadRad <- function(file, ext="radolan")
   {
   main <- deparse(substitute(file))
   file2 <- localtestdir(folder="misc", file=file)
-  rrf <- rdwd:::readRadarFile(file2)
+  rrf <- readRadarFile(file2)
   rrr <- raster::raster(rrf$dat)
   rrp <- projectRasterDWD(rrr, extent=ext)
   raster::plot(rrp, main=main)
