@@ -6,9 +6,9 @@
 \usage{
 readDWD(file, progbar = TRUE, fread = FALSE, varnames = FALSE,
   format = NA, tz = "GMT", dividebyten = TRUE,
-  meta = grepl(".txt$", file), multia = grepl("Standort.txt$", file),
-  radar = grepl(".gz$", file), binary = grepl(".tar.gz$", file),
-  raster = grepl(".asc.gz$", file), asc = grepl(".tar$", file), ...)
+  multia = grepl("Standort.txt$", file), meta = grepl(".txt$", file),
+  binary = grepl(".tar.gz$", file), raster = grepl(".asc.gz$", file),
+  radar = grepl(".gz$", file), asc = grepl(".tar$", file), ...)
 }
 \arguments{
 \item{file}{Char (vector): name(s) of the file(s) downloaded with 
@@ -32,18 +32,16 @@ See \code{\link{readDWD.data}}. DEFAULT: FALSE}
 Used in \code{\link{readDWD.raster}} and \code{\link{readDWD.asc}}.
 DEFAULT: TRUE}
 
+\item{multia}{Logical (vector): is the \code{file} a multi_annual file?
+Overrides \code{meta}, so set to FALSE manually if 
+\code{\link{readDWD.meta}} needs to be called on a (manually renamed) 
+Beschreibung file ending with "Standort.txt". 
+See \code{\link{readDWD.multia}}.
+DEFAULT: TRUE for each file ending in "Standort.txt"}
+
 \item{meta}{Logical (vector): is the \code{file} a meta file (Beschreibung.txt)?
 See \code{\link{readDWD.meta}}.
 DEFAULT: TRUE for each file ending in ".txt"}
-
-\item{multia}{Logical (vector): is the \code{file} a multi_annual file?
-Overrides \code{meta}, so set to FALSE manually if 
-\code{\link{readDWD.meta}} needs to be called on a file ending
-with "Standort.txt". See \code{\link{readDWD.multia}}.
-DEFAULT: TRUE for each file ending in "Standort.txt"}
-
-\item{radar}{Logical (vector): does the \code{file} contain a single binary file?
-See \code{\link{readDWD.radar}}.}
 
 \item{binary}{Logical (vector): does the \code{file} contain binary files?
 See \code{\link{readDWD.binary}}.
@@ -52,6 +50,9 @@ DEFAULT: TRUE for each file ending in ".tar.gz"}
 \item{raster}{Logical (vector): does the \code{file} contain a raster file?
 See \code{\link{readDWD.raster}}.
 DEFAULT: TRUE for each file ending in ".asc.gz"}
+
+\item{radar}{Logical (vector): does the \code{file} contain a single binary file?
+See \code{\link{readDWD.radar}}.}
 
 \item{asc}{Logical (vector): does the \code{file} contain asc files?
 See \code{\link{readDWD.asc}}.
@@ -75,11 +76,11 @@ returned as a data.frame.\cr
 New users are advised to set \code{varnames=TRUE} to obtain more informative
 column names.\cr\cr
 \code{readDWD} will call internal (but documented) functions depending on the
-arguments \code{meta, multia, binary, raster, asc}:\cr
+arguments \code{multia, meta, binary, raster, radar, asc}:\cr
 to read observational data: \code{\link{readDWD.data},
-         \link{readDWD.meta}, \link{readDWD.multia}}\cr
-to read interpolated gridded data: \code{\link{readDWD.radar}}, \code{\link{readDWD.binary},
-         \link{readDWD.raster}, \link{readDWD.asc}}\cr
+         \link{readDWD.multia}}, \link{readDWD.meta}\cr
+to read interpolated gridded data: \code{\link{readDWD.binary},
+         \link{readDWD.raster}, \code{\link{readDWD.radar}}, \link{readDWD.asc}}\cr
 Not all arguments to \code{readDWD} are used for all functions, e.g. 
 \code{fread} is used only by \code{.data}, while \code{dividebyten} 
 is used in \code{.raster} and \code{.asc}.\cr\cr

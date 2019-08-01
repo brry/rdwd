@@ -7,11 +7,11 @@
 #' New users are advised to set \code{varnames=TRUE} to obtain more informative
 #' column names.\cr\cr
 #' \code{readDWD} will call internal (but documented) functions depending on the
-#' arguments \code{meta, multia, binary, raster, asc}:\cr
+#' arguments \code{multia, meta, binary, raster, radar, asc}:\cr
 #' to read observational data: \code{\link{readDWD.data},
-#'          \link{readDWD.meta}, \link{readDWD.multia}}\cr
-#' to read interpolated gridded data: \code{\link{readDWD.radar}}, \code{\link{readDWD.binary},
-#'          \link{readDWD.raster}, \link{readDWD.asc}}\cr
+#'          \link{readDWD.multia}}, \link{readDWD.meta}\cr
+#' to read interpolated gridded data: \code{\link{readDWD.binary},
+#'          \link{readDWD.raster}, \code{\link{readDWD.radar}}, \link{readDWD.asc}}\cr
 #' Not all arguments to \code{readDWD} are used for all functions, e.g. 
 #' \code{fread} is used only by \code{.data}, while \code{dividebyten} 
 #' is used in \code{.raster} and \code{.asc}.\cr\cr
@@ -51,22 +51,23 @@
 #' @param dividebyten Logical (vector): Divide the values in raster files by ten?
 #'               Used in \code{\link{readDWD.raster}} and \code{\link{readDWD.asc}}.
 #'               DEFAULT: TRUE
+#' @param multia Logical (vector): is the \code{file} a multi_annual file?
+#'               Overrides \code{meta}, so set to FALSE manually if 
+#'               \code{\link{readDWD.meta}} needs to be called on a (manually renamed) 
+#'               Beschreibung file ending with "Standort.txt". 
+#'               See \code{\link{readDWD.multia}}.
+#'               DEFAULT: TRUE for each file ending in "Standort.txt"
 #' @param meta   Logical (vector): is the \code{file} a meta file (Beschreibung.txt)?
 #'               See \code{\link{readDWD.meta}}.
 #'               DEFAULT: TRUE for each file ending in ".txt"
-#' @param multia Logical (vector): is the \code{file} a multi_annual file?
-#'               Overrides \code{meta}, so set to FALSE manually if 
-#'               \code{\link{readDWD.meta}} needs to be called on a file ending
-#'               with "Standort.txt". See \code{\link{readDWD.multia}}.
-#'               DEFAULT: TRUE for each file ending in "Standort.txt"
-#' @param radar  Logical (vector): does the \code{file} contain a single binary file?
-#'               See \code{\link{readDWD.radar}}.
 #' @param binary Logical (vector): does the \code{file} contain binary files?
 #'               See \code{\link{readDWD.binary}}.
 #'               DEFAULT: TRUE for each file ending in ".tar.gz"
 #' @param raster Logical (vector): does the \code{file} contain a raster file?
 #'               See \code{\link{readDWD.raster}}.
 #'               DEFAULT: TRUE for each file ending in ".asc.gz"
+#' @param radar  Logical (vector): does the \code{file} contain a single binary file?
+#'               See \code{\link{readDWD.radar}}.
 #' @param asc    Logical (vector): does the \code{file} contain asc files?
 #'               See \code{\link{readDWD.asc}}.
 #'               DEFAULT: TRUE for each file ending in ".tar"
@@ -82,11 +83,11 @@ varnames=FALSE,
 format=NA,
 tz="GMT",
 dividebyten=TRUE,
-meta=  grepl(        '.txt$', file),
 multia=grepl('Standort.txt$', file),
-radar =grepl(         '.gz$', file),
+meta=  grepl(        '.txt$', file),
 binary=grepl(     '.tar.gz$', file),
 raster=grepl(     '.asc.gz$', file),
+radar =grepl(         '.gz$', file),
 asc=   grepl(        '.tar$', file),
 ...
 )
@@ -102,11 +103,11 @@ if(len>1)
   format      <- rep(format,      length.out=len)
   tz          <- rep(tz,          length.out=len)
   dividebyten <- rep(dividebyten, length.out=len)
-  meta        <- rep(meta,        length.out=len)
   multia      <- rep(multia,      length.out=len)
-  radar       <- rep(radar,       length.out=len)
+  meta        <- rep(meta,        length.out=len)
   binary      <- rep(binary,      length.out=len)
   raster      <- rep(raster,      length.out=len)
+  radar       <- rep(radar,       length.out=len)
   asc         <- rep(asc,         length.out=len) 
   }
 meta[multia] <- FALSE
@@ -134,11 +135,11 @@ if(progbar) message("Reading ", length(file), " file", if(length(file)>1)"s", ".
 output <- lapply(seq_along(file), function(i)
 {
 # if meta/multia/radar/binary/raster/asc:
-if(meta[i])   return(readDWD.meta(  file[i], ...))
 if(multia[i]) return(readDWD.multia(file[i], ...))
-if(radar[i])  return(readDWD.radar( file[i], ...))
+if(meta[i])   return(readDWD.meta(  file[i], ...))
 if(binary[i]) return(readDWD.binary(file[i], progbar=progbar, ...))
 if(raster[i]) return(readDWD.raster(file[i], dividebyten=dividebyten[i], ...))
+if(radar[i])  return(readDWD.radar( file[i], ...))
 if(asc[i])    return(readDWD.asc(   file[i], progbar=progbar, dividebyten=dividebyten[i], ...))
 # if data:
 readDWD.data(file[i], fread=fread[i], varnames=varnames[i], 
@@ -237,6 +238,76 @@ return(dat)
 
 
 
+# ~ multia ----
+
+#' @title read multi_annual dwd data
+#' @description read multi_annual dwd data. 
+#' Intended to be called via \code{\link{readDWD}}.\cr
+#' All other observational data at \code{\link{dwdbase}} can be read
+#' with \code{\link{readDWD.data}}, except for the multi_annual data.
+#' @return data.frame
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Feb 2019
+#' @seealso \code{\link{readDWD}}
+#' @examples
+#' \dontrun{ # Excluded from CRAN checks, but run in localtests
+#' 
+#' # Temperature aggregates (2019-04 the 9th file):
+#' durl <- selectDWD(res="multi_annual", var="mean_81-10", per="")[9]
+#' murl <- selectDWD(res="multi_annual", var="mean_81-10", per="", meta=TRUE)[9]
+#' 
+#' ma_temp <- dataDWD(durl, dir=localtestdir())
+#' ma_meta <- dataDWD(murl, dir=localtestdir())
+#' 
+#' head(ma_temp)
+#' head(ma_meta)
+#' 
+#' ma <- merge(ma_meta, ma_temp, all=TRUE)
+#' berryFunctions::linReg(ma$Stationshoehe, ma$Jahr)
+#' op <- par(mfrow=c(3,4), mar=c(0.1,2,2,0), mgp=c(3,0.6,0))
+#' for(m in colnames(ma)[8:19])
+#'   {
+#'   berryFunctions::linReg(ma$Stationshoehe, ma[,m], xaxt="n", xlab="", ylab="", main=m)
+#'   abline(h=0)
+#'   }
+#' par(op)
+#' 
+#' par(bg=8)
+#' berryFunctions::colPoints(ma$geogr..Laenge, ma$geogr..Breite, ma$Jahr, add=F, asp=1.4)
+#' 
+#' data("DEU")
+#' pdf("MultiAnn.pdf", width=8, height=10)
+#' par(bg=8)
+#' for(m in colnames(ma)[8:19])
+#'   {
+#'   raster::plot(DEU, border="darkgrey")
+#'   berryFunctions::colPoints(ma[-262,]$geogr..Laenge, ma[-262,]$geogr..Breite, ma[-262,m], 
+#'                             asp=1.4, # Range=range(ma[-262,8:19]), 
+#'                             col=berryFunctions::divPal(200, rev=TRUE), zlab=m, add=T)
+#'   }
+#' dev.off()
+#' berryFunctions::openFile("MultiAnn.pdf")
+#' }
+#' @param file  Name of file on harddrive, like e.g. 
+#'              DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_aktStandort.txt or
+#'              DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_Stationsliste_aktStandort.txt
+#' @param fileEncoding \link{read.table} \link{file} encoding.
+#'              DEFAULT: "latin1" (needed on Linux, optional but not hurting on windows)
+#' @param comment.char \link{read.table} comment character.
+#'              DEFAULT: "\\032" (needed 2019-04 to ignore the binary 
+#'              control character at the end of multi_annual files)
+#' @param \dots Further arguments passed to \code{\link{read.table}}
+readDWD.multia <- function(file, fileEncoding="latin1", comment.char="\032", ...)
+{
+out <- read.table(file, sep=";", header=TRUE, fileEncoding=fileEncoding, 
+                  comment.char=comment.char, ...)
+nc <- ncol(out)
+# presumably, all files have a trailing empty column...
+if(colnames(out)[nc]=="X") out <- out[,-nc]
+out
+}
+
+
+
 # ~ meta ----
 
 #' @title read dwd metadata (Beschreibung*.txt files)
@@ -316,137 +387,7 @@ stats
 
 
 
-# ~ multia ----
-
-#' @title read multi_annual dwd data
-#' @description read multi_annual dwd data. 
-#' Intended to be called via \code{\link{readDWD}}.\cr
-#' All other observational data at \code{\link{dwdbase}} can be read
-#' with \code{\link{readDWD.data}}, except for the multi_annual data.
-#' @return data.frame
-#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Feb 2019
-#' @seealso \code{\link{readDWD}}
-#' @examples
-#' \dontrun{ # Excluded from CRAN checks, but run in localtests
-#' 
-#' # Temperature aggregates (2019-04 the 9th file):
-#' durl <- selectDWD(res="multi_annual", var="mean_81-10", per="")[9]
-#' murl <- selectDWD(res="multi_annual", var="mean_81-10", per="", meta=TRUE)[9]
-#' 
-#' ma_temp <- dataDWD(durl, dir=localtestdir())
-#' ma_meta <- dataDWD(murl, dir=localtestdir())
-#' 
-#' head(ma_temp)
-#' head(ma_meta)
-#' 
-#' ma <- merge(ma_meta, ma_temp, all=TRUE)
-#' berryFunctions::linReg(ma$Stationshoehe, ma$Jahr)
-#' op <- par(mfrow=c(3,4), mar=c(0.1,2,2,0), mgp=c(3,0.6,0))
-#' for(m in colnames(ma)[8:19])
-#'   {
-#'   berryFunctions::linReg(ma$Stationshoehe, ma[,m], xaxt="n", xlab="", ylab="", main=m)
-#'   abline(h=0)
-#'   }
-#' par(op)
-#' 
-#' par(bg=8)
-#' berryFunctions::colPoints(ma$geogr..Laenge, ma$geogr..Breite, ma$Jahr, add=F, asp=1.4)
-#' 
-#' data("DEU")
-#' pdf("MultiAnn.pdf", width=8, height=10)
-#' par(bg=8)
-#' for(m in colnames(ma)[8:19])
-#'   {
-#'   raster::plot(DEU, border="darkgrey")
-#'   berryFunctions::colPoints(ma[-262,]$geogr..Laenge, ma[-262,]$geogr..Breite, ma[-262,m], 
-#'                             asp=1.4, # Range=range(ma[-262,8:19]), 
-#'                             col=berryFunctions::divPal(200, rev=TRUE), zlab=m, add=T)
-#'   }
-#' dev.off()
-#' berryFunctions::openFile("MultiAnn.pdf")
-#' }
-#' @param file  Name of file on harddrive, like e.g. 
-#'              DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_aktStandort.txt or
-#'              DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_Stationsliste_aktStandort.txt
-#' @param fileEncoding \link{read.table} \link{file} encoding.
-#'              DEFAULT: "latin1" (needed on Linux, optional but not hurting on windows)
-#' @param comment.char \link{read.table} comment character.
-#'              DEFAULT: "\\032" (needed 2019-04 to ignore the binary 
-#'              control character at the end of multi_annual files)
-#' @param \dots Further arguments passed to \code{\link{read.table}}
-readDWD.multia <- function(file, fileEncoding="latin1", comment.char="\032", ...)
-{
-out <- read.table(file, sep=";", header=TRUE, fileEncoding=fileEncoding, 
-                  comment.char=comment.char, ...)
-nc <- ncol(out)
-# presumably, all files have a trailing empty column...
-if(colnames(out)[nc]=="X") out <- out[,-nc]
-out
-}
-
-
-
 # read gridded data ----
-
-# ~ radar ----
-
-#' @title read dwd gridded radolan radar data
-#' @description read gridded radolan radar data.
-#' Intended to be called via \code{\link{readDWD}}.\cr
-#' @return Invisible list with \code{dat} (matrix or raster, depending on \code{toraster}) 
-#' and \code{meta} (list with elements from header)
-#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019. 
-#'         Significant input for the underlying \code{\link{readRadarFile}} came
-#'         from Henning Rust & Christoph Ritschel at FU Berlin.
-#' @seealso \code{\link{readDWD}}, especially \code{\link{readDWD.binary}}\cr
-#'   \url{https://wradlib.org} for much more extensive radar analysis in Python\cr
-#'   Kompositformatbeschreibung at \url{https://www.dwd.de/DE/leistungen/radolan/radolan.html}
-#'   for format description
-#' @examples
-#' \dontrun{ # Excluded from CRAN checks, but run in localtests
-#' # recent radar files 
-#' rrf <- indexFTP("hourly/radolan/recent/bin", base=gridbase, dir=tempdir())
-#' lrf <- dataDWD(rrf[773], base=gridbase, joinbf=TRUE, dir=tempdir(), read=FALSE)
-#' r <- readDWD(lrf)
-#' 
-#' rp <- projectRasterDWD(r$dat)
-#' raster::plot(rp, main=r$meta$date)
-#' addBorders()
-#' }
-#' @param file      Name of file on harddrive, like e.g. 
-#'                  DWDdata/hourly/radolan/recent/bin/
-#'                  raa01-rw_10000-1802020250-dwd---bin.gz
-#' @param gargs     Named list of arguments passed to 
-#'                  \code{R.utils::\link[R.utils]{gunzip}}. The internal 
-#'                  defaults are: \code{remove=FALSE} (recommended to keep this
-#'                  so \code{file} does not get deleted) and \code{skip=TRUE}
-#'                  (which reads previously unzipped files as is).
-#'                  If \code{file} has changed, you might want to use 
-#'                  \code{gargs=list(skip=FALSE, overwrite=TRUE)}
-#'                  or alternatively \code{gargs=list(temporary=TRUE)}.
-#'                  The \code{gunzip} default \code{destname} means that the 
-#'                  unzipped file is stored at the same path as \code{file}.
-#'                  DEFAULT gargs: NULL
-#' @param toraster  Logical: convert output (list of matrixes + meta informations)
-#'                  to a list with data (\code{raster \link[raster]{stack}}) + 
-#'                  meta (list from the first subfile, but with vector of dates)?
-#'                  DEFAULT: TRUE
-#' @param \dots     Further arguments passed to \code{\link{readRadarFile}}, 
-#'                  i.e. \code{na} and \code{clutter}
-readDWD.radar <- function(file, gargs=NULL, toraster=TRUE, ...)
-{
-checkSuggestedPackage("R.utils", "rdwd:::readDWD.radar")
-# gunzip arguments:
-gdef <- list(filename=file, remove=FALSE, skip=TRUE)
-gfinal <- berryFunctions::owa(gdef, gargs, "filename")
-rdata <- do.call(R.utils::gunzip, gfinal)
-rf <- readRadarFile(rdata, ...)
-if(toraster) checkSuggestedPackage("raster", "rdwd:::readDWD.radar with toraster=TRUE")
-if(toraster) rf$dat <- raster::raster(rf$dat)
-return(invisible(rf))
-}
-
-
 
 # ~ binary ----
 
@@ -631,6 +572,66 @@ rdata <- do.call(R.utils::gunzip, gfinal)
 r <- raster::raster(rdata, ...)
 if(dividebyten) r <- r/10
 return(invisible(r))
+}
+
+
+
+# ~ radar ----
+
+#' @title read dwd gridded radolan radar data
+#' @description read gridded radolan radar data.
+#' Intended to be called via \code{\link{readDWD}}.\cr
+#' @return Invisible list with \code{dat} (matrix or raster, depending on \code{toraster}) 
+#' and \code{meta} (list with elements from header)
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019. 
+#'         Significant input for the underlying \code{\link{readRadarFile}} came
+#'         from Henning Rust & Christoph Ritschel at FU Berlin.
+#' @seealso \code{\link{readDWD}}, especially \code{\link{readDWD.binary}}\cr
+#'   \url{https://wradlib.org} for much more extensive radar analysis in Python\cr
+#'   Kompositformatbeschreibung at \url{https://www.dwd.de/DE/leistungen/radolan/radolan.html}
+#'   for format description
+#' @examples
+#' \dontrun{ # Excluded from CRAN checks, but run in localtests
+#' # recent radar files 
+#' rrf <- indexFTP("hourly/radolan/recent/bin", base=gridbase, dir=tempdir())
+#' lrf <- dataDWD(rrf[773], base=gridbase, joinbf=TRUE, dir=tempdir(), read=FALSE)
+#' r <- readDWD(lrf)
+#' 
+#' rp <- projectRasterDWD(r$dat)
+#' raster::plot(rp, main=r$meta$date)
+#' addBorders()
+#' }
+#' @param file      Name of file on harddrive, like e.g. 
+#'                  DWDdata/hourly/radolan/recent/bin/
+#'                  raa01-rw_10000-1802020250-dwd---bin.gz
+#' @param gargs     Named list of arguments passed to 
+#'                  \code{R.utils::\link[R.utils]{gunzip}}. The internal 
+#'                  defaults are: \code{remove=FALSE} (recommended to keep this
+#'                  so \code{file} does not get deleted) and \code{skip=TRUE}
+#'                  (which reads previously unzipped files as is).
+#'                  If \code{file} has changed, you might want to use 
+#'                  \code{gargs=list(skip=FALSE, overwrite=TRUE)}
+#'                  or alternatively \code{gargs=list(temporary=TRUE)}.
+#'                  The \code{gunzip} default \code{destname} means that the 
+#'                  unzipped file is stored at the same path as \code{file}.
+#'                  DEFAULT gargs: NULL
+#' @param toraster  Logical: convert output (list of matrixes + meta informations)
+#'                  to a list with data (\code{raster \link[raster]{stack}}) + 
+#'                  meta (list from the first subfile, but with vector of dates)?
+#'                  DEFAULT: TRUE
+#' @param \dots     Further arguments passed to \code{\link{readRadarFile}}, 
+#'                  i.e. \code{na} and \code{clutter}
+readDWD.radar <- function(file, gargs=NULL, toraster=TRUE, ...)
+{
+checkSuggestedPackage("R.utils", "rdwd:::readDWD.radar")
+# gunzip arguments:
+gdef <- list(filename=file, remove=FALSE, skip=TRUE)
+gfinal <- berryFunctions::owa(gdef, gargs, "filename")
+rdata <- do.call(R.utils::gunzip, gfinal)
+rf <- readRadarFile(rdata, ...)
+if(toraster) checkSuggestedPackage("raster", "rdwd:::readDWD.radar with toraster=TRUE")
+if(toraster) rf$dat <- raster::raster(rf$dat)
+return(invisible(rf))
 }
 
 
