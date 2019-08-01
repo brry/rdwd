@@ -256,6 +256,7 @@ return(invisible(available))
 
 #' Map of German states (Bundeslaender) from GADM through the \code{raster} package
 #' @name DEU
+#' @seealso \code{\link{EUR}}
 #' @details Obtained with the code: \cr
 #' \code{DEU1 <- raster::getData("GADM", country="DEU", level=1)}\cr
 #' \code{DEU <- rgeos::gSimplify(DEU1, tol=0.02, topologyPreserve=FALSE)}\cr
@@ -267,6 +268,25 @@ return(invisible(available))
 #' @format Formal class 'SpatialPolygons' [package "sp"] with 4 slots
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, May 2018
 #' @keywords datasets
+data(DEU, envir=environment())
+
+
+# EUR Map dataset --------------------------------------------------------------
+
+#' Map of Western European countries through the \code{rworldmap} package
+#' @name EUR
+#' @seealso \code{\link{DEU}}
+#' @details Obtained with the code: \cr
+#' \code{EUR <- rworldmap::getMap("low")}\cr
+#' \code{EUR <- raster::crop(EUR, c(-5,20, 40,60)) }\cr
+#' \code{raster::plot(EUR)}\cr
+#' \code{save(EUR,        file="data/EUR.rda")}\cr
+#' \code{tools::resaveRdaFiles("data/EUR.rda")}\cr
+#' @docType data
+#' @format SpatialPolygonsDataFrame [package "sp"] with 32 rows
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019
+#' @keywords datasets
+data(EUR, envir=environment())
 
 
 
