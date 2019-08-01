@@ -3,10 +3,8 @@ rdwd ToDo-list / wishlist / issues
 - readDWD.data: figure out reason for fread trouble (reported in emails by some users)
 - readRadarFile: check with RX file, see if NA assignment is redundant
 - readDWD.nc for grids_germany/daily/Project_TRY ?
-- readDWD.asc gridbase now on new server
 - call (simplified) Fortran functions through C interface, see PR #6
 - indexFTP: read tree with data.table/vroom
-- DEU: EUR dataset with neighbouring countries
 
 vignette ToDos: 
 - pack struct + stat sel: less overlap
@@ -14,26 +12,6 @@ vignette ToDos:
 - more use of linking to docs with `r helplink("some_function")`
 - use case example phenology data, see issue #8
 - use case / test multi_annual data
-
-
-overview slides: short + verbose
-
-rdwd: R interface to German weather service (DWD)
-- select, download + read data
-- time series from meteorological stations
-- raster data from radar + interpolation
-- github.com/brry/rdwd
-
-
-rdwd: handle German weather data with R   -  github.com/brry/rdwd    -   on CRAN
-- find, select, download + read data from the German weather service DWD
-- vectorized, progress bars, no re-downloads
-- index of files + meta data
-- observational time series from 6k meteorological recording stations (2.5k active)
-  -> rain, temperature, wind, sunshine, pressure, cloudiness, humidity, snow, ...
-- gridded raster data from radar + interpolation
-- european data stock slowly growing
-
 
 
 
