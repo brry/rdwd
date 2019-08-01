@@ -48,8 +48,7 @@ r <- readDWD(lrf)
 
 rp <- projectRasterDWD(r$dat)
 raster::plot(rp, main=r$meta$date)
-data(DEU)
-raster::plot(DEU, add=TRUE)
+addBorders()
 }
 }
 \seealso{

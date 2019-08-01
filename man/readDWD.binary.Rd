@@ -57,8 +57,7 @@ if(length(SF_rad)!=2) stop("length(SF_rad) should be 2, but is ", length(SF_rad)
 
 SF_radp <- projectRasterDWD(SF_rad$data)
 raster::plot(SF_radp[[1]], main=SF_rad$meta$date[1])
-data(DEU)
-raster::plot(DEU, add=TRUE)
+addBorders()
 
 
 # RW file as example: ----
@@ -71,7 +70,7 @@ if(!file.exists(RW_exdir)) RW_exdir <- tempdir()
 RW_rad <- readDWD(RW_file, selection=1:10, exdir=RW_exdir)
 RW_radp <- projectRasterDWD(RW_rad$data, extent="rw")
 raster::plot(RW_radp[[1]], main=RW_rad$meta$date[1])
-raster::plot(DEU, add=TRUE)
+addBorders()
 
 # ToDo: why are values + patterns not the same?
 

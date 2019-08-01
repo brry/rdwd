@@ -49,8 +49,7 @@ raster::plot(rf)
 
 rfp <- projectRasterDWD(rf, proj="seasonal", extent=rf@extent)
 raster::plot(rfp)
-data(DEU)
-raster::plot(DEU, add=TRUE)
+addBorders()
 
 testthat::expect_equal(raster::cellStats(rf, range), c(-8.2,4.4))
 rf10 <- readDWD(localfiles[1], dividebyten=FALSE)

@@ -290,6 +290,35 @@ data(EUR, envir=environment())
 
 
 
+# addBorders -------------------------------------------------------------------
+
+#' @title add country and Bundesland borders to a map
+#' @return invisible list with DEU and EUR
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019
+#' @seealso \code{\link{DEU}}, \code{\link{EUR}}
+#' @keywords aplot
+#' @export
+#' @examples
+#' plot(1, xlim=c(2,16), ylim=c(47,55)) 
+#' addBorders()
+#' plot(1, xlim=c(2,16), ylim=c(47,55))
+#' addBorders(de="orange", eu=NA)
+#'
+#' @param de      Color for Bandeslaender line. NA to suppress. DEFAULT: "grey80"
+#' @param eu      Color for countries line. NA to suppress. DEFAULT: "black"
+#' @param add     Logical: add to existing plot? DEFAULT: TRUE
+#' @param \dots   Further arguments passed to \code{raster::\link[raster]{plot}}
+addBorders <- function(de="grey80", eu="black", add=TRUE, ...)
+{
+checkSuggestedPackage("raster", "addBorders")
+data("DEU","EUR", envir=environment())
+raster::plot(DEU, add=add, border=de, ...) 
+raster::plot(EUR, add=TRUE, border=eu, ...)
+return(invisible(list(DEU=DEU, EUR=EUR)))
+}
+
+
+
 # update Indexes ---------------------------------------------------------------
 
 if(FALSE){

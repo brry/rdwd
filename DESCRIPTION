@@ -1,6 +1,6 @@
 Package: rdwd
 Title: Select and Download Climate Data from 'DWD' (German Weather Service)
-Version: 1.1.15
+Version: 1.1.16
 Date: 2019-08-01
 Depends: R(>= 2.10)
 SystemRequirements: Pandoc (>= 1.12.3), pandoc-citeproc

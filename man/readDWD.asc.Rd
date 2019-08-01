@@ -59,8 +59,7 @@ asc <- readDWD(file, selection=1:20, dividebyten=TRUE)
 asc <- projectRasterDWD(asc)
 
 raster::plot(asc[[1]], main=names(asc)[1])
-data(DEU)
-raster::plot(DEU, add=TRUE)
+addBorders()
 
 rng <- range(raster::cellStats(asc, "range"))
 nframes <- 3 # raster::nlayers(asc) for all (time intensive!)

@@ -412,8 +412,7 @@ out
 #' 
 #' rp <- projectRasterDWD(r$dat)
 #' raster::plot(rp, main=r$meta$date)
-#' data(DEU)
-#' raster::plot(DEU, add=TRUE)
+#' addBorders()
 #' }
 #' @param file      Name of file on harddrive, like e.g. 
 #'                  DWDdata/hourly/radolan/recent/bin/
@@ -480,8 +479,7 @@ return(invisible(rf))
 #' 
 #' SF_radp <- projectRasterDWD(SF_rad$data)
 #' raster::plot(SF_radp[[1]], main=SF_rad$meta$date[1])
-#' data(DEU)
-#' raster::plot(DEU, add=TRUE)
+#' addBorders()
 #' 
 #' 
 #' # RW file as example: ----
@@ -494,7 +492,7 @@ return(invisible(rf))
 #' RW_rad <- readDWD(RW_file, selection=1:10, exdir=RW_exdir)
 #' RW_radp <- projectRasterDWD(RW_rad$data, extent="rw")
 #' raster::plot(RW_radp[[1]], main=RW_rad$meta$date[1])
-#' raster::plot(DEU, add=TRUE)
+#' addBorders()
 #' 
 #' # ToDo: why are values + patterns not the same?
 #' 
@@ -597,8 +595,7 @@ return(invisible(list(data=rbmat, meta=rbmeta)))
 #' 
 #' rfp <- projectRasterDWD(rf, proj="seasonal", extent=rf@extent)
 #' raster::plot(rfp)
-#' data(DEU)
-#' raster::plot(DEU, add=TRUE)
+#' addBorders()
 #' 
 #' testthat::expect_equal(raster::cellStats(rf, range), c(-8.2,4.4))
 #' rf10 <- readDWD(localfiles[1], dividebyten=FALSE)
@@ -667,8 +664,7 @@ return(invisible(r))
 #' asc <- projectRasterDWD(asc)
 #' 
 #' raster::plot(asc[[1]], main=names(asc)[1])
-#' data(DEU)
-#' raster::plot(DEU, add=TRUE)
+#' addBorders()
 #' 
 #' rng <- range(raster::cellStats(asc, "range"))
 #' nframes <- 3 # raster::nlayers(asc) for all (time intensive!)
