@@ -81,7 +81,7 @@ head(grep("historical", gridIndex, value=TRUE))
 }
 }
 \seealso{
-\code{\link{readDWD}}\cr
+\code{\link{readDWD}}, especially \code{\link{readDWD.radar}}\cr
   \url{https://wradlib.org} for much more extensive radar analysis in Python\cr
   Kompositformatbeschreibung at \url{https://www.dwd.de/DE/leistungen/radolan/radolan.html}
   for format description
