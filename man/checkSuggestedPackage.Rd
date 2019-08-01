@@ -18,10 +18,6 @@ invisible success logical value from \code{\link{requireNamespace}}
 check suggested package for availability, 
              yielding an instructive error message if not
 }
-\examples{
-checkSuggestedPackage("berryFunctions", "rdwd")
-
-}
 \seealso{
 \code{\link{requireNamespace}}
 }
