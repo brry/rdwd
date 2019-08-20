@@ -23,7 +23,7 @@ The remainder of this intro chapter is a copy of the [github README file](https:
 reme <- readLines('../../README.md')
 doc <- grep("## Documentation", reme) + 0:4
 reme <- gsub("###", "##", reme)
-cat(reme[-c(1,doc)], sep='\n')
+cat(reme[-c(1,2,doc)], sep='\n')
 ```
 
 ```{r helplink_macro, echo=FALSE}
@@ -283,8 +283,20 @@ To request those, please contact <cdc.daten@dwd.de> or <klima.vertrieb@dwd.de>.
 
 # Raster data
 
-For data interpolated onto a 1 km raster, including radar data up to the last hour, see the examples at  
-`r helplink("readDWD")`
+For observational data `r helplink("selectDWD")` is the main function to choose data to be downloaded.
+
+For data interpolated onto a 1 km raster, including radar data up to the last hour, I don't yet understand the structure of the FTP server as well.  
+For now, you'll have to query `r helplink("gridIndex")` yourself.  
+If you can send me examples of how you use it, I can then expand this in `rdwd`.  
+
+ToDo: examples for gridded data  
+
+For now, check the examples in  
+`r helplink("readDWD.binary")`  
+`r helplink("readDWD.radar")`  # not yet on cran, hence see the [source code](https://github.com/brry/rdwd/blob/master/R/readDWD.R#L579)  
+`r helplink("readDWD.raster")`  
+`r helplink("readDWD.asc")`  
+
 
 
 # - use case: recent time series
