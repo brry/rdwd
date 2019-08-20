@@ -73,7 +73,7 @@ RADB     <- unlist(strsplit(gsub("<|>|","",readheader(TLEN2)),",")) # similar to
 ETX      <- readheader(1) # "\003" End of Text 
   } # end not rw
 
-if(ETX!="\003") stop("rdwd:::readRadarFile: header could not be read correctly.",
+if(ETX!="\003") stop("rdwd::readRadarFile: header could not be read correctly.",
            " Please send the DWD file name to berry-b@gmx.de", call.=FALSE)
 
 LEN <- DIM[1]*DIM[2]
