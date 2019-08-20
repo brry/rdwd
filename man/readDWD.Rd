@@ -80,7 +80,7 @@ arguments \code{multia, meta, binary, raster, radar, asc}:\cr
 to read observational data: \code{\link{readDWD.data},
          \link{readDWD.multia}}, \link{readDWD.meta}\cr
 to read interpolated gridded data: \code{\link{readDWD.binary},
-         \link{readDWD.raster}, \code{\link{readDWD.radar}}, \link{readDWD.asc}}\cr
+         \link{readDWD.raster}, \link{readDWD.radar}, \link{readDWD.asc}}\cr
 Not all arguments to \code{readDWD} are used for all functions, e.g. 
 \code{fread} is used only by \code{.data}, while \code{dividebyten} 
 is used in \code{.raster} and \code{.asc}.\cr\cr
