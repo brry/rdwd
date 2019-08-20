@@ -35,7 +35,11 @@ Set projection and extent for DWD raster data. Optionally (and
 per default) also reprojects to latlon data.
 The internal defaults are extracted from the
 Kompositformatbeschreibung at \url{https://www.dwd.de/DE/leistungen/radolan/radolan.html},
-as provided 2019-04 by Antonia Hengst.
+as provided 2019-04 by Antonia Hengst.\cr
+\bold{WARNING:} reprojection to latlon changes values slightly.
+For the tested RX product, this change is significant, see: 
+\url{https://github.com/brry/rdwd/blob/master/misc/ExampleTests/Radartests.pdf}\cr
+In raster::plot, use zlim with the original range if needed.
 }
 \examples{
 # To be used after readDWD.binary, readDWD.raster, readDWD.asc

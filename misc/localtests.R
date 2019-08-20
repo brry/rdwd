@@ -54,22 +54,58 @@ expect_equal(clim_vn, clim_vnf)
 message("++ Testing readRadarFile")
 
 test_that("readRadarFile works", {
-data("DEU")
-testReadRad <- function(file, ext="radolan")
+trr <- function(file, ext="radolan", readdwd=FALSE) # trr: test reading radar data
   {
   main <- deparse(substitute(file))
   file2 <- localtestdir(folder="misc", file=file)
-  rrf <- readRadarFile(file2)
+  rrf <- if(readdwd) readDWD(file2, toraster=FALSE) else readRadarFile(file2)
   rrr <- raster::raster(rrf$dat)
   rrp <- projectRasterDWD(rrr, extent=ext)
-  raster::plot(rrp, main=main)
-  raster::plot(DEU, add=TRUE)
-  return(list(rrp=rrp, meta=rrf$meta))
+  raster::plot(rrr, main="\nOriginal")
+  raster::plot(rrp, main="\nProjected")
+  addBorders()
+  title(main=main, outer=TRUE, line=-1.1)
+  # raster::plot(projectRasterDWD(rrr, latlon=FALSE), main="Projected without latlon")
+  rngr <- range(raster::cellStats(rrr, "range"))
+  rngp <- range(raster::cellStats(rrp, "range"))
+  return(list(file=file2, rrp=rrp, meta=rrf$meta, range_orig=rngr, range_proj=rngp))
   }
-ex_rx <- testReadRad("raa01-rx_10000-1605290600-dwd---bin_Braunsbach")
-ex_rw <- testReadRad("raa01-rw_10000-1907010950-dwd---bin_weatherRadolan")
-ex_sf <- testReadRad("raa01-sf_10000-1605010450-dwd---bin_dailyRadHist")
-ex_ww <- testReadRad("raa01-rw2017.002_10000-1712310850-dwd---bin_hourRadReproc", "rw")
+pdf("misc/ExampleTests/Radartests.pdf", width=10, height=7)
+par(mfrow=c(1,2), mar=c(2,2,3,3), mgp=c(2,0.7,0))
+w1 <- trr("raa01-rw2017.002_10000-1712310850-dwd---bin_hourRadReproc", ext="rw")
+w2 <- trr("raa01-rw_10000-1907311350-dwd---bin_hourRadRecentBin.gz", readdwd=TRUE)
+rw <- trr("raa01-rw_10000-1907010950-dwd---bin_weatherRadolan")
+sf <- trr("raa01-sf_10000-1605010450-dwd---bin_dailyRadHist")
+rx <- trr("raa01-rx_10000-1605290600-dwd---bin_Braunsbach")
+rx1 <- raster::raster(readRadarFile(rx$file)$dat)
+rx2 <- projectRasterDWD(rx1, latlon=FALSE)
+raster::plot(rx2, main="\nProjected without latlon")
+raster::plot(rx$rrp, zlim=rx$range_orig, main="\nProjected, with custom zlim")
+addBorders()
+dev.off()
+openFile("misc/ExampleTests/Radartests.pdf")
+# RX range changes too much!! WTF?! Comes from projecting to latlon...
+
+# "True" values from versions of reading functions that seem to make sense.
+# NOT actually checked with DWD, reality or anything!
+
+rangecheck <- function(rr, orig, proj, tolerance=0.01)
+  {
+  name <- deparse(substitute(rr))
+  rc <- function(is, should, msg)
+  {
+  eq <- berryFunctions::almost.equal(is, should, tolerance=tolerance, scale=1)
+  if(any(!eq)) stop(msg, " not correct for: ", name, "\n", 
+               toString(round(is,5)), "   instead of   ", toString(should), "\n")
+  }
+  rc(rr$range_orig, orig, "Range (unprojected)")
+  rc(rr$range_proj, proj, "Range (projected)")
+  }
+rangecheck(w1, c( 0.0,  6.2), c( 0.00,  5.87))
+rangecheck(w2, c( 0.0, 72.6), c(-0.19, 70.98))
+rangecheck(rw, c( 0.0, 30.7), c(-0.45, 30.45))
+rangecheck(sf, c( 0.0, 39.2), c(-0.03, 38.20))
+rangecheck(rx, c(31.5, 95.0), c(18.30, 97.17))
 })
 
 

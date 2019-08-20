@@ -5,6 +5,7 @@ rdwd ToDo-list / wishlist / issues
 - readDWD.nc for grids_germany/daily/Project_TRY ?
 - call (simplified) Fortran functions through C interface, see PR #6
 - indexFTP: read tree with data.table/vroom
+- dataDWD: change/allow force to be number of hours after which to re-download
 
 vignette ToDos: 
 - pack struct + stat sel: less overlap
