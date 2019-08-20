@@ -256,7 +256,7 @@ return(invisible(available))
 
 #' Map of German states (Bundeslaender) from GADM through the \code{raster} package
 #' @name DEU
-#' @seealso \code{\link{EUR}}
+#' @seealso \code{\link{addBorders}}, \code{\link{EUR}}
 #' @details Obtained with the code: \cr
 #' \code{DEU1 <- raster::getData("GADM", country="DEU", level=1)}\cr
 #' \code{DEU <- rgeos::gSimplify(DEU1, tol=0.02, topologyPreserve=FALSE)}\cr
@@ -275,7 +275,7 @@ data(DEU, envir=environment())
 
 #' Map of Western European countries through the \code{rworldmap} package
 #' @name EUR
-#' @seealso \code{\link{DEU}}
+#' @seealso \code{\link{addBorders}}, \code{\link{DEU}}
 #' @details Obtained with the code: \cr
 #' \code{EUR <- rworldmap::getMap("low")}\cr
 #' \code{EUR <- raster::crop(EUR, c(-5,20, 40,60)) }\cr

@@ -18,7 +18,7 @@ Obtained with the code: \cr
 \code{tools::resaveRdaFiles("data/DEU.rda")}\cr
 }
 \seealso{
-\code{\link{EUR}}
+\code{\link{addBorders}}, \code{\link{EUR}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, May 2018
