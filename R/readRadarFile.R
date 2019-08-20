@@ -85,6 +85,7 @@ if(PRODUCT=="RX") # WX,RX,EX?
   {
   dim(dat) <- c(1,LEN)
   dat.val <- bin2num(dat,LEN,na,clutter, RX=TRUE) # see function definition below
+  dat.val <- dat.val/2 - 32.5
   }else 
   # for SF (and RW?)
   {
@@ -94,14 +95,6 @@ if(PRODUCT=="RX") # WX,RX,EX?
   
 # apply precision given in the header:
 dat.val <- dat.val*PREC
-
-if(PRODUCT=="RX") # WX,RX,EX?
-  {
-  dat.val <- dat.val + 128
-  dat.val[dat.val==250] <- NA # ToDo: isn't this already in the fortran routine?
-  dat.val[dat.val==249] <- NA
-  dat.val <- dat.val/2 - 32.5
-  }
 
 # convert into a matrix + give row and column names according to RADOLAN convention:
 if(rw | PRODUCT=="SF")
@@ -137,9 +130,12 @@ bin2num <- function(dat, len, na=NA, clutter=NA, RX=FALSE)
 {
 Fna <- -32767L
 Fclutter <- -32766L
-if(RX)
-out <- .Fortran("binary_to_num_rx", raw=dat, Flength=as.integer(len),
+if(RX) {
+  na <- (na+32.5)*2
+  clutter <- (clutter+32.5)*2
+  out <- .Fortran("binary_to_num_rx", raw=dat, Flength=as.integer(len),
                 numeric=as.integer(array(0,dim=len)), Fna=Fna, Fclutter=Fclutter)
+  }
 else
 out <- .Fortran("binary_to_num", raw=dat, Flength=as.integer(len),
                 numeric=as.integer(array(0,dim=len)), Fna=Fna, Fclutter=Fclutter)
@@ -148,4 +144,3 @@ out[out==Fna] <- na
 out[out==Fclutter] <- clutter
 return(out)
 }
-

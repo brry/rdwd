@@ -53,12 +53,11 @@ subroutine binary_to_num_rx(raw,Flength,numeric,Fna,Fclutter)
   integer,INTENT(in):: Flength,Fna,Fclutter
   integer(KIND=1),DIMENSION(Flength),INTENT(in)::raw
   integer,DIMENSION(Flength),INTENT(out)::numeric
-  logical::interp,negative,missing,clutter
   
   ! do cycle over all entries 
   do i=1,Flength 
 
-     numeric(i)=IBITS(raw(i),0,7)
+     numeric(i)=IBITS(raw(i),0,7) + 128
      
      if(numeric(i)==250) THEN ! check for missing 
         numeric(i)=Fna

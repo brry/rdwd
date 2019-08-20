@@ -41,6 +41,9 @@ val[bits[,16]==1] <- clutter            # bit 16: flag for clutter
 return(as.integer(val))
 
 
+system.time(r <- readRadarFile("misc/raa01-rx_10000-1605290600-dwd---bin_Braunsbach", clutter=NA))
+raster::plot(raster::raster(r$dat))
+mb <- microbenchmark::microbenchmark(readRadarFile("misc/raa01-rx_10000-1605290600-dwd---bin_Braunsbach"))
 
 
 
