@@ -280,8 +280,8 @@ data(DEU, envir=environment())
 #' \code{EUR <- rworldmap::getMap("low")}\cr
 #' \code{EUR <- raster::crop(EUR, c(-5,20, 40,60)) }\cr
 #' \code{raster::plot(EUR)}\cr
-#' \code{save(EUR,        file="data/EUR.rda")}\cr
-#' \code{tools::resaveRdaFiles("data/EUR.rda")}\cr
+#' \code{save(EUR,        file="data/EUR.rda", version=2)}\cr
+#' \code{tools::resaveRdaFiles("data/EUR.rda", version=2)}\cr
 #' @docType data
 #' @format SpatialPolygonsDataFrame [package "sp"] with 32 rows
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019
