@@ -1,11 +1,11 @@
 Package: rdwd
 Title: Select and Download Climate Data from 'DWD' (German Weather Service)
-Version: 1.1.19
-Date: 2019-08-20
+Version: 1.1.20
+Date: 2019-09-02
 Depends: R(>= 2.10)
 SystemRequirements: Pandoc (>= 1.12.3), pandoc-citeproc
 Imports: berryFunctions (>= 1.17.0), pbapply
-Suggests: RCurl, leaflet, knitr, rmarkdown, testthat, data.table, OSMscale, R.rsp, raster, R.utils
+Suggests: RCurl, leaflet, knitr, rmarkdown, testthat, data.table, OSMscale, R.rsp, raster, R.utils, ncdf4
 Author: Berry Boessenkool
 Maintainer: Berry Boessenkool <berry-b@gmx.de>
 Description: Handle climate data from the 'DWD' ('Deutscher Wetterdienst', see 

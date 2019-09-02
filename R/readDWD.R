@@ -11,7 +11,7 @@
 #' to read observational data: \code{\link{readDWD.data},
 #'          \link{readDWD.multia}}, \link{readDWD.meta}\cr
 #' to read interpolated gridded data: \code{\link{readDWD.binary},
-#'          \link{readDWD.raster}, \link{readDWD.radar}, \link{readDWD.asc}}\cr
+#'          \link{readDWD.raster}, \link{readDWD.radar}, \link{readDWD.nc}, \link{readDWD.asc}}\cr
 #' Not all arguments to \code{readDWD} are used for all functions, e.g. 
 #' \code{fread} is used only by \code{.data}, while \code{dividebyten} 
 #' is used in \code{.raster} and \code{.asc}.\cr\cr
@@ -47,6 +47,7 @@
 #'               DEFAULT: FALSE (some users complain it doesn't work on their PC)
 #' @param varnames Logical (vector): Expand column names? 
 #'               See \code{\link{readDWD.data}}. DEFAULT: FALSE
+#' @param var    var for \code{\link{readDWD.nc}}. DEFAULT: ""
 #' @param format,tz Format and time zone of time stamps, see \code{\link{readDWD.data}}
 #' @param dividebyten Logical (vector): Divide the values in raster files by ten?
 #'               Used in \code{\link{readDWD.raster}} and \code{\link{readDWD.asc}}.
@@ -66,8 +67,12 @@
 #' @param raster Logical (vector): does the \code{file} contain a raster file?
 #'               See \code{\link{readDWD.raster}}.
 #'               DEFAULT: TRUE for each file ending in ".asc.gz"
+#' @param nc     Logical (vector): does the \code{file} contain a netcdf file?
+#'               See \code{\link{readDWD.nc}}.
+#'               DEFAULT: TRUE for each file ending in ".nc.gz"
 #' @param radar  Logical (vector): does the \code{file} contain a single binary file?
 #'               See \code{\link{readDWD.radar}}.
+#'               DEFAULT: TRUE for each file ending in ".gz"
 #' @param asc    Logical (vector): does the \code{file} contain asc files?
 #'               See \code{\link{readDWD.asc}}.
 #'               DEFAULT: TRUE for each file ending in ".tar"
@@ -80,6 +85,7 @@ file,
 progbar=TRUE,
 fread=FALSE,
 varnames=FALSE,
+var="",
 format=NA,
 tz="GMT",
 dividebyten=TRUE,
@@ -87,6 +93,7 @@ multia=grepl('Standort.txt$', file),
 meta=  grepl(        '.txt$', file),
 binary=grepl(     '.tar.gz$', file),
 raster=grepl(     '.asc.gz$', file),
+nc=    grepl(      '.nc.gz$', file),
 radar =grepl(         '.gz$', file),
 asc=   grepl(        '.tar$', file),
 ...
@@ -99,7 +106,8 @@ if(anyNA(fread)) fread[is.na(fread)] <- requireNamespace("data.table",quietly=TR
 if(len>1)
   {
   fread       <- rep(fread,       length.out=len)
-  varnames    <- rep(varnames,    length.out=len)
+  varnames    <- rep(varnames,    length.out=len)  
+  var         <- rep(var,         length.out=len)
   format      <- rep(format,      length.out=len)
   tz          <- rep(tz,          length.out=len)
   dividebyten <- rep(dividebyten, length.out=len)
@@ -107,6 +115,7 @@ if(len>1)
   meta        <- rep(meta,        length.out=len)
   binary      <- rep(binary,      length.out=len)
   raster      <- rep(raster,      length.out=len)
+  nc          <- rep(nc,          length.out=len)
   radar       <- rep(radar,       length.out=len)
   asc         <- rep(asc,         length.out=len) 
   }
@@ -139,6 +148,7 @@ if(multia[i]) return(readDWD.multia(file[i], ...))
 if(meta[i])   return(readDWD.meta(  file[i], ...))
 if(binary[i]) return(readDWD.binary(file[i], progbar=progbar, ...))
 if(raster[i]) return(readDWD.raster(file[i], dividebyten=dividebyten[i], ...))
+if(nc[i])     return(readDWD.nc(    file[i], var=var[i], ...))
 if(radar[i])  return(readDWD.radar( file[i], ...))
 if(asc[i])    return(readDWD.asc(   file[i], progbar=progbar, dividebyten=dividebyten[i], ...))
 # if data:
@@ -572,6 +582,116 @@ rdata <- do.call(R.utils::gunzip, gfinal)
 r <- raster::raster(rdata, ...)
 if(dividebyten) r <- r/10
 return(invisible(r))
+}
+
+
+
+# ~ nc ----
+
+#' @title read dwd netcdf data
+#' @description Read netcdf data. 
+#' Intended to be called via \code{\link{readDWD}}.\cr
+#' Note that \code{R.utils} and \code{ncdf4} must be installed to unzip and read the .nc.gz files.
+#' @return List with time, lat, lon, \bold{var}, varname, file and cdf.\cr
+#' \bold{var} can be an array or a \code{\link[raster]{raster}} object, depending on the value of \code{toraster}.\cr
+#' \bold{cdf} is the output of \code{ncdf4::\link[ncdf4]{nc_open}}.
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019
+#' @seealso \code{\link{readDWD}}
+#' @examples
+#' \dontrun{ # Excluded from CRAN checks, but run in localtests
+#' 
+#' library(berryFunctions) # for seqPal and colPointsLegend
+#' 
+#' url <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
+#' url <- "daily/Project_TRY/humidity/RH_199509_daymean.nc.gz"    # 25 MB
+#' file <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=localtestdir(), read=FALSE)
+#' nc <- readDWD(file)
+#' raster::plot(nc$var[[1]], col=seqPal(), main=paste(nc$varname, nc$time[1]))
+#' str(nc, max.level=2)
+#' 
+#' rng <- range(raster::cellStats(nc$var, "range"))
+#' raster::plot(nc$var, col=seqPal(), zlim=rng, maxnl=6)
+#' 
+#' # Array instead of raster brick:
+#' nc <- readDWD(file, toraster=FALSE)
+#' image(nc$var[,,1], col=seqPal(), asp=1.1)
+#' colPointsLegend(nc$var[,,1], title=paste(nc$varname, nc$time[1]))
+#' 
+#' # interactive selection of variable:
+#' nc <- readDWD(file, var="-") # uncommented to not block automated tests 
+#' str(nc$var)
+#' }
+#' @param file        Name of file on harddrive, like e.g. 
+#'                    DWDdata/grids_germany/daily/Project_TRY/humidity/RH_199509_daymean.nc.gz
+#' @param gargs       Named list of arguments passed to 
+#'                    \code{R.utils::\link[R.utils]{gunzip}}, 
+#'                    see \code{\link{readDWD.raster}}. DEFAULT: NULL
+#' @param var         Charstring: name of variable to be read with 
+#'                    \code{ncdf4::\link[ncdf4]{ncvar_get}}. If not available, 
+#'                    an interactive selection is presented.
+#'                    DEFAULT: "" (last variable)
+#' @param toraster    Combine layers into a raster stack with \code{raster::\link[raster]{brick}}?
+#' @param quiet       Logical: Suppress toraster conversion message? DEFAULT: FALSE
+#' @param \dots       Further arguments passed to \code{ncdf4::\link[ncdf4]{nc_open}}
+
+readDWD.nc <- function(file, gargs=NULL, var="", toraster=TRUE, quiet=FALSE, ...)
+{
+checkSuggestedPackage("ncdf4", "rdwd:::readDWD.nc")
+checkSuggestedPackage("R.utils", "rdwd:::readDWD.nc")
+# gunzip arguments:
+gdef <- list(filename=file, remove=FALSE, skip=TRUE)
+gfinal <- berryFunctions::owa(gdef, gargs, "filename")
+ncfile <- do.call(R.utils::gunzip, gfinal)
+#
+# NCDF File
+mycdf <- ncdf4::nc_open(ncfile, ...)
+#
+# Time stamp:
+unit <- mycdf$dim$time$units
+if(is.null(unit))
+ {
+ message("Time could not be read from cdf file and is set to 1.")
+ time <- 1
+ } else
+if(substr(unit,1,4)=="days")
+ {
+ start <- sub("days since", "", unit)
+ start <- strsplit(removeSpace(start), " ")[[1]][1]
+ start <- as.Date(start)
+ time <- start + ncdf4::ncvar_get(mycdf,'time')
+ } else
+ {
+ start <- removeSpace(sub("hours since", "", unit)) # always hours?
+ start <- strptime(start, format="%F %T")
+ time <- start + ncdf4::ncvar_get(mycdf,'time')*3600
+ }
+#
+# Var name
+# select one of the possible variable names if not given:
+varnames <- names(mycdf$var)
+if(var=="") var <- tail(varnames, 1)
+while(! var %in% varnames)
+{
+ pos <- varnames[!varnames %in% c("lon","lat")] # pos: possible
+ if(length(pos)==1) var <- pos else
+ var <- pos[menu(pos, title="Which variable do you want?")]
+}
+#
+# Actually extract the desired variables:
+LAT <- ncdf4::ncvar_get(mycdf, "lat")
+LON <- ncdf4::ncvar_get(mycdf, "lon")
+VAR <- ncdf4::ncvar_get(mycdf, var)
+#
+# To raster
+if(toraster) 
+{
+checkSuggestedPackage("raster", "rdwd:::readDWD.nc with toraster=TRUE")
+if(!quiet) message("Transforming ",dim(VAR)[3]," layers into raster brick...")
+VAR <- raster::brick(VAR, transpose=TRUE)
+VAR <- raster::flip(VAR, direction=2)
+}
+# output:
+return(invisible(list(time=time, lat=LAT, lon=LON, var=VAR, varname=var, file=mycdf$filename, cdf=mycdf)))
 }
 
 

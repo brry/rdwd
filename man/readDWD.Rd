@@ -5,10 +5,11 @@
 \title{Process data from the DWD CDC FTP Server}
 \usage{
 readDWD(file, progbar = TRUE, fread = FALSE, varnames = FALSE,
-  format = NA, tz = "GMT", dividebyten = TRUE,
+  var = "", format = NA, tz = "GMT", dividebyten = TRUE,
   multia = grepl("Standort.txt$", file), meta = grepl(".txt$", file),
   binary = grepl(".tar.gz$", file), raster = grepl(".asc.gz$", file),
-  radar = grepl(".gz$", file), asc = grepl(".tar$", file), ...)
+  nc = grepl(".nc.gz$", file), radar = grepl(".gz$", file),
+  asc = grepl(".tar$", file), ...)
 }
 \arguments{
 \item{file}{Char (vector): name(s) of the file(s) downloaded with 
@@ -25,6 +26,8 @@ DEFAULT: FALSE (some users complain it doesn't work on their PC)}
 
 \item{varnames}{Logical (vector): Expand column names? 
 See \code{\link{readDWD.data}}. DEFAULT: FALSE}
+
+\item{var}{var for \code{\link{readDWD.nc}}. DEFAULT: ""}
 
 \item{format, tz}{Format and time zone of time stamps, see \code{\link{readDWD.data}}}
 
@@ -51,8 +54,13 @@ DEFAULT: TRUE for each file ending in ".tar.gz"}
 See \code{\link{readDWD.raster}}.
 DEFAULT: TRUE for each file ending in ".asc.gz"}
 
+\item{nc}{Logical (vector): does the \code{file} contain a netcdf file?
+See \code{\link{readDWD.nc}}.
+DEFAULT: TRUE for each file ending in ".nc.gz"}
+
 \item{radar}{Logical (vector): does the \code{file} contain a single binary file?
-See \code{\link{readDWD.radar}}.}
+See \code{\link{readDWD.radar}}.
+DEFAULT: TRUE for each file ending in ".gz"}
 
 \item{asc}{Logical (vector): does the \code{file} contain asc files?
 See \code{\link{readDWD.asc}}.
@@ -80,7 +88,7 @@ arguments \code{multia, meta, binary, raster, radar, asc}:\cr
 to read observational data: \code{\link{readDWD.data},
          \link{readDWD.multia}}, \link{readDWD.meta}\cr
 to read interpolated gridded data: \code{\link{readDWD.binary},
-         \link{readDWD.raster}, \link{readDWD.radar}, \link{readDWD.asc}}\cr
+         \link{readDWD.raster}, \link{readDWD.radar}, \link{readDWD.nc}, \link{readDWD.asc}}\cr
 Not all arguments to \code{readDWD} are used for all functions, e.g. 
 \code{fread} is used only by \code{.data}, while \code{dividebyten} 
 is used in \code{.raster} and \code{.asc}.\cr\cr
