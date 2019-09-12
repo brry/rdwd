@@ -192,7 +192,7 @@ if(any(iserror))
   msg <- paste0(msg, "download.file error",if(ne>1) "s",":\n")
   msg2 <- sapply(dl_results[iserror], function(e)attr(e,"condition")$message)
   if(any(substr(file[iserror], 1, 4) != "ftp:"))
-     msg2 <- paste0(msg2, "\ndataDWD needs urls starting with 'ftp://'.")
+     msg2 <- paste0(msg2, "\ndataDWD needs urls starting with 'ftp://'. You can use joinbf=TRUE for relative links.")
   msg <- paste0(msg, paste(msg2, collapse="\n"))
   warning(msg, call.=FALSE)
   }
