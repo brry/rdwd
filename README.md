@@ -26,41 +26,15 @@ A vignette with more information, examples, use cases and an interactive map of 
 can be found at <https://bookdown.org/brry/rdwd>
 
 
-### Installation
-
-**Normal**:
-```R
-# download and install the package:
-install.packages("rdwd")
-```
-
-**Latest version**:
-```R
-# latest development version (incl. vignettes), if wanted:
-if(!requireNamespace("remotes", quietly=TRUE)) install.packages("remotes")
-remotes::install_github("brry/rdwd", build_opts="--no-manual")
-```
-Note: on Windows, you need to have [Rtools](https://cran.r-project.org/bin/windows/Rtools/)
-installed directly at `C:/Rtools`  
-(Compiler paths may not have spaces, as there would be with `C:/Program Files/R/Rtools/`).
-
-**Full**:
-```R
-# For full usage, as needed in indexFTP and selectDWD(..., current=TRUE):
-install.packages("RCurl") # is only suggested, not mandatory dependency
-```
-Note: on Linux (Ubuntu), instead call via the terminal (CTRL+ALT+T, note lowercase rcurl):
-```
-sudo apt install r-cran-rcurl
-```
-
-
 ### Usage
 
 Usage for observational weather data from the measuring stations usually looks something like the following:
 
 ```R
-# load the package into library (needed in every R session):
+# Download and install (once only):
+install.packages("rdwd")
+
+# Load the package into library (needed in every R session):
 library(rdwd)
 
 # select a dataset (e.g. last year's daily climate data from Potsdam City):
@@ -78,3 +52,37 @@ str(clim)
 
 For data interpolated onto a 1 km raster, including radar data up to the last hour,
 see the corresponding [chapter](https://bookdown.org/brry/rdwd/raster-data.html) in the vignette.
+
+
+### Installation
+
+**Normal**:
+```R
+install.packages("rdwd")
+```
+
+**Latest version**:  
+Note: on Windows, you need to have [Rtools](https://cran.r-project.org/bin/windows/Rtools/)
+installed directly at `C:/Rtools`  
+(Compiler paths may not have spaces, as there would be with `C:/Program Files/R/Rtools/`).
+```R
+if(!requireNamespace("remotes", quietly=TRUE)) install.packages("remotes")
+remotes::install_github("brry/rdwd")
+```
+
+**Full**:  
+Suggested (not mandatory) dependencies:  
+```R
+install.packages("rdwd", dependencies="Suggests") 
+```
+
+- `RCurl` for indexFTP and selectDWD(..., current=TRUE)
+- `data.table` for readDWD(..., fread=TRUE)
+- `raster`, `R.utils`, `ncdf4` for readDWD with gridded data
+- `knitr`, `rmarkdown`, `testthat` for recreating the vignette and local testing
+- `leaflet`, `OSMscale` for interactive/static maps, see [OSMscale installation tips](https://github.com/brry/OSMscale#installation)
+
+Note: on Linux (Ubuntu), install `RCurl` via the terminal (CTRL+ALT+T, note lowercase rcurl):
+```
+sudo apt install r-cran-rcurl
+```
