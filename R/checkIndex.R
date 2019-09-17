@@ -107,6 +107,35 @@ if(any(name_id))
 }
 
 
+
+# file/metaIndex date ranges  ----
+
+if(!is.null(findex) & !is.null(mindex) & FALSE){ # currently suppressed - too many differences to be meaningful!
+message("Comparing fileIndex and metaIndex date ranges...")
+
+data("fileIndex"); findex <- fileIndex ; rm(fileIndex)
+data("metaIndex"); mindex <- metaIndex ; rm(metaIndex)
+findex$start <- as.Date(findex$start, "%Y%m%d")
+findex$end   <- as.Date(findex$end,   "%Y%m%d")
+mindex$von_datum <- as.Date(as.character(mindex$von_datum), "%Y%m%d")
+mindex$bis_datum <- as.Date(as.character(mindex$bis_datum), "%Y%m%d")
+
+m2 <- mindex[mindex$res=="annual" & mindex$var=="more_precip" & mindex$per=="historical" & mindex$hasfile,]
+f2 <- findex[findex$res=="annual" & findex$var=="more_precip" & findex$per=="historical" & !is.na(findex$id),]
+mf <- merge(m2[,c("Stations_id", "von_datum", "bis_datum")],
+            f2[,c("id", "start", "end")], by.x="Stations_id", by.y="id")
+rm(m2, f2)
+mf$diff_von <- round(as.integer(mf$start - mf$von_datum)/365,2)
+mf$diff_bis <- round(as.integer(mf$end   - mf$bis_datum)/365,2)
+colnames(mf) <- gsub("_datum", "_meta", colnames(mf))
+colnames(mf) <- gsub("start", "von_file", colnames(mf))
+colnames(mf) <- gsub("end", "bis_file", colnames(mf))
+mf[mf$diff_von >   5,]
+mf[mf$diff_bis < -30,]
+}
+
+
+  
 # gindex ----
 
 if(!is.null(gindex)){
