@@ -56,12 +56,12 @@ see the corresponding [chapter](https://bookdown.org/brry/rdwd/raster-data.html)
 
 ### Installation
 
-**Normal**:
+#### Normal
 ```R
 install.packages("rdwd")
 ```
 
-**Latest version**:  
+#### Latest version
 Note: on Windows, you need to have [Rtools](https://cran.r-project.org/bin/windows/Rtools/)
 installed directly at `C:/Rtools`  
 (Compiler paths may not have spaces, as there would be with `C:/Program Files/R/Rtools/`).
@@ -70,7 +70,7 @@ if(!requireNamespace("remotes", quietly=TRUE)) install.packages("remotes")
 remotes::install_github("brry/rdwd")
 ```
 
-**Full**:  
+#### Full
 Suggested (not mandatory) dependencies:  
 ```R
 install.packages("rdwd", dependencies="Suggests") 
