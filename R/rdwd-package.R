@@ -340,10 +340,19 @@ dwdfiles <- readLines("DWDdata/INDEX_of_DWD_.txt")
 # 266'860 (2019-05-15)
 # 254'446 (2019-05-30)
 # 255'252 (2019-07-31)
+# 254'925 (2019-09-17)
 grdfiles <- readLines("DWDdata/INDEX_of_DWD_grids.txt")
 #  49'247 (2019-05-26)
 #  49'402 (2019-05-30)
 #  54'314 (2019-07-31)
+#  56'759 (2019-09-17)
+
+# Change meta files manually:
+# - 10_minutes_wind_now_zehn_now_ff_Beschreibung_Stationen.txt
+# - 10_minutes_extreme_wind_now_zehn_now_fx_Beschreibung_Stationen.txt
+# First data row cannot contain spaces in the station name
+# ToDo: maybe improve readDWD.meta for that e.g. with checking spaces in all lines...
+
 index <- createIndex(paths=dwdfiles, meta=TRUE) # ca 200 secs +40 if files are not yet downloaded
 cat(index$checks)
 { # save indexes into package:

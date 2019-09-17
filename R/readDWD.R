@@ -380,6 +380,7 @@ if(sdsf)
                       "geoBreite", "geoLaenge", "Stationsname", "Bundesland")
  }
 # check classes:
+if(ncol(stats)!=8) stop(ncol(stats)," columns detected instead of 8 for ", file)
 classes <- c("integer", "integer", "integer", "integer", "numeric", "numeric", "factor", "factor")
 actual <- sapply(stats, class)
 if(actual[4]=="numeric") classes[4] <- "numeric"
