@@ -145,7 +145,6 @@ if(l>0) stop("\n\nThe following ", l, " table entries in section 'Available data
 ```
 
 
-
 # Package structure
 
 To use the observational datasets, `rdwd` has been designed to mainly do 3 things:
@@ -334,6 +333,48 @@ prec <- tapply(clim$MO_RR, clim$month, mean, na.rm=TRUE)
 
 berryFunctions::climateGraph(temp, prec, main="Goettingen")
 mtext("Source: Deutscher Wetterdienst", adj=-0.05, line=2.8, font=3)
+```
+
+
+# - use case: longest time series in Berlin
+
+## select station
+Choose station in Berlin with longest monthly average recordings
+(according to metadata, which is not always correct).
+```{r uc_berlinstationselection}
+ids <- findID("Berlin", exactmatch=FALSE)
+head(ids)
+data("metaIndex")
+berlin <- metaIndex[with(metaIndex, 
+              Stations_id %in% ids & res=="monthly" & var=="kl" & per=="historical"),]
+berlin$ndays <- as.Date(as.character(berlin$bis_datum), "%Y%m%d") - 
+                as.Date(as.character(berlin$von_datum), "%Y%m%d")
+berlin <- berryFunctions::sortDF(berlin, ndays)
+berlin # Dahlem (FU) has data since 1719 !
+```
+
+## download and inspect data
+```{r uc_berlindata, fig.height=5, fig.width=7, echo=-1}
+par(mar=c(2,2,0.2,0.2))
+url <- selectDWD("Berlin-Dahlem (FU)", res="monthly", var="kl", per="h")
+kl <- dataDWD(url, varnames=TRUE, dir="../localdata", quiet=TRUE)
+plot(kl$MESS_DATUM, kl$MO_TT.Lufttemperatur, type="l", las=1) # pretty complete
+```
+
+## aggregates by month
+```{r uc_berlinmonthly, fig.height=5, fig.width=7, echo=-1}
+par(mar=c(1.5, 3, 2, 0.2))
+monthly <- tapply(kl$MO_TT.Lufttemperatur, format(kl$MESS_DATUM,"%m"), quantile, probs=0:10/10)
+monthly <- sapply(monthly, I)
+
+plot(1, type="n", xlim=c(1,12), ylim=range(monthly), xaxt="n", las=1, 
+     xlab="Vis by Berry B, github.com/brry/rdwd", ylab="monthly temperature average",
+     main="Temperature variation in Berlin is highest in winter")
+axis(1, 2:12-0.5, labels=FALSE)
+axis(1, 1:12, substr(month.abb,1,1), tick=FALSE, line=-0.5)
+for(m in 1:12) for(q in 1:5) lines(c(m,m), monthly[c(q,12-q),m], lend=1, 
+                                   col=berryFunctions::addAlpha("red",0.2), lwd=5)
+for(m in 1:12) points(m, mean(monthly[,m]), pch=3)
 ```
 
 
