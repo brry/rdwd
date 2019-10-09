@@ -180,7 +180,6 @@ per[substr(per,1,1)=="h"] <- "historical"
 per[substr(per,1,1)=="r"] <- "recent"
 # solar per to ""
 per[var=="solar" & res %in% c("hourly","daily")] <- ""
-per[var=="standard_format" & res=="subdaily"] <- ""
 # multiannual data has no id, remove if given:
 rma <- res=="multi_annual"
 if(any(rma, na.rm=TRUE))

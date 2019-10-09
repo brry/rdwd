@@ -113,6 +113,11 @@ id <- ifelse(substr(file,1,2)=="kl", substr(file,4,8), id) # res==subdaily
 fileIndex$id <- suppressWarnings(as.integer(id))
 rm(id, per, sol, zip)
 #
+# standard_format hist/recent
+sf <- fileIndex$var=="standard_format" & fileIndex$per==""
+fileIndex[sf & grepl("akt.txt", paths), "per"] <- "recent"
+fileIndex[sf & grepl("_bis_"  , paths), "per"] <- "historical"
+#
 # start and end of time series (according to file name):
 if(!quiet) messaget("Extracting time series range from filenames...")
 ziphist <- fileIndex$per=="historical"  & info[,1]=="zip"

@@ -85,8 +85,11 @@ The following folders in **`res/var/per`** notation (resolution/variable/period)
 "<" signifies a split into the folders `per` = "recent" and "historical".  
 "<<" signifies a split into the folders `per` = "now", "recent", "historical" and "meta_data".  
 "-" signifies that there are no further sub-folders.  
-Please note that both "solar" (-/<<) and "sun" (<) are available!  
-Please note that `1_minute/precipitation/historical` has a subfolder for each year.  
+Please note:  
+- both "solar" (-/<<) and "sun" (<) are available!  
+- `1_minute/precipitation/historical` has a subfolder for each year.  
+- `subdaily/standard_format` does not actually split in subfolders, yet includes recent/hist information in `fileIndex`
+
 
 ```{r ftp_folders_1, echo=FALSE}
 library(magrittr); library(huxtable)
