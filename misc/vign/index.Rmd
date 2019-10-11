@@ -308,7 +308,7 @@ For now, check the examples in
 ```{r uc_recent_time_series_data, eval=TRUE, fig.height=3, fig.width=7}
 library(rdwd)
 link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
-file <- dataDWD(link, read=FALSE, dir="../localdata", quiet=TRUE, force=NA)
+file <- dataDWD(link, read=FALSE, dir="../localdata", quiet=TRUE, force=NA, overwrite=TRUE)
 clim <- readDWD(file, varnames=TRUE)
 
 str(clim)
