@@ -73,7 +73,7 @@ release_questions <- function() {
 
 
 
-# fileIndex, metaIndex, geoIndex, gridIndex ----
+# fileIndex, metaIndex, geoIndex, gridIndex, formatIndex ----
 
 #' Indexes of files and metadata on the DWD CDC FTP server
 #' 
@@ -85,13 +85,15 @@ release_questions <- function() {
 #' \bold{metaIndex}: A data.frame with the contents of all the station description files
 #' (..._Beschreibung_Stationen.txt) under \code{\link{dwdbase}}.\cr
 #' \bold{geoIndex}: \code{metaIndex} distilled to geographic locations.\cr
-#' \bold{gridIndex}: Vector of file paths at \code{\link{gridbase}}.
+#' \bold{gridIndex}: Vector of file paths at \code{\link{gridbase}}.\cr
+#' \bold{formatIndex}: (modified) table from 
+#' \url{ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/subdaily/standard_format/formate_kl.html}\cr
 #' 
 #' @name index
-#' @aliases fileIndex metaIndex geoIndex gridIndex
+#' @aliases fileIndex metaIndex geoIndex gridIndex formatIndex
 #' @docType data
 #' @format
-#' \bold{fileIndex}: data.frame with character strings. ca 270k rows x 8 columns:\cr
+#' \bold{fileIndex}: data.frame with character strings. ca 260k rows x 8 columns:\cr
 #'         \code{res}, \code{var}, \code{per} (see \code{\link{selectDWD}}),
 #'         station \code{id}, time series \code{start} and \code{end}, and
 #'         \code{ismeta} information, all according to \code{path}.\cr
@@ -101,12 +103,15 @@ release_questions <- function() {
 #'         res, var, per, hasfile} \cr
 #' \bold{geoIndex}: data.frame with ca 6k rows for 11 columns:\cr
 #'         \code{id, name, state, lat, lon, ele, nfiles, nonpublic, recentfile, display, col}\cr
-#' \bold{gridIndex}: Vector with ca 50k file paths at \code{\link{gridbase}}
+#' \bold{gridIndex}: Vector with ca 50k file paths at \code{\link{gridbase}}\cr
+#' \bold{formatIndex}: data.frame with 140 rows for 12 columns:\cr
+#'         \code{Ke_Ind, Kennung, Label, Beschreibung, Einheit, Code-Tabellen,
+#'         Zusatzinfo, Typ, Pos, Erlaubt, Fehlk, dividebyten}\cr
 #' @source Deutscher WetterDienst / Climate Data Center  FTP Server
 #' @seealso \code{\link{createIndex}}, \code{\link{indexFTP}}, \code{\link{selectDWD}},
 #'          \code{\link{findID}}, \code{\link{metaInfo}},
 #'          \url{https://bookdown.org/brry/rdwd}
-#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June-Nov 2016, June 2017
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June-Nov 2016, June 2017, Oct 2019
 #' @keywords datasets
 #' @importFrom utils data
 #' @examples
@@ -123,7 +128,9 @@ release_questions <- function() {
 #' 
 data(fileIndex, envir=environment())
 data(metaIndex, envir=environment())
-data(geoIndex, envir=environment())
+data( geoIndex, envir=environment())
+data(gridIndex, envir=environment())
+data(formatIndex, envir=environment())
 # http://stackoverflow.com/questions/32964741/accessing-sysdata-rda-within-package-functions
 # http://stackoverflow.com/questions/9521009/how-do-you-handle-r-data-internal-to-a-package
 
@@ -387,6 +394,21 @@ stopifnot(all(metaIndex==metaIndex2))
 stopifnot(all( geoIndex== geoIndex2))
 rm(fileIndex2,metaIndex2,geoIndex2)
 rm(index,dwdfiles)
+#
+#
+# read and save subdaily format description:
+message("reading standard_format description file...")
+format_url <- paste0(dwdbase,"/subdaily/standard_format/formate_kl.html")
+format_html <- readLines(format_url, encoding="UTF-8")
+message("saving formatIndex...")
+format_html <- gsub("&nbsp;", "", format_html)
+format_html <- gsub("&#176;", "degree", format_html)
+format_html <- format_html[!grepl("Formatbeschreibung", format_html)]
+formatIndex <- XML::readHTMLTable(doc=format_html, header=TRUE, stringsAsFactors=FALSE)[[1]]
+formatIndex$dividebyten <- grepl("0.1", formatIndex$Einheit)
+formatIndex$Einheit <- gsub("0.1 ", "", formatIndex$Einheit)
+save(formatIndex, file="data/formatIndex.rda", version=2)
+tools::resaveRdaFiles( "data/formatIndex.rda", version=2)
 #
 message("Now update dwdparams as well, see misc/developmentNotes.R")
 } # end saving+checking index files
