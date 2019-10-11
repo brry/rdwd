@@ -110,11 +110,10 @@ if(any(name_id))
 
 # file/metaIndex date ranges  ----
 
-if(!is.null(findex) & !is.null(mindex) & FALSE){ # currently suppressed - too many differences to be meaningful!
+# currently suppressed - too many differences to be meaningful!
+if(!is.null(findex) & !is.null(mindex) & FALSE){
 message("Comparing fileIndex and metaIndex date ranges...")
 
-data("fileIndex"); findex <- fileIndex ; rm(fileIndex)
-data("metaIndex"); mindex <- metaIndex ; rm(metaIndex)
 findex$start <- as.Date(findex$start, "%Y%m%d")
 findex$end   <- as.Date(findex$end,   "%Y%m%d")
 mindex$von_datum <- as.Date(as.character(mindex$von_datum), "%Y%m%d")
