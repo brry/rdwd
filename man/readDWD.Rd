@@ -7,9 +7,9 @@
 readDWD(file, progbar = TRUE, fread = FALSE, varnames = FALSE,
   var = "", format = NA, tz = "GMT", dividebyten = TRUE,
   multia = grepl("Standort.txt$", file), meta = grepl(".txt$", file),
-  binary = grepl(".tar.gz$", file), raster = grepl(".asc.gz$", file),
-  nc = grepl(".nc.gz$", file), radar = grepl(".gz$", file),
-  asc = grepl(".tar$", file), ...)
+  stand = grepl("standard_format", file), binary = grepl(".tar.gz$",
+  file), raster = grepl(".asc.gz$", file), nc = grepl(".nc.gz$", file),
+  radar = grepl(".gz$", file), asc = grepl(".tar$", file), ...)
 }
 \arguments{
 \item{file}{Char (vector): name(s) of the file(s) downloaded with 
@@ -45,6 +45,9 @@ DEFAULT: TRUE for each file ending in "Standort.txt"}
 \item{meta}{Logical (vector): is the \code{file} a meta file (Beschreibung.txt)?
 See \code{\link{readDWD.meta}}.
 DEFAULT: TRUE for each file ending in ".txt"}
+
+\item{stand}{Logical (vector): is the \code{file} a subdaily/standard_format file?
+DEFAULT: TRUE fo files containing "standard_format" in the name.}
 
 \item{binary}{Logical (vector): does the \code{file} contain binary files?
 See \code{\link{readDWD.binary}}.
@@ -84,9 +87,9 @@ returned as a data.frame.\cr
 New users are advised to set \code{varnames=TRUE} to obtain more informative
 column names.\cr\cr
 \code{readDWD} will call internal (but documented) functions depending on the
-arguments \code{multia, meta, binary, raster, radar, asc}:\cr
+arguments \code{multia, stand, meta, binary, raster, radar, asc}:\cr
 to read observational data: \code{\link{readDWD.data},
-         \link{readDWD.multia}}, \link{readDWD.meta}\cr
+         \link{readDWD.multia}}, \link{readDWD.stand}, \link{readDWD.meta}\cr
 to read interpolated gridded data: \code{\link{readDWD.binary},
          \link{readDWD.raster}, \link{readDWD.radar}, \link{readDWD.nc}, \link{readDWD.asc}}\cr
 Not all arguments to \code{readDWD} are used for all functions, e.g. 

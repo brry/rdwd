@@ -7,9 +7,9 @@
 #' New users are advised to set \code{varnames=TRUE} to obtain more informative
 #' column names.\cr\cr
 #' \code{readDWD} will call internal (but documented) functions depending on the
-#' arguments \code{multia, meta, binary, raster, radar, asc}:\cr
+#' arguments \code{multia, stand, meta, binary, raster, radar, asc}:\cr
 #' to read observational data: \code{\link{readDWD.data},
-#'          \link{readDWD.multia}}, \link{readDWD.meta}\cr
+#'          \link{readDWD.multia}}, \link{readDWD.stand}, \link{readDWD.meta}\cr
 #' to read interpolated gridded data: \code{\link{readDWD.binary},
 #'          \link{readDWD.raster}, \link{readDWD.radar}, \link{readDWD.nc}, \link{readDWD.asc}}\cr
 #' Not all arguments to \code{readDWD} are used for all functions, e.g. 
@@ -58,6 +58,9 @@
 #'               Beschreibung file ending with "Standort.txt". 
 #'               See \code{\link{readDWD.multia}}.
 #'               DEFAULT: TRUE for each file ending in "Standort.txt"
+#' @param stand  Logical (vector): is the \code{file} a subdaily/standard_format file?
+#'               See \code{\link{readDWD.stand}}.
+#'               DEFAULT: TRUE fo files containing "standard_format" in the name.
 #' @param meta   Logical (vector): is the \code{file} a meta file (Beschreibung.txt)?
 #'               See \code{\link{readDWD.meta}}.
 #'               DEFAULT: TRUE for each file ending in ".txt"
@@ -89,13 +92,14 @@ var="",
 format=NA,
 tz="GMT",
 dividebyten=TRUE,
-multia=grepl('Standort.txt$', file),
-meta=  grepl(        '.txt$', file),
-binary=grepl(     '.tar.gz$', file),
-raster=grepl(     '.asc.gz$', file),
-nc=    grepl(      '.nc.gz$', file),
-radar =grepl(         '.gz$', file),
-asc=   grepl(        '.tar$', file),
+multia=grepl(  'Standort.txt$', file),
+meta=  grepl(          '.txt$', file),
+stand= grepl("standard_format", file),
+binary=grepl(       '.tar.gz$', file),
+raster=grepl(       '.asc.gz$', file),
+nc=    grepl(        '.nc.gz$', file),
+radar =grepl(           '.gz$', file),
+asc=   grepl(          '.tar$', file),
 ...
 )
 {
@@ -112,6 +116,7 @@ if(len>1)
   tz          <- rep(tz,          length.out=len)
   dividebyten <- rep(dividebyten, length.out=len)
   multia      <- rep(multia,      length.out=len)
+  stand       <- rep(stand,       length.out=len)
   meta        <- rep(meta,        length.out=len)
   binary      <- rep(binary,      length.out=len)
   raster      <- rep(raster,      length.out=len)
@@ -145,6 +150,7 @@ output <- lapply(seq_along(file), function(i)
 {
 # if meta/multia/radar/binary/raster/asc:
 if(multia[i]) return(readDWD.multia(file[i], ...))
+if(stand[i])  return(readDWD.stand( file[i], ...))
 if(meta[i])   return(readDWD.meta(  file[i], ...))
 if(binary[i]) return(readDWD.binary(file[i], progbar=progbar, ...))
 if(raster[i]) return(readDWD.raster(file[i], dividebyten=dividebyten[i], ...))
@@ -254,7 +260,8 @@ return(dat)
 #' @description read multi_annual dwd data. 
 #' Intended to be called via \code{\link{readDWD}}.\cr
 #' All other observational data at \code{\link{dwdbase}} can be read
-#' with \code{\link{readDWD.data}}, except for the multi_annual data.
+#' with \code{\link{readDWD.data}}, except for the multi_annual and 
+#' subdaily/standard_format data.
 #' @return data.frame
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Feb 2019
 #' @seealso \code{\link{readDWD}}
@@ -314,6 +321,90 @@ nc <- ncol(out)
 # presumably, all files have a trailing empty column...
 if(colnames(out)[nc]=="X") out <- out[,-nc]
 out
+}
+
+
+
+# ~ stand ----
+
+#' @title read subdaily/standard_format dwd data
+#' @description read subdaily/standard_format dwd data. 
+#' Intended to be called via \code{\link{readDWD}}.\cr
+#' All other observational data at \code{\link{dwdbase}} can be read
+#' with \code{\link{readDWD.data}}, except for the multi_annual and 
+#' subdaily/standard_format data.
+#' @return data.frame with column names as per \code{\link{formatIndex}}.
+#' "Q"-columns have "_parameter" appended to their name. A "Date" column has been added.
+#' NA-indicators have been processed into NAs.
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2019
+#' @seealso \code{\link{readDWD}}
+#' @examples
+#' \dontrun{ # Excluded from CRAN checks, but run in localtests
+#' 
+#' link <- selectDWD(id=10381, res="subdaily", var="standard_format", per="r")
+#' file <- dataDWD(link, dir=localtestdir(), read=FALSE)
+#' sf <- readDWD(file)
+#' 
+#' plot(sf$Date, sf$SHK, type="l")
+#' 
+#' # Plot all columns:
+#' if(FALSE){ # not run in any automated testing
+#' tmp <- tempfile(fileext=".pdf")
+#' char2fact <- function(x) 
+#'  {
+#'  if(all(is.na(x))) return(rep(-9, len=length(x)))
+#'  if(!is.numeric(x)) as.factor(x) else x
+#'  }
+#' pdf(tmp, width=9)
+#' par(mfrow=c(2,1),mar=c(2,3,2,0.1), mgp=c(3,0.7,0), las=1)
+#' for(i in 3:ncol(sf)-1) plot(sf$Date, char2fact(sf[,i]), type="l", main=colnames(sf)[i], ylab="")
+#' dev.off()
+#' berryFunctions::openFile(tmp)
+#' }
+#' }
+#' @param file  Name of file on harddrive, like e.g. 
+#'              DWDdata/subdaily_standard_format_kl_10381_00_akt.txt or
+#'              DWDdata/subdaily_standard_format_kl_10381_bis_1999.txt.gz
+#' @param fileEncoding \link{read.table} \link{file} encoding.
+#'              DEFAULT: "latin1" (potentially needed on Linux, 
+#'              optional but not hurting on windows)
+#' @param formIndex Single object: Index used to select column widts and NA values.
+#'              To use a current / custom index, see the end of
+#'              \url{https://github.com/brry/rdwd/blob/master/R/rdwd-package.R}.
+#'              DEFAULT: \code{rdwd:::\link{formatIndex}}
+#' @param \dots Further arguments passed to \code{\link{read.fwf}}
+readDWD.stand <- function(file, fileEncoding="latin1", formIndex=formatIndex, ...)
+{
+# check column existence
+musthave <- c("Pos","Fehlk","dividebyten","Label")
+has <- musthave %in% colnames(formIndex)
+if(any(!has)) stop("formIndex must contain column(s) ", musthave[!has])
+# get column widths:
+width <- diff(as.numeric(formIndex$Pos))
+width <- c(width, 200)
+# read fixed width dataset:
+# this takes >30secs to read full file (7k rows)
+sf <- read.fwf(file, widths=width, stringsAsFactors=FALSE, fileEncoding=fileEncoding, ...) 
+# ToDo: look at data.table/vroom/... for speedup here!
+# ToDo: wrap in try for informative errors with filename?
+# dimension check:
+if(ncol(sf) != nrow(formIndex)) stop("incorrectly read file: ", file,"\n", 
+   ncol(sf), " columns instead of ", nrow(formIndex), " as dictated by formIndex.")
+# NAs (starting with column 7):
+for(i in which(formIndex$Fehlk!=""))
+    sf[    sf[,i]==as.numeric(formIndex$Fehlk[i])    ,  i  ] <- NA
+# divide by ten:
+for(i in which(formIndex$dividebyten)) sf[,i] <- sf[,i]/10
+# column names:
+cn <- formIndex$Label
+Qind <- which(cn=="Q")
+cn[Qind] <- paste0(cn[Qind], "_", cn[Qind-1])
+cn[cn==""] <- "Leer"
+colnames(sf) <- cn
+# add Date column:
+sf$Date <- as.Date(paste(sf$JA,sf$MO,sf$TA,sep="-"), "%F")
+#output:
+return(sf)
 }
 
 

@@ -28,7 +28,8 @@ data.frame
 read multi_annual dwd data. 
 Intended to be called via \code{\link{readDWD}}.\cr
 All other observational data at \code{\link{dwdbase}} can be read
-with \code{\link{readDWD.data}}, except for the multi_annual data.
+with \code{\link{readDWD.data}}, except for the multi_annual and 
+subdaily/standard_format data.
 }
 \examples{
 \dontrun{ # Excluded from CRAN checks, but run in localtests
