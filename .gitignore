@@ -5,6 +5,11 @@ DWDdata/meta
 DWDdata/xls_index.xlsx
 DWDdata/INDEX_of_DWD_.txt
 inst/shinyapps/
+misc/ExampleTests/errors.txt
+misc/ExampleTests/MultiAnn.pdf
+misc/ExampleTests/plots.pdf
+misc/ExampleTests/times.txt
+misc/ExampleTests/warnings.txt
 misc/localdata
 misc/presentation
 misc/contacts.txt

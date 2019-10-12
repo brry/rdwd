@@ -218,8 +218,8 @@ contents <- readDWD(files)
 })
 
 
+message("assuming *Indexes have been updated manually (see end of R/rdwd-package.R)")
 test_that("historical files have been updated by DWD", {
-# assuming that fileIndex has been updated manually (see end of R/rdwd-package.R)
 data("fileIndex")
 lastyear <- as.numeric(format(Sys.Date(), "%Y"))-1 # the last completed year
 outdated <- fileIndex$end==paste0(lastyear-1, "1231") & # ends 1 year before lastyear

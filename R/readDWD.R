@@ -710,7 +710,7 @@ return(invisible(r))
 #' colPointsLegend(nc$var[,,1], title=paste(nc$varname, nc$time[1]))
 #' 
 #' # interactive selection of variable:
-#' nc <- readDWD(file, var="-") # uncommented to not block automated tests 
+#' # nc <- readDWD(file, var="-") # uncommented to not block automated tests 
 #' str(nc$var)
 #' }
 #' @param file        Name of file on harddrive, like e.g. 

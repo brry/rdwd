@@ -57,7 +57,7 @@ image(nc$var[,,1], col=seqPal(), asp=1.1)
 colPointsLegend(nc$var[,,1], title=paste(nc$varname, nc$time[1]))
 
 # interactive selection of variable:
-nc <- readDWD(file, var="-") # uncommented to not block automated tests 
+# nc <- readDWD(file, var="-") # uncommented to not block automated tests 
 str(nc$var)
 }
 }
