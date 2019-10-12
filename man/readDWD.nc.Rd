@@ -12,7 +12,7 @@ readDWD.nc(file, gargs = NULL, var = "", toraster = TRUE,
 DWDdata/grids_germany/daily/Project_TRY/humidity/RH_199509_daymean.nc.gz}
 
 \item{gargs}{Named list of arguments passed to 
-\code{R.utils::\link[R.utils]{gunzip}}, 
+\code{R.utils::\link[R.utils:compressFile]{gunzip}}, 
 see \code{\link{readDWD.raster}}. DEFAULT: NULL}
 
 \item{var}{Charstring: name of variable to be read with 

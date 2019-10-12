@@ -12,7 +12,7 @@ DWDdata/hourly/radolan/recent/bin/
 raa01-rw_10000-1802020250-dwd---bin.gz}
 
 \item{gargs}{Named list of arguments passed to 
-\code{R.utils::\link[R.utils]{gunzip}}. The internal 
+\code{R.utils::\link[R.utils:compressFile]{gunzip}}. The internal 
 defaults are: \code{remove=FALSE} (recommended to keep this
 so \code{file} does not get deleted) and \code{skip=TRUE}
 (which reads previously unzipped files as is).

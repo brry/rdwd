@@ -12,7 +12,7 @@ DWDdata/grids_germany/seasonal/air_temperature_mean/
 16_DJF_grids_germany_seasonal_air_temp_mean_188216.asc.gz}
 
 \item{gargs}{Named list of arguments passed to 
-\code{R.utils::\link[R.utils]{gunzip}}. The internal 
+\code{R.utils::\link[R.utils:compressFile]{gunzip}}. The internal 
 defaults are: \code{remove=FALSE} (recommended to keep this
 so \code{file} does not get deleted) and \code{skip=TRUE}
 (which reads previously unzipped files as is).

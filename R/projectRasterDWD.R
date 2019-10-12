@@ -10,7 +10,7 @@
 #' In raster::plot, use zlim with the original range if needed.
 #' @return Raster object with projection and extent, invisible
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, May 2019
-#' @seealso \code{raster::\link[raster]{crs}}, 
+#' @seealso \code{raster::\link[raster:projection]{crs}}, 
 #'          \code{raster::\link[raster]{projection}},
 #'          \code{raster::\link[raster]{extent}},
 #'          \code{raster::\link[raster]{projectRaster}},
@@ -22,7 +22,7 @@
 #' @param r        Raster object
 #' @param proj     Desired projection. 
 #'                 Use NULL to not set proj+extent but still consider \code{latlon}.
-#'                 Can be a \code{raster::\link[raster]{crs}} output,
+#'                 Can be a \code{raster::\link[raster:projection]{crs}} output,
 #'                 a projection character string (will be passed to \code{crs}),
 #'                 or a special charstring for internal defaults, namely:
 #'                 "radolan" (see readDWD.binary + .asc) or "seasonal" (.raster).

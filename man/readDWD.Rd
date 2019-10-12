@@ -47,6 +47,7 @@ See \code{\link{readDWD.meta}}.
 DEFAULT: TRUE for each file ending in ".txt"}
 
 \item{stand}{Logical (vector): is the \code{file} a subdaily/standard_format file?
+See \code{\link{readDWD.stand}}.
 DEFAULT: TRUE fo files containing "standard_format" in the name.}
 
 \item{binary}{Logical (vector): does the \code{file} contain binary files?

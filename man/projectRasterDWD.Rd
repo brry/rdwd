@@ -12,7 +12,7 @@ projectRasterDWD(r, proj = "radolan", extent = "radolan",
 
 \item{proj}{Desired projection. 
 Use NULL to not set proj+extent but still consider \code{latlon}.
-Can be a \code{raster::\link[raster]{crs}} output,
+Can be a \code{raster::\link[raster:projection]{crs}} output,
 a projection character string (will be passed to \code{crs}),
 or a special charstring for internal defaults, namely:
 "radolan" (see readDWD.binary + .asc) or "seasonal" (.raster).
@@ -45,7 +45,7 @@ In raster::plot, use zlim with the original range if needed.
 # To be used after readDWD.binary, readDWD.raster, readDWD.asc
 }
 \seealso{
-\code{raster::\link[raster]{crs}}, 
+\code{raster::\link[raster:projection]{crs}}, 
          \code{raster::\link[raster]{projection}},
          \code{raster::\link[raster]{extent}},
          \code{raster::\link[raster]{projectRaster}},
