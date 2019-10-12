@@ -79,6 +79,7 @@ install.packages("rdwd", dependencies="Suggests")
 - `RCurl` for indexFTP and selectDWD(..., current=TRUE)
 - `data.table` for readDWD(..., fread=TRUE)
 - `raster`, `R.utils`, `ncdf4` for readDWD with gridded data
+- `readr` for readDWD.stand(..., fast=TRUE)
 - `knitr`, `rmarkdown`, `testthat` for recreating the vignette and local testing
 - `leaflet`, `OSMscale` for interactive/static maps, see [OSMscale installation tips](https://github.com/brry/OSMscale#installation)
 

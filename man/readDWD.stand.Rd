@@ -4,13 +4,19 @@
 \alias{readDWD.stand}
 \title{read subdaily/standard_format dwd data}
 \usage{
-readDWD.stand(file, fileEncoding = "latin1", formIndex = formatIndex,
-  ...)
+readDWD.stand(file, fast = TRUE, fileEncoding = "latin1",
+  formIndex = formatIndex, ...)
 }
 \arguments{
 \item{file}{Name of file on harddrive, like e.g. 
 DWDdata/subdaily_standard_format_kl_10381_00_akt.txt or
 DWDdata/subdaily_standard_format_kl_10381_bis_1999.txt.gz}
+
+\item{fast}{Logical: use \code{readr::\link[readr]{read_fwf}} 
+instead of \code{\link{read.fwf}}? 
+Takes 0.1 instead of 20 seconds but requires package to be installed.
+if fast=TRUE, \code{fileEncoding} is ignored.
+DEFAULT: TRUE}
 
 \item{fileEncoding}{\link{read.table} \link{file} encoding.
 DEFAULT: "latin1" (potentially needed on Linux, 
@@ -21,7 +27,8 @@ To use a current / custom index, see the end of
 \url{https://github.com/brry/rdwd/blob/master/R/rdwd-package.R}.
 DEFAULT: \code{rdwd:::\link{formatIndex}}}
 
-\item{\dots}{Further arguments passed to \code{\link{read.fwf}}}
+\item{\dots}{Further arguments passed to \code{\link{read.fwf}}
+or \code{readr::\link[readr]{read_fwf}}}
 }
 \value{
 data.frame with column names as per \code{\link{formatIndex}}.
@@ -41,6 +48,9 @@ subdaily/standard_format data.
 link <- selectDWD(id=10381, res="subdaily", var="standard_format", per="r")
 file <- dataDWD(link, dir=localtestdir(), read=FALSE)
 sf <- readDWD(file)
+
+sf2 <- readDWD(file, fast=FALSE) # 20 secs!
+stopifnot(all.equal(sf, sf2))
 
 plot(sf$Date, sf$SHK, type="l")
 

@@ -27,7 +27,33 @@ which(sapply(rv, function(x)any(!x$Par %in% dwdparams$Parameter)))
 
 
 
-# readRadarFile bin2num pure R version
+# readDWD.stand fwf speed comp ------
+
+data("formatIndex")
+file <- dataDWD(selectDWD(id=10381, res="subdaily", var="standard_format", per="r"),
+                dir=localtestdir(), read=FALSE)
+width <- c(diff(as.numeric(formatIndex$Pos)),1)
+
+fread_fwf <- function(file)
+{
+c_beg <- as.numeric(formatIndex$Pos)
+c_end <- as.numeric(formatIndex$Pos)[-1L] - 1L
+sf <-  data.table::fread(file, sep="\n", header=FALSE)
+sf <- sf[ , lapply(seq_len(length(c_beg)),	function(i) substr(V1, c_beg[i], c_end[i]))]
+sf
+}
+# times noted as average of ~5 manual runs, not counting first.
+system.time( sf1 <- read.fwf(file, widths=width, stringsAsFactors=FALSE)   )# 18.51 secs # chr/int
+system.time( sf2 <- fread_fwf(file)                                        )#  0.08 secs # all chr
+system.time( sf3 <- readr::read_fwf(file, readr::fwf_widths(width), 
+                                    readr::cols())                         )#  0.09 secs # chr/num
+system.time( sf4 <- iotools::input.file(file, formatter=iotools::dstrfw, 
+                   col_types=rep("character",length(width)), widths=width) )#  0.04 secs # all chr
+
+
+
+
+# readRadarFile bin2num pure R version ----
 
 # Pure R version:  700 ms per file
 # Fortran Version:  55 ms per file
