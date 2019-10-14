@@ -10,11 +10,21 @@ output:
 
 # Intro
 
-This vignette is build with source code and files available [here](https://github.com/brry/rdwd/tree/master/misc/vign).  
-For further details on the data, please consult the 
-[DWD FTP server documentation](ftp://opendata.dwd.de/climate_environment/CDC/Readme_intro_CDC_ftp.pdf).  
-Any feedback on rdwd (or this vignette) is very welcome via [github](https://github.com/brry/rdwd) or <berry-b@gmx.de>!  
-The remainder of this intro chapter is a copy of the [github README file](https://github.com/brry/rdwd#rdwd).
+`rdwd` is an R package to handle data from the German Weather Service (DWD).
+
+This vignette has 3 main sections:
+
+* time series from meteorological stations (chapters 2-5)
+* raster data from radar + interpolation (chapter 6)
+* use cases, i.e. extended usage examples (chapter 7-end)
+
+Important links:
+
+* further details on the data: [DWD FTP server documentation](ftp://opendata.dwd.de/climate_environment/CDC/Readme_intro_CDC_ftp.pdf)
+* vignette [source code and files](https://github.com/brry/rdwd/tree/master/misc/vign)
+* feedback is very welcome via [github](https://github.com/brry/rdwd) or <berry-b@gmx.de>!  
+
+*The remainder of this intro chapter is a copy of the [github README file](https://github.com/brry/rdwd#rdwd).*
 
 ----
 
@@ -36,6 +46,7 @@ print_short <- function(x)
   {out <- lapply(x, gsub, pattern=dwdbase, replacement="---")
   if(is.list(x)) out else unlist(out)}
 ```
+
 
 
 # Interactive map
@@ -85,10 +96,12 @@ The following folders in **`res/var/per`** notation (resolution/variable/period)
 "<" signifies a split into the folders `per` = "recent" and "historical".  
 "<<" signifies a split into the folders `per` = "now", "recent", "historical" and "meta_data".  
 "-" signifies that there are no further sub-folders.  
-Please note:  
-- both "solar" (-/<<) and "sun" (<) are available!  
-- `1_minute/precipitation/historical` has a subfolder for each year.  
-- `subdaily/standard_format` does not actually split in subfolders, yet includes recent/hist information in `fileIndex`
+
+Please note:
+
+* both "solar" (-/<<) and "sun" (<) are available!  
+* `1_minute/precipitation/historical` has a subfolder for each year.  
+* `subdaily/standard_format` does not actually split in subfolders, but has recent/hist information in `fileIndex`
 
 
 ```{r ftp_folders_1, echo=FALSE}
@@ -137,6 +150,7 @@ tab <- lapply(colnames(f)[-1], function(r)
 tab <- unlist(tab)
 
 miss <- on[!on %in% tab]
+miss <- miss[! miss %in% c("subdaily/standard_format/recent", "subdaily/standard_format/historical")]
 l <- length(miss)
 if(l>0) stop("\n\nThe following ", l, " FTP folders must yet be added to the ",
              "table (FTP_folder.ods) in section 'Available datasets':\n", 
@@ -152,12 +166,14 @@ if(l>0) stop("\n\nThe following ", l, " table entries in section 'Available data
 
 To use the observational datasets, `rdwd` has been designed to mainly do 3 things:
 
-* `r helplink("selectDWD")`: facilitate file selection, e.g. for certain station names (with `r helplink("findID")`), 
-by geographical location (see the [interactive map](interactive-map.html) and `r helplink("nearbyStations")`), by temporal resolution (**res** = 1/10 minutes, hourly, daily, monthly, annual), 
-variables (**var** = temperature, rain, wind, sun, clouds, etc) or
-observation period (**per** = historical long term records or the current year)
+* `r helplink("selectDWD")`: facilitate file selection, needing:
+  * station id/name/location (see chapter [station selection](station-selection.html))
+  * temporal resolution (**res** = 1/10 minutes, hourly, daily, monthly, annual)
+  * variables (**var** = temperature, rain, wind, sun, clouds, etc)
+  * observation period (**per** = historical long term records or the current year)  
 
-* `r helplink("dataDWD")`: download a file (or multiple files, without getting banned by the FTP-server)
+
+* `r helplink("dataDWD")`: download a file (or multiple files), without re-downloads for existing files
 
 * `r helplink("readDWD")`: read that data into R (including useful defaults for metadata)
 
@@ -171,9 +187,7 @@ From this, `r helplink("metaIndex")` and `r helplink("geoIndex")` are derived.
 
 # Station selection
 
-`print_short` in this chapter is just a helper function to replace 
-[dwdbase](ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate)
-with `---` for shorter output in the vignette.
+*`print_short` in this chapter is just a helper function to replace [dwdbase](ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate) with `---` for shorter output in the vignette.*
 
 ## by location
 
@@ -183,7 +197,7 @@ All stations within a certain radius around a given lat-long position can be obt
 
 ## by ID
 
-The DWD station IDs can be obtained from station names with
+The DWD station IDs can be obtained from station names with `r helplink("findID")`:
 ```{r findID, eval=TRUE}
 findID("Potsdam")
 findID("Koeln", exactmatch=FALSE, quiet=TRUE)
@@ -192,11 +206,7 @@ findID("Koeln", exactmatch=FALSE, quiet=TRUE)
 ## by name
 
 File selection by station name/id and folder can happen directly with `r helplink("selectDWD")`.
-It needs an index of all the available files on the server.
-The package contains such an index (`r helplink("fileIndex")`) that is updated (at least) with each CRAN release of the package.
-More on that in the next subchapter.
-
-`r helplink("selectDWD")` is designed to be very flexible:
+It is designed to be very flexible:
 
 ```{r select1, eval=FALSE, echo=TRUE}
 # inputs can be vectorized, and period can be abbreviated:
@@ -225,6 +235,8 @@ selectDWD(id=c(3467,5116), res="",var="",per="", quiet=TRUE) %>% print_short
 
 ## fileIndex
 
+`r helplink("selectDWD")` needs an index of all the available files on the server.
+The package contains such an index (`r helplink("fileIndex")`) that is updated (at least) with each CRAN release of the package.
 If you find the file index to be outdated (Error in download.file ... : cannot open URL),
 please let me know and I will update it. Meanwhile, use current=TRUE in `r helplink("selectDWD")`:
 
@@ -233,8 +245,11 @@ please let me know and I will update it. Meanwhile, use current=TRUE in `r helpl
 links <- selectDWD(res="monthly", var="more_precip", per="hist", current=TRUE)
 ```
 
-`r helplink("fileIndex")` is created with the function `r helplink("indexFTP")` used in the last section of 
-[rdwd-package.R](https://github.com/brry/rdwd/blob/master/R/rdwd-package.R#L249).
+Alternatively, for repetitive usage, create your own file index.  
+`r helplink("fileIndex")` for the entire server is created with the function 
+`r helplink("indexFTP")` used in the last section of 
+[rdwd-package.R](https://github.com/brry/rdwd/blob/master/R/rdwd-package.R#L249).  
+To get an index for a certaiin subfolder, use:
 
 ```{r listfiles, eval=FALSE}
 ### This chunk is not evaluated ###
@@ -281,6 +296,7 @@ str(meta_monthly_rain)
 Meta files may list stations for which there are actually no files.
 These refer to nonpublic datasets (The DWD cannot publish all datasets because of copyright restrictions).
 To request those, please contact <cdc.daten@dwd.de> or <klima.vertrieb@dwd.de>.
+
 
 
 # Raster data
@@ -337,6 +353,53 @@ prec <- tapply(clim$MO_RR, clim$month, mean, na.rm=TRUE)
 berryFunctions::climateGraph(temp, prec, main="Goettingen")
 mtext("Source: Deutscher Wetterdienst", adj=-0.05, line=2.8, font=3)
 ```
+
+
+
+# - use case: monthy gridded data
+
+From the [monthly](ftp://ftp-cdc.dwd.de/climate_environment/CDC/grids_germany/monthly) 
+folder at `r helplink("gridbase")`, we want to
+download .asc.gz files for selected years and open them in R for further processing.
+
+Note: I'm using `quiet=TRUE` to keep this vignette concise. In real life, the messages may be important to you...
+
+```{r grid_monthly_index, message=FALSE}
+data("gridIndex")
+index <- grep("monthly",   gridIndex, value=TRUE) # 12'295
+index <- grep('precipitation', index, value=TRUE) #  1'664
+index <- grep('2014|2015|2016',index, value=TRUE) #     36 (3*12)
+
+precip_files <- dataDWD(index[6:8], base=gridbase, joinbf=TRUE, read=FALSE, 
+                        dir="../localdata", quiet=TRUE)
+precip <- readDWD(precip_files, quiet=TRUE)
+```
+For .asc.gz files, `r helplink("readDWD")` calls `r helplink("readDWD.raster")`.
+This runs faster if called a second time due to skip=TRUE in `gunzip`.  
+Now we can project and visualize with:
+
+```{r grid_monthly_vis}
+# raster::plot(precip[[1]])
+precip_proj <- projectRasterDWD(precip[[1]], proj="seasonal", 
+                                extent=precip[[1]]@extent, quiet=TRUE)
+raster::plot(precip_proj, las=1)
+addBorders()
+```
+
+For further processing, we can create a raster stack from the list, which e.g. enables fast and easy indexing.
+```{r grid_monthly_stack, eval=FALSE}
+precip_stack <- raster::stack(precip)
+```
+
+A few projection references:
+
+The [Beschreibung file](ftp://opendata.dwd.de/climate_environment/CDC/grids_germany/seasonal/air_temperature_max/BESCHREIBUNG_gridsgermany_seasonal_air_temperature_max_de.pdf)
+leads to
+<https://spatialreference.org/ref/epsg/31467>
+from which the proj4 format is used internally in `r helplink("projectRasterDWD")`, currently at 
+[line 47](https://github.com/brry/rdwd/blob/master/R/projectRasterDWD.R#L47-L48).  
+One user reported using `dwd.projection <- '+init=epsg:31467'` instead.
+
 
 
 # - use case: longest time series in Berlin
@@ -653,3 +716,11 @@ rainLK <- pbapply::pblapply(c(133,277,300,389), landkreis_rain)
 rainLK <- Reduce(function(...) merge(..., by="MESS_DATUM",all=TRUE), rainLK)
 head(rainLK)
 ```
+ 
+# search
+
+rdwd description
+
+Weather Data Germany download with R, Climate Data Germany  
+Deutscher Wetterdienst R Daten download Klimastationen  
+DWD Daten mit R runterladen, Wetter und Klimadaten in R  
