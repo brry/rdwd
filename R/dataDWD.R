@@ -6,7 +6,9 @@
 #' 
 #' Get climate data from the German Weather Service (DWD) FTP-server.
 #' The desired .zip (or .txt) dataset is downloaded into \code{dir}.
-#' If \code{read=TRUE}, it is also read, processed and returned as a data.frame.
+#' If \code{read=TRUE}, it is also read, processed and returned as a data.frame.\cr
+#' To solve "errors in download.file: cannot open URL", see 
+#' \url{https://bookdown.org/brry/rdwd/station-selection.html#fileindex}.\cr
 #' 
 #' @return Presuming downloading and processing were successful:
 #'         if \code{read=TRUE}, a data.frame of the desired dataset

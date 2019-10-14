@@ -1,6 +1,10 @@
-#' Select data from the DWD CDC FTP Server
+#' @title Select data from the DWD CDC FTP Server
 #' 
-#' Select files for downloading with \code{\link{dataDWD}}.
+#' @description Select files for downloading with \code{\link{dataDWD}}.\cr
+#' The available folders with datasets are listed at
+#' \url{https://bookdown.org/brry/rdwd/available-datasets.html}.
+#' To use an updated index (if necessary), see 
+#' \url{https://bookdown.org/brry/rdwd/station-selection.html#fileindex}.\cr\cr
 #' All arguments (except for \code{mindex}, \code{findex} and \code{base})
 #' can be a vector and will be recycled to the maximum length of all arguments.
 #' If that length > 1, the output is a list of filenames (or vector if \code{outvec=TRUE}).\cr
@@ -21,9 +25,6 @@
 #' For case 3 and 4 (\bold{path} given), you can set \code{meta=TRUE}.
 #' Then selectDWD will return the name of the station description file at \bold{path}.
 #' This is why case 3 with \code{meta=FALSE} only returns the data file names (ending in .zip).\cr\cr\cr
-#' 
-#' The available folders with datasets are listed at
-#' \url{https://bookdown.org/brry/rdwd/available-datasets.html}
 #' 
 #' @return Character string with file path and name(s) in the format
 #'         "base/res/var/per/filename.zip"
