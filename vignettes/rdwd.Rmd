@@ -1,0 +1,35 @@
+---
+title: "rdwd: climate data from the German Weather Service"
+author: "Berry Boessenkool, <berry-b@gmx.de>"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{rdwd: climate data from the German Weather Service}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<img src="hex.png" width="104" height="120">
+
+`rdwd` is an R interface to data from the German weather service (DWD)
+
+It provides three categories of services:
+
+* find, select, download + read data
+* vectorized, progress bars, no re-downloads
+* index of files + meta data
+
+for three types of data:
+
+* observational time series from 6k meteorological recording stations  (2.5k active)
+  -> rain, temperature, wind, sunshine, pressure, cloudiness, humidity, snow, ...
+* gridded raster data from radar + interpolation
+* european data stock slowly growing (but reading functions not tested yet)
+
+
+The actual vignette is available here:
+<https://bookdown.org/brry/rdwd>
+
+* it has grown too big for CRAN 
+* the constant rebuilding is an unnecessary load on the DWD FTP Server
+* The bookdown page enables a very nicely structured html layout
+

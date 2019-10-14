@@ -6,18 +6,14 @@ rdwd ToDo-list / wishlist / issues
 - outsource radar functionality into dwdradar
 - indexFTP: read tree with data.table/vroom
 - dataDWD: change/allow force to be number of hours after which to re-download
-- write function to open vignette homepage
+- functions for localtests and index updates
 - selectDWD("Berlin", res="monthly", var="kl", per="h", exactmatch = F) should only return stations with data, with a single warning only
 - metaIndex: consider changing date columns to Date / adding ndays column 
 
 vignette ToDos: 
-- pack struct + stat sel: less overlap
-- rast dat: add overview
-- more use of linking to docs with `r helplink("some_function")`
+- raster data: add overview
 - use case example phenology data, see issue #8
 - use case / test multi_annual data
-- package vignette with link to page?
-- add instructions for generating own metaIndex et al. Link to in selectDWD/dataDWD
 
 
 
