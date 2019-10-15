@@ -6,6 +6,4 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 cran-comments.md
-src/binary_to_num.o
-src/init.o
-src/rdwd.dll
+

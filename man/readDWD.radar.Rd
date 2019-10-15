@@ -28,7 +28,7 @@ to a list with data (\code{raster \link[raster]{stack}}) +
 meta (list from the first subfile, but with vector of dates)?
 DEFAULT: TRUE}
 
-\item{\dots}{Further arguments passed to \code{\link{readRadarFile}}, 
+\item{\dots}{Further arguments passed to \code{dwdradar::\link[dwdradar]{readRadarFile}}, 
 i.e. \code{na} and \code{clutter}}
 }
 \value{
@@ -59,6 +59,6 @@ addBorders()
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Aug 2019. 
-        Significant input for the underlying \code{\link{readRadarFile}} came
+        Significant input for the underlying \code{dwdradar::\link[dwdradar]{readRadarFile}} came
         from Henning Rust & Christoph Ritschel at FU Berlin.
 }

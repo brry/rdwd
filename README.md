@@ -62,9 +62,6 @@ install.packages("rdwd")
 ```
 
 #### Latest version
-Note: on Windows, you need to have [Rtools](https://cran.r-project.org/bin/windows/Rtools/)
-installed directly at `C:/Rtools`  
-(Compiler paths may not have spaces, as there would be with `C:/Program Files/R/Rtools/`).
 ```R
 if(!requireNamespace("remotes", quietly=TRUE)) install.packages("remotes")
 remotes::install_github("brry/rdwd")
@@ -78,7 +75,7 @@ install.packages("rdwd", dependencies="Suggests")
 
 - `RCurl` for indexFTP and selectDWD(..., current=TRUE)
 - `data.table` for readDWD(..., fread=TRUE)
-- `raster`, `R.utils`, `ncdf4` for readDWD with gridded data
+- `raster`, `R.utils`, `ncdf4`, `dwdradar` for readDWD with gridded data
 - `readr` for readDWD.stand(..., fast=TRUE)
 - `knitr`, `rmarkdown`, `testthat` for recreating the vignette and local testing
 - `leaflet`, `OSMscale` for interactive/static maps, see [OSMscale installation tips](https://github.com/brry/OSMscale#installation)

@@ -15,7 +15,7 @@ DWDdata/daily_radolan_historical_bin_2017_SF201712.tar.gz}
 will be unpacked with \code{\link{untar}}. Note that exdir
 size will be around 1.1 GB. exdir can contain other files, 
 these will be ignored for the actual reading with 
-\code{\link{readRadarFile}} (function not exported, but documented).
+\code{dwdradar::\link[dwdradar]{readRadarFile}}.
 DEFAULT exdir: sub(".tar.gz$", "", file)}
 
 \item{toraster}{Logical: convert output (list of matrixes + meta informations)
@@ -30,7 +30,7 @@ DEFAULT: TRUE}
 \item{selection}{Optionally read only a subset of the ~24*31=744 files.
 Called as \code{f[selection]}. DEFAULT: NULL (ignored)}
 
-\item{\dots}{Further arguments passed to \code{\link{readRadarFile}}, 
+\item{\dots}{Further arguments passed to \code{dwdradar::\link[dwdradar]{readRadarFile}}, 
 i.e. \code{na} and \code{clutter}}
 }
 \value{
@@ -87,6 +87,6 @@ head(grep("historical", gridIndex, value=TRUE))
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Dec 2018. 
-        Significant input for the underlying \code{\link{readRadarFile}} came
+        Significant input for the underlying \code{dwdradar::\link[dwdradar]{readRadarFile}} came
         from Henning Rust & Christoph Ritschel at FU Berlin.
 }

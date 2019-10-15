@@ -519,7 +519,7 @@ stats
 #' Intended to be called via \code{\link{readDWD}}.\cr
 #' @return list depending on argument \code{toraster}, see there for details
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2018. 
-#'         Significant input for the underlying \code{\link{readRadarFile}} came
+#'         Significant input for the underlying \code{dwdradar::\link[dwdradar]{readRadarFile}} came
 #'         from Henning Rust & Christoph Ritschel at FU Berlin.
 #' @seealso \code{\link{readDWD}}, especially \code{\link{readDWD.radar}}\cr
 #'   \url{https://wradlib.org} for much more extensive radar analysis in Python\cr
@@ -569,7 +569,7 @@ stats
 #'                  will be unpacked with \code{\link{untar}}. Note that exdir
 #'                  size will be around 1.1 GB. exdir can contain other files, 
 #'                  these will be ignored for the actual reading with 
-#'                  \code{\link{readRadarFile}} (function not exported, but documented).
+#'                  \code{dwdradar::\link[dwdradar]{readRadarFile}}.
 #'                  DEFAULT exdir: sub(".tar.gz$", "", file)
 #' @param toraster  Logical: convert output (list of matrixes + meta informations)
 #'                  to a list with data (\code{raster \link[raster]{stack}}) + 
@@ -580,11 +580,12 @@ stats
 #'                  DEFAULT: TRUE
 #' @param selection Optionally read only a subset of the ~24*31=744 files.
 #'                  Called as \code{f[selection]}. DEFAULT: NULL (ignored)
-#' @param \dots     Further arguments passed to \code{\link{readRadarFile}}, 
+#' @param \dots     Further arguments passed to \code{dwdradar::\link[dwdradar]{readRadarFile}}, 
 #'                  i.e. \code{na} and \code{clutter}
 readDWD.binary <- function(file, exdir=sub(".tar.gz$", "", file), 
                            toraster=TRUE, progbar=TRUE, selection=NULL, ...)
 {
+checkSuggestedPackage("dwdradar", "rdwd:::readDWD.binary")
 pmessage <- function(...) if(progbar) message(...)
 # Untar as needed:
 pmessage("\nChecking which files need to be untarred to ", exdir, "...")
@@ -610,7 +611,7 @@ f <- fd[basename(fd) %in% f]
 pmessage("Reading ",length(f)," binary files...")
 if(progbar) lapply <- pbapply::pblapply
 # Read the actual binary file:
-rb <- lapply(f, readRadarFile, ...)
+rb <- lapply(f, dwdradar::readRadarFile, ...)
 # list element names (time stamp):
 time <- sapply(rb, function(x) as.character(x$meta$date))
 names(rb) <- time
@@ -817,7 +818,7 @@ return(invisible(list(time=time, lat=LAT, lon=LON, var=VAR, varname=var, file=my
 #' @return Invisible list with \code{dat} (matrix or raster, depending on \code{toraster}) 
 #' and \code{meta} (list with elements from header)
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019. 
-#'         Significant input for the underlying \code{\link{readRadarFile}} came
+#'         Significant input for the underlying \code{dwdradar::\link[dwdradar]{readRadarFile}} came
 #'         from Henning Rust & Christoph Ritschel at FU Berlin.
 #' @seealso \code{\link{readDWD}}, especially \code{\link{readDWD.binary}}\cr
 #'   \url{https://wradlib.org} for much more extensive radar analysis in Python\cr
@@ -852,16 +853,17 @@ return(invisible(list(time=time, lat=LAT, lon=LON, var=VAR, varname=var, file=my
 #'                  to a list with data (\code{raster \link[raster]{stack}}) + 
 #'                  meta (list from the first subfile, but with vector of dates)?
 #'                  DEFAULT: TRUE
-#' @param \dots     Further arguments passed to \code{\link{readRadarFile}}, 
+#' @param \dots     Further arguments passed to \code{dwdradar::\link[dwdradar]{readRadarFile}}, 
 #'                  i.e. \code{na} and \code{clutter}
 readDWD.radar <- function(file, gargs=NULL, toraster=TRUE, ...)
 {
+checkSuggestedPackage("dwdradar","rdwd:::readDWD.radar")
 checkSuggestedPackage("R.utils", "rdwd:::readDWD.radar")
 # gunzip arguments:
 gdef <- list(filename=file, remove=FALSE, skip=TRUE)
 gfinal <- berryFunctions::owa(gdef, gargs, "filename")
 rdata <- do.call(R.utils::gunzip, gfinal)
-rf <- readRadarFile(rdata, ...)
+rf <- dwdradar::readRadarFile(rdata, ...)
 if(toraster) checkSuggestedPackage("raster", "rdwd:::readDWD.radar with toraster=TRUE")
 if(toraster) rf$dat <- raster::raster(rf$dat)
 return(invisible(rf))

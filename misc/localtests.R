@@ -58,7 +58,7 @@ trr <- function(file, ext="radolan", readdwd=FALSE) # trr: test reading radar da
   {
   main <- deparse(substitute(file))
   file2 <- localtestdir(folder="misc", file=file)
-  rrf <- if(readdwd) readDWD(file2, toraster=FALSE) else readRadarFile(file2)
+  rrf <- if(readdwd) readDWD(file2, toraster=FALSE) else dwdradar::readRadarFile(file2)
   rrr <- raster::raster(rrf$dat)
   rrp <- projectRasterDWD(rrr, extent=ext)
   raster::plot(rrr, main="\nOriginal")
@@ -77,14 +77,13 @@ w2 <- trr("raa01-rw_10000-1907311350-dwd---bin_hourRadRecentBin.gz", readdwd=TRU
 rw <- trr("raa01-rw_10000-1907010950-dwd---bin_weatherRadolan")
 sf <- trr("raa01-sf_10000-1605010450-dwd---bin_dailyRadHist")
 rx <- trr("raa01-rx_10000-1605290600-dwd---bin_Braunsbach")
-rx1 <- raster::raster(readRadarFile(rx$file)$dat)
+rx1 <- raster::raster(dwdradar::readRadarFile(rx$file)$dat)
 rx2 <- projectRasterDWD(rx1, latlon=FALSE)
 raster::plot(rx2, main="\nProjected without latlon")
 raster::plot(rx$rrp, zlim=rx$range_orig, main="\nProjected, with custom zlim")
 addBorders()
 dev.off()
 openFile("misc/ExampleTests/Radartests.pdf")
-# RX range changes too much!! WTF?! Comes from projecting to latlon...
 
 # "True" values from versions of reading functions that seem to make sense.
 # NOT actually checked with DWD, reality or anything!
