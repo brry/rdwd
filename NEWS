@@ -10,9 +10,8 @@ rdwd ToDo-list / wishlist / issues
 - metaIndex: consider changing date columns to Date / adding ndays column 
 
 vignette ToDos: 
-- raster data: add overview
 - use case example phenology data, see issue #8
-- use case / test multi_annual data
+- use case / test multi_annual + standard_format data
 
 
 

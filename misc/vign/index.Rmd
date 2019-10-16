@@ -301,20 +301,117 @@ To request those, please contact <cdc.daten@dwd.de> or <klima.vertrieb@dwd.de>.
 
 # Raster data
 
-For observational data `r helplink("selectDWD")` is the main function to choose data to be downloaded.
+For observational data at `r helplink("dwdbase")`, 
+`r helplink("selectDWD")` is the main function to choose data to be downloaded.
 
-For data interpolated onto a 1 km raster, including radar data up to the last hour, I don't yet understand the structure of the FTP server as well.  
-For now, you'll have to query `r helplink("gridIndex")` yourself.  
-If you can send me examples of how you use it, I can then expand this in `rdwd`.  
+For gridded data at `r helplink("gridbasebase")`, including 
+data interpolated onto a 1 km raster and radar data up to the last hour, 
+I don't yet understand the structure of the FTP server as well.  
+For now, you'll have to query `r helplink("gridIndex")` yourself, e.g. with
+```{r, gridIndex, eval=FALSE}
+data(gridIndex)
+head(grep("historical", gridIndex, value=TRUE))
+# current index of available files for a given folder:
+rasterbase <- paste0(gridbase,"/seasonal/air_temperature_mean")
+ftp.files <- indexFTP("/16_DJF", base=rasterbase, dir=tempdir())
+```
+If you send me examples of how you use it, I can then expand this in `rdwd`.  
+For files that are not yet read correctly, you can also consult the 
+Kompositformatbeschreibung at <https://www.dwd.de/DE/leistungen/radolan/radolan.html>
 
-ToDo: examples for gridded data  
+Besides `r helplink("dwdbase")` and `r helplink("gridbase")`, 
+there's yet more data at <ftp://ftp-cdc.dwd.de/weather>.
 
-For now, check the examples in  
+A helper function to reduce code duplication:
+
+```{r readDWD_gridded}
+ddir <- localtestdir()
+tdir <- tempdir()
+project_and_plot <- function(x, main1, main2, main3=NULL, ...)
+  {
+  par(mar=c(2,2,2.2,1), mgp=c(3,0.7,0))
+  x <- projectRasterDWD(x, quiet=TRUE, ...)
+  x <- x[[1]] # plot only the first layer, if applicable
+  main4 <- paste(as.character(main2), as.character(main3))
+  raster::plot(x, main=c(main1, main4), las=1)
+  addBorders()
+  return(invisible(x))
+  }
+```
+
+The following overview will usually unzip only a few selected files for speed and memory considerations.
+In real life, you might not want to unzip to a temporary `exdir` 
+and (at least when calling it for the first time) not use quiet=TRUE.
+You can also remove `read=FALSE` in dataDWD and add the needed arguments right there, 
+but I wanted to be explicit here.
+
+The first line in each code block shows for which FTP folder this function will be called.  
+The last line shows what projection and extent to use in `r helplink("projectRasterDWD")`. 
+
+## readDWD.binary (SF)
 `r helplink("readDWD.binary")`  
-`r helplink("readDWD.radar")`  # not yet on cran, hence see the [source code](https://github.com/brry/rdwd/blob/master/R/readDWD.R#L579)  
-`r helplink("readDWD.raster")`  
-`r helplink("readDWD.asc")`  
+```{r readDWD_binary_sf}
+link <- "/daily/radolan/historical/bin/2017/SF201712.tar.gz"           # 204 MB
+file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE, quiet=TRUE)
+rad <- readDWD(file, exdir=tdir, selection=1:3, quiet=TRUE) # with toraster=TRUE
+project_and_plot(rad$data, ".binary SF", rad$meta$date[1])
+```
 
+## readDWD.binary (RW)
+
+```{r readDWD_binary_rw}
+link <- "hourly/radolan/reproc/2017_002/bin/2017/RW2017.002_201712.tar.gz"  # 25 MB
+file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE, quiet=TRUE)
+rad <- readDWD(file, exdir=tdir, selection=1:3, quiet=TRUE)
+project_and_plot(rad$data, ".binary RW", rad$meta$date[1], extent="rw")
+```
+
+## readDWD.radar
+`r helplink("readDWD.radar")` - not yet on cran, hence see the [source code](https://github.com/brry/rdwd/blob/master/R/readDWD.R#L818) 
+```{r readDWD_radar, echo=-1}
+suppressPackageStartupMessages(library(R.utils)) 
+links <- indexFTP("hourly/radolan/recent/bin", base=gridbase, dir=tdir, quiet=TRUE) # 0.04 MB
+file <- dataDWD(links[773], base=gridbase, joinbf=TRUE, dir=tdir, read=FALSE, quiet=TRUE)
+rad <- readDWD(file, quiet=TRUE)
+project_and_plot(rad$dat, ".radar", rad$meta$date)
+```
+
+## readDWD.raster
+`r helplink("readDWD.raster")`  
+```{r readDWD_raster}
+link <- "seasonal/air_temperature_mean/16_DJF/grids_germany_seasonal_air_temp_mean_188216.asc.gz" # 0.2 MB
+file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE, quiet=TRUE)
+rad <- readDWD(file, quiet=TRUE) # with dividebyten=TRUE
+rad <- readDWD(file, quiet=TRUE) # runs faster at second time due to skip=TRUE
+project_and_plot(rad, ".raster", "", proj="seasonal", extent=rad@extent)
+```
+
+## readDWD.asc
+`r helplink("readDWD.asc")` 
+```{r readDWD_asc}
+link <- "hourly/radolan/historical/asc/2018/RW-201809.tar" # 25 mB
+file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, quiet=TRUE,
+                dfargs=list(mode="wb"), read=FALSE) # download with mode=wb!!!
+rad <- readDWD(file, selection=1:3, dividebyten=TRUE, quiet=TRUE)
+project_and_plot(rad, ".asc", names(rad)[1])
+```
+ 
+## readDWD.nc
+`r helplink("readDWD.nc")` - not yet on cran, hence see the [source code](https://github.com/brry/rdwd/blob/master/R/readDWD.R#L706)
+```{r readDWD_nc}
+link <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
+file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE, quiet=TRUE)
+rad <- readDWD(file, quiet=TRUE) # can also have interactive selection of variable
+e_berry  <- c(5.0, 15.9,  46.8, 55.5) # still figuring out projection info
+project_and_plot(rad$var, ".nc", rad$varname, rad$time[1], extent=e_berry, latlon=FALSE)
+```
+
+Of all these, `readDWD.nc` is the most likely to change, so in your code, you might add
+```{r}
+if(packageVersion("rdwd") > "1.2") warning("readDWD.nc output might have changed by now!")
+```
+This is because it may call `raster` directly on the unzipped file in the future, hence returning a different output by default.
+It may also need changes to accurately project the maps.
 
 
 # - use case: recent time series
@@ -395,9 +492,9 @@ A few projection references:
 
 The [Beschreibung file](ftp://opendata.dwd.de/climate_environment/CDC/grids_germany/seasonal/air_temperature_max/BESCHREIBUNG_gridsgermany_seasonal_air_temperature_max_de.pdf)
 leads to
-<https://spatialreference.org/ref/epsg/31467>
+<https://spatialreference.org/ref/epsg/31467/>
 from which the proj4 format is used internally in `r helplink("projectRasterDWD")`, currently at 
-[line 47](https://github.com/brry/rdwd/blob/master/R/projectRasterDWD.R#L47-L48).  
+[line 47](https://github.com/brry/rdwd/blob/master/R/projectRasterDWD.R#L52).  
 One user reported using `dwd.projection <- '+init=epsg:31467'` instead.
 
 
