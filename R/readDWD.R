@@ -40,9 +40,10 @@
 #'               \code{\link{dataDWD}},
 #'               e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip" or
 #'               "~/DWDdata/RR_Stundenwerte_Beschreibung_Stationen.txt"
+#' @param quiet  Logical: suppress messages? DEFAULT: FALSE
 #' @param progbar Logical: present a progress bar with estimated remaining time?
 #'               If missing and length(file)==1, progbar is internally set to FALSE.
-#'               DEFAULT: TRUE
+#'               DEFAULT: !quiet
 #' @param fread  Logical (vector): read fast? See \code{\link{readDWD.data}}.
 #'               DEFAULT: FALSE (some users complain it doesn't work on their PC)
 #' @param varnames Logical (vector): Expand column names? 
@@ -85,7 +86,8 @@
 #' 
 readDWD <- function(
 file,
-progbar=TRUE,
+quiet=FALSE,
+progbar=!quiet,
 fread=FALSE,
 varnames=FALSE,
 var="",
@@ -154,12 +156,12 @@ if(stand[i])  return(readDWD.stand( file[i], ...))
 if(meta[i])   return(readDWD.meta(  file[i], ...))
 if(binary[i]) return(readDWD.binary(file[i], progbar=progbar, ...))
 if(raster[i]) return(readDWD.raster(file[i], dividebyten=dividebyten[i], ...))
-if(nc[i])     return(readDWD.nc(    file[i], var=var[i], ...))
+if(nc[i])     return(readDWD.nc(    file[i], var=var[i], quiet=quiet, ...))
 if(radar[i])  return(readDWD.radar( file[i], ...))
 if(asc[i])    return(readDWD.asc(   file[i], progbar=progbar, dividebyten=dividebyten[i], ...))
 # if data:
 readDWD.data(file[i], fread=fread[i], varnames=varnames[i], 
-             format=format[i], tz=tz[i], ...)
+             format=format[i], tz=tz[i], quiet=quiet, ...)
 }) # lapply loop end
 #
 names(output) <- tools::file_path_sans_ext(basename(file))
@@ -201,9 +203,10 @@ return(invisible(output))
 #' @param tz       Char (vector): time zone for \code{\link{as.POSIXct}}.
 #'                 "" is the current time zone, and "GMT" is UTC (Universal Time,
 #'                 Coordinated). DEFAULT: "GMT"
+#' @param quiet    Suppress empty file warnings? DEFAULT: FALSE
 #' @param \dots    Further arguments passed to \code{\link{read.table}} or 
 #'                 \code{data.table::\link[data.table]{fread}}
-readDWD.data <- function(file, fread=FALSE, varnames=FALSE, format=NA, tz="GMT", ...)
+readDWD.data <- function(file, fread=FALSE, varnames=FALSE, format=NA, tz="GMT", quiet=FALSE, ...)
 {
 if(fread)
   {
@@ -230,7 +233,7 @@ if(varnames)  dat <- newColumnNames(dat)
 # return if file is empty, e.g. for daily/more_precip/hist_05988 2019-05-16:
 if(nrow(dat)==0)
   {
-  warning("File contains no rows: ", file)
+  if(!quiet) warning("File contains no rows: ", file)
   return(dat)
   }
 # process time-stamp: http://stackoverflow.com/a/13022441
@@ -764,7 +767,7 @@ mycdf <- ncdf4::nc_open(ncfile, ...)
 unit <- mycdf$dim$time$units
 if(is.null(unit))
  {
- message("Time could not be read from cdf file and is set to 1.")
+ if(!quiet) message("Time could not be read from cdf file and is set to 1.")
  time <- 1
  } else
 if(substr(unit,1,4)=="days")

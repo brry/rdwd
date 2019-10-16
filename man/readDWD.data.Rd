@@ -5,7 +5,7 @@
 \title{read regular dwd data}
 \usage{
 readDWD.data(file, fread = FALSE, varnames = FALSE, format = NA,
-  tz = "GMT", ...)
+  tz = "GMT", quiet = FALSE, ...)
 }
 \arguments{
 \item{file}{Name of file on harddrive, like e.g. 
@@ -32,6 +32,8 @@ on the number of characters. DEFAULT: NA}
 \item{tz}{Char (vector): time zone for \code{\link{as.POSIXct}}.
 "" is the current time zone, and "GMT" is UTC (Universal Time,
 Coordinated). DEFAULT: "GMT"}
+
+\item{quiet}{Suppress empty file warnings? DEFAULT: FALSE}
 
 \item{\dots}{Further arguments passed to \code{\link{read.table}} or 
 \code{data.table::\link[data.table]{fread}}}
