@@ -760,6 +760,7 @@ gdef <- list(filename=file, remove=FALSE, skip=TRUE)
 gfinal <- berryFunctions::owa(gdef, gargs, "filename")
 ncfile <- do.call(R.utils::gunzip, gfinal)
 #
+#if(toraster) return(raster::raster(ncfile))
 # NCDF File
 mycdf <- ncdf4::nc_open(ncfile, ...)
 #
@@ -806,6 +807,7 @@ checkSuggestedPackage("raster", "rdwd:::readDWD.nc with toraster=TRUE")
 if(!quiet) message("Transforming ",dim(VAR)[3]," layers into raster brick...")
 VAR <- raster::brick(VAR, transpose=TRUE)
 VAR <- raster::flip(VAR, direction=2)
+#raster::extent(VAR) <- raster::extent(min(LON),max(LON), min(LAT),max(LAT))
 }
 # output:
 return(invisible(list(time=time, lat=LAT, lon=LON, var=VAR, varname=var, file=mycdf$filename, cdf=mycdf)))
@@ -898,7 +900,7 @@ return(invisible(rf))
 #'                 dfargs=list(mode="wb"), read=FALSE) # download with mode=wb!!!
 #'                 
 #' #asc <- readDWD(file) # 4 GB in mem. ~ 20 secs unzip, 30 secs read, 10 min divide
-#' asc <- readDWD(file, selection=1:20, dividebyten=TRUE)
+#' asc <- readDWD(file, selection=1:5, dividebyten=TRUE)
 #' asc <- projectRasterDWD(asc)
 #' 
 #' raster::plot(asc[[1]], main=names(asc)[1])

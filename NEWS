@@ -2,7 +2,7 @@
 rdwd ToDo-list / wishlist / issues
 - readDWD.data: figure out reason for fread trouble (reported in emails by some users)
 - readDWD.meta: better analasis of fwf widths needed
-- call (simplified) Fortran functions through C interface, see PR #6
+- readDWD.nc: figure out actual projection, use raster directly on unzipped file.
 - indexFTP: read tree with data.table/vroom
 - dataDWD: change/allow force to be number of hours after which to re-download
 - functions for localtests and index updates
