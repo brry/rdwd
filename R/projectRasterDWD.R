@@ -1,9 +1,12 @@
 #' @title project DWD raster data
 #' @description Set projection and extent for DWD raster data. Optionally (and
-#' per default) also reprojects to latlon data.
+#' per default) also reprojects to latlon data.\cr
 #' The internal defaults are extracted from the
 #' Kompositformatbeschreibung at \url{https://www.dwd.de/DE/leistungen/radolan/radolan.html},
 #' as provided 2019-04 by Antonia Hengst.\cr
+#' The nc extent was obtained by projecting Germanys bbox to EPSG 3034 (specified in the DWD documentation).
+#' Using that as a starting point, I then refined the extent to a visual match, see
+#' \href{https://github.com/brry/rdwd/blob/master/misc/developmentNotes.R}{developmentNotes.R}\cr\cr
 #' \bold{WARNING:} reprojection to latlon changes values slightly.
 #' For the tested RX product, this change is significant, see: 
 #' \url{https://github.com/brry/rdwd/blob/master/misc/ExampleTests/Radartests.pdf}\cr
@@ -25,10 +28,10 @@
 #'                 Can be a \code{raster::\link[raster:projection]{crs}} output,
 #'                 a projection character string (will be passed to \code{crs}),
 #'                 or a special charstring for internal defaults, namely:
-#'                 "radolan" (see readDWD.binary + .asc) or "seasonal" (.raster).
+#'                 "radolan" (readDWD.binary + .asc + .radar), "seasonal" (.raster) or "nc" (.nc).
 #'                 DEFAULT: "radolan"
 #' @param extent   Desired \code{\link[raster]{extent}}. Can be an extent object,
-#'                 a vector with 4 numbers, or "radolan" / "rw" / "seasonal" 
+#'                 a vector with 4 numbers, or "radolan" / "rw" / "seasonal" / "nc"
 #'                 with internal defaults.
 #'                 DEFAULT: "radolan"
 #' @param latlon   Logical: reproject \code{r} to lat-lon crs? DEFAULT: TRUE
@@ -51,11 +54,13 @@ p_radolan <- "+proj=stere +lat_0=90 +lat_ts=90 +lon_0=10 +k=0.93301270189
 # https://spatialreference.org/ref/epsg/31467/
 p_seasonal <- "+proj=tmerc +lat_0=0 +lon_0=9 +k=1 +x_0=3500000 +y_0=0 
                +ellps=bessel +datum=potsdam +units=m +no_defs"
+p_nc <- "+init=epsg:3034"
 #
 if(is.character(proj))
   {   
-  if(proj=="radolan")  proj <- p_radolan else
+  if(proj=="radolan")  proj <- p_radolan
   if(proj=="seasonal") proj <- p_seasonal
+  if(proj=="nc")       proj <- p_nc
   }
 if(!inherits(proj, "CRS")) proj <- raster::crs(proj)
 #
@@ -64,13 +69,14 @@ e_radolan <- c(-523.4622,376.5378,-4658.645,-3758.645)
 e_rw <-      c(-443.4622,456.5378,-4758.645,-3658.645) # 1.2, Abb 3
 # e_radolan <- c(-673.4656656,726.5343344,-5008.642536,-3508.642536) # ME
 e_seasonal <- c(3280414.71163347, 3934414.71163347, 5237500.62890625, 6103500.62890625)
+e_nc <- c(3667000, 4389000, 2242000, 3181000)
 if(is.character(extent))
   {  
-  if(extent=="radolan")  extent <- e_radolan else
-  if(extent=="rw")       extent <- e_rw      else
+  if(extent=="radolan")  extent <- e_radolan
+  if(extent=="rw")       extent <- e_rw
   if(extent=="seasonal") extent <- e_seasonal
+  if(extent=="nc")       extent <- e_nc
   }
-if(!inherits(extent,"Extent")) extent <- raster::extent(extent)
 #
 # actually project:
 if(!quiet) message("Setting raster projection to ", proj, " ...")

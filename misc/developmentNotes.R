@@ -27,6 +27,27 @@ which(sapply(rv, function(x)any(!x$Par %in% dwdparams$Parameter)))
 
 
 
+
+# readDWD.nc projection ----
+
+url <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
+file <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=localtestdir(), read=FALSE)
+nc_ncdf <- readDWD(file, toraster=FALSE)
+
+ncfile <- R.utils::gunzip(file, remove=FALSE, skip=TRUE)
+nc_rast <- raster::raster(ncfile, band=1)
+
+# extent
+nc_range <- data.frame(range(nc_ncdf$lon), range(nc_ncdf$lat))
+sf::sf_project("+proj=longlat +datum=WGS84", "+init=epsg:3034", nc_range) 
+ec <- c(3602269, 4388061, 2243094, 3196182) # from nc lat/lon
+eb <- c(3697532, 4311490, 2300230, 3139517) # from DEU ranges
+ef <- c(3667000, 4389000, 2242000, 3181000) # final from visual adaptation
+nc_proj <- projectRasterDWD(nc_rast, proj="+init=epsg:3034", extent=ef); 
+raster::plot(nc_proj)  ; addBorders()
+
+
+
 # readDWD.stand fwf speed comp ------
 
 data("formatIndex")

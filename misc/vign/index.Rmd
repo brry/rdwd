@@ -402,16 +402,9 @@ project_and_plot(rad, ".asc", names(rad)[1])
 link <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
 file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE, quiet=TRUE)
 rad <- readDWD(file, quiet=TRUE) # can also have interactive selection of variable
-e_berry  <- c(5.0, 15.9,  46.8, 55.5) # still figuring out projection info
-project_and_plot(rad$var, ".nc", rad$varname, rad$time[1], extent=e_berry, latlon=FALSE)
+project_and_plot(rad$var, ".nc", rad$varname, rad$time[1], proj="nc", extent="nc")
 ```
 
-Of all these, `readDWD.nc` is the most likely to change, so in your code, you might add
-```{r}
-if(packageVersion("rdwd") > "1.2") warning("readDWD.nc output might have changed by now!")
-```
-This is because it may call `raster` directly on the unzipped file in the future, hence returning a different output by default.
-It may also need changes to accurately project the maps.
 
 
 # - use case: recent time series

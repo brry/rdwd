@@ -45,11 +45,13 @@ url <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
 url <- "daily/Project_TRY/humidity/RH_199509_daymean.nc.gz"    # 25 MB
 file <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=localtestdir(), read=FALSE)
 nc <- readDWD(file)
-raster::plot(nc$var[[1]], col=seqPal(), main=paste(nc$varname, nc$time[1]))
+ncp <- projectRasterDWD(nc$var, proj="nc", extent="nc")
+raster::plot(ncp[[1]], col=seqPal(), main=paste(nc$varname, nc$time[1]))
+addBorders()
 str(nc, max.level=2)
 
 rng <- range(raster::cellStats(nc$var, "range"))
-raster::plot(nc$var, col=seqPal(), zlim=rng, maxnl=6)
+raster::plot(nc$var, col=seqPal(), zlim=rng, maxnl=6, main=nc$time[1:6])
 
 # Array instead of raster brick:
 nc <- readDWD(file, toraster=FALSE)

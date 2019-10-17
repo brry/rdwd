@@ -15,11 +15,11 @@ Use NULL to not set proj+extent but still consider \code{latlon}.
 Can be a \code{raster::\link[raster:projection]{crs}} output,
 a projection character string (will be passed to \code{crs}),
 or a special charstring for internal defaults, namely:
-"radolan" (see readDWD.binary + .asc) or "seasonal" (.raster).
+"radolan" (readDWD.binary + .asc + .radar), "seasonal" (.raster) or "nc" (.nc).
 DEFAULT: "radolan"}
 
 \item{extent}{Desired \code{\link[raster]{extent}}. Can be an extent object,
-a vector with 4 numbers, or "radolan" / "rw" / "seasonal" 
+a vector with 4 numbers, or "radolan" / "rw" / "seasonal" / "nc"
 with internal defaults.
 DEFAULT: "radolan"}
 
@@ -32,10 +32,13 @@ Raster object with projection and extent, invisible
 }
 \description{
 Set projection and extent for DWD raster data. Optionally (and
-per default) also reprojects to latlon data.
+per default) also reprojects to latlon data.\cr
 The internal defaults are extracted from the
 Kompositformatbeschreibung at \url{https://www.dwd.de/DE/leistungen/radolan/radolan.html},
 as provided 2019-04 by Antonia Hengst.\cr
+The nc extent was obtained by projecting Germanys bbox to EPSG 3034 (specified in the DWD documentation).
+Using that as a starting point, I then refined the extent to a visual match, see
+\href{https://github.com/brry/rdwd/blob/master/misc/developmentNotes.R}{developmentNotes.R}\cr\cr
 \bold{WARNING:} reprojection to latlon changes values slightly.
 For the tested RX product, this change is significant, see: 
 \url{https://github.com/brry/rdwd/blob/master/misc/ExampleTests/Radartests.pdf}\cr
