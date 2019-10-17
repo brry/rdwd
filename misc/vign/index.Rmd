@@ -1,7 +1,7 @@
 ---
 title: "rdwd"
 author: "Berry Boessenkool, <berry-b@gmx.de>"
-date: "`r Sys.Date()`"
+date: "build `r Sys.Date()` with rdwd version `r packageVersion('rdwd')`"
 site: bookdown::bookdown_site
 documentclass: book
 output:
@@ -402,7 +402,7 @@ project_and_plot(rad, ".asc", names(rad)[1])
 link <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
 file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE, quiet=TRUE)
 rad <- readDWD(file, quiet=TRUE) # can also have interactive selection of variable
-project_and_plot(rad$var, ".nc", rad$varname, rad$time[1], proj="nc", extent="nc")
+project_and_plot(rad, ".nc", rad@title, rad@z[[1]][1], proj="nc", extent="nc")
 ```
 
 
