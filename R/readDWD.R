@@ -709,8 +709,8 @@ return(invisible(r))
 #' @description Read netcdf data. 
 #' Intended to be called via \code{\link{readDWD}}.\cr
 #' Note that \code{R.utils} and \code{ncdf4} must be installed to unzip and read the .nc.gz files.
-#' @return List with time, lat, lon, \bold{var}, varname, file and cdf.\cr
-#' \bold{var} can be an array or a \code{\link[raster]{raster}} object, depending on the value of \code{toraster}.\cr
+#' @return \code{raster::\link[raster]{brick}} object. Alternatively, 
+#' if toraster=FALSE, a list with time, lat, lon, var, varname, file and cdf.
 #' \bold{cdf} is the output of \code{ncdf4::\link[ncdf4]{nc_open}}.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019
 #' @seealso \code{\link{readDWD}}
@@ -723,13 +723,13 @@ return(invisible(r))
 #' url <- "daily/Project_TRY/humidity/RH_199509_daymean.nc.gz"    # 25 MB
 #' file <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=localtestdir(), read=FALSE)
 #' nc <- readDWD(file)
-#' ncp <- projectRasterDWD(nc$var, proj="nc", extent="nc")
-#' raster::plot(ncp[[1]], col=seqPal(), main=paste(nc$varname, nc$time[1]))
+#' ncp <- projectRasterDWD(nc, proj="nc", extent="nc")
+#' raster::plot(ncp[[1]], col=seqPal(), main=paste(nc@title, nc@z$"Date/time"[1]))
 #' addBorders()
 #' str(nc, max.level=2)
 #' 
-#' rng <- range(raster::cellStats(nc$var, "range"))
-#' raster::plot(nc$var, col=seqPal(), zlim=rng, maxnl=6, main=nc$time[1:6])
+#' rng <- range(raster::cellStats(nc[[1:6]], "range"))
+#' raster::plot(nc, col=seqPal(), zlim=rng, maxnl=6)
 #' 
 #' # Array instead of raster brick:
 #' nc <- readDWD(file, toraster=FALSE)
@@ -745,24 +745,33 @@ return(invisible(r))
 #' @param gargs       Named list of arguments passed to 
 #'                    \code{R.utils::\link[R.utils:compressFile]{gunzip}}, 
 #'                    see \code{\link{readDWD.raster}}. DEFAULT: NULL
-#' @param var         Charstring: name of variable to be read with 
+#' @param toraster    Read file with \code{raster::\link[raster]{brick}}? 
+#'                    All further arguments will be ignored. Specify e.g. var through \dots.
+#'                    DEFAULT: TRUE
+#' @param var         if toraster=FALSE: Charstring with name of variable to be read with 
 #'                    \code{ncdf4::\link[ncdf4]{ncvar_get}}. If not available, 
 #'                    an interactive selection is presented.
 #'                    DEFAULT: "" (last variable)
-#' @param toraster    Combine layers into a raster stack with \code{raster::\link[raster]{brick}}?
-#' @param quiet       Logical: Suppress toraster conversion message? DEFAULT: FALSE
-#' @param \dots       Further arguments passed to \code{ncdf4::\link[ncdf4]{nc_open}}
-
+#' @param quiet       Logical: Suppress time conversion failure warning? DEFAULT: FALSE
+#' @param \dots       Further arguments passed to \code{raster::\link[raster]{brick}}
+#'                    or \code{ncdf4::\link[ncdf4]{nc_open}}
+#' 
 readDWD.nc <- function(file, gargs=NULL, var="", toraster=TRUE, quiet=FALSE, ...)
 {
-checkSuggestedPackage("ncdf4", "rdwd:::readDWD.nc")
+checkSuggestedPackage("ncdf4", "rdwd:::readDWD.nc") # also needed if toraster=TRUE
 checkSuggestedPackage("R.utils", "rdwd:::readDWD.nc")
 # gunzip arguments:
 gdef <- list(filename=file, remove=FALSE, skip=TRUE)
 gfinal <- berryFunctions::owa(gdef, gargs, "filename")
 ncfile <- do.call(R.utils::gunzip, gfinal)
 #
-#if(toraster) return(raster::raster(ncfile))
+if(toraster) 
+  {
+  checkSuggestedPackage("raster", "rdwd:::readDWD.nc with toraster=TRUE")
+  return(invisible(raster::brick(ncfile, ...)))
+  }
+#
+#
 # NCDF File
 mycdf <- ncdf4::nc_open(ncfile, ...)
 #
@@ -796,23 +805,13 @@ while(! var %in% varnames)
  if(length(pos)==1) var <- pos else
  var <- pos[menu(pos, title="Which variable do you want?")]
 }
-#
 # Actually extract the desired variables:
 LAT <- ncdf4::ncvar_get(mycdf, "lat")
 LON <- ncdf4::ncvar_get(mycdf, "lon")
 VAR <- ncdf4::ncvar_get(mycdf, var)
-#
-# To raster
-if(toraster) 
-{
-checkSuggestedPackage("raster", "rdwd:::readDWD.nc with toraster=TRUE")
-if(!quiet) message("Transforming ",dim(VAR)[3]," layers into raster brick...")
-VAR <- raster::brick(VAR, transpose=TRUE)
-VAR <- raster::flip(VAR, direction=2)
-#raster::extent(VAR) <- raster::extent(min(LON),max(LON), min(LAT),max(LAT))
-}
 # output:
-return(invisible(list(time=time, lat=LAT, lon=LON, var=VAR, varname=var, file=mycdf$filename, cdf=mycdf)))
+return(invisible(list(time=time, lat=LAT, lon=LON, var=VAR, varname=var, 
+                      file=mycdf$filename, cdf=mycdf)))
 }
 
 

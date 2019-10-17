@@ -15,20 +15,23 @@ DWDdata/grids_germany/daily/Project_TRY/humidity/RH_199509_daymean.nc.gz}
 \code{R.utils::\link[R.utils:compressFile]{gunzip}}, 
 see \code{\link{readDWD.raster}}. DEFAULT: NULL}
 
-\item{var}{Charstring: name of variable to be read with 
+\item{var}{if toraster=FALSE: Charstring with name of variable to be read with 
 \code{ncdf4::\link[ncdf4]{ncvar_get}}. If not available, 
 an interactive selection is presented.
 DEFAULT: "" (last variable)}
 
-\item{toraster}{Combine layers into a raster stack with \code{raster::\link[raster]{brick}}?}
+\item{toraster}{Read file with \code{raster::\link[raster]{brick}}? 
+All further arguments will be ignored. Specify e.g. var through \dots.
+DEFAULT: TRUE}
 
-\item{quiet}{Logical: Suppress toraster conversion message? DEFAULT: FALSE}
+\item{quiet}{Logical: Suppress time conversion failure warning? DEFAULT: FALSE}
 
-\item{\dots}{Further arguments passed to \code{ncdf4::\link[ncdf4]{nc_open}}}
+\item{\dots}{Further arguments passed to \code{raster::\link[raster]{brick}}
+or \code{ncdf4::\link[ncdf4]{nc_open}}}
 }
 \value{
-List with time, lat, lon, \bold{var}, varname, file and cdf.\cr
-\bold{var} can be an array or a \code{\link[raster]{raster}} object, depending on the value of \code{toraster}.\cr
+\code{raster::\link[raster]{brick}} object. Alternatively, 
+if toraster=FALSE, a list with time, lat, lon, var, varname, file and cdf.
 \bold{cdf} is the output of \code{ncdf4::\link[ncdf4]{nc_open}}.
 }
 \description{
@@ -45,13 +48,13 @@ url <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
 url <- "daily/Project_TRY/humidity/RH_199509_daymean.nc.gz"    # 25 MB
 file <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=localtestdir(), read=FALSE)
 nc <- readDWD(file)
-ncp <- projectRasterDWD(nc$var, proj="nc", extent="nc")
-raster::plot(ncp[[1]], col=seqPal(), main=paste(nc$varname, nc$time[1]))
+ncp <- projectRasterDWD(nc, proj="nc", extent="nc")
+raster::plot(ncp[[1]], col=seqPal(), main=paste(nc@title, nc@z$"Date/time"[1]))
 addBorders()
 str(nc, max.level=2)
 
-rng <- range(raster::cellStats(nc$var, "range"))
-raster::plot(nc$var, col=seqPal(), zlim=rng, maxnl=6, main=nc$time[1:6])
+rng <- range(raster::cellStats(nc[[1:6]], "range"))
+raster::plot(nc, col=seqPal(), zlim=rng, maxnl=6)
 
 # Array instead of raster brick:
 nc <- readDWD(file, toraster=FALSE)
