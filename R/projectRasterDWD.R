@@ -57,11 +57,7 @@ p_seasonal <- "+proj=tmerc +lat_0=0 +lon_0=9 +k=1 +x_0=3500000 +y_0=0
 p_nc <- "+init=epsg:3034"
 #
 if(is.character(proj))
-  {   
-  if(proj=="radolan")  proj <- p_radolan
-  if(proj=="seasonal") proj <- p_seasonal
-  if(proj=="nc")       proj <- p_nc
-  }
+  proj <- switch(proj, radolan=p_radolan, seasonal=p_seasonal, nc=p_nc, proj)
 if(!inherits(proj, "CRS")) proj <- raster::crs(proj)
 #
 # Extent as per Kompositbeschreibung 1.4 / seasonal DESCRIPTION pdf:
@@ -71,12 +67,7 @@ e_rw <-      c(-443.4622,456.5378,-4758.645,-3658.645) # 1.2, Abb 3
 e_seasonal <- c(3280414.71163347, 3934414.71163347, 5237500.62890625, 6103500.62890625)
 e_nc <- c(3667000, 4389000, 2242000, 3181000)
 if(is.character(extent))
-  {  
-  if(extent=="radolan")  extent <- e_radolan
-  if(extent=="rw")       extent <- e_rw
-  if(extent=="seasonal") extent <- e_seasonal
-  if(extent=="nc")       extent <- e_nc
-  }
+  extent <- switch(extent, radolan=e_radolan, rw=e_rw, seasonal=e_seasonal, nc=e_nc)
 #
 # actually project:
 if(!quiet) message("Setting raster projection to ", proj, " ...")
