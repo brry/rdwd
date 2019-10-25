@@ -4,7 +4,7 @@
 #' @return Time taken to run tests in minutes
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Apr-Oct 2019
 #' @seealso \code{\link{localtestdir}}
-#' @keywords aplot
+#' @keywords debugging
 #' @importFrom grDevices dev.off pdf
 #' @importFrom graphics par title
 #' @export

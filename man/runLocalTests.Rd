@@ -35,4 +35,4 @@ data downloads, these tests are not run automatically on CRAN.
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Apr-Oct 2019
 }
-\keyword{aplot}
+\keyword{debugging}
