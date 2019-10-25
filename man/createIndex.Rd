@@ -6,8 +6,8 @@
 \usage{
 createIndex(paths, base = dwdbase, dir = "DWDdata",
   fname = "fileIndex.txt", meta = FALSE, metadir = "meta",
-  mname = "metaIndex.txt", gname = "geoIndex.txt", quiet = FALSE,
-  ...)
+  mname = "metaIndex.txt", gname = "geoIndex.txt", overwrite = FALSE,
+  quiet = FALSE, ...)
 }
 \arguments{
 \item{paths}{Char: vector of DWD paths returned by \code{\link{indexFTP}} called
@@ -35,6 +35,11 @@ write \code{\link{metaIndex}}.
 Use \code{mname=""} to suppress writing. DEFAULT: "metaIndex.txt"}
 
 \item{gname}{Filename for \code{\link{geoIndex}}. DEFAULT: "geoIndex.txt"}
+
+\item{overwrite}{Logical: Overwrite existing \code{fname / mname / gname} files? 
+If not, "_n" is added to the filenames, see 
+\code{berryFunctions::\link[berryFunctions]{newFilename}}.
+DEFAULT: FALSE}
 
 \item{quiet}{Logical: Suppress messages about progress and filenames? DEFAULT: FALSE}
 

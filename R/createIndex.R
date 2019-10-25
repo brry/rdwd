@@ -53,6 +53,10 @@
 #'              write \code{\link{metaIndex}}.
 #'              Use \code{mname=""} to suppress writing. DEFAULT: "metaIndex.txt"
 #' @param gname Filename for \code{\link{geoIndex}}. DEFAULT: "geoIndex.txt"
+#' @param overwrite Logical: Overwrite existing \code{fname / mname / gname} files? 
+#'              If not, "_n" is added to the filenames, see 
+#'              \code{berryFunctions::\link[berryFunctions]{newFilename}}.
+#'              DEFAULT: FALSE
 #' @param quiet Logical: Suppress messages about progress and filenames? DEFAULT: FALSE
 #' @param \dots Further arguments passed to \code{\link{dataDWD}} for the meta part.
 #' 
@@ -65,6 +69,7 @@ meta=FALSE,
 metadir="meta",
 mname="metaIndex.txt",
 gname="geoIndex.txt",
+overwrite=FALSE,
 quiet=FALSE,
 ...
 )
@@ -145,7 +150,7 @@ owd <- dirDWD(dir, quiet=quiet|fname=="" )
 on.exit(setwd(owd), add=TRUE)
 if(fname!="")
   {
-  outfile <- newFilename(fname, mid=" ", quiet=quiet)
+  outfile <- newFilename(fname, mid=" ", quiet=quiet, ignore=overwrite)
   write.table(fileIndex, file=outfile, sep="\t", row.names=FALSE, quote=FALSE)
   }
 # Potential (DEFAULT) output:
@@ -166,7 +171,7 @@ if(sum(sel)<2) stop(traceCall(1, "in ", ": "),
               "There need to be at least two 'Beschreibung' files. (There is ",
               sum(sel),")", call.=FALSE)
 # download and read those files:
-metas <- dataDWD(fileIndex[sel, "path"], base=base, joinbf=TRUE, dir=metadir, ...)
+metas <- dataDWD(fileIndex[sel, "path"], base=base, joinbf=TRUE, dir=metadir, overwrite=overwrite, ...)
 for(i in seq_along(metas))
   {
   metas[[i]]$res <- fileIndex[sel, "res"][i]
@@ -207,7 +212,7 @@ metaIndex$bis_datum <- as.Date(as.character(metaIndex$bis_datum),"%Y%m%d")
 # Write to disc
 if(mname!="")
   {
-  outfile <- newFilename(mname, mid=": ", quiet=quiet)
+  outfile <- newFilename(mname, mid=": ", quiet=quiet, ignore=overwrite)
   write.table(metaIndex, file=outfile, sep="\t", row.names=FALSE, quote=FALSE)
   }
 #
@@ -277,7 +282,7 @@ rownames(geoIndex) <- NULL
 # Write to disc:
 if(gname!="")
   {
-  outfile <- newFilename(gname, mid=": ", quiet=quiet)
+  outfile <- newFilename(gname, mid=": ", quiet=quiet, ignore=overwrite)
   write.table(geoIndex, file=outfile, sep="\t", row.names=FALSE, quote=FALSE)
   }
 #
