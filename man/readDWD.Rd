@@ -93,7 +93,7 @@ column names.\cr\cr
 \code{readDWD} will call internal (but documented) functions depending on the
 arguments \code{multia, stand, meta, binary, raster, radar, asc}:\cr
 to read observational data: \code{\link{readDWD.data},
-         \link{readDWD.multia}}, \link{readDWD.stand}, \link{readDWD.meta}\cr
+         \link{readDWD.multia}, \link{readDWD.stand}, \link{readDWD.meta}}\cr
 to read interpolated gridded data: \code{\link{readDWD.binary},
          \link{readDWD.raster}, \link{readDWD.radar}, \link{readDWD.nc}, \link{readDWD.asc}}\cr
 Not all arguments to \code{readDWD} are used for all functions, e.g. 
