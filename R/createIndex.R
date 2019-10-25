@@ -200,6 +200,10 @@ metaComb <- paste(metaIndex$Stations_id, metaIndex$res, metaIndex$var, metaIndex
 fileComb <- paste(           filestatID, fileIndex$res, fileIndex$var, fileIndex$per, sep="/")
 metaIndex$hasfile <- metaComb  %in% fileComb
 #
+# convert date columns to date:
+metaIndex$von_datum <- as.Date(as.character(metaIndex$von_datum),"%Y%m%d")
+metaIndex$bis_datum <- as.Date(as.character(metaIndex$bis_datum),"%Y%m%d")
+
 # Write to disc
 if(mname!="")
   {

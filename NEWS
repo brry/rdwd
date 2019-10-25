@@ -6,7 +6,6 @@ rdwd ToDo-list / wishlist / issues
 - dataDWD: change/allow force to be number of hours after which to re-download
 - function for index updates
 - selectDWD("Berlin", res="monthly", var="kl", per="h", exactmatch = F) should only return stations with data, with a single warning only
-- metaIndex: consider changing date columns to Date / adding ndays column 
 
 
 
