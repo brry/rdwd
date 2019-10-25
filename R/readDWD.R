@@ -3,14 +3,14 @@
 #' @title Process data from the DWD CDC FTP Server
 #' @description Read climate data that was downloaded with \code{\link{dataDWD}}.
 #' The data is unzipped and subsequently, the file is read, processed and
-#' returned as a data.frame.\cr
+#' returned as a data.frame / raster object.\cr
 #' New users are advised to set \code{varnames=TRUE} to obtain more informative
 #' column names.\cr\cr
 #' \code{readDWD} will call internal (but documented) functions depending on the
-#' arguments \code{multia, stand, meta, binary, raster, radar, asc}:\cr
-#' to read observational data: \code{\link{readDWD.data},
+#' arguments \code{multia, meta, stand, binary, raster, nc, radar, asc}:\cr
+#' to read observational data (\href{https://bookdown.org/brry/rdwd/available-datasets.html}{overview}): \code{\link{readDWD.data},
 #'          \link{readDWD.multia}, \link{readDWD.stand}, \link{readDWD.meta}}\cr
-#' to read interpolated gridded data: \code{\link{readDWD.binary},
+#' to read gridded data (\href{https://bookdown.org/brry/rdwd/raster-data.html}{overview}): \code{\link{readDWD.binary},
 #'          \link{readDWD.raster}, \link{readDWD.radar}, \link{readDWD.nc}, \link{readDWD.asc}}\cr
 #' Not all arguments to \code{readDWD} are used for all functions, e.g. 
 #' \code{fread} is used only by \code{.data}, while \code{dividebyten} 
