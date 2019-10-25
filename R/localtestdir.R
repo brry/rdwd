@@ -1,9 +1,8 @@
 #' @title local test data directory
 #' @description returns a directory used for local tests on Berry's computers.
-#' This is used in many examples to reduce the number of downloads by saving 
-#' the downloaded DWD data in this directory.
-#' My local test script is at \url{https://github.com/brry/rdwd/blob/master/misc/localtests.R}.
-#' It runs all the examples, even the dontrun sections.
+#' This is used in many examples to save the downloaded DWD data in this directory, 
+#' thus avoiding multiple downloads of the same file.
+#' @seealso \code{\link{runLocalTests}}
 #' @return charstring (directory)
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Apr 2019
 #' @keywords file

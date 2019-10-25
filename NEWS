@@ -4,7 +4,7 @@ rdwd ToDo-list / wishlist / issues
 - readDWD.meta: better analasis of fwf widths needed
 - indexFTP: read tree with data.table/vroom
 - dataDWD: change/allow force to be number of hours after which to re-download
-- functions for localtests and index updates
+- function for index updates
 - selectDWD("Berlin", res="monthly", var="kl", per="h", exactmatch = F) should only return stations with data, with a single warning only
 - metaIndex: consider changing date columns to Date / adding ndays column 
 
