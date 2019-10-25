@@ -27,7 +27,7 @@ USA data: \href{https://www.rdocumentation.org/packages/countyweather}{countywea
          \href{https://www.rdocumentation.org/packages/rnoaa}{rnoaa}\cr
          World data: \href{https://ropensci.org/blog/blog/2017/04/04/gsodr}{Global Surface Summary of the Day}\cr
          Durch data: \url{https://github.com/bvhest/KNMIr}\cr
-         Canadian data: \url{https://cran.r-project.org/package=rclimateca}\cr
+         Canadian data: \url{https://cran.r-project.org/package=weathercan}\cr
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, June-Nov 2016, June 2017
