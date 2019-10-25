@@ -8,9 +8,6 @@ rdwd ToDo-list / wishlist / issues
 - selectDWD("Berlin", res="monthly", var="kl", per="h", exactmatch = F) should only return stations with data, with a single warning only
 - metaIndex: consider changing date columns to Date / adding ndays column 
 
-vignette ToDos: 
-- use case example phenology data, see issue #8
-
 
 
 ---------------------------------------

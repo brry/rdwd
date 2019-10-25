@@ -806,7 +806,27 @@ rainLK <- pbapply::pblapply(c(133,277,300,389), landkreis_rain)
 rainLK <- Reduce(function(...) merge(..., by="MESS_DATUM",all=TRUE), rainLK)
 head(rainLK)
 ```
- 
+
+
+
+# - use case: phenology data
+
+Located here:
+ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/phenology
+
+This example uses data in the subfolder [annual/crops/hist](ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/phenology/annual_reporters/crops/historical/)
+```{r}
+phenocrop_base <- paste0(sub("climate$", "phenology", dwdbase), 
+                        "/annual_reporters/crops/historical/")
+# pheno_urls <- indexFTP("", base=phenocrop_base, dir="Pheno")
+kohl_url <- "PH_Jahresmelder_Landwirtschaft_Kulturpflanze_Weisskohl_1951_1990_hist.txt"# 9 MB
+kohl_file <- dataDWD(base=phenocrop_base, file=kohl_url, joinbf=TRUE, 
+                     dir=localtestdir(), read=FALSE, quiet=TRUE) 
+kohl <- read.table(kohl_file, sep=";", header=TRUE)
+```
+
+
+
 # search
 
 rdwd description
