@@ -2,31 +2,6 @@
 stop("Don't source this document")
 
 
-# readVars parameter abbreviations ----
-
-urls <- selectDWD("Potsdam","","","")
-urls <- urls[!  (grepl("1*_minute", urls) & !grepl("meta_data", urls))     ]
-files <- dataDWD(urls, dir=localtestdir(), read=F)
-rv <- readVars(files)
-str(rv, max.level=1)
-k <- unlist(lapply(rv, function(x)x$Kurz))
-message(sum(is.na(k)), "/", length(k), " DWD abbreviations have no Kurz entry.")
-
-rv_df <- do.call(rbind, rv)
-rv_df$Quelle <- rep(substr(urls, 76, 1e3), sapply(rv, nrow))
-rv_df <- berryFunctions::sortDF(rv_df, "Par", decreasing=FALSE)
-rv_df <- berryFunctions::sortDF(rv_df, "Kurz", decreasing=FALSE)
-colnames(rv_df)[1] <- "Parameter"
-write.table(rv_df, "misc/params.txt", sep="\t", quote=F, row.names=F)
-# Manually added "Kurz" in Excel file, then copied to dwdparams in R/readVars.R
-#
-# check for duplicates:
-rv[sapply(rv, function(x) sum(duplicated(x[,"Kurz"]))>0)]
-# check for new entries:
-which(sapply(rv, function(x)any(!x$Par %in% dwdparams$Parameter)))
-
-
-
 
 # readDWD.nc projection ----
 
