@@ -82,7 +82,7 @@ head(sol)
 
 }
 \seealso{
-\code{\link{createIndex}}
+\code{\link{createIndex}}, \code{\link{updateIndexes}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2016

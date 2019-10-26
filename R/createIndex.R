@@ -31,11 +31,6 @@
 #' lapply(ind2, head)
 #' }
 #' 
-#' # For real usage, see last part of
-#' if(interactive())
-#' browseURL("https://github.com/brry/rdwd/blob/master/R/rdwd-package.R")
-#' # where the Indexes are added to the package
-#' 
 #' @param paths Char: vector of DWD paths returned by \code{\link{indexFTP}} called
 #'              with the same \code{base} value as this function
 #' @param base  Main directory of DWD ftp server, defaulting to observed climatic records.

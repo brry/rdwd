@@ -7,6 +7,6 @@
 release_questions()
 }
 \description{
-Reminders when using devtools::release. Code is in R/rdwd-package.R
+Reminders when using devtools::release.
 }
 \keyword{internal}

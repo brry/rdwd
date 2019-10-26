@@ -20,7 +20,7 @@
 #' 
 #' @return a vector with file paths
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2016
-#' @seealso \code{\link{createIndex}}
+#' @seealso \code{\link{createIndex}}, \code{\link{updateIndexes}}
 #' @keywords file
 #' @importFrom stats runif
 #' @importFrom pbapply pblapply

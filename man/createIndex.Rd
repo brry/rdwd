@@ -72,11 +72,6 @@ ind2 <- createIndex(c(link,link2,link3), dir=tempdir(), meta=TRUE)
 lapply(ind2, head)
 }
 
-# For real usage, see last part of
-if(interactive())
-browseURL("https://github.com/brry/rdwd/blob/master/R/rdwd-package.R")
-# where the Indexes are added to the package
-
 }
 \seealso{
 \code{\link{indexFTP}}, \code{\link{updateIndexes}}

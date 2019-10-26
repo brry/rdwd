@@ -81,8 +81,8 @@ leaflet(data=geoIndex[geoIndex$recentfile,]) %>% addTiles() %>%
 To request the nonpublic datasets counted in the infobox, please contact <cdc.daten@dwd.de> or <klima.vertrieb@dwd.de>.
 (The DWD cannot publish all datasets because of copyright restrictions).
 
-Note: `r helplink("geoIndex")` is created in the last section of 
-[rdwd-package.R](https://github.com/brry/rdwd/blob/master/R/rdwd-package.R).
+Note: `r helplink("geoIndex")` is created using `r helplink("createIndex")` in
+[`updateIndexes`](https://github.com/brry/rdwd/blob/master/R/updateIndexes.R).
 
 
 
@@ -246,10 +246,10 @@ links <- selectDWD(res="monthly", var="more_precip", per="hist", current=TRUE)
 ```
 
 Alternatively, for repetitive usage, create your own file index.  
-`r helplink("fileIndex")` for the entire server is created with the function 
-`r helplink("indexFTP")` used in the last section of 
-[rdwd-package.R](https://github.com/brry/rdwd/blob/master/R/rdwd-package.R#L249).  
-To get an index for a certaiin subfolder, use:
+`r helplink("fileIndex")` for the entire DWD FTP server is created with the functions
+`r helplink("indexFTP")` and `r helplink("createIndex")` used in
+[`updateIndexes`](https://github.com/brry/rdwd/blob/master/R/updateIndexes.R).  
+To get an index for a certain subfolder, use:
 
 ```{r listfiles, eval=FALSE}
 ### This chunk is not evaluated ###

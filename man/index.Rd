@@ -27,8 +27,7 @@
 Deutscher WetterDienst / Climate Data Center  FTP Server
 }
 \description{
-Created with \code{\link{createIndex}} in the last section of
-\url{https://github.com/brry/rdwd/blob/master/R/rdwd-package.R}
+Created with \code{\link{indexFTP}} and \code{\link{createIndex}} used in \code{\link{updateIndexes}}.\cr
 In functions, you can access them with \code{rdwd:::fileIndex} etc.\cr
 \bold{fileIndex}: A data.frame with the filenames (and derived information)
 at the default \code{base} value \code{\link{dwdbase}}.\cr

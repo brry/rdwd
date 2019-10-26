@@ -23,8 +23,9 @@ DEFAULT: "latin1" (potentially needed on Linux,
 optional but not hurting on windows)}
 
 \item{formIndex}{Single object: Index used to select column widts and NA values.
-To use a current / custom index, see the end of
-\url{https://github.com/brry/rdwd/blob/master/R/rdwd-package.R}.
+To use a current / custom index, see the source code of
+\code{\link{updateIndexes}} at
+\url{https://github.com/brry/rdwd/blob/master/R/updateIndexes.R}.
 DEFAULT: \code{rdwd:::\link{formatIndex}}}
 
 \item{\dots}{Further arguments passed to \code{\link{read.fwf}}

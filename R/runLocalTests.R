@@ -236,7 +236,7 @@ contents <- readDWD(files)
 })
 
 
-messaget("assuming *Indexes have been updated manually (see end of R/rdwd-package.R)")
+messaget("assuming updateIndexes() has been run.")
 testthat::test_that("historical files have been updated by DWD", {
 # data("fileIndex")
 lastyear <- as.numeric(format(Sys.Date(), "%Y"))-1 # the last completed year

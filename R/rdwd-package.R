@@ -61,12 +61,12 @@ gridbase <- "ftp://opendata.dwd.de/climate_environment/CDC/grids_germany"
 # release_questions ----
 
 #' @title Reminders when using devtools::release
-#' @description  Reminders when using devtools::release. Code is in R/rdwd-package.R
+#' @description  Reminders when using devtools::release.
 #' @keywords internal
 
 release_questions <- function() {
   c(
-    "Have you updated the indexes with the code in R/rdwd-package.R?"
+    "Have you run updateIndexes()?"
   )
 }
 
@@ -76,8 +76,7 @@ release_questions <- function() {
 
 #' Indexes of files and metadata on the DWD CDC FTP server
 #' 
-#' Created with \code{\link{createIndex}} in the last section of
-#' \url{https://github.com/brry/rdwd/blob/master/R/rdwd-package.R}
+#' Created with \code{\link{indexFTP}} and \code{\link{createIndex}} used in \code{\link{updateIndexes}}.\cr
 #' In functions, you can access them with \code{rdwd:::fileIndex} etc.\cr
 #' \bold{fileIndex}: A data.frame with the filenames (and derived information)
 #' at the default \code{base} value \code{\link{dwdbase}}.\cr
