@@ -5,8 +5,9 @@
 \title{run local tests of rdwd}
 \usage{
 runLocalTests(dir_data = localtestdir(),
-  dir_exmpl = localtestdir(folder = "misc/ExampleTests"),
-  all_Potsdam_files = TRUE, examples = TRUE, quiet = FALSE)
+  dir_exmpl = localtestdir(folder = "misc/ExampleTests"), fast = FALSE,
+  radar = !fast, all_Potsdam_files = !fast, examples = !fast,
+  quiet = FALSE)
 }
 \arguments{
 \item{dir_data}{Reusable data location. Preferably not under version control.
@@ -14,11 +15,15 @@ DEFAULT: \code{\link{localtestdir}()}}
 
 \item{dir_exmpl}{Reusable example location. DEFAULT: localtestdir(folder="misc/ExampleTests")}
 
+\item{fast}{Exclude many tests? DEFAULT: FALSE}
+
+\item{radar}{Test reading radar example files. DEFAULT: !fast}
+
 \item{all_Potsdam_files}{Read all (ca 60) files for Potsdam? Re-downloads if
 files are older than 24 hours. Reduce test time a lot by setting
-this to FALSE. DEFAULT: TRUE}
+this to FALSE. DEFAULT: !fast}
 
-\item{examples}{Run Examples (including donttest sections) DEFAULT: TRUE}
+\item{examples}{Run Examples (including donttest sections) DEFAULT: !fast}
 
 \item{quiet}{Suppress progress messages? DEFAULT: FALSE}
 }

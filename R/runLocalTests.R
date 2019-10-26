@@ -12,17 +12,21 @@
 #' @param dir_data  Reusable data location. Preferably not under version control.
 #'                  DEFAULT: \code{\link{localtestdir}()}
 #' @param dir_exmpl Reusable example location. DEFAULT: localtestdir(folder="misc/ExampleTests")
+#' @param fast      Exclude many tests? DEFAULT: FALSE
+#' @param radar     Test reading radar example files. DEFAULT: !fast
 #' @param all_Potsdam_files Read all (ca 60) files for Potsdam? Re-downloads if
 #'              files are older than 24 hours. Reduce test time a lot by setting
-#'              this to FALSE. DEFAULT: TRUE
-#' @param examples Run Examples (including donttest sections) DEFAULT: TRUE
+#'              this to FALSE. DEFAULT: !fast
+#' @param examples Run Examples (including donttest sections) DEFAULT: !fast
 #' @param quiet Suppress progress messages? DEFAULT: FALSE
 #'
 runLocalTests <- function(
 dir_data=localtestdir(),
 dir_exmpl=localtestdir(folder="misc/ExampleTests"),
-all_Potsdam_files=TRUE,
-examples=TRUE,
+fast=FALSE,              # ca 0.1 minutes (always, even if fast=T)
+radar=!fast,             # ca 0.3 minutes
+all_Potsdam_files=!fast, # ca 1.6 minutes
+examples=!fast,          # ca 2.1 minutes
 quiet=FALSE
 )
 {
@@ -68,10 +72,12 @@ testthat::expect_equal(clim_vn, clim_vnf)
 
 # readRadarFile ----
 
+if(radar)
+{
 messaget("++ Testing readRadarFile")
-
+#
 if(!file.exists(dir_exmpl)) dir.create(dir_exmpl)
-
+#
 testthat::test_that("readRadarFile works", {
 trr <- function(file, ext="radolan", readdwd=FALSE) # trr: test reading radar data
   {
@@ -103,10 +109,10 @@ raster::plot(rx$rrp, zlim=rx$range_orig, main="\nProjected, with custom zlim")
 addBorders()
 dev.off()
 if(interactive()) berryFunctions::openFile(paste0(dir_exmpl,"/Radartests.pdf"))
-
+#
 # "True" values from versions of reading functions that seem to make sense.
 # NOT actually checked with DWD, reality or anything!
-
+#
 rangecheck <- function(rr, orig, proj, tolerance=0.01)
   {
   name <- deparse(substitute(rr))
@@ -125,6 +131,7 @@ rangecheck(rw, c( 0.0, 30.7), c(-0.45, 30.45))
 rangecheck(sf, c( 0.0, 39.2), c(-0.03, 38.20))
 rangecheck(rx, c(31.5, 95.0), c(18.30, 97.17))
 })
+} # End radar
 
 
 # findID ----
