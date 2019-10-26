@@ -11,7 +11,7 @@
 #' 
 #' m <- nearbyStations(49.211784, 9.812475, radius=30,
 #'     res=c("daily","hourly"), var= c("precipitation","more_precip","kl") ,
-#'     mindate=20160530, statname="Braunsbach catchment center")
+#'     mindate=as.Date("2016-05-30"), statname="Braunsbach catchment center")
 #' # View(m)
 #'     
 #' # for a continued example of this, see the vignette in chapter
@@ -24,8 +24,7 @@
 #' @param res,var,per Restrictions for dataset type as documented in
 #'                    \code{\link{selectDWD}}. Each can be a vector of entries.
 #'                    DEFAULTS: NA (ignored)
-#' @param mindate     Minimum dataset ending date (as per metadata).
-#'                    Integer in the form of YYYYMMDD, e.g. 20170301. DEFAULT: NA
+#' @param mindate     Minimum dataset ending date (as per metadata). DEFAULT: NA
 #' @param hasfileonly Logical: only return entries for which there is an
 #'                    open-access file available? DEFAULT: TRUE
 #' @param statname    Character: name for target location. DEFAULT:

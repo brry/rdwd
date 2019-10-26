@@ -667,7 +667,7 @@ pointsMap("lat", "lon", mygeoIndex, fx=2, fy=1, pargs=list(lwd=3),
 ```{r rainregion_nearbyStations, message=FALSE}
 m <- nearbyStations(49.211784, 9.812475, radius=30,
     res=c("daily","hourly"), var=c("precipitation","more_precip","kl"),
-    mindate=20160530, statname="Braunsbach catchment center")
+    mindate=as.Date("2016-05-30"), statname="Braunsbach catchment center")
 # Remove duplicates. if kl and more_precip are both available, keep only more_precip:
 library("berryFunctions")
 m <- sortDF(m, "var")
