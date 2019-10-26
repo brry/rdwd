@@ -5,7 +5,7 @@
 \title{check indexes}
 \usage{
 checkIndex(findex = NULL, mindex = NULL, gindex = NULL,
-  excludefp = TRUE, fast = FALSE)
+  excludefp = TRUE, fast = FALSE, warn = TRUE)
 }
 \arguments{
 \item{findex}{\code{\link{fileIndex}}. DEFAULT: NULL}
@@ -18,6 +18,8 @@ checkIndex(findex = NULL, mindex = NULL, gindex = NULL,
 DEFAULT: TRUE}
 
 \item{fast}{Exclude the 3-minute location per ID check? DEFAULT: FALSE}
+
+\item{warn}{Warn about issues? DEFAULT: TRUE}
 }
 \value{
 Charstring with issues (if any) to be printed with \code{cat()}.

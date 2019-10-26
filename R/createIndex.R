@@ -12,7 +12,8 @@
 #' @return invisible data.frame (or if meta=TRUE, list with two data.frames)
 #' with a number of columns inferred from the paths. Each is also written to disc.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct-Nov 2016, June 2017
-#' @seealso \code{\link{indexFTP}}, \code{\link{fileIndex}}, \code{\link{metaIndex}}, \code{\link{selectDWD}}
+#' @seealso \code{\link{indexFTP}}, \code{\link{updateIndexes}}
+#' \code{\link{index}}, \code{\link{selectDWD}}
 #' @keywords manip
 #' @importFrom berryFunctions l2df convertUmlaut newFilename sortDF traceCall
 #' @importFrom utils write.table
@@ -57,6 +58,7 @@
 #'              If not, "_n" is added to the filenames, see 
 #'              \code{berryFunctions::\link[berryFunctions]{newFilename}}.
 #'              DEFAULT: FALSE
+#' @param checkwarn Logical: warn about \code{\link{checkIndex}} issues? DEFAULT: TRUE
 #' @param quiet Logical: Suppress messages about progress and filenames? DEFAULT: FALSE
 #' @param \dots Further arguments passed to \code{\link{dataDWD}} for the meta part.
 #' 
@@ -70,6 +72,7 @@ metadir="meta",
 mname="metaIndex.txt",
 gname="geoIndex.txt",
 overwrite=FALSE,
+checkwarn=TRUE,
 quiet=FALSE,
 ...
 )
@@ -171,7 +174,8 @@ if(sum(sel)<2) stop(traceCall(1, "in ", ": "),
               "There need to be at least two 'Beschreibung' files. (There is ",
               sum(sel),")", call.=FALSE)
 # download and read those files:
-metas <- dataDWD(fileIndex[sel, "path"], base=base, joinbf=TRUE, dir=metadir, overwrite=overwrite, ...)
+metas <- dataDWD(fileIndex[sel, "path"], base=base, joinbf=TRUE, dir=metadir, 
+                 overwrite=overwrite, stand=FALSE, ...)
 for(i in seq_along(metas))
   {
   metas[[i]]$res <- fileIndex[sel, "res"][i]
@@ -287,7 +291,7 @@ if(gname!="")
   }
 #
 # Check all indexes:
-checks <- checkIndex(fileIndex, metaIndex, geoIndex, fast=TRUE)
+checks <- checkIndex(fileIndex, metaIndex, geoIndex, fast=TRUE, warn=checkwarn)
 #
 # Output -----------------------------------------------------------------------
 if(!quiet) messaget("Done.")

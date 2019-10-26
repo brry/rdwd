@@ -16,7 +16,8 @@
 #' @param excludefp Exclude false positives from geoIndex coordinate check results?
 #'                  DEFAULT: TRUE
 #' @param fast      Exclude the 3-minute location per ID check? DEFAULT: FALSE
-checkIndex <- function(findex=NULL, mindex=NULL, gindex=NULL, excludefp=TRUE, fast=FALSE)
+#' @param warn      Warn about issues? DEFAULT: TRUE
+checkIndex <- function(findex=NULL, mindex=NULL, gindex=NULL, excludefp=TRUE, fast=FALSE, warn=TRUE)
 {
 # helper function:
 alldupli <- function(x) duplicated(x) | duplicated(x, fromLast=TRUE)
@@ -161,7 +162,7 @@ if(anyDuplicated(coord))
 }
 
 # output stuff:
-if(any(out!="")) warning("There are issues in the indexes, view them with cat.")
+if(any(out!="") & warn) warning("There are issues in the indexes, view them with cat.")
 out <- c(out, as.character(Sys.time()))
 out <- paste(out, collapse="\n")
 return(invisible(out))

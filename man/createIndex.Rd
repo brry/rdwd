@@ -7,7 +7,7 @@
 createIndex(paths, base = dwdbase, dir = "DWDdata",
   fname = "fileIndex.txt", meta = FALSE, metadir = "meta",
   mname = "metaIndex.txt", gname = "geoIndex.txt", overwrite = FALSE,
-  quiet = FALSE, ...)
+  checkwarn = TRUE, quiet = FALSE, ...)
 }
 \arguments{
 \item{paths}{Char: vector of DWD paths returned by \code{\link{indexFTP}} called
@@ -40,6 +40,8 @@ Use \code{mname=""} to suppress writing. DEFAULT: "metaIndex.txt"}
 If not, "_n" is added to the filenames, see 
 \code{berryFunctions::\link[berryFunctions]{newFilename}}.
 DEFAULT: FALSE}
+
+\item{checkwarn}{Logical: warn about \code{\link{checkIndex}} issues? DEFAULT: TRUE}
 
 \item{quiet}{Logical: Suppress messages about progress and filenames? DEFAULT: FALSE}
 
@@ -77,7 +79,8 @@ browseURL("https://github.com/brry/rdwd/blob/master/R/rdwd-package.R")
 
 }
 \seealso{
-\code{\link{indexFTP}}, \code{\link{fileIndex}}, \code{\link{metaIndex}}, \code{\link{selectDWD}}
+\code{\link{indexFTP}}, \code{\link{updateIndexes}}
+\code{\link{index}}, \code{\link{selectDWD}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct-Nov 2016, June 2017
