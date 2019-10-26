@@ -24,7 +24,9 @@ Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
 
 \item{force}{Logical (vector): always download, even if the file already exists in \code{dir}?
 Use NA to force re-downloading files older than 24 hours.
-If FALSE, it is still read (or name returned). DEFAULT: FALSE}
+Use a numerical value to force after that amount of hours.
+Note you might want to set \code{overwrite=TRUE} as well.
+If FALSE, the file is still read (or name returned). DEFAULT: FALSE}
 
 \item{overwrite}{Logical (vector): if force=TRUE, overwrite the existing file
 rather than append "_1"/"_2" etc to the filename? DEFAULT: FALSE}

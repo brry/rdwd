@@ -75,7 +75,9 @@
 #'               Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}
 #' @param force  Logical (vector): always download, even if the file already exists in \code{dir}?
 #'               Use NA to force re-downloading files older than 24 hours.
-#'               If FALSE, it is still read (or name returned). DEFAULT: FALSE
+#'               Use a numerical value to force after that amount of hours.
+#'               Note you might want to set \code{overwrite=TRUE} as well.
+#'               If FALSE, the file is still read (or name returned). DEFAULT: FALSE
 #' @param overwrite Logical (vector): if force=TRUE, overwrite the existing file
 #'               rather than append "_1"/"_2" etc to the filename? DEFAULT: FALSE
 #' @param sleep  Number. If not 0, a random number of seconds between 0 and
@@ -150,10 +152,14 @@ outfile <- gsub(paste0(base,"/"), "", file)
 outfile <- gsub("/", "_", outfile)
 
 # force=NA management
-force_old <- difftime(Sys.time(), file.mtime(outfile), units="h") > 24
+if(is.null(force)) stop("force cannot be NULL. Must be TRUE, FALSE, NA or a number.")
 force <- rep(force, length=length(outfile)) # recycle vector
-force[is.na(force) & force_old] <- TRUE # force if old
-force[is.na(force)] <- FALSE # otherwise don't
+fT <- sapply(force, isTRUE)
+fF <- sapply(force, isFALSE)
+if(any(fT)) force[fT] <- 0
+if(any(fF)) force[fF] <- Inf
+force[is.na(force)] <- 24
+force <- difftime(Sys.time(), file.mtime(outfile), units="h") > force
 
 dontdownload <- file.exists(outfile) & !force
 if( any(dontdownload) & !quiet )

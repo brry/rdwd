@@ -3,8 +3,6 @@ rdwd ToDo-list / wishlist / issues
 - readDWD.data: figure out reason for fread trouble (reported in emails by some users)
 - readDWD.meta: better analasis of fwf widths needed
 - indexFTP: read tree with data.table/vroom
-- dataDWD: change/allow force to be number of hours after which to re-download
-- function for index updates
 - selectDWD("Berlin", res="monthly", var="kl", per="h", exactmatch = F) should only return stations with data, with a single warning only
 
 
