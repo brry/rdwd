@@ -128,9 +128,11 @@ multi <-  fileIndex$res=="multi_annual" & info[,1]=="txt" & info[,3]!="Stationsl
 # actual selection:
 fileIndex$start <- ""
 fileIndex$start <- ifelse(ziphist|multi, info[,4], fileIndex$start)
+fileIndex$start <- as.Date(fileIndex$start, "%Y%m%d")
 # Analogous for end:
 fileIndex$end <- ""
 fileIndex$end <- ifelse(ziphist|multi, info[,3], fileIndex$end)
+fileIndex$end <- as.Date(fileIndex$end, "%Y%m%d")
 #
 # is the file a metafile?
 ma <- fileIndex$res=="multi_annual"

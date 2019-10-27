@@ -247,9 +247,10 @@ messaget("assuming updateIndexes() has been run.")
 testthat::test_that("historical files have been updated by DWD", {
 # data("fileIndex")
 lastyear <- as.numeric(format(Sys.Date(), "%Y"))-1 # the last completed year
-outdated <- fileIndex$end==paste0(lastyear-1, "1231") & # ends 1 year before lastyear
+outdated <- fileIndex$end==as.Date(paste0(lastyear-1, "-12-31")) & # ends 1 year before lastyear
             fileIndex$per=="historical" & 
             fileIndex$res!="1_minute"
+outdated[is.na(outdated)] <- FALSE
 sum(outdated)
 #View(fileIndex[outdated,])
 if(any(outdated)){
