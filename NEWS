@@ -18,6 +18,36 @@ rdwd Version history
 -----------------------------
 -----------------------------
 
+Version 1.2.0 (2019-10-26)
+Highlights:
+- Vignettes moved to https://bookdown.org/brry/rdwd with nice structure
+- improved reading of gridded data, documented in vignette chapter "Raster data"
+- readRadarFile expanded + moved to own package (dwdradar) with proper tests and better warnings
+- Hexsticker created
+
+Important changes:
+- readDWD.binary: untarring improved
+- projectRasterDWD: default extents + projs added for seasonal + nc
+- source code directory structure updated
+- quiet argument added to many functions
+- readDWD: order and documentation of method selection improved
+- metaIndex + fileIndex: date columns are now of class Date
+- dataDWD: force can now be number of hours after which to re-download
+- various minor fixes, see https://github.com/brry/rdwd/commits
+
+New functions + datasets:
+- readDWD.radar + readDWD.nc + readDWD.stand
+- checkSuggestedPackages
+- EUR + addBorders
+- formatIndex
+- runLocalTests
+- updateIndexes (not exported)
+
+
+
+-----------------------------
+-----------------------------
+
 Version 1.1.0 (2019-05-30)
 Highlights:
 - Binary Radolan data can now be read correctly

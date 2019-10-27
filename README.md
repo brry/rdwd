@@ -16,7 +16,7 @@ Since May 2019, `rdwd` also supports reading the Radolan (binary) raster data at
 
 It has been presented at [FOSDEM 2017](https://fosdem.org/2017/schedule/event/geo_weather/)
 and [UseR!2017](https://user2017.sched.com/event/Axr3/rdwd-manage-german-weather-observations) in Brussels,
-featured in Rstudios [data package list](https://www.rstudio.com/rviews/2017/02/17/january-new-data-packages/) 
+featured in Rstudios [data package list](https://rviews.rstudio.com/2017/02/17/january-new-data-packages) 
 and written about in [OSOR](https://joinup.ec.europa.eu/community/osor/news/study-german-weather-data-made-easy-rdwd).
 
 

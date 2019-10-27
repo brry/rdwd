@@ -66,7 +66,7 @@ gridbase <- "ftp://opendata.dwd.de/climate_environment/CDC/grids_germany"
 
 release_questions <- function() {
   c(
-    "Have you run updateIndexes()?"
+    "Have you run updateIndexes() and runLocalTests()?"
   )
 }
 
