@@ -69,6 +69,14 @@ testthat::expect_equivalent(clim, clim_vn)
 testthat::expect_equal(clim_vn, clim_vnf)
 })
 
+testthat::test_that("readDWD.data works for 10 minute data", {
+link <- selectDWD("Kiel-Holtenau", res="10_minutes", var="air_temperature", per="recent") 
+file <- dataDWD(link, read=FALSE, dir=dir_data)
+air_temperature <- readDWD(file, varnames=TRUE)
+time_diff <- as.numeric(diff(air_temperature$MESS_DATUM[1:10]))
+testthat::expect_equal(time_diff, rep(10,9))
+})
+
 
 # readRadarFile ----
 

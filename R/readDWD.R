@@ -247,6 +247,7 @@ if(!is.null(format))
     {
     nch <- nchar(as.character(dat$MESS_DATUM[1]))
     if(is.na(format)) format <- if(nch== 8) "%Y%m%d" else 
+                                if(nch==12) "%Y%m%d%H%M" # for 201804270020 10min data 
                                 if(nch==13) "%Y%m%d%H:%M" else"%Y%m%d%H"
     dat$MESS_DATUM <- as.POSIXct(as.character(dat$MESS_DATUM), format=format, tz=tz)
     }
