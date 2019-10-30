@@ -81,6 +81,7 @@ verbose=FALSE
 {
 # Check if RCurl is available:
 checkSuggestedPackage("RCurl", "rdwd::indexFTP")
+if(grepl("^https", base)) warning("base should start with ftp://, not https://. base value is: ",base)
 # change folder:
 if(all(folder %in% c("currentfindex","currentgindex")) & base %in% c(dwdbase, gridbase))
   {
