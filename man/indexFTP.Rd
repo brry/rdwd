@@ -5,9 +5,9 @@
 \title{Create a recursive index of an FTP Server}
 \usage{
 indexFTP(folder = "currentfindex", base = dwdbase,
-  is.file.if.has.dot = TRUE, sleep = 0, dir = "DWDdata",
-  filename = folder[1], overwrite = FALSE, quiet = FALSE,
-  progbar = !quiet, verbose = FALSE)
+  is.file.if.has.dot = TRUE, exclude.latest.bin = TRUE, sleep = 0,
+  dir = "DWDdata", filename = folder[1], overwrite = FALSE,
+  quiet = FALSE, progbar = !quiet, verbose = FALSE)
 }
 \arguments{
 \item{folder}{Folder(s) to be indexed recursively, e.g. "/hourly/wind/".
@@ -26,6 +26,10 @@ DEFAULT: \code{\link{dwdbase}}}
 \item{is.file.if.has.dot}{Logical: if some of the input paths contain a dot, 
 treat those as files, i.e. do not try to read those as if they
 were a folder. Only set this to FALSE if you know what you're doing.
+DEFAULT: TRUE}
+
+\item{exclude.latest.bin}{Exclude latest file at opendata.dwd.de/weather/radar/radolan?
+RCurl::getURL indicates this is a pointer to the last regularly named file.
 DEFAULT: TRUE}
 
 \item{sleep}{If not 0, a random number of seconds between 0 and \code{sleep}

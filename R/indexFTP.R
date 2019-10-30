@@ -50,6 +50,9 @@
 #'                treat those as files, i.e. do not try to read those as if they
 #'                were a folder. Only set this to FALSE if you know what you're doing.
 #'                DEFAULT: TRUE
+#' @param exclude.latest.bin Exclude latest file at opendata.dwd.de/weather/radar/radolan?
+#'                RCurl::getURL indicates this is a pointer to the last regularly named file.
+#'                DEFAULT: TRUE
 #' @param sleep   If not 0, a random number of seconds between 0 and \code{sleep}
 #'                is passed to \code{\link{Sys.sleep}} after each read folder
 #'                to avoid getting kicked off the FTP-Server. DEFAULT: 0
@@ -70,6 +73,7 @@ indexFTP <- function(
 folder="currentfindex",
 base=dwdbase,
 is.file.if.has.dot=TRUE,
+exclude.latest.bin=TRUE,
 sleep=0,
 dir="DWDdata",
 filename=folder[1],
@@ -147,7 +151,11 @@ getURL_ffe <- function(ff_row)
  # carriage return / newline is OS-dependent:
  p <- unlist(strsplit(p,"[\n\r]")) # http://stackoverflow.com/a/40763124/1587132
  p <- p[nchar(p)>0]
- p <- p[!grepl("latest-dwd---bin", p)] # for opendata.dwd.de/weather/radar/radolan/
+ # handle opendata.dwd.de/weather/radar/radolan/* latest data
+ ilf <- grep("latest-dwd---bin", p) # index of latest file
+ if(length(ilf)>0) 
+   if(exclude.latest.bin) p <- p[-ilf]  else  
+   p[ilf] <- sub(" -> .*", "", p[ilf]) # to keep p suited for read.text
  #
  isdir <- substr(p,1,1) =="d" # directory, else file
  pnames <- read.table(text=p, stringsAsFactors=FALSE)

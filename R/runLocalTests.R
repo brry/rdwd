@@ -158,6 +158,20 @@ testthat::expect_equal(findID(), "")
 })
 
 
+
+# indexFTP----
+
+testthat::test_that("indexFTP warns and works as intended", {
+base <- "https://opendata.dwd.de/weather/radar/radolan/rw/"
+testthat::expect_warning(indexFTP(base, folder="", dir=tempdir(), quiet=TRUE),
+                         "base should start with ftp://")
+base <- "ftp://ftp-cdc.dwd.de/weather/radar/radolan/rw"
+rw <- indexFTP(base, folder="", dir=tempdir(), quiet=TRUE, exclude.latest.bin=FALSE)
+testthat::expect_equal(tail(rw,1), "/raa01-rw_10000-latest-dwd---bin")
+})
+
+
+
 # selectDWD ----
 
 testthat::test_that("selectDWD works", {
