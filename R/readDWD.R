@@ -903,7 +903,7 @@ return(invisible(rf))
 #' radbase <- paste0(gridbase,"/hourly/radolan/historical/asc/")
 #' radfile <- "2018/RW-201809.tar" # 25 MB to download
 #' file <- dataDWD(radfile, base=radbase, joinbf=TRUE, dir=datadir,
-#'                 dfargs=list(mode="wb"), read=FALSE) # download with mode=wb!!!
+#'                 dbin=TRUE, read=FALSE) # download with mode=wb!!!
 #'                 
 #' #asc <- readDWD(file) # 4 GB in mem. ~ 20 secs unzip, 30 secs read, 10 min divide
 #' asc <- readDWD(file, selection=1:5, dividebyten=TRUE)

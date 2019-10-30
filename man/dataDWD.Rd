@@ -5,9 +5,9 @@
 \title{Download data from the DWD CDC FTP Server}
 \usage{
 dataDWD(file, base = dwdbase, joinbf = FALSE, dir = "DWDdata",
-  force = FALSE, overwrite = FALSE, sleep = 0, quiet = FALSE,
-  progbar = !quiet, browse = FALSE, read = TRUE, ntrunc = 2,
-  dfargs = NULL, ...)
+  force = FALSE, overwrite = FALSE, dbin = FALSE, sleep = 0,
+  quiet = FALSE, progbar = !quiet, browse = FALSE, read = TRUE,
+  ntrunc = 2, dfargs = NULL, ...)
 }
 \arguments{
 \item{file}{Char (vector): complete file URL(s) (including base and filename.zip) as returned by
@@ -31,6 +31,13 @@ If FALSE, the file is still read (or name returned). DEFAULT: FALSE}
 \item{overwrite}{Logical (vector): if force=TRUE, overwrite the existing file
 rather than append "_1"/"_2" etc to the filename? DEFAULT: FALSE}
 
+\item{dbin}{Logical: Download binary file, i.e. add \code{mode="wb"} to the
+\code{\link{download.file}} call? This is needed for .tar files 
+(see \code{\link{readDWD.asc}}) and binary files like those at 
+\href{https://opendata.dwd.de/weather/radar/radolan/rw/}{weather/radar/radolan}.
+This seems to be a CRLF issue on MS Windows.
+DEFAULT: FALSE}
+
 \item{sleep}{Number. If not 0, a random number of seconds between 0 and
 \code{sleep} is passed to \code{\link{Sys.sleep}} after each download
 to avoid getting kicked off the FTP-Server. DEFAULT: 0}
@@ -52,7 +59,8 @@ only download is performed and the filename(s) returned. DEFAULT: TRUE}
 \item{ntrunc}{Single integer: number of filenames printed in messages
 before they get truncated with message "(and xx more)". DEFAULT: 2}
 
-\item{dfargs}{Named list of additional arguments passed to \code{\link{download.file}}}
+\item{dfargs}{Named list of additional arguments passed to \code{\link{download.file}}
+Note that mode="wb" is already passed if \code{dbin=TRUE}}
 
 \item{\dots}{Further arguments passed to \code{\link{readDWD}}, 
 like fread, varnames etc. Dots were passed to 

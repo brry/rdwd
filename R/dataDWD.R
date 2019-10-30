@@ -80,6 +80,12 @@
 #'               If FALSE, the file is still read (or name returned). DEFAULT: FALSE
 #' @param overwrite Logical (vector): if force=TRUE, overwrite the existing file
 #'               rather than append "_1"/"_2" etc to the filename? DEFAULT: FALSE
+#' @param dbin   Logical: Download binary file, i.e. add \code{mode="wb"} to the
+#'               \code{\link{download.file}} call? This is needed for .tar files 
+#'               (see \code{\link{readDWD.asc}}) and binary files like those at 
+#'               \href{https://opendata.dwd.de/weather/radar/radolan/rw/}{weather/radar/radolan}.
+#'               This seems to be a CRLF issue on MS Windows.
+#'               DEFAULT: FALSE
 #' @param sleep  Number. If not 0, a random number of seconds between 0 and
 #'               \code{sleep} is passed to \code{\link{Sys.sleep}} after each download
 #'               to avoid getting kicked off the FTP-Server. DEFAULT: 0
@@ -96,6 +102,7 @@
 #' @param ntrunc Single integer: number of filenames printed in messages
 #'               before they get truncated with message "(and xx more)". DEFAULT: 2
 #' @param dfargs Named list of additional arguments passed to \code{\link{download.file}}
+#'               Note that mode="wb" is already passed if \code{dbin=TRUE}
 #' @param \dots  Further arguments passed to \code{\link{readDWD}}, 
 #'               like fread, varnames etc. Dots were passed to 
 #'               \code{\link{download.file}} prior to rdwd 0.11.7 (2019-02-25)
@@ -107,6 +114,7 @@ joinbf=FALSE,
 dir="DWDdata",
 force=FALSE,
 overwrite=FALSE,
+dbin=FALSE,
 sleep=0,
 quiet=FALSE,
 progbar=!quiet,
@@ -181,6 +189,7 @@ dl_results <- lapply(seq_along(file), function(i)
   {
   # Actual file download:
   dfdefaults <- list(url=file[i], destfile=outfile[i], quiet=TRUE)
+  if(dbin) dfdefaults <- c(dfdefaults, mode="wb")
   e <- try(suppressWarnings(do.call(download.file, 
                          berryFunctions::owa(dfdefaults, dfargs))), silent=TRUE)
   # wait some time to avoid FTP bot recognition:

@@ -391,7 +391,7 @@ project_and_plot(rad, ".raster", "", proj="seasonal", extent=rad@extent)
 ```{r readDWD_asc}
 link <- "hourly/radolan/historical/asc/2018/RW-201809.tar" # 25 mB
 file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, quiet=TRUE,
-                dfargs=list(mode="wb"), read=FALSE) # download with mode=wb!!!
+                dbin=TRUE, read=FALSE) # download with mode=wb!!!
 rad <- readDWD(file, selection=1:3, dividebyten=TRUE, quiet=TRUE)
 project_and_plot(rad, ".asc", names(rad)[1])
 ```
@@ -405,6 +405,19 @@ rad <- readDWD(file, quiet=TRUE) # can also have interactive selection of variab
 project_and_plot(rad, ".nc", rad@title, rad@z[[1]][1], proj="nc", extent="nc")
 ```
 
+
+## binary file errors
+Binary files must be downloaded by `download.file` with wb=TRUE (at least on Windows, due to CRLF issues).
+`download.file` will automatically do that for some file endings (like .gz, .zip).
+For others, `r helplink("dataDWD")` has a dbin=TRUE option.  
+If you do not use this, your plots will look partially shifted like this (and have the wrong units):
+```{r wrong_binary}
+url <- "ftp://ftp-cdc.dwd.de/weather/radar/radolan/rw/raa01-rw_10000-latest-dwd---bin"
+rw_file <- dataDWD(url, dir=tempdir(), read=FALSE, dbin=FALSE)
+rw_orig <- dwdradar::readRadarFile(rw_file)
+raster::plot(raster::raster(rw_orig$dat))
+```
+I'm considering to set the default dbin to TRUE but need to assess the implications yet.
 
 
 # - use case: recent time series
@@ -489,6 +502,25 @@ leads to
 from which the proj4 format is used internally in `r helplink("projectRasterDWD")`, currently at 
 [line 47](https://github.com/brry/rdwd/blob/master/R/projectRasterDWD.R#L52).  
 One user reported using `dwd.projection <- '+init=epsg:31467'` instead.
+
+
+# - use case: recent hourly radar files
+Single RW files at <ftp://ftp-cdc.dwd.de/weather/radar/radolan/rw> should be read
+with the underlying [`readRadarFile`](https://www.rdocumentation.org/packages/dwdradar/topics/readRadarFile)
+that has been outsourced to `dwdradar` to keep the basic `rdwd` as lean as possible.  
+Since these datasets only exist for two days on the FTP Server, I'm storing them in `tempdir()`.
+
+```{r recent_radar}
+rw_base <- "ftp://ftp-cdc.dwd.de/weather/radar/radolan/rw"
+rw_urls <- indexFTP(base=rw_base, dir=tempdir(), folder="", exclude.latest.bin=TRUE, quiet=TRUE)
+rw_file <- dataDWD(rw_urls[8], base=rw_base, joinbf=TRUE, dir=tempdir(), read=FALSE, quiet=TRUE, dbin=TRUE)
+
+rw_orig <- dwdradar::readRadarFile(rw_file)
+str(rw_orig)
+rw_proj <- projectRasterDWD(raster::raster(rw_orig$dat), extent="radolan", quiet=TRUE)
+raster::plot(rw_proj) # NB: is rw file, but needs radolan extent instead of rw
+addBorders()
+```
 
 
 
