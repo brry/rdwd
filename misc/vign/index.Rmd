@@ -6,6 +6,8 @@ site: bookdown::bookdown_site
 documentclass: book
 output:
   bookdown::gitbook: default
+editor_options: 
+  chunk_output_type: console
 ---
 
 # Intro
@@ -304,7 +306,7 @@ To request those, please contact <cdc.daten@dwd.de> or <klima.vertrieb@dwd.de>.
 For observational data at `r helplink("dwdbase")`, 
 `r helplink("selectDWD")` is the main function to choose data to be downloaded.
 
-For gridded data at `r helplink("gridbasebase")`, including 
+For gridded data at [`gridbase`](ftp://opendata.dwd.de/climate_environment/CDC/grids_germany), including 
 data interpolated onto a 1 km raster and radar data up to the last hour, 
 I don't yet understand the structure of the FTP server as well.  
 For now, you'll have to query `r helplink("gridIndex")` yourself, e.g. with
@@ -319,7 +321,7 @@ If you send me examples of how you use it, I can then expand this in `rdwd`.
 For files that are not yet read correctly, you can also consult the 
 Kompositformatbeschreibung at <https://www.dwd.de/DE/leistungen/radolan/radolan.html>
 
-Besides `r helplink("dwdbase")` and `r helplink("gridbase")`, 
+Besides `r helplink("dwdbase")` and [`gridbase`](ftp://opendata.dwd.de/climate_environment/CDC/grids_germany), 
 there's yet more data at <ftp://ftp-cdc.dwd.de/weather>.
 
 A helper function to reduce code duplication:
@@ -345,7 +347,9 @@ and (at least when calling it for the first time) not use quiet=TRUE.
 You can also remove `read=FALSE` in dataDWD and add the needed arguments right there, 
 but I wanted to be explicit here.
 
-The first line in each code block shows for which FTP folder this function will be called.  
+The first line in each code block shows for which FTP folder 
+at [`gridbase`](ftp://opendata.dwd.de/climate_environment/CDC/grids_germany) 
+this function will be called.  
 The last line shows what projection and extent to use in `r helplink("projectRasterDWD")`. 
 
 ## readDWD.binary (SF)
@@ -358,7 +362,7 @@ project_and_plot(rad$data, ".binary SF", rad$meta$date[1])
 ```
 
 ## readDWD.binary (RW)
-
+`r helplink("readDWD.binary")`
 ```{r readDWD_binary_rw}
 link <- "hourly/radolan/reproc/2017_002/bin/2017/RW2017.002_201712.tar.gz"  # 25 MB
 file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE, quiet=TRUE)
@@ -367,7 +371,7 @@ project_and_plot(rad$data, ".binary RW", rad$meta$date[1], extent="rw")
 ```
 
 ## readDWD.radar
-`r helplink("readDWD.radar")` - not yet on cran, hence see the [source code](https://github.com/brry/rdwd/blob/master/R/readDWD.R#L818) 
+`r helplink("readDWD.radar")`
 ```{r readDWD_radar, echo=-1}
 suppressPackageStartupMessages(library(R.utils)) 
 links <- indexFTP("hourly/radolan/recent/bin", base=gridbase, dir=tdir, quiet=TRUE) # 0.04 MB
@@ -397,7 +401,7 @@ project_and_plot(rad, ".asc", names(rad)[1])
 ```
  
 ## readDWD.nc
-`r helplink("readDWD.nc")` - not yet on cran, hence see the [source code](https://github.com/brry/rdwd/blob/master/R/readDWD.R#L706)
+`r helplink("readDWD.nc")`
 ```{r readDWD_nc}
 link <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
 file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE, quiet=TRUE)
@@ -413,16 +417,17 @@ For others, `r helplink("dataDWD")` has a dbin=TRUE option.
 If you do not use this, your plots will look partially shifted like this (and have the wrong units):
 ```{r wrong_binary}
 url <- "ftp://ftp-cdc.dwd.de/weather/radar/radolan/rw/raa01-rw_10000-latest-dwd---bin"
-rw_file <- dataDWD(url, dir=tempdir(), read=FALSE, dbin=FALSE)
+rw_file <- dataDWD(url, dir=tempdir(), read=FALSE, dbin=FALSE, quiet=TRUE)
 rw_orig <- dwdradar::readRadarFile(rw_file)
 raster::plot(raster::raster(rw_orig$dat))
 ```
+
 I'm considering to set the default dbin to TRUE but need to assess the implications yet.
 
 
 # - use case: recent time series
 
-## download & read data
+download & read data
 
 ```{r uc_recent_time_series_data, eval=TRUE, fig.height=3, fig.width=7}
 library(rdwd)
@@ -433,7 +438,7 @@ clim <- readDWD(file, varnames=TRUE)
 str(clim)
 ```
 
-## plot time series
+plot time series
 
 ```{r uc_recent_time_series_plot, eval=TRUE, fig.height=3, fig.width=7}
 par(mar=c(4,4,2,0.5), mgp=c(2.7, 0.8, 0), cex=0.8)
@@ -500,20 +505,26 @@ The [Beschreibung file](ftp://opendata.dwd.de/climate_environment/CDC/grids_germ
 leads to
 <https://spatialreference.org/ref/epsg/31467/>
 from which the proj4 format is used internally in `r helplink("projectRasterDWD")`, currently at 
-[line 47](https://github.com/brry/rdwd/blob/master/R/projectRasterDWD.R#L52).  
-One user reported using `dwd.projection <- '+init=epsg:31467'` instead.
+[line 54](https://github.com/brry/rdwd/blob/master/R/projectRasterDWD.R#L54).  
+Bettina Ohse reported using `dwd.projection <- '+init=epsg:31467'` instead.
 
 
 # - use case: recent hourly radar files
 Single RW files at <ftp://ftp-cdc.dwd.de/weather/radar/radolan/rw> should be read
 with the underlying [`readRadarFile`](https://www.rdocumentation.org/packages/dwdradar/topics/readRadarFile)
-that has been outsourced to `dwdradar` to keep the basic `rdwd` as lean as possible.  
+that has been outsourced to `dwdradar` to keep the basic `rdwd` as lean as possible.
+
 Since these datasets only exist for two days on the FTP Server, I'm storing them in `tempdir()`.
+
+Please note that for projecting (see `r helplink("projectRasterDWD")`), 
+the radolan extent seems to be needed, not the rw extent.
 
 ```{r recent_radar}
 rw_base <- "ftp://ftp-cdc.dwd.de/weather/radar/radolan/rw"
-rw_urls <- indexFTP(base=rw_base, dir=tempdir(), folder="", exclude.latest.bin=TRUE, quiet=TRUE)
-rw_file <- dataDWD(rw_urls[8], base=rw_base, joinbf=TRUE, dir=tempdir(), read=FALSE, quiet=TRUE, dbin=TRUE)
+rw_urls <- indexFTP(base=rw_base, dir=tempdir(), folder="", exclude.latest.bin=TRUE, 
+                    quiet=TRUE)
+rw_file <- dataDWD(rw_urls[8], base=rw_base, joinbf=TRUE, dir=tempdir(), read=FALSE, 
+                   quiet=TRUE, dbin=TRUE)
 
 rw_orig <- dwdradar::readRadarFile(rw_file)
 str(rw_orig)
@@ -535,8 +546,7 @@ head(ids)
 data("metaIndex")
 berlin <- metaIndex[with(metaIndex, 
               Stations_id %in% ids & res=="monthly" & var=="kl" & per=="historical"),]
-berlin$ndays <- as.Date(as.character(berlin$bis_datum), "%Y%m%d") - 
-                as.Date(as.character(berlin$von_datum), "%Y%m%d")
+berlin$ndays <- berlin$bis_datum - berlin$von_datum
 berlin <- berryFunctions::sortDF(berlin, ndays)
 berlin # Dahlem (FU) has data since 1719 !
 ```
@@ -594,8 +604,8 @@ length(links) # ca 5k stations - would take very long to download
 # select only the relevant files:
 data("metaIndex")
 myIndex <- metaIndex[
-  metaIndex$von_datum < 20140101 &
-  metaIndex$bis_datum > 20161231 & metaIndex$hasfile   ,  ]
+  metaIndex$von_datum < as.Date("2014-01-01") &
+  metaIndex$bis_datum > as.Date("2016-12-31") & metaIndex$hasfile   ,  ]
 data("fileIndex")    
 links <- fileIndex[
   suppressWarnings(as.numeric(fileIndex$id)) %in% myIndex$Stations_id &
@@ -603,7 +613,7 @@ links <- fileIndex[
   fileIndex$var=="more_precip" &
   fileIndex$per=="historical"         , "path" ]  
 
-length(links) # 2001 elements - much better
+length(links) # ca 2k elements - much better
 ```
 
 

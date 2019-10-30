@@ -2,9 +2,12 @@
 rdwd ToDo-list / wishlist / issues
 - readDWD.data: figure out reason for fread trouble (reported in emails by some users)
 - readDWD.meta: better analasis of fwf widths needed
+- readDWD.nc: investigate warning as in vign
 - indexFTP: read tree with data.table/vroom
 - selectDWD("Berlin", res="monthly", var="kl", per="h", exactmatch = F) should only return stations with data, with a single warning only
 - dataDWD: should dbin default be TRUE?
+- dataDWD: change documentation to reflect usage for gridded data
+- updateRdwd: consider function to update if dev version is newer than installed. (with vignette)
 
 
 
