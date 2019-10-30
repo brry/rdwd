@@ -13,7 +13,7 @@ projectRasterDWD(r, proj = "radolan", extent = "radolan",
 \item{proj}{Current projection to be given to \code{r}. Can be\cr - a
 \code{raster::\link[raster:projection]{crs}} input (e.g. a projection
 character string),\cr - NULL to not set proj+extent (but still consider
-\code{latlon}),\cr - or a special charstring for internal defaults, namely:
+\code{targetproj}),\cr - or a special charstring for internal defaults, namely:
 "radolan" (readDWD.binary + .asc + .radar), "seasonal" (.raster) or "nc"
 (.nc).\cr DEFAULT: "radolan"}
 
