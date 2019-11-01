@@ -95,9 +95,14 @@ Note: `r helplink("geoIndex")` is created using `r helplink("createIndex")` in
 The following folders in **`res/var/per`** notation (resolution/variable/period) are available at
 [`dwdbase`](ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate).
 
+Here's a full example URL, for a file at hourly/wind/recent:
+[ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/](ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/wind/recent/stundenwerte_FF_00164_akt.zip)
+[hourly/wind/recent/stundenwerte_FF_00164_akt.zip](ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/wind/recent/stundenwerte_FF_00164_akt.zip)
+
 "<" signifies a split into the folders `per` = "recent" and "historical".  
 "<<" signifies a split into the folders `per` = "now", "recent", "historical" and "meta_data".  
 "-" signifies that there are no further sub-folders.  
+The symbols are clickable URLS leading to the corresponding **`res/var/`** FTP folder.  
 
 Please note:
 
@@ -105,28 +110,29 @@ Please note:
 * `1_minute/precipitation/historical` has a subfolder for each year.  
 * `subdaily/standard_format` does not actually split in subfolders, but has recent/hist information in `fileIndex`
 
-
 ```{r ftp_folders_1, echo=FALSE}
 library(magrittr); library(huxtable)
 f <- readODS::read_ods("FTP_folders.ods", sheet="folders", col_types=NA)
-ht <- huxtable::hux(f, add_colnames=TRUE)
+fu <- f # f with urls
+for(i in 2:ncol(f)) fu[-1,i] <- ifelse(f[-1,i]=="", " ", 
+    paste0('<a href="',dwdbase,'/',colnames(f)[i],'/',f[-1,1],'">',f[-1,i],'</a>'))
+ht <- huxtable::hux(fu, add_colnames=TRUE)
 ht %>%
   set_background_color(value="white") %>% 
+  set_background_color(3:nrow(ht), 2:ncol(ht), value="gray95") %>% 
   set_all_borders(1) %>%
   # set_bottom_border(1, everywhere, 2) %>%
   set_bold(1, -1, TRUE) %>% 
   set_rotation(1, -1, 90) %>%
   set_align(everywhere, -1, "center") %>% 
   set_valign(row=1, col=1, "bottom") %>% 
-  map_background_color(by_values("<<"="gray95")) %>% 
-  map_background_color(by_values( "<"="gray95")) %>% 
-  map_background_color(by_values( "-"="gray95")) %>% 
-  set_position("center")
+  map_background_color(by_values(" "="white")) %>% 
+  set_position("center") %>% 
+  set_escape_contents(value=FALSE)
+detach("package:huxtable", unload=TRUE) # to suppress further autoformatting of tables
 ```
 
-
 ```{r ftp_folders_missing, echo=FALSE}
-detach("package:huxtable", unload=TRUE) # to suppress further autoformatting of tables
 library(rdwd)
 data("fileIndex")
 # online and table folder comparison
@@ -541,7 +547,7 @@ addBorders()
 Choose station in Berlin with longest monthly average recordings
 (according to metadata, which is not always correct).
 ```{r uc_berlinstationselection}
-ids <- findID("Berlin", exactmatch=FALSE)
+ids <- findID("Berlin", exactmatch=FALSE, quiet=TRUE)
 head(ids)
 data("metaIndex")
 berlin <- metaIndex[with(metaIndex, 
