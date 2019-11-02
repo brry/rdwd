@@ -62,9 +62,10 @@ install.packages("rdwd")
 ```
 
 #### Latest version
+If the installed `packageVersion("rdwd")` >= 1.2.5, you can simply run `rdwd::updateRdwd()`.
 ```R
 if(!requireNamespace("remotes", quietly=TRUE)) install.packages("remotes")
-remotes::install_github("brry/rdwd")
+remotes::install_github("brry/rdwd", build_vignettes=TRUE)
 ```
 
 #### Full
