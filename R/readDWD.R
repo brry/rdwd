@@ -731,6 +731,8 @@ return(invisible(r))
 #' addBorders()
 #' str(nc, max.level=2)
 #' 
+#' raster::values(nc[[1]]) # obtain actual values into memory
+#'  
 #' raster::plot(nc[[1]]) # axes 0:938 / 0:720, the number of grid cells
 #' raster::plot(ncp[[1]])# properly projected, per default onto latlon
 #' 
