@@ -4,8 +4,15 @@
 \alias{readDWD.data}
 \title{read regular dwd data}
 \usage{
-readDWD.data(file, fread = FALSE, varnames = FALSE, format = NA,
-  tz = "GMT", quiet = FALSE, ...)
+readDWD.data(
+  file,
+  fread = FALSE,
+  varnames = FALSE,
+  format = NA,
+  tz = "GMT",
+  quiet = FALSE,
+  ...
+)
 }
 \arguments{
 \item{file}{Name of file on harddrive, like e.g. 

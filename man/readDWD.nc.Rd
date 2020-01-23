@@ -4,8 +4,7 @@
 \alias{readDWD.nc}
 \title{read dwd netcdf data}
 \usage{
-readDWD.nc(file, gargs = NULL, var = "", toraster = TRUE,
-  quiet = FALSE, ...)
+readDWD.nc(file, gargs = NULL, var = "", toraster = TRUE, quiet = FALSE, ...)
 }
 \arguments{
 \item{file}{Name of file on harddrive, like e.g. 

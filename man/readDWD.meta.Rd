@@ -30,7 +30,7 @@ read dwd metadata (Beschreibung*.txt files).
 
 link <- selectDWD(res="daily", var="kl", per="r", meta=TRUE)
 if(length(link)!=1) stop("length of link should be 1, but is ", length(link), 
-                ":\\n", berryFunctions::truncMessage(link,prefix="",sep="\\n"))
+                ":\n", berryFunctions::truncMessage(link,prefix="",sep="\n"))
 
 file <- dataDWD(link, dir=localtestdir(), read=FALSE)
 meta <- readDWD(file)
@@ -38,7 +38,7 @@ head(meta)
 
 cnm <- colnames(meta)
 if(length(cnm)!=8) stop("number of columns should be 8, but is ", length(cnm),
-                        ":\\n", toString(cnm))
+                        ":\n", toString(cnm))
 }
 }
 \seealso{

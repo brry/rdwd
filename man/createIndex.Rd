@@ -4,10 +4,20 @@
 \alias{createIndex}
 \title{Create file and meta index of the DWD CDC FTP Server}
 \usage{
-createIndex(paths, base = dwdbase, dir = "DWDdata",
-  fname = "fileIndex.txt", meta = FALSE, metadir = "meta",
-  mname = "metaIndex.txt", gname = "geoIndex.txt", overwrite = FALSE,
-  checkwarn = TRUE, quiet = FALSE, ...)
+createIndex(
+  paths,
+  base = dwdbase,
+  dir = "DWDdata",
+  fname = "fileIndex.txt",
+  meta = FALSE,
+  metadir = "meta",
+  mname = "metaIndex.txt",
+  gname = "geoIndex.txt",
+  overwrite = FALSE,
+  checkwarn = TRUE,
+  quiet = FALSE,
+  ...
+)
 }
 \arguments{
 \item{paths}{Char: vector of DWD paths returned by \code{\link{indexFTP}} called

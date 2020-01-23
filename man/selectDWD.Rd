@@ -4,12 +4,23 @@
 \alias{selectDWD}
 \title{Select data from the DWD CDC FTP Server}
 \usage{
-selectDWD(name = "", res = NA, var = NA, per = NA,
-  exactmatch = TRUE, mindex = metaIndex, quiet = FALSE,
-  id = findID(name, exactmatch = exactmatch, mindex = mindex, quiet =
-  quiet), base = dwdbase, findex = fileIndex, current = FALSE,
-  meta = FALSE, meta_txt_only = TRUE, outvec = any(per \%in\% c("rh",
-  "hr")), ...)
+selectDWD(
+  name = "",
+  res = NA,
+  var = NA,
+  per = NA,
+  exactmatch = TRUE,
+  mindex = metaIndex,
+  quiet = FALSE,
+  id = findID(name, exactmatch = exactmatch, mindex = mindex, quiet = quiet),
+  base = dwdbase,
+  findex = fileIndex,
+  current = FALSE,
+  meta = FALSE,
+  meta_txt_only = TRUE,
+  outvec = any(per \%in\% c("rh", "hr")),
+  ...
+)
 }
 \arguments{
 \item{name}{Char: station name(s) passed to \code{\link{findID}}, along with

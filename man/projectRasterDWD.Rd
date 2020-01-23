@@ -4,8 +4,13 @@
 \alias{projectRasterDWD}
 \title{project DWD raster data}
 \usage{
-projectRasterDWD(r, proj = "radolan", extent = "radolan",
-  targetproj = "ll", quiet = FALSE)
+projectRasterDWD(
+  r,
+  proj = "radolan",
+  extent = "radolan",
+  targetproj = "ll",
+  quiet = FALSE
+)
 }
 \arguments{
 \item{r}{Raster object}

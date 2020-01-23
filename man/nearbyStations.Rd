@@ -4,9 +4,19 @@
 \alias{nearbyStations}
 \title{Find DWD stations close to given coordinates}
 \usage{
-nearbyStations(lat, lon, radius, res = NA, var = NA, per = NA,
-  mindate = NA, hasfileonly = TRUE,
-  statname = "nearbyStations target location", quiet = FALSE, ...)
+nearbyStations(
+  lat,
+  lon,
+  radius,
+  res = NA,
+  var = NA,
+  per = NA,
+  mindate = NA,
+  hasfileonly = TRUE,
+  statname = "nearbyStations target location",
+  quiet = FALSE,
+  ...
+)
 }
 \arguments{
 \item{lat}{Coordinates y component [degrees N/S, range 47:55]}

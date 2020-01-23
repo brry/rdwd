@@ -4,8 +4,14 @@
 \alias{readDWD.binary}
 \title{read dwd gridded radolan binary data}
 \usage{
-readDWD.binary(file, exdir = sub(".tar.gz$", "", file),
-  toraster = TRUE, progbar = TRUE, selection = NULL, ...)
+readDWD.binary(
+  file,
+  exdir = sub(".tar.gz$", "", file),
+  toraster = TRUE,
+  progbar = TRUE,
+  selection = NULL,
+  ...
+)
 }
 \arguments{
 \item{file}{Name of file on harddrive, like e.g. 

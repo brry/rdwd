@@ -4,10 +4,23 @@
 \alias{dataDWD}
 \title{Download data from the DWD CDC FTP Server}
 \usage{
-dataDWD(file, base = dwdbase, joinbf = FALSE, dir = "DWDdata",
-  force = FALSE, overwrite = FALSE, dbin = FALSE, sleep = 0,
-  quiet = FALSE, progbar = !quiet, browse = FALSE, read = TRUE,
-  ntrunc = 2, dfargs = NULL, ...)
+dataDWD(
+  file,
+  base = dwdbase,
+  joinbf = FALSE,
+  dir = "DWDdata",
+  force = FALSE,
+  overwrite = FALSE,
+  dbin = FALSE,
+  sleep = 0,
+  quiet = FALSE,
+  progbar = !quiet,
+  browse = FALSE,
+  read = TRUE,
+  ntrunc = 2,
+  dfargs = NULL,
+  ...
+)
 }
 \arguments{
 \item{file}{Char (vector): complete file URL(s) (including base and filename.zip) as returned by

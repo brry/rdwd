@@ -4,8 +4,14 @@
 \alias{checkIndex}
 \title{check indexes}
 \usage{
-checkIndex(findex = NULL, mindex = NULL, gindex = NULL,
-  excludefp = TRUE, fast = FALSE, warn = TRUE)
+checkIndex(
+  findex = NULL,
+  mindex = NULL,
+  gindex = NULL,
+  excludefp = TRUE,
+  fast = FALSE,
+  warn = TRUE
+)
 }
 \arguments{
 \item{findex}{\code{\link{fileIndex}}. DEFAULT: NULL}

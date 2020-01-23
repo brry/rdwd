@@ -4,8 +4,7 @@
 \alias{readDWD.multia}
 \title{read multi_annual dwd data}
 \usage{
-readDWD.multia(file, fileEncoding = "latin1", comment.char = "\\032",
-  ...)
+readDWD.multia(file, fileEncoding = "latin1", comment.char = "\\032", ...)
 }
 \arguments{
 \item{file}{Name of file on harddrive, like e.g. 

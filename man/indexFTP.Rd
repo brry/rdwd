@@ -4,10 +4,19 @@
 \alias{indexFTP}
 \title{Create a recursive index of an FTP Server}
 \usage{
-indexFTP(folder = "currentfindex", base = dwdbase,
-  is.file.if.has.dot = TRUE, exclude.latest.bin = TRUE, sleep = 0,
-  dir = "DWDdata", filename = folder[1], overwrite = FALSE,
-  quiet = FALSE, progbar = !quiet, verbose = FALSE)
+indexFTP(
+  folder = "currentfindex",
+  base = dwdbase,
+  is.file.if.has.dot = TRUE,
+  exclude.latest.bin = TRUE,
+  sleep = 0,
+  dir = "DWDdata",
+  filename = folder[1],
+  overwrite = FALSE,
+  quiet = FALSE,
+  progbar = !quiet,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{folder}{Folder(s) to be indexed recursively, e.g. "/hourly/wind/".

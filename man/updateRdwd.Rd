@@ -4,8 +4,7 @@
 \alias{updateRdwd}
 \title{Update rdwd development version}
 \usage{
-updateRdwd(pack = "rdwd", user = "brry", vignette = TRUE,
-  quiet = FALSE, ...)
+updateRdwd(pack = "rdwd", user = "brry", vignette = TRUE, quiet = FALSE, ...)
 }
 \arguments{
 \item{pack}{Name of (already installed) package. DEFAULT: "rdwd"}

@@ -4,8 +4,13 @@
 \alias{readDWD.stand}
 \title{read subdaily/standard_format dwd data}
 \usage{
-readDWD.stand(file, fast = TRUE, fileEncoding = "latin1",
-  formIndex = formatIndex, ...)
+readDWD.stand(
+  file,
+  fast = TRUE,
+  fileEncoding = "latin1",
+  formIndex = formatIndex,
+  ...
+)
 }
 \arguments{
 \item{file}{Name of file on harddrive, like e.g. 

@@ -4,8 +4,14 @@
 \alias{readDWD.asc}
 \title{read dwd gridded radolan asc data}
 \usage{
-readDWD.asc(file, exdir = NULL, dividebyten = TRUE, selection = NULL,
-  progbar = TRUE, ...)
+readDWD.asc(
+  file,
+  exdir = NULL,
+  dividebyten = TRUE,
+  selection = NULL,
+  progbar = TRUE,
+  ...
+)
 }
 \arguments{
 \item{file}{Name of file on harddrive, like e.g. 
