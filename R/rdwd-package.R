@@ -1,13 +1,13 @@
-# Documentation of package, meta-data indexes
-# Release questions, code for meta-info related functions, index updating
+# Documentation of package and indexes
+# Release questions
+# small helper functions
 
 # rdwd-package
 # dwdbase
 # release_questions
 # fileIndex, metaIndex, geoIndex
-# metaInfo
 # rowDisplay
-# DEU Map dataset
+# checkSuggestedPackage
 
 
 
@@ -27,7 +27,7 @@
 #' @name rdwd
 #' @aliases rdwd-package rdwd
 #' @docType package
-#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June-Nov 2016, June 2017
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}
 #' @keywords package documentation
 #' @seealso USA data: \href{https://www.rdocumentation.org/packages/countyweather}{countyweather},
 #'          \href{https://www.rdocumentation.org/packages/rnoaa}{rnoaa}\cr
@@ -134,78 +134,6 @@ data(formatIndex, envir=environment())
 
 
 
-# metaInfo ---------------------------------------------------------------------
-
-#' Information for a station ID on the DWD CDC FTP server
-#' 
-#' @return invisible data.frame. Also \code{\link{print}s} the output nicely formatted.
-#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Nov 2016
-#' @seealso \code{\link{metaIndex}}
-#' @keywords datasets
-#' @importFrom berryFunctions sortDF
-#' @export
-#' @examples
-#' metaInfo(2849)
-#' 
-#' @param id Station ID (integer number or convertible to one)
-#' @param hasfileonly Logical: Only show entries that have files? DEFAULT: TRUE
-#' 
-metaInfo <- function(
-  id,
-  hasfileonly=TRUE
-  )
-{
-# ID preparation:
-id <- as.integer(id[1])
-# Selection of rows:
-sel <- metaIndex$Stations_id==id
-if(sum(sel)<1) stop("rdwd::metaIndex contains no entries for id=", id,
-                    ". This ID probably does not exist.")
-# public / nonpublic files
-nonpubmes <- ""
-nonpub <- !metaIndex[sel,"hasfile"]
-if(any(nonpub)&hasfileonly) nonpubmes <- paste0("\nAdditionally, there are ",
-      sum(nonpub), " non-public files. Display all with  metaInfo(",id,",FALSE)",
-      "\nTo request those datasets, please contact cdc.daten@dwd.de or klima.vertrieb@dwd.de")
-if(hasfileonly) sel <- sel & metaIndex$hasfile
-# Output preparation:
-out <- metaIndex[sel,]
-out$von_datum <- as.Date(as.character(out$von_datum), "%Y%m%d")
-out$bis_datum <- as.Date(as.character(out$bis_datum), "%Y%m%d")
-#
-# Print preparation I:
-p_id <- toString(unique(out$Stations_id))
-p_sn <- toString(unique(out$Stationsname))
-p_bl <- toString(unique(out$Bundesland))
-p_nf <- length(unique(paste(out$res, out$var, out$per)))
-if(p_id=="") p_id <- id
-# message I:
-message("rdwd station id ", p_id, " with ", p_nf, " files.\nName: ", p_sn, ", State: ", p_bl, nonpubmes)
-#
-if(nrow(out)==0) return()
-#
-# Print preparation II:
-p_out <- data.frame(from=out$von_datum,
-                    to=out$bis_datum,
-                    lat=out$geoBreite,
-                    long=out$geoLaenge,
-                    ele=out$Stationshoehe)
-p_out <- cbind(out[,c("res","var","per","hasfile")], p_out)
-p_out$from <- as.character(p_out$from)
-###p_out$from[p_out$per=="recent"] <- ""
-p_out <- sortDF(p_out, "var", decreasing=FALSE)
-p_out <- sortDF(p_out, "res", decreasing=FALSE)
-p_out <- sortDF(p_out, "per", decreasing=FALSE)
-rownames(p_out) <- NULL
-# print II:
-print(p_out, quote=FALSE)
-#
-# Output:
-return(invisible(out))
-}
-
-
-
 # rowDisplay ---------------------------------------------------------------------
 
 #' Create leaflet map popup from data.frame rows
@@ -253,72 +181,5 @@ available <- requireNamespace(package, quietly=TRUE)
 if(!available) stop("To use ",functionname, ", please first install ",
                     package,":    install.packages('",package,"')", call.=FALSE)
 return(invisible(available))
-}
-
-
-
-# DEU Map dataset --------------------------------------------------------------
-
-#' Map of German states (Bundeslaender) from GADM through the \code{raster} package
-#' @name DEU
-#' @seealso \code{\link{addBorders}}, \code{\link{EUR}}
-#' @details Obtained with the code: \cr
-#' \code{DEU1 <- raster::getData("GADM", country="DEU", level=1)}\cr
-#' \code{DEU <- rgeos::gSimplify(DEU1, tol=0.02, topologyPreserve=FALSE)}\cr
-#' \code{raster::plot(DEU1)}\cr
-#' \code{raster::plot(DEU)}\cr
-#' \code{save(DEU,        file="data/DEU.rda")}\cr
-#' \code{tools::resaveRdaFiles("data/DEU.rda")}\cr
-#' @docType data
-#' @format Formal class 'SpatialPolygons' [package "sp"] with 4 slots
-#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, May 2018
-#' @keywords datasets
-data(DEU, envir=environment())
-
-
-# EUR Map dataset --------------------------------------------------------------
-
-#' Map of Western European countries through the \code{rworldmap} package
-#' @name EUR
-#' @seealso \code{\link{addBorders}}, \code{\link{DEU}}
-#' @details Obtained with the code: \cr
-#' \code{EUR <- rworldmap::getMap("low")}\cr
-#' \code{EUR <- raster::crop(EUR, c(-5,20, 40,60)) }\cr
-#' \code{raster::plot(EUR)}\cr
-#' \code{save(EUR,        file="data/EUR.rda", version=2)}\cr
-#' \code{tools::resaveRdaFiles("data/EUR.rda", version=2)}\cr
-#' @docType data
-#' @format SpatialPolygonsDataFrame [package "sp"] with 32 rows
-#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019
-#' @keywords datasets
-data(EUR, envir=environment())
-
-
-
-# addBorders -------------------------------------------------------------------
-
-#' @title add country and Bundesland borders to a map
-#' @return invisible list with DEU and EUR
-#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019
-#' @seealso \code{\link{DEU}}, \code{\link{EUR}}
-#' @keywords aplot
-#' @export
-#' @examples
-#' plot(1, xlim=c(2,16), ylim=c(47,55)) 
-#' addBorders()
-#' plot(1, xlim=c(2,16), ylim=c(47,55))
-#' addBorders(de="orange", eu=NA)
-#'
-#' @param de      Color for Bandeslaender line. NA to suppress. DEFAULT: "grey80"
-#' @param eu      Color for countries line. NA to suppress. DEFAULT: "black"
-#' @param add     Logical: add to existing plot? DEFAULT: TRUE
-#' @param \dots   Further arguments passed to \code{raster::\link[raster]{plot}}
-addBorders <- function(de="grey80", eu="black", add=TRUE, ...)
-{
-checkSuggestedPackage("raster", "addBorders")
-data("DEU","EUR", envir=environment())
-raster::plot(DEU, add=add, border=de, ...) 
-raster::plot(EUR, add=TRUE, border=eu, ...)
-return(invisible(list(DEU=DEU, EUR=EUR)))
 }
 

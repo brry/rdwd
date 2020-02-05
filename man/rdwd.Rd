@@ -30,7 +30,7 @@ USA data: \href{https://www.rdocumentation.org/packages/countyweather}{countywea
          Canadian data: \url{https://cran.r-project.org/package=weathercan}\cr
 }
 \author{
-Berry Boessenkool, \email{berry-b@gmx.de}, June-Nov 2016, June 2017
+Berry Boessenkool, \email{berry-b@gmx.de}
 }
 \keyword{documentation}
 \keyword{package}
