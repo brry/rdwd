@@ -1,7 +1,7 @@
 ---
 title: "rdwd"
 author: "Berry Boessenkool, <berry-b@gmx.de>"
-date: "build `r Sys.Date()` with rdwd version `r packageVersion('rdwd')`"
+date: "build `r Sys.Date()` with rdwd version `r packageVersion('rdwd')` and dwdradar version `r packageVersion('dwdradar')`"
 site: bookdown::bookdown_site
 documentclass: book
 output:
@@ -376,14 +376,24 @@ rad <- readDWD(file, exdir=tdir, selection=1:3, quiet=TRUE)
 project_and_plot(rad$data, ".binary RW", rad$meta$date[1], extent="rw")
 ```
 
-## readDWD.radar
+## readDWD.radar (RW)
 `r helplink("readDWD.radar")`
 ```{r readDWD_radar, echo=-1}
 suppressPackageStartupMessages(library(R.utils)) 
 links <- indexFTP("hourly/radolan/recent/bin", base=gridbase, dir=tdir, quiet=TRUE) # 0.04 MB
 file <- dataDWD(links[773], base=gridbase, joinbf=TRUE, dir=tdir, read=FALSE, quiet=TRUE)
 rad <- readDWD(file, quiet=TRUE)
-project_and_plot(rad$dat, ".radar", rad$meta$date)
+project_and_plot(rad$dat, ".radar RW", rad$meta$date)
+```
+
+## readDWD.radar (RQ)
+`r helplink("readDWD.radar")`
+```{r readDWD_radar_RQ}
+rqbase <- "ftp://opendata.dwd.de/weather/radar/radvor/rq"
+links <- indexFTP("", base=rqbase, dir=tdir, quiet=TRUE) # 0.07 MB
+file <- dataDWD(links[17], base=rqbase, joinbf=TRUE, dir=tdir, read=FALSE, quiet=TRUE)
+rad <- readDWD(file, quiet=TRUE)
+project_and_plot(rad$dat, ".radar RQ", rad$meta$date)
 ```
 
 ## readDWD.raster
