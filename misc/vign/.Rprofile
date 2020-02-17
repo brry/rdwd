@@ -1,1 +1,1 @@
-try(installB::installB("rdwd"), silent=TRUE)
+try(installB::checkOutdated("rdwd"), silent=TRUE)

@@ -337,14 +337,12 @@ ddir <- localtestdir()
 tdir <- tempdir()
 project_and_plot <- function(x, main1, main2, main3=NULL, ...)
   {
-  par(mar=c(2,2,2.2,1), mgp=c(3,0.7,0))
-  x <- projectRasterDWD(x, quiet=TRUE, ...)
-  x <- x[[1]] # plot only the first layer, if applicable
-  main4 <- paste(as.character(main2), as.character(main3))
-  raster::plot(x, main=c(main1, main4), las=1)
-  addBorders()
-  return(invisible(x))
+  par(mar=c(2,2,2.2,5), mgp=c(3,0.7,0))
+  main <- paste(main1, "\n", as.character(main2), as.character(main3))
+  out <- plotRadar(x, main=main, layer=1, quiet=TRUE, ...)
+  return(invisible(c(pp,out)))
   }
+pp <- list()
 ```
 
 The following overview will usually unzip only a few selected files for speed and memory considerations.
@@ -364,7 +362,7 @@ The last line shows what projection and extent to use in `r helplink("projectRas
 link <- "/daily/radolan/historical/bin/2017/SF201712.tar.gz"           # 204 MB
 file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE, quiet=TRUE)
 rad <- readDWD(file, exdir=tdir, selection=1:3, quiet=TRUE) # with toraster=TRUE
-project_and_plot(rad$data, ".binary SF", rad$meta$date[1])
+pp <- project_and_plot(rad$dat, ".binary SF", rad$meta$date[1])
 ```
 
 ## readDWD.binary (RW)
@@ -373,7 +371,7 @@ project_and_plot(rad$data, ".binary SF", rad$meta$date[1])
 link <- "hourly/radolan/reproc/2017_002/bin/2017/RW2017.002_201712.tar.gz"  # 25 MB
 file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE, quiet=TRUE)
 rad <- readDWD(file, exdir=tdir, selection=1:3, quiet=TRUE)
-project_and_plot(rad$data, ".binary RW", rad$meta$date[1], extent="rw")
+pp <- project_and_plot(rad$dat, ".binary RW", rad$meta$date[1], extent="rw")
 ```
 
 ## readDWD.radar (RW)
@@ -383,7 +381,7 @@ suppressPackageStartupMessages(library(R.utils))
 links <- indexFTP("hourly/radolan/recent/bin", base=gridbase, dir=tdir, quiet=TRUE) # 0.04 MB
 file <- dataDWD(links[773], base=gridbase, joinbf=TRUE, dir=tdir, read=FALSE, quiet=TRUE)
 rad <- readDWD(file, quiet=TRUE)
-project_and_plot(rad$dat, ".radar RW", rad$meta$date)
+pp <- project_and_plot(rad$dat, ".radar RW", rad$meta$date)
 ```
 
 ## readDWD.radar (RQ)
@@ -393,7 +391,7 @@ rqbase <- "ftp://opendata.dwd.de/weather/radar/radvor/rq"
 links <- indexFTP("", base=rqbase, dir=tdir, quiet=TRUE) # 0.07 MB
 file <- dataDWD(links[17], base=rqbase, joinbf=TRUE, dir=tdir, read=FALSE, quiet=TRUE)
 rad <- readDWD(file, quiet=TRUE)
-project_and_plot(rad$dat, ".radar RQ", rad$meta$date)
+pp <- project_and_plot(rad$dat, ".radar RQ", rad$meta$date)
 ```
 
 ## readDWD.raster
@@ -403,7 +401,7 @@ link <- "seasonal/air_temperature_mean/16_DJF/grids_germany_seasonal_air_temp_me
 file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE, quiet=TRUE)
 rad <- readDWD(file, quiet=TRUE) # with dividebyten=TRUE
 rad <- readDWD(file, quiet=TRUE) # runs faster at second time due to skip=TRUE
-project_and_plot(rad, ".raster", "", proj="seasonal", extent=rad@extent)
+pp <- project_and_plot(rad, ".raster", "", proj="seasonal", extent=rad@extent)
 ```
 
 ## readDWD.asc
@@ -413,7 +411,7 @@ link <- "hourly/radolan/historical/asc/2018/RW-201809.tar" # 25 mB
 file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, quiet=TRUE,
                 dbin=TRUE, read=FALSE) # download with mode=wb!!!
 rad <- readDWD(file, selection=1:3, dividebyten=TRUE, quiet=TRUE)
-project_and_plot(rad, ".asc", names(rad)[1])
+pp <- project_and_plot(rad, ".asc", names(rad)[1])
 ```
  
 ## readDWD.nc
@@ -422,7 +420,7 @@ project_and_plot(rad, ".asc", names(rad)[1])
 link <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
 file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE, quiet=TRUE)
 rad <- readDWD(file, quiet=TRUE) # can also have interactive selection of variable
-project_and_plot(rad, ".nc", rad@title, rad@z[[1]][1], proj="nc", extent="nc")
+pp <- project_and_plot(rad, ".nc", rad@title, rad@z[[1]][1], proj="nc", extent="nc")
 ```
 
 
@@ -439,6 +437,19 @@ raster::plot(raster::raster(rw_orig$dat))
 ```
 
 I'm considering to set the default dbin to TRUE but need to assess the implications yet.
+
+
+## PDF overview
+
+```{r raster_pdf}
+pdf("../ExampleTests/Radartests_Vign.pdf", width=6, height=6)
+par(mar=c(0,0,3,5))
+dummy <- lapply(pp, function(x) plotRadar(x, xlim=c(3,16), ylim=c(47, 55), 
+                                        main=x@title, project=FALSE, quiet=TRUE))
+dev.off()
+```
+
+Open the pdf at <https://github.com/brry/rdwd/tree/master/misc/ExampleTests>
 
 
 # - use case: recent time series
