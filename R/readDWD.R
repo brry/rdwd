@@ -20,9 +20,7 @@
 #' 
 #' @return Invisible data.frame of the desired dataset, 
 #'         or a named list of data.frames if length(file) > 1.\cr
-#'         \code{\link{readDWD.binary}}, 
-#'         \code{\link{readDWD.raster}} and \code{\link{readDWD.asc}} 
-#'         return raster objects instead of data.frames.
+#'         The functions for gridded data return raster objects instead of data.frames.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jul-Oct 2016, Winter 2018/19
 #' @seealso \code{\link{dataDWD}}, \code{\link{readVars}}, 
 #'          \code{\link{readMeta}}, \code{\link{selectDWD}}\cr
@@ -545,7 +543,7 @@ stats
 #' SF_rad <- readDWD(SF_file, selection=1:10, exdir=SF_exdir) #with toraster=TRUE 
 #' if(length(SF_rad)!=2) stop("length(SF_rad) should be 2, but is ", length(SF_rad))
 #' 
-#' SF_radp <- projectRasterDWD(SF_rad$data)
+#' SF_radp <- projectRasterDWD(SF_rad$dat)
 #' raster::plot(SF_radp[[1]], main=SF_rad$meta$date[1])
 #' addBorders()
 #' 
@@ -558,7 +556,7 @@ stats
 #' RW_exdir <- "C:/Users/berry/Desktop/DWDbinaryRW"
 #' if(!file.exists(RW_exdir)) RW_exdir <- tempdir()
 #' RW_rad <- readDWD(RW_file, selection=1:10, exdir=RW_exdir)
-#' RW_radp <- projectRasterDWD(RW_rad$data, extent="rw")
+#' RW_radp <- projectRasterDWD(RW_rad$dat, extent="rw")
 #' raster::plot(RW_radp[[1]], main=RW_rad$meta$date[1])
 #' addBorders()
 #' 
@@ -577,7 +575,7 @@ stats
 #'                  \code{dwdradar::\link[dwdradar]{readRadarFile}}.
 #'                  DEFAULT exdir: sub(".tar.gz$", "", file)
 #' @param toraster  Logical: convert output (list of matrixes + meta informations)
-#'                  to a list with data (\code{raster \link[raster]{stack}}) + 
+#'                  to a list with dat (\code{raster \link[raster]{stack}}) + 
 #'                  meta (list from the first subfile, but with vector of dates)?
 #'                  DEFAULT: TRUE
 #' @param progbar   Show messages and progress bars? \code{\link{readDWD}} will
@@ -636,7 +634,7 @@ rbmat <- raster::stack(rbmat)
 rbmeta <- rb[[1]]$meta
 rbmeta$filename <- file
 rbmeta$date <- as.POSIXct(time)
-return(invisible(list(data=rbmat, meta=rbmeta)))
+return(invisible(list(dat=rbmat, meta=rbmeta)))
 }
 
 

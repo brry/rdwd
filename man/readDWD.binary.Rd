@@ -25,7 +25,7 @@ these will be ignored for the actual reading with
 DEFAULT exdir: sub(".tar.gz$", "", file)}
 
 \item{toraster}{Logical: convert output (list of matrixes + meta informations)
-to a list with data (\code{raster \link[raster]{stack}}) + 
+to a list with dat (\code{raster \link[raster]{stack}}) + 
 meta (list from the first subfile, but with vector of dates)?
 DEFAULT: TRUE}
 
@@ -61,7 +61,7 @@ if(!file.exists(SF_exdir)) SF_exdir <- tempdir()
 SF_rad <- readDWD(SF_file, selection=1:10, exdir=SF_exdir) #with toraster=TRUE 
 if(length(SF_rad)!=2) stop("length(SF_rad) should be 2, but is ", length(SF_rad))
 
-SF_radp <- projectRasterDWD(SF_rad$data)
+SF_radp <- projectRasterDWD(SF_rad$dat)
 raster::plot(SF_radp[[1]], main=SF_rad$meta$date[1])
 addBorders()
 
@@ -74,7 +74,7 @@ RW_file <- dataDWD(file=RW_link, base=gridbase, joinbf=TRUE,   # 25 MB
 RW_exdir <- "C:/Users/berry/Desktop/DWDbinaryRW"
 if(!file.exists(RW_exdir)) RW_exdir <- tempdir()
 RW_rad <- readDWD(RW_file, selection=1:10, exdir=RW_exdir)
-RW_radp <- projectRasterDWD(RW_rad$data, extent="rw")
+RW_radp <- projectRasterDWD(RW_rad$dat, extent="rw")
 raster::plot(RW_radp[[1]], main=RW_rad$meta$date[1])
 addBorders()
 

@@ -93,9 +93,7 @@ documented in each internal function.}
 \value{
 Invisible data.frame of the desired dataset, 
         or a named list of data.frames if length(file) > 1.\cr
-        \code{\link{readDWD.binary}}, 
-        \code{\link{readDWD.raster}} and \code{\link{readDWD.asc}} 
-        return raster objects instead of data.frames.
+        The functions for gridded data return raster objects instead of data.frames.
 }
 \description{
 Read climate data that was downloaded with \code{\link{dataDWD}}.
