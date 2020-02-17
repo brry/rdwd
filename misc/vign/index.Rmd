@@ -111,7 +111,8 @@ Please note:
 * `subdaily/standard_format` does not actually split in subfolders, but has recent/hist information in `fileIndex`
 
 ```{r ftp_folders_1, echo=FALSE}
-library(magrittr); library(huxtable)
+library(magrittr)
+suppressPackageStartupMessages(library(huxtable))
 f <- readODS::read_ods("FTP_folders.ods", sheet="folders", col_types=NA)
 fu <- f # f with urls
 for(i in 2:ncol(f)) fu[-1,i] <- ifelse(f[-1,i]=="", " ", 
@@ -356,13 +357,23 @@ at [`gridbase`](ftp://opendata.dwd.de/climate_environment/CDC/grids_germany)
 this function will be called.  
 The last line shows what projection and extent to use in `r helplink("projectRasterDWD")`. 
 
-## readDWD.binary (SF)
-`r helplink("readDWD.binary")`  
-```{r readDWD_binary_sf}
-link <- "/daily/radolan/historical/bin/2017/SF201712.tar.gz"           # 204 MB
+## readDWD.raster
+`r helplink("readDWD.raster")`  
+```{r readDWD_raster}
+link <- "seasonal/air_temperature_mean/16_DJF/grids_germany_seasonal_air_temp_mean_188216.asc.gz" # 0.2 MB
 file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE, quiet=TRUE)
-rad <- readDWD(file, exdir=tdir, selection=1:3, quiet=TRUE) # with toraster=TRUE
-pp <- project_and_plot(rad$dat, ".binary SF", rad$meta$date[1])
+rad <- readDWD(file, quiet=TRUE) # with dividebyten=TRUE
+rad <- readDWD(file, quiet=TRUE) # runs faster at second time due to skip=TRUE
+pp <- project_and_plot(rad, ".raster", "", proj="seasonal", extent=rad@extent)
+```
+
+## readDWD.nc
+`r helplink("readDWD.nc")`
+```{r readDWD_nc}
+link <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
+file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE, quiet=TRUE)
+rad <- readDWD(file, quiet=TRUE) # can also have interactive selection of variable
+pp <- project_and_plot(rad, ".nc", rad@title, rad@z[[1]][1], proj="nc", extent="nc")
 ```
 
 ## readDWD.binary (RW)
@@ -374,6 +385,25 @@ rad <- readDWD(file, exdir=tdir, selection=1:3, quiet=TRUE)
 pp <- project_and_plot(rad$dat, ".binary RW", rad$meta$date[1], extent="rw")
 ```
 
+## readDWD.binary (SF)
+`r helplink("readDWD.binary")`  
+```{r readDWD_binary_sf}
+link <- "/daily/radolan/historical/bin/2017/SF201712.tar.gz"           # 204 MB
+file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE, quiet=TRUE)
+rad <- readDWD(file, exdir=tdir, selection=1:3, quiet=TRUE) # with toraster=TRUE
+pp <- project_and_plot(rad$dat, ".binary SF", rad$meta$date[1])
+```
+
+## readDWD.asc
+`r helplink("readDWD.asc")` 
+```{r readDWD_asc}
+link <- "hourly/radolan/historical/asc/2018/RW-201809.tar" # 25 mB
+file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, quiet=TRUE,
+                dbin=TRUE, read=FALSE) # download with mode=wb!!!
+rad <- readDWD(file, selection=1:3, dividebyten=TRUE, quiet=TRUE)
+pp <- project_and_plot(rad, ".asc", names(rad)[1])
+```
+ 
 ## readDWD.radar (RW)
 `r helplink("readDWD.radar")`
 ```{r readDWD_radar, echo=-1}
@@ -392,35 +422,6 @@ links <- indexFTP("", base=rqbase, dir=tdir, quiet=TRUE) # 0.07 MB
 file <- dataDWD(links[17], base=rqbase, joinbf=TRUE, dir=tdir, read=FALSE, quiet=TRUE)
 rad <- readDWD(file, quiet=TRUE)
 pp <- project_and_plot(rad$dat, ".radar RQ", rad$meta$date)
-```
-
-## readDWD.raster
-`r helplink("readDWD.raster")`  
-```{r readDWD_raster}
-link <- "seasonal/air_temperature_mean/16_DJF/grids_germany_seasonal_air_temp_mean_188216.asc.gz" # 0.2 MB
-file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE, quiet=TRUE)
-rad <- readDWD(file, quiet=TRUE) # with dividebyten=TRUE
-rad <- readDWD(file, quiet=TRUE) # runs faster at second time due to skip=TRUE
-pp <- project_and_plot(rad, ".raster", "", proj="seasonal", extent=rad@extent)
-```
-
-## readDWD.asc
-`r helplink("readDWD.asc")` 
-```{r readDWD_asc}
-link <- "hourly/radolan/historical/asc/2018/RW-201809.tar" # 25 mB
-file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, quiet=TRUE,
-                dbin=TRUE, read=FALSE) # download with mode=wb!!!
-rad <- readDWD(file, selection=1:3, dividebyten=TRUE, quiet=TRUE)
-pp <- project_and_plot(rad, ".asc", names(rad)[1])
-```
- 
-## readDWD.nc
-`r helplink("readDWD.nc")`
-```{r readDWD_nc}
-link <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
-file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE, quiet=TRUE)
-rad <- readDWD(file, quiet=TRUE) # can also have interactive selection of variable
-pp <- project_and_plot(rad, ".nc", rad@title, rad@z[[1]][1], proj="nc", extent="nc")
 ```
 
 
