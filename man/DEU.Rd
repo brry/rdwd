@@ -14,8 +14,8 @@ Obtained with the code: \cr
 \code{DEU <- rgeos::gSimplify(DEU1, tol=0.02, topologyPreserve=FALSE)}\cr
 \code{raster::plot(DEU1)}\cr
 \code{raster::plot(DEU)}\cr
-\code{save(DEU,        file="data/DEU.rda")}\cr
-\code{tools::resaveRdaFiles("data/DEU.rda")}\cr
+\code{save(DEU,        file="inst/extdata/DEU.rda")}\cr
+\code{tools::resaveRdaFiles("inst/extdata/DEU.rda")}\cr
 }
 \seealso{
 \code{\link{addBorders}}, \code{\link{EUR}}
