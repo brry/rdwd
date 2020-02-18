@@ -11,12 +11,13 @@
 #' @export
 #' @examples
 #' # See homepage in the section 'See Also'
-#' 
+#' \dontrun{ ## Excluded from CRAN checks: requires internet connection
 #' link <- "seasonal/air_temperature_mean/16_DJF/grids_germany_seasonal_air_temp_mean_188216.asc.gz"
 #' rad <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=tempdir())
 #' plotRadar(rad, proj="seasonal", extent=rad@extent)
 #' plotRadar(rad, ylim=c(52,54), proj="seasonal", extent=rad@extent)
 #' plotRadar(rad)
+#' }
 #'
 #' @param x          raster oject, e.g. 'dat' element of object returned by \code{\link{readDWD}}.
 #' @param layer      Optional: selected layer(s) to be plotted. DEFAULT: NULL
