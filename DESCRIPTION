@@ -1,7 +1,7 @@
 Package: rdwd
 Title: Select and Download Climate Data from 'DWD' (German Weather Service)
-Version: 1.3.1
-Date: 2020-02-18
+Version: 1.3.2
+Date: 2020-03-16
 Depends: R(>= 2.10)
 Imports: berryFunctions (>= 1.17.0), pbapply
 Suggests: RCurl, leaflet, knitr, rmarkdown, testthat, roxygen2, remotes,
@@ -14,6 +14,6 @@ Description: Handle climate data from the 'DWD' ('Deutscher Wetterdienst', see
 License: GPL (>= 2)
 Encoding: UTF-8
 URL: https://github.com/brry/rdwd
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 BugReports: https://github.com/brry/rdwd/issues
 VignetteBuilder: knitr

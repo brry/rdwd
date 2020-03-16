@@ -467,25 +467,27 @@ return(sf)
 #' @param \dots Further arguments passed to \code{\link{read.fwf}}
 readDWD.meta <- function(file, ...)
 {
-# read one line to get column widths and names
-oneline <- readLines(file, n=3, encoding="latin1")
-# column widths (automatic detection across different styles used by the DWD)
-spaces <- unlist(gregexpr(" ", oneline[3]))
-breaks <- spaces[which(diff(spaces)!=1)]
-if(substr(oneline[3],1,1)==" ") breaks <- breaks[-1]
-breaks[3] <- breaks[3] -9 # right-adjusted column
-breaks[4:5] <- breaks[4:5] -1 # right-adjusted columns
-widths <- diff(c(0,breaks,200))
-sdsf <- grepl("subdaily_standard_format", file)
-if(sdsf) widths <- c(6,6,9,10,10,10,10,26,200)
-# actually read metadata, suppress readLines warning about EOL:
-stats <- suppressWarnings(read.fwf(file, widths=widths, skip=2, strip.white=TRUE, 
-                                   fileEncoding="latin1", ...) )
+# read a few lines to get column widths and names
+oneline <- readLines(file, n=60, encoding="latin1") 
+# n=60 or 15 has no influence on total readDWD.meta time for 97 meta files (16 secs)
+
 # column names:
 # remove duplicate spaces (2018-03 only in subdaily_stand...Beschreibung....txt)
 while( grepl("  ",oneline[1]) )  oneline[1] <- gsub("  ", " ", oneline[1])
-colnames(stats) <- strsplit(oneline[1], " ")[[1]]
-if(sdsf)
+cnames <- strsplit(oneline[1], " ")[[1]]
+choehe <- grep("hoehe", cnames, ignore.case=TRUE) - 1
+
+# column widths (automatic detection across different styles used by the DWD)
+spaces <- Reduce(intersect, gregexpr(" ", oneline[-(1:2)]) )
+breaks <- spaces[which(diff(spaces)!=1)]
+breaks[choehe] <- breaks[choehe] - 3 #  to capture 4-digit Stationshoehen (1134 m Brocken, eg)
+widths <- diff(c(0,breaks,200))
+#
+# actually read metadata, suppress readLines warning about EOL:
+stats <- suppressWarnings(read.fwf(file, widths=widths, skip=2, strip.white=TRUE, 
+                                   fileEncoding="latin1", ...) )
+colnames(stats) <- cnames
+if(grepl("subdaily_standard_format", file))
  {
  stats <- stats[ ! stats[,1] %in% c("","ST_KE","-----") , ]
  tf <- tempfile()
