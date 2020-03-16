@@ -9,7 +9,8 @@
 \alias{gridIndex}
 \alias{formatIndex}
 \title{Indexes of files and metadata on the DWD CDC FTP server}
-\format{\bold{fileIndex}: data.frame with character strings. ca 260k rows x 8 columns:\cr
+\format{
+\bold{fileIndex}: data.frame with character strings. ca 260k rows x 8 columns:\cr
         \code{res}, \code{var}, \code{per} (see \code{\link{selectDWD}}),
         station \code{id}, time series \code{start} and \code{end}, and
         \code{ismeta} information, all according to \code{path}.\cr
@@ -22,7 +23,8 @@
 \bold{gridIndex}: Vector with ca 50k file paths at \code{\link{gridbase}}\cr
 \bold{formatIndex}: data.frame with 140 rows for 12 columns:\cr
         \code{Ke_Ind, Kennung, Label, Beschreibung, Einheit, Code-Tabellen,
-        Zusatzinfo, Typ, Pos, Erlaubt, Fehlk, dividebyten}\cr}
+        Zusatzinfo, Typ, Pos, Erlaubt, Fehlk, dividebyten}\cr
+}
 \source{
 Deutscher WetterDienst / Climate Data Center  FTP Server
 }

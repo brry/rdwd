@@ -4,7 +4,9 @@
 \name{dwdparams}
 \alias{dwdparams}
 \title{DWD parameter explanations}
-\format{An object of class \code{data.frame} with 160 rows and 2 columns.}
+\format{
+An object of class \code{data.frame} with 162 rows and 2 columns.
+}
 \usage{
 dwdparams
 }

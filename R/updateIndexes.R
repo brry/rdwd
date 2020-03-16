@@ -17,6 +17,7 @@
 #' # 255'252 (2019-07-31)
 #' # 254'925 (2019-09-17)
 #' # 254'943 (2019-10-26)
+#' # 266'841 (2020-03-16)
 #'  
 #' # gridbase
 #' #  49'247 (2019-05-26)
@@ -24,6 +25,7 @@
 #' #  54'314 (2019-07-31)
 #' #  56'759 (2019-09-17)
 #' #  58'656 (2019-10-26)
+#' #  30'320 (2020-03-16)
 #' 
 #' @param dwdlocal Read "DWDdata/INDEX_of_DWD_.txt" instead of calling
 #'                 \code{\link{indexFTP}}? DEFAULT: FALSE
@@ -55,14 +57,6 @@ if(grdlocal) grdfiles <- readLines("DWDdata/INDEX_of_DWD_grids.txt") else
  grdfiles <- indexFTP("currentgindex", filename="grids", base=gridbase, overwrite=TRUE)
  } 
  
-#
-message("While readDWD.meta is not revamped, change meta files manually:
-   - 10_minutes_wind_now_zehn_now_ff_Beschreibung_Stationen.txt
-   - 10_minutes_extreme_wind_now_zehn_now_fx_Beschreibung_Stationen.txt
-   First data row cannot contain spaces in the station name
-- 5 seconds to abort.")
-Sys.sleep(5)
-#
 messaget("Calling createIndex...")
 index <- createIndex(paths=dwdfiles, meta=TRUE, force=metaforce, overwrite=TRUE, checkwarn=FALSE)
 

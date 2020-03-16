@@ -422,5 +422,7 @@ STURM_8	Sturm_8Bft
 STURM_8	Sturm_8Bft
 TAU	Tau
 TAU	Tau
+SLA_10	Windgeschwindigkeit_STABW_lat
+SLO_10	Windgeschwindigkeit_STABW_lon
 "))
 rownames(dwdparams) <- dwdparams$Parameter
