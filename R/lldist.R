@@ -76,6 +76,7 @@ if(!missing(data)) # get lat and long from data.frame
   lat  <- getColumn(substitute(lat) , data)
   long <- getColumn(substitute(long), data)
   }
+if(length(lat)==1) d <- 0 else # NA instead of 0 considered but rejected for now.
 d <- sapply(seq_along(lat), function(i) lldist(lat,long,r=r,i=i)[-i] )
 if(!each) return(  fun(d, ...)  )   # d[upper.tri(d)]
 if(NCOL(d)==1) return(unlist(d)) # if only one or two points are compared
