@@ -45,6 +45,15 @@ if(nrow(duplifile)>0)
   per_folder <- paste(unlist(per_folder), collapse="\n")
   out <- c(out, "IDs with duplicate files:", per_folder)
   }
+
+# Duplicate meta files:
+duplifile <- findex[findex$ismeta & 
+                    grepl("txt$", findex$path) & 
+                    findex$res != "multi_annual",] # aktStandort + festerStandort
+duplifile$rvp <- paste(duplifile$res, duplifile$var, duplifile$per, sep="/")
+duplifile <- duplifile$path[alldupli(duplifile$rvp)]
+if(length(duplifile)>0)
+  out <- c(out, "Duplicate 'Beschreibung' files:", paste("-",duplifile))
 }
 
 
