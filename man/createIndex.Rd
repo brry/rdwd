@@ -15,6 +15,7 @@ createIndex(
   gname = "geoIndex.txt",
   overwrite = FALSE,
   checkwarn = TRUE,
+  checklog = tempfile(),
   quiet = FALSE,
   ...
 )
@@ -52,6 +53,8 @@ If not, "_n" is added to the filenames, see
 DEFAULT: FALSE}
 
 \item{checkwarn}{Logical: warn about \code{\link{checkIndex}} issues? DEFAULT: TRUE}
+
+\item{checklog}{Logfile for \code{\link{checkIndex}}. DEFAULT: \code{\link{tempfile}()}}
 
 \item{quiet}{Logical: Suppress messages about progress and filenames? DEFAULT: FALSE}
 

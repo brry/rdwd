@@ -54,6 +54,7 @@
 #'              \code{berryFunctions::\link[berryFunctions]{newFilename}}.
 #'              DEFAULT: FALSE
 #' @param checkwarn Logical: warn about \code{\link{checkIndex}} issues? DEFAULT: TRUE
+#' @param checklog Logfile for \code{\link{checkIndex}}. DEFAULT: \code{\link{tempfile}()}
 #' @param quiet Logical: Suppress messages about progress and filenames? DEFAULT: FALSE
 #' @param \dots Further arguments passed to \code{\link{dataDWD}} for the meta part.
 #' 
@@ -68,6 +69,7 @@ mname="metaIndex.txt",
 gname="geoIndex.txt",
 overwrite=FALSE,
 checkwarn=TRUE,
+checklog=tempfile(),
 quiet=FALSE,
 ...
 )
@@ -288,7 +290,7 @@ if(gname!="")
   }
 #
 # Check all indexes:
-checks <- checkIndex(fileIndex, metaIndex, geoIndex, fast=TRUE, warn=checkwarn)
+checks <- checkIndex(fileIndex, metaIndex, geoIndex, fast=TRUE, warn=checkwarn, logfile=checklog)
 #
 # Output -----------------------------------------------------------------------
 if(!quiet) messaget("Done.")
