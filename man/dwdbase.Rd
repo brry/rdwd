@@ -5,7 +5,9 @@
 \alias{dwdbase}
 \alias{gridbase}
 \title{DWD FTP Server base URL}
-\format{An object of class \code{character} of length 1.}
+\format{
+An object of class \code{character} of length 1.
+}
 \usage{
 dwdbase
 }

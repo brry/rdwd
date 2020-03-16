@@ -4,7 +4,9 @@
 \name{DEU}
 \alias{DEU}
 \title{Map of German states (Bundeslaender) from GADM through the \code{raster} package}
-\format{Formal class 'SpatialPolygons' [package "sp"] with 4 slots}
+\format{
+Formal class 'SpatialPolygons' [package "sp"] with 4 slots
+}
 \description{
 Map of German states (Bundeslaender) from GADM through the \code{raster} package
 }
