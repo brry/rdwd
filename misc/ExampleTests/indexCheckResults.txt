@@ -1,0 +1,28 @@
+checkIndex results at 2020-03-16 16:18:25 for
+ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate
+IDs with duplicate files:
+-  3 at annual/kl/historical;  1605, 1709, 13713
+-  5 at monthly/kl/historical;  116, 896, 1568, 1762, 5424
+-  7 at monthly/more_precip/historical;  1060, 1835, 1858, 4945, 4975, 4998, 5424
+Different names per id:
+- ID=15526: 30xHamburg (Deutsche Seewarte), 1xHamburg(Seewarte)
+Coordinates used for more than one station:
+- 13.3833_52.5333: 10x ID=408 (Berlin-Invalidenstrasse), 16x ID=422 (Berlin-Mitte)
+- 7.5833_51.0167: 6x ID=1895 (Gummersbach), 2x ID=3601 (Niedersessmar)
+- 10.4333_51.8: 6x ID=107 (Altenau (A)), 6x ID=3973 (Polsterberg)
+- 6.15_51.6: 16x ID=2798 (Laarbruch), 6x ID=5386 (Weeze-Hees)
+
+
+BB: I manually removed the following files from DWDdata/meta/ and DWDdata/fileIndex.
+Hence they don't show up in checkIndex results for now.
+
+Duplicate 'Beschreibung' files:
+- 10_minutes/extreme_temperature/historical/zehn_min_tx_Beschreibung_Stationen.txt
+- 10_minutes/extreme_temperature/historical/zehn_now_tx_Beschreibung_Stationen.txt
+- 10_minutes/extreme_wind/now/zehn_now_fx_Beschreibung_Stationen.txt
+- 10_minutes/extreme_wind/now/zehn_now_fx_Beschreibung_Stationen.txt_Beschreibung_Stationen.txt
+- 10_minutes/extreme_wind/now/zehn_now_fx_stationsliste.txt_Beschreibung_Stationen.txt
+- 10_minutes/wind/historical/zehn_min_ff_Beschreibung_Stationen.txt
+- 10_minutes/wind/historical/zehn_now_ff_Beschreibung_Stationen.txt
+- annual/kl/historical/KL_Jahreswerte_Beschreibung_Stationen.txt
+- annual/kl/historical/KL_Jahreswerte_Beschreibung_Stationen.txt_Beschreibung_Stationen.txt
