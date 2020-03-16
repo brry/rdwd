@@ -6,7 +6,7 @@ rdwd ToDo-list / wishlist / issues
 - selectDWD("Berlin", res="monthly", var="kl", per="h", exactmatch = F) should only return stations with data, with a single warning only
 - dataDWD: should dbin default be TRUE?
 - dataDWD: change documentation to reflect usage for gridded data
-- plotRadar: use in examples, link to where useful
+- plotRadar: use in examples, link to where useful, replace data(DEU) e.g. in .multia
 
 
 ---------------------------------------

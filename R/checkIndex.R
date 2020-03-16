@@ -176,8 +176,9 @@ if(anyDuplicated(coord))
 }
 
 # output stuff:
-if(length(out)>2 & warn) warning("There are issues in the indexes.", 
-                      if(!is.null(logfile)) paste0("  openFile('",logfile,"')")  )
+logfileprint <- if(!is.null(logfile)) paste0("  openFile('",
+                  normalizePath(logfile,winslash="/", mustWork=FALSE),"')") else ""
+if(length(out)>2 & warn) warning("There are issues in the indexes.", logfileprint)
 out <- paste(out, collapse="\n")
 if(!is.null(logfile)) cat(out, file=logfile)
 return(invisible(out))
