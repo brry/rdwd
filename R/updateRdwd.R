@@ -51,7 +51,7 @@ if(!quiet) message(pack, " local version ", Vinst$Version, " (", Vinst$Date,
         ") is outdated.\nInstalling development version ", 
         Vsrc$Version, " (", Vsrc$Date,") from github.com/",repo)
 checkSuggestedPackage("remotes", "updateRdwd")
-# actually install, with vignettes (unlinke remotes default)
+# actually install, with vignettes (unlike remotes default)
 remotes::install_github(repo=repo, build_vignettes=vignette, quiet=quiet, ...)
 return(invisible(output))
 }
