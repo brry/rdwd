@@ -329,7 +329,7 @@ FX_10	Windgeschwindigkeit_Max
 FMX_10	Windgeschwindigkeit_MaxMean
 FNX_10	Windgeschwindigkeit_Min
 D	Windrichtung
-D	Windrichtung
+DD	Windrichtung
 DD_10	Windrichtung
 DK_TER	Windrichtung
 DK_TER	Windrichtung
