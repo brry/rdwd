@@ -4,7 +4,13 @@
 \alias{readDWD.multia}
 \title{read multi_annual dwd data}
 \usage{
-readDWD.multia(file, fileEncoding = "latin1", comment.char = "\\032", ...)
+readDWD.multia(
+  file,
+  fileEncoding = "latin1",
+  comment.char = "\\032",
+  quiet = FALSE,
+  ...
+)
 }
 \arguments{
 \item{file}{Name of file on harddrive, like e.g. 
@@ -17,6 +23,8 @@ DEFAULT: "latin1" (needed on Linux, optional but not hurting on windows)}
 \item{comment.char}{\link{read.table} comment character.
 DEFAULT: "\\032" (needed 2019-04 to ignore the binary 
 control character at the end of multi_annual files)}
+
+\item{quiet}{Suppress subfunction name message? DEFAULT: FALSE}
 
 \item{\dots}{Further arguments passed to \code{\link{read.table}}}
 }

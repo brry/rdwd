@@ -149,14 +149,14 @@ if(progbar) message("Reading ", length(file), " file", if(length(file)>1)"s", ".
 output <- lapply(seq_along(file), function(i)
 {
 # if meta/multia/radar/binary/raster/asc:
-if(multia[i]) return(readDWD.multia(file[i], ...))
-if(stand[i])  return(readDWD.stand( file[i], ...))
-if(meta[i])   return(readDWD.meta(  file[i], ...))
-if(binary[i]) return(readDWD.binary(file[i], progbar=progbar, ...))
-if(raster[i]) return(readDWD.raster(file[i], dividebyten=dividebyten[i], ...))
+if(multia[i]) return(readDWD.multia(file[i], quiet=quiet, ...))
+if(stand[i])  return(readDWD.stand( file[i], quiet=quiet, ...))
+if(meta[i])   return(readDWD.meta(  file[i], quiet=quiet, ...))
+if(binary[i]) return(readDWD.binary(file[i], quiet=quiet, progbar=progbar, ...))
+if(raster[i]) return(readDWD.raster(file[i], dividebyten=dividebyten[i], quiet=quiet, ...))
 if(nc[i])     return(readDWD.nc(    file[i], var=var[i], quiet=quiet, ...))
-if(radar[i])  return(readDWD.radar( file[i], ...))
-if(asc[i])    return(readDWD.asc(   file[i], progbar=progbar, dividebyten=dividebyten[i], ...))
+if(radar[i])  return(readDWD.radar( file[i], quiet=quiet, ...))
+if(asc[i])    return(readDWD.asc(   file[i], quiet=quiet, progbar=progbar, dividebyten=dividebyten[i], ...))
 # if data:
 readDWD.data(file[i], fread=fread[i], varnames=varnames[i], 
              format=format[i], tz=tz[i], quiet=quiet, ...)
@@ -201,11 +201,13 @@ return(invisible(output))
 #' @param tz       Char (vector): time zone for \code{\link{as.POSIXct}}.
 #'                 "" is the current time zone, and "GMT" is UTC (Universal Time,
 #'                 Coordinated). DEFAULT: "GMT"
-#' @param quiet    Suppress empty file warnings? DEFAULT: FALSE
+#' @param quiet    Suppress empty file warnings and subfuntion name message? DEFAULT: FALSE
 #' @param \dots    Further arguments passed to \code{\link{read.table}} or 
 #'                 \code{data.table::\link[data.table]{fread}}
-readDWD.data <- function(file, fread=FALSE, varnames=FALSE, format=NA, tz="GMT", quiet=FALSE, ...)
+readDWD.data <- function(file, fread=FALSE, varnames=FALSE, format=NA, tz="GMT", 
+                         quiet=FALSE, ...)
 {
+if(!quiet) message("Reading file with readDWD.data().")
 if(fread)
   {
   # http://dsnotes.com/post/2017-01-27-lessons-learned-from-outbrain-click-prediction-kaggle-competition/
@@ -314,9 +316,12 @@ return(dat)
 #' @param comment.char \link{read.table} comment character.
 #'              DEFAULT: "\\032" (needed 2019-04 to ignore the binary 
 #'              control character at the end of multi_annual files)
+#' @param quiet Suppress subfunction name message? DEFAULT: FALSE
 #' @param \dots Further arguments passed to \code{\link{read.table}}
-readDWD.multia <- function(file, fileEncoding="latin1", comment.char="\032", ...)
+readDWD.multia <- function(file, fileEncoding="latin1", comment.char="\032", 
+                           quiet=FALSE, ...)
 {
+if(!quiet) message("Reading file with readDWD.multia().")
 out <- read.table(file, sep=";", header=TRUE, fileEncoding=fileEncoding, 
                   comment.char=comment.char, ...)
 nc <- ncol(out)
@@ -383,10 +388,13 @@ out
 #'              \code{\link{updateIndexes}} at
 #'              \url{https://github.com/brry/rdwd/blob/master/R/updateIndexes.R}.
 #'              DEFAULT: \code{rdwd:::\link{formatIndex}}
+#' @param quiet Suppress subfunction name message? DEFAULT: FALSE
 #' @param \dots Further arguments passed to \code{\link{read.fwf}}
 #'              or \code{readr::\link[readr]{read_fwf}} 
-readDWD.stand <- function(file, fast=TRUE, fileEncoding="latin1", formIndex=formatIndex, ...)
+readDWD.stand <- function(file, fast=TRUE, fileEncoding="latin1", 
+                          formIndex=formatIndex, quiet=FALSE, ...)
 {
+if(!quiet) message("Reading file with readDWD.stand().")
 # check column existence
 musthave <- c("Pos","Fehlk","dividebyten","Label")
 has <- musthave %in% colnames(formIndex)
@@ -464,9 +472,11 @@ return(sf)
 #' }
 #' @param file  Name of file on harddrive, like e.g. 
 #'              DWDdata/daily_kl_recent_KL_Tageswerte_Beschreibung_Stationen.txt
+#' @param quiet Suppress subfunction name message? DEFAULT: FALSE
 #' @param \dots Further arguments passed to \code{\link{read.fwf}}
-readDWD.meta <- function(file, ...)
+readDWD.meta <- function(file, quiet=FALSE, ...)
 {
+if(!quiet) message("Reading file with readDWD.meta().")
 # read a few lines to get column widths and names
 oneline <- readLines(file, n=60, encoding="latin1") 
 # n=60 or 15 has no influence on total readDWD.meta time for 97 meta files (16 secs)
@@ -580,18 +590,20 @@ stats
 #'                  to a list with dat (\code{raster \link[raster]{stack}}) + 
 #'                  meta (list from the first subfile, but with vector of dates)?
 #'                  DEFAULT: TRUE
-#' @param progbar   Show messages and progress bars? \code{\link{readDWD}} will
+#' @param quiet     Suppress progress messages? DEFAULT: FALSE
+#' @param progbar   Show progress bars? \code{\link{readDWD}} will
 #'                  keep progbar=TRUE for binary files, even if length(file)==1.
-#'                  DEFAULT: TRUE
+#'                  DEFAULT: !quiet, i.e. TRUE
 #' @param selection Optionally read only a subset of the ~24*31=744 files.
 #'                  Called as \code{f[selection]}. DEFAULT: NULL (ignored)
 #' @param \dots     Further arguments passed to \code{dwdradar::\link[dwdradar]{readRadarFile}}, 
 #'                  i.e. \code{na} and \code{clutter}
-readDWD.binary <- function(file, exdir=sub(".tar.gz$", "", file), 
-                           toraster=TRUE, progbar=TRUE, selection=NULL, ...)
+readDWD.binary <- function(file, exdir=sub(".tar.gz$", "", file), toraster=TRUE, 
+                           quiet=FALSE, progbar=!quiet, selection=NULL, ...)
 {
 checkSuggestedPackage("dwdradar", "rdwd:::readDWD.binary")
-pmessage <- function(...) if(progbar) message(...)
+pmessage <- function(...) if(!quiet) message(...)
+pmessage("Reading file with readDWD.binary().")
 # Untar as needed:
 pmessage("\nChecking which files need to be untarred to ", exdir, "...")
 f <- sort(untar(file, list=TRUE))
@@ -687,9 +699,11 @@ return(invisible(list(dat=rbmat, meta=rbmeta)))
 #'                    DEFAULT gargs: NULL
 #' @param dividebyten Logical: Divide the numerical values by 10?
 #'                    DEFAULT: TRUE
+#' @param quiet       Suppress subfunction name message? DEFAULT: FALSE
 #' @param \dots       Further arguments passed to \code{raster::\link[raster]{raster}}
-readDWD.raster <- function(file, gargs=NULL, dividebyten, ...)
+readDWD.raster <- function(file, gargs=NULL, dividebyten, quiet=FALSE, ...)
 {
+if(!quiet) message("Reading file with readDWD.raster().")
 checkSuggestedPackage("R.utils", "rdwd:::readDWD.raster")
 checkSuggestedPackage("raster",  "rdwd:::readDWD.raster")
 #https://stackoverflow.com/questions/5227444/recursively-ftp-download-then-extract-gz-files
@@ -760,12 +774,14 @@ return(invisible(r))
 #'                    \code{ncdf4::\link[ncdf4]{ncvar_get}}. If not available, 
 #'                    an interactive selection is presented.
 #'                    DEFAULT: "" (last variable)
-#' @param quiet       Logical: Suppress time conversion failure warning? DEFAULT: FALSE
+#' @param quiet       Logical: Suppress Suppress subfunction name message and 
+#'                    time conversion failure warning? DEFAULT: FALSE
 #' @param \dots       Further arguments passed to \code{raster::\link[raster]{brick}}
 #'                    or \code{ncdf4::\link[ncdf4]{nc_open}}
 #' 
 readDWD.nc <- function(file, gargs=NULL, var="", toraster=TRUE, quiet=FALSE, ...)
 {
+if(!quiet) message("Reading file with readDWD.nc().")
 checkSuggestedPackage("ncdf4", "rdwd:::readDWD.nc") # also needed if toraster=TRUE
 checkSuggestedPackage("R.utils", "rdwd:::readDWD.nc")
 # gunzip arguments:
@@ -867,10 +883,12 @@ return(invisible(list(time=time, lat=LAT, lon=LON, var=VAR, varname=var,
 #'                  to a list with data (\code{raster \link[raster]{stack}}) + 
 #'                  meta (list from the first subfile, but with vector of dates)?
 #'                  DEFAULT: TRUE
+#' @param quiet     Suppress subfunction name message? DEFAULT: FALSE
 #' @param \dots     Further arguments passed to \code{dwdradar::\link[dwdradar]{readRadarFile}}, 
 #'                  i.e. \code{na} and \code{clutter}
-readDWD.radar <- function(file, gargs=NULL, toraster=TRUE, ...)
+readDWD.radar <- function(file, gargs=NULL, toraster=TRUE, quiet=FALSE, ...)
 {
+if(!quiet) message("Reading file with readDWD.radar().")
 checkSuggestedPackage("dwdradar","rdwd:::readDWD.radar")
 checkSuggestedPackage("R.utils", "rdwd:::readDWD.radar")
 # gunzip arguments:
@@ -944,15 +962,17 @@ return(invisible(rf))
 #'                    Accessing out-of-memory raster objects won't work if 
 #'                    exdir is removed! -> Error in .local(.Object, ...)
 #'                    DEFAULT: TRUE
-#' @param progbar     Show messages and progress bars? \code{\link{readDWD}} will
+#' @param quiet       Suppress progress messages? DEFAULT: FALSE
+#' @param progbar     Show progress bars? \code{\link{readDWD}} will
 #'                    keep progbar=TRUE for asc files, even if length(file)==1.
-#'                    DEFAULT: TRUE
+#'                    DEFAULT: !quiet, i.e. TRUE
 #' @param selection   Optionally read only a subset of the ~24*31=744 files.
 #'                    Called as \code{f[selection]}. DEFAULT: NULL (ignored)
 #' @param \dots       Further arguments passed to \code{raster::\link[raster]{raster}}
 readDWD.asc <- function(file, exdir=NULL, dividebyten=TRUE, 
-                        selection=NULL, progbar=TRUE, ...)
+                        selection=NULL, quiet=FALSE, progbar=!quiet, ...)
 {
+if(!quiet) message("Reading file with readDWD.asc().")
 checkSuggestedPackage("raster", "rdwd:::readDWD.asc")
 if(progbar) lapply <- pbapply::pblapply
 # prepare to untar data (two layers):
@@ -965,25 +985,25 @@ untar(file, exdir=daydir) # 30/31 .tar.gz files (one for each day). overwrites e
 dayfiles <- dir(daydir, full.names=TRUE)
 #
 # untar layer 2:
-if(progbar) message("\nChecking if already unpacked: ", file, "...")
+if(!quiet) message("\nChecking if already unpacked: ", file, "...")
 to_untar <- lapply(dayfiles, untar, list=TRUE)
 untarred <- dir(exdir, pattern=".asc$")
 to_untar <- !sapply(to_untar, function(x) all(x %in% untarred))
 if(any(to_untar)){
-  if(progbar) message("Unpacking tar files into ",exdir,"...")
+  if(!quiet) message("Unpacking tar files into ",exdir,"...")
   lapply(dayfiles[to_untar], untar, exdir=exdir) 
-} else if(progbar) message("Tar file was already unpacked into ",exdir," :)")
+} else if(!quiet) message("Tar file was already unpacked into ",exdir," :)")
 # yields 31 * 24 .asc files each 1.7MB, takes ~20 secs
 #
 #
 # read data (hourly files):
 f <- dir(exdir, pattern=".asc$", full.names=TRUE) # 720 files
 if(!is.null(selection)) f <- f[selection]
-if(progbar) message("Reading ",length(f)," files...")
+if(!quiet) message("Reading ",length(f)," files...")
 dat <- lapply(f, raster::raster, ...)
 #
 # divide by ten (takes ~9 min!)
-if(progbar & dividebyten) message("Dividing values by ten...")
+if(!quiet & dividebyten) message("Dividing values by ten...")
 if(dividebyten) dat <- lapply(dat, function(x) x/10)
 #
 # stack layers:

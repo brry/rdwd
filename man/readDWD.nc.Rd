@@ -23,7 +23,8 @@ DEFAULT: "" (last variable)}
 All further arguments will be ignored. Specify e.g. var through \dots.
 DEFAULT: TRUE}
 
-\item{quiet}{Logical: Suppress time conversion failure warning? DEFAULT: FALSE}
+\item{quiet}{Logical: Suppress Suppress subfunction name message and 
+time conversion failure warning? DEFAULT: FALSE}
 
 \item{\dots}{Further arguments passed to \code{raster::\link[raster]{brick}}
 or \code{ncdf4::\link[ncdf4]{nc_open}}}

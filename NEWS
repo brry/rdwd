@@ -2,7 +2,6 @@
 rdwd ToDo-list / wishlist / issues
 - readDWD.data: figure out reason for fread trouble (reported in emails by some users)
 - readDWD.nc: investigate warning as in vign
-- readDWD: have each subfunction message its identity
 - indexFTP: read tree with data.table/vroom
 - selectDWD("Berlin", res="monthly", var="kl", per="h", exactmatch = F) should only return stations with data, with a single warning only
 - dataDWD: should dbin default be TRUE?

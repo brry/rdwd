@@ -40,7 +40,7 @@ on the number of characters. DEFAULT: NA}
 "" is the current time zone, and "GMT" is UTC (Universal Time,
 Coordinated). DEFAULT: "GMT"}
 
-\item{quiet}{Suppress empty file warnings? DEFAULT: FALSE}
+\item{quiet}{Suppress empty file warnings and subfuntion name message? DEFAULT: FALSE}
 
 \item{\dots}{Further arguments passed to \code{\link{read.table}} or 
 \code{data.table::\link[data.table]{fread}}}

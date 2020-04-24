@@ -8,7 +8,8 @@ readDWD.binary(
   file,
   exdir = sub(".tar.gz$", "", file),
   toraster = TRUE,
-  progbar = TRUE,
+  quiet = FALSE,
+  progbar = !quiet,
   selection = NULL,
   ...
 )
@@ -29,9 +30,11 @@ to a list with dat (\code{raster \link[raster]{stack}}) +
 meta (list from the first subfile, but with vector of dates)?
 DEFAULT: TRUE}
 
-\item{progbar}{Show messages and progress bars? \code{\link{readDWD}} will
+\item{quiet}{Suppress progress messages? DEFAULT: FALSE}
+
+\item{progbar}{Show progress bars? \code{\link{readDWD}} will
 keep progbar=TRUE for binary files, even if length(file)==1.
-DEFAULT: TRUE}
+DEFAULT: !quiet, i.e. TRUE}
 
 \item{selection}{Optionally read only a subset of the ~24*31=744 files.
 Called as \code{f[selection]}. DEFAULT: NULL (ignored)}

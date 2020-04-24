@@ -9,7 +9,8 @@ readDWD.asc(
   exdir = NULL,
   dividebyten = TRUE,
   selection = NULL,
-  progbar = TRUE,
+  quiet = FALSE,
+  progbar = !quiet,
   ...
 )
 }
@@ -33,9 +34,11 @@ DEFAULT: TRUE}
 \item{selection}{Optionally read only a subset of the ~24*31=744 files.
 Called as \code{f[selection]}. DEFAULT: NULL (ignored)}
 
-\item{progbar}{Show messages and progress bars? \code{\link{readDWD}} will
+\item{quiet}{Suppress progress messages? DEFAULT: FALSE}
+
+\item{progbar}{Show progress bars? \code{\link{readDWD}} will
 keep progbar=TRUE for asc files, even if length(file)==1.
-DEFAULT: TRUE}
+DEFAULT: !quiet, i.e. TRUE}
 
 \item{\dots}{Further arguments passed to \code{raster::\link[raster]{raster}}}
 }

@@ -4,11 +4,13 @@
 \alias{readDWD.meta}
 \title{read dwd metadata (Beschreibung*.txt files)}
 \usage{
-readDWD.meta(file, ...)
+readDWD.meta(file, quiet = FALSE, ...)
 }
 \arguments{
 \item{file}{Name of file on harddrive, like e.g. 
 DWDdata/daily_kl_recent_KL_Tageswerte_Beschreibung_Stationen.txt}
+
+\item{quiet}{Suppress subfunction name message? DEFAULT: FALSE}
 
 \item{\dots}{Further arguments passed to \code{\link{read.fwf}}}
 }

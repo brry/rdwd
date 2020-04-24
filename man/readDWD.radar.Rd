@@ -4,7 +4,7 @@
 \alias{readDWD.radar}
 \title{read dwd gridded radolan radar data}
 \usage{
-readDWD.radar(file, gargs = NULL, toraster = TRUE, ...)
+readDWD.radar(file, gargs = NULL, toraster = TRUE, quiet = FALSE, ...)
 }
 \arguments{
 \item{file}{Name of file on harddrive, like e.g. 
@@ -27,6 +27,8 @@ DEFAULT gargs: NULL}
 to a list with data (\code{raster \link[raster]{stack}}) + 
 meta (list from the first subfile, but with vector of dates)?
 DEFAULT: TRUE}
+
+\item{quiet}{Suppress subfunction name message? DEFAULT: FALSE}
 
 \item{\dots}{Further arguments passed to \code{dwdradar::\link[dwdradar]{readRadarFile}}, 
 i.e. \code{na} and \code{clutter}}
