@@ -294,9 +294,10 @@ if(any(alloutdated)) stop("The DWD has not yet updated any historical files in "
 # Testing examples ----
 if(examples)
   {
+  checkSuggestedPackage("roxygen2", "runLocalTests with examples=TRUE")
   messaget("++ Testing examples")
   roxygen2::roxygenise()
-  berryFunctions::testExamples(logfolder=dir_exmpl)
+  berryFunctions::testExamples(logfolder=dir_exmpl, telldocument=FALSE) # version >= 1.18.18
   }
 
 # Output ----
