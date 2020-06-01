@@ -11,7 +11,7 @@ selectDWD(
   per = NA,
   exactmatch = TRUE,
   mindex = metaIndex,
-  quiet = FALSE,
+  quiet = rdwdquiet(),
   id = findID(name, exactmatch = exactmatch, mindex = mindex, quiet = quiet),
   base = dwdbase,
   findex = fileIndex,
@@ -52,7 +52,7 @@ with \code{\link{==}})? Else with \code{\link{grepl}}. DEFAULT: TRUE}
 \item{mindex}{Single object: Index with metadata passed to \code{\link{findID}}.
 DEFAULT: \code{rdwd:::\link{metaIndex}}}
 
-\item{quiet}{Suppress id length warnings?}
+\item{quiet}{Suppress id length warnings? DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 
 \item{id}{Char/Number: station ID with or without leading zeros, e.g. "00614" or 614.
 Is internally converted to an integer, because some DWD meta data

@@ -6,7 +6,7 @@
 \usage{
 readDWD(
   file,
-  quiet = FALSE,
+  quiet = rdwdquiet(),
   progbar = !quiet,
   fread = FALSE,
   varnames = FALSE,
@@ -31,7 +31,7 @@ readDWD(
 e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip" or
 "~/DWDdata/RR_Stundenwerte_Beschreibung_Stationen.txt"}
 
-\item{quiet}{Logical: suppress messages? DEFAULT: FALSE}
+\item{quiet}{Logical: suppress messages? DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 
 \item{progbar}{Logical: present a progress bar with estimated remaining time?
 If missing and length(file)==1, progbar is internally set to FALSE.

@@ -18,7 +18,7 @@ plotRadar(
   proj = "radolan",
   extent = "radolan",
   targetproj = "ll",
-  quiet = FALSE,
+  quiet = rdwdquiet(),
   ...
 )
 }
@@ -53,7 +53,7 @@ used only if \code{project=TRUE}. DEFAULT: "radolan"}
 \item{targetproj}{target projection, see \code{\link{projectRasterDWD}}, 
 used only if \code{project=TRUE}. DEFAULT: "ll"}
 
-\item{quiet}{suppress progress messages? DEFAULT: FALSE}
+\item{quiet}{suppress progress messages? DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 
 \item{\dots}{Further arguments passed to \code{raster::\link[raster]{plot}}}
 }

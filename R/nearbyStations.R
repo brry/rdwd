@@ -29,7 +29,7 @@
 #'                    open-access file available? DEFAULT: TRUE
 #' @param statname    Character: name for target location. DEFAULT:
 #'                    "nearbyStations target location"
-#' @param quiet       Logical: suppress progress messages? DEFAULT: FALSE
+#' @param quiet       Logical: suppress progress messages? DEFAULT: FALSE through \code{\link{rdwdquiet}()}
 #' @param \dots       Further arguments passed to \code{\link{selectDWD}}
 #' 
 nearbyStations <- function(
@@ -42,7 +42,7 @@ per=NA,
 mindate=NA,
 hasfileonly=TRUE,
 statname="nearbyStations target location",
-quiet=FALSE,
+quiet=rdwdquiet(),
 ...
 )
 {

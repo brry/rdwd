@@ -33,13 +33,13 @@
 #'              DEFAULT: TRUE
 #' @param mindex Single object: Index used to select \code{id} if \code{name}
 #'              is given. DEFAULT: \code{rdwd:::\link{metaIndex}}
-#' @param quiet Logical: suppress length warnings? DEFAULT: FALSE
+#' @param quiet Logical: suppress length warnings? DEFAULT: FALSE through \code{\link{rdwdquiet}()}
 #'  
 findID <- function(
 name="",
 exactmatch=TRUE,
 mindex=metaIndex,
-quiet=FALSE
+quiet=rdwdquiet()
 )
 {
 # Input checks and processing:

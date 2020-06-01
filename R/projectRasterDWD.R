@@ -35,9 +35,9 @@
 #' @param targetproj \code{r} is reprojected to this
 #'   \code{\link[raster:projection]{crs}}. Use NULL to not reproject (i.e. only
 #'   set proj and extent) DEFAULT: "ll" with internal default for lat-lon.
-#' @param quiet    Logical: suppress progress messages? DEFAULT: FALSE
+#' @param quiet    Logical: suppress progress messages? DEFAULT: FALSE through \code{\link{rdwdquiet}()}
 #'   
-projectRasterDWD <- function(r, proj="radolan", extent="radolan", targetproj="ll", quiet=FALSE)
+projectRasterDWD <- function(r, proj="radolan", extent="radolan", targetproj="ll", quiet=rdwdquiet())
 {
 # package check
 checkSuggestedPackage("raster", "rdwd::projectRasterDWD")

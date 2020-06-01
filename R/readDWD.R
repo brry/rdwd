@@ -38,7 +38,7 @@
 #'               \code{\link{dataDWD}},
 #'               e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip" or
 #'               "~/DWDdata/RR_Stundenwerte_Beschreibung_Stationen.txt"
-#' @param quiet  Logical: suppress messages? DEFAULT: FALSE
+#' @param quiet  Logical: suppress messages? DEFAULT: FALSE through \code{\link{rdwdquiet}()}
 #' @param progbar Logical: present a progress bar with estimated remaining time?
 #'               If missing and length(file)==1, progbar is internally set to FALSE.
 #'               DEFAULT: !quiet
@@ -86,7 +86,7 @@
 #' 
 readDWD <- function(
 file,
-quiet=FALSE,
+quiet=rdwdquiet(),
 progbar=!quiet,
 fread=FALSE,
 varnames=FALSE,

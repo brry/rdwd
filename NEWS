@@ -7,7 +7,6 @@ rdwd ToDo-list / wishlist / issues
 - dataDWD: should dbin default be TRUE?
 - dataDWD: change documentation to reflect usage for gridded data
 - plotRadar: use in examples, link to where useful, replace data(DEU) e.g. in .multia
-- global quiet option, especially for vignette
 
 
 ---------------------------------------

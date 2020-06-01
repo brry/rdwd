@@ -16,14 +16,14 @@
 #' @param vignette build_vignettes in \code{remotes::\link[remotes]{install_github}}? 
 #'                 DEFAULT: TRUE
 #' @param quiet    Suppress version messages and \code{remotes::install} output?
-#'                 DEFAULT: FALSE
+#'                 DEFAULT: FALSE through \code{\link{rdwdquiet}()}
 #' @param \dots    Further arguments passed to \code{remotes::\link[remotes]{install_github}}
 #'
 updateRdwd <- function(
 pack="rdwd",
 user="brry",
 vignette=TRUE,
-quiet=FALSE,
+quiet=rdwdquiet(),
 ...
 )
 {

@@ -89,7 +89,8 @@
 #' @param sleep  Number. If not 0, a random number of seconds between 0 and
 #'               \code{sleep} is passed to \code{\link{Sys.sleep}} after each download
 #'               to avoid getting kicked off the FTP-Server. DEFAULT: 0
-#' @param quiet  Logical: suppress message about directory / filenames? DEFAULT: FALSE
+#' @param quiet  Logical: suppress message about directory / filenames? 
+#'               DEFAULT: FALSE through \code{\link{rdwdquiet}()}
 #' @param progbar Logical: present a progress bar with estimated remaining time?
 #'               If missing and length(file)==1, progbar is internally set to FALSE.
 #'               Only works if the R package \code{pbapply} is available. DEFAULT: TRUE (!quiet)
@@ -116,7 +117,7 @@ force=FALSE,
 overwrite=FALSE,
 dbin=FALSE,
 sleep=0,
-quiet=FALSE,
+quiet=rdwdquiet(),
 progbar=!quiet,
 browse=FALSE,
 read=TRUE,

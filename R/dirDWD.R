@@ -13,11 +13,11 @@
 #' 
 #' @param dir      Char for dirDWD: writeable directory name. Created if not existent.
 #'                 DEFAULT: "DWDdata" at current \code{\link{getwd}()}
-#' @param quiet    Logical: Suppress messages about creating dir? DEFAULT: FALSE
+#' @param quiet    Logical: Suppress messages about creating dir? DEFAULT: FALSE through \code{\link{rdwdquiet}()}
 #' 
 dirDWD <- function(
 dir="DWDdata",
-quiet=FALSE
+quiet=rdwdquiet()
 )
 {
 dir <- dir[1]

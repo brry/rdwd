@@ -4,7 +4,13 @@
 \alias{updateRdwd}
 \title{Update rdwd development version}
 \usage{
-updateRdwd(pack = "rdwd", user = "brry", vignette = TRUE, quiet = FALSE, ...)
+updateRdwd(
+  pack = "rdwd",
+  user = "brry",
+  vignette = TRUE,
+  quiet = rdwdquiet(),
+  ...
+)
 }
 \arguments{
 \item{pack}{Name of (already installed) package. DEFAULT: "rdwd"}
@@ -15,7 +21,7 @@ updateRdwd(pack = "rdwd", user = "brry", vignette = TRUE, quiet = FALSE, ...)
 DEFAULT: TRUE}
 
 \item{quiet}{Suppress version messages and \code{remotes::install} output?
-DEFAULT: FALSE}
+DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 
 \item{\dots}{Further arguments passed to \code{remotes::\link[remotes]{install_github}}}
 }

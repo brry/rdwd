@@ -4,13 +4,13 @@
 \alias{dirDWD}
 \title{directory management for rdwd}
 \usage{
-dirDWD(dir = "DWDdata", quiet = FALSE)
+dirDWD(dir = "DWDdata", quiet = rdwdquiet())
 }
 \arguments{
 \item{dir}{Char for dirDWD: writeable directory name. Created if not existent.
 DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
 
-\item{quiet}{Logical: Suppress messages about creating dir? DEFAULT: FALSE}
+\item{quiet}{Logical: Suppress messages about creating dir? DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 }
 \value{
 dirDWD invisibly returns the prior working directory as per \code{\link{setwd}}.

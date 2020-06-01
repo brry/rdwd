@@ -55,7 +55,8 @@
 #'              DEFAULT: FALSE
 #' @param checkwarn Logical: warn about \code{\link{checkIndex}} issues? DEFAULT: TRUE
 #' @param checklog Logfile for \code{\link{checkIndex}}. DEFAULT: \code{\link{tempfile}()}
-#' @param quiet Logical: Suppress messages about progress and filenames? DEFAULT: FALSE
+#' @param quiet Logical: Suppress messages about progress and filenames? 
+#'              DEFAULT: FALSE through \code{\link{rdwdquiet}()}
 #' @param \dots Further arguments passed to \code{\link{dataDWD}} for the meta part.
 #' 
 createIndex <- function(
@@ -70,7 +71,7 @@ gname="geoIndex.txt",
 overwrite=FALSE,
 checkwarn=TRUE,
 checklog=tempfile(),
-quiet=FALSE,
+quiet=rdwdquiet(),
 ...
 )
 {

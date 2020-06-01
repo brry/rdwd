@@ -16,7 +16,7 @@ createIndex(
   overwrite = FALSE,
   checkwarn = TRUE,
   checklog = tempfile(),
-  quiet = FALSE,
+  quiet = rdwdquiet(),
   ...
 )
 }
@@ -56,7 +56,8 @@ DEFAULT: FALSE}
 
 \item{checklog}{Logfile for \code{\link{checkIndex}}. DEFAULT: \code{\link{tempfile}()}}
 
-\item{quiet}{Logical: Suppress messages about progress and filenames? DEFAULT: FALSE}
+\item{quiet}{Logical: Suppress messages about progress and filenames? 
+DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 
 \item{\dots}{Further arguments passed to \code{\link{dataDWD}} for the meta part.}
 }

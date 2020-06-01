@@ -13,7 +13,7 @@ dataDWD(
   overwrite = FALSE,
   dbin = FALSE,
   sleep = 0,
-  quiet = FALSE,
+  quiet = rdwdquiet(),
   progbar = !quiet,
   browse = FALSE,
   read = TRUE,
@@ -55,7 +55,8 @@ DEFAULT: FALSE}
 \code{sleep} is passed to \code{\link{Sys.sleep}} after each download
 to avoid getting kicked off the FTP-Server. DEFAULT: 0}
 
-\item{quiet}{Logical: suppress message about directory / filenames? DEFAULT: FALSE}
+\item{quiet}{Logical: suppress message about directory / filenames? 
+DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 
 \item{progbar}{Logical: present a progress bar with estimated remaining time?
 If missing and length(file)==1, progbar is internally set to FALSE.

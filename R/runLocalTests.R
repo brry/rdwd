@@ -18,7 +18,7 @@
 #'              files are older than 24 hours. Reduce test time a lot by setting
 #'              this to FALSE. DEFAULT: !fast
 #' @param examples Run Examples (including donttest sections) DEFAULT: !fast
-#' @param quiet Suppress progress messages? DEFAULT: FALSE
+#' @param quiet Suppress progress messages? DEFAULT: FALSE through \code{\link{rdwdquiet}()}
 #'
 runLocalTests <- function(
 dir_data=localtestdir(),
@@ -27,7 +27,7 @@ fast=FALSE,              # ca 0.1 minutes (always, even if fast=T)
 radar=!fast,             # ca 0.3 minutes
 all_Potsdam_files=!fast, # ca 1.6 minutes
 examples=!fast,          # ca 2.1 minutes
-quiet=FALSE
+quiet=rdwdquiet()
 )
 {
 # pre-checks ----

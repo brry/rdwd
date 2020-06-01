@@ -14,7 +14,7 @@ nearbyStations(
   mindate = NA,
   hasfileonly = TRUE,
   statname = "nearbyStations target location",
-  quiet = FALSE,
+  quiet = rdwdquiet(),
   ...
 )
 }
@@ -37,7 +37,7 @@ open-access file available? DEFAULT: TRUE}
 \item{statname}{Character: name for target location. DEFAULT:
 "nearbyStations target location"}
 
-\item{quiet}{Logical: suppress progress messages? DEFAULT: FALSE}
+\item{quiet}{Logical: suppress progress messages? DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 
 \item{\dots}{Further arguments passed to \code{\link{selectDWD}}}
 }

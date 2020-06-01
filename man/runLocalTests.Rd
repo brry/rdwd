@@ -11,7 +11,7 @@ runLocalTests(
   radar = !fast,
   all_Potsdam_files = !fast,
   examples = !fast,
-  quiet = FALSE
+  quiet = rdwdquiet()
 )
 }
 \arguments{
@@ -30,7 +30,7 @@ this to FALSE. DEFAULT: !fast}
 
 \item{examples}{Run Examples (including donttest sections) DEFAULT: !fast}
 
-\item{quiet}{Suppress progress messages? DEFAULT: FALSE}
+\item{quiet}{Suppress progress messages? DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 }
 \value{
 Time taken to run tests in minutes

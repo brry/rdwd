@@ -36,7 +36,7 @@
 #'                   used only if \code{project=TRUE}. DEFAULT: "radolan"
 #' @param targetproj target projection, see \code{\link{projectRasterDWD}}, 
 #'                   used only if \code{project=TRUE}. DEFAULT: "ll"
-#' @param quiet      suppress progress messages? DEFAULT: FALSE
+#' @param quiet      suppress progress messages? DEFAULT: FALSE through \code{\link{rdwdquiet}()}
 #' @param \dots      Further arguments passed to \code{raster::\link[raster]{plot}}
 #'
 plotRadar <- function(
@@ -53,7 +53,7 @@ project=TRUE,
 proj="radolan",
 extent="radolan",
 targetproj="ll",
-quiet=FALSE,
+quiet=rdwdquiet(),
 ...
 )
 {
