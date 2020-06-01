@@ -62,6 +62,8 @@
 #'               DEFAULT: TRUE fo files containing "standard_format" in the name.
 #' @param meta   Logical (vector): is the \code{file} a meta file (Beschreibung.txt)?
 #'               See \code{\link{readDWD.meta}}.
+#'               For zip files containing station meta information, see 
+#'               \code{\link{readMeta}}.
 #'               DEFAULT: TRUE for each file ending in ".txt"
 #' @param binary Logical (vector): does the \code{file} contain binary files?
 #'               See \code{\link{readDWD.binary}}.

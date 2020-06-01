@@ -60,6 +60,8 @@ DEFAULT: TRUE for each file ending in "Standort.txt"}
 
 \item{meta}{Logical (vector): is the \code{file} a meta file (Beschreibung.txt)?
 See \code{\link{readDWD.meta}}.
+For zip files containing station meta information, see 
+\code{\link{readMeta}}.
 DEFAULT: TRUE for each file ending in ".txt"}
 
 \item{stand}{Logical (vector): is the \code{file} a subdaily/standard_format file?
