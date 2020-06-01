@@ -37,7 +37,13 @@
 #'   set proj and extent) DEFAULT: "ll" with internal default for lat-lon.
 #' @param quiet    Logical: suppress progress messages? DEFAULT: FALSE through \code{\link{rdwdquiet}()}
 #'   
-projectRasterDWD <- function(r, proj="radolan", extent="radolan", targetproj="ll", quiet=rdwdquiet())
+projectRasterDWD <- function(
+r, 
+proj="radolan", 
+extent="radolan", 
+targetproj="ll", 
+quiet=rdwdquiet()
+)
 {
 # package check
 checkSuggestedPackage("raster", "rdwd::projectRasterDWD")
