@@ -297,7 +297,9 @@ if(examples)
   checkSuggestedPackage("roxygen2", "runLocalTests with examples=TRUE")
   messaget("++ Testing examples")
   roxygen2::roxygenise()
+  oo <- options(rdwdquiet=TRUE)
   berryFunctions::testExamples(logfolder=dir_exmpl, telldocument=FALSE) # version >= 1.18.18
+  options(oo)
   }
 
 # Output ----
