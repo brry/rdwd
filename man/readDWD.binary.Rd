@@ -8,7 +8,7 @@ readDWD.binary(
   file,
   exdir = sub(".tar.gz$", "", file),
   toraster = TRUE,
-  quiet = FALSE,
+  quiet = rdwdquiet(),
   progbar = !quiet,
   selection = NULL,
   ...
@@ -30,7 +30,8 @@ to a list with dat (\code{raster \link[raster]{stack}}) +
 meta (list from the first subfile, but with vector of dates)?
 DEFAULT: TRUE}
 
-\item{quiet}{Suppress progress messages? DEFAULT: FALSE}
+\item{quiet}{Suppress progress messages? 
+DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 
 \item{progbar}{Show progress bars? \code{\link{readDWD}} will
 keep progbar=TRUE for binary files, even if length(file)==1.

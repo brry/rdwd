@@ -9,7 +9,7 @@ readDWD.stand(
   fast = TRUE,
   fileEncoding = "latin1",
   formIndex = formatIndex,
-  quiet = FALSE,
+  quiet = rdwdquiet(),
   ...
 )
 }
@@ -34,7 +34,8 @@ To use a current / custom index, see the source code of
 \url{https://github.com/brry/rdwd/blob/master/R/updateIndexes.R}.
 DEFAULT: \code{rdwd:::\link{formatIndex}}}
 
-\item{quiet}{Suppress subfunction name message? DEFAULT: FALSE}
+\item{quiet}{Suppress subfunction name message? 
+DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 
 \item{\dots}{Further arguments passed to \code{\link{read.fwf}}
 or \code{readr::\link[readr]{read_fwf}}}

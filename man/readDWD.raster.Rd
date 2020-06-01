@@ -4,7 +4,7 @@
 \alias{readDWD.raster}
 \title{read dwd gridded raster data}
 \usage{
-readDWD.raster(file, gargs = NULL, dividebyten, quiet = FALSE, ...)
+readDWD.raster(file, gargs = NULL, dividebyten, quiet = rdwdquiet(), ...)
 }
 \arguments{
 \item{file}{Name of file on harddrive, like e.g. 
@@ -26,7 +26,8 @@ DEFAULT gargs: NULL}
 \item{dividebyten}{Logical: Divide the numerical values by 10?
 DEFAULT: TRUE}
 
-\item{quiet}{Suppress subfunction name message? DEFAULT: FALSE}
+\item{quiet}{Suppress subfunction name message? 
+DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 
 \item{\dots}{Further arguments passed to \code{raster::\link[raster]{raster}}}
 }

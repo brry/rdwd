@@ -13,7 +13,7 @@ indexFTP(
   dir = "DWDdata",
   filename = folder[1],
   overwrite = FALSE,
-  quiet = FALSE,
+  quiet = rdwdquiet(),
   progbar = !quiet,
   verbose = FALSE
 )
@@ -56,7 +56,8 @@ DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
 filename, see \code{berryFunctions::\link[berryFunctions]{newFilename}}.
 DEFAULT: FALSE}
 
-\item{quiet}{Suppress progbars and message about directory/files? DEFAULT: FALSE}
+\item{quiet}{Suppress progbars and message about directory/files? 
+DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 
 \item{progbar}{Logical: present a progress bar in each level? DEFAULT: TRUE}
 

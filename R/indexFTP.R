@@ -64,7 +64,8 @@
 #' @param overwrite Logical: Overwrite existing file? If not, "_n" is added to the
 #'                filename, see \code{berryFunctions::\link[berryFunctions]{newFilename}}.
 #'                DEFAULT: FALSE
-#' @param quiet   Suppress progbars and message about directory/files? DEFAULT: FALSE
+#' @param quiet   Suppress progbars and message about directory/files? 
+#'                DEFAULT: FALSE through \code{\link{rdwdquiet}()}
 #' @param progbar Logical: present a progress bar in each level? DEFAULT: TRUE
 #' @param verbose Logical: write a lot of messages from \code{RCurl::\link[RCurl]{getURL}}?
 #'                DEFAULT: FALSE (usually, you dont need all the curl information)
@@ -78,7 +79,7 @@ sleep=0,
 dir="DWDdata",
 filename=folder[1],
 overwrite=FALSE,
-quiet=FALSE,
+quiet=rdwdquiet(),
 progbar=!quiet,
 verbose=FALSE
 )

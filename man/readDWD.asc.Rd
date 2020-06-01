@@ -9,7 +9,7 @@ readDWD.asc(
   exdir = NULL,
   dividebyten = TRUE,
   selection = NULL,
-  quiet = FALSE,
+  quiet = rdwdquiet(),
   progbar = !quiet,
   ...
 )
@@ -34,7 +34,8 @@ DEFAULT: TRUE}
 \item{selection}{Optionally read only a subset of the ~24*31=744 files.
 Called as \code{f[selection]}. DEFAULT: NULL (ignored)}
 
-\item{quiet}{Suppress progress messages? DEFAULT: FALSE}
+\item{quiet}{Suppress progress messages? 
+DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 
 \item{progbar}{Show progress bars? \code{\link{readDWD}} will
 keep progbar=TRUE for asc files, even if length(file)==1.

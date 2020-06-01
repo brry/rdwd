@@ -4,7 +4,14 @@
 \alias{readDWD.nc}
 \title{read dwd netcdf data}
 \usage{
-readDWD.nc(file, gargs = NULL, var = "", toraster = TRUE, quiet = FALSE, ...)
+readDWD.nc(
+  file,
+  gargs = NULL,
+  var = "",
+  toraster = TRUE,
+  quiet = rdwdquiet(),
+  ...
+)
 }
 \arguments{
 \item{file}{Name of file on harddrive, like e.g. 
@@ -24,7 +31,8 @@ All further arguments will be ignored. Specify e.g. var through \dots.
 DEFAULT: TRUE}
 
 \item{quiet}{Logical: Suppress Suppress subfunction name message and 
-time conversion failure warning? DEFAULT: FALSE}
+time conversion failure warning? 
+DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 
 \item{\dots}{Further arguments passed to \code{raster::\link[raster]{brick}}
 or \code{ncdf4::\link[ncdf4]{nc_open}}}

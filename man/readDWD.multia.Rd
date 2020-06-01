@@ -8,7 +8,7 @@ readDWD.multia(
   file,
   fileEncoding = "latin1",
   comment.char = "\\032",
-  quiet = FALSE,
+  quiet = rdwdquiet(),
   ...
 )
 }
@@ -24,7 +24,8 @@ DEFAULT: "latin1" (needed on Linux, optional but not hurting on windows)}
 DEFAULT: "\\032" (needed 2019-04 to ignore the binary 
 control character at the end of multi_annual files)}
 
-\item{quiet}{Suppress subfunction name message? DEFAULT: FALSE}
+\item{quiet}{Suppress subfunction name message? 
+DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 
 \item{\dots}{Further arguments passed to \code{\link{read.table}}}
 }
