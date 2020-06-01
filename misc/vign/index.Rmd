@@ -26,6 +26,15 @@ Important links:
 * vignette [source code and files](https://github.com/brry/rdwd/tree/master/misc/vign)
 * feedback is very welcome via [github](https://github.com/brry/rdwd) or <berry-b@gmx.de>!  
 
+
+```{r globalquiet, echo=FALSE}
+options(rdwdquiet=TRUE)
+# This should suppress all progress and info messages in the vignette output
+# while not suggesting users to copypaste with explicit quiet=TRUE all the time.
+# Especially new users should see the messages and progress bars, I think
+```
+
+
 *The remainder of this intro chapter is a copy of the [github README file](https://github.com/brry/rdwd#rdwd).*
 
 ----
@@ -209,7 +218,7 @@ All stations within a certain radius around a given lat-long position can be obt
 The DWD station IDs can be obtained from station names with `r helplink("findID")`:
 ```{r findID, eval=TRUE}
 findID("Potsdam")
-findID("Koeln", exactmatch=FALSE, quiet=TRUE)
+findID("Koeln", exactmatch=FALSE)
 ```
 
 ## by name
@@ -237,7 +246,7 @@ There may be a differing number of available files for several stations across a
 That's why the default outvec is FALSE (unless `per="hr"`).
 
 ```{r select5, eval=TRUE}
-selectDWD(id=c(3467,5116), res="",var="",per="", quiet=TRUE) %>% print_short
+selectDWD(id=c(3467,5116), res="",var="",per="") %>% print_short
 ```
 
 
@@ -344,15 +353,14 @@ project_and_plot <- function(x, main1, main2, main3=NULL, ...)
   {
   par(mar=c(2,2,2.2,5), mgp=c(3,0.7,0))
   main <- paste(main1, "\n", as.character(main2), as.character(main3))
-  out <- plotRadar(x, main=main, layer=1, quiet=TRUE, ...)
+  out <- plotRadar(x, main=main, layer=1, ...)
   return(invisible(c(pp,out)))
   }
 pp <- list()
 ```
 
 The following overview will usually unzip only a few selected files for speed and memory considerations.
-In real life, you might not want to unzip to a temporary `exdir` 
-and (at least when calling it for the first time) not use quiet=TRUE.
+In real life, you probably do not want to unzip to a temporary `exdir`.
 You can also remove `read=FALSE` in dataDWD and add the needed arguments right there, 
 but I wanted to be explicit here.
 
@@ -365,9 +373,9 @@ The last line shows what projection and extent to use in `r helplink("projectRas
 `r helplink("readDWD.raster")`  
 ```{r readDWD_raster}
 link <- "seasonal/air_temperature_mean/16_DJF/grids_germany_seasonal_air_temp_mean_188216.asc.gz" # 0.2 MB
-file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE, quiet=TRUE)
-rad <- readDWD(file, quiet=TRUE) # with dividebyten=TRUE
-rad <- readDWD(file, quiet=TRUE) # runs faster at second time due to skip=TRUE
+file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE)
+rad <- readDWD(file) # with dividebyten=TRUE
+rad <- readDWD(file) # runs faster at second time due to skip=TRUE
 pp <- project_and_plot(rad, ".raster", "", proj="seasonal", extent=rad@extent)
 ```
 
@@ -375,8 +383,8 @@ pp <- project_and_plot(rad, ".raster", "", proj="seasonal", extent=rad@extent)
 `r helplink("readDWD.nc")`
 ```{r readDWD_nc}
 link <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
-file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE, quiet=TRUE)
-rad <- readDWD(file, quiet=TRUE) # can also have interactive selection of variable
+file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE)
+rad <- readDWD(file) # can also have interactive selection of variable
 pp <- project_and_plot(rad, ".nc", rad@title, rad@z[[1]][1], proj="nc", extent="nc")
 ```
 
@@ -384,8 +392,8 @@ pp <- project_and_plot(rad, ".nc", rad@title, rad@z[[1]][1], proj="nc", extent="
 `r helplink("readDWD.binary")`
 ```{r readDWD_binary_rw}
 link <- "hourly/radolan/reproc/2017_002/bin/2017/RW2017.002_201712.tar.gz"  # 25 MB
-file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE, quiet=TRUE)
-rad <- readDWD(file, exdir=tdir, selection=1:3, quiet=TRUE)
+file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE)
+rad <- readDWD(file, exdir=tdir, selection=1:3)
 pp <- project_and_plot(rad$dat, ".binary RW", rad$meta$date[1], extent="rw")
 ```
 
@@ -393,8 +401,8 @@ pp <- project_and_plot(rad$dat, ".binary RW", rad$meta$date[1], extent="rw")
 `r helplink("readDWD.binary")`  
 ```{r readDWD_binary_sf}
 link <- "/daily/radolan/historical/bin/2017/SF201712.tar.gz"           # 204 MB
-file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE, quiet=TRUE)
-rad <- readDWD(file, exdir=tdir, selection=1:3, quiet=TRUE) # with toraster=TRUE
+file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE)
+rad <- readDWD(file, exdir=tdir, selection=1:3) # with toraster=TRUE
 pp <- project_and_plot(rad$dat, ".binary SF", rad$meta$date[1])
 ```
 
@@ -402,9 +410,9 @@ pp <- project_and_plot(rad$dat, ".binary SF", rad$meta$date[1])
 `r helplink("readDWD.asc")` 
 ```{r readDWD_asc}
 link <- "hourly/radolan/historical/asc/2018/RW-201809.tar" # 25 mB
-file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, quiet=TRUE,
+file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir,
                 dbin=TRUE, read=FALSE) # download with mode=wb!!!
-rad <- readDWD(file, selection=1:3, dividebyten=TRUE, quiet=TRUE)
+rad <- readDWD(file, selection=1:3, dividebyten=TRUE)
 pp <- project_and_plot(rad, ".asc", names(rad)[1])
 ```
  
@@ -412,9 +420,9 @@ pp <- project_and_plot(rad, ".asc", names(rad)[1])
 `r helplink("readDWD.radar")`
 ```{r readDWD_radar, echo=-1}
 suppressPackageStartupMessages(library(R.utils)) 
-links <- indexFTP("hourly/radolan/recent/bin", base=gridbase, dir=tdir, quiet=TRUE) # 0.04 MB
-file <- dataDWD(links[773], base=gridbase, joinbf=TRUE, dir=tdir, read=FALSE, quiet=TRUE)
-rad <- readDWD(file, quiet=TRUE)
+links <- indexFTP("hourly/radolan/recent/bin", base=gridbase, dir=tdir) # 0.04 MB
+file <- dataDWD(links[773], base=gridbase, joinbf=TRUE, dir=tdir, read=FALSE)
+rad <- readDWD(file)
 pp <- project_and_plot(rad$dat, ".radar RW", rad$meta$date)
 ```
 
@@ -422,9 +430,9 @@ pp <- project_and_plot(rad$dat, ".radar RW", rad$meta$date)
 `r helplink("readDWD.radar")`
 ```{r readDWD_radar_RQ}
 rqbase <- "ftp://opendata.dwd.de/weather/radar/radvor/rq"
-links <- indexFTP("", base=rqbase, dir=tdir, quiet=TRUE) # 0.07 MB
-file <- dataDWD(links[17], base=rqbase, joinbf=TRUE, dir=tdir, read=FALSE, quiet=TRUE)
-rad <- readDWD(file, quiet=TRUE)
+links <- indexFTP("", base=rqbase, dir=tdir) # 0.07 MB
+file <- dataDWD(links[17], base=rqbase, joinbf=TRUE, dir=tdir, read=FALSE)
+rad <- readDWD(file)
 pp <- project_and_plot(rad$dat, ".radar RQ", rad$meta$date)
 ```
 
@@ -436,7 +444,7 @@ For others, `r helplink("dataDWD")` has a dbin=TRUE option.
 If you do not use this, your plots will look partially shifted like this (and have the wrong units):
 ```{r wrong_binary}
 url <- "ftp://ftp-cdc.dwd.de/weather/radar/radolan/rw/raa01-rw_10000-latest-dwd---bin"
-rw_file <- dataDWD(url, dir=tempdir(), read=FALSE, dbin=FALSE, quiet=TRUE)
+rw_file <- dataDWD(url, dir=tempdir(), read=FALSE, dbin=FALSE)
 rw_orig <- dwdradar::readRadarFile(rw_file)
 raster::plot(raster::raster(rw_orig$dat))
 ```
@@ -450,7 +458,7 @@ I'm considering to set the default dbin to TRUE but need to assess the implicati
 pdf("../ExampleTests/Radartests_Vign.pdf", width=6, height=6)
 par(mar=c(0,0,3,5))
 dummy <- lapply(pp, function(x) plotRadar(x, xlim=c(3,16), ylim=c(47, 55), 
-                                        main=x@title, project=FALSE, quiet=TRUE))
+                                        main=x@title, project=FALSE))
 dev.off()
 ```
 
@@ -464,7 +472,7 @@ download & read data
 ```{r uc_recent_time_series_data, eval=TRUE, fig.height=3, fig.width=7}
 library(rdwd)
 link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
-file <- dataDWD(link, read=FALSE, dir="../localdata", quiet=TRUE, force=NA, overwrite=TRUE)
+file <- dataDWD(link, read=FALSE, dir="../localdata", force=NA, overwrite=TRUE)
 clim <- readDWD(file, varnames=TRUE)
 
 str(clim)
@@ -484,7 +492,7 @@ mtext("Source: Deutscher Wetterdienst", adj=-0.1, line=0.5, font=3)
 ```{r uc_climgraph, eval=TRUE, fig.height=3, fig.width=7, echo=-1}
 par(mar=c(4,4,2,0.5), mgp=c(2.7, 0.8, 0), cex=0.8)
 link <- selectDWD("Goettingen", res="monthly", var="kl", per="h")
-clim <- dataDWD(link, quiet=TRUE, dir="../localdata")
+clim <- dataDWD(link, dir="../localdata")
 
 clim$month <- substr(clim$MESS_DATUM_BEGINN,5,6)
 temp <- tapply(clim$MO_TT, clim$month, mean, na.rm=TRUE)
@@ -502,8 +510,6 @@ From the [monthly](ftp://ftp-cdc.dwd.de/climate_environment/CDC/grids_germany/mo
 folder at `r helplink("gridbase")`, we want to
 download .asc.gz files for selected years and open them in R for further processing.
 
-Note: I'm using `quiet=TRUE` to keep this vignette concise. In real life, the messages may be important to you...
-
 ```{r grid_monthly_index, message=FALSE}
 data("gridIndex")
 index <- grep("monthly",   gridIndex, value=TRUE) # 12'295
@@ -511,8 +517,8 @@ index <- grep('precipitation', index, value=TRUE) #  1'664
 index <- grep('2014|2015|2016',index, value=TRUE) #     36 (3*12)
 
 precip_files <- dataDWD(index[6:8], base=gridbase, joinbf=TRUE, read=FALSE, 
-                        dir="../localdata", quiet=TRUE)
-precip <- readDWD(precip_files, quiet=TRUE)
+                        dir="../localdata")
+precip <- readDWD(precip_files)
 ```
 For .asc.gz files, `r helplink("readDWD")` calls `r helplink("readDWD.raster")`.
 This runs faster if called a second time due to skip=TRUE in `gunzip`.  
@@ -521,7 +527,7 @@ Now we can project and visualize with:
 ```{r grid_monthly_vis}
 # raster::plot(precip[[1]])
 precip_proj <- projectRasterDWD(precip[[1]], proj="seasonal", 
-                                extent=precip[[1]]@extent, quiet=TRUE)
+                                extent=precip[[1]]@extent)
 raster::plot(precip_proj, las=1)
 addBorders()
 ```
@@ -553,14 +559,12 @@ the radolan extent seems to be needed, not the rw extent.
 
 ```{r recent_radar}
 rw_base <- "ftp://ftp-cdc.dwd.de/weather/radar/radolan/rw"
-rw_urls <- indexFTP(base=rw_base, dir=tempdir(), folder="", exclude.latest.bin=TRUE, 
-                    quiet=TRUE)
-rw_file <- dataDWD(rw_urls[8], base=rw_base, joinbf=TRUE, dir=tempdir(), read=FALSE, 
-                   quiet=TRUE, dbin=TRUE)
+rw_urls <- indexFTP(base=rw_base, dir=tempdir(), folder="", exclude.latest.bin=TRUE)
+rw_file <- dataDWD(rw_urls[8], base=rw_base, joinbf=TRUE, dir=tempdir(), read=FALSE, dbin=TRUE)
 
 rw_orig <- dwdradar::readRadarFile(rw_file)
 str(rw_orig)
-rw_proj <- projectRasterDWD(raster::raster(rw_orig$dat), extent="radolan", quiet=TRUE)
+rw_proj <- projectRasterDWD(raster::raster(rw_orig$dat), extent="radolan")
 raster::plot(rw_proj) # NB: is rw file, but needs radolan extent instead of rw
 addBorders()
 ```
@@ -573,7 +577,7 @@ addBorders()
 Choose station in Berlin with longest monthly average recordings
 (according to metadata, which is not always correct).
 ```{r uc_berlinstationselection}
-ids <- findID("Berlin", exactmatch=FALSE, quiet=TRUE)
+ids <- findID("Berlin", exactmatch=FALSE)
 head(ids)
 data("metaIndex")
 berlin <- metaIndex[with(metaIndex, 
@@ -587,7 +591,7 @@ berlin # Dahlem (FU) has data since 1719 !
 ```{r uc_berlindata, fig.height=5, fig.width=7, echo=-1}
 par(mar=c(2,2,0.2,0.2))
 url <- selectDWD("Berlin-Dahlem (FU)", res="monthly", var="kl", per="h")
-kl <- dataDWD(url, varnames=TRUE, dir="../localdata", quiet=TRUE)
+kl <- dataDWD(url, varnames=TRUE, dir="../localdata")
 plot(kl$MESS_DATUM, kl$MO_TT.Lufttemperatur, type="l", las=1) # pretty complete
 ```
 
@@ -821,7 +825,7 @@ m <- m[m$res=="monthly" & m$var=="kl" & m$per=="recent" & m$hasfile, ]
 msf <- sf::st_as_sf(m, coords=c("geoLaenge", "geoBreite"), crs=4326)
 
 # Read district shapefile, see link above:
-lk <- sf::st_read("landkreise-in-germany.shp", quiet=TRUE)
+lk <- sf::st_read("landkreise-in-germany.shp")
 
 # intersections: list with msf rownumbers for each district:
 int <- sf::st_intersects(lk, msf)
@@ -856,7 +860,7 @@ if(length(rnr)<1)
   }
 urls <- selectDWD(id=m[rnr, "Stations_id"], # set dir if needed
                   res="monthly", var="kl", per="r", outvec=TRUE)
-clims <- dataDWD(urls, varnames=FALSE, quiet=TRUE, dir="../localdata")
+clims <- dataDWD(urls, varnames=FALSE, dir="../localdata")
 if(length(urls)==1) 
   {rainmean <- clims$MO_RR 
   monthlyrain <- clims[c("MESS_DATUM", "MO_RR")]
@@ -895,7 +899,7 @@ phenocrop_base <- paste0(sub("climate$", "phenology", dwdbase),
 # pheno_urls <- indexFTP("", base=phenocrop_base, dir="Pheno")
 kohl_url <- "PH_Jahresmelder_Landwirtschaft_Kulturpflanze_Weisskohl_1951_1990_hist.txt"# 9 MB
 kohl_file <- dataDWD(base=phenocrop_base, file=kohl_url, joinbf=TRUE, 
-                     dir=localtestdir(), read=FALSE, quiet=TRUE) 
+                     dir=localtestdir(), read=FALSE) 
 kohl <- read.table(kohl_file, sep=";", header=TRUE)
 ```
 
