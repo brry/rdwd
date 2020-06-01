@@ -247,7 +247,7 @@ selectDWD(id=c(3467,5116), res="",var="",per="", quiet=TRUE) %>% print_short
 `r helplink("selectDWD")` needs an index of all the available files on the server.
 The package contains such an index (`r helplink("fileIndex")`) that is updated (at least) with each CRAN release of the package.
 If you find the file index to be outdated (Error in download.file ... : cannot open URL),
-please let me know and I will update it. Meanwhile, use current=TRUE in `r helplink("selectDWD")`:
+please let me know and I will update it. You might also want to check if the github development version (`r helplink("updateRdwd")`) already has an updated index. Meanwhile, use current=TRUE in `r helplink("selectDWD")`:
 
 ```{r files, eval=FALSE}
 # all files at a given path, with current file index (RCurl required):
@@ -320,9 +320,13 @@ For now, you'll have to query `r helplink("gridIndex")` yourself, e.g. with
 ```{r, gridIndex, eval=FALSE}
 data(gridIndex)
 head(grep("historical", gridIndex, value=TRUE))
-# current index of available files for a given folder:
+
+# currently available files in a given folder:
 rasterbase <- paste0(gridbase,"/seasonal/air_temperature_mean")
 ftp.files <- indexFTP("/16_DJF", base=rasterbase, dir=tempdir())
+
+# current index of all grid files (takes > 2 min, yields >30k charstrings >5MB):
+gridIndexNow <- indexFTP(folder="currentgindex", base=gridbase, filename="grids")
 ```
 If you send me examples of how you use it, I can then expand this in `rdwd`.  
 For files that are not yet read correctly, you can also consult the 
