@@ -17,17 +17,17 @@
 #'                  DEFAULT: TRUE
 #' @param fast      Exclude the 3-minute location per ID check? DEFAULT: FALSE
 #' @param warn      Warn about issues? DEFAULT: TRUE
-#' @param logfile   File to copy log to. NULL to suppress. 
-#'                  DEFAULT: "misc/ExampleTests/indexCheckResults.txt"
+#' @param logfile   File to copy log to, appended to existing content. NULL to suppress. 
+#'                  DEFAULT: "misc/ExampleTests/warnings.txt"
 checkIndex <- function(findex=NULL, mindex=NULL, gindex=NULL, 
                        excludefp=TRUE, fast=FALSE, warn=TRUE,
-                       logfile=localtestdir(".", "misc/ExampleTests/indexCheckResults.txt"))
+                       logfile=localtestdir(".", "misc/ExampleTests/warnings.txt"))
 {
 # helper function:
 alldupli <- function(x) duplicated(x) | duplicated(x, fromLast=TRUE)
 # Output text:
-out <- paste("checkIndex results at", as.character(Sys.time()), "for")
-out <- c(out, dwdbase)
+out <- paste("\ncheckIndex results at", as.character(Sys.time()), "for\n")
+out <- paste0(out, dwdbase, berryFunctions::traceCall(suffix=""))
 
 # findex ----
 
@@ -179,7 +179,8 @@ if(anyDuplicated(coord))
 logfileprint <- if(!is.null(logfile)) paste0("  openFile('",
                   normalizePath(logfile,winslash="/", mustWork=FALSE),"')") else ""
 if(length(out)>2 & warn) warning("There are issues in the indexes.", logfileprint)
+out <- c(out, "\n")
 out <- paste(out, collapse="\n")
-if(!is.null(logfile)) cat(out, file=logfile)
+if(!is.null(logfile)) cat(out, file=logfile, append=TRUE)
 return(invisible(out))
 } # end checkIndex

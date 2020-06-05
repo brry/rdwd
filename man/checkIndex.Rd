@@ -11,7 +11,7 @@ checkIndex(
   excludefp = TRUE,
   fast = FALSE,
   warn = TRUE,
-  logfile = localtestdir(".", "misc/ExampleTests/indexCheckResults.txt")
+  logfile = localtestdir(".", "misc/ExampleTests/warnings.txt")
 )
 }
 \arguments{
@@ -28,8 +28,8 @@ DEFAULT: TRUE}
 
 \item{warn}{Warn about issues? DEFAULT: TRUE}
 
-\item{logfile}{File to copy log to. NULL to suppress. 
-DEFAULT: "misc/ExampleTests/indexCheckResults.txt"}
+\item{logfile}{File to copy log to, appended to existing content. NULL to suppress. 
+DEFAULT: "misc/ExampleTests/warnings.txt"}
 }
 \value{
 Charstring with issues (if any) to be printed with \code{cat()}.
