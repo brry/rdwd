@@ -248,6 +248,12 @@ testthat::expect_error(selectDWD(id="", current=TRUE, res="",var="",per=""),
 })
 
 
+# checkIndex ----
+
+checkIndex(findex=fileIndex, mindex=metaIndex, gindex=geoIndex, fast=fast,
+          logfile=paste0(dir_exmpl,"/warnings.txt"), warn=FALSE)
+
+
 # Index up to date? ----
 
 messaget("++ Testing index up to date?")
