@@ -30,7 +30,8 @@ plotRadar(
 
 \item{layer}{Optional: selected layer(s) to be plotted. DEFAULT: NULL}
 
-\item{main}{Graph title(s). Use "" to suppress. DEFAULT: x@title}
+\item{main}{Graph title(s). Use "" to suppress. 
+Note\code{output@title} is set to \code{main}! DEFAULT: x@title}
 
 \item{land}{Color of land areas in the map. DEFAULT: "gray80"}
 
@@ -72,7 +73,7 @@ used only if \code{project=TRUE}. DEFAULT: "ll"}
 \value{
 raster object, projected (if \code{project=TRUE}).
 If \code{length(layer)==1}, only that selected layer is returned.
-If \code{main} is non-empty, it is added to \code{x@title}.
+\code{output@title} is set to \code{main}.
 }
 \description{
 Convenience function to plot radar products on a pretty map. 

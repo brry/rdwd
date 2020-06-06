@@ -3,7 +3,7 @@
 #' Creates a separate plot for each layer, a selection is possible.
 #' @return raster object, projected (if \code{project=TRUE}).
 #' If \code{length(layer)==1}, only that selected layer is returned.
-#' If \code{main} is non-empty, it is added to \code{x@@title}.
+#' \code{output@@title} is set to \code{main}.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Feb 2020
 #' @seealso \code{\link{addBorders}}, \code{\link{readDWD}}, \url{https://bookdown.org/brry/rdwd/raster-data.html}
 #' @keywords aplot spatial
@@ -21,7 +21,8 @@
 #'
 #' @param x          raster oject, e.g. 'dat' element of object returned by \code{\link{readDWD}}.
 #' @param layer      Optional: selected layer(s) to be plotted. DEFAULT: NULL
-#' @param main       Graph title(s). Use "" to suppress. DEFAULT: x@@title
+#' @param main       Graph title(s). Use "" to suppress. 
+#'                   Note\code{output@@title} is set to \code{main}! DEFAULT: x@@title
 #' @param land       Color of land areas in the map. DEFAULT: "gray80"
 #' @param sea        Color of sea areas in the map. DEFAULT: "cadetblue1"
 #' @param de         Color of Deutschland Bundesland borders (\code{\link{DEU}}). DEFAULT: "grey80"
@@ -70,11 +71,11 @@ quiet=rdwdquiet(),
 checkSuggestedPackage("raster", "plotRadar") 
 if(identical(names(x),c("dat","meta"))) stop("plotRadar needs the 'dat' element as input.")
 
-# main (must be evaluated before potential x[[layer]]):
-if(!identical(main,"") & !identical(main,x@title)) x@title <- c(x@title, main)
-
 # projection (save time if layer is a single value):
 if(length(layer)==1) x <- x[[layer]] # use only selected layer
+
+x@title <- main # https://github.com/rspatial/raster/issues/128
+
 if(project) 
  {
  if(!quiet) message("- projecting:")
@@ -107,7 +108,6 @@ singlemap <- function(x_i, main_i)
 lay <- 1:raster::nlayers(x)
 if(length(layer)>0) lay <- lay[layer]
 main <- rep(main, length.out=length(lay))
-if(length(layer)==1) x@title <- main
 
 if(is.null(  zlim)) zlim <- raster::cellStats(x, range)
 if(is.matrix(zlim)) zlim <- range(zlim[,lay], na.rm=TRUE)
