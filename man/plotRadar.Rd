@@ -84,9 +84,21 @@ Creates a separate plot for each layer, a selection is possible.
 \dontrun{ ## Excluded from CRAN checks: requires internet connection
 link <- "seasonal/air_temperature_mean/16_DJF/grids_germany_seasonal_air_temp_mean_188216.asc.gz"
 rad <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=tempdir())
-radp <- plotRadar(rad, proj="seasonal", extent=rad@extent)
-plotRadar(radp, ylim=c(52,54), project=FALSE)
-plotRadar(rad) # default proj and extent do not work well for this data
+radp <- plotRadar(rad, proj="seasonal", extent=rad@extent, main="plotRadar ex")
+plotRadar(radp, ylim=c(52,54), project=FALSE) # reuses main
+
+# several layers
+url <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
+nc <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=localtestdir())
+
+ncp3 <- plotRadar(nc, main=paste(nc@title, nc@z[[1]]), layer=1:3, 
+                  col=seqPal(), proj="nc", extent="nc")
+plotRadar(ncp3, layer=3:4, project=FALSE) # still has all layers
+plotRadar(ncp3, layer=4:5, project=FALSE, zlim="ind") # individual zlims per layer
+plotRadar(ncp3, layer=1, project=FALSE, zlim=c(1016,1020))
+
+ncp1 <- plotRadar(nc, layer=1, proj="nc", extent="nc") # much faster projection
+berryFunctions::is.error(plotRadar(ncp1, layer=1:4, project=FALSE), TRUE, TRUE)
 }
 
 }

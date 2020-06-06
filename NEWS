@@ -7,6 +7,7 @@ rdwd ToDo-list / wishlist / issues
 - dataDWD: should dbin default be TRUE?
 - dataDWD: change documentation to reflect usage for gridded data
 - plotRadar: use in examples, link to where useful
+- plotRadar: in first call in new R session sets wrong margin at right (legend). Noticed after adding axes.
 
 
 ---------------------------------------

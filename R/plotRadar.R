@@ -14,9 +14,21 @@
 #' \dontrun{ ## Excluded from CRAN checks: requires internet connection
 #' link <- "seasonal/air_temperature_mean/16_DJF/grids_germany_seasonal_air_temp_mean_188216.asc.gz"
 #' rad <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=tempdir())
-#' radp <- plotRadar(rad, proj="seasonal", extent=rad@extent)
-#' plotRadar(radp, ylim=c(52,54), project=FALSE)
-#' plotRadar(rad) # default proj and extent do not work well for this data
+#' radp <- plotRadar(rad, proj="seasonal", extent=rad@extent, main="plotRadar ex")
+#' plotRadar(radp, ylim=c(52,54), project=FALSE) # reuses main
+#' 
+#' # several layers
+#' url <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
+#' nc <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=localtestdir())
+#' 
+#' ncp3 <- plotRadar(nc, main=paste(nc@title, nc@z[[1]]), layer=1:3, 
+#'                   col=seqPal(), proj="nc", extent="nc")
+#' plotRadar(ncp3, layer=3:4, project=FALSE) # still has all layers
+#' plotRadar(ncp3, layer=4:5, project=FALSE, zlim="ind") # individual zlims per layer
+#' plotRadar(ncp3, layer=1, project=FALSE, zlim=c(1016,1020))
+#' 
+#' ncp1 <- plotRadar(nc, layer=1, proj="nc", extent="nc") # much faster projection
+#' berryFunctions::is.error(plotRadar(ncp1, layer=1:4, project=FALSE), TRUE, TRUE)
 #' }
 #'
 #' @param x          raster oject, e.g. 'dat' element of object returned by \code{\link{readDWD}}.
@@ -71,6 +83,7 @@ quiet=rdwdquiet(),
 checkSuggestedPackage("raster", "plotRadar") 
 if(identical(names(x),c("dat","meta"))) stop("plotRadar needs the 'dat' element as input.")
 
+force(main)
 # projection (save time if layer is a single value):
 if(length(layer)==1) x <- x[[layer]] # use only selected layer
 
@@ -81,6 +94,7 @@ if(project)
  if(!quiet) message("- projecting:")
  x <- projectRasterDWD(x, proj=proj,extent=extent,targetproj=targetproj,quiet=quiet)
  }
+if(!quiet) message("- preparing plots...")
 # Extent:
 ext <- raster::extent(x)
 if(is.null(xlim)) xlim <- c(ext@xmin, ext@xmax)
@@ -106,8 +120,11 @@ singlemap <- function(x_i, main_i)
 
 # Use function for each layer separately
 lay <- 1:raster::nlayers(x)
-if(length(layer)>0) lay <- lay[layer]
-main <- rep(main, length.out=length(lay))
+lay2 <- lay
+main <- rep(main, length.out=length(lay)) # recycle for all existing layers
+if(length(layer)>1) lay <- lay[layer] # already done if layer length == 1
+nn <- sum(!lay %in% lay2) # number not existing layers:
+if(nn>0) stop(nn, " layer",if(nn>1)"s", " selected that do",if(nn==1)"es"," not exist.")
 
 if(is.null(  zlim)) zlim <- raster::cellStats(x, range)
 if(is.matrix(zlim)) zlim <- range(zlim[,lay], na.rm=TRUE)
