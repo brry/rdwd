@@ -32,7 +32,7 @@
 #' @importFrom tools file_path_sans_ext
 #' @export
 #' @examples
-#' # see dataDWD
+#' # see dataDWD and readDWD.* subfunctions
 #' 
 #' @param file   Char (vector): name(s) of the file(s) downloaded with 
 #'               \code{\link{dataDWD}},
@@ -286,7 +286,7 @@ return(dat)
 #' head(ma_meta)
 #' 
 #' ma <- merge(ma_meta, ma_temp, all=TRUE)
-#' berryFunctions::linReg(ma$Stationshoehe, ma$Jahr)
+#' berryFunctions::linReg(ma$Stationshoehe, ma$Jahr, main="annual average ~ elevation")
 #' op <- par(mfrow=c(3,4), mar=c(0.1,2,2,0), mgp=c(3,0.6,0))
 #' for(m in colnames(ma)[8:19])
 #'   {

@@ -116,7 +116,7 @@ is used in \code{.raster} and \code{.asc}.\cr\cr
 also be a vector and will be recycled to the length of \code{file}.
 }
 \examples{
-# see dataDWD
+# see dataDWD and readDWD.* subfunctions
 
 }
 \seealso{
