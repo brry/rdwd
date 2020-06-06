@@ -49,9 +49,7 @@ rrf <- indexFTP("hourly/radolan/recent/bin", base=gridbase, dir=tempdir())
 lrf <- dataDWD(rrf[773], base=gridbase, joinbf=TRUE, dir=tempdir(), read=FALSE)
 r <- readDWD(lrf)
 
-rp <- projectRasterDWD(r$dat)
-raster::plot(rp, main=r$meta$date)
-addBorders()
+plotRadar(r$dat, main=r$meta$date)
 }
 }
 \seealso{

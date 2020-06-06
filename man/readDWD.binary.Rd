@@ -65,10 +65,8 @@ if(!file.exists(SF_exdir)) SF_exdir <- tempdir()
 SF_rad <- readDWD(SF_file, selection=1:10, exdir=SF_exdir) #with toraster=TRUE 
 if(length(SF_rad)!=2) stop("length(SF_rad) should be 2, but is ", length(SF_rad))
 
-SF_radp <- projectRasterDWD(SF_rad$dat)
-raster::plot(SF_radp[[1]], main=SF_rad$meta$date[1])
-addBorders()
-
+SF_radp <- plotRadar(SF_rad$dat, layer=1:3, main=SF_rad$meta$date)
+plotRadar(SF_radp, layer=1, project=FALSE)
 
 # RW file as example: ----
 
@@ -78,9 +76,7 @@ RW_file <- dataDWD(file=RW_link, base=gridbase, joinbf=TRUE,   # 25 MB
 RW_exdir <- "C:/Users/berry/Desktop/DWDbinaryRW"
 if(!file.exists(RW_exdir)) RW_exdir <- tempdir()
 RW_rad <- readDWD(RW_file, selection=1:10, exdir=RW_exdir)
-RW_radp <- projectRasterDWD(RW_rad$dat, extent="rw")
-raster::plot(RW_radp[[1]], main=RW_rad$meta$date[1])
-addBorders()
+RW_radp <- plotRadar(RW_rad$dat[[1]], main=RW_rad$meta$date[1], extent="rw")
 
 # ToDo: why are values + patterns not the same?
 

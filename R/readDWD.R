@@ -561,10 +561,8 @@ stats
 #' SF_rad <- readDWD(SF_file, selection=1:10, exdir=SF_exdir) #with toraster=TRUE 
 #' if(length(SF_rad)!=2) stop("length(SF_rad) should be 2, but is ", length(SF_rad))
 #' 
-#' SF_radp <- projectRasterDWD(SF_rad$dat)
-#' raster::plot(SF_radp[[1]], main=SF_rad$meta$date[1])
-#' addBorders()
-#' 
+#' SF_radp <- plotRadar(SF_rad$dat, layer=1:3, main=SF_rad$meta$date)
+#' plotRadar(SF_radp, layer=1, project=FALSE)
 #' 
 #' # RW file as example: ----
 #' 
@@ -574,9 +572,7 @@ stats
 #' RW_exdir <- "C:/Users/berry/Desktop/DWDbinaryRW"
 #' if(!file.exists(RW_exdir)) RW_exdir <- tempdir()
 #' RW_rad <- readDWD(RW_file, selection=1:10, exdir=RW_exdir)
-#' RW_radp <- projectRasterDWD(RW_rad$dat, extent="rw")
-#' raster::plot(RW_radp[[1]], main=RW_rad$meta$date[1])
-#' addBorders()
+#' RW_radp <- plotRadar(RW_rad$dat[[1]], main=RW_rad$meta$date[1], extent="rw")
 #' 
 #' # ToDo: why are values + patterns not the same?
 #' 
@@ -681,9 +677,7 @@ return(invisible(list(dat=rbmat, meta=rbmeta)))
 #' rf <- readDWD(localfiles[1]) # runs faster at second time due to skip=TRUE
 #' raster::plot(rf)
 #' 
-#' rfp <- projectRasterDWD(rf, proj="seasonal", extent=rf@extent)
-#' raster::plot(rfp)
-#' addBorders()
+#' plotRadar(rf,proj="seasonal", extent=rf@extent)
 #' 
 #' testthat::expect_equal(raster::cellStats(rf, range), c(-8.2,4.4))
 #' rf10 <- readDWD(localfiles[1], dividebyten=FALSE)
@@ -747,10 +741,8 @@ return(invisible(r))
 #' url <- "daily/Project_TRY/humidity/RH_199509_daymean.nc.gz"    # 25 MB
 #' file <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=localtestdir(), read=FALSE)
 #' nc <- readDWD(file)
-#' ncp <- projectRasterDWD(nc, proj="nc", extent="nc")
-#'  for(i in 1:3) raster::plot(ncp[[i]], col=seqPal(), 
-#'                             main=paste(nc@title, nc@z[[1]][i]))
-#' addBorders()
+#' ncp <- plotRadar(nc, main=paste(nc@title, nc@z[[1]]), layer=1:3, 
+#'                  col=seqPal(), proj="nc", extent="nc")
 #' str(nc, max.level=2)
 #' 
 #' raster::values(nc[[1]]) # obtain actual values into memory
@@ -870,9 +862,7 @@ return(invisible(list(time=time, lat=LAT, lon=LON, var=VAR, varname=var,
 #' lrf <- dataDWD(rrf[773], base=gridbase, joinbf=TRUE, dir=tempdir(), read=FALSE)
 #' r <- readDWD(lrf)
 #' 
-#' rp <- projectRasterDWD(r$dat)
-#' raster::plot(rp, main=r$meta$date)
-#' addBorders()
+#' plotRadar(r$dat, main=r$meta$date)
 #' }
 #' @param file      Name of file on harddrive, like e.g. 
 #'                  DWDdata/hourly/radolan/recent/bin/
@@ -937,18 +927,13 @@ return(invisible(rf))
 #'                 
 #' #asc <- readDWD(file) # 4 GB in mem. ~ 20 secs unzip, 30 secs read, 10 min divide
 #' asc <- readDWD(file, selection=1:5, dividebyten=TRUE)
-#' asc <- projectRasterDWD(asc)
+
+#' plotRadar(asc[[1]], main=names(asc)[1])
 #' 
-#' raster::plot(asc[[1]], main=names(asc)[1])
-#' addBorders()
-#' 
-#' rng <- range(raster::cellStats(asc, "range"))
-#' nframes <- 3 # raster::nlayers(asc) for all (time intensive!)
 #' viddir <- paste0(tempdir(),"/RadolanVideo")
 #' dir.create(viddir)
 #' png(paste0(viddir,"/Radolan_%03d.png"), width=7, height=5, units="in", res=300)
-#' dummy <- pbsapply(1:nframes, function(i) 
-#'          raster::plot(asc[[i]], main=names(asc)[i], zlim=rng)) # 3 secs per layer
+#' plotRadar(asc, layer=1:3, main=names(asc)) # 3 secs per layer
 #' dev.off()
 #' berryFunctions::openFile(paste0(viddir,"/Radolan_001.png"))
 #' 

@@ -50,9 +50,7 @@ rf <- readDWD(localfiles[1])
 rf <- readDWD(localfiles[1]) # runs faster at second time due to skip=TRUE
 raster::plot(rf)
 
-rfp <- projectRasterDWD(rf, proj="seasonal", extent=rf@extent)
-raster::plot(rfp)
-addBorders()
+plotRadar(rf,proj="seasonal", extent=rf@extent)
 
 testthat::expect_equal(raster::cellStats(rf, range), c(-8.2,4.4))
 rf10 <- readDWD(localfiles[1], dividebyten=FALSE)

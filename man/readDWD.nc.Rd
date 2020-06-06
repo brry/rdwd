@@ -56,10 +56,8 @@ url <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
 url <- "daily/Project_TRY/humidity/RH_199509_daymean.nc.gz"    # 25 MB
 file <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=localtestdir(), read=FALSE)
 nc <- readDWD(file)
-ncp <- projectRasterDWD(nc, proj="nc", extent="nc")
- for(i in 1:3) raster::plot(ncp[[i]], col=seqPal(), 
-                            main=paste(nc@title, nc@z[[1]][i]))
-addBorders()
+ncp <- plotRadar(nc, main=paste(nc@title, nc@z[[1]]), layer=1:3, 
+                 col=seqPal(), proj="nc", extent="nc")
 str(nc, max.level=2)
 
 raster::values(nc[[1]]) # obtain actual values into memory

@@ -65,18 +65,12 @@ file <- dataDWD(radfile, base=radbase, joinbf=TRUE, dir=datadir,
                 
 #asc <- readDWD(file) # 4 GB in mem. ~ 20 secs unzip, 30 secs read, 10 min divide
 asc <- readDWD(file, selection=1:5, dividebyten=TRUE)
-asc <- projectRasterDWD(asc)
+plotRadar(asc[[1]], main=names(asc)[1])
 
-raster::plot(asc[[1]], main=names(asc)[1])
-addBorders()
-
-rng <- range(raster::cellStats(asc, "range"))
-nframes <- 3 # raster::nlayers(asc) for all (time intensive!)
 viddir <- paste0(tempdir(),"/RadolanVideo")
 dir.create(viddir)
 png(paste0(viddir,"/Radolan_\%03d.png"), width=7, height=5, units="in", res=300)
-dummy <- pbsapply(1:nframes, function(i) 
-         raster::plot(asc[[i]], main=names(asc)[i], zlim=rng)) # 3 secs per layer
+plotRadar(asc, layer=1:3, main=names(asc)) # 3 secs per layer
 dev.off()
 berryFunctions::openFile(paste0(viddir,"/Radolan_001.png"))
 

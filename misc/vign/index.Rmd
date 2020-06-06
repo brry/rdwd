@@ -525,11 +525,7 @@ This runs faster if called a second time due to skip=TRUE in `gunzip`.
 Now we can project and visualize with:
 
 ```{r grid_monthly_vis}
-# raster::plot(precip[[1]])
-precip_proj <- projectRasterDWD(precip[[1]], proj="seasonal", 
-                                extent=precip[[1]]@extent)
-raster::plot(precip_proj, las=1)
-addBorders()
+plotRadar(precip[[1]], proj="seasonal", extent=precip[[1]]@extent, main=names(precip)[1])
 ```
 
 For further processing, we can create a raster stack from the list, which e.g. enables fast and easy indexing.
@@ -564,9 +560,8 @@ rw_file <- dataDWD(rw_urls[8], base=rw_base, joinbf=TRUE, dir=tempdir(), read=FA
 
 rw_orig <- dwdradar::readRadarFile(rw_file)
 str(rw_orig)
-rw_proj <- projectRasterDWD(raster::raster(rw_orig$dat), extent="radolan")
-raster::plot(rw_proj) # NB: is rw file, but needs radolan extent instead of rw
-addBorders()
+# NB: this is an rw file, but needs radolan extent instead of rw
+plotRadar(raster::raster(rw_orig$dat), extent="radolan", main=rw_orig$meta$date)
 ```
 
 
