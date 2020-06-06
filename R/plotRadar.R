@@ -14,9 +14,9 @@
 #' \dontrun{ ## Excluded from CRAN checks: requires internet connection
 #' link <- "seasonal/air_temperature_mean/16_DJF/grids_germany_seasonal_air_temp_mean_188216.asc.gz"
 #' rad <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=tempdir())
-#' plotRadar(rad, proj="seasonal", extent=rad@extent)
-#' plotRadar(rad, ylim=c(52,54), proj="seasonal", extent=rad@extent)
-#' plotRadar(rad)
+#' radp <- plotRadar(rad, proj="seasonal", extent=rad@extent)
+#' plotRadar(radp, ylim=c(52,54), project=FALSE)
+#' plotRadar(rad) # default proj and extent do not work well for this data
 #' }
 #'
 #' @param x          raster oject, e.g. 'dat' element of object returned by \code{\link{readDWD}}.
