@@ -21,13 +21,17 @@
 #'
 #' @param x          raster oject, e.g. 'dat' element of object returned by \code{\link{readDWD}}.
 #' @param layer      Optional: selected layer(s) to be plotted. DEFAULT: NULL
-#' @param main       Graph title(s). DEFAULT: ""
+#' @param main       Graph title(s). Use "" to suppress. DEFAULT: x@@title
 #' @param land       Color of land areas in the map. DEFAULT: "gray80"
 #' @param sea        Color of sea areas in the map. DEFAULT: "cadetblue1"
 #' @param de         Color of Deutschland Bundesland borders (\code{\link{DEU}}). DEFAULT: "grey80"
 #' @param eu         Color of Europe country borders (\code{\link{EUR}}). DEFAULT: "black"
 #' @param xlim       xlim. DEFAULT: NULL, i.e. taken from x extent (after reprojection if \code{project=TRUE})
 #' @param ylim       ylim. DEFAULT: NULL, i.e. taken from y extent (after reprojection if \code{project=TRUE})
+#' @param zlim       zlim. 3 Options: two-number vector, 
+#'                   \code{zlim="ind"} for individual zlim per layer, 
+#'                   or NULL for \code{range} of selected layer(s).
+#'                   DEFAULT: NULL
 #' @param axes       Draw axes? DEFAULT: TRUE
 #' @param las        LabelAxisStyle for axes. DEFAULT: 1 (all upright)
 #' @param project    Project the data before plotting? Not needed if 
@@ -44,13 +48,14 @@
 plotRadar <- function(
 x,
 layer=NULL,
-main="",
+main=x@title,
 land="gray80",
 sea="cadetblue1",
 de="grey80", 
 eu="black",
 xlim=NULL,
 ylim=NULL,
+zlim=NULL,
 axes=TRUE,
 las=1,
 project=TRUE,
@@ -65,6 +70,9 @@ quiet=rdwdquiet(),
 checkSuggestedPackage("raster", "plotRadar") 
 if(identical(names(x),c("dat","meta"))) stop("plotRadar needs the 'dat' element as input.")
 
+# main (must be evaluated before potential x[[layer]]):
+if(!identical(main,"") & !identical(main,x@title)) x@title <- c(x@title, main)
+
 # projection (save time if layer is a single value):
 if(length(layer)==1) x <- x[[layer]] # use only selected layer
 if(project) 
@@ -76,8 +84,6 @@ if(project)
 ext <- raster::extent(x)
 if(is.null(xlim)) xlim <- c(ext@xmin, ext@xmax)
 if(is.null(ylim)) ylim <- c(ext@ymin, ext@ymax)
-# main
-if(!identical(main,"")) x@title <- c(x@title, main)
 
 # DEU / EUR borders:
 load(system.file("extdata/DEU.rda", package="rdwd"), envir=environment())
@@ -91,7 +97,7 @@ singlemap <- function(x_i, main_i)
   rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], col=sea)
   raster::plot(EUR, add=TRUE, col=land)
   box()
-  raster::plot(x_i, add=TRUE, ...)
+  raster::plot(x_i, add=TRUE, zlim=zlim, ...)
   raster::plot(DEU, add=TRUE, border=de)
   raster::plot(EUR, add=TRUE, border=eu)
   title(main=main_i)
@@ -99,8 +105,14 @@ singlemap <- function(x_i, main_i)
 
 # Use function for each layer separately
 lay <- 1:raster::nlayers(x)
-if(length(layer)>1) lay <- lay[layer]
+if(length(layer)>0) lay <- lay[layer]
 main <- rep(main, length.out=length(lay))
+if(length(layer)==1) x@title <- main
+
+if(is.null(  zlim)) zlim <- raster::cellStats(x, range)
+if(is.matrix(zlim)) zlim <- range(zlim[,lay], na.rm=TRUE)
+if(identical(zlim, "ind")) zlim <- NULL
+
 if(!quiet) lapply <- pbapply::pblapply
 if(!quiet) message("- plotting ", length(lay), " layer", if(length(lay)>1)"s", ":")
 dummy <- lapply(lay, function(i) singlemap(x[[i]], main[i]) )

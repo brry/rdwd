@@ -7,13 +7,14 @@
 plotRadar(
   x,
   layer = NULL,
-  main = "",
+  main = x@title,
   land = "gray80",
   sea = "cadetblue1",
   de = "grey80",
   eu = "black",
   xlim = NULL,
   ylim = NULL,
+  zlim = NULL,
   axes = TRUE,
   las = 1,
   project = TRUE,
@@ -29,7 +30,7 @@ plotRadar(
 
 \item{layer}{Optional: selected layer(s) to be plotted. DEFAULT: NULL}
 
-\item{main}{Graph title(s). DEFAULT: ""}
+\item{main}{Graph title(s). Use "" to suppress. DEFAULT: x@title}
 
 \item{land}{Color of land areas in the map. DEFAULT: "gray80"}
 
@@ -42,6 +43,11 @@ plotRadar(
 \item{xlim}{xlim. DEFAULT: NULL, i.e. taken from x extent (after reprojection if \code{project=TRUE})}
 
 \item{ylim}{ylim. DEFAULT: NULL, i.e. taken from y extent (after reprojection if \code{project=TRUE})}
+
+\item{zlim}{zlim. 3 Options: two-number vector, 
+\code{zlim="ind"} for individual zlim per layer, 
+or NULL for \code{range} of selected layer(s).
+DEFAULT: NULL}
 
 \item{axes}{Draw axes? DEFAULT: TRUE}
 
