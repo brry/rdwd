@@ -298,7 +298,7 @@ return(dat)
 #' par(bg=8)
 #' berryFunctions::colPoints(ma$geogr..Laenge, ma$geogr..Breite, ma$Jahr, add=F, asp=1.4)
 #' 
-#' data("DEU")
+#' load(system.file("extdata/DEU.rda", package="rdwd"))
 #' pdf("MultiAnn.pdf", width=8, height=10)
 #' par(bg=8)
 #' for(m in colnames(ma)[8:19])
