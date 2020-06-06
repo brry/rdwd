@@ -87,6 +87,11 @@ rad <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=tempdir())
 radp <- plotRadar(rad, proj="seasonal", extent=rad@extent, main="plotRadar ex")
 plotRadar(radp, ylim=c(52,54), project=FALSE) # reuses main
 
+# plotRadar equivalent, map only country borders:
+radpm <- projectRasterDWD(rad[[1]], proj="seasonal", extent=rad@extent) 
+raster::plot(radpm)
+addBorders()
+
 # several layers
 url <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
 nc <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=localtestdir())

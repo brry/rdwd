@@ -17,6 +17,11 @@
 #' radp <- plotRadar(rad, proj="seasonal", extent=rad@extent, main="plotRadar ex")
 #' plotRadar(radp, ylim=c(52,54), project=FALSE) # reuses main
 #' 
+#' # plotRadar equivalent, map only country borders:
+#' radpm <- projectRasterDWD(rad[[1]], proj="seasonal", extent=rad@extent) 
+#' raster::plot(radpm)
+#' addBorders()
+#' 
 #' # several layers
 #' url <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
 #' nc <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=localtestdir())
@@ -87,7 +92,7 @@ force(main)
 # projection (save time if layer is a single value):
 if(length(layer)==1) x <- x[[layer]] # use only selected layer
 
-x@title <- main # https://github.com/rspatial/raster/issues/128
+x@title <- as.character(main) # https://github.com/rspatial/raster/issues/128
 
 if(project) 
  {
