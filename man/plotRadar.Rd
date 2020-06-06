@@ -14,6 +14,8 @@ plotRadar(
   eu = "black",
   xlim = NULL,
   ylim = NULL,
+  axes = TRUE,
+  las = 1,
   project = TRUE,
   proj = "radolan",
   extent = "radolan",
@@ -40,6 +42,10 @@ plotRadar(
 \item{xlim}{xlim. DEFAULT: NULL, i.e. taken from x extent (after reprojection if \code{project=TRUE})}
 
 \item{ylim}{ylim. DEFAULT: NULL, i.e. taken from y extent (after reprojection if \code{project=TRUE})}
+
+\item{axes}{Draw axes? DEFAULT: TRUE}
+
+\item{las}{LabelAxisStyle for axes. DEFAULT: 1 (all upright)}
 
 \item{project}{Project the data before plotting? Not needed if 
 \code{\link{projectRasterDWD}} has already been called. DEFAULT: TRUE}

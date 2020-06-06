@@ -28,6 +28,8 @@
 #' @param eu         Color of Europe country borders (\code{\link{EUR}}). DEFAULT: "black"
 #' @param xlim       xlim. DEFAULT: NULL, i.e. taken from x extent (after reprojection if \code{project=TRUE})
 #' @param ylim       ylim. DEFAULT: NULL, i.e. taken from y extent (after reprojection if \code{project=TRUE})
+#' @param axes       Draw axes? DEFAULT: TRUE
+#' @param las        LabelAxisStyle for axes. DEFAULT: 1 (all upright)
 #' @param project    Project the data before plotting? Not needed if 
 #'                   \code{\link{projectRasterDWD}} has already been called. DEFAULT: TRUE
 #' @param proj       current projection, see \code{\link{projectRasterDWD}}, 
@@ -49,6 +51,8 @@ de="grey80",
 eu="black",
 xlim=NULL,
 ylim=NULL,
+axes=TRUE,
+las=1,
 project=TRUE,
 proj="radolan",
 extent="radolan",
@@ -83,7 +87,7 @@ singlemap <- function(x_i, main_i)
   {
   # even if manually given, xlim/ylim not consistently adhered to for different x
   # hence plot is set up with DEU
-  raster::plot(DEU, add=FALSE, xlim=xlim, ylim=ylim) 
+  raster::plot(DEU, add=FALSE, xlim=xlim, ylim=ylim, axes=axes, las=las) 
   rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], col=sea)
   raster::plot(EUR, add=TRUE, col=land)
   box()
