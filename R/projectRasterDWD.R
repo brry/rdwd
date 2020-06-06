@@ -87,7 +87,9 @@ if(!is.null(targetproj))
   if(is.character(targetproj)) if(targetproj=="ll")
      targetproj <- raster::crs("+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
  if(!quiet) message("Reprojecting raster to ",targetproj," ...")
+ rtitle <- r@title # https://github.com/rspatial/raster/issues/128
  r <- raster::projectRaster(r, crs=targetproj)
+ r@title <- rtitle
  }
 dt <- difftime(Sys.time(),starttime)
 if(!quiet) message("projectRasterDWD took ", round(dt,1), " ", attr(dt, "units"))
