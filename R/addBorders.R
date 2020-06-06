@@ -3,7 +3,7 @@
 #' @title add country and Bundesland borders to a map
 #' @return invisible list with DEU and EUR
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019
-#' @seealso \code{\link{DEU}}, \code{\link{EUR}}
+#' @seealso \code{\link{plotRadar}}, \code{\link{DEU}}, \code{\link{EUR}}
 #' @keywords aplot
 #' @export
 #' @examples
@@ -14,8 +14,8 @@
 #' addBorders(de="orange", eu=NA)
 #' }
 #'
-#' @param de      Color for Bandeslaender line. NA to suppress. DEFAULT: "grey80"
-#' @param eu      Color for countries line. NA to suppress. DEFAULT: "black"
+#' @param de      Color for Bundeslaender line (\code{\link{DEU}}). NA to suppress. DEFAULT: "grey80"
+#' @param eu      Color for countries line (\code{\link{EUR}}). NA to suppress. DEFAULT: "black"
 #' @param add     Logical: add to existing plot? DEFAULT: TRUE
 #' @param \dots   Further arguments passed to \code{raster::\link[raster]{plot}}
 addBorders <- function(de="grey80", eu="black", add=TRUE, ...)
@@ -36,7 +36,9 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("DEU", "EUR"))
 #' Map of German states (Bundeslaender) from GADM through the \code{raster} package
 #' @name DEU
 #' @seealso \code{\link{addBorders}}, \code{\link{EUR}}
-#' @details Obtained with the code: \cr
+#' @details Use directly with:\cr
+#' \code{load(system.file("extdata/DEU.rda", package="rdwd"))}\cr\cr
+#' Obtained with the code: \cr
 #' \code{DEU1 <- raster::getData("GADM", country="DEU", level=1)}\cr
 #' \code{DEU <- rgeos::gSimplify(DEU1, tol=0.02, topologyPreserve=FALSE)}\cr
 #' \code{raster::plot(DEU1)}\cr
@@ -57,7 +59,9 @@ load(system.file("extdata/DEU.rda", package="rdwd"), envir=environment())
 #' Map of Western European countries through the \code{rworldmap} package
 #' @name EUR
 #' @seealso \code{\link{addBorders}}, \code{\link{DEU}}
-#' @details Obtained with the code: \cr
+#' @details Use directly with:\cr
+#' \code{load(system.file("extdata/EUR.rda", package="rdwd"))}\cr\cr
+#' Obtained with the code: \cr
 #' \code{EUR <- rworldmap::getMap("low")}\cr
 #' \code{EUR <- raster::crop(EUR, c(-5,20, 40,60)) }\cr
 #' \code{raster::plot(EUR)}\cr

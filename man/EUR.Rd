@@ -11,6 +11,8 @@ SpatialPolygonsDataFrame [package "sp"] with 32 rows
 Map of Western European countries through the \code{rworldmap} package
 }
 \details{
+Use directly with:\cr
+\code{load(system.file("extdata/EUR.rda", package="rdwd"))}\cr\cr
 Obtained with the code: \cr
 \code{EUR <- rworldmap::getMap("low")}\cr
 \code{EUR <- raster::crop(EUR, c(-5,20, 40,60)) }\cr

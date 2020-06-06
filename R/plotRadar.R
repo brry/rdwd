@@ -5,7 +5,7 @@
 #' If \code{length(layer)==1}, only that selected layer is returned.
 #' If \code{main} is non-empty, it is added to \code{x@@title}.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Feb 2020
-#' @seealso \code{\link{readDWD}}, \url{https://bookdown.org/brry/rdwd/raster-data.html}
+#' @seealso \code{\link{addBorders}}, \code{\link{readDWD}}, \url{https://bookdown.org/brry/rdwd/raster-data.html}
 #' @keywords aplot spatial
 #' @importFrom graphics box rect
 #' @export
@@ -24,8 +24,8 @@
 #' @param main       Graph title(s). DEFAULT: ""
 #' @param land       Color of land areas in the map. DEFAULT: "gray80"
 #' @param sea        Color of sea areas in the map. DEFAULT: "cadetblue1"
-#' @param de         Color of Deutschland Bundesland borders. DEFAULT: "grey80"
-#' @param eu         Color of Europe country borders. DEFAULT: "black"
+#' @param de         Color of Deutschland Bundesland borders (\code{\link{DEU}}). DEFAULT: "grey80"
+#' @param eu         Color of Europe country borders (\code{\link{EUR}}). DEFAULT: "black"
 #' @param xlim       xlim. DEFAULT: NULL, i.e. taken from x extent (after reprojection if \code{project=TRUE})
 #' @param ylim       ylim. DEFAULT: NULL, i.e. taken from y extent (after reprojection if \code{project=TRUE})
 #' @param project    Project the data before plotting? Not needed if 

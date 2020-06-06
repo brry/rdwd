@@ -33,9 +33,9 @@ plotRadar(
 
 \item{sea}{Color of sea areas in the map. DEFAULT: "cadetblue1"}
 
-\item{de}{Color of Deutschland Bundesland borders. DEFAULT: "grey80"}
+\item{de}{Color of Deutschland Bundesland borders (\code{\link{DEU}}). DEFAULT: "grey80"}
 
-\item{eu}{Color of Europe country borders. DEFAULT: "black"}
+\item{eu}{Color of Europe country borders (\code{\link{EUR}}). DEFAULT: "black"}
 
 \item{xlim}{xlim. DEFAULT: NULL, i.e. taken from x extent (after reprojection if \code{project=TRUE})}
 
@@ -78,7 +78,7 @@ plotRadar(rad)
 
 }
 \seealso{
-\code{\link{readDWD}}, \url{https://bookdown.org/brry/rdwd/raster-data.html}
+\code{\link{addBorders}}, \code{\link{readDWD}}, \url{https://bookdown.org/brry/rdwd/raster-data.html}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Feb 2020
