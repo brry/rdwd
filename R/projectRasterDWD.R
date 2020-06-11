@@ -63,7 +63,7 @@ p_nc <- "+init=epsg:3034"
 #
 if(is.character(proj))
   proj <- switch(proj, radolan=p_radolan, seasonal=p_seasonal, nc=p_nc, proj)
-if(!inherits(proj, "CRS")) proj <- raster::crs(proj)
+if(!inherits(proj, "CRS")) proj <- suppressWarnings(sp::CRS(proj))
 #
 # Extent as per Kompositbeschreibung 1.4 / seasonal DESCRIPTION pdf:
 e_radolan <- c(-523.4622,376.5378,-4658.645,-3758.645)
@@ -85,10 +85,10 @@ raster::extent(    r) <- extent
 if(!is.null(targetproj))
  {
   if(is.character(targetproj)) if(targetproj=="ll")
-     targetproj <- raster::crs("+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
+     targetproj <- sp::CRS("+proj=longlat +datum=WGS84 +no_defs")
  if(!quiet) message("Reprojecting raster to ",targetproj," ...")
  rtitle <- r@title # https://github.com/rspatial/raster/issues/128
- r <- raster::projectRaster(r, crs=targetproj)
+ r <- suppressWarnings(raster::projectRaster(r, crs=targetproj))
  r@title <- rtitle
  }
 dt <- difftime(Sys.time(),starttime)
