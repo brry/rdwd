@@ -12,6 +12,7 @@ plotRadar(
   sea = "cadetblue1",
   de = "grey80",
   eu = "black",
+  col = berryFunctions::seqPal(),
   xlim = NULL,
   ylim = NULL,
   zlim = NULL,
@@ -40,6 +41,9 @@ Note\code{output@title} is set to \code{main}! DEFAULT: x@title}
 \item{de}{Color of Deutschland Bundesland borders (\code{\link{DEU}}). DEFAULT: "grey80"}
 
 \item{eu}{Color of Europe country borders (\code{\link{EUR}}). DEFAULT: "black"}
+
+\item{col}{Color palette for the data itself. 
+DEFAULT: \rcode{berryFunctions::\link[berryFunctions]{seqPal}}}
 
 \item{xlim}{xlim. DEFAULT: NULL, i.e. taken from x extent (after reprojection if \code{project=TRUE})}
 
@@ -97,7 +101,7 @@ url <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
 nc <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=localtestdir())
 
 ncp3 <- plotRadar(nc, main=paste(nc@title, nc@z[[1]]), layer=1:3, 
-                  col=seqPal(), proj="nc", extent="nc")
+                  col=terrain.colors(100), proj="nc", extent="nc")
 plotRadar(ncp3, layer=3:4, project=FALSE) # still has all layers
 plotRadar(ncp3, layer=4:5, project=FALSE, zlim="ind") # individual zlims per layer
 plotRadar(ncp3, layer=1, project=FALSE, zlim=c(1016,1020))

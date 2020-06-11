@@ -6,8 +6,8 @@ rdwd ToDo-list / wishlist / issues
 - selectDWD("Berlin", res="monthly", var="kl", per="h", exactmatch = F) should only return stations with data, with a single warning only
 - dataDWD: should dbin default be TRUE?
 - dataDWD: change documentation to reflect usage for gridded data
-- plotRadar: consider using col=seqPal() as default, use col=terrain.colors(100) where col=** explicitely now
 - plotRadar: in first call in new R session sets wrong margin at right (legend). Noticed after adding axes.
+- update DECSRIPTION
 
 
 ---------------------------------------

@@ -8,6 +8,7 @@
 #' @seealso \code{\link{addBorders}}, \code{\link{readDWD}}, \url{https://bookdown.org/brry/rdwd/raster-data.html}
 #' @keywords aplot spatial
 #' @importFrom graphics box rect
+#' @importFrom berryFunctions seqPal
 #' @export
 #' @examples
 #' # See homepage in the section 'See Also'
@@ -27,7 +28,7 @@
 #' nc <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=localtestdir())
 #' 
 #' ncp3 <- plotRadar(nc, main=paste(nc@title, nc@z[[1]]), layer=1:3, 
-#'                   col=seqPal(), proj="nc", extent="nc")
+#'                   col=terrain.colors(100), proj="nc", extent="nc")
 #' plotRadar(ncp3, layer=3:4, project=FALSE) # still has all layers
 #' plotRadar(ncp3, layer=4:5, project=FALSE, zlim="ind") # individual zlims per layer
 #' plotRadar(ncp3, layer=1, project=FALSE, zlim=c(1016,1020))
@@ -44,6 +45,8 @@
 #' @param sea        Color of sea areas in the map. DEFAULT: "cadetblue1"
 #' @param de         Color of Deutschland Bundesland borders (\code{\link{DEU}}). DEFAULT: "grey80"
 #' @param eu         Color of Europe country borders (\code{\link{EUR}}). DEFAULT: "black"
+#' @param col        Color palette for the data itself. 
+#'                   DEFAULT: \rcode{berryFunctions::\link[berryFunctions]{seqPal}}
 #' @param xlim       xlim. DEFAULT: NULL, i.e. taken from x extent (after reprojection if \code{project=TRUE})
 #' @param ylim       ylim. DEFAULT: NULL, i.e. taken from y extent (after reprojection if \code{project=TRUE})
 #' @param zlim       zlim. 3 Options: two-number vector, 
@@ -71,6 +74,7 @@ land="gray80",
 sea="cadetblue1",
 de="grey80", 
 eu="black",
+col=berryFunctions::seqPal(),
 xlim=NULL,
 ylim=NULL,
 zlim=NULL,
@@ -117,7 +121,7 @@ singlemap <- function(x_i, main_i)
   rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], col=sea)
   raster::plot(EUR, add=TRUE, col=land)
   box()
-  raster::plot(x_i, add=TRUE, zlim=zlim, ...)
+  raster::plot(x_i, add=TRUE, zlim=zlim, col=col, ...)
   raster::plot(DEU, add=TRUE, border=de)
   raster::plot(EUR, add=TRUE, border=eu)
   title(main=main_i)
