@@ -43,7 +43,7 @@ Note\code{output@title} is set to \code{main}! DEFAULT: x@title}
 \item{eu}{Color of Europe country borders (\code{\link{EUR}}). DEFAULT: "black"}
 
 \item{col}{Color palette for the data itself. 
-DEFAULT: \rcode{berryFunctions::\link[berryFunctions]{seqPal}}}
+DEFAULT: \code{berryFunctions::\link[berryFunctions]{seqPal}}}
 
 \item{xlim}{xlim. DEFAULT: NULL, i.e. taken from x extent (after reprojection if \code{project=TRUE})}
 

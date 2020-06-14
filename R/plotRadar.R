@@ -46,7 +46,7 @@
 #' @param de         Color of Deutschland Bundesland borders (\code{\link{DEU}}). DEFAULT: "grey80"
 #' @param eu         Color of Europe country borders (\code{\link{EUR}}). DEFAULT: "black"
 #' @param col        Color palette for the data itself. 
-#'                   DEFAULT: \rcode{berryFunctions::\link[berryFunctions]{seqPal}}
+#'                   DEFAULT: \code{berryFunctions::\link[berryFunctions]{seqPal}}
 #' @param xlim       xlim. DEFAULT: NULL, i.e. taken from x extent (after reprojection if \code{project=TRUE})
 #' @param ylim       ylim. DEFAULT: NULL, i.e. taken from y extent (after reprojection if \code{project=TRUE})
 #' @param zlim       zlim. 3 Options: two-number vector, 

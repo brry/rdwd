@@ -8,6 +8,7 @@ rdwd ToDo-list / wishlist / issues
 - dataDWD: change documentation to reflect usage for gridded data
 - plotRadar: in first call in new R session sets wrong margin at right (legend). Noticed after adding axes.
 - update DECSRIPTION
+- use terra (in addition to / instead of raster) where possible
 
 
 ---------------------------------------
