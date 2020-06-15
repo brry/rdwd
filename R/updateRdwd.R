@@ -53,5 +53,6 @@ if(!quiet) message(pack, " local version ", Vinst$Version, " (", Vinst$Date,
 checkSuggestedPackage("remotes", "updateRdwd")
 # actually install, with vignettes (unlike remotes default)
 remotes::install_github(repo=repo, build_vignettes=vignette, quiet=quiet, ...)
+if(!quiet) message("Please re-load ",pack," now.  library(",pack,")  should do.")
 return(invisible(output))
 }
