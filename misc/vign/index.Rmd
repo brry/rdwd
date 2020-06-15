@@ -280,10 +280,6 @@ head(cursun)
 sunlink <- selectDWD("Potsdam", res="hourly", var="sun", per="r", findex=cursun)
 
 
-# indexFTP uses a folder to resume indexing after getting banned:
-radfiles <- indexFTP("hourly/radolan/recent", gridbase)
-radfiles <- indexFTP(radfiles,gridbase, sleep=1)
-
 # with other FTP servers, this should also work...
 funet <- indexFTP(base="ftp.funet.fi/pub/standards/w3/TR/xhtml11/", folder="")
 p <- RCurl::getURL(    "ftp.funet.fi/pub/standards/w3/TR/xhtml11/",

@@ -2,15 +2,21 @@
 #' 
 #' Create a list of all the files (in all subfolders) of an FTP server.
 #' Defaults to the German Weather Service (DWD, Deutscher WetterDienst) OpenData server at
-#' \url{ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/}.\cr\cr
-#' The R package \code{RCurl} must be available to do this.
-#' If \code{RCurl::\link[RCurl]{getURL}} fails, usually because bot access is
-#' detected and denied, there will still be an output which you can pass in a
-#' second run via \code{folder} to extract the remaining dirs.
-#' You might want to wait a bit and set \code{sleep} to a higher value in that case. 
+#' \url{ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/}.\cr
+#' The R package \code{RCurl} must be available to do this.\cr\cr
+#' \bold{Getting banned from the FTP Server}\cr
+#' Normally, this shouldn't happen anymore: since Version 0.10.10 (2018-11-26), 
+#' a single RCurl handle is used for all FTP requests and since version 1.0.17 (2019-05-14),
+#' the file tree provided by the DWD is used to obtain all folders first, 
+#' eliminating the recursive calls.\cr 
+#' There's a provision if the FTP server detects bot requests and denies access.
+#' If \code{RCurl::\link[RCurl]{getURL}} fails, there will still be an output 
+#' which you can pass in a second run via \code{folder} to extract the remaining dirs.
+#' You might need to wait a bit and set \code{sleep} to a higher value in that case. 
 #' Here's an example:\cr
 #' \code{gridindex <- indexFTP("", gridbase)}\cr
-#' \code{gridindex <- indexFTP(gridindex, gridbase, sleep=1)}\cr
+#' \code{gridindex <- indexFTP(gridindex, gridbase, sleep=15)}\cr
+#' Of course, with a higher sleep value, the execution will take longer!
 #' 
 #' @details
 #' It's not suggested to run this for all folders, as it can take quite some time
@@ -55,7 +61,7 @@
 #'                DEFAULT: TRUE
 #' @param sleep   If not 0, a random number of seconds between 0 and \code{sleep}
 #'                is passed to \code{\link{Sys.sleep}} after each read folder
-#'                to avoid getting kicked off the FTP-Server. DEFAULT: 0
+#'                to avoid getting kicked off the FTP-Server, see note above. DEFAULT: 0
 #' @param dir     Writeable directory name where to save the downloaded file.
 #'                Created if not existent.
 #'                DEFAULT: "DWDdata" at current \code{\link{getwd}()}

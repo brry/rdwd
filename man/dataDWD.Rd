@@ -53,7 +53,8 @@ DEFAULT: FALSE}
 
 \item{sleep}{Number. If not 0, a random number of seconds between 0 and
 \code{sleep} is passed to \code{\link{Sys.sleep}} after each download
-to avoid getting kicked off the FTP-Server. DEFAULT: 0}
+to avoid getting kicked off the FTP-Server, 
+see note in \code{\link{indexFTP}}. DEFAULT: 0}
 
 \item{quiet}{Logical: suppress message about directory / filenames? 
 DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
