@@ -9,6 +9,7 @@ rdwd ToDo-list / wishlist / issues
 - plotRadar: in first call in new R session sets wrong margin at right (legend). Noticed after adding axes.
 - update DECSRIPTION
 - use terra (in addition to / instead of raster) where possible
+- dataDWD: for files not found, add info about outdated index linking to https://bookdown.org/brry/rdwd/station-selection.html#fileindex
 
 
 ---------------------------------------

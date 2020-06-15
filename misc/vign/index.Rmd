@@ -263,17 +263,22 @@ please let me know and I will update it. You might also want to check if the git
 links <- selectDWD(res="monthly", var="more_precip", per="hist", current=TRUE)
 ```
 
-Alternatively, for repetitive usage, create your own file index.  
+Alternatively, for repetitive usage, create your own file index, see next code chunk.  
 `r helplink("fileIndex")` for the entire DWD FTP server is created with the functions
 `r helplink("indexFTP")` and `r helplink("createIndex")` used in
 [`updateIndexes`](https://github.com/brry/rdwd/blob/master/R/updateIndexes.R).  
 To get an index for a certain subfolder, use:
 
 ```{r listfiles, eval=FALSE}
-### This chunk is not evaluated ###
+### This chunk is not evaluated
 # recursively list files on the FTP-server:
 files <- indexFTP("hourly/sun") # use dir="some_path" to save the output elsewhere
 berryFunctions::headtail(files, 5, na=TRUE)
+# create and use a personal file index:
+cursun <- createIndex(files)
+head(cursun)
+sunlink <- selectDWD("Potsdam", res="hourly", var="sun", per="r", findex=cursun)
+
 
 # indexFTP uses a folder to resume indexing after getting banned:
 radfiles <- indexFTP("hourly/radolan/recent", gridbase)
