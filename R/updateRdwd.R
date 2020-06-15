@@ -51,6 +51,8 @@ if(!quiet) message(pack, " local version ", Vinst$Version, " (", Vinst$Date,
         ") is outdated.\nInstalling development version ", 
         Vsrc$Version, " (", Vsrc$Date,") from github.com/",repo)
 checkSuggestedPackage("remotes", "updateRdwd")
+if(!quiet) message("First unloading ",pack," so it can be installed by remotes::install_github.")
+try(detach(paste0("package:",pack), character.only=TRUE, unload=TRUE), silent=TRUE)
 # actually install, with vignettes (unlike remotes default)
 remotes::install_github(repo=repo, build_vignettes=vignette, quiet=quiet, ...)
 if(!quiet) message("Please re-load ",pack," now.  library(",pack,")  should do.")
