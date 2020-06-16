@@ -51,6 +51,10 @@ links <- selectDWD(id=c(5302,5711,6295),res="daily",var="more_precip",per="h")
 testthat::expect_error(dataDWD(links, dir=dir_data), "file must be a vector, not a list")
 testthat::expect_warning(dataDWD("multi/mean/Temp.txt", quiet=TRUE), 
                "dataDWD needs urls starting with 'ftp://'.")
+f <- paste0(dwdbase, "/daily/kl/historical/tageswerte_KL_03987_18930101_20181231_hist.zip")
+testthat::expect_warning(dataDWD(f, quiet=TRUE), "If files have been renamed on the DWD server")
+testthat::expect_warning(dataDWD(c("multi/mean/Temp.txt", f), quiet=TRUE),
+                         "urls starting with .* renamed on the DWD server")
 })
 
 testthat::test_that("readDWD.data works for regular data", {

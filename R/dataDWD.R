@@ -211,13 +211,17 @@ if(any(iserror))
   ne <- sum(iserror)
   msg <- paste0(ne, " Download", if(ne>1) "s have" else " has", 
                 " failed (out of ",length(iserror),").", 
-                if(read)" Setting read=FALSE.","\n")
+                if(read)" Setting read=FALSE.")
   read <- FALSE
-  msg <- paste0(msg, "download.file error",if(ne>1) "s",":\n")
+  msg <- paste0(msg, " download.file error",if(ne>1) "s",":\n")
   msg2 <- sapply(dl_results[iserror], function(e)attr(e,"condition")$message)
+  msg2 <- berryFunctions::truncMessage(msg2, ntrunc=15, prefix="", midfix="", altnix="", sep="\n")
   if(any(substr(file[iserror], 1, 4) != "ftp:"))
-     msg2 <- paste0(msg2, "\ndataDWD needs urls starting with 'ftp://'. You can use joinbf=TRUE for relative links.")
-  msg <- paste0(msg, paste(msg2, collapse="\n"))
+     msg2 <- paste0(msg2, "\n- dataDWD needs urls starting with 'ftp://'. You can use joinbf=TRUE for relative links.")
+  if(grepl("cannot open URL", msg2)) 
+     msg2 <- paste0(msg2, "\n- If files have been renamed on the DWD server, ",
+                    "see   https://bookdown.org/brry/rdwd/station-selection.html#fileindex")
+  msg <- paste0(msg, msg2)
   warning(msg, call.=FALSE)
   }
 # ------------------------------------------------------------------------------
