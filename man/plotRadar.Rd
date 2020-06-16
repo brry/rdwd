@@ -18,6 +18,8 @@ plotRadar(
   zlim = NULL,
   axes = TRUE,
   las = 1,
+  mar = c(2.5, 3.5, 2.5, 5),
+  keeppar = TRUE,
   project = TRUE,
   proj = "radolan",
   extent = "radolan",
@@ -57,6 +59,13 @@ DEFAULT: NULL}
 \item{axes}{Draw axes? DEFAULT: TRUE}
 
 \item{las}{LabelAxisStyle for axes. DEFAULT: 1 (all upright)}
+
+\item{mar}{Vector with plot margins. DEFAULT: c(2.5, 3.5, 2.5, 5)}
+
+\item{keeppar}{Logical: keep the margins set with par, so later points etc are 
+added in the right location? 
+DEFAULT: TRUE, opposite to \code{sf::plot} with reset=TRUE, see
+\url{https://github.com/cran/sf/blob/master/R/plot.R}}
 
 \item{project}{Project the data before plotting? Not needed if 
 \code{\link{projectRasterDWD}} has already been called. DEFAULT: TRUE}

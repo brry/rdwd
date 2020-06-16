@@ -56,6 +56,11 @@
 #'                   DEFAULT: NULL
 #' @param axes       Draw axes? DEFAULT: TRUE
 #' @param las        LabelAxisStyle for axes. DEFAULT: 1 (all upright)
+#' @param mar        Vector with plot margins. DEFAULT: c(2.5, 3.5, 2.5, 5)
+#' @param keeppar    Logical: keep the margins set with par, so later points etc are 
+#'                   added in the right location? 
+#'                   DEFAULT: TRUE, opposite to \code{sf::plot} with reset=TRUE, see
+#'                   \url{https://github.com/cran/sf/blob/master/R/plot.R}
 #' @param project    Project the data before plotting? Not needed if 
 #'                   \code{\link{projectRasterDWD}} has already been called. DEFAULT: TRUE
 #' @param proj       current projection, see \code{\link{projectRasterDWD}}, 
@@ -81,6 +86,8 @@ ylim=NULL,
 zlim=NULL,
 axes=TRUE,
 las=1,
+mar=c(2.5, 3.5, 2.5, 5),
+keeppar=TRUE,
 project=TRUE,
 proj="radolan",
 extent="radolan",
@@ -139,6 +146,10 @@ if(nn>0) stop(nn, " layer",if(nn>1)"s", " selected that do",if(nn==1)"es"," not 
 if(is.null(  zlim)) zlim <- raster::cellStats(x, range)
 if(is.matrix(zlim)) zlim <- range(zlim[,lay], na.rm=TRUE)
 if(identical(zlim, "ind")) zlim <- NULL
+
+# set graphical parameters:
+op <- par(mar=mar)
+if(!keeppar) on.exit(par(op), add=TRUE)
 
 if(!quiet) lapply <- pbapply::pblapply
 if(!quiet) message("- plotting ", length(lay), " layer", if(length(lay)>1)"s", ":")
