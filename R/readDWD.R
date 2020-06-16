@@ -732,6 +732,8 @@ return(invisible(r))
 #' \bold{cdf} is the output of \code{ncdf4::\link[ncdf4]{nc_open}}.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019
 #' @seealso \code{\link{readDWD}}
+#' @importFrom berryFunctions removeSpace
+#' @importFrom utils menu tail
 #' @examples
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
 #' 
@@ -810,12 +812,12 @@ if(is.null(unit))
 if(substr(unit,1,4)=="days")
  {
  start <- sub("days since", "", unit)
- start <- strsplit(removeSpace(start), " ")[[1]][1]
+ start <- strsplit(berryFunctions::removeSpace(start), " ")[[1]][1]
  start <- as.Date(start)
  time <- start + ncdf4::ncvar_get(mycdf,'time')
  } else
  {
- start <- removeSpace(sub("hours since", "", unit)) # always hours?
+ start <- berryFunctions::removeSpace(sub("hours since", "", unit)) # always hours?
  start <- strptime(start, format="%F %T")
  time <- start + ncdf4::ncvar_get(mycdf,'time')*3600
  }
@@ -914,7 +916,6 @@ return(invisible(rf))
 #' @return data.frame
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, April 2019
 #' @seealso \code{\link{readDWD}}
-# @importFrom raster raster stack crs projection extent plot
 #' @examples 
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
 #' 

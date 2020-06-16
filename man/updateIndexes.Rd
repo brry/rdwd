@@ -53,7 +53,7 @@ This is meant to be called with getwd at the
 
 }
 \seealso{
-\code{\link{createIndex}}, \code{graphics::\link[graphics]{plot}}
+\code{\link{createIndex}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2019

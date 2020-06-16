@@ -15,7 +15,7 @@
 #' @seealso \code{\link{indexFTP}}, \code{\link{updateIndexes}}
 #' \code{\link{index}}, \code{\link{selectDWD}}
 #' @keywords manip
-#' @importFrom berryFunctions l2df convertUmlaut newFilename sortDF traceCall
+#' @importFrom berryFunctions l2df convertUmlaut newFilename sortDF traceCall seqPal
 #' @importFrom utils write.table
 #' @importFrom pbapply pbsapply pblapply
 #' @importFrom graphics abline
@@ -92,10 +92,10 @@ any1min <- any(prec1min)
 ncolumns <- 4 + any1min # supposed number of columns: 4, 5 if any prec1min in paths
 # split into parts:
 if(!quiet) messaget("Splitting filenames...")
-fileIndex <- l2df(pbapply::pblapply(fileIndex,function(x) strsplit(x,"/")[[1]]))
+fileIndex <- berryFunctions::l2df(pbapply::pblapply(fileIndex,function(x) strsplit(x,"/")[[1]]))
 # check if there are actually 4/5 columns (might be different with non-standard base)
-if(ncol(fileIndex)!=ncolumns) stop(traceCall(1, "in ", ": "), "index does not have ",
-                        ncolumns," columns, but ", ncol(fileIndex), call.=FALSE)
+if(ncol(fileIndex)!=ncolumns) stop(berryFunctions::traceCall(1, "in ", ": "), 
+    "index does not have ", ncolumns," columns, but ", ncol(fileIndex), call.=FALSE)
 if(any1min) fileIndex[prec1min,4] <- fileIndex[prec1min,5]
 colnames(fileIndex) <- c("res","var","per","file",if(any1min) "dummyfromyear1minute")
 file <- fileIndex$file
@@ -103,7 +103,7 @@ fileIndex <- fileIndex[,1:3] # file will be re-attached (with path) as the last 
 #
 # Get detailed info from file name elements:
 if(!quiet) messaget("Extracting metadata from filenames...")
-info <- l2df(pbapply::pblapply(file, function(x) rev(strsplit(x, "[-_.]")[[1]])))
+info <- berryFunctions::l2df(pbapply::pblapply(file, function(x) rev(strsplit(x, "[-_.]")[[1]])))
 # Station ID (identification number):
 id <- ""
 per <- fileIndex$per
@@ -153,7 +153,7 @@ owd <- dirDWD(dir, quiet=quiet|fname=="" )
 on.exit(setwd(owd), add=TRUE)
 if(fname!="")
   {
-  outfile <- newFilename(fname, mid=" ", quiet=quiet, ignore=overwrite)
+  outfile <- berryFunctions::newFilename(fname, mid=" ", quiet=quiet, ignore=overwrite)
   write.table(fileIndex, file=outfile, sep="\t", row.names=FALSE, quote=FALSE)
   }
 # Potential (DEFAULT) output:
@@ -170,7 +170,7 @@ sel <- sel & grepl("Beschreibung", fileIndex$path)
 #descdupli <- basename(paths)=="ein_min_rr_Beschreibung_Stationen.txt" & grepl("/20", dirname(paths))
 #sel <- sel & !descdupli
 
-if(sum(sel)<2) stop(traceCall(1, "in ", ": "),
+if(sum(sel)<2) stop(berryFunctions::traceCall(1, "in ", ": "),
               "There need to be at least two 'Beschreibung' files. (There is ",
               sum(sel),")", call.=FALSE)
 # download and read those files:
@@ -187,7 +187,7 @@ for(i in seq_along(metas))
 # check if all files have the same column names:
 cnames <- lapply(metas, colnames)
 sapply(2:length(cnames), function(i) if(!all(cnames[[i]] == cnames[[1]]))
-    warning(traceCall(1, "in ", ": "), "The file ", fileIndex[sel, "path"][i],
+    warning(berryFunctions::traceCall(1, "in ", ": "), "The file ", fileIndex[sel, "path"][i],
          "\nhas incorrect column names: ", toString(cnames[[i]]),
          "\n instead of \n", toString(cnames[[1]]), call.=FALSE))
 #
@@ -217,7 +217,7 @@ metaIndex$bis_datum <- as.Date(as.character(metaIndex$bis_datum),"%Y%m%d")
 # Write to disc
 if(mname!="")
   {
-  outfile <- newFilename(mname, mid=": ", quiet=quiet, ignore=overwrite)
+  outfile <- berryFunctions::newFilename(mname, mid=": ", quiet=quiet, ignore=overwrite)
   write.table(metaIndex, file=outfile, sep="\t", row.names=FALSE, quote=FALSE)
   }
 #
@@ -287,7 +287,7 @@ rownames(geoIndex) <- NULL
 # Write to disc:
 if(gname!="")
   {
-  outfile <- newFilename(gname, mid=": ", quiet=quiet, ignore=overwrite)
+  outfile <- berryFunctions::newFilename(gname, mid=": ", quiet=quiet, ignore=overwrite)
   write.table(geoIndex, file=outfile, sep="\t", row.names=FALSE, quote=FALSE)
   }
 #
@@ -322,7 +322,7 @@ geoIndexAll$maxdist <- dist[as.character(geoIndexAll$id)]
 # Write to disc:
 if(aname!="")
   {
-  outfile <- newFilename(aname, mid=": ", quiet=quiet)
+  outfile <- berryFunctions::newFilename(aname, mid=": ", quiet=quiet)
   write.table(geoIndexAll, file=outfile, sep="\t", row.names=FALSE, quote=FALSE)
   }
 #
@@ -371,7 +371,7 @@ library(leaflet)
 
 farapart <- geoIndexAll[geoIndexAll$maxdist>0.5,]
 farapart$display <- paste0(farapart$display, "<br>maxDist: ", round(farapart$maxdist,2))
-col <- seqPal(100)[classify(farapart$maxdist, method="logspaced", breaks=c(100,1.05))$index]
+col <- berryFunctions::seqPal(100)[classify(farapart$maxdist, method="logspaced", breaks=c(100,1.05))$index]
 #col_leg <- seqPal(100)[classify(1:26/2, method="logspaced", breaks=c(100,1.05),
 #Range=range(farapart$maxdist))$index]
 mapfarapart <- leaflet(farapart) %>% addTiles() %>%

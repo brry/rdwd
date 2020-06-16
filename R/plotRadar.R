@@ -7,8 +7,9 @@
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Feb 2020
 #' @seealso \code{\link{addBorders}}, \code{\link{readDWD}}, \url{https://bookdown.org/brry/rdwd/raster-data.html}
 #' @keywords aplot spatial
-#' @importFrom graphics box rect
+#' @importFrom graphics box rect par title
 #' @importFrom berryFunctions seqPal
+#' @importFrom pbapply pblapply
 #' @export
 #' @examples
 #' # See homepage in the section 'See Also'

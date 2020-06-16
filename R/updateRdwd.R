@@ -6,7 +6,7 @@
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Nov 2019
 #' @seealso \code{\link{help}}, \code{remotes::\link[remotes]{install_github}}
 #' @keywords file
-#' @importFrom utils packageDescription
+#' @importFrom utils packageDescription download.file
 #' @export
 #' @examples
 #' # updateRdwd()

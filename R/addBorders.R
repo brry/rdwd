@@ -5,6 +5,7 @@
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019
 #' @seealso \code{\link{plotRadar}}, \code{\link{DEU}}, \code{\link{EUR}}
 #' @keywords aplot
+#' @importFrom utils globalVariables
 #' @export
 #' @examples
 #' if(requireNamespace("raster", quietly=TRUE)){

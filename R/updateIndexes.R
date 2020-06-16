@@ -2,8 +2,11 @@
 #' @description This is meant to be called with getwd at the 
 #'  rdwd package source code directory to update the indexes with one single call.
 #' @return \code{\link{checkIndex}} results
+#' @importFrom berryFunctions sortDF
+#' @importFrom tools resaveRdaFiles
+#' @importFrom utils read.table write.table
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2019
-#' @seealso \code{\link{createIndex}}, \code{graphics::\link[graphics]{plot}}
+#' @seealso \code{\link{createIndex}}
 #' @keywords data file internal
 #' @examples 
 #' # number of files at dwdbase

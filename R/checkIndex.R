@@ -3,7 +3,8 @@
 #'              Not exported, so call it as rdwd:::checkIndex() if you want to
 #'              run tests yourself. Further test suggestions are welcome!
 #' @return Charstring with issues (if any) to be printed with \code{cat()}.
-#' @importFrom berryFunctions sortDF truncMessage round0
+#' @importFrom berryFunctions truncMessage round0 traceCall
+#' @importFrom pbapply pbsapply
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, May 2019
 #' @seealso \code{\link{createIndex}}
 #' @examples 
@@ -44,8 +45,8 @@ if(nrow(duplifile)>0)
   rvp <- paste(duplifile$res,duplifile$var,duplifile$per, sep="/")
   per_folder <- lapply(unique(rvp), function(p) 
     {i <- unique(duplifile$id[rvp==p])
-    paste0("- ", round0(length(i), pre=2, flag=" "), " at ", p, "; ", 
-           truncMessage(i, ntrunc=10, prefix=""))
+    paste0("- ", berryFunctions::round0(length(i), pre=2, flag=" "), " at ", p, "; ", 
+           berryFunctions::truncMessage(i, ntrunc=10, prefix=""))
     })
   per_folder <- paste(unlist(per_folder), collapse="\n")
   out <- c(out, "IDs with duplicate files:", per_folder)

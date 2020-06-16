@@ -7,6 +7,7 @@
 #' @keywords debugging
 #' @importFrom grDevices dev.off pdf
 #' @importFrom graphics par title
+#' @importFrom utils tail
 #' @export
 #'
 #' @param dir_data  Reusable data location. Preferably not under version control.
