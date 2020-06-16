@@ -5,10 +5,9 @@ rdwd ToDo-list / wishlist / issues
 - indexFTP: read tree with data.table/vroom
 - selectDWD("Berlin", res="monthly", var="kl", per="h", exactmatch = F) should only return stations with data, with a single warning only
 - dataDWD: should dbin default be TRUE?
-- dataDWD: change documentation to reflect usage for gridded data
-- update DECSRIPTION
 - use terra (in addition to / instead of raster) where possible
 - dataDWD: for files not found, add info about outdated index linking to https://bookdown.org/brry/rdwd/station-selection.html#fileindex
+- in vign, rename "vignette" to "website"
 
 
 ---------------------------------------

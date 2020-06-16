@@ -30,6 +30,7 @@ dataDWD(
 DEFAULT: \code{\link{dwdbase}}}
 
 \item{joinbf}{Logical: paste \code{base} and \code{file} together? 
+Needed mostly for data at \code{\link{gridbase}}.
 DEFAULT: FALSE (selectDWD returns complete URLs already)}
 
 \item{dir}{Char: Writeable directory name where to save the downloaded file.
@@ -38,8 +39,9 @@ Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
 \item{force}{Logical (vector): always download, even if the file already exists in \code{dir}?
 Use NA to force re-downloading files older than 24 hours.
 Use a numerical value to force after that amount of hours.
-Note you might want to set \code{overwrite=TRUE} as well.
-If FALSE, the file is still read (or name returned). DEFAULT: FALSE}
+Note: if \code{force!=FALSE}, you might want to set \code{overwrite=TRUE} as well.
+If \code{force=FALSE}, the file is still read (or name returned). 
+DEFAULT: FALSE}
 
 \item{overwrite}{Logical (vector): if force=TRUE, overwrite the existing file
 rather than append "_1"/"_2" etc to the filename? DEFAULT: FALSE}
@@ -83,17 +85,21 @@ like fread, varnames etc. Dots were passed to
 }
 \value{
 Presuming downloading and processing were successful:
-        if \code{read=TRUE}, a data.frame of the desired dataset
+        if \code{read=TRUE}, the desired dataset
         (as returned by \code{\link{readDWD}}),
         otherwise the filename as saved on disc
         (may have "_n" appended in name, see \code{\link{newFilename}}).\cr
-        If length(file)>1, the output is a list of data.frames / vector of filenames.\cr
+        If length(file)>1, the output is a list of outputs / vector of filenames.\cr
         The output is always invisible.
 }
 \description{
 Get climate data from the German Weather Service (DWD) FTP-server.
-The desired .zip (or .txt) dataset is downloaded into \code{dir}.
-If \code{read=TRUE}, it is also read, processed and returned as a data.frame.\cr
+The desired dataset is downloaded into \code{dir}.
+If \code{read=TRUE}, it is also read and processed.\cr
+\code{dataDWD} handles vectors of URLs, 
+displays progress bars (if the package \code{pbapply} is available) 
+and by default does not re-download data already in \code{dir} 
+(but see argument \code{force} to update files).\cr
 To solve "errors in download.file: cannot open URL", see 
 \url{https://bookdown.org/brry/rdwd/station-selection.html#fileindex}.\cr
 }
