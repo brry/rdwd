@@ -514,7 +514,7 @@ if(grepl("subdaily_standard_format", file))
  }
 # check classes:
 if(ncol(stats)!=8) stop(ncol(stats)," columns detected instead of 8 for ", file)
-classes <- c("integer", "integer", "integer", "integer", "numeric", "numeric", "factor", "factor")
+classes <- c("integer", "integer", "integer", "integer", "numeric", "numeric", "character", "character")
 actual <- sapply(stats, class)
 if(actual[4]=="numeric") classes[4] <- "numeric"
 if(!all(actual == classes))
