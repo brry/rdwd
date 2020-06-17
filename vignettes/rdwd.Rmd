@@ -26,10 +26,5 @@ for three types of data:
 * european data stock slowly growing (but reading functions not tested yet)
 
 
-The actual vignette is available here:
+All further information is available on the website:
 <https://bookdown.org/brry/rdwd>
-
-* it has grown too big for CRAN 
-* the constant rebuilding is an unnecessary load on the DWD FTP Server
-* The bookdown page enables a very nicely structured html layout
-

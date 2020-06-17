@@ -14,7 +14,7 @@ editor_options:
 
 `rdwd` is an R package to handle data from the German Weather Service (DWD).
 
-This vignette has 3 main sections:
+This website has 3 main sections:
 
 * time series from meteorological stations (chapters 2-5)
 * raster data from radar + interpolation (chapter 6)
@@ -23,13 +23,13 @@ This vignette has 3 main sections:
 Important links:
 
 * further details on the data: [DWD FTP server documentation](ftp://opendata.dwd.de/climate_environment/CDC/Readme_intro_CDC_ftp.pdf)
-* vignette [source code and files](https://github.com/brry/rdwd/tree/master/misc/vign)
+* website [source code and files](https://github.com/brry/rdwd/tree/master/misc/vign)
 * feedback is very welcome via [github](https://github.com/brry/rdwd) or [berry-b@gmx.de](mailto:berry-b@gmx.de)!  
 
 
 ```{r globalquiet, echo=FALSE}
 options(rdwdquiet=TRUE)
-# This should suppress all progress and info messages in the vignette output
+# This should suppress all progress and info messages in the website output
 # while not suggesting users to copypaste with explicit quiet=TRUE all the time.
 # Especially new users should see the messages and progress bars, I think
 ```
@@ -210,7 +210,7 @@ From this, `r helplink("metaIndex")` and `r helplink("geoIndex")` are derived.
 
 # Station selection
 
-*`print_short` in this chapter is just a helper function to replace [dwdbase](ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate) with `---` for shorter output in the vignette.*
+*`print_short` in this chapter is just a helper function to replace [dwdbase](ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate) with `---` for shorter output.*
 
 ## by location
 
@@ -318,7 +318,7 @@ m_link <- selectDWD(res="monthly", var="more_precip", per="hist", meta=TRUE)
 print_short(m_link) # (Monatswerte = monthly values, Beschreibung = description)
 ```
 ```{r meta2, eval=FALSE}
-meta_monthly_rain <- dataDWD(m_link) # not executed in vignette creation
+meta_monthly_rain <- dataDWD(m_link) # not executed in website creation
 str(meta_monthly_rain)
 ```
 
@@ -798,7 +798,7 @@ prec29 <- merge(prec29, m[m$res=="daily",c(1,4:7,14)], sort=FALSE)
 head(prec29[,-7]) # don't show url column with long urls
 ```
 
-7 of the files contain no rows. readDWD warns about this (but the warnings are suppressed in this vignette).  
+7 of the files contain no rows. readDWD warns about this (but the warnings are suppressed in this website).  
 One example is daily/more_precip/historical/tageswerte_RR_07495_20070114_20181231_hist.zip
 
 ## Plot rainfall sum on map
