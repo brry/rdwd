@@ -97,7 +97,7 @@ Select files for downloading with \code{\link{dataDWD}}.\cr
 The available folders with datasets are listed at
 \url{https://bookdown.org/brry/rdwd/available-datasets.html}.
 To use an updated index (if necessary), see 
-\url{https://bookdown.org/brry/rdwd/station-selection.html#fileindex}.\cr\cr
+\url{https://bookdown.org/brry/rdwd/fileindex.html}.\cr\cr
 All arguments (except for \code{mindex}, \code{findex} and \code{base})
 can be a vector and will be recycled to the maximum length of all arguments.
 If that length > 1, the output is a list of filenames (or vector if \code{outvec=TRUE}).\cr

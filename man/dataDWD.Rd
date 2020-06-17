@@ -101,7 +101,7 @@ displays progress bars (if the package \code{pbapply} is available)
 and by default does not re-download data already in \code{dir} 
 (but see argument \code{force} to update files).\cr
 To solve "errors in download.file: cannot open URL", see 
-\url{https://bookdown.org/brry/rdwd/station-selection.html#fileindex}.\cr
+\url{https://bookdown.org/brry/rdwd/fileindex.html}.\cr
 }
 \examples{
 \dontrun{ ## requires internet connection

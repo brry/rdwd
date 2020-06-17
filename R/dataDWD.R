@@ -11,7 +11,7 @@
 #' and by default does not re-download data already in \code{dir} 
 #' (but see argument \code{force} to update files).\cr
 #' To solve "errors in download.file: cannot open URL", see 
-#' \url{https://bookdown.org/brry/rdwd/station-selection.html#fileindex}.\cr
+#' \url{https://bookdown.org/brry/rdwd/fileindex.html}.\cr
 #' 
 #' @return Presuming downloading and processing were successful:
 #'         if \code{read=TRUE}, the desired dataset
@@ -220,7 +220,7 @@ if(any(iserror))
      msg2 <- paste0(msg2, "\n- dataDWD needs urls starting with 'ftp://'. You can use joinbf=TRUE for relative links.")
   if(grepl("cannot open URL", msg2)) 
      msg2 <- paste0(msg2, "\n- If files have been renamed on the DWD server, ",
-                    "see   https://bookdown.org/brry/rdwd/station-selection.html#fileindex")
+                    "see   https://bookdown.org/brry/rdwd/fileindex.html")
   msg <- paste0(msg, msg2)
   warning(msg, call.=FALSE)
   }

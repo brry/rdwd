@@ -16,9 +16,9 @@ editor_options:
 
 This website has 3 main sections:
 
-* time series from meteorological stations (chapters 2-5)
-* raster data from radar + interpolation (chapter 6)
-* use cases, i.e. extended usage examples (chapter 7-end)
+* time series from meteorological stations (chapters 2-6)
+* raster data from radar + interpolation (chapter 7)
+* use cases, i.e. extended usage examples (chapter 8-end)
 
 Important links:
 
@@ -255,12 +255,11 @@ selectDWD(id=c(3467,5116), res="",var="",per="") %>% print_short
 ```
 
 
-<a id="findex"></a>
 
-## fileIndex
+# fileIndex
 
 `r helplink("selectDWD")` needs an index of all the available files on the server.
-The package contains such an index (`r helplink("fileIndex")`) 
+`rdwd` contains such an index (`r helplink("fileIndex")`) 
 that is updated (at least) with each CRAN release of the package.  
 If you find the file index to be outdated ("download.file errors: [...]  cannot open URL"),
 check in the [latest commits](https://github.com/brry/rdwd/commits/master) 
@@ -280,7 +279,6 @@ Alternatively, for repetitive usage, create your own file index, see next code c
 To get an index for a certain subfolder, use:
 
 ```{r listfiles, eval=FALSE}
-### This chunk is not evaluated
 # recursively list files on the FTP-server:
 files <- indexFTP("hourly/sun") # use dir="some_path" to save the output elsewhere
 berryFunctions::headtail(files, 5, na=TRUE)
