@@ -122,12 +122,14 @@ Please note:
 ```{r ftp_folders_1, echo=FALSE}
 library(magrittr)
 suppressPackageStartupMessages(library(huxtable))
+options(huxtable.bookdown = FALSE) # no captions on tables
 f <- readODS::read_ods("FTP_folders.ods", sheet="folders", col_types=NA)
 fu <- f # f with urls
 for(i in 2:ncol(f)) fu[-1,i] <- ifelse(f[-1,i]=="", " ", 
     paste0('<a href="',dwdbase,'/',colnames(f)[i],'/',f[-1,1],'">',f[-1,i],'</a>'))
 ht <- huxtable::hux(fu, add_colnames=TRUE)
 ht %>%
+  # set_label("") %>% 
   set_background_color(value="white") %>% 
   set_background_color(3:nrow(ht), 2:ncol(ht), value="gray95") %>% 
   set_all_borders(1) %>%
@@ -140,6 +142,9 @@ ht %>%
   set_position("center") %>% 
   set_escape_contents(value=FALSE)
 detach("package:huxtable", unload=TRUE) # to suppress further autoformatting of tables
+# fails, but whatever - looks nice. 
+# Note: date2-date1 needs as.numeric, otherwise huxtable fails with error about
+# assert_that not being available in chunk uc_berlinstationselection
 ```
 
 ```{r ftp_folders_missing, echo=FALSE}
@@ -589,8 +594,10 @@ head(ids)
 data("metaIndex")
 berlin <- metaIndex[with(metaIndex, 
               Stations_id %in% ids & res=="monthly" & var=="kl" & per=="historical"),]
-berlin$ndays <- berlin$bis_datum - berlin$von_datum
+berlin$ndays <- as.numeric(berlin$bis_datum - berlin$von_datum)
 berlin <- berryFunctions::sortDF(berlin, ndays)
+berlin$von_datum <- as.character(berlin$von_datum) # avoid huxtable error
+berlin$bis_datum <- as.character(berlin$bis_datum)
 berlin # Dahlem (FU) has data since 1719 !
 ```
 
