@@ -1,0 +1,281 @@
+% presentation aboutSomething
+% Template by Berry Boessenkool, berry-b@gmx.de
+
+
+% Make sure to set weaving to knitr before compiling:
+% Rstudio - Tools - Global Options - Sweave - weave Rnw files using: knitr
+
+
+\documentclass[compress, xcolor=dvipsnames, aspectratio=169]{beamer} % handout option for non-animated slides
+\setbeamerfont{frametitle}{size=\normalsize}
+
+\usepackage{hyperref, graphicx}
+\usepackage[dvipsnames]{xcolor}
+\renewcommand\appendixname{Appendix}
+\usepackage[absolute,overlay,showboxes]{textpos}
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
+\setbeamercolor{background canvas}{bg=white}
+\setbeamercolor{normal text}{fg=black}
+% \setbeamercolor{item}{fg=green}
+% \beamertemplatenavigationsymbolsempty
+\setbeamertemplate{navigation symbols}[only frame symbol]
+%\usetheme{Madrid}
+% Navigation slide bullets in header ON / OFF:
+%-----
+% \useoutertheme[subsection=false]{miniframes}
+\setbeamertemplate{headline}
+{%
+  \begin{beamercolorbox}[ht=3.5ex,dp=1.125ex,%
+      leftskip=0cm,rightskip=0cm plus1filll]{section in head/foot}
+    \usebeamerfont{section in head/foot}\usebeamercolor[fg]{section in head/foot}%
+    \insertsectionnavigationhorizontal{0.99\textwidth}{}{}
+  \end{beamercolorbox}%
+}
+%-----
+\beamersetleftmargin{0.5cm}
+\beamersetrightmargin{0.5cm}
+\let\Tiny=\tiny % avoid warning: Font shape `OT1/cmss/m/n' in size <4> not available. size <5> substituted on input line
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{footline}[text line]{%
+  \parbox{\linewidth}{\vspace*{-12pt}
+  \textcolor{black}{
+   % \scriptsize
+  ~~ Berry Boessenkool, e-Rum June 2020: rdwd ~~~~~
+  \href{https://github.com/brry/rdwd\#rdwd}{github.com/brry/rdwd} \hfill
+  ~~ \insertframenumber / \inserttotalframenumber~~~~~~~~~}}}
+
+% Reference images:
+\newcommand{\bildlink}[1]{\flushleft{\tiny \href{#1}{\textcolor{gray}{#1}} \normalsize }}
+\newcommand{\bildlinkt}[2]{\flushleft{\tiny \href{#1}{\textcolor{gray}{#2}} \normalsize }}
+% format inline R command names in blue courier:
+\newcommand{\rcode}[1]{\texttt{\textcolor{Blue}{#1}}} % or use Blue
+
+% Nice appendix numbering:
+\newcommand{\appendixbegin}{
+   \newcounter{framenumberappendix}
+   \setcounter{framenumberappendix}{\value{framenumber}}
+}
+\newcommand{\appendixend}{
+   \addtocounter{framenumberappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumberappendix}}
+}
+
+
+
+% ACTUAL SLIDES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\color{black}
+\centering
+
+
+% ---------------------------
+
+\section{intro}
+
+% ---------------------------
+
+<<setup, include=FALSE>>=
+opts_chunk$set(cache=T, echo=TRUE, fig.height=3.2, fig.width=7.5, out.width='0.9\\textwidth') # fig.width=5 in aspectratio 43
+@
+
+\TPshowboxesfalse % no border around boxes
+
+% ---------------------------
+
+\begin{frame}
+\begin{textblock*}{25em}(30pt,50pt) % topleft corner x=10pt, y=30pt. width=18em
+\centering
+\vspace{1.5em}
+\Large \textbf{rdwd: \includegraphics[width=1em]{fig_extern/Rlogo.png} interface to\\German Weather Service data}
+\end{textblock*}
+\begin{textblock*}{18em}(250pt,30pt)
+\includegraphics[width=8em]{../hex/hex.png}
+\end{textblock*}
+\normalsize
+\vspace{11em}
+Berry Boessenkool, e-Rum Milano, June 2020\\[1em]
+\href{https://github.com/brry/rdwd\#rdwd}{github.com/brry/rdwd}\\
+\href{https://bookdown.org/brry/rdwd}{bookdown.org/brry/rdwd}\\[1em]
+\texttt{berry-b@gmx.de}\\[1em]
+\scriptsize
+\begin{flushleft}
+\textit{~~~Presentation template generated with}\\~~~\rcode{berryFunctions::createPres}
+\end{flushleft}
+\normalsize
+\begin{textblock*}{8em}(355pt,210pt) % topleft corner x=250pt, y=30pt
+\centering
+\scriptsize
+slides \includegraphics[width=5em]{fig_extern/ccby.png}\\[-0.3em]
+\href{https://creativecommons.org/licenses/by/4.0}{use freely, cite me}%
+\normalsize
+\vspace{0.5em}
+\end{textblock*}
+\end{frame}
+
+% ---------------------------
+
+\begin{frame}{The DWD has a ton of data freely available}
+\pause
+but it's tedious to handle manually\\[1em]
+\pause
+\begin{itemize}[<+->]
+\item $>$300'000 datasets - too much for manual inspection
+\item FTP server somewhat difficult to search
+\item various file formats (time series + gridded data)
+\end{itemize}
+\onslide<+->
+\vspace{1em}
+R saves the day
+\end{frame}
+
+% ---------------------------
+
+\section{rdwd features}
+
+% ---------------------------
+
+\begin{frame}{Main features of \rcode{rdwd}}
+\pause
+\begin{itemize}[<+->]
+\item find, select, download + read data from the German weather service DWD
+\item vectorized, progress bars, no re-downloads
+\item index of files + meta data
+\item reads both data types:
+\begin{itemize}[<+->]
+\item observational time series from 6k meteorological recording stations (2.5k active)\\
+      \onslide<+-> -$>$ rain, temperature, wind, sunshine, pressure, cloudiness, humidity, snow, ...
+\item gridded raster data from radar + interpolation
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+% ---------------------------
+
+\section{observational data}
+
+% ---------------------------
+
+\begin{frame}[fragile]{Usage example for observational data - station selection}
+\pause
+interactive \href{https://bookdown.org/brry/rdwd/interactive-map.html}{map} of available stations\\
+\includegraphics[width=0.95\textwidth]{fig_extern/map_original.PNG}
+\end{frame}
+
+% ---------------------------
+
+\begin{frame}[fragile]{Usage example for observational data - data selection}
+\pause
+overview of available \href{https://bookdown.org/brry/rdwd/available-datasets.html}{datasets}\\
+\includegraphics[width=0.6\textwidth]{fig_extern/datasets_highlighted.PNG}
+\end{frame}
+
+% ---------------------------
+
+\begin{frame}[fragile]{Usage example for observational data - code}
+\pause
+\vspace{-1.2em}
+<<link, echo=-2>>=
+library("rdwd")
+options(rdwdquiet=TRUE)
+link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
+@
+\onslide<4->{
+\vspace{-2.5em}
+<<clim>>=
+clim <- dataDWD(link, read=TRUE, varnames=TRUE)
+@
+}
+\pause
+\vspace{-1em}
+<<linkprint1, size="footnotesize", eval=FALSE>>=
+link
+@
+\vspace{-2.2em}
+<<linkprint, echo=FALSE, size="footnotesize">>=
+cat(gsub("y/cli", "y/\ncli", link))
+@
+\pause \pause
+\vspace{-1.5em}
+<<colnamesClim, size="footnotesize", eval=FALSE>>=
+colnames(clim)
+@
+\vspace{-2.2em}
+<<colnamesClimPrint, size="footnotesize", echo=FALSE>>=
+options(width=100)
+colnames(clim)[18] <- substr(colnames(clim)[18],1,22)
+colnames(clim)
+@
+\end{frame}
+
+% ---------------------------
+
+\begin{frame}[fragile]{Usage example for observational data - further processing}
+<<tempplot, echo=2:3, fig.height=3>>=
+par(mar=c(4,4,2,0.5), mgp=c(2.6, 0.8, 0), cex=0.8)
+plot(clim[,c(2,14)], type="l", xaxt="n", las=1, col="blue", lwd=2)
+berryFunctions::monthAxis()   ;   abline(h=0)
+lines(clim[,c(2,14)], col="blue", lwd=2)
+mtext("Daily temperature Potsdam", adj=0, line=0.5, font=2, cex=0.8)
+mtext("Source: Deutscher Wetterdienst", adj=1, line=0.5, font=3, cex=0.8)
+@
+\end{frame}
+
+
+% ---------------------------
+
+\section{gridded data}
+
+% ---------------------------
+
+\begin{frame}[fragile]{Usage example for gridded data}
+\pause
+\vspace{-1em}
+<<radolan1, size="small", echo=-1>>=
+options(rdwdquiet=TRUE) # ignored if cached
+links <- indexFTP("hourly/radolan/recent/bin", base=gridbase, overwrite=TRUE)
+@
+\pause
+\vspace{-1.6em}
+<<radolan2, size="small">>=
+rad <- dataDWD(links[4047], base=gridbase, joinbf=TRUE, read=TRUE)
+@
+\pause
+\vspace{-1.6em}
+<<radolan3, size="small", fig.width=6.5, out.height="16.5em", out.width="33em">>=
+plotRadar(rad$dat, main=rad$meta$date, mar=c(2.5, 3.5, 1.5, 5))
+@
+\vspace{0.5em}
+\end{frame}
+
+% ---------------------------
+
+\section{conclusion}
+
+% ---------------------------
+
+\begin{frame}[fragile]
+\begin{textblock*}{25em}(25pt,50pt) % topleft corner x=10pt, y=30pt. width=18em
+select, download + read data\\[0.5em]
+time series from meteorological stations\\
+raster data from radar + interpolation\\[1em]
+\href{https://bookdown.org/brry/rdwd}{bookdown.org/brry/rdwd}
+\end{textblock*}
+%
+\begin{textblock*}{18em}(240pt, 35pt)
+\includegraphics[width=8em]{../hex/hex.png}
+\end{textblock*}
+\vspace{10em}
+<<minimalcode, eval=FALSE, size="scriptsize">>=
+    link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
+    clim <- dataDWD(link, varnames=TRUE)
+    
+    links <- indexFTP("hourly/radolan/recent/bin", base=gridbase)
+    rad <- dataDWD(links[4047], base=gridbase, joinbf=TRUE)
+    plotRadar(rad$dat, main=rad$meta$date)
+@
+\end{frame}
+
+% ---------------------------
+
+\end{document}

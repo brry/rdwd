@@ -5,6 +5,9 @@ DWDdata/meta
 DWDdata/xls_index.xlsx
 DWDdata/INDEX_of_DWD_.txt
 inst/shinyapps/
+misc/eRum/DWDdata/
+misc/eRum/cache/
+misc/eRum/figure/
 misc/ExampleTests/errors.txt
 misc/ExampleTests/MultiAnn.pdf
 misc/ExampleTests/plots.pdf
