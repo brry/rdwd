@@ -94,7 +94,7 @@ opts_chunk$set(cache=T, echo=TRUE, fig.height=3.2, fig.width=7.5, out.width='0.9
 \end{textblock*}
 \normalsize
 \vspace{11em}
-Berry Boessenkool, e-Rum Milano, June 2020\\[1em]
+Berry Boessenkool, e-Rum2020 Milano\\[1em]
 \href{https://github.com/brry/rdwd\#rdwd}{github.com/brry/rdwd}\\
 \href{https://bookdown.org/brry/rdwd}{bookdown.org/brry/rdwd}\\[1em]
 \texttt{berry-b@gmx.de}\\[1em]
@@ -116,17 +116,22 @@ slides \includegraphics[width=5em]{fig_extern/ccby.png}\\[-0.3em]
 % ---------------------------
 
 \begin{frame}{The DWD has a ton of data freely available}
+\begin{flushleft}
+\begin{textblock*}{15em}(280pt,20pt)
+\only<5->{\includegraphics[width=15em]{fig_extern/FTP.PNG}}%
+\end{textblock*}
 \pause
 but it's tedious to handle manually\\[1em]
 \pause
 \begin{itemize}[<+->]
-\item $>$300'000 datasets - too much for manual inspection
-\item FTP server somewhat difficult to search
+\item $>$300'000 datasets - too much for manual inspection 
+\item FTP server somewhat difficult to search \onslide<+->
 \item various file formats (time series + gridded data)
 \end{itemize}
 \onslide<+->
 \vspace{1em}
 R saves the day
+\end{flushleft}
 \end{frame}
 
 % ---------------------------
@@ -167,7 +172,10 @@ interactive \href{https://bookdown.org/brry/rdwd/interactive-map.html}{map} of a
 \begin{frame}[fragile]{Usage example for observational data - data selection}
 \pause
 overview of available \href{https://bookdown.org/brry/rdwd/available-datasets.html}{datasets}\\
-\includegraphics[width=0.6\textwidth]{fig_extern/datasets_highlighted.PNG}
+\only<2>{\includegraphics[width=0.6\textwidth]{fig_extern/resvar1.PNG}}%
+\only<3>{\includegraphics[width=0.6\textwidth]{fig_extern/resvar2.PNG}}%
+\only<4>{\includegraphics[width=0.6\textwidth]{fig_extern/resvar3.PNG}}%
+\only<5>{\includegraphics[width=0.6\textwidth]{fig_extern/resvar4.PNG}}%
 \end{frame}
 
 % ---------------------------
@@ -230,19 +238,20 @@ mtext("Source: Deutscher Wetterdienst", adj=1, line=0.5, font=3, cex=0.8)
 
 \begin{frame}[fragile]{Usage example for gridded data}
 \pause
-\vspace{-1em}
+\vspace{-0.5em}
 <<radolan1, size="small", echo=-1>>=
 options(rdwdquiet=TRUE) # ignored if cached
 links <- indexFTP("hourly/radolan/recent/bin", base=gridbase, overwrite=TRUE)
 @
 \pause
-\vspace{-1.6em}
+\vspace{-1.4em}
 <<radolan2, size="small">>=
 rad <- dataDWD(links[4047], base=gridbase, joinbf=TRUE, read=TRUE)
 @
 \pause
-\vspace{-1.6em}
-<<radolan3, size="small", fig.width=6.5, out.height="16.5em", out.width="33em">>=
+\vspace{-1.4em}
+<<radolan3, size="small", fig.width=6.5, out.height="16.0em", out.width="33em", echo=-1>>=
+options(rdwdquiet=TRUE) # ignored if cached
 plotRadar(rad$dat, main=rad$meta$date, mar=c(2.5, 3.5, 1.5, 5))
 @
 \vspace{0.5em}
@@ -255,25 +264,37 @@ plotRadar(rad$dat, main=rad$meta$date, mar=c(2.5, 3.5, 1.5, 5))
 % ---------------------------
 
 \begin{frame}[fragile]
-\begin{textblock*}{25em}(25pt,50pt) % topleft corner x=10pt, y=30pt. width=18em
-select, download + read data\\[0.5em]
-time series from meteorological stations\\
-raster data from radar + interpolation\\[1em]
-\href{https://bookdown.org/brry/rdwd}{bookdown.org/brry/rdwd}
-\end{textblock*}
+\begin{flushleft}
+\pause
+~~~~~~~~~ \footnotesize \textit{weather data / example with real data /}\\
+\normalsize
+~~~~~~~~~ \footnotesize \textit{analyze climate change in Germany:}\\[1em]
+\normalsize
+\pause
+~~~~~~~~~ \textbf{rdwd} to select, download + read data\\[0.5em] 
+\pause
+~~~~~~~~~ - time series from meteorological stations\\
+\pause
+~~~~~~~~~ - raster data from radar + interpolation\\[1em]
+\pause
+~~~~~~~~~ \href{https://bookdown.org/brry/rdwd}{bookdown.org/brry/rdwd}
+\end{flushleft}
+\vspace{6em}
 %
-\begin{textblock*}{18em}(240pt, 35pt)
+\begin{textblock*}{15em}(260pt, 35pt)
 \includegraphics[width=8em]{../hex/hex.png}
 \end{textblock*}
-\vspace{10em}
+%
+\begin{textblock*}{26em}(80pt, 155pt)
 <<minimalcode, eval=FALSE, size="scriptsize">>=
-    link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
-    clim <- dataDWD(link, varnames=TRUE)
-    
-    links <- indexFTP("hourly/radolan/recent/bin", base=gridbase)
-    rad <- dataDWD(links[4047], base=gridbase, joinbf=TRUE)
-    plotRadar(rad$dat, main=rad$meta$date)
+link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
+clim <- dataDWD(link, varnames=TRUE)
+
+links <- indexFTP("hourly/radolan/recent/bin", base=gridbase)
+rad <- dataDWD(links[4047], base=gridbase, joinbf=TRUE)
+plotRadar(rad$dat, main=rad$meta$date)
 @
+\end{textblock*}
 \end{frame}
 
 % ---------------------------
