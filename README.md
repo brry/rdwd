@@ -64,8 +64,7 @@ install.packages("rdwd")
 #### Latest version
 ```R
 rdwd::updateRdwd()
-# checks version and (if needed) calls
-remotes::install_github("brry/rdwd", build_vignettes=TRUE)
+# checks version and (if needed) calls  remotes::install_github("brry/rdwd", build_vignettes=TRUE)
 ```
 
 #### Full
