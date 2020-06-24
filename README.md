@@ -22,7 +22,7 @@ and written about in [OSOR](https://joinup.ec.europa.eu/community/osor/news/stud
 
 ### Documentation
 
-A vignette with more information, examples, use cases and an interactive map of the DWD stations
+A website with more information, examples, use cases and an interactive map of the DWD stations
 can be found at <https://bookdown.org/brry/rdwd>
 
 
@@ -51,7 +51,7 @@ str(clim)
 ```
 
 For data interpolated onto a 1 km raster, including radar data up to the last hour,
-see the corresponding [chapter](https://bookdown.org/brry/rdwd/raster-data.html) in the vignette.
+see the corresponding [chapter](https://bookdown.org/brry/rdwd/raster-data.html) on the website.
 
 
 ### Installation
@@ -62,9 +62,9 @@ install.packages("rdwd")
 ```
 
 #### Latest version
-If the installed `packageVersion("rdwd")` >= 1.2.5, you can simply run `rdwd::updateRdwd()`.
 ```R
-if(!requireNamespace("remotes", quietly=TRUE)) install.packages("remotes")
+rdwd::updateRdwd()
+# checks version and (if needed) calls
 remotes::install_github("brry/rdwd", build_vignettes=TRUE)
 ```
 
