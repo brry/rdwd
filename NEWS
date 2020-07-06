@@ -2,8 +2,6 @@
 rdwd ToDo-list / wishlist / issues
 - readDWD.data: figure out reason for fread trouble (reported in emails by some users)
 - selectDWD("Berlin", res="monthly", var="kl", per="h", exactmatch = F) should only return stations with data, with a single warning only
-- dataDWD: should dbin default be TRUE?
-- use terra (in addition to / instead of raster) where possible
 
 
 ---------------------------------------
