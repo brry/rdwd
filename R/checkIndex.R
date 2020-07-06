@@ -33,8 +33,10 @@ checkIndex <- function(
 # helper function:
 alldupli <- function(x) duplicated(x) | duplicated(x, fromLast=TRUE)
 # Output text:
-out <- paste("\ncheckIndex results at", as.character(Sys.time()), "for\n")
-out <- paste0(out, dwdbase, berryFunctions::traceCall(suffix=""))
+out <- paste0("\ncheckIndex results at ", as.character(Sys.time()), " for\n", dwdbase)
+itime <- file.mtime("data/fileIndex.rda")
+if(!is.na(itime)) out <- paste0(out, "\nFile 'data/fileIndex.rda' was last modified ", itime)
+out <- paste0(out, berryFunctions::traceCall(skip=1), "-------")
 
 # findex ----
 

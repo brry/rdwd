@@ -6,7 +6,6 @@ rdwd ToDo-list / wishlist / issues
 - selectDWD("Berlin", res="monthly", var="kl", per="h", exactmatch = F) should only return stations with data, with a single warning only
 - dataDWD: should dbin default be TRUE?
 - use terra (in addition to / instead of raster) where possible
-- checkIndex: add info: index created at [date] from timestamp fileIndex.Rda file.mtime
 
 
 ---------------------------------------
