@@ -59,6 +59,9 @@
 #' @param exclude.latest.bin Exclude latest file at opendata.dwd.de/weather/radar/radolan?
 #'                RCurl::getURL indicates this is a pointer to the last regularly named file.
 #'                DEFAULT: TRUE
+#' @param fast    Read tree file with \code{data.table::\link[data.table]{fread}} 
+#'                (1 sec) instead of \code{\link{readLines}} (10 secs)? 
+#'                DEFAULT: TRUE
 #' @param sleep   If not 0, a random number of seconds between 0 and \code{sleep}
 #'                is passed to \code{\link{Sys.sleep}} after each read folder
 #'                to avoid getting kicked off the FTP-Server, see note above. DEFAULT: 0
@@ -81,6 +84,7 @@ folder="currentfindex",
 base=dwdbase,
 is.file.if.has.dot=TRUE,
 exclude.latest.bin=TRUE,
+fast=TRUE,
 sleep=0,
 dir="DWDdata",
 filename=folder[1],
@@ -97,7 +101,13 @@ if(grepl("^https", base)) warning("base should start with ftp://, not https://. 
 if(all(folder %in% c("currentfindex","currentgindex")) & base %in% c(dwdbase, gridbase))
   {
   if(!quiet) message("Reading current index tree file...")
-  tree <- readLines("ftp://opendata.dwd.de/weather/tree.html")
+  if(!fast)
+     {tree <- readLines("ftp://opendata.dwd.de/weather/tree.html") 
+     } else {
+     checkSuggestedPackage("data.table", "rdwd::indexFTP with fast=TRUE")
+     tree <- data.table::fread("ftp://opendata.dwd.de/weather/tree.html", 
+                                sep="\n", header=FALSE, showProgress=FALSE, strip.white=FALSE)$V1
+     }
   if(!quiet) message("Processing index tree file...")
   urlpart <- "\"https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/"
   if(folder=="currentgindex") 

@@ -9,6 +9,7 @@ indexFTP(
   base = dwdbase,
   is.file.if.has.dot = TRUE,
   exclude.latest.bin = TRUE,
+  fast = TRUE,
   sleep = 0,
   dir = "DWDdata",
   filename = folder[1],
@@ -39,6 +40,10 @@ DEFAULT: TRUE}
 
 \item{exclude.latest.bin}{Exclude latest file at opendata.dwd.de/weather/radar/radolan?
 RCurl::getURL indicates this is a pointer to the last regularly named file.
+DEFAULT: TRUE}
+
+\item{fast}{Read tree file with \code{data.table::\link[data.table]{fread}} 
+(1 sec) instead of \code{\link{readLines}} (10 secs)? 
 DEFAULT: TRUE}
 
 \item{sleep}{If not 0, a random number of seconds between 0 and \code{sleep}
