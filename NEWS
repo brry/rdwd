@@ -1,16 +1,68 @@
 
-rdwd ToDo-list / wishlist / issues
+toDo before next CRAN release:
 - readDWD.data: figure out reason for fread trouble (reported in emails by some users)
 - selectDWD("Berlin", res="monthly", var="kl", per="h", exactmatch = F) should only return stations with data, with a single warning only
 
 
----------------------------------------
-rdwd: DWD Climate Data access package by Berry Boessenkool, berry-b@gmx.de
-Any feedback is welcome, per email or on github.com/brry/rdwd
----------------------------------------
+
+-----------------------------
+-----------------------------
+
+Version 1.4.0 (2020-tbd)
+
+status: 2020-07-06
+
+API changes:  
+- createIndex: gains argument checklog
+- readDWD.*: All subfunctions message their identity and have a 'quiet' argument
+- new function: rdwdquiet()
+- plotRadar: gains arguments axes, las, zlim, col, mar, keeppar. main now defaults to (and correctly keeps) x@title.
+- readDWD.meta: station and bundesland names are now char instead of factor (since R 4.0.0)
+- indexFTP: new argument 'fast' to read file tree with data.table
+
+enhancements / bug fixes:  
+- checkIndex: new check for duplicate meta files, writes to logfile (append, no overwrite), nicer path print, logs modification time of index files
+- lldist: fix error that occurred when a df with a single row was given
+- runLocalTests: example test logs much less verbose (easier to find actual warnings), checkIndex results written to warning logfile
+- source code function argument sections all have line breaks (except readDWD.*)
+- metaInfo: from/to columns date conversion corrected
+- cross-references in documentation improved
+- EUR: extends further east for plots with large width compared to height
+- indexFTP + dataDWD: up to date and centralized sleep information 
+- updateRdwd: unloads package before installation and informs about the need to re-load
+- dataDWD: Download failure message improved, refer to fileIndex section on homepage if applicable.
+- readDWD.nc: ncdf warning suppressed
+
+website changes: 
+- improved (and stand-alone) fileIndex section
+- plotRadar used for nice maps
+- huxtable fixed
+- use global quiet option instead of explicit `quiet=TRUE` all the time
 
 
-rdwd Version history
+-----------------------------
+
+Version 1.3.1 (2020-02-18)
+
+API changes:  
+- projectRasterDWD: latlon=T/F replaced with targetproj
+- readDWD.binary: output list element renamed to 'dat' (from 'data') for consistency with other functions
+- dataDWD: new argument dbin
+- new functions: updateRdwd, plotRadar
+
+enhancements / bug fixes:  
+- readDWD.data: now correctly reads 10 minute timestamps
+- readDWD.meta: column widths identified more elegantly and safely
+- indexFTP: warn about requests to https instead of ftp servers, new argument `exclude.latest.bin`
+- addBorders: added sp to 'Suggests', moved DEU + EUR to inst/extdata to handle CRAN build+check on systems without sp installed
+
+website changes:  
+- list of FTP Folders now with clickable URLs
+- RQ example added
+- order of radar graphs changed for better comparison in pdf
+
+
+
 
 -----------------------------
 -----------------------------
