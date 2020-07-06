@@ -116,6 +116,7 @@ plotRadar(ncp3, layer=4:5, project=FALSE, zlim="ind") # individual zlims per lay
 plotRadar(ncp3, layer=1, project=FALSE, zlim=c(1016,1020))
 
 ncp1 <- plotRadar(nc, layer=1, proj="nc", extent="nc") # much faster projection
+# no longer has layers 2-4:
 berryFunctions::is.error(plotRadar(ncp1, layer=1:4, project=FALSE), TRUE, TRUE)
 }
 
