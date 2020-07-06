@@ -82,7 +82,7 @@ ind <- createIndex(link, dir=tempdir())
 ind
 link2 <- "daily/kl/historical/KL_Tageswerte_Beschreibung_Stationen.txt"
 link3 <- "daily/kl/recent/KL_Tageswerte_Beschreibung_Stationen.txt"
-ind2 <- createIndex(c(link,link2,link3), dir=tempdir(), meta=TRUE)
+ind2 <- createIndex(c(link,link2,link3), dir=tempdir(), meta=TRUE, checkwarn=FALSE)
 lapply(ind2, head)
 }
 
