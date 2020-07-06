@@ -20,9 +20,15 @@
 #' @param warn      Warn about issues? DEFAULT: TRUE
 #' @param logfile   File to copy log to, appended to existing content. NULL to suppress. 
 #'                  DEFAULT: "misc/ExampleTests/warnings.txt"
-checkIndex <- function(findex=NULL, mindex=NULL, gindex=NULL, 
-                       excludefp=TRUE, fast=FALSE, warn=TRUE,
-                       logfile=localtestdir(".", "misc/ExampleTests/warnings.txt"))
+checkIndex <- function(
+  findex=NULL, 
+  mindex=NULL, 
+  gindex=NULL, 
+  excludefp=TRUE, 
+  fast=FALSE, 
+  warn=TRUE,
+  logfile=localtestdir(".", "misc/ExampleTests/warnings.txt")
+  )
 {
 # helper function:
 alldupli <- function(x) duplicated(x) | duplicated(x, fromLast=TRUE)
