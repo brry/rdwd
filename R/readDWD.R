@@ -795,7 +795,9 @@ ncfile <- do.call(R.utils::gunzip, gfinal)
 if(toraster) 
   {
   checkSuggestedPackage("raster", "rdwd:::readDWD.nc with toraster=TRUE")
-  return(invisible(raster::brick(ncfile, ...)))
+  # ignore ncdf print, see https://github.com/rspatial/raster/issues/143
+  capture.output(out <- raster::brick(ncfile, ...))
+  return(invisible(out))
   }
 #
 #
