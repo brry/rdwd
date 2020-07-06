@@ -10,8 +10,9 @@ checkIndex(
   gindex = NULL,
   excludefp = TRUE,
   fast = FALSE,
-  warn = TRUE,
-  logfile = localtestdir(".", "misc/ExampleTests/warnings.txt")
+  warn = !quiet,
+  logfile = localtestdir(".", "misc/ExampleTests/warnings.txt"),
+  quiet = rdwdquiet()
 )
 }
 \arguments{
@@ -26,10 +27,13 @@ DEFAULT: TRUE}
 
 \item{fast}{Exclude the 3-minute location per ID check? DEFAULT: FALSE}
 
-\item{warn}{Warn about issues? DEFAULT: TRUE}
+\item{warn}{Warn about issues? DEFAULT: \code{!quiet} (TRUE)}
 
 \item{logfile}{File to copy log to, appended to existing content. NULL to suppress. 
 DEFAULT: "misc/ExampleTests/warnings.txt"}
+
+\item{quiet}{Logical: Suppress progress messages? 
+DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 }
 \value{
 Charstring with issues (if any) to be printed with \code{cat()}.

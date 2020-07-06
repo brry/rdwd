@@ -292,7 +292,8 @@ if(gname!="")
   }
 #
 # Check all indexes:
-checks <- checkIndex(fileIndex, metaIndex, geoIndex, fast=TRUE, warn=checkwarn, logfile=checklog)
+checks <- checkIndex(fileIndex, metaIndex, geoIndex, fast=TRUE, warn=checkwarn, 
+                     quiet=quiet, logfile=checklog)
 #
 # Output -----------------------------------------------------------------------
 if(!quiet) messaget("Done.")

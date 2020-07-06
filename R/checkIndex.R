@@ -17,17 +17,20 @@
 #' @param excludefp Exclude false positives from geoIndex coordinate check results?
 #'                  DEFAULT: TRUE
 #' @param fast      Exclude the 3-minute location per ID check? DEFAULT: FALSE
-#' @param warn      Warn about issues? DEFAULT: TRUE
+#' @param warn      Warn about issues? DEFAULT: \code{!quiet} (TRUE)
 #' @param logfile   File to copy log to, appended to existing content. NULL to suppress. 
 #'                  DEFAULT: "misc/ExampleTests/warnings.txt"
+#' @param quiet     Logical: Suppress progress messages? 
+#'                  DEFAULT: FALSE through \code{\link{rdwdquiet}()}
 checkIndex <- function(
   findex=NULL, 
   mindex=NULL, 
   gindex=NULL, 
   excludefp=TRUE, 
   fast=FALSE, 
-  warn=TRUE,
-  logfile=localtestdir(".", "misc/ExampleTests/warnings.txt")
+  warn=!quiet,
+  logfile=localtestdir(".", "misc/ExampleTests/warnings.txt"),
+  quiet=rdwdquiet()
   )
 {
 # helper function:
@@ -41,7 +44,7 @@ out <- paste0(out, berryFunctions::traceCall(skip=1), "-------")
 # findex ----
 
 if(!is.null(findex)){
-message("Checking fileIndex...")
+if(!quiet) message("Checking fileIndex...")
 # check for duplicate files (DWD errors):
 duplifile <- findex[!grepl("minute",findex$res),] # 1min + 10min excluded
 duplifile <- duplifile[alldupli(duplifile[,1:4]),]
@@ -74,7 +77,7 @@ if(length(duplifile)>0)
 # mindex ----
 
 if(!is.null(mindex)){
-message("Checking metaIndex...")
+if(!quiet) message("Checking metaIndex...")
 # helper function:
 newout <- function(out,ids,colcomp,column,textvar,unit="") 
  {
@@ -136,7 +139,7 @@ if(any(name_id))
 
 # currently suppressed - too many differences to be meaningful!
 if(!is.null(findex) & !is.null(mindex) & FALSE){
-message("Comparing fileIndex and metaIndex date ranges...")
+if(!quiet) message("Comparing fileIndex and metaIndex date ranges...")
 
 findex$start <- as.Date(findex$start, "%Y%m%d")
 findex$end   <- as.Date(findex$end,   "%Y%m%d")
@@ -162,7 +165,7 @@ mf[mf$diff_bis < -30,]
 # gindex ----
 
 if(!is.null(gindex)){
-message("Checking geoIndex...")
+if(!quiet) message("Checking geoIndex...")
 columns <- !colnames(gindex) %in% c("display","col")
 # Duplicate coordinates checks:
 # Exclude known false positives like "Dasburg" vs "Dasburg (WWV RLP)"
