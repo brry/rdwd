@@ -27,18 +27,17 @@ selectDWD(
 \code{exactmatch} and \code{mindex}.
 All 3 arguments are ignored if \code{id} is given. DEFAULT: ""}
 
-\item{res}{Char: temporal \bold{res}olution available at \code{base}, usually one of
+\item{res}{Char: temporal \strong{res}olution available at \code{base}, usually one of
 \code{c("hourly","daily","monthly")}, see section 'Description' above.
-\code{res/var/per} together form the \bold{path}.
+\code{res/var/per} together form the \strong{path}.
 DEFAULT: NA for interactive selection}
 
-\item{var}{Char: weather \bold{var}iable of interest, like e.g.
-\code{"air_temperature", "cloudiness", "precipitation",
-             "soil_temperature", "solar", "kl", "more_precip"}
+\item{var}{Char: weather \strong{var}iable of interest, like e.g.
+\verb{"air_temperature", "cloudiness", "precipitation", "soil_temperature", "solar", "kl", "more_precip"}
 See above and in \code{View(rdwd:::\link{fileIndex})}.
 DEFAULT: NA for interactive selection}
 
-\item{per}{Char: desired time \bold{per}iod. One of
+\item{per}{Char: desired time \strong{per}iod. One of
 "recent" (data from the last year, up to date usually within a few days) or
 "historical" (long time series). Can be abbreviated (if the first
 letter is "r" or "h", full names are used). To get both datasets,
@@ -81,7 +80,7 @@ DEFAULT: FALSE}
 \item{meta_txt_only}{Logical: if \code{meta}, only return .txt files, not the
 pdf and html files? DEFAULT: TRUE}
 
-\item{outvec}{Single logical: if \bold{path} or \bold{ID} length > 1,
+\item{outvec}{Single logical: if \strong{path} or \strong{ID} length > 1,
 instead of a list, return a vector? (via \code{\link{unlist}}).
 DEFAULT: \code{per \%in\% c("rh","hr")}}
 
@@ -102,21 +101,21 @@ All arguments (except for \code{mindex}, \code{findex} and \code{base})
 can be a vector and will be recycled to the maximum length of all arguments.
 If that length > 1, the output is a list of filenames (or vector if \code{outvec=TRUE}).\cr
 If station \code{name} is given, but \code{id} is empty (""),
-\bold{id} is inferred via \code{mindex}.
+\strong{id} is inferred via \code{mindex}.
 If \code{res/var/per} are given and valid (existing in \code{findex}),
-they are pasted together to form a \bold{path}.
+they are pasted together to form a \strong{path}.
 Here is an overview of the behavior in each case of availability:
 \tabular{llll}{
-case \tab |  \bold{id} \tab |  \bold{path} \tab | output \cr
+case \tab |  \strong{id} \tab |  \strong{path} \tab | output \cr
 1 \tab |  ""  \tab |  ""  \tab | \code{base} (and some warnings) \cr
-2 \tab | "xx" \tab |  ""  \tab | All file names (across paths) for station \bold{id} \cr
-3 \tab |  ""  \tab | "xx" \tab | The zip file names at \bold{path} \cr
+2 \tab | "xx" \tab |  ""  \tab | All file names (across paths) for station \strong{id} \cr
+3 \tab |  ""  \tab | "xx" \tab | The zip file names at \strong{path} \cr
 4 \tab | "xx" \tab | "xx" \tab | Regular single data file name \cr
 }
-For case 2, you can explicitly set \code{res="",var="",per=""} to avoid the
+For case 2, you can explicitly set \verb{res="",var="",per=""} to avoid the
 default interactive selection.\cr
-For case 3 and 4 (\bold{path} given), you can set \code{meta=TRUE}.
-Then selectDWD will return the name of the station description file at \bold{path}.
+For case 3 and 4 (\strong{path} given), you can set \code{meta=TRUE}.
+Then selectDWD will return the name of the station description file at \strong{path}.
 This is why case 3 with \code{meta=FALSE} only returns the data file names (ending in .zip).\cr\cr\cr
 }
 \examples{

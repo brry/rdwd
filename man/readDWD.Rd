@@ -88,7 +88,7 @@ DEFAULT: TRUE for each file ending in ".gz"}
 See \code{\link{readDWD.asc}}.
 DEFAULT: TRUE for each file ending in ".tar"}
 
-\item{\dots}{Further arguments passed to the internal \code{readDWD.*}
+\item{\dots}{Further arguments passed to the internal \verb{readDWD.*}
 functions and from those to the underlying reading functions
 documented in each internal function.}
 }
@@ -104,7 +104,7 @@ returned as a data.frame / raster object.\cr
 New users are advised to set \code{varnames=TRUE} to obtain more informative
 column names.\cr\cr
 \code{readDWD} will call internal (but documented) functions depending on the
-arguments \code{multia, meta, stand, binary, raster, nc, radar, asc}:\cr
+arguments \verb{multia, meta, stand, binary, raster, nc, radar, asc}:\cr
 to read observational data (\href{https://bookdown.org/brry/rdwd/available-datasets.html}{overview}): \code{\link{readDWD.data},
          \link{readDWD.multia}, \link{readDWD.stand}, \link{readDWD.meta}}\cr
 to read gridded data (\href{https://bookdown.org/brry/rdwd/raster-data.html}{overview}): \code{\link{readDWD.binary},

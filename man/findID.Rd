@@ -8,7 +8,7 @@ findID(name = "", exactmatch = TRUE, mindex = metaIndex, quiet = rdwdquiet())
 }
 \arguments{
 \item{name}{Char: station name(s) that will be matched in \code{mindex} to obtain
-\bold{id}. DEFAULT: ""}
+\strong{id}. DEFAULT: ""}
 
 \item{exactmatch}{Logical: Should \code{name} match an entry in \code{mindex}
 exactly (be \code{\link{==}})?

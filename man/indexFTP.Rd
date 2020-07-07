@@ -77,7 +77,7 @@ Create a list of all the files (in all subfolders) of an FTP server.
 Defaults to the German Weather Service (DWD, Deutscher WetterDienst) OpenData server at
 \url{ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/}.\cr
 The R package \code{RCurl} must be available to do this.\cr\cr
-\bold{Getting banned from the FTP Server}\cr
+\strong{Getting banned from the FTP Server}\cr
 Normally, this shouldn't happen anymore: since Version 0.10.10 (2018-11-26),
 a single RCurl handle is used for all FTP requests and since version 1.0.17 (2019-05-14),
 the file tree provided by the DWD is used to obtain all folders first,

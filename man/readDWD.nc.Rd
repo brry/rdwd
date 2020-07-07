@@ -40,7 +40,7 @@ or \code{ncdf4::\link[ncdf4]{nc_open}}}
 \value{
 \code{raster::\link[raster]{brick}} object. Alternatively,
 if toraster=FALSE, a list with time, lat, lon, var, varname, file and cdf.
-\bold{cdf} is the output of \code{ncdf4::\link[ncdf4]{nc_open}}.
+\strong{cdf} is the output of \code{ncdf4::\link[ncdf4]{nc_open}}.
 }
 \description{
 Read netcdf data.

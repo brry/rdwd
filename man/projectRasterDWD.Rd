@@ -39,10 +39,10 @@ Raster object with projection and extent, invisible
 \description{
 Set projection and extent for DWD raster data. Optionally (and
 per default) also reprojects to latlon data.\cr\cr
-\bold{WARNING:} reprojection to latlon changes values slightly. For the
+\strong{WARNING:} reprojection to latlon changes values slightly. For the
 tested RX product, this change is significant, see:
 \url{https://github.com/brry/rdwd/blob/master/misc/ExampleTests/Radartests.pdf}\cr
-In raster::plot, \bold{use zlim with the original range} if needed.
+In raster::plot, \strong{use zlim with the original range} if needed.
 }
 \details{
 The internal defaults are extracted from the Kompositformatbeschreibung at

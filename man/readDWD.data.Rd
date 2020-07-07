@@ -25,7 +25,7 @@ DEFAULT: FALSE}
 
 \item{varnames}{Logical (vector): add a short description to the DWD variable
 abbreviations in the column names?
-E.g. change \code{FX,TNK} to \code{FX.Windspitze,TNK.Lufttemperatur_Min},
+E.g. change \verb{FX,TNK} to \verb{FX.Windspitze,TNK.Lufttemperatur_Min},
 see \code{\link{newColumnNames}}.
 DEFAULT: FALSE (for backwards compatibility)}
 
