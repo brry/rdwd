@@ -53,7 +53,7 @@ r*angle
 }
 
 #' @rdname lldist
-#' @param fun   Function to be applied. DEFAULT: \code{\link{max}}
+#' @param fun   Function to be applied. DEFAULT: [max()]
 #' @param each  Logical: give max dist to all other points for each point separately?
 #'              If FALSE, will return the maximum of the complete distance matrix,
 #'              as if `max(maxlldist(y,x))`. For examples, see

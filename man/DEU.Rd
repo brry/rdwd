@@ -5,7 +5,7 @@
 \alias{DEU}
 \title{Map of German states (Bundeslaender) from GADM through the \code{raster} package}
 \format{
-Formal class 'SpatialPolygons' \link{package "sp"} with 4 slots
+Formal class 'SpatialPolygons' (package "sp") with 4 slots
 }
 \description{
 Map of German states (Bundeslaender) from GADM through the \code{raster} package

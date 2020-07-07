@@ -2,7 +2,7 @@
 #' @description returns a directory used for local tests on Berry's computers.
 #' This is used in many examples to save the downloaded DWD data in this directory,
 #' thus avoiding multiple downloads of the same file.
-#' @seealso \code{\link{runLocalTests}}
+#' @seealso [runLocalTests()]
 #' @return charstring (directory)
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Apr 2019
 #' @keywords file

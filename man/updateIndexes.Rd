@@ -8,16 +8,16 @@ updateIndexes(dwdlocal = FALSE, grdlocal = FALSE, metaforce = NA)
 }
 \arguments{
 \item{dwdlocal}{Read "DWDdata/INDEX_of_DWD_.txt" instead of calling
-\code{\link{indexFTP}}? DEFAULT: FALSE}
+\code{\link[=indexFTP]{indexFTP()}}? DEFAULT: FALSE}
 
 \item{grdlocal}{Read "DWDdata/INDEX_of_DWD_grids.txt" instead of calling
-\code{\link{indexFTP}}? DEFAULT: FALSE}
+\code{\link[=indexFTP]{indexFTP()}}? DEFAULT: FALSE}
 
-\item{metaforce}{\code{\link{dataDWD} force} argument for BESCHREIBUNG files.
+\item{metaforce}{\code{\link[=dataDWD]{dataDWD()}} \code{force} argument for BESCHREIBUNG files.
 DEFAULT: NA (re-download if older than 24 hours)}
 }
 \value{
-\code{\link{checkIndex}} results
+\code{\link[=checkIndex]{checkIndex()}} results
 }
 \description{
 This is meant to be called with getwd at the
@@ -55,7 +55,7 @@ rdwd package source code directory to update the indexes with one single call.
 
 }
 \seealso{
-\code{\link{createIndex}}
+\code{\link[=createIndex]{createIndex()}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2019

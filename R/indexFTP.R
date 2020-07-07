@@ -4,13 +4,18 @@
 #' Defaults to the German Weather Service (DWD, Deutscher WetterDienst) OpenData server at
 #' <ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/>.\cr
 #' The R package `RCurl` must be available to do this.\cr\cr
+#' It's not suggested to run this for all folders, as it can take quite some time
+#' and you may get kicked off the FTP-Server. This package contains an index
+#' of the climatic observations at weather stations ([`fileIndex`]) 
+#' and gridded datasets ([`gridIndex`]).
+#' If they are out of date, please let me know!\cr\cr
 #' **Getting banned from the FTP Server**\cr
 #' Normally, this shouldn't happen anymore: since Version 0.10.10 (2018-11-26),
 #' a single RCurl handle is used for all FTP requests and since version 1.0.17 (2019-05-14),
 #' the file tree provided by the DWD is used to obtain all folders first,
 #' eliminating the recursive calls.\cr
 #' There's a provision if the FTP server detects bot requests and denies access.
-#' If \code{RCurl::\link[RCurl]{getURL}} fails, there will still be an output
+#' If [RCurl::getURL()] fails, there will still be an output
 #' which you can pass in a second run via `folder` to extract the remaining dirs.
 #' You might need to wait a bit and set `sleep` to a higher value in that case.
 #' Here's an example:\cr
@@ -20,15 +25,9 @@
 #' ```
 #' Of course, with a higher sleep value, the execution will take longer!
 #' 
-#' @details
-#' It's not suggested to run this for all folders, as it can take quite some time
-#' and you may get kicked off the FTP-Server. This package contains an index
-#' of the climatic observations at weather stations: \code{View(rdwd:::\link{fileIndex})}.
-#' If it is out of date, please let me know!
-#' 
 #' @return a vector with file paths
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2016
-#' @seealso \code{\link{createIndex}}, \code{\link{updateIndexes}}
+#' @seealso [createIndex()], [updateIndexes()]
 #' @keywords file
 #' @importFrom stats runif
 #' @importFrom pbapply pblapply
@@ -53,7 +52,7 @@
 #'                and `gridbase`, the grid folders in the tree are used.
 #'                DEFAULT: "currentfindex"
 #' @param base    Main directory of FTP server. Trailing slashes will be removed.
-#'                DEFAULT: \code{\link{dwdbase}}
+#'                DEFAULT: [`dwdbase`]
 #' @param is.file.if.has.dot Logical: if some of the input paths contain a dot,
 #'                treat those as files, i.e. do not try to read those as if they
 #'                were a folder. Only set this to FALSE if you know what you're doing.
@@ -61,24 +60,24 @@
 #' @param exclude.latest.bin Exclude latest file at opendata.dwd.de/weather/radar/radolan?
 #'                RCurl::getURL indicates this is a pointer to the last regularly named file.
 #'                DEFAULT: TRUE
-#' @param fast    Read tree file with \code{data.table::\link[data.table]{fread}}
-#'                (1 sec) instead of \code{\link{readLines}} (10 secs)?
+#' @param fast    Read tree file with [data.table::fread()]
+#'                (1 sec) instead of [readLines()] (10 secs)?
 #'                DEFAULT: TRUE
 #' @param sleep   If not 0, a random number of seconds between 0 and `sleep`
-#'                is passed to \code{\link{Sys.sleep}} after each read folder
+#'                is passed to [Sys.sleep()] after each read folder
 #'                to avoid getting kicked off the FTP-Server, see note above. DEFAULT: 0
 #' @param dir     Writeable directory name where to save the downloaded file.
 #'                Created if not existent.
-#'                DEFAULT: "DWDdata" at current \code{\link{getwd}()}
+#'                DEFAULT: "DWDdata" at current [getwd()]
 #' @param filename Character: Part of output filename. "INDEX_of_DWD_" is prepended,
 #'                "/" replaced with "_", ".txt" appended. DEFAULT: folder\[1]
 #' @param overwrite Logical: Overwrite existing file? If not, "_n" is added to the
-#'                filename, see \code{berryFunctions::\link[berryFunctions]{newFilename}}.
+#'                filename, see [berryFunctions::newFilename()].
 #'                DEFAULT: FALSE
 #' @param quiet   Suppress progbars and message about directory/files?
-#'                DEFAULT: FALSE through \code{\link{rdwdquiet}()}
+#'                DEFAULT: FALSE through [rdwdquiet()]
 #' @param progbar Logical: present a progress bar in each level? DEFAULT: TRUE
-#' @param verbose Logical: write a lot of messages from \code{RCurl::\link[RCurl]{getURL}}?
+#' @param verbose Logical: write a lot of messages from [RCurl::getURL()]?
 #'                DEFAULT: FALSE (usually, you dont need all the curl information)
 #' 
 indexFTP <- function(

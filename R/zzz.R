@@ -68,11 +68,11 @@ gridbase <- "ftp://opendata.dwd.de/climate_environment/CDC/grids_germany"
 #' 
 #' Create display character string for leaflet map popup from data.frame rows.
 #' This function is not exported, as it is only internally useful.
-#' A generic version is available in \code{berryFunctions::\link[berryFunctions]{popleaf}}.
+#' A generic version is available in [berryFunctions::popleaf]().
 #' 
 #' @return Vector of character strings, one for each row in x.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Feb 2017
-#' @seealso \code{\link{geoIndex}}
+#' @seealso [`geoIndex`]
 #' @keywords character
 #' @importFrom berryFunctions removeSpace
 #' 
@@ -94,9 +94,9 @@ apply(x, MARGIN=1, perrow)
 #' @title check suggested package for availability
 #' @description check suggested package for availability,
 #'              yielding an instructive error message if not
-#' @return invisible success logical value from \code{\link{requireNamespace}}
+#' @return invisible success logical value from [requireNamespace()]
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019
-#' @seealso \code{\link{requireNamespace}}
+#' @seealso [requireNamespace()]
 #' @keywords package
 # @export # only needed internally, I think
 #' 

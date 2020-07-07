@@ -1,12 +1,12 @@
 #' @title update rdwd indexes
 #' @description This is meant to be called with getwd at the
 #'  rdwd package source code directory to update the indexes with one single call.
-#' @return \code{\link{checkIndex}} results
+#' @return [checkIndex()] results
 #' @importFrom berryFunctions sortDF
 #' @importFrom tools resaveRdaFiles
 #' @importFrom utils read.table write.table
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2019
-#' @seealso \code{\link{createIndex}}
+#' @seealso [createIndex()]
 #' @keywords data file internal
 #' @examples
 #' # number of files at dwdbase
@@ -39,10 +39,10 @@
 #' #  35'953 (2020-07-06)
 #' 
 #' @param dwdlocal Read "DWDdata/INDEX_of_DWD_.txt" instead of calling
-#'                 \code{\link{indexFTP}}? DEFAULT: FALSE
+#'                 [indexFTP()]? DEFAULT: FALSE
 #' @param grdlocal Read "DWDdata/INDEX_of_DWD_grids.txt" instead of calling
-#'                 \code{\link{indexFTP}}? DEFAULT: FALSE
-#' @param metaforce \code{\link{dataDWD} force} argument for BESCHREIBUNG files.
+#'                 [indexFTP()]? DEFAULT: FALSE
+#' @param metaforce [dataDWD()] `force` argument for BESCHREIBUNG files.
 #'                 DEFAULT: NA (re-download if older than 24 hours)
 #' 
 updateIndexes <- function(

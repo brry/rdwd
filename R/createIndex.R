@@ -1,10 +1,10 @@
 #' Create file and meta index of the DWD CDC FTP Server
 #' 
 #' This is mainly an internal function.
-#' Create data.frames out of the vector index returned by \code{\link{indexFTP}}.
-#' For \code{\link{fileIndex}} (the first output element) `createIndex`
+#' Create data.frames out of the vector index returned by [indexFTP()].
+#' For [`fileIndex`] (the first output element) `createIndex`
 #' tries to obtain res, var, per, file, id, start and end from the paths.
-#' If `meta=TRUE`, \code{\link{metaIndex}} and \code{\link{geoIndex}} are also
+#' If `meta=TRUE`, [`metaIndex`] and [`geoIndex`] are also
 #' created. They combine all Beschreibung files into a single data.frame.\cr
 #' If you create your own index as suggested in selectDWD (argument `findex`),
 #' you can read the produced file as shown in the example section.
@@ -12,8 +12,7 @@
 #' @return invisible data.frame (or if meta=TRUE, list with two data.frames)
 #' with a number of columns inferred from the paths. Each is also written to disc.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct-Nov 2016, June 2017
-#' @seealso \code{\link{indexFTP}}, \code{\link{updateIndexes}}
-#' \code{\link{index}}, \code{\link{selectDWD}}
+#' @seealso [indexFTP()], [updateIndexes()], [`index`], [selectDWD()]
 #' @keywords manip
 #' @importFrom berryFunctions l2df convertUmlaut newFilename sortDF traceCall seqPal
 #' @importFrom utils write.table
@@ -31,33 +30,33 @@
 #' lapply(ind2, head)
 #' }
 #' 
-#' @param paths Char: vector of DWD paths returned by \code{\link{indexFTP}} called
+#' @param paths Char: vector of DWD paths returned by [indexFTP()] called
 #'              with the same `base` value as this function
 #' @param base  Main directory of DWD ftp server, defaulting to observed climatic records.
-#'              DEFAULT: \code{\link{dwdbase}}
+#'              DEFAULT: [`dwdbase`]
 #' @param dir   Char: writeable directory name where to save the main output(s).
-#'              Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}
-#' @param fname Char: Name of file in `dir` in which to write \code{\link{fileIndex}}.
+#'              Created if not existent. DEFAULT: "DWDdata" at current [getwd()]
+#' @param fname Char: Name of file in `dir` in which to write [`fileIndex`].
 #'              Use `fname=""` to suppress writing. DEFAULT: "fileIndex.txt"
 #' @param meta  Logical: should metaIndex also be created from fileIndex?
-#'              Uses \code{\link{dataDWD}} to download files if not present.
+#'              Uses [dataDWD()] to download files if not present.
 #'              DEFAULT: FALSE
 #' @param metadir Char: Directory (subfolder of `dir`) where original
 #'              description files are downloaded to if meta=TRUE. Passed to
-#'              \code{\link{dataDWD}}. "" to write in `dir`. DEFAULT: "meta"
+#'              [dataDWD()]. "" to write in `dir`. DEFAULT: "meta"
 #' @param mname Char: Name of file in `dir` (not `metadir`) in which to
-#'              write \code{\link{metaIndex}}.
+#'              write [`metaIndex`].
 #'              Use `mname=""` to suppress writing. DEFAULT: "metaIndex.txt"
-#' @param gname Filename for \code{\link{geoIndex}}. DEFAULT: "geoIndex.txt"
+#' @param gname Filename for [`geoIndex`]. DEFAULT: "geoIndex.txt"
 #' @param overwrite Logical: Overwrite existing `fname / mname / gname` files?
 #'              If not, "_n" is added to the filenames, see
-#'              \code{berryFunctions::\link[berryFunctions]{newFilename}}.
+#'              [berryFunctions::newFilename()].
 #'              DEFAULT: FALSE
-#' @param checkwarn Logical: warn about \code{\link{checkIndex}} issues? DEFAULT: TRUE
-#' @param checklog Logfile for \code{\link{checkIndex}}. DEFAULT: \code{\link{tempfile}()}
+#' @param checkwarn Logical: warn about [checkIndex()] issues? DEFAULT: TRUE
+#' @param checklog Logfile for [checkIndex()]. DEFAULT: [tempfile()]
 #' @param quiet Logical: Suppress messages about progress and filenames?
-#'              DEFAULT: FALSE through \code{\link{rdwdquiet}()}
-#' @param \dots Further arguments passed to \code{\link{dataDWD}} for the meta part.
+#'              DEFAULT: FALSE through [rdwdquiet()]
+#' @param \dots Further arguments passed to [dataDWD()] for the meta part.
 #' 
 createIndex <- function(
 paths,

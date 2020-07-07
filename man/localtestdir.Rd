@@ -26,7 +26,7 @@ localtestdir()
 
 }
 \seealso{
-\code{\link{runLocalTests}}
+\code{\link[=runLocalTests]{runLocalTests()}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Apr 2019

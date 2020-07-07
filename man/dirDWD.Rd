@@ -8,12 +8,12 @@ dirDWD(dir = "DWDdata", quiet = rdwdquiet())
 }
 \arguments{
 \item{dir}{Char for dirDWD: writeable directory name. Created if not existent.
-DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
+DEFAULT: "DWDdata" at current \code{\link[=getwd]{getwd()}}}
 
-\item{quiet}{Logical: Suppress messages about creating dir? DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
+\item{quiet}{Logical: Suppress messages about creating dir? DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 }
 \value{
-dirDWD invisibly returns the prior working directory as per \code{\link{setwd}}.
+dirDWD invisibly returns the prior working directory as per \code{\link[=setwd]{setwd()}}.
 }
 \description{
 Manage directories with useful messages in the rdwd package.
@@ -23,7 +23,7 @@ Manage directories with useful messages in the rdwd package.
 
 }
 \seealso{
-\code{\link{dataDWD}}
+\code{\link[=dataDWD]{dataDWD()}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2016

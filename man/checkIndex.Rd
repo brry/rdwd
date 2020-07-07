@@ -33,13 +33,13 @@ DEFAULT: TRUE}
 DEFAULT: "misc/ExampleTests/warnings.txt"}
 
 \item{quiet}{Logical: Suppress progress messages?
-DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
+DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 }
 \value{
-Charstring with issues (if any) to be printed with \code{cat()}.
+Charstring with issues (if any) to be printed with \code{\link[=cat]{cat()}}.
 }
 \description{
-check indexes. Mainly for internal usage in \code{\link{createIndex}}.
+check indexes. Mainly for internal usage in \code{\link[=createIndex]{createIndex()}}.
 Not exported, so call it as rdwd:::checkIndex() if you want to
 run tests yourself. Further test suggestions are welcome!
 }

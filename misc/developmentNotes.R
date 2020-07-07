@@ -23,6 +23,45 @@ raster::plot(nc_proj)  ; addBorders()
 
 
 
+# markdownify source code ----
+
+f <- "R/addBorders.R"
+l <- readLines(f)
+#gsub("\\code\{\\link\{+\}\}","[+()]", l[18])
+
+
+install.packages("roxygen2md")
+library(roxygen2md)
+roxygen2md("none")    # after each step, check git changes
+find_rd()
+roxygen2md("simple")
+find_rd()
+roxygen2md("full")
+find_rd()
+?markdownify()
+
+
+brack2tick <- function(x) gsub("()`]", "`()]", gsub("(\\[)(.*\\(\\))(\\])", "\\1`\\2`\\3", x), fixed=TRUE)
+l <- "#' @description check() indexes (kkk). som text in [createIndex()]. and some [8]"
+brack2tick(l)
+rm(l)
+
+
+f <- "R/checkIndex.R" ; writeLines(brack2tick(readLines(f)),f)
+
+
+indextick <- function(f)
+  {
+  l <- readLines(f)
+  for(i in c("index", "fileIndex", "metaIndex", "geoIndex", "gridIndex", 
+             "formatIndex", "dwdbase", "gridbase", "EUR", "DEU", "dwdparams"))
+     l <- gsub(paste0("[",i,"()]"), paste0("[`",i,"`]"), l, fixed=TRUE)
+  writeLines(l, f)
+  }
+indextick("R/zzz.R")
+
+
+
 # readDWD.stand fwf speed comp ------
 
 data("formatIndex")

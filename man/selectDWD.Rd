@@ -23,7 +23,7 @@ selectDWD(
 )
 }
 \arguments{
-\item{name}{Char: station name(s) passed to \code{\link{findID}}, along with
+\item{name}{Char: station name(s) passed to \code{\link[=findID]{findID()}}, along with
 \code{exactmatch} and \code{mindex}.
 All 3 arguments are ignored if \code{id} is given. DEFAULT: ""}
 
@@ -34,7 +34,7 @@ DEFAULT: NA for interactive selection}
 
 \item{var}{Char: weather \strong{var}iable of interest, like e.g.
 \verb{"air_temperature", "cloudiness", "precipitation", "soil_temperature", "solar", "kl", "more_precip"}
-See above and in \code{View(rdwd:::\link{fileIndex})}.
+See above and in \code{\link{fileIndex}}.
 DEFAULT: NA for interactive selection}
 
 \item{per}{Char: desired time \strong{per}iod. One of
@@ -45,13 +45,13 @@ use \code{per="hr"} or \code{per="rh"} (and \code{outvec=TRUE}).
 \code{per} is set to "" if var=="solar".
 DEFAULT: NA for interactive selection}
 
-\item{exactmatch}{Logical passed to \code{\link{findID}}: match \code{name}
-with \code{\link{==}})? Else with \code{\link{grepl}}. DEFAULT: TRUE}
+\item{exactmatch}{Logical passed to \code{\link[=findID]{findID()}}: match \code{name}
+with \code{\link{==}})? Else with \code{\link[=grepl]{grepl()}}. DEFAULT: TRUE}
 
-\item{mindex}{Single object: Index with metadata passed to \code{\link{findID}}.
-DEFAULT: \code{rdwd:::\link{metaIndex}}}
+\item{mindex}{Single object: Index with metadata passed to \code{\link[=findID]{findID()}}.
+DEFAULT: \code{\link{metaIndex}}}
 
-\item{quiet}{Suppress id length warnings? DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
+\item{quiet}{Suppress id length warnings? DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
 \item{id}{Char/Number: station ID with or without leading zeros, e.g. "00614" or 614.
 Is internally converted to an integer, because some DWD meta data
@@ -62,13 +62,13 @@ Must be the same \code{base} used to create \code{findex}.
 DEFAULT: \code{\link{dwdbase}}}
 
 \item{findex}{Single object: Index used to select filename, as returned by
-\code{\link{createIndex}}.To use a current / custom index, use
+\code{\link[=createIndex]{createIndex()}}.To use a current / custom index, use
 \code{myIndex <- createIndex(indexFTP("/daily/solar"))}
-(with desired path, of course). DEFAULT: \code{rdwd:::\link{fileIndex}}}
+(with desired path, of course). DEFAULT: \code{\link{fileIndex}}}
 
 \item{current}{Single logical for case 3/4 with given \code{path}: instead of
 \code{findex}, use a list of the currently available files at
-base/res/var/per? This will call \code{\link{indexFTP}}, thus
+base/res/var/per? This will call \code{\link[=indexFTP]{indexFTP()}}, thus
 requires availability of the \code{RCurl} package.
 DEFAULT: FALSE}
 
@@ -81,10 +81,10 @@ DEFAULT: FALSE}
 pdf and html files? DEFAULT: TRUE}
 
 \item{outvec}{Single logical: if \strong{path} or \strong{ID} length > 1,
-instead of a list, return a vector? (via \code{\link{unlist}}).
+instead of a list, return a vector? (via \code{\link[=unlist]{unlist()}}).
 DEFAULT: \code{per \%in\% c("rh","hr")}}
 
-\item{\dots}{Further arguments passed to \code{\link{indexFTP}} if \code{current=TRUE},
+\item{\dots}{Further arguments passed to \code{\link[=indexFTP]{indexFTP()}} if \code{current=TRUE},
 except folder and base.}
 }
 \value{
@@ -92,7 +92,7 @@ Character string with file path and name(s) in the format
 "base/res/var/per/filename.zip"
 }
 \description{
-Select files for downloading with \code{\link{dataDWD}}.\cr
+Select files for downloading with \code{\link[=dataDWD]{dataDWD()}}.\cr
 The available folders with datasets are listed at
 \url{https://bookdown.org/brry/rdwd/available-datasets.html}.
 To use an updated index (if necessary), see
@@ -101,7 +101,7 @@ All arguments (except for \code{mindex}, \code{findex} and \code{base})
 can be a vector and will be recycled to the maximum length of all arguments.
 If that length > 1, the output is a list of filenames (or vector if \code{outvec=TRUE}).\cr
 If station \code{name} is given, but \code{id} is empty (""),
-\strong{id} is inferred via \code{mindex}.
+\strong{id} is inferred via \code{\link[=findID]{findID()}} using \code{mindex}.
 If \code{res/var/per} are given and valid (existing in \code{findex}),
 they are pasted together to form a \strong{path}.
 Here is an overview of the behavior in each case of availability:
@@ -158,7 +158,7 @@ head(  selectDWD(id="", res="daily", var="kl", per="recent")   )
 
 }
 \seealso{
-\code{\link{dataDWD}}, \code{\link{metaIndex}},
+\code{\link[=dataDWD]{dataDWD()}}, \code{\link{metaIndex}},
 \url{https://bookdown.org/brry/rdwd}
 }
 \author{

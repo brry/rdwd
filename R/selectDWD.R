@@ -1,6 +1,6 @@
 #' @title Select data from the DWD CDC FTP Server
 #' 
-#' @description Select files for downloading with \code{\link{dataDWD}}.\cr
+#' @description Select files for downloading with [dataDWD()].\cr
 #' The available folders with datasets are listed at
 #' <https://bookdown.org/brry/rdwd/available-datasets.html>.
 #' To use an updated index (if necessary), see
@@ -9,7 +9,7 @@
 #' can be a vector and will be recycled to the maximum length of all arguments.
 #' If that length > 1, the output is a list of filenames (or vector if `outvec=TRUE`).\cr
 #' If station `name` is given, but `id` is empty (""),
-#' **id** is inferred via `mindex`.
+#' **id** is inferred via [findID()] using `mindex`.
 #' If `res/var/per` are given and valid (existing in `findex`),
 #' they are pasted together to form a **path**.
 #' Here is an overview of the behavior in each case of availability:
@@ -74,7 +74,7 @@
 #' 
 #' }
 #' 
-#' @param name  Char: station name(s) passed to \code{\link{findID}}, along with
+#' @param name  Char: station name(s) passed to [findID()], along with
 #'              `exactmatch` and `mindex`.
 #'              All 3 arguments are ignored if `id` is given. DEFAULT: ""
 #' @param res   Char: temporal **res**olution available at `base`, usually one of
@@ -84,7 +84,7 @@
 #' @param var   Char: weather **var**iable of interest, like e.g.
 #'              `"air_temperature", "cloudiness", "precipitation",
 #'              "soil_temperature", "solar", "kl", "more_precip"`
-#'              See above and in \code{View(rdwd:::\link{fileIndex})}.
+#'              See above and in [`fileIndex`].
 #'              DEFAULT: NA for interactive selection
 #' @param per   Char: desired time **per**iod. One of
 #'              "recent" (data from the last year, up to date usually within a few days) or
@@ -93,36 +93,36 @@
 #'              use `per="hr"` or `per="rh"` (and `outvec=TRUE`).
 #'              `per` is set to "" if var=="solar".
 #'              DEFAULT: NA for interactive selection
-#' @param exactmatch Logical passed to \code{\link{findID}}: match `name`
-#'              with \code{\link{==}})? Else with \code{\link{grepl}}. DEFAULT: TRUE
-#' @param mindex Single object: Index with metadata passed to \code{\link{findID}}.
-#'              DEFAULT: \code{rdwd:::\link{metaIndex}}
-#' @param quiet Suppress id length warnings? DEFAULT: FALSE through \code{\link{rdwdquiet}()}
+#' @param exactmatch Logical passed to [findID()]: match `name`
+#'              with [`==`])? Else with [grepl()]. DEFAULT: TRUE
+#' @param mindex Single object: Index with metadata passed to [findID()].
+#'              DEFAULT: [`metaIndex`]
+#' @param quiet Suppress id length warnings? DEFAULT: FALSE through [rdwdquiet()]
 #' @param id    Char/Number: station ID with or without leading zeros, e.g. "00614" or 614.
 #'              Is internally converted to an integer, because some DWD meta data
 #'              files also contain no leading zeros. DEFAULT: findID(name, exaxtmatch, mindex)
 #' @param base  Single char: main directory of DWD ftp server.
 #'              Must be the same `base` used to create `findex`.
-#'              DEFAULT: \code{\link{dwdbase}}
+#'              DEFAULT: [`dwdbase`]
 #' @param findex Single object: Index used to select filename, as returned by
-#'              \code{\link{createIndex}}.To use a current / custom index, use
+#'              [createIndex()].To use a current / custom index, use
 #'              `myIndex <- createIndex(indexFTP("/daily/solar"))`
-#'              (with desired path, of course). DEFAULT: \code{rdwd:::\link{fileIndex}}
+#'              (with desired path, of course). DEFAULT: [`fileIndex`]
 #' @param current Single logical for case 3/4 with given `path`: instead of
 #'              `findex`, use a list of the currently available files at
-#'              base/res/var/per? This will call \code{\link{indexFTP}}, thus
+#'              base/res/var/per? This will call [indexFTP()], thus
 #'              requires availability of the `RCurl` package.
 #'              DEFAULT: FALSE
 #' @param meta  Logical: return metadata txt file name instead of climate data zip file?
 #'              Relevant only in case 4 (path and id given) and case 3 for res="multi_annual".
-#'              See \code{\link{metaIndex}} for a compilation of all metaData files.
+#'              See [`metaIndex`] for a compilation of all metaData files.
 #'              DEFAULT: FALSE
 #' @param meta_txt_only Logical: if `meta`, only return .txt files, not the
 #'              pdf and html files? DEFAULT: TRUE
 #' @param outvec Single logical: if **path** or **ID** length > 1,
-#'              instead of a list, return a vector? (via \code{\link{unlist}}).
+#'              instead of a list, return a vector? (via [unlist()]).
 #'              DEFAULT: `per %in% c("rh","hr")`
-#' @param \dots Further arguments passed to \code{\link{indexFTP}} if `current=TRUE`,
+#' @param \dots Further arguments passed to [indexFTP()] if `current=TRUE`,
 #'              except folder and base.
 #' 
 selectDWD <- function(

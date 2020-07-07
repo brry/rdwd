@@ -11,22 +11,22 @@ readDWD.meta(file, quiet = rdwdquiet(), ...)
 DWDdata/daily_kl_recent_KL_Tageswerte_Beschreibung_Stationen.txt}
 
 \item{quiet}{Suppress subfunction name message?
-DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
+DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
-\item{\dots}{Further arguments passed to \code{\link{read.fwf}}}
+\item{\dots}{Further arguments passed to \code{\link[=read.fwf]{read.fwf()}}}
 }
 \value{
 data.frame
 }
 \description{
 read dwd metadata (Beschreibung*.txt files).
-Intended to be called via \code{\link{readDWD}}.\cr
-Column widths for \code{\link{read.fwf}} are computed internally.\cr
-if(any(meta)), \code{\link{readDWD}} tries to set the locale to German
+Intended to be called via \code{\link[=readDWD]{readDWD()}}.\cr
+Column widths for \code{\link[=read.fwf]{read.fwf()}} are computed internally.\cr
+if(any(meta)), \code{\link[=readDWD]{readDWD()}} tries to set the locale to German
 (to handle Umlaute correctly). It is hence not recommended to call
 \code{rdwd:::readDWD.meta} directly on a file!\cr
 Names can later be changed to ascii with
-\code{berryFunctions::\link{convertUmlaut}}.
+\code{\link[berryFunctions:convertUmlaut]{berryFunctions::convertUmlaut()}}.
 }
 \examples{
 \dontrun{ # Excluded from CRAN checks, but run in localtests
@@ -45,7 +45,7 @@ if(length(cnm)!=8) stop("number of columns should be 8, but is ", length(cnm),
 }
 }
 \seealso{
-\code{\link{readDWD}}
+\code{\link[=readDWD]{readDWD()}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}

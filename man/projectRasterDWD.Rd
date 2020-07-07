@@ -15,23 +15,23 @@ projectRasterDWD(
 \arguments{
 \item{r}{Raster object}
 
-\item{proj}{Current projection to be given to \code{r}. Can be\cr - a
-\code{raster::\link[raster:projection]{crs}} input (e.g. a projection
-character string),\cr - NULL to not set proj+extent (but still consider
-\code{targetproj}),\cr - or a special charstring for internal defaults, namely:
-"radolan" (readDWD.binary + .asc + .radar), "seasonal" (.raster) or "nc"
-(.nc).\cr DEFAULT: "radolan"}
-
-\item{extent}{Current \code{\link[raster]{extent}} to be given to \code{r}.
-Ignored if \code{proj=NULL}. Can be an extent object, a vector with 4
-numbers, or "radolan" / "rw" / "seasonal" / "nc" with internal defaults.
+\item{proj}{Current projection to be given to \code{r}. Can be\cr
+- a \code{\link[raster:projection]{raster::crs()}} input (e.g. a projection character string),\cr
+- NULL to not set proj+extent (but still consider \code{targetproj}),\cr
+- or a special charstring for internal defaults, namely:
+"radolan" (readDWD.binary + .asc + .radar), "seasonal" (.raster) or "nc"  (.nc).\cr
 DEFAULT: "radolan"}
 
-\item{targetproj}{\code{r} is reprojected to this
-\code{\link[raster:projection]{crs}}. Use NULL to not reproject (i.e. only
-set proj and extent) DEFAULT: "ll" with internal default for lat-lon.}
+\item{extent}{Current \code{\link[raster:extent]{raster::extent()}} to be given to \code{r}.
+Ignored if \code{proj=NULL}. Can be an extent object,
+a vector with 4 numbers, or "radolan" / "rw" / "seasonal" / "nc" with internal defaults.
+DEFAULT: "radolan"}
 
-\item{quiet}{Logical: suppress progress messages? DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
+\item{targetproj}{\code{r} is reprojected to this \code{\link[raster:projection]{raster::crs()}}.
+Use NULL to not reproject (i.e. only set proj and extent).
+DEFAULT: "ll" with internal default for lat-lon.}
+
+\item{quiet}{Logical: suppress progress messages? DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 }
 \value{
 Raster object with projection and extent, invisible
@@ -56,10 +56,10 @@ as a starting point, I then refined the extent to a visual match, see
 # To be used after readDWD.binary etc
 }
 \seealso{
-\code{raster::\link[raster:projection]{crs},
-  \link[raster]{projection},\link[raster]{extent},\link[raster]{projectRaster}}\cr
-\code{\link{readDWD.binary}, \link{readDWD.raster}, \link{readDWD.asc},
-  \link{readDWD.radar}, \link{readDWD.nc}}
+\verb{raster::}\code{\link[raster:projection]{crs}} / \code{\link[raster:extent]{extent}} /
+\code{\link[raster:projectRaster]{projectRaster}}\cr
+\code{readDWD.}\code{\link[=readDWD.binary]{binary}} / \code{\link[=readDWD.raster]{raster}} /
+\code{\link[=readDWD.asc]{asc}} / \code{\link[=readDWD.radar]{radar}} / \code{\link[=readDWD.nc]{nc}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, May 2019

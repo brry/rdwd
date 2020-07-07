@@ -11,7 +11,7 @@
 \title{Indexes of files and metadata on the DWD CDC FTP server}
 \format{
 \strong{fileIndex}: data.frame with character strings. ca 260k rows x 8 columns:\cr
-\code{res}, \code{var}, \code{per} (see \code{\link{selectDWD}}),
+\code{res}, \code{var}, \code{per} (see \code{\link[=selectDWD]{selectDWD()}}),
 station \code{id}, time series \code{start} and \code{end}, and
 \code{ismeta} information, all according to \code{path}.\cr
 \strong{metaIndex}: data.frame with ca 97k rows for 12 columns:\cr
@@ -26,7 +26,7 @@ station \code{id}, time series \code{start} and \code{end}, and
 Deutscher WetterDienst / Climate Data Center  FTP Server
 }
 \description{
-Created with \code{\link{indexFTP}} and \code{\link{createIndex}} used in \code{\link{updateIndexes}}.\cr
+Created with \code{\link[=indexFTP]{indexFTP()}} and \code{\link[=createIndex]{createIndex()}} used in \code{\link[=updateIndexes]{updateIndexes()}}.\cr
 In functions, you can access them with \code{rdwd:::fileIndex} etc.\cr
 \strong{fileIndex}: A data.frame with the filenames (and derived information)
 at the default \code{base} value \code{\link{dwdbase}}.\cr
@@ -51,8 +51,8 @@ head(geoIndex)
 
 }
 \seealso{
-\code{\link{createIndex}}, \code{\link{indexFTP}}, \code{\link{selectDWD}},
-\code{\link{findID}}, \code{\link{metaInfo}},
+\code{\link[=createIndex]{createIndex()}}, \code{\link[=indexFTP]{indexFTP()}}, \code{\link[=selectDWD]{selectDWD()}},
+\code{\link[=findID]{findID()}}, \code{\link[=metaInfo]{metaInfo()}},
 \url{https://bookdown.org/brry/rdwd}
 }
 \author{

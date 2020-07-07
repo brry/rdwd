@@ -16,7 +16,7 @@ runLocalTests(
 }
 \arguments{
 \item{dir_data}{Reusable data location. Preferably not under version control.
-DEFAULT: \code{\link{localtestdir}()}}
+DEFAULT: \code{\link[=localtestdir]{localtestdir()}}}
 
 \item{dir_exmpl}{Reusable example location. DEFAULT: localtestdir(folder="misc/ExampleTests")}
 
@@ -30,7 +30,7 @@ this to FALSE. DEFAULT: !fast}
 
 \item{examples}{Run Examples (including donttest sections) DEFAULT: !fast}
 
-\item{quiet}{Suppress progress messages? DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
+\item{quiet}{Suppress progress messages? DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 }
 \value{
 Time taken to run tests in minutes
@@ -40,7 +40,7 @@ Run \code{rdwd} tests on local machine. Due to time-intensive
 data downloads, these tests are not run automatically on CRAN.
 }
 \seealso{
-\code{\link{localtestdir}}
+\code{\link[=localtestdir]{localtestdir()}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Apr-Oct 2019

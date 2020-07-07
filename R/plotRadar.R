@@ -5,7 +5,7 @@
 #' If `length(layer)==1`, only that selected layer is returned.
 #' `output@@title` is set to `main`.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Feb 2020
-#' @seealso \code{\link{addBorders}}, \code{\link{readDWD}}, <https://bookdown.org/brry/rdwd/raster-data.html>
+#' @seealso [addBorders()], [readDWD()], <https://bookdown.org/brry/rdwd/raster-data.html>
 #' @keywords aplot spatial
 #' @importFrom graphics box rect par title
 #' @importFrom berryFunctions seqPal
@@ -39,16 +39,16 @@
 #' berryFunctions::is.error(plotRadar(ncp1, layer=1:4, project=FALSE), TRUE, TRUE)
 #' }
 #' 
-#' @param x          raster oject, e.g. 'dat' element of object returned by \code{\link{readDWD}}.
+#' @param x          raster oject, e.g. 'dat' element of object returned by [readDWD()].
 #' @param layer      Optional: selected layer(s) to be plotted. DEFAULT: NULL
 #' @param main       Graph title(s). Use "" to suppress.
 #'                   Note`output@@title` is set to `main`! DEFAULT: x@@title
 #' @param land       Color of land areas in the map. DEFAULT: "gray80"
 #' @param sea        Color of sea areas in the map. DEFAULT: "cadetblue1"
-#' @param de         Color of Deutschland Bundesland borders (\code{\link{DEU}}). DEFAULT: "grey80"
-#' @param eu         Color of Europe country borders (\code{\link{EUR}}). DEFAULT: "black"
+#' @param de         Color of Deutschland Bundesland borders ([`DEU`]). DEFAULT: "grey80"
+#' @param eu         Color of Europe country borders ([`EUR`]). DEFAULT: "black"
 #' @param col        Color palette for the data itself.
-#'                   DEFAULT: \code{berryFunctions::\link[berryFunctions]{seqPal}}
+#'                   DEFAULT: [berryFunctions::seqPal()]
 #' @param xlim       xlim. DEFAULT: NULL, i.e. taken from x extent (after reprojection if `project=TRUE`)
 #' @param ylim       ylim. DEFAULT: NULL, i.e. taken from y extent (after reprojection if `project=TRUE`)
 #' @param zlim       zlim. 3 Options: two-number vector,
@@ -63,15 +63,15 @@
 #'                   DEFAULT: TRUE, opposite to `sf::plot` with reset=TRUE, see
 #'                   <https://github.com/cran/sf/blob/master/R/plot.R>
 #' @param project    Project the data before plotting? Not needed if
-#'                   \code{\link{projectRasterDWD}} has already been called. DEFAULT: TRUE
-#' @param proj       current projection, see \code{\link{projectRasterDWD}},
+#'                   [projectRasterDWD()] has already been called. DEFAULT: TRUE
+#' @param proj       current projection, see [projectRasterDWD()],
 #'                   used only if `project=TRUE`. DEFAULT: "radolan"
-#' @param extent     current extent, see \code{\link{projectRasterDWD}},
+#' @param extent     current extent, see [projectRasterDWD()],
 #'                   used only if `project=TRUE`. DEFAULT: "radolan"
-#' @param targetproj target projection, see \code{\link{projectRasterDWD}},
+#' @param targetproj target projection, see [projectRasterDWD()],
 #'                   used only if `project=TRUE`. DEFAULT: "ll"
-#' @param quiet      suppress progress messages? DEFAULT: FALSE through \code{\link{rdwdquiet}()}
-#' @param \dots      Further arguments passed to \code{raster::\link[raster]{plot}}
+#' @param quiet      suppress progress messages? DEFAULT: FALSE through [rdwdquiet()]
+#' @param \dots      Further arguments passed to [raster::plot()]
 #' 
 plotRadar <- function(
 x,

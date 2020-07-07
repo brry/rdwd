@@ -19,28 +19,28 @@ readDWD.binary(
 DWDdata/daily_radolan_historical_bin_2017_SF201712.tar.gz}
 
 \item{exdir}{Directory to unzip into. If existing, only the needed files
-will be unpacked with \code{\link{untar}}. Note that exdir
+will be unpacked with \code{\link[=untar]{untar()}}. Note that exdir
 size will be around 1.1 GB. exdir can contain other files,
 these will be ignored for the actual reading with
-\code{dwdradar::\link[dwdradar]{readRadarFile}}.
+\code{\link[dwdradar:readRadarFile]{dwdradar::readRadarFile()}}.
 DEFAULT exdir: sub(".tar.gz$", "", file)}
 
 \item{toraster}{Logical: convert output (list of matrixes + meta informations)
-to a list with dat (\code{raster \link[raster]{stack}}) +
+to a list with dat (\code{\link[raster:stack]{raster::stack}}) +
 meta (list from the first subfile, but with vector of dates)?
 DEFAULT: TRUE}
 
 \item{quiet}{Suppress progress messages?
-DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
+DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
-\item{progbar}{Show progress bars? \code{\link{readDWD}} will
+\item{progbar}{Show progress bars? \code{\link[=readDWD]{readDWD()}} will
 keep progbar=TRUE for binary files, even if length(file)==1.
 DEFAULT: !quiet, i.e. TRUE}
 
 \item{selection}{Optionally read only a subset of the ~24*31=744 files.
 Called as \code{f[selection]}. DEFAULT: NULL (ignored)}
 
-\item{\dots}{Further arguments passed to \code{dwdradar::\link[dwdradar]{readRadarFile}},
+\item{\dots}{Further arguments passed to \code{\link[dwdradar:readRadarFile]{dwdradar::readRadarFile()}},
 i.e. \code{na} and \code{clutter}}
 }
 \value{
@@ -48,7 +48,7 @@ list depending on argument \code{toraster}, see there for details
 }
 \description{
 read gridded radolan binary data.
-Intended to be called via \code{\link{readDWD}}.\cr
+Intended to be called via \code{\link[=readDWD]{readDWD()}}.\cr
 }
 \examples{
 \dontrun{ # Excluded from CRAN checks, but run in localtests
@@ -86,13 +86,13 @@ head(grep("historical", gridIndex, value=TRUE))
 }
 }
 \seealso{
-\code{\link{readDWD}}, especially \code{\link{readDWD.radar}}\cr
+\code{\link[=readDWD]{readDWD()}}, especially \code{\link[=readDWD.radar]{readDWD.radar()}}\cr
 \url{https://wradlib.org} for much more extensive radar analysis in Python\cr
 Kompositformatbeschreibung at \url{https://www.dwd.de/DE/leistungen/radolan/radolan.html}
 for format description
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Dec 2018.
-Significant input for the underlying \code{dwdradar::\link[dwdradar]{readRadarFile}} came
+Significant input for the underlying \code{\link[dwdradar:readRadarFile]{dwdradar::readRadarFile()}} came
 from Henning Rust & Christoph Ritschel at FU Berlin.
 }

@@ -29,7 +29,7 @@ plotRadar(
 )
 }
 \arguments{
-\item{x}{raster oject, e.g. 'dat' element of object returned by \code{\link{readDWD}}.}
+\item{x}{raster oject, e.g. 'dat' element of object returned by \code{\link[=readDWD]{readDWD()}}.}
 
 \item{layer}{Optional: selected layer(s) to be plotted. DEFAULT: NULL}
 
@@ -45,7 +45,7 @@ Note\code{output@title} is set to \code{main}! DEFAULT: x@title}
 \item{eu}{Color of Europe country borders (\code{\link{EUR}}). DEFAULT: "black"}
 
 \item{col}{Color palette for the data itself.
-DEFAULT: \code{berryFunctions::\link[berryFunctions]{seqPal}}}
+DEFAULT: \code{\link[berryFunctions:seqPal]{berryFunctions::seqPal()}}}
 
 \item{xlim}{xlim. DEFAULT: NULL, i.e. taken from x extent (after reprojection if \code{project=TRUE})}
 
@@ -68,20 +68,20 @@ DEFAULT: TRUE, opposite to \code{sf::plot} with reset=TRUE, see
 \url{https://github.com/cran/sf/blob/master/R/plot.R}}
 
 \item{project}{Project the data before plotting? Not needed if
-\code{\link{projectRasterDWD}} has already been called. DEFAULT: TRUE}
+\code{\link[=projectRasterDWD]{projectRasterDWD()}} has already been called. DEFAULT: TRUE}
 
-\item{proj}{current projection, see \code{\link{projectRasterDWD}},
+\item{proj}{current projection, see \code{\link[=projectRasterDWD]{projectRasterDWD()}},
 used only if \code{project=TRUE}. DEFAULT: "radolan"}
 
-\item{extent}{current extent, see \code{\link{projectRasterDWD}},
+\item{extent}{current extent, see \code{\link[=projectRasterDWD]{projectRasterDWD()}},
 used only if \code{project=TRUE}. DEFAULT: "radolan"}
 
-\item{targetproj}{target projection, see \code{\link{projectRasterDWD}},
+\item{targetproj}{target projection, see \code{\link[=projectRasterDWD]{projectRasterDWD()}},
 used only if \code{project=TRUE}. DEFAULT: "ll"}
 
-\item{quiet}{suppress progress messages? DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
+\item{quiet}{suppress progress messages? DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
-\item{\dots}{Further arguments passed to \code{raster::\link[raster]{plot}}}
+\item{\dots}{Further arguments passed to \code{\link[raster:plot]{raster::plot()}}}
 }
 \value{
 raster object, projected (if \code{project=TRUE}).
@@ -122,7 +122,7 @@ berryFunctions::is.error(plotRadar(ncp1, layer=1:4, project=FALSE), TRUE, TRUE)
 
 }
 \seealso{
-\code{\link{addBorders}}, \code{\link{readDWD}}, \url{https://bookdown.org/brry/rdwd/raster-data.html}
+\code{\link[=addBorders]{addBorders()}}, \code{\link[=readDWD]{readDWD()}}, \url{https://bookdown.org/brry/rdwd/raster-data.html}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Feb 2020

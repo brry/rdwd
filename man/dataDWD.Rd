@@ -24,7 +24,7 @@ dataDWD(
 }
 \arguments{
 \item{file}{Char (vector): complete file URL(s) (including base and filename.zip) as returned by
-\code{\link{selectDWD}}. Can be a vector with several filenames.}
+\code{\link[=selectDWD]{selectDWD()}}. Can be a vector with several filenames.}
 
 \item{base}{Single char: base URL that will be removed from output file names.
 DEFAULT: \code{\link{dwdbase}}}
@@ -34,7 +34,7 @@ Needed mostly for data at \code{\link{gridbase}}.
 DEFAULT: FALSE (selectDWD returns complete URLs already)}
 
 \item{dir}{Char: Writeable directory name where to save the downloaded file.
-Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
+Created if not existent. DEFAULT: "DWDdata" at current \code{\link[=getwd]{getwd()}}}
 
 \item{force}{Logical (vector): always download, even if the file already exists in \code{dir}?
 Use NA to force re-downloading files older than 24 hours.
@@ -47,48 +47,48 @@ DEFAULT: FALSE}
 rather than append "_1"/"_2" etc to the filename? DEFAULT: FALSE}
 
 \item{dbin}{Logical: Download binary file, i.e. add \code{mode="wb"} to the
-\code{\link{download.file}} call? This is needed for .tar files
-(see \code{\link{readDWD.asc}}) and binary files like those at
+\code{\link[=download.file]{download.file()}} call? This is needed for .tar files
+(see \code{\link[=readDWD.asc]{readDWD.asc()}}) and binary files like those at
 \href{https://opendata.dwd.de/weather/radar/radolan/rw/}{weather/radar/radolan}.
 This seems to be a CRLF issue on MS Windows.
 DEFAULT: FALSE}
 
 \item{sleep}{Number. If not 0, a random number of seconds between 0 and
-\code{sleep} is passed to \code{\link{Sys.sleep}} after each download
+\code{sleep} is passed to \code{\link[=Sys.sleep]{Sys.sleep()}} after each download
 to avoid getting kicked off the FTP-Server,
-see note in \code{\link{indexFTP}}. DEFAULT: 0}
+see note in \code{\link[=indexFTP]{indexFTP()}}. DEFAULT: 0}
 
 \item{quiet}{Logical: suppress message about directory / filenames?
-DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
+DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
 \item{progbar}{Logical: present a progress bar with estimated remaining time?
 If missing and length(file)==1, progbar is internally set to FALSE.
 Only works if the R package \code{pbapply} is available. DEFAULT: TRUE (!quiet)}
 
-\item{browse}{Logical: open repository via \code{\link{browseURL}} and
+\item{browse}{Logical: open repository via \code{\link[=browseURL]{browseURL()}} and
 return URL folder path? If TRUE, no data is downloaded.
 If file has several values, only unique folders will be opened.
 DEFAULT: FALSE}
 
-\item{read}{Logical: read the file(s) with \code{\link{readDWD}}? If FALSE,
+\item{read}{Logical: read the file(s) with \code{\link[=readDWD]{readDWD()}}? If FALSE,
 only download is performed and the filename(s) returned. DEFAULT: TRUE}
 
 \item{ntrunc}{Single integer: number of filenames printed in messages
 before they get truncated with message "(and xx more)". DEFAULT: 2}
 
-\item{dfargs}{Named list of additional arguments passed to \code{\link{download.file}}
+\item{dfargs}{Named list of additional arguments passed to \code{\link[=download.file]{download.file()}}
 Note that mode="wb" is already passed if \code{dbin=TRUE}}
 
-\item{\dots}{Further arguments passed to \code{\link{readDWD}},
+\item{\dots}{Further arguments passed to \code{\link[=readDWD]{readDWD()}},
 like fread, varnames etc. Dots were passed to
-\code{\link{download.file}} prior to rdwd 0.11.7 (2019-02-25)}
+\code{\link[=download.file]{download.file()}} prior to rdwd 0.11.7 (2019-02-25)}
 }
 \value{
 Presuming downloading and processing were successful:
 if \code{read=TRUE}, the desired dataset
-(as returned by \code{\link{readDWD}}),
+(as returned by \code{\link[=readDWD]{readDWD()}}),
 otherwise the filename as saved on disc
-(may have "_n" appended in name, see \code{\link{newFilename}}).\cr
+(may have "_n" appended in name, see \code{\link[=newFilename]{newFilename()}}).\cr
 If length(file)>1, the output is a list of outputs / vector of filenames.\cr
 The output is always invisible.
 }
@@ -142,10 +142,10 @@ potsdam <- potsdam[!duplicated(potsdam$MESS_DATUM),]
 
 }
 \seealso{
-\code{\link{selectDWD}}. \code{\link{readDWD}}, \code{\link{download.file}}.\cr
+\code{\link[=selectDWD]{selectDWD()}}. \code{\link[=readDWD]{readDWD()}}, \code{\link[=download.file]{download.file()}}.\cr
 \url{https://bookdown.org/brry/rdwd}\cr
-Helpful for plotting: \code{berryFunctions::\link[berryFunctions]{monthAxis}},
-see also \code{berryFunctions::\link[berryFunctions]{climateGraph}}
+Helpful for plotting: \code{\link[berryFunctions:monthAxis]{berryFunctions::monthAxis()}},
+see also \code{\link[berryFunctions:climateGraph]{berryFunctions::climateGraph()}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Jun-Oct 2016

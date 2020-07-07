@@ -53,7 +53,7 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("DEU", "EUR"))
 #' tools::resaveRdaFiles("inst/extdata/DEU.rda")
 #' ```
 #' @docType data
-#' @format Formal class 'SpatialPolygons' [package "sp"] with 4 slots
+#' @format Formal class 'SpatialPolygons' (package "sp") with 4 slots
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, May 2018
 #' @keywords datasets
 if(requireNamespace("sp", quietly=TRUE))
@@ -77,7 +77,7 @@ load(system.file("extdata/DEU.rda", package="rdwd"), envir=environment())
 #' tools::resaveRdaFiles("inst/extdata/EUR.rda", version=2)
 #' ```
 #' @docType data
-#' @format SpatialPolygonsDataFrame [package "sp"] with 32 rows
+#' @format SpatialPolygonsDataFrame (package "sp") with 32 rows
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019
 #' @keywords datasets
 if(requireNamespace("sp", quietly=TRUE))

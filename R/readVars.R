@@ -1,7 +1,7 @@
 #' Process data from the DWD CDC FTP Server
 #' 
 #' Read climate variables (column meta data) from zip folders downloaded with
-#' \code{\link{dataDWD}}.
+#' [dataDWD()].
 #' The metadata file `"Metadaten_Parameter.*txt"` in the zip folder `file`
 #' is read, processed and returned as a data.frame.\cr
 #' `file` can be a vector with several filenames.
@@ -9,7 +9,7 @@
 #' @return data.frame of the desired dataset,
 #'         or a named list of data.frames if length(file) > 1.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jun 2018
-#' @seealso \code{\link{dataDWD}}, \code{\link{readDWD}}, \code{\link{dwdparams}}
+#' @seealso [dataDWD()], [readDWD()], [`dwdparams`]
 #' @keywords file
 #' @importFrom utils read.table unzip
 #' @importFrom berryFunctions checkFile na9 traceCall
@@ -19,7 +19,7 @@
 #' @examples
 #' # see dataDWD
 #' 
-#' @param file   Char (vector): name(s) of the file(s) downloaded with \code{\link{dataDWD}},
+#' @param file   Char (vector): name(s) of the file(s) downloaded with [dataDWD()],
 #'               e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip"
 #' @param progbar Logical: present a progress bar with estimated remaining time?
 #'               If missing and length(file)==1, progbar is internally set to FALSE.
@@ -108,12 +108,12 @@ return(output)
 #' on the CDC FTP server.\cr
 #' These are manually created by me and might need to be expanded if the DWD adds
 #' more abbreviations.\cr
-#' \code{\link{readVars}} maps them to the variable abbreviations in the
+#' [readVars()] maps them to the variable abbreviations in the
 #' `"Metadaten_Parameter.*txt"` file in any given zip folder
 #' and will warn about missing entries.
 #' 
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jun 2018
-#' @seealso \code{\link{readVars}}, \code{\link{readDWD}}
+#' @seealso [readVars()], [readDWD()]
 #' @keywords datasets
 #' @export
 #' @examples

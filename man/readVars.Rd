@@ -7,7 +7,7 @@
 readVars(file, progbar = TRUE)
 }
 \arguments{
-\item{file}{Char (vector): name(s) of the file(s) downloaded with \code{\link{dataDWD}},
+\item{file}{Char (vector): name(s) of the file(s) downloaded with \code{\link[=dataDWD]{dataDWD()}},
 e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip"}
 
 \item{progbar}{Logical: present a progress bar with estimated remaining time?
@@ -20,7 +20,7 @@ or a named list of data.frames if length(file) > 1.
 }
 \description{
 Read climate variables (column meta data) from zip folders downloaded with
-\code{\link{dataDWD}}.
+\code{\link[=dataDWD]{dataDWD()}}.
 The metadata file \code{"Metadaten_Parameter.*txt"} in the zip folder \code{file}
 is read, processed and returned as a data.frame.\cr
 \code{file} can be a vector with several filenames.
@@ -30,7 +30,7 @@ is read, processed and returned as a data.frame.\cr
 
 }
 \seealso{
-\code{\link{dataDWD}}, \code{\link{readDWD}}, \code{\link{dwdparams}}
+\code{\link[=dataDWD]{dataDWD()}}, \code{\link[=readDWD]{readDWD()}}, \code{\link{dwdparams}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Jun 2018

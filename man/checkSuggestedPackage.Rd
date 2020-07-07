@@ -12,14 +12,14 @@ checkSuggestedPackage(package, functionname)
 \item{functionname}{Charstring: function name to be used in the message}
 }
 \value{
-invisible success logical value from \code{\link{requireNamespace}}
+invisible success logical value from \code{\link[=requireNamespace]{requireNamespace()}}
 }
 \description{
 check suggested package for availability,
 yielding an instructive error message if not
 }
 \seealso{
-\code{\link{requireNamespace}}
+\code{\link[=requireNamespace]{requireNamespace()}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Aug 2019

@@ -13,29 +13,29 @@
 #'   [developmentNotes.R](https://github.com/brry/rdwd/blob/master/misc/developmentNotes.R)\cr\cr
 #' @return Raster object with projection and extent, invisible
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, May 2019
-#' @seealso \code{raster::\link[raster:projection]{crs},
-#'   \link[raster]{projection},\link[raster]{extent},\link[raster]{projectRaster}}\cr
-#'    \code{\link{readDWD.binary}, \link{readDWD.raster}, \link{readDWD.asc},
-#'   \link{readDWD.radar}, \link{readDWD.nc}}
+#' @seealso `raster::`[`crs`][raster::crs] / [`extent`][raster::extent] /
+#' [`projectRaster`][raster::projectRaster]\cr
+#' `readDWD.`[`binary`][readDWD.binary] / [`raster`][readDWD.raster] /
+#'  [`asc`][readDWD.asc] / [`radar`][readDWD.radar] / [`nc`][readDWD.nc]
 #' @keywords aplot
 #' @export
 #' @examples
 #' # To be used after readDWD.binary etc
-#' @param r        Raster object
-#' @param proj     Current projection to be given to `r`. Can be\cr - a
-#'   \code{raster::\link[raster:projection]{crs}} input (e.g. a projection
-#'   character string),\cr - NULL to not set proj+extent (but still consider
-#'   `targetproj`),\cr - or a special charstring for internal defaults, namely:
-#'   "radolan" (readDWD.binary + .asc + .radar), "seasonal" (.raster) or "nc"
-#'   (.nc).\cr DEFAULT: "radolan"
-#' @param extent   Current \code{\link[raster]{extent}} to be given to `r`.
-#'   Ignored if `proj=NULL`. Can be an extent object, a vector with 4
-#'   numbers, or "radolan" / "rw" / "seasonal" / "nc" with internal defaults.
-#'   DEFAULT: "radolan"
-#' @param targetproj `r` is reprojected to this
-#'   \code{\link[raster:projection]{crs}}. Use NULL to not reproject (i.e. only
-#'   set proj and extent) DEFAULT: "ll" with internal default for lat-lon.
-#' @param quiet    Logical: suppress progress messages? DEFAULT: FALSE through \code{\link{rdwdquiet}()}
+#' @param r      Raster object
+#' @param proj   Current projection to be given to `r`. Can be\cr 
+#'               - a [raster::crs()] input (e.g. a projection character string),\cr 
+#'               - NULL to not set proj+extent (but still consider `targetproj`),\cr 
+#'               - or a special charstring for internal defaults, namely:
+#'               "radolan" (readDWD.binary + .asc + .radar), "seasonal" (.raster) or "nc"  (.nc).\cr 
+#'               DEFAULT: "radolan"
+#' @param extent Current [raster::extent()] to be given to `r`.
+#'               Ignored if `proj=NULL`. Can be an extent object, 
+#'               a vector with 4 numbers, or "radolan" / "rw" / "seasonal" / "nc" with internal defaults.
+#'               DEFAULT: "radolan"
+#' @param targetproj `r` is reprojected to this [raster::crs()]. 
+#'               Use NULL to not reproject (i.e. only set proj and extent).
+#'               DEFAULT: "ll" with internal default for lat-lon.
+#' @param quiet  Logical: suppress progress messages? DEFAULT: FALSE through [rdwdquiet()]
 #' 
 projectRasterDWD <- function(
 r,

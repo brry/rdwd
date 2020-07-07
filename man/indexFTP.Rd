@@ -42,31 +42,31 @@ DEFAULT: TRUE}
 RCurl::getURL indicates this is a pointer to the last regularly named file.
 DEFAULT: TRUE}
 
-\item{fast}{Read tree file with \code{data.table::\link[data.table]{fread}}
-(1 sec) instead of \code{\link{readLines}} (10 secs)?
+\item{fast}{Read tree file with \code{\link[data.table:fread]{data.table::fread()}}
+(1 sec) instead of \code{\link[=readLines]{readLines()}} (10 secs)?
 DEFAULT: TRUE}
 
 \item{sleep}{If not 0, a random number of seconds between 0 and \code{sleep}
-is passed to \code{\link{Sys.sleep}} after each read folder
+is passed to \code{\link[=Sys.sleep]{Sys.sleep()}} after each read folder
 to avoid getting kicked off the FTP-Server, see note above. DEFAULT: 0}
 
 \item{dir}{Writeable directory name where to save the downloaded file.
 Created if not existent.
-DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
+DEFAULT: "DWDdata" at current \code{\link[=getwd]{getwd()}}}
 
 \item{filename}{Character: Part of output filename. "INDEX_of_DWD_" is prepended,
 "/" replaced with "_", ".txt" appended. DEFAULT: folder[1]}
 
 \item{overwrite}{Logical: Overwrite existing file? If not, "_n" is added to the
-filename, see \code{berryFunctions::\link[berryFunctions]{newFilename}}.
+filename, see \code{\link[berryFunctions:newFilename]{berryFunctions::newFilename()}}.
 DEFAULT: FALSE}
 
 \item{quiet}{Suppress progbars and message about directory/files?
-DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
+DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
 \item{progbar}{Logical: present a progress bar in each level? DEFAULT: TRUE}
 
-\item{verbose}{Logical: write a lot of messages from \code{RCurl::\link[RCurl]{getURL}}?
+\item{verbose}{Logical: write a lot of messages from \code{\link[RCurl:getURL]{RCurl::getURL()}}?
 DEFAULT: FALSE (usually, you dont need all the curl information)}
 }
 \value{
@@ -77,13 +77,18 @@ Create a list of all the files (in all subfolders) of an FTP server.
 Defaults to the German Weather Service (DWD, Deutscher WetterDienst) OpenData server at
 \url{ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/}.\cr
 The R package \code{RCurl} must be available to do this.\cr\cr
+It's not suggested to run this for all folders, as it can take quite some time
+and you may get kicked off the FTP-Server. This package contains an index
+of the climatic observations at weather stations (\code{\link{fileIndex}})
+and gridded datasets (\code{\link{gridIndex}}).
+If they are out of date, please let me know!\cr\cr
 \strong{Getting banned from the FTP Server}\cr
 Normally, this shouldn't happen anymore: since Version 0.10.10 (2018-11-26),
 a single RCurl handle is used for all FTP requests and since version 1.0.17 (2019-05-14),
 the file tree provided by the DWD is used to obtain all folders first,
 eliminating the recursive calls.\cr
 There's a provision if the FTP server detects bot requests and denies access.
-If \code{RCurl::\link[RCurl]{getURL}} fails, there will still be an output
+If \code{\link[RCurl:getURL]{RCurl::getURL()}} fails, there will still be an output
 which you can pass in a second run via \code{folder} to extract the remaining dirs.
 You might need to wait a bit and set \code{sleep} to a higher value in that case.
 Here's an example:\cr\preformatted{gridindex <- indexFTP("", gridbase)
@@ -91,12 +96,6 @@ gridindex <- indexFTP(gridindex, gridbase, sleep=15)
 }
 
 Of course, with a higher sleep value, the execution will take longer!
-}
-\details{
-It's not suggested to run this for all folders, as it can take quite some time
-and you may get kicked off the FTP-Server. This package contains an index
-of the climatic observations at weather stations: \code{View(rdwd:::\link{fileIndex})}.
-If it is out of date, please let me know!
 }
 \examples{
 \dontrun{ ## Needs internet connection
@@ -108,7 +107,7 @@ head(sol)
 
 }
 \seealso{
-\code{\link{createIndex}}, \code{\link{updateIndexes}}
+\code{\link[=createIndex]{createIndex()}}, \code{\link[=updateIndexes]{updateIndexes()}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2016

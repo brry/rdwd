@@ -13,14 +13,14 @@ findID(name = "", exactmatch = TRUE, mindex = metaIndex, quiet = rdwdquiet())
 \item{exactmatch}{Logical: Should \code{name} match an entry in \code{mindex}
 exactly (be \code{\link{==}})?
 If FALSE, \code{name} may be a part of \code{mindex$Stationsname},
-as checked with \code{\link{grepl}}. This is useful e.g. to get
+as checked with \code{\link[=grepl]{grepl()}}. This is useful e.g. to get
 all stations starting with a name (e.g. 42 IDs for Berlin).
 DEFAULT: TRUE}
 
 \item{mindex}{Single object: Index used to select \code{id} if \code{name}
-is given. DEFAULT: \code{rdwd:::\link{metaIndex}}}
+is given. DEFAULT: \code{\link{metaIndex}}}
 
-\item{quiet}{Logical: suppress length warnings? DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
+\item{quiet}{Logical: suppress length warnings? DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 }
 \value{
 Character string (vector) with ID(s)
@@ -45,7 +45,7 @@ berryFunctions::convertUmlaut("M?nchen") # use this to convert umlauts in lists
 
 }
 \seealso{
-used in \code{\link{selectDWD}}, \code{\link{metaInfo}}
+used in \code{\link[=selectDWD]{selectDWD()}}, \code{\link[=metaInfo]{metaInfo()}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct-Nov 2016

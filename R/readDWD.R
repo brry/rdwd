@@ -1,20 +1,20 @@
 # read dwd ----
 
 #' @title Process data from the DWD CDC FTP Server
-#' @description Read climate data that was downloaded with \code{\link{dataDWD}}.
+#' @description Read climate data that was downloaded with [dataDWD()].
 #' The data is unzipped and subsequently, the file is read, processed and
 #' returned as a data.frame / raster object.\cr
 #' New users are advised to set `varnames=TRUE` to obtain more informative
 #' column names.\cr\cr
 #' `readDWD` will call internal (but documented) functions depending on the
-#' arguments `multia, meta, stand, binary, raster, nc, radar, asc`:\cr
-#' to read observational data ([overview](https://bookdown.org/brry/rdwd/available-datasets.html)): \code{\link{readDWD.data},
-#'          \link{readDWD.multia}, \link{readDWD.stand}, \link{readDWD.meta}}\cr
-#' to read gridded data ([overview](https://bookdown.org/brry/rdwd/raster-data.html)): \code{\link{readDWD.binary},
-#'          \link{readDWD.raster}, \link{readDWD.radar}, \link{readDWD.nc}, \link{readDWD.asc}}\cr
+#' corresponding arguments:\cr
+#' to read observational data ([overview](https://bookdown.org/brry/rdwd/available-datasets.html)): [`readDWD.data`],
+#'          [`readDWD.multia`], [`readDWD.stand`], [`readDWD.meta`]\cr
+#' to read gridded data ([overview](https://bookdown.org/brry/rdwd/raster-data.html)): [`readDWD.binary`],
+#'          [`readDWD.raster`], [`readDWD.radar`], [`readDWD.nc`], [`readDWD.asc`]\cr
 #' Not all arguments to `readDWD` are used for all functions, e.g.
-#' `fread` is used only by `.data`, while `dividebyten`
-#' is used in `.raster` and `.asc`.\cr\cr
+#' `fread` is used only by [`.data`][readDWD.data], while `dividebyten`
+#' is used in [`.raster`][readDWD.raster] and [`.asc`][readDWD.asc].\cr\cr
 #' `file` can be a vector with several filenames. Most other arguments can
 #' also be a vector and will be recycled to the length of `file`.
 #' 
@@ -22,8 +22,8 @@
 #'         or a named list of data.frames if length(file) > 1.\cr
 #'         The functions for gridded data return raster objects instead of data.frames.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jul-Oct 2016, Winter 2018/19
-#' @seealso \code{\link{dataDWD}}, \code{\link{readVars}},
-#'          \code{\link{readMeta}}, \code{\link{selectDWD}}\cr
+#' @seealso [dataDWD()], [readVars()],
+#'          [readMeta()], [selectDWD()]\cr
 #'          <https://bookdown.org/brry/rdwd>
 #' @keywords file chron
 #' @importFrom utils read.table unzip read.fwf untar write.table
@@ -35,50 +35,50 @@
 #' # see dataDWD and readDWD.* subfunctions
 #' 
 #' @param file   Char (vector): name(s) of the file(s) downloaded with
-#'               \code{\link{dataDWD}},
+#'               [dataDWD()],
 #'               e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip" or
 #'               "~/DWDdata/RR_Stundenwerte_Beschreibung_Stationen.txt"
-#' @param quiet  Logical: suppress messages? DEFAULT: FALSE through \code{\link{rdwdquiet}()}
+#' @param quiet  Logical: suppress messages? DEFAULT: FALSE through [rdwdquiet()]
 #' @param progbar Logical: present a progress bar with estimated remaining time?
 #'               If missing and length(file)==1, progbar is internally set to FALSE.
 #'               DEFAULT: !quiet
-#' @param fread  Logical (vector): read fast? See \code{\link{readDWD.data}}.
+#' @param fread  Logical (vector): read fast? See [readDWD.data()].
 #'               DEFAULT: FALSE (some users complain it doesn't work on their PC)
 #' @param varnames Logical (vector): Expand column names?
-#'               See \code{\link{readDWD.data}}. DEFAULT: FALSE
-#' @param var    var for \code{\link{readDWD.nc}}. DEFAULT: ""
-#' @param format,tz Format and time zone of time stamps, see \code{\link{readDWD.data}}
+#'               See [readDWD.data()]. DEFAULT: FALSE
+#' @param var    var for [readDWD.nc()]. DEFAULT: ""
+#' @param format,tz Format and time zone of time stamps, see [readDWD.data()]
 #' @param dividebyten Logical (vector): Divide the values in raster files by ten?
-#'               Used in \code{\link{readDWD.raster}} and \code{\link{readDWD.asc}}.
+#'               Used in [readDWD.raster()] and [readDWD.asc()].
 #'               DEFAULT: TRUE
 #' @param multia Logical (vector): is the `file` a multi_annual file?
 #'               Overrides `meta`, so set to FALSE manually if
-#'               \code{\link{readDWD.meta}} needs to be called on a (manually renamed)
+#'               [readDWD.meta()] needs to be called on a (manually renamed)
 #'               Beschreibung file ending with "Standort.txt".
-#'               See \code{\link{readDWD.multia}}.
+#'               See [readDWD.multia()].
 #'               DEFAULT: TRUE for each file ending in "Standort.txt"
 #' @param stand  Logical (vector): is the `file` a subdaily/standard_format file?
-#'               See \code{\link{readDWD.stand}}.
+#'               See [readDWD.stand()].
 #'               DEFAULT: TRUE fo files containing "standard_format" in the name.
 #' @param meta   Logical (vector): is the `file` a meta file (Beschreibung.txt)?
-#'               See \code{\link{readDWD.meta}}.
+#'               See [readDWD.meta()].
 #'               For zip files containing station meta information, see
-#'               \code{\link{readMeta}}.
+#'               [readMeta()].
 #'               DEFAULT: TRUE for each file ending in ".txt"
 #' @param binary Logical (vector): does the `file` contain binary files?
-#'               See \code{\link{readDWD.binary}}.
+#'               See [readDWD.binary()].
 #'               DEFAULT: TRUE for each file ending in ".tar.gz"
 #' @param raster Logical (vector): does the `file` contain a raster file?
-#'               See \code{\link{readDWD.raster}}.
+#'               See [readDWD.raster()].
 #'               DEFAULT: TRUE for each file ending in ".asc.gz"
 #' @param nc     Logical (vector): does the `file` contain a netcdf file?
-#'               See \code{\link{readDWD.nc}}.
+#'               See [readDWD.nc()].
 #'               DEFAULT: TRUE for each file ending in ".nc.gz"
 #' @param radar  Logical (vector): does the `file` contain a single binary file?
-#'               See \code{\link{readDWD.radar}}.
+#'               See [readDWD.radar()].
 #'               DEFAULT: TRUE for each file ending in ".gz"
 #' @param asc    Logical (vector): does the `file` contain asc files?
-#'               See \code{\link{readDWD.asc}}.
+#'               See [readDWD.asc()].
 #'               DEFAULT: TRUE for each file ending in ".tar"
 #' @param \dots  Further arguments passed to the internal `readDWD.*`
 #'               functions and from those to the underlying reading functions
@@ -179,34 +179,32 @@ return(invisible(output))
 
 #' @title read regular dwd data
 #' @description Read regular dwd data.
-#' Intended to be called via \code{\link{readDWD}}.
+#' Intended to be called via [readDWD()].
 #' @return data.frame
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}
-#' @seealso \code{\link{readDWD}}, Examples in \code{\link{dataDWD}}
+#' @seealso [readDWD()], Examples in [dataDWD()]
 #' @param file     Name of file on harddrive, like e.g.
 #'                 DWDdata/daily_kl_recent_tageswerte_KL_03987_akt.zip
-#' @param fread    Logical: read faster with \code{data.table::\link[data.table]{fread}}?
+#' @param fread    Logical: read faster with [data.table::fread]?
 #'                 When reading many large historical files, speedup is significant.
 #'                 NA can also be used, which means TRUE if data.table is available.
 #'                 DEFAULT: FALSE
 #' @param varnames Logical (vector): add a short description to the DWD variable
 #'                 abbreviations in the column names?
 #'                 E.g. change `FX,TNK` to `FX.Windspitze,TNK.Lufttemperatur_Min`,
-#'                 see \code{\link{newColumnNames}}.
+#'                 see [newColumnNames()].
 #'                 DEFAULT: FALSE (for backwards compatibility)
-#' @param format   Char (vector): Format passed to
-#'                 \code{\link{as.POSIXct}} (see \code{\link{strptime}})
+#' @param format   Char (vector): Format passed to [as.POSIXct()] (see [strptime()])
 #'                 to convert the date/time column to POSIX time format.\cr
 #'                 If NULL, no conversion is performed (date stays a factor).
 #'                 If NA, `readDWD` tries to find a suitable format based
 #'                 on the number of characters. DEFAULT: NA
-#' @param tz       Char (vector): time zone for \code{\link{as.POSIXct}}.
+#' @param tz       Char (vector): time zone for [as.POSIXct()].
 #'                 "" is the current time zone, and "GMT" is UTC (Universal Time,
 #'                 Coordinated). DEFAULT: "GMT"
 #' @param quiet    Suppress empty file warnings and subfuntion name message?
-#'                 DEFAULT: FALSE through \code{\link{rdwdquiet}()}
-#' @param \dots    Further arguments passed to \code{\link{read.table}} or
-#'                 \code{data.table::\link[data.table]{fread}}
+#'                 DEFAULT: FALSE through [rdwdquiet()]
+#' @param \dots    Further arguments passed to [read.table()] or [data.table::fread()]
 readDWD.data <- function(file, fread=FALSE, varnames=FALSE, format=NA, tz="GMT",
                          quiet=rdwdquiet(), ...)
 {
@@ -265,13 +263,13 @@ return(dat)
 
 #' @title read multi_annual dwd data
 #' @description read multi_annual dwd data.
-#' Intended to be called via \code{\link{readDWD}}.\cr
-#' All other observational data at \code{\link{dwdbase}} can be read
-#' with \code{\link{readDWD.data}}, except for the multi_annual and
+#' Intended to be called via [readDWD()].\cr
+#' All other observational data at [`dwdbase`] can be read
+#' with [readDWD.data()], except for the multi_annual and
 #' subdaily/standard_format data.
 #' @return data.frame
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Feb 2019
-#' @seealso \code{\link{readDWD}}
+#' @seealso [readDWD()]
 #' @examples
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
 #' 
@@ -314,14 +312,14 @@ return(dat)
 #' @param file  Name of file on harddrive, like e.g.
 #'              DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_aktStandort.txt or
 #'              DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_Stationsliste_aktStandort.txt
-#' @param fileEncoding \link{read.table} \link{file} encoding.
+#' @param fileEncoding [read.table()] file encoding.
 #'              DEFAULT: "latin1" (needed on Linux, optional but not hurting on windows)
-#' @param comment.char \link{read.table} comment character.
+#' @param comment.char [read.table()] comment character.
 #'              DEFAULT: "\\032" (needed 2019-04 to ignore the binary
 #'              control character at the end of multi_annual files)
 #' @param quiet Suppress subfunction name message?
-#'              DEFAULT: FALSE through \code{\link{rdwdquiet}()}
-#' @param \dots Further arguments passed to \code{\link{read.table}}
+#'              DEFAULT: FALSE through [rdwdquiet()]
+#' @param \dots Further arguments passed to [read.table()]
 readDWD.multia <- function(file, fileEncoding="latin1", comment.char="\032",
                            quiet=rdwdquiet(), ...)
 {
@@ -340,15 +338,15 @@ out
 
 #' @title read subdaily/standard_format dwd data
 #' @description read subdaily/standard_format dwd data.
-#' Intended to be called via \code{\link{readDWD}}.\cr
-#' All other observational data at \code{\link{dwdbase}} can be read
-#' with \code{\link{readDWD.data}}, except for the multi_annual and
+#' Intended to be called via [readDWD()].\cr
+#' All other observational data at [`dwdbase`] can be read
+#' with [readDWD.data()], except for the multi_annual and
 #' subdaily/standard_format data.
-#' @return data.frame with column names as per \code{\link{formatIndex}}.
+#' @return data.frame with column names as per [`formatIndex`].
 #' "Q"-columns have "_parameter" appended to their name. A "Date" column has been added.
 #' NA-indicators have been processed into NAs.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2019
-#' @seealso \code{\link{readDWD}}
+#' @seealso [readDWD()]
 #' @examples
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
 #' 
@@ -379,23 +377,21 @@ out
 #' @param file  Name of file on harddrive, like e.g.
 #'              DWDdata/subdaily_standard_format_kl_10381_00_akt.txt or
 #'              DWDdata/subdaily_standard_format_kl_10381_bis_1999.txt.gz
-#' @param fast  Logical: use \code{readr::\link[readr]{read_fwf}}
-#'              instead of \code{\link{read.fwf}}?
+#' @param fast  Logical: use [readr::read_fwf()] instead of [read.fwf()]?
 #'              Takes 0.1 instead of 20 seconds but requires package to be installed.
 #'              if fast=TRUE, `fileEncoding` is ignored.
 #'              DEFAULT: TRUE
-#' @param fileEncoding \link{read.table} \link{file} encoding.
+#' @param fileEncoding [read.table()] file encoding.
 #'              DEFAULT: "latin1" (potentially needed on Linux,
 #'              optional but not hurting on windows)
 #' @param formIndex Single object: Index used to select column widts and NA values.
 #'              To use a current / custom index, see the source code of
-#'              \code{\link{updateIndexes}} at
+#'              [updateIndexes()] at
 #'              <https://github.com/brry/rdwd/blob/master/R/updateIndexes.R>.
-#'              DEFAULT: \code{rdwd:::\link{formatIndex}}
+#'              DEFAULT: [`formatIndex`]
 #' @param quiet Suppress subfunction name message?
-#'              DEFAULT: FALSE through \code{\link{rdwdquiet}()}
-#' @param \dots Further arguments passed to \code{\link{read.fwf}}
-#'              or \code{readr::\link[readr]{read_fwf}}
+#'              DEFAULT: FALSE through [rdwdquiet()]
+#' @param \dots Further arguments passed to [read.fwf()] or [readr::read_fwf()]
 readDWD.stand <- function(file, fast=TRUE, fileEncoding="latin1",
                           formIndex=formatIndex, quiet=rdwdquiet(), ...)
 {
@@ -450,16 +446,16 @@ return(sf)
 
 #' @title read dwd metadata (Beschreibung*.txt files)
 #' @description read dwd metadata (Beschreibung*.txt files).
-#'  Intended to be called via \code{\link{readDWD}}.\cr
-#'  Column widths for \code{\link{read.fwf}} are computed internally.\cr
-#'  if(any(meta)), \code{\link{readDWD}} tries to set the locale to German
+#'  Intended to be called via [readDWD()].\cr
+#'  Column widths for [read.fwf()] are computed internally.\cr
+#'  if(any(meta)), [readDWD()] tries to set the locale to German
 #'  (to handle Umlaute correctly). It is hence not recommended to call
 #'  `rdwd:::readDWD.meta` directly on a file!\cr
 #'  Names can later be changed to ascii with
-#'  \code{berryFunctions::\link{convertUmlaut}}.
+#'  [berryFunctions::convertUmlaut()].
 #' @return data.frame
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}
-#' @seealso \code{\link{readDWD}}
+#' @seealso [readDWD()]
 #' @examples
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
 #' 
@@ -478,8 +474,8 @@ return(sf)
 #' @param file  Name of file on harddrive, like e.g.
 #'              DWDdata/daily_kl_recent_KL_Tageswerte_Beschreibung_Stationen.txt
 #' @param quiet Suppress subfunction name message?
-#'              DEFAULT: FALSE through \code{\link{rdwdquiet}()}
-#' @param \dots Further arguments passed to \code{\link{read.fwf}}
+#'              DEFAULT: FALSE through [rdwdquiet()]
+#' @param \dots Further arguments passed to [read.fwf()]
 readDWD.meta <- function(file, quiet=rdwdquiet(), ...)
 {
 if(!quiet) message("Reading file with readDWD.meta().")
@@ -537,12 +533,12 @@ stats
 
 #' @title read dwd gridded radolan binary data
 #' @description read gridded radolan binary data.
-#' Intended to be called via \code{\link{readDWD}}.\cr
+#' Intended to be called via [readDWD()].\cr
 #' @return list depending on argument `toraster`, see there for details
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2018.
-#'         Significant input for the underlying \code{dwdradar::\link[dwdradar]{readRadarFile}} came
+#'         Significant input for the underlying [dwdradar::readRadarFile()] came
 #'         from Henning Rust & Christoph Ritschel at FU Berlin.
-#' @seealso \code{\link{readDWD}}, especially \code{\link{readDWD.radar}}\cr
+#' @seealso [readDWD()], especially [readDWD.radar()]\cr
 #'   <https://wradlib.org> for much more extensive radar analysis in Python\cr
 #'   Kompositformatbeschreibung at <https://www.dwd.de/DE/leistungen/radolan/radolan.html>
 #'   for format description
@@ -583,23 +579,23 @@ stats
 #' @param file      Name of file on harddrive, like e.g.
 #'                  DWDdata/daily_radolan_historical_bin_2017_SF201712.tar.gz
 #' @param exdir     Directory to unzip into. If existing, only the needed files
-#'                  will be unpacked with \code{\link{untar}}. Note that exdir
+#'                  will be unpacked with [untar()]. Note that exdir
 #'                  size will be around 1.1 GB. exdir can contain other files,
 #'                  these will be ignored for the actual reading with
-#'                  \code{dwdradar::\link[dwdradar]{readRadarFile}}.
+#'                  [dwdradar::readRadarFile()].
 #'                  DEFAULT exdir: sub(".tar.gz$", "", file)
 #' @param toraster  Logical: convert output (list of matrixes + meta informations)
-#'                  to a list with dat (\code{raster \link[raster]{stack}}) +
+#'                  to a list with dat ([`raster::stack`]) +
 #'                  meta (list from the first subfile, but with vector of dates)?
 #'                  DEFAULT: TRUE
 #' @param quiet     Suppress progress messages?
-#'                  DEFAULT: FALSE through \code{\link{rdwdquiet}()}
-#' @param progbar   Show progress bars? \code{\link{readDWD}} will
+#'                  DEFAULT: FALSE through [rdwdquiet()]
+#' @param progbar   Show progress bars? [readDWD()] will
 #'                  keep progbar=TRUE for binary files, even if length(file)==1.
 #'                  DEFAULT: !quiet, i.e. TRUE
 #' @param selection Optionally read only a subset of the ~24*31=744 files.
 #'                  Called as `f[selection]`. DEFAULT: NULL (ignored)
-#' @param \dots     Further arguments passed to \code{dwdradar::\link[dwdradar]{readRadarFile}},
+#' @param \dots     Further arguments passed to [dwdradar::readRadarFile()],
 #'                  i.e. `na` and `clutter`
 readDWD.binary <- function(file, exdir=sub(".tar.gz$", "", file), toraster=TRUE,
                            quiet=rdwdquiet(), progbar=!quiet, selection=NULL, ...)
@@ -661,11 +657,11 @@ return(invisible(list(dat=rbmat, meta=rbmeta)))
 
 #' @title read dwd gridded raster data
 #' @description Read gridded raster data.
-#' Intended to be called via \code{\link{readDWD}}.\cr
+#' Intended to be called via [readDWD()].\cr
 #' Note that `R.utils` must be installed to unzip the .asc.gz files.
-#' @return \code{raster::\link[raster]{raster}} object
+#' @return [`raster::raster`] object
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2018
-#' @seealso \code{\link{readDWD}}
+#' @seealso [readDWD()]
 #' @examples
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
 #' 
@@ -687,10 +683,9 @@ return(invisible(list(dat=rbmat, meta=rbmeta)))
 #' @param file        Name of file on harddrive, like e.g.
 #'                    DWDdata/grids_germany/seasonal/air_temperature_mean/
 #'                    16_DJF_grids_germany_seasonal_air_temp_mean_188216.asc.gz
-#' @param gargs       Named list of arguments passed to
-#'                    \code{R.utils::\link[R.utils:compressFile]{gunzip}}. The internal
-#'                    defaults are: `remove=FALSE` (recommended to keep this
-#'                    so `file` does not get deleted) and `skip=TRUE`
+#' @param gargs       Named list of arguments passed to [R.utils::gunzip()].
+#'                    The internal defaults are: `remove=FALSE` (recommended to
+#'                    keep this so `file` does not get deleted) and `skip=TRUE`
 #'                    (which reads previously unzipped files as is).
 #'                    If `file` has changed, you might want to use
 #'                    `gargs=list(skip=FALSE, overwrite=TRUE)`
@@ -701,8 +696,8 @@ return(invisible(list(dat=rbmat, meta=rbmeta)))
 #' @param dividebyten Logical: Divide the numerical values by 10?
 #'                    DEFAULT: TRUE
 #' @param quiet       Suppress subfunction name message?
-#'                    DEFAULT: FALSE through \code{\link{rdwdquiet}()}
-#' @param \dots       Further arguments passed to \code{raster::\link[raster]{raster}}
+#'                    DEFAULT: FALSE through [rdwdquiet()]
+#' @param \dots       Further arguments passed to [raster::raster()]
 readDWD.raster <- function(file, gargs=NULL, dividebyten, quiet=rdwdquiet(), ...)
 {
 if(!quiet) message("Reading file with readDWD.raster().")
@@ -725,13 +720,13 @@ return(invisible(r))
 
 #' @title read dwd netcdf data
 #' @description Read netcdf data.
-#' Intended to be called via \code{\link{readDWD}}.\cr
+#' Intended to be called via [readDWD()].\cr
 #' Note that `R.utils` and `ncdf4` must be installed to unzip and read the .nc.gz files.
-#' @return \code{raster::\link[raster]{brick}} object. Alternatively,
+#' @return [raster::brick()] object. Alternatively,
 #' if toraster=FALSE, a list with time, lat, lon, var, varname, file and cdf.
-#' **cdf** is the output of \code{ncdf4::\link[ncdf4]{nc_open}}.
+#' **cdf** is the output of [ncdf4::nc_open()].
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019
-#' @seealso \code{\link{readDWD}}
+#' @seealso [readDWD()]
 #' @importFrom berryFunctions removeSpace
 #' @importFrom utils menu tail capture.output
 #' @examples
@@ -767,20 +762,18 @@ return(invisible(r))
 #' @param file        Name of file on harddrive, like e.g.
 #'                    DWDdata/grids_germany/daily/Project_TRY/humidity/RH_199509_daymean.nc.gz
 #' @param gargs       Named list of arguments passed to
-#'                    \code{R.utils::\link[R.utils:compressFile]{gunzip}},
-#'                    see \code{\link{readDWD.raster}}. DEFAULT: NULL
-#' @param toraster    Read file with \code{raster::\link[raster]{brick}}?
-#'                    All further arguments will be ignored. Specify e.g. var through \dots.
-#'                    DEFAULT: TRUE
+#'                    [R.utils::gunzip()], see [readDWD.raster()]. DEFAULT: NULL
+#' @param toraster    Read file with [raster::brick()]?
+#'                    All further arguments will be ignored. Specify e.g. `var` 
+#'                    through \dots as `varname`. DEFAULT: TRUE
 #' @param var         if toraster=FALSE: Charstring with name of variable to be read with
-#'                    \code{ncdf4::\link[ncdf4]{ncvar_get}}. If not available,
+#'                    [ncdf4::ncvar_get()]. If not available,
 #'                    an interactive selection is presented.
 #'                    DEFAULT: "" (last variable)
 #' @param quiet       Logical: Suppress Suppress subfunction name message and
 #'                    time conversion failure warning?
-#'                    DEFAULT: FALSE through \code{\link{rdwdquiet}()}
-#' @param \dots       Further arguments passed to \code{raster::\link[raster]{brick}}
-#'                    or \code{ncdf4::\link[ncdf4]{nc_open}}
+#'                    DEFAULT: FALSE through [rdwdquiet()]
+#' @param \dots       Further arguments passed to [raster::brick()] or [ncdf4::nc_open()]
 #' 
 readDWD.nc <- function(file, gargs=NULL, var="", toraster=TRUE, quiet=rdwdquiet(), ...)
 {
@@ -849,13 +842,13 @@ return(invisible(list(time=time, lat=LAT, lon=LON, var=VAR, varname=var,
 
 #' @title read dwd gridded radolan radar data
 #' @description read gridded radolan radar data.
-#' Intended to be called via \code{\link{readDWD}}.\cr
+#' Intended to be called via [readDWD()].\cr
 #' @return Invisible list with `dat` (matrix or raster, depending on `toraster`)
 #' and `meta` (list with elements from header)
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019.
-#'         Significant input for the underlying \code{dwdradar::\link[dwdradar]{readRadarFile}} came
+#'         Significant input for the underlying [dwdradar::readRadarFile()] came
 #'         from Henning Rust & Christoph Ritschel at FU Berlin.
-#' @seealso \code{\link{readDWD}}, especially \code{\link{readDWD.binary}}\cr
+#' @seealso [readDWD()], especially [readDWD.binary()]\cr
 #'   <https://wradlib.org> for much more extensive radar analysis in Python\cr
 #'   Kompositformatbeschreibung at <https://www.dwd.de/DE/leistungen/radolan/radolan.html>
 #'   for format description
@@ -872,7 +865,7 @@ return(invisible(list(time=time, lat=LAT, lon=LON, var=VAR, varname=var,
 #'                  DWDdata/hourly/radolan/recent/bin/
 #'                  raa01-rw_10000-1802020250-dwd---bin.gz
 #' @param gargs     Named list of arguments passed to
-#'                  \code{R.utils::\link[R.utils:compressFile]{gunzip}}. The internal
+#'                  [R.utils::gunzip()]. The internal
 #'                  defaults are: `remove=FALSE` (recommended to keep this
 #'                  so `file` does not get deleted) and `skip=TRUE`
 #'                  (which reads previously unzipped files as is).
@@ -883,12 +876,12 @@ return(invisible(list(time=time, lat=LAT, lon=LON, var=VAR, varname=var,
 #'                  unzipped file is stored at the same path as `file`.
 #'                  DEFAULT gargs: NULL
 #' @param toraster  Logical: convert output (list of matrixes + meta informations)
-#'                  to a list with data (\code{raster \link[raster]{stack}}) +
+#'                  to a list with data ([`raster::stack`]) +
 #'                  meta (list from the first subfile, but with vector of dates)?
 #'                  DEFAULT: TRUE
 #' @param quiet     Suppress subfunction name message?
-#'                  DEFAULT: FALSE through \code{\link{rdwdquiet}()}
-#' @param \dots     Further arguments passed to \code{dwdradar::\link[dwdradar]{readRadarFile}},
+#'                  DEFAULT: FALSE through [rdwdquiet()]
+#' @param \dots     Further arguments passed to [dwdradar::readRadarFile()],
 #'                  i.e. `na` and `clutter`
 readDWD.radar <- function(file, gargs=NULL, toraster=TRUE, quiet=rdwdquiet(), ...)
 {
@@ -911,13 +904,13 @@ return(invisible(rf))
 
 #' @title read dwd gridded radolan asc data
 #' @description read grid-interpolated radolan asc data.
-#' Intended to be called via \code{\link{readDWD}}.\cr
+#' Intended to be called via [readDWD()].\cr
 #' All layers (following `selection` if given) in all .tar.gz files are
-#' combined into a raster stack with \code{raster::\link[raster]{stack}}.\cr
-#' To project the data, use \code{\link{projectRasterDWD}}
+#' combined into a raster stack with [raster::stack()].\cr
+#' To project the data, use [projectRasterDWD()]
 #' @return data.frame
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, April 2019
-#' @seealso \code{\link{readDWD}}
+#' @seealso [readDWD()]
 #' @examples
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
 #' 
@@ -953,21 +946,21 @@ return(invisible(rf))
 #'                    Must have been downloaded with `mode="wb"`!
 #' @param exdir       Directory to unzip into. Unpacked files existing therein
 #'                    will not be untarred again, saving up to 15 secs per file.
-#'                    DEFAULT: NULL (subfolder of \code{\link{tempdir}()})
+#'                    DEFAULT: NULL (subfolder of [tempdir()])
 #' @param dividebyten Divide numerical values by 10?
 #'                    If dividebyten=FALSE and exdir left at NULL (tempdir), save
-#'                    the result on disc with \code{raster::\link[raster]{writeRaster}}.
+#'                    the result on disc with [raster::writeRaster()].
 #'                    Accessing out-of-memory raster objects won't work if
 #'                    exdir is removed! -> Error in .local(.Object, ...)
 #'                    DEFAULT: TRUE
 #' @param quiet       Suppress progress messages?
-#'                    DEFAULT: FALSE through \code{\link{rdwdquiet}()}
-#' @param progbar     Show progress bars? \code{\link{readDWD}} will
+#'                    DEFAULT: FALSE through [rdwdquiet()]
+#' @param progbar     Show progress bars? [readDWD()] will
 #'                    keep progbar=TRUE for asc files, even if length(file)==1.
 #'                    DEFAULT: !quiet, i.e. TRUE
 #' @param selection   Optionally read only a subset of the ~24*31=744 files.
 #'                    Called as `f[selection]`. DEFAULT: NULL (ignored)
-#' @param \dots       Further arguments passed to \code{raster::\link[raster]{raster}}
+#' @param \dots       Further arguments passed to [raster::raster()]
 readDWD.asc <- function(file, exdir=NULL, dividebyten=TRUE,
                         selection=NULL, quiet=rdwdquiet(), progbar=!quiet, ...)
 {

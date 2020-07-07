@@ -2,7 +2,7 @@
 #' 
 #' @return invisible data.frame. Also \code{\link{print}s} the output nicely formatted.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Nov 2016
-#' @seealso \code{\link{metaIndex}}
+#' @seealso [`metaIndex`]
 #' @keywords datasets
 #' @importFrom berryFunctions sortDF
 #' @export

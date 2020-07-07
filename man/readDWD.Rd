@@ -27,65 +27,65 @@ readDWD(
 }
 \arguments{
 \item{file}{Char (vector): name(s) of the file(s) downloaded with
-\code{\link{dataDWD}},
+\code{\link[=dataDWD]{dataDWD()}},
 e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip" or
 "~/DWDdata/RR_Stundenwerte_Beschreibung_Stationen.txt"}
 
-\item{quiet}{Logical: suppress messages? DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
+\item{quiet}{Logical: suppress messages? DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
 \item{progbar}{Logical: present a progress bar with estimated remaining time?
 If missing and length(file)==1, progbar is internally set to FALSE.
 DEFAULT: !quiet}
 
-\item{fread}{Logical (vector): read fast? See \code{\link{readDWD.data}}.
+\item{fread}{Logical (vector): read fast? See \code{\link[=readDWD.data]{readDWD.data()}}.
 DEFAULT: FALSE (some users complain it doesn't work on their PC)}
 
 \item{varnames}{Logical (vector): Expand column names?
-See \code{\link{readDWD.data}}. DEFAULT: FALSE}
+See \code{\link[=readDWD.data]{readDWD.data()}}. DEFAULT: FALSE}
 
-\item{var}{var for \code{\link{readDWD.nc}}. DEFAULT: ""}
+\item{var}{var for \code{\link[=readDWD.nc]{readDWD.nc()}}. DEFAULT: ""}
 
-\item{format, tz}{Format and time zone of time stamps, see \code{\link{readDWD.data}}}
+\item{format, tz}{Format and time zone of time stamps, see \code{\link[=readDWD.data]{readDWD.data()}}}
 
 \item{dividebyten}{Logical (vector): Divide the values in raster files by ten?
-Used in \code{\link{readDWD.raster}} and \code{\link{readDWD.asc}}.
+Used in \code{\link[=readDWD.raster]{readDWD.raster()}} and \code{\link[=readDWD.asc]{readDWD.asc()}}.
 DEFAULT: TRUE}
 
 \item{multia}{Logical (vector): is the \code{file} a multi_annual file?
 Overrides \code{meta}, so set to FALSE manually if
-\code{\link{readDWD.meta}} needs to be called on a (manually renamed)
+\code{\link[=readDWD.meta]{readDWD.meta()}} needs to be called on a (manually renamed)
 Beschreibung file ending with "Standort.txt".
-See \code{\link{readDWD.multia}}.
+See \code{\link[=readDWD.multia]{readDWD.multia()}}.
 DEFAULT: TRUE for each file ending in "Standort.txt"}
 
 \item{meta}{Logical (vector): is the \code{file} a meta file (Beschreibung.txt)?
-See \code{\link{readDWD.meta}}.
+See \code{\link[=readDWD.meta]{readDWD.meta()}}.
 For zip files containing station meta information, see
-\code{\link{readMeta}}.
+\code{\link[=readMeta]{readMeta()}}.
 DEFAULT: TRUE for each file ending in ".txt"}
 
 \item{stand}{Logical (vector): is the \code{file} a subdaily/standard_format file?
-See \code{\link{readDWD.stand}}.
+See \code{\link[=readDWD.stand]{readDWD.stand()}}.
 DEFAULT: TRUE fo files containing "standard_format" in the name.}
 
 \item{binary}{Logical (vector): does the \code{file} contain binary files?
-See \code{\link{readDWD.binary}}.
+See \code{\link[=readDWD.binary]{readDWD.binary()}}.
 DEFAULT: TRUE for each file ending in ".tar.gz"}
 
 \item{raster}{Logical (vector): does the \code{file} contain a raster file?
-See \code{\link{readDWD.raster}}.
+See \code{\link[=readDWD.raster]{readDWD.raster()}}.
 DEFAULT: TRUE for each file ending in ".asc.gz"}
 
 \item{nc}{Logical (vector): does the \code{file} contain a netcdf file?
-See \code{\link{readDWD.nc}}.
+See \code{\link[=readDWD.nc]{readDWD.nc()}}.
 DEFAULT: TRUE for each file ending in ".nc.gz"}
 
 \item{radar}{Logical (vector): does the \code{file} contain a single binary file?
-See \code{\link{readDWD.radar}}.
+See \code{\link[=readDWD.radar]{readDWD.radar()}}.
 DEFAULT: TRUE for each file ending in ".gz"}
 
 \item{asc}{Logical (vector): does the \code{file} contain asc files?
-See \code{\link{readDWD.asc}}.
+See \code{\link[=readDWD.asc]{readDWD.asc()}}.
 DEFAULT: TRUE for each file ending in ".tar"}
 
 \item{\dots}{Further arguments passed to the internal \verb{readDWD.*}
@@ -98,20 +98,20 @@ or a named list of data.frames if length(file) > 1.\cr
 The functions for gridded data return raster objects instead of data.frames.
 }
 \description{
-Read climate data that was downloaded with \code{\link{dataDWD}}.
+Read climate data that was downloaded with \code{\link[=dataDWD]{dataDWD()}}.
 The data is unzipped and subsequently, the file is read, processed and
 returned as a data.frame / raster object.\cr
 New users are advised to set \code{varnames=TRUE} to obtain more informative
 column names.\cr\cr
 \code{readDWD} will call internal (but documented) functions depending on the
-arguments \verb{multia, meta, stand, binary, raster, nc, radar, asc}:\cr
-to read observational data (\href{https://bookdown.org/brry/rdwd/available-datasets.html}{overview}): \code{\link{readDWD.data},
-         \link{readDWD.multia}, \link{readDWD.stand}, \link{readDWD.meta}}\cr
-to read gridded data (\href{https://bookdown.org/brry/rdwd/raster-data.html}{overview}): \code{\link{readDWD.binary},
-         \link{readDWD.raster}, \link{readDWD.radar}, \link{readDWD.nc}, \link{readDWD.asc}}\cr
+corresponding arguments:\cr
+to read observational data (\href{https://bookdown.org/brry/rdwd/available-datasets.html}{overview}): \code{\link{readDWD.data}},
+\code{\link{readDWD.multia}}, \code{\link{readDWD.stand}}, \code{\link{readDWD.meta}}\cr
+to read gridded data (\href{https://bookdown.org/brry/rdwd/raster-data.html}{overview}): \code{\link{readDWD.binary}},
+\code{\link{readDWD.raster}}, \code{\link{readDWD.radar}}, \code{\link{readDWD.nc}}, \code{\link{readDWD.asc}}\cr
 Not all arguments to \code{readDWD} are used for all functions, e.g.
-\code{fread} is used only by \code{.data}, while \code{dividebyten}
-is used in \code{.raster} and \code{.asc}.\cr\cr
+\code{fread} is used only by \code{\link[=readDWD.data]{.data}}, while \code{dividebyten}
+is used in \code{\link[=readDWD.raster]{.raster}} and \code{\link[=readDWD.asc]{.asc}}.\cr\cr
 \code{file} can be a vector with several filenames. Most other arguments can
 also be a vector and will be recycled to the length of \code{file}.
 }
@@ -120,8 +120,8 @@ also be a vector and will be recycled to the length of \code{file}.
 
 }
 \seealso{
-\code{\link{dataDWD}}, \code{\link{readVars}},
-\code{\link{readMeta}}, \code{\link{selectDWD}}\cr
+\code{\link[=dataDWD]{dataDWD()}}, \code{\link[=readVars]{readVars()}},
+\code{\link[=readMeta]{readMeta()}}, \code{\link[=selectDWD]{selectDWD()}}\cr
 \url{https://bookdown.org/brry/rdwd}
 }
 \author{

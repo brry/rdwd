@@ -21,25 +21,25 @@ createIndex(
 )
 }
 \arguments{
-\item{paths}{Char: vector of DWD paths returned by \code{\link{indexFTP}} called
+\item{paths}{Char: vector of DWD paths returned by \code{\link[=indexFTP]{indexFTP()}} called
 with the same \code{base} value as this function}
 
 \item{base}{Main directory of DWD ftp server, defaulting to observed climatic records.
 DEFAULT: \code{\link{dwdbase}}}
 
 \item{dir}{Char: writeable directory name where to save the main output(s).
-Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
+Created if not existent. DEFAULT: "DWDdata" at current \code{\link[=getwd]{getwd()}}}
 
 \item{fname}{Char: Name of file in \code{dir} in which to write \code{\link{fileIndex}}.
 Use \code{fname=""} to suppress writing. DEFAULT: "fileIndex.txt"}
 
 \item{meta}{Logical: should metaIndex also be created from fileIndex?
-Uses \code{\link{dataDWD}} to download files if not present.
+Uses \code{\link[=dataDWD]{dataDWD()}} to download files if not present.
 DEFAULT: FALSE}
 
 \item{metadir}{Char: Directory (subfolder of \code{dir}) where original
 description files are downloaded to if meta=TRUE. Passed to
-\code{\link{dataDWD}}. "" to write in \code{dir}. DEFAULT: "meta"}
+\code{\link[=dataDWD]{dataDWD()}}. "" to write in \code{dir}. DEFAULT: "meta"}
 
 \item{mname}{Char: Name of file in \code{dir} (not \code{metadir}) in which to
 write \code{\link{metaIndex}}.
@@ -49,17 +49,17 @@ Use \code{mname=""} to suppress writing. DEFAULT: "metaIndex.txt"}
 
 \item{overwrite}{Logical: Overwrite existing \code{fname / mname / gname} files?
 If not, "_n" is added to the filenames, see
-\code{berryFunctions::\link[berryFunctions]{newFilename}}.
+\code{\link[berryFunctions:newFilename]{berryFunctions::newFilename()}}.
 DEFAULT: FALSE}
 
-\item{checkwarn}{Logical: warn about \code{\link{checkIndex}} issues? DEFAULT: TRUE}
+\item{checkwarn}{Logical: warn about \code{\link[=checkIndex]{checkIndex()}} issues? DEFAULT: TRUE}
 
-\item{checklog}{Logfile for \code{\link{checkIndex}}. DEFAULT: \code{\link{tempfile}()}}
+\item{checklog}{Logfile for \code{\link[=checkIndex]{checkIndex()}}. DEFAULT: \code{\link[=tempfile]{tempfile()}}}
 
 \item{quiet}{Logical: Suppress messages about progress and filenames?
-DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
+DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
-\item{\dots}{Further arguments passed to \code{\link{dataDWD}} for the meta part.}
+\item{\dots}{Further arguments passed to \code{\link[=dataDWD]{dataDWD()}} for the meta part.}
 }
 \value{
 invisible data.frame (or if meta=TRUE, list with two data.frames)
@@ -67,7 +67,7 @@ with a number of columns inferred from the paths. Each is also written to disc.
 }
 \description{
 This is mainly an internal function.
-Create data.frames out of the vector index returned by \code{\link{indexFTP}}.
+Create data.frames out of the vector index returned by \code{\link[=indexFTP]{indexFTP()}}.
 For \code{\link{fileIndex}} (the first output element) \code{createIndex}
 tries to obtain res, var, per, file, id, start and end from the paths.
 If \code{meta=TRUE}, \code{\link{metaIndex}} and \code{\link{geoIndex}} are also
@@ -88,8 +88,7 @@ lapply(ind2, head)
 
 }
 \seealso{
-\code{\link{indexFTP}}, \code{\link{updateIndexes}}
-\code{\link{index}}, \code{\link{selectDWD}}
+\code{\link[=indexFTP]{indexFTP()}}, \code{\link[=updateIndexes]{updateIndexes()}}, \code{\link{index}}, \code{\link[=selectDWD]{selectDWD()}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct-Nov 2016, June 2017

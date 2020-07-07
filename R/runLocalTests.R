@@ -3,7 +3,7 @@
 #' data downloads, these tests are not run automatically on CRAN.
 #' @return Time taken to run tests in minutes
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Apr-Oct 2019
-#' @seealso \code{\link{localtestdir}}
+#' @seealso [localtestdir()]
 #' @keywords debugging
 #' @importFrom grDevices dev.off pdf
 #' @importFrom graphics par title
@@ -11,7 +11,7 @@
 #' @export
 #' 
 #' @param dir_data  Reusable data location. Preferably not under version control.
-#'                  DEFAULT: \code{\link{localtestdir}()}
+#'                  DEFAULT: [localtestdir()]
 #' @param dir_exmpl Reusable example location. DEFAULT: localtestdir(folder="misc/ExampleTests")
 #' @param fast      Exclude many tests? DEFAULT: FALSE
 #' @param radar     Test reading radar example files. DEFAULT: !fast
@@ -19,7 +19,7 @@
 #'              files are older than 24 hours. Reduce test time a lot by setting
 #'              this to FALSE. DEFAULT: !fast
 #' @param examples Run Examples (including donttest sections) DEFAULT: !fast
-#' @param quiet Suppress progress messages? DEFAULT: FALSE through \code{\link{rdwdquiet}()}
+#' @param quiet Suppress progress messages? DEFAULT: FALSE through [rdwdquiet()]
 #' 
 runLocalTests <- function(
 dir_data=localtestdir(),

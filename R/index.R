@@ -2,14 +2,14 @@
 
 #' Indexes of files and metadata on the DWD CDC FTP server
 #' 
-#' Created with \code{\link{indexFTP}} and \code{\link{createIndex}} used in \code{\link{updateIndexes}}.\cr
+#' Created with [indexFTP()] and [createIndex()] used in [updateIndexes()].\cr
 #' In functions, you can access them with `rdwd:::fileIndex` etc.\cr
 #' **fileIndex**: A data.frame with the filenames (and derived information)
-#' at the default `base` value \code{\link{dwdbase}}.\cr
+#' at the default `base` value [`dwdbase`].\cr
 #' **metaIndex**: A data.frame with the contents of all the station description files
-#' (..._Beschreibung_Stationen.txt) under \code{\link{dwdbase}}.\cr
+#' (..._Beschreibung_Stationen.txt) under [`dwdbase`].\cr
 #' **geoIndex**: `metaIndex` distilled to geographic locations.\cr
-#' **gridIndex**: Vector of file paths at \code{\link{gridbase}}.\cr
+#' **gridIndex**: Vector of file paths at [`gridbase`].\cr
 #' **formatIndex**: (modified) table from
 #' <ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/subdaily/standard_format/formate_kl.html>\cr
 #' 
@@ -18,7 +18,7 @@
 #' @docType data
 #' @format
 #' **fileIndex**: data.frame with character strings. ca 260k rows x 8 columns:\cr
-#'         `res`, `var`, `per` (see \code{\link{selectDWD}}),
+#'         `res`, `var`, `per` (see [selectDWD()]),
 #'         station `id`, time series `start` and `end`, and
 #'         `ismeta` information, all according to `path`.\cr
 #' **metaIndex**: data.frame with ca 97k rows for 12 columns:\cr
@@ -27,13 +27,13 @@
 #'         res, var, per, hasfile` \cr
 #' **geoIndex**: data.frame with ca 6k rows for 11 columns:\cr
 #'         `id, name, state, lat, lon, ele, nfiles, nonpublic, recentfile, display, col`\cr
-#' **gridIndex**: Vector with ca 50k file paths at \code{\link{gridbase}}\cr
+#' **gridIndex**: Vector with ca 50k file paths at [`gridbase`]\cr
 #' **formatIndex**: data.frame with 140 rows for 12 columns:\cr
 #'         `Ke_Ind, Kennung, Label, Beschreibung, Einheit, Code-Tabellen,
 #'         Zusatzinfo, Typ, Pos, Erlaubt, Fehlk, dividebyten`\cr
 #' @source Deutscher WetterDienst / Climate Data Center  FTP Server
-#' @seealso \code{\link{createIndex}}, \code{\link{indexFTP}}, \code{\link{selectDWD}},
-#'          \code{\link{findID}}, \code{\link{metaInfo}},
+#' @seealso [createIndex()], [indexFTP()], [selectDWD()],
+#'          [findID()], [metaInfo()],
 #'          <https://bookdown.org/brry/rdwd>
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June-Nov 2016, June 2017, Oct 2019
 #' @keywords datasets

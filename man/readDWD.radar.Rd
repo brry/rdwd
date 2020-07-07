@@ -12,7 +12,7 @@ DWDdata/hourly/radolan/recent/bin/
 raa01-rw_10000-1802020250-dwd---bin.gz}
 
 \item{gargs}{Named list of arguments passed to
-\code{R.utils::\link[R.utils:compressFile]{gunzip}}. The internal
+\code{\link[R.utils:compressFile]{R.utils::gunzip()}}. The internal
 defaults are: \code{remove=FALSE} (recommended to keep this
 so \code{file} does not get deleted) and \code{skip=TRUE}
 (which reads previously unzipped files as is).
@@ -24,14 +24,14 @@ unzipped file is stored at the same path as \code{file}.
 DEFAULT gargs: NULL}
 
 \item{toraster}{Logical: convert output (list of matrixes + meta informations)
-to a list with data (\code{raster \link[raster]{stack}}) +
+to a list with data (\code{\link[raster:stack]{raster::stack}}) +
 meta (list from the first subfile, but with vector of dates)?
 DEFAULT: TRUE}
 
 \item{quiet}{Suppress subfunction name message?
-DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
+DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
-\item{\dots}{Further arguments passed to \code{dwdradar::\link[dwdradar]{readRadarFile}},
+\item{\dots}{Further arguments passed to \code{\link[dwdradar:readRadarFile]{dwdradar::readRadarFile()}},
 i.e. \code{na} and \code{clutter}}
 }
 \value{
@@ -40,7 +40,7 @@ and \code{meta} (list with elements from header)
 }
 \description{
 read gridded radolan radar data.
-Intended to be called via \code{\link{readDWD}}.\cr
+Intended to be called via \code{\link[=readDWD]{readDWD()}}.\cr
 }
 \examples{
 \dontrun{ # Excluded from CRAN checks, but run in localtests
@@ -53,13 +53,13 @@ plotRadar(r$dat, main=r$meta$date)
 }
 }
 \seealso{
-\code{\link{readDWD}}, especially \code{\link{readDWD.binary}}\cr
+\code{\link[=readDWD]{readDWD()}}, especially \code{\link[=readDWD.binary]{readDWD.binary()}}\cr
 \url{https://wradlib.org} for much more extensive radar analysis in Python\cr
 Kompositformatbeschreibung at \url{https://www.dwd.de/DE/leistungen/radolan/radolan.html}
 for format description
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Aug 2019.
-Significant input for the underlying \code{dwdradar::\link[dwdradar]{readRadarFile}} came
+Significant input for the underlying \code{\link[dwdradar:readRadarFile]{dwdradar::readRadarFile()}} came
 from Henning Rust & Christoph Ritschel at FU Berlin.
 }

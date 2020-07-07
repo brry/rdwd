@@ -17,26 +17,26 @@ readDWD.multia(
 DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_aktStandort.txt or
 DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_Stationsliste_aktStandort.txt}
 
-\item{fileEncoding}{\link{read.table} \link{file} encoding.
+\item{fileEncoding}{\code{\link[=read.table]{read.table()}} file encoding.
 DEFAULT: "latin1" (needed on Linux, optional but not hurting on windows)}
 
-\item{comment.char}{\link{read.table} comment character.
+\item{comment.char}{\code{\link[=read.table]{read.table()}} comment character.
 DEFAULT: "\\032" (needed 2019-04 to ignore the binary
 control character at the end of multi_annual files)}
 
 \item{quiet}{Suppress subfunction name message?
-DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
+DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
-\item{\dots}{Further arguments passed to \code{\link{read.table}}}
+\item{\dots}{Further arguments passed to \code{\link[=read.table]{read.table()}}}
 }
 \value{
 data.frame
 }
 \description{
 read multi_annual dwd data.
-Intended to be called via \code{\link{readDWD}}.\cr
+Intended to be called via \code{\link[=readDWD]{readDWD()}}.\cr
 All other observational data at \code{\link{dwdbase}} can be read
-with \code{\link{readDWD.data}}, except for the multi_annual and
+with \code{\link[=readDWD.data]{readDWD.data()}}, except for the multi_annual and
 subdaily/standard_format data.
 }
 \examples{
@@ -80,7 +80,7 @@ berryFunctions::openFile("MultiAnn.pdf")
 }
 }
 \seealso{
-\code{\link{readDWD}}
+\code{\link[=readDWD]{readDWD()}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Feb 2019

@@ -13,7 +13,7 @@ addBorders(de = "grey80", eu = "black", add = TRUE, ...)
 
 \item{add}{Logical: add to existing plot? DEFAULT: TRUE}
 
-\item{\dots}{Further arguments passed to \code{raster::\link[raster]{plot}}}
+\item{\dots}{Further arguments passed to \code{\link[raster:plot]{raster::plot()}}}
 }
 \value{
 invisible list with DEU and EUR

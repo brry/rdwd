@@ -1,10 +1,10 @@
 #' Process data from the DWD CDC FTP Server
 #' 
-#' Read climate meta info textfiles in zip folders downloaded with \code{\link{dataDWD}}.
+#' Read climate meta info textfiles in zip folders downloaded with [dataDWD()].
 #' 
 #' @return Invisible named list of data.frames; or a list of lists, if length(file)>1.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, 2016 + March 2019
-#' @seealso \code{\link{dataDWD}}, \code{\link{readVars}}, \code{\link{readDWD}}
+#' @seealso [dataDWD()], [readVars()], [readDWD()]
 #' @keywords file
 #' @importFrom utils read.table unzip
 #' @importFrom berryFunctions checkFile
@@ -14,12 +14,12 @@
 #' @examples
 #' # see dataDWD
 #' 
-#' @param file   Char (vector): name(s) of the zip file(s) downloaded with \code{\link{dataDWD}},
+#' @param file   Char (vector): name(s) of the zip file(s) downloaded with [dataDWD()],
 #'               e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip"
 #' @param progbar Logical: present a progress bar with estimated remaining time?
 #'               If missing and length(file)==1, progbar is internally set to FALSE.
 #'               DEFAULT: TRUE
-#' @param \dots  Further arguments passed to \code{\link{read.table}}
+#' @param \dots  Further arguments passed to [read.table()]
 #' 
 readMeta <- function(
 file,

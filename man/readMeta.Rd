@@ -7,27 +7,27 @@
 readMeta(file, progbar = TRUE, ...)
 }
 \arguments{
-\item{file}{Char (vector): name(s) of the zip file(s) downloaded with \code{\link{dataDWD}},
+\item{file}{Char (vector): name(s) of the zip file(s) downloaded with \code{\link[=dataDWD]{dataDWD()}},
 e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip"}
 
 \item{progbar}{Logical: present a progress bar with estimated remaining time?
 If missing and length(file)==1, progbar is internally set to FALSE.
 DEFAULT: TRUE}
 
-\item{\dots}{Further arguments passed to \code{\link{read.table}}}
+\item{\dots}{Further arguments passed to \code{\link[=read.table]{read.table()}}}
 }
 \value{
 Invisible named list of data.frames; or a list of lists, if length(file)>1.
 }
 \description{
-Read climate meta info textfiles in zip folders downloaded with \code{\link{dataDWD}}.
+Read climate meta info textfiles in zip folders downloaded with \code{\link[=dataDWD]{dataDWD()}}.
 }
 \examples{
 # see dataDWD
 
 }
 \seealso{
-\code{\link{dataDWD}}, \code{\link{readVars}}, \code{\link{readDWD}}
+\code{\link[=dataDWD]{dataDWD()}}, \code{\link[=readVars]{readVars()}}, \code{\link[=readDWD]{readDWD()}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, 2016 + March 2019

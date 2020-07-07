@@ -18,33 +18,31 @@ readDWD.nc(
 DWDdata/grids_germany/daily/Project_TRY/humidity/RH_199509_daymean.nc.gz}
 
 \item{gargs}{Named list of arguments passed to
-\code{R.utils::\link[R.utils:compressFile]{gunzip}},
-see \code{\link{readDWD.raster}}. DEFAULT: NULL}
+\code{\link[R.utils:compressFile]{R.utils::gunzip()}}, see \code{\link[=readDWD.raster]{readDWD.raster()}}. DEFAULT: NULL}
 
 \item{var}{if toraster=FALSE: Charstring with name of variable to be read with
-\code{ncdf4::\link[ncdf4]{ncvar_get}}. If not available,
+\code{\link[ncdf4:ncvar_get]{ncdf4::ncvar_get()}}. If not available,
 an interactive selection is presented.
 DEFAULT: "" (last variable)}
 
-\item{toraster}{Read file with \code{raster::\link[raster]{brick}}?
-All further arguments will be ignored. Specify e.g. var through \dots.
-DEFAULT: TRUE}
+\item{toraster}{Read file with \code{\link[raster:brick]{raster::brick()}}?
+All further arguments will be ignored. Specify e.g. \code{var}
+through \dots as \code{varname}. DEFAULT: TRUE}
 
 \item{quiet}{Logical: Suppress Suppress subfunction name message and
 time conversion failure warning?
-DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
+DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
-\item{\dots}{Further arguments passed to \code{raster::\link[raster]{brick}}
-or \code{ncdf4::\link[ncdf4]{nc_open}}}
+\item{\dots}{Further arguments passed to \code{\link[raster:brick]{raster::brick()}} or \code{\link[ncdf4:nc_open]{ncdf4::nc_open()}}}
 }
 \value{
-\code{raster::\link[raster]{brick}} object. Alternatively,
+\code{\link[raster:brick]{raster::brick()}} object. Alternatively,
 if toraster=FALSE, a list with time, lat, lon, var, varname, file and cdf.
-\strong{cdf} is the output of \code{ncdf4::\link[ncdf4]{nc_open}}.
+\strong{cdf} is the output of \code{\link[ncdf4:nc_open]{ncdf4::nc_open()}}.
 }
 \description{
 Read netcdf data.
-Intended to be called via \code{\link{readDWD}}.\cr
+Intended to be called via \code{\link[=readDWD]{readDWD()}}.\cr
 Note that \code{R.utils} and \code{ncdf4} must be installed to unzip and read the .nc.gz files.
 }
 \examples{
@@ -79,7 +77,7 @@ str(nc$var)
 }
 }
 \seealso{
-\code{\link{readDWD}}
+\code{\link[=readDWD]{readDWD()}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Aug 2019

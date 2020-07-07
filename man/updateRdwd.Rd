@@ -17,13 +17,13 @@ updateRdwd(
 
 \item{user}{Github username. repo will then be user/pack. DEFAULT: "brry"}
 
-\item{vignette}{build_vignettes in \code{remotes::\link[remotes]{install_github}}?
+\item{vignette}{build_vignettes in \code{\link[remotes:install_github]{remotes::install_github()}}?
 DEFAULT: TRUE}
 
 \item{quiet}{Suppress version messages and \code{remotes::install} output?
-DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
+DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
-\item{\dots}{Further arguments passed to \code{remotes::\link[remotes]{install_github}}}
+\item{\dots}{Further arguments passed to \code{\link[remotes:install_github]{remotes::install_github()}}}
 }
 \value{
 data.frame with version information
@@ -31,14 +31,14 @@ data.frame with version information
 \description{
 Update rdwd to the latest development version on github, if necessary.
 If the version number or date is larger on github,
-\code{remotes::\link[remotes]{install_github}} will be called.
+\code{\link[remotes:install_github]{remotes::install_github()}} will be called.
 }
 \examples{
 # updateRdwd()
 
 }
 \seealso{
-\code{\link{help}}, \code{remotes::\link[remotes]{install_github}}
+\code{\link[=help]{help()}}, \code{\link[remotes:install_github]{remotes::install_github()}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Nov 2019

@@ -22,11 +22,11 @@ Must have been downloaded with \code{mode="wb"}!}
 
 \item{exdir}{Directory to unzip into. Unpacked files existing therein
 will not be untarred again, saving up to 15 secs per file.
-DEFAULT: NULL (subfolder of \code{\link{tempdir}()})}
+DEFAULT: NULL (subfolder of \code{\link[=tempdir]{tempdir()}})}
 
 \item{dividebyten}{Divide numerical values by 10?
 If dividebyten=FALSE and exdir left at NULL (tempdir), save
-the result on disc with \code{raster::\link[raster]{writeRaster}}.
+the result on disc with \code{\link[raster:writeRaster]{raster::writeRaster()}}.
 Accessing out-of-memory raster objects won't work if
 exdir is removed! -> Error in .local(.Object, ...)
 DEFAULT: TRUE}
@@ -35,23 +35,23 @@ DEFAULT: TRUE}
 Called as \code{f[selection]}. DEFAULT: NULL (ignored)}
 
 \item{quiet}{Suppress progress messages?
-DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
+DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
-\item{progbar}{Show progress bars? \code{\link{readDWD}} will
+\item{progbar}{Show progress bars? \code{\link[=readDWD]{readDWD()}} will
 keep progbar=TRUE for asc files, even if length(file)==1.
 DEFAULT: !quiet, i.e. TRUE}
 
-\item{\dots}{Further arguments passed to \code{raster::\link[raster]{raster}}}
+\item{\dots}{Further arguments passed to \code{\link[raster:raster]{raster::raster()}}}
 }
 \value{
 data.frame
 }
 \description{
 read grid-interpolated radolan asc data.
-Intended to be called via \code{\link{readDWD}}.\cr
+Intended to be called via \code{\link[=readDWD]{readDWD()}}.\cr
 All layers (following \code{selection} if given) in all .tar.gz files are
-combined into a raster stack with \code{raster::\link[raster]{stack}}.\cr
-To project the data, use \code{\link{projectRasterDWD}}
+combined into a raster stack with \code{\link[raster:stack]{raster::stack()}}.\cr
+To project the data, use \code{\link[=projectRasterDWD]{projectRasterDWD()}}
 }
 \examples{
 \dontrun{ # Excluded from CRAN checks, but run in localtests
@@ -83,7 +83,7 @@ plot(as.vector(asc[800,800,]), type="l", xlab="Time [hours]")
 }
 }
 \seealso{
-\code{\link{readDWD}}
+\code{\link[=readDWD]{readDWD()}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, April 2019
