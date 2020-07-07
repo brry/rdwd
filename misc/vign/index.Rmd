@@ -373,10 +373,11 @@ In real life, you probably do not want to unzip to a temporary `exdir`.
 You can also remove `read=FALSE` in dataDWD and add the needed arguments right there, 
 but I wanted to be explicit here.
 
-The first line in each code block shows for which FTP folder 
+The first line in each code block below shows for which FTP folder 
 at [`gridbase`](ftp://opendata.dwd.de/climate_environment/CDC/grids_germany) 
 this function will be called.  
-The last line shows what projection and extent to use in `r helplink("projectRasterDWD")`. 
+The last line shows what projection and extent to use in `r helplink("projectRasterDWD")` 
+(called through `r helplink("plotRadar")`). 
 
 ## readDWD.raster
 `r helplink("readDWD.raster")`  
@@ -917,6 +918,54 @@ kohl <- read.table(kohl_file, sep=";", header=TRUE)
 
 
 
+# history
+
+## early beginnings
+In 2016, I published my Master thesis work on high intensity rainfall depending on temperature, 
+see [rainfall use case](https://bookdown.org/brry/rdwd/use-case-rainfall-intensity-depends-on-temperature.html). 
+I also started a PhD in flood research and was part of a taskforce to analyze a flashflood in Braunsbach (southwestern Germany), see
+[nearbyStations use case](https://bookdown.org/brry/rdwd/use-case-plot-all-rainfall-values-around-a-given-point.html).  
+For both these projects, I developed some R code to download and read data for given weather stations.
+In June 2016, these scripts got included in my misc package berryFunctions, see the [commit history](https://github.com/search?q=datadwd+repo:brry/berryFunctions&type=Commits&s=committer-date) there.  
+The DWD had just started their CDC FTP server with a serious amount of data the year before, so this was an exciting time to work on it.  
+
+`rdwd` started life as a standalone package in October 2016.
+Back then, it only had dataDWD and readDWD. That quickly expanded, see the 
+[early rdwd commit history](https://github.com/brry/rdwd/commits/master?before=8d94f6b0850b70a31126efe4e1ab18ae46bc7032+626).
+In January 2017, it was first published on CRAN. 
+A bit of development was done in early 2017, then I quit my PhD (apparently, software dev is not valued much by grant-acquiring research institutions) and spent 2018 mostly offline building a house.
+
+
+## a giant leap...
+
+Early 2019 marked a turning point: I went to France for three months and worked a lot on `rdwd`, introducing support for reading asc and binary raster files. 
+That was outsourced to `dwdradar` over summer to keep the `rdwd` development version easy to install (i.e. without FORTRAN code).  
+Systematic testing and raster plotting/projection methods got implemented and documentation took a leap forward.
+
+Over 2019, an increasing number of feature requests spurred further development, including creating this homepage (now I hardly ever need to answer "yes, it's already implemented, look here" anymore ^^).  
+A lot of automation went into updating the indexes of available files and runnning all local tests (code and index). 
+Nowadays, I just need to trigger them by calling the two related functions.  
+2020 (especially the summer) then saw a lot of refinement in details, slowly morphing `rdwd` into a mature and stable package.
+
+
+More detailed (but still aggregated) changes can nicely be seen at https://github.com/brry/rdwd/releases
+
+# the future
+
+I plan to continue maintaining the package, even though its capabilities have long exceeded my personal needs.
+Coding simply brings joy - and of course it's also very satisfactory to see my work actually used in many contexts.  
+One big thing I have planned is an interactive app to visualize the weather of a given time period,
+compared to the measurements of the same period in other years.  
+A few (rather minor) issues are also still open and I expect that state of things to continue for a long time :).  
+Lastly, I hope to find some help in understanding the structure of gridded data to improve that part of the package.  
+
+If you want to support `rdwd`, you can  
+- fix [issues](https://github.com/brry/rdwd/issues) / report bugs  
+- submit feature requests  
+- thank me (that's very encouraging)  
+- suggest me as a trainer ([brry.github.io](https://brry.github.io/))
+
+
 # search
 
 rdwd description
@@ -924,3 +973,5 @@ rdwd description
 Weather Data Germany download with R, Climate Data Germany  
 Deutscher Wetterdienst R Daten download Klimastationen  
 DWD Daten mit R runterladen, Wetter und Klimadaten in R  
+DWD Radolan Raster data  
+
