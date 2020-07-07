@@ -13,7 +13,7 @@ readDWD.multia(
 )
 }
 \arguments{
-\item{file}{Name of file on harddrive, like e.g. 
+\item{file}{Name of file on harddrive, like e.g.
 DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_aktStandort.txt or
 DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_Stationsliste_aktStandort.txt}
 
@@ -21,10 +21,10 @@ DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_Stationsliste_aktStandort.t
 DEFAULT: "latin1" (needed on Linux, optional but not hurting on windows)}
 
 \item{comment.char}{\link{read.table} comment character.
-DEFAULT: "\\032" (needed 2019-04 to ignore the binary 
+DEFAULT: "\\032" (needed 2019-04 to ignore the binary
 control character at the end of multi_annual files)}
 
-\item{quiet}{Suppress subfunction name message? 
+\item{quiet}{Suppress subfunction name message?
 DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 
 \item{\dots}{Further arguments passed to \code{\link{read.table}}}
@@ -33,10 +33,10 @@ DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 data.frame
 }
 \description{
-read multi_annual dwd data. 
+read multi_annual dwd data.
 Intended to be called via \code{\link{readDWD}}.\cr
 All other observational data at \code{\link{dwdbase}} can be read
-with \code{\link{readDWD.data}}, except for the multi_annual and 
+with \code{\link{readDWD.data}}, except for the multi_annual and
 subdaily/standard_format data.
 }
 \examples{
@@ -71,8 +71,8 @@ par(bg=8)
 for(m in colnames(ma)[8:19])
   {
   raster::plot(DEU, border="darkgrey")
-  berryFunctions::colPoints(ma[-262,]$geogr..Laenge, ma[-262,]$geogr..Breite, ma[-262,m], 
-                            asp=1.4, # Range=range(ma[-262,8:19]), 
+  berryFunctions::colPoints(ma[-262,]$geogr..Laenge, ma[-262,]$geogr..Breite, ma[-262,m],
+                            asp=1.4, # Range=range(ma[-262,8:19]),
                             col=berryFunctions::divPal(200, rev=TRUE), zlab=m, add=T)
   }
 dev.off()

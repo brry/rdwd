@@ -13,19 +13,19 @@ updateIndexes(dwdlocal = FALSE, grdlocal = FALSE, metaforce = NA)
 \item{grdlocal}{Read "DWDdata/INDEX_of_DWD_grids.txt" instead of calling
 \code{\link{indexFTP}}? DEFAULT: FALSE}
 
-\item{metaforce}{\code{\link{dataDWD} force} argument for BESCHREIBUNG files. 
+\item{metaforce}{\code{\link{dataDWD} force} argument for BESCHREIBUNG files.
 DEFAULT: NA (re-download if older than 24 hours)}
 }
 \value{
 \code{\link{checkIndex}} results
 }
 \description{
-This is meant to be called with getwd at the 
+This is meant to be called with getwd at the
  rdwd package source code directory to update the indexes with one single call.
 }
 \examples{
 # number of files at dwdbase
-#  25'757 (2017-03-14) 
+#  25'757 (2017-03-14)
 # 218'593 (2018-03-25)
 # 228'830 (2018-11-26)
 # 240'737 (2019-02-19)
@@ -40,7 +40,7 @@ This is meant to be called with getwd at the
 # 265'712 (2020-04-24)
 # 266'106 (2020-06-01)
 # 266'216 (2020-07-06)
- 
+
 # gridbase
 #  49'247 (2019-05-26)
 #  49'402 (2019-05-30)

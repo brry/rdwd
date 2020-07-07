@@ -7,35 +7,35 @@
 readDWD.radar(file, gargs = NULL, toraster = TRUE, quiet = rdwdquiet(), ...)
 }
 \arguments{
-\item{file}{Name of file on harddrive, like e.g. 
+\item{file}{Name of file on harddrive, like e.g.
 DWDdata/hourly/radolan/recent/bin/
 raa01-rw_10000-1802020250-dwd---bin.gz}
 
-\item{gargs}{Named list of arguments passed to 
-\code{R.utils::\link[R.utils:compressFile]{gunzip}}. The internal 
+\item{gargs}{Named list of arguments passed to
+\code{R.utils::\link[R.utils:compressFile]{gunzip}}. The internal
 defaults are: \code{remove=FALSE} (recommended to keep this
 so \code{file} does not get deleted) and \code{skip=TRUE}
 (which reads previously unzipped files as is).
-If \code{file} has changed, you might want to use 
+If \code{file} has changed, you might want to use
 \code{gargs=list(skip=FALSE, overwrite=TRUE)}
 or alternatively \code{gargs=list(temporary=TRUE)}.
-The \code{gunzip} default \code{destname} means that the 
+The \code{gunzip} default \code{destname} means that the
 unzipped file is stored at the same path as \code{file}.
 DEFAULT gargs: NULL}
 
 \item{toraster}{Logical: convert output (list of matrixes + meta informations)
-to a list with data (\code{raster \link[raster]{stack}}) + 
+to a list with data (\code{raster \link[raster]{stack}}) +
 meta (list from the first subfile, but with vector of dates)?
 DEFAULT: TRUE}
 
-\item{quiet}{Suppress subfunction name message? 
+\item{quiet}{Suppress subfunction name message?
 DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 
-\item{\dots}{Further arguments passed to \code{dwdradar::\link[dwdradar]{readRadarFile}}, 
+\item{\dots}{Further arguments passed to \code{dwdradar::\link[dwdradar]{readRadarFile}},
 i.e. \code{na} and \code{clutter}}
 }
 \value{
-Invisible list with \code{dat} (matrix or raster, depending on \code{toraster}) 
+Invisible list with \code{dat} (matrix or raster, depending on \code{toraster})
 and \code{meta} (list with elements from header)
 }
 \description{
@@ -44,7 +44,7 @@ Intended to be called via \code{\link{readDWD}}.\cr
 }
 \examples{
 \dontrun{ # Excluded from CRAN checks, but run in localtests
-# recent radar files 
+# recent radar files
 rrf <- indexFTP("hourly/radolan/recent/bin", base=gridbase, dir=tempdir())
 lrf <- dataDWD(rrf[773], base=gridbase, joinbf=TRUE, dir=tempdir(), read=FALSE)
 r <- readDWD(lrf)
@@ -59,7 +59,7 @@ plotRadar(r$dat, main=r$meta$date)
   for format description
 }
 \author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Aug 2019. 
+Berry Boessenkool, \email{berry-b@gmx.de}, Aug 2019.
         Significant input for the underlying \code{dwdradar::\link[dwdradar]{readRadarFile}} came
         from Henning Rust & Christoph Ritschel at FU Berlin.
 }

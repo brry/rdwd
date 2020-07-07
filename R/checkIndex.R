@@ -7,7 +7,7 @@
 #' @importFrom pbapply pbsapply
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, May 2019
 #' @seealso \code{\link{createIndex}}
-#' @examples 
+#' @examples
 #' data(fileIndex) ; data(metaIndex) ; data(geoIndex)
 #' # ci <- rdwd:::checkIndex(findex=fileIndex, mindex=metaIndex, gindex=geoIndex)
 #' # cat(ci)
@@ -18,16 +18,16 @@
 #'                  DEFAULT: TRUE
 #' @param fast      Exclude the 3-minute location per ID check? DEFAULT: FALSE
 #' @param warn      Warn about issues? DEFAULT: \code{!quiet} (TRUE)
-#' @param logfile   File to copy log to, appended to existing content. NULL to suppress. 
+#' @param logfile   File to copy log to, appended to existing content. NULL to suppress.
 #'                  DEFAULT: "misc/ExampleTests/warnings.txt"
-#' @param quiet     Logical: Suppress progress messages? 
+#' @param quiet     Logical: Suppress progress messages?
 #'                  DEFAULT: FALSE through \code{\link{rdwdquiet}()}
 checkIndex <- function(
-  findex=NULL, 
-  mindex=NULL, 
-  gindex=NULL, 
-  excludefp=TRUE, 
-  fast=FALSE, 
+  findex=NULL,
+  mindex=NULL,
+  gindex=NULL,
+  excludefp=TRUE,
+  fast=FALSE,
   warn=!quiet,
   logfile=localtestdir(".", "misc/ExampleTests/warnings.txt"),
   quiet=rdwdquiet()
@@ -54,9 +54,9 @@ duplifile <- duplifile[duplifile$res!="subdaily" & duplifile$var!="standard_form
 if(nrow(duplifile)>0)
   {
   rvp <- paste(duplifile$res,duplifile$var,duplifile$per, sep="/")
-  per_folder <- lapply(unique(rvp), function(p) 
+  per_folder <- lapply(unique(rvp), function(p)
     {i <- unique(duplifile$id[rvp==p])
-    paste0("- ", berryFunctions::round0(length(i), pre=2, flag=" "), " at ", p, "; ", 
+    paste0("- ", berryFunctions::round0(length(i), pre=2, flag=" "), " at ", p, "; ",
            berryFunctions::truncMessage(i, ntrunc=10, prefix=""))
     })
   per_folder <- paste(unlist(per_folder), collapse="\n")
@@ -64,8 +64,8 @@ if(nrow(duplifile)>0)
   }
 
 # Duplicate meta files:
-duplifile <- findex[findex$ismeta & 
-                    grepl("txt$", findex$path) & 
+duplifile <- findex[findex$ismeta &
+                    grepl("txt$", findex$path) &
                     findex$res != "multi_annual",] # aktStandort + festerStandort
 duplifile$rvp <- paste(duplifile$res, duplifile$var, duplifile$per, sep="/")
 duplifile <- duplifile$path[alldupli(duplifile$rvp)]
@@ -79,9 +79,9 @@ if(length(duplifile)>0)
 if(!is.null(mindex)){
 if(!quiet) message("Checking metaIndex...")
 # helper function:
-newout <- function(out,ids,colcomp,column,textvar,unit="") 
+newout <- function(out,ids,colcomp,column,textvar,unit="")
  {
- new <- sapply(ids, function(i) 
+ new <- sapply(ids, function(i)
  {tt <- sort(table(mindex[colcomp==i,column]), decreasing=TRUE)
  unname(paste0("- ", textvar,"=",i, ": ", paste0(tt,"x",names(tt),unit, collapse=", ")))
  })
@@ -91,7 +91,7 @@ newout <- function(out,ids,colcomp,column,textvar,unit="")
 id_uni <- unique(mindex$Stations_id)
 # ID elevation inconsistencies:
 eletol <- 2.1 # m tolerance
-id_ele <- pbapply::pbsapply(id_uni, function(i) 
+id_ele <- pbapply::pbsapply(id_uni, function(i)
                  any(abs(diff(mindex[mindex$Stations_id==i,"Stationshoehe"]))>eletol))
 if(any(id_ele))
   {
@@ -102,18 +102,18 @@ if(any(id_ele))
 # several locations for one station ID:
 if(!fast){
 loctol <- 0.040 # km
-id_loc <- pbapply::pbsapply(id_uni, function(i) 
+id_loc <- pbapply::pbsapply(id_uni, function(i)
     maxlldist("geoBreite","geoLaenge", mindex[mindex$Stations_id==i,], each=FALSE)>loctol)
 mindex$coord <- paste(mindex$geoBreite, mindex$geoLaenge, sep="_")
 if(any(id_loc))
   {
   out <- c(out, paste0("Location differences >",loctol*1000,"m:"))
-  out <- newout(out, id_uni[id_loc], mindex$Stations_id, "coord", "ID") 
+  out <- newout(out, id_uni[id_loc], mindex$Stations_id, "coord", "ID")
   }
 }
 
 # Different names per ID:
-id_name <- pbapply::pbsapply(id_uni, function(i) 
+id_name <- pbapply::pbsapply(id_uni, function(i)
                   length(unique(mindex[mindex$Stations_id==i,"Stationsname"]))>1)
 if(any(id_name))
   {
@@ -123,7 +123,7 @@ if(any(id_name))
 
 # Different IDs per name:
 name_uni <- unique(mindex$Stationsname)
-name_id <- pbapply::pbsapply(name_uni, function(n) 
+name_id <- pbapply::pbsapply(name_uni, function(n)
                   length(unique(mindex[mindex$Stationsname==n,"Stations_id"]))>1)
 if(excludefp) name_id[name_uni=="Suderburg"] <- FALSE
 if(any(name_id))
@@ -161,7 +161,7 @@ mf[mf$diff_bis < -30,]
 }
 
 
-  
+
 # gindex ----
 
 if(!is.null(gindex)){

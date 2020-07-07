@@ -15,7 +15,7 @@ readDWD.data(
 )
 }
 \arguments{
-\item{file}{Name of file on harddrive, like e.g. 
+\item{file}{Name of file on harddrive, like e.g.
 DWDdata/daily_kl_recent_tageswerte_KL_03987_akt.zip}
 
 \item{fread}{Logical: read faster with \code{data.table::\link[data.table]{fread}}?
@@ -23,7 +23,7 @@ When reading many large historical files, speedup is significant.
 NA can also be used, which means TRUE if data.table is available.
 DEFAULT: FALSE}
 
-\item{varnames}{Logical (vector): add a short description to the DWD variable 
+\item{varnames}{Logical (vector): add a short description to the DWD variable
 abbreviations in the column names?
 E.g. change \code{FX,TNK} to \code{FX.Windspitze,TNK.Lufttemperatur_Min},
 see \code{\link{newColumnNames}}.
@@ -40,17 +40,17 @@ on the number of characters. DEFAULT: NA}
 "" is the current time zone, and "GMT" is UTC (Universal Time,
 Coordinated). DEFAULT: "GMT"}
 
-\item{quiet}{Suppress empty file warnings and subfuntion name message? 
+\item{quiet}{Suppress empty file warnings and subfuntion name message?
 DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 
-\item{\dots}{Further arguments passed to \code{\link{read.table}} or 
+\item{\dots}{Further arguments passed to \code{\link{read.table}} or
 \code{data.table::\link[data.table]{fread}}}
 }
 \value{
 data.frame
 }
 \description{
-Read regular dwd data. 
+Read regular dwd data.
 Intended to be called via \code{\link{readDWD}}.
 }
 \seealso{

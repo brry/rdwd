@@ -47,8 +47,8 @@ Use \code{mname=""} to suppress writing. DEFAULT: "metaIndex.txt"}
 
 \item{gname}{Filename for \code{\link{geoIndex}}. DEFAULT: "geoIndex.txt"}
 
-\item{overwrite}{Logical: Overwrite existing \code{fname / mname / gname} files? 
-If not, "_n" is added to the filenames, see 
+\item{overwrite}{Logical: Overwrite existing \code{fname / mname / gname} files?
+If not, "_n" is added to the filenames, see
 \code{berryFunctions::\link[berryFunctions]{newFilename}}.
 DEFAULT: FALSE}
 
@@ -56,7 +56,7 @@ DEFAULT: FALSE}
 
 \item{checklog}{Logfile for \code{\link{checkIndex}}. DEFAULT: \code{\link{tempfile}()}}
 
-\item{quiet}{Logical: Suppress messages about progress and filenames? 
+\item{quiet}{Logical: Suppress messages about progress and filenames?
 DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 
 \item{\dots}{Further arguments passed to \code{\link{dataDWD}} for the meta part.}

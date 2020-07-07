@@ -15,7 +15,7 @@ checkSuggestedPackage(package, functionname)
 invisible success logical value from \code{\link{requireNamespace}}
 }
 \description{
-check suggested package for availability, 
+check suggested package for availability,
              yielding an instructive error message if not
 }
 \seealso{

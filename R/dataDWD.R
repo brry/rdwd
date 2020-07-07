@@ -6,11 +6,11 @@
 #' @description Get climate data from the German Weather Service (DWD) FTP-server.
 #' The desired dataset is downloaded into \code{dir}.
 #' If \code{read=TRUE}, it is also read and processed.\cr
-#' \code{dataDWD} handles vectors of URLs, 
-#' displays progress bars (if the package \code{pbapply} is available) 
-#' and by default does not re-download data already in \code{dir} 
+#' \code{dataDWD} handles vectors of URLs,
+#' displays progress bars (if the package \code{pbapply} is available)
+#' and by default does not re-download data already in \code{dir}
 #' (but see argument \code{force} to update files).\cr
-#' To solve "errors in download.file: cannot open URL", see 
+#' To solve "errors in download.file: cannot open URL", see
 #' \url{https://bookdown.org/brry/rdwd/fileindex.html}.\cr
 #' 
 #' @return Presuming downloading and processing were successful:
@@ -72,7 +72,7 @@
 #'               \code{\link{selectDWD}}. Can be a vector with several filenames.
 #' @param base   Single char: base URL that will be removed from output file names.
 #'               DEFAULT: \code{\link{dwdbase}}
-#' @param joinbf Logical: paste \code{base} and \code{file} together? 
+#' @param joinbf Logical: paste \code{base} and \code{file} together?
 #'               Needed mostly for data at \code{\link{gridbase}}.
 #'               DEFAULT: FALSE (selectDWD returns complete URLs already)
 #' @param dir    Char: Writeable directory name where to save the downloaded file.
@@ -81,21 +81,21 @@
 #'               Use NA to force re-downloading files older than 24 hours.
 #'               Use a numerical value to force after that amount of hours.
 #'               Note: if \code{force!=FALSE}, you might want to set \code{overwrite=TRUE} as well.
-#'               If \code{force=FALSE}, the file is still read (or name returned). 
+#'               If \code{force=FALSE}, the file is still read (or name returned).
 #'               DEFAULT: FALSE
 #' @param overwrite Logical (vector): if force=TRUE, overwrite the existing file
 #'               rather than append "_1"/"_2" etc to the filename? DEFAULT: FALSE
 #' @param dbin   Logical: Download binary file, i.e. add \code{mode="wb"} to the
-#'               \code{\link{download.file}} call? This is needed for .tar files 
-#'               (see \code{\link{readDWD.asc}}) and binary files like those at 
+#'               \code{\link{download.file}} call? This is needed for .tar files
+#'               (see \code{\link{readDWD.asc}}) and binary files like those at
 #'               \href{https://opendata.dwd.de/weather/radar/radolan/rw/}{weather/radar/radolan}.
 #'               This seems to be a CRLF issue on MS Windows.
 #'               DEFAULT: FALSE
 #' @param sleep  Number. If not 0, a random number of seconds between 0 and
 #'               \code{sleep} is passed to \code{\link{Sys.sleep}} after each download
-#'               to avoid getting kicked off the FTP-Server, 
+#'               to avoid getting kicked off the FTP-Server,
 #'               see note in \code{\link{indexFTP}}. DEFAULT: 0
-#' @param quiet  Logical: suppress message about directory / filenames? 
+#' @param quiet  Logical: suppress message about directory / filenames?
 #'               DEFAULT: FALSE through \code{\link{rdwdquiet}()}
 #' @param progbar Logical: present a progress bar with estimated remaining time?
 #'               If missing and length(file)==1, progbar is internally set to FALSE.
@@ -110,8 +110,8 @@
 #'               before they get truncated with message "(and xx more)". DEFAULT: 2
 #' @param dfargs Named list of additional arguments passed to \code{\link{download.file}}
 #'               Note that mode="wb" is already passed if \code{dbin=TRUE}
-#' @param \dots  Further arguments passed to \code{\link{readDWD}}, 
-#'               like fread, varnames etc. Dots were passed to 
+#' @param \dots  Further arguments passed to \code{\link{readDWD}},
+#'               like fread, varnames etc. Dots were passed to
 #'               \code{\link{download.file}} prior to rdwd 0.11.7 (2019-02-25)
 #
 dataDWD <- function(
@@ -184,7 +184,7 @@ if( any(dontdownload) & !quiet )
           berryFunctions::truncMessage(outfile[dontdownload], ntrunc=ntrunc, prefix=""),
           "\nNow downloading ",sum(!dontdownload)," files...")
   }
-outfile <- newFilename(outfile, quiet=quiet, ignore=dontdownload, 
+outfile <- newFilename(outfile, quiet=quiet, ignore=dontdownload,
                        overwrite=overwrite, ntrunc=ntrunc, tellignore=FALSE)
 # since berryFunctions 1.15.9 (2017-06-14), outfile is now an absolute path
 # Optional progress bar:
@@ -197,7 +197,7 @@ dl_results <- lapply(seq_along(file), function(i)
   # Actual file download:
   dfdefaults <- list(url=file[i], destfile=outfile[i], quiet=TRUE)
   if(dbin) dfdefaults <- c(dfdefaults, mode="wb")
-  e <- try(suppressWarnings(do.call(download.file, 
+  e <- try(suppressWarnings(do.call(download.file,
                          berryFunctions::owa(dfdefaults, dfargs))), silent=TRUE)
   # wait some time to avoid FTP bot recognition:
   if(sleep!=0) Sys.sleep(runif(n=1, min=0, max=sleep))
@@ -207,10 +207,10 @@ dl_results <- lapply(seq_along(file), function(i)
 # check for download errors:
 iserror <- sapply(dl_results, inherits, "try-error")
 if(any(iserror))
-  { 
+  {
   ne <- sum(iserror)
-  msg <- paste0(ne, " Download", if(ne>1) "s have" else " has", 
-                " failed (out of ",length(iserror),").", 
+  msg <- paste0(ne, " Download", if(ne>1) "s have" else " has",
+                " failed (out of ",length(iserror),").",
                 if(read)" Setting read=FALSE.")
   read <- FALSE
   msg <- paste0(msg, " download.file error",if(ne>1) "s",":\n")
@@ -218,7 +218,7 @@ if(any(iserror))
   msg2 <- berryFunctions::truncMessage(msg2, ntrunc=15, prefix="", midfix="", altnix="", sep="\n")
   if(any(substr(file[iserror], 1, 4) != "ftp:"))
      msg2 <- paste0(msg2, "\n- dataDWD needs urls starting with 'ftp://'. You can use joinbf=TRUE for relative links.")
-  if(grepl("cannot open URL", msg2)) 
+  if(grepl("cannot open URL", msg2))
      msg2 <- paste0(msg2, "\n- If files have been renamed on the DWD server, ",
                     "see   https://bookdown.org/brry/rdwd/fileindex.html")
   msg <- paste0(msg, msg2)

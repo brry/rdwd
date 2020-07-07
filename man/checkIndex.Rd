@@ -29,10 +29,10 @@ DEFAULT: TRUE}
 
 \item{warn}{Warn about issues? DEFAULT: \code{!quiet} (TRUE)}
 
-\item{logfile}{File to copy log to, appended to existing content. NULL to suppress. 
+\item{logfile}{File to copy log to, appended to existing content. NULL to suppress.
 DEFAULT: "misc/ExampleTests/warnings.txt"}
 
-\item{quiet}{Logical: Suppress progress messages? 
+\item{quiet}{Logical: Suppress progress messages?
 DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 }
 \value{

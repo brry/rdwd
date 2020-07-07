@@ -5,14 +5,14 @@
 #' \url{ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/}.\cr
 #' The R package \code{RCurl} must be available to do this.\cr\cr
 #' \bold{Getting banned from the FTP Server}\cr
-#' Normally, this shouldn't happen anymore: since Version 0.10.10 (2018-11-26), 
+#' Normally, this shouldn't happen anymore: since Version 0.10.10 (2018-11-26),
 #' a single RCurl handle is used for all FTP requests and since version 1.0.17 (2019-05-14),
-#' the file tree provided by the DWD is used to obtain all folders first, 
-#' eliminating the recursive calls.\cr 
+#' the file tree provided by the DWD is used to obtain all folders first,
+#' eliminating the recursive calls.\cr
 #' There's a provision if the FTP server detects bot requests and denies access.
-#' If \code{RCurl::\link[RCurl]{getURL}} fails, there will still be an output 
+#' If \code{RCurl::\link[RCurl]{getURL}} fails, there will still be an output
 #' which you can pass in a second run via \code{folder} to extract the remaining dirs.
-#' You might need to wait a bit and set \code{sleep} to a higher value in that case. 
+#' You might need to wait a bit and set \code{sleep} to a higher value in that case.
 #' Here's an example:\cr
 #' \code{gridindex <- indexFTP("", gridbase)}\cr
 #' \code{gridindex <- indexFTP(gridindex, gridbase, sleep=15)}\cr
@@ -42,25 +42,25 @@
 #' }
 #' 
 #' @param folder  Folder(s) to be indexed recursively, e.g. "/hourly/wind/".
-#'                Leading slashes will be removed. 
+#'                Leading slashes will be removed.
 #'                Use \code{folder=""} to search at the location of \code{base} itself.
-#'                If \code{folder} is "currentfindex" (the default) and \code{base} 
-#'                is the default, \code{folder} is changed to all observational 
-#'                folders listed in the current tree file at 
-#'                \url{ftp://opendata.dwd.de/weather/tree.html}. With "currentgindex" 
+#'                If \code{folder} is "currentfindex" (the default) and \code{base}
+#'                is the default, \code{folder} is changed to all observational
+#'                folders listed in the current tree file at
+#'                \url{ftp://opendata.dwd.de/weather/tree.html}. With "currentgindex"
 #'                and \code{gridbase}, the grid folders in the tree are used.
 #'                DEFAULT: "currentfindex"
-#' @param base    Main directory of FTP server. Trailing slashes will be removed. 
+#' @param base    Main directory of FTP server. Trailing slashes will be removed.
 #'                DEFAULT: \code{\link{dwdbase}}
-#' @param is.file.if.has.dot Logical: if some of the input paths contain a dot, 
+#' @param is.file.if.has.dot Logical: if some of the input paths contain a dot,
 #'                treat those as files, i.e. do not try to read those as if they
 #'                were a folder. Only set this to FALSE if you know what you're doing.
 #'                DEFAULT: TRUE
 #' @param exclude.latest.bin Exclude latest file at opendata.dwd.de/weather/radar/radolan?
 #'                RCurl::getURL indicates this is a pointer to the last regularly named file.
 #'                DEFAULT: TRUE
-#' @param fast    Read tree file with \code{data.table::\link[data.table]{fread}} 
-#'                (1 sec) instead of \code{\link{readLines}} (10 secs)? 
+#' @param fast    Read tree file with \code{data.table::\link[data.table]{fread}}
+#'                (1 sec) instead of \code{\link{readLines}} (10 secs)?
 #'                DEFAULT: TRUE
 #' @param sleep   If not 0, a random number of seconds between 0 and \code{sleep}
 #'                is passed to \code{\link{Sys.sleep}} after each read folder
@@ -73,7 +73,7 @@
 #' @param overwrite Logical: Overwrite existing file? If not, "_n" is added to the
 #'                filename, see \code{berryFunctions::\link[berryFunctions]{newFilename}}.
 #'                DEFAULT: FALSE
-#' @param quiet   Suppress progbars and message about directory/files? 
+#' @param quiet   Suppress progbars and message about directory/files?
 #'                DEFAULT: FALSE through \code{\link{rdwdquiet}()}
 #' @param progbar Logical: present a progress bar in each level? DEFAULT: TRUE
 #' @param verbose Logical: write a lot of messages from \code{RCurl::\link[RCurl]{getURL}}?
@@ -102,15 +102,15 @@ if(all(folder %in% c("currentfindex","currentgindex")) & base %in% c(dwdbase, gr
   {
   if(!quiet) message("Reading current index tree file...")
   if(!fast)
-     {tree <- readLines("ftp://opendata.dwd.de/weather/tree.html") 
+     {tree <- readLines("ftp://opendata.dwd.de/weather/tree.html")
      } else {
      checkSuggestedPackage("data.table", "rdwd::indexFTP with fast=TRUE")
-     tree <- data.table::fread("ftp://opendata.dwd.de/weather/tree.html", 
+     tree <- data.table::fread("ftp://opendata.dwd.de/weather/tree.html",
                                 sep="\n", header=FALSE, showProgress=FALSE, strip.white=FALSE)$V1
      }
   if(!quiet) message("Processing index tree file...")
   urlpart <- "\"https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/"
-  if(folder=="currentgindex") 
+  if(folder=="currentgindex")
      urlpart <- sub("observations_germany/climate", "grids_germany", urlpart)
   tree <- grep(urlpart, tree, value=TRUE)
   tree <- sapply(strsplit(tree, "href="), "[", 2)
@@ -132,7 +132,7 @@ curl_handle <- RCurl::getCurlHandle(ftp.use.epsv=TRUE)
 
 # remove trailing slashes in base and leading slashes in folder:
 while(grepl("/$", base)) base <- sub("/$", "", base)
-while(any(grepl("^/", folder))) folder <- sub("^/","",folder) 
+while(any(grepl("^/", folder))) folder <- sub("^/","",folder)
 
 # central object: df_ff (dataframe with file/folder names)
 df_ff <- data.frame(path=folder, isfile=FALSE, stringsAsFactors=FALSE)
@@ -142,10 +142,10 @@ if(is.file.if.has.dot)
 
 # List files at a single path, returning files/folders or useful error messages
 # stoppp_ffe will be an object within indexFTP, see below
-getURL_ffe <- function(ff_row) 
+getURL_ffe <- function(ff_row)
  {
  if(stoppp_ffe) return(ff_row) # do not attempt if already kicked off the FTP
- p <- try( RCurl::getURL(paste0(base,"/",ff_row$path,"/"), verbose=verbose, 
+ p <- try( RCurl::getURL(paste0(base,"/",ff_row$path,"/"), verbose=verbose,
                          ftp.use.epsv=TRUE, curl=curl_handle),      silent=TRUE)
  # upon failure, exit with a warning (not error):
  if(inherits(p, "try-error"))
@@ -153,12 +153,12 @@ getURL_ffe <- function(ff_row)
      # Prepare warning message text:
      p <- gsub("Error in function (type, msg, asError = TRUE)  : ", "", p, fixed=TRUE)
      p <- removeSpace(gsub("\n", "", p))
-     if(grepl("Could not resolve host", p)) 
+     if(grepl("Could not resolve host", p))
        p <- paste0(p,"\nThis may mean you are not connected to the internet.")
-     if(grepl("Server denied you to change to the given directory", p)) 
+     if(grepl("Server denied you to change to the given directory", p))
        p <- paste0(p,"\nThis could mean the path is a file, not a folder",
                    " or that it doesn't exist at base\n", base)
-     msg <- paste0(traceCall(3, "", ": "), "RCurl::getURL failed for '", 
+     msg <- paste0(traceCall(3, "", ": "), "RCurl::getURL failed for '",
                    ff_row$path, "/' with error:\n - ", p)
      warning(msg, call.=FALSE)
      assign("stoppp_ffe", TRUE, inherits=TRUE) # to get out of the loop sans error
@@ -170,8 +170,8 @@ getURL_ffe <- function(ff_row)
  p <- p[nchar(p)>0]
  # handle opendata.dwd.de/weather/radar/radolan/* latest data
  ilf <- grep("latest-dwd---bin", p) # index of latest file
- if(length(ilf)>0) 
-   if(exclude.latest.bin) p <- p[-ilf]  else  
+ if(length(ilf)>0)
+   if(exclude.latest.bin) p <- p[-ilf]  else
    p[ilf] <- sub(" -> .*", "", p[ilf]) # to keep p suited for read.text
  #
  isdir <- substr(p,1,1) =="d" # directory, else file
@@ -197,7 +197,7 @@ while(any(!df_ff$isfile))           # potential ToDo: exclude previously checked
   if(stoppp_ffe) break
   } # end while loop
 
-if(anyDuplicated(df_ff$path)) warning("Duplicate paths:", 
+if(anyDuplicated(df_ff$path)) warning("Duplicate paths:",
                    truncMessage(df_ff$path[duplicated(df_ff$path)], prefix=""))
 
 # sort final results alphabetically (path only, no f/f info):

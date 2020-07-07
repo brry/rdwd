@@ -1,5 +1,5 @@
 #' @title plot radar products on a pretty map
-#' @description Convenience function to plot radar products on a pretty map. 
+#' @description Convenience function to plot radar products on a pretty map.
 #' Creates a separate plot for each layer, a selection is possible.
 #' @return raster object, projected (if \code{project=TRUE}).
 #' If \code{length(layer)==1}, only that selected layer is returned.
@@ -20,7 +20,7 @@
 #' plotRadar(radp, ylim=c(52,54), project=FALSE) # reuses main
 #' 
 #' # plotRadar equivalent, map only country borders:
-#' radpm <- projectRasterDWD(rad[[1]], proj="seasonal", extent=rad@extent) 
+#' radpm <- projectRasterDWD(rad[[1]], proj="seasonal", extent=rad@extent)
 #' raster::plot(radpm)
 #' addBorders()
 #' 
@@ -28,7 +28,7 @@
 #' url <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
 #' nc <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=localtestdir())
 #' 
-#' ncp3 <- plotRadar(nc, main=paste(nc@title, nc@z[[1]]), layer=1:3, 
+#' ncp3 <- plotRadar(nc, main=paste(nc@title, nc@z[[1]]), layer=1:3,
 #'                   col=terrain.colors(100), proj="nc", extent="nc")
 #' plotRadar(ncp3, layer=3:4, project=FALSE) # still has all layers
 #' plotRadar(ncp3, layer=4:5, project=FALSE, zlim="ind") # individual zlims per layer
@@ -38,48 +38,48 @@
 #' # no longer has layers 2-4:
 #' berryFunctions::is.error(plotRadar(ncp1, layer=1:4, project=FALSE), TRUE, TRUE)
 #' }
-#'
+#' 
 #' @param x          raster oject, e.g. 'dat' element of object returned by \code{\link{readDWD}}.
 #' @param layer      Optional: selected layer(s) to be plotted. DEFAULT: NULL
-#' @param main       Graph title(s). Use "" to suppress. 
+#' @param main       Graph title(s). Use "" to suppress.
 #'                   Note\code{output@@title} is set to \code{main}! DEFAULT: x@@title
 #' @param land       Color of land areas in the map. DEFAULT: "gray80"
 #' @param sea        Color of sea areas in the map. DEFAULT: "cadetblue1"
 #' @param de         Color of Deutschland Bundesland borders (\code{\link{DEU}}). DEFAULT: "grey80"
 #' @param eu         Color of Europe country borders (\code{\link{EUR}}). DEFAULT: "black"
-#' @param col        Color palette for the data itself. 
+#' @param col        Color palette for the data itself.
 #'                   DEFAULT: \code{berryFunctions::\link[berryFunctions]{seqPal}}
 #' @param xlim       xlim. DEFAULT: NULL, i.e. taken from x extent (after reprojection if \code{project=TRUE})
 #' @param ylim       ylim. DEFAULT: NULL, i.e. taken from y extent (after reprojection if \code{project=TRUE})
-#' @param zlim       zlim. 3 Options: two-number vector, 
-#'                   \code{zlim="ind"} for individual zlim per layer, 
+#' @param zlim       zlim. 3 Options: two-number vector,
+#'                   \code{zlim="ind"} for individual zlim per layer,
 #'                   or NULL for \code{range} of selected layer(s).
 #'                   DEFAULT: NULL
 #' @param axes       Draw axes? DEFAULT: TRUE
 #' @param las        LabelAxisStyle for axes. DEFAULT: 1 (all upright)
 #' @param mar        Vector with plot margins. DEFAULT: c(2.5, 3.5, 2.5, 5)
-#' @param keeppar    Logical: keep the margins set with par, so later points etc are 
-#'                   added in the right location? 
+#' @param keeppar    Logical: keep the margins set with par, so later points etc are
+#'                   added in the right location?
 #'                   DEFAULT: TRUE, opposite to \code{sf::plot} with reset=TRUE, see
 #'                   \url{https://github.com/cran/sf/blob/master/R/plot.R}
-#' @param project    Project the data before plotting? Not needed if 
+#' @param project    Project the data before plotting? Not needed if
 #'                   \code{\link{projectRasterDWD}} has already been called. DEFAULT: TRUE
-#' @param proj       current projection, see \code{\link{projectRasterDWD}}, 
+#' @param proj       current projection, see \code{\link{projectRasterDWD}},
 #'                   used only if \code{project=TRUE}. DEFAULT: "radolan"
-#' @param extent     current extent, see \code{\link{projectRasterDWD}}, 
+#' @param extent     current extent, see \code{\link{projectRasterDWD}},
 #'                   used only if \code{project=TRUE}. DEFAULT: "radolan"
-#' @param targetproj target projection, see \code{\link{projectRasterDWD}}, 
+#' @param targetproj target projection, see \code{\link{projectRasterDWD}},
 #'                   used only if \code{project=TRUE}. DEFAULT: "ll"
 #' @param quiet      suppress progress messages? DEFAULT: FALSE through \code{\link{rdwdquiet}()}
 #' @param \dots      Further arguments passed to \code{raster::\link[raster]{plot}}
-#'
+#' 
 plotRadar <- function(
 x,
 layer=NULL,
 main=x@title,
 land="gray80",
 sea="cadetblue1",
-de="grey80", 
+de="grey80",
 eu="black",
 col=berryFunctions::seqPal(),
 xlim=NULL,
@@ -98,7 +98,7 @@ quiet=rdwdquiet(),
 )
 {
 # Input checks:
-checkSuggestedPackage("raster", "plotRadar") 
+checkSuggestedPackage("raster", "plotRadar")
 if(identical(names(x),c("dat","meta"))) stop("plotRadar needs the 'dat' element as input.")
 
 force(main)
@@ -107,7 +107,7 @@ if(length(layer)==1) x <- x[[layer]] # use only selected layer
 
 x@title <- as.character(main) # https://github.com/rspatial/raster/issues/128
 
-if(project) 
+if(project)
  {
  if(!quiet) message("- projecting:")
  x <- projectRasterDWD(x, proj=proj,extent=extent,targetproj=targetproj,quiet=quiet)
@@ -126,7 +126,7 @@ singlemap <- function(x_i, main_i)
   {
   # even if manually given, xlim/ylim not consistently adhered to for different x
   # hence plot is set up with DEU
-  raster::plot(DEU, add=FALSE, xlim=xlim, ylim=ylim, axes=axes, las=las) 
+  raster::plot(DEU, add=FALSE, xlim=xlim, ylim=ylim, axes=axes, las=las)
   rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], col=sea)
   raster::plot(EUR, add=TRUE, col=land)
   box()

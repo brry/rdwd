@@ -33,7 +33,7 @@ plotRadar(
 
 \item{layer}{Optional: selected layer(s) to be plotted. DEFAULT: NULL}
 
-\item{main}{Graph title(s). Use "" to suppress. 
+\item{main}{Graph title(s). Use "" to suppress.
 Note\code{output@title} is set to \code{main}! DEFAULT: x@title}
 
 \item{land}{Color of land areas in the map. DEFAULT: "gray80"}
@@ -44,15 +44,15 @@ Note\code{output@title} is set to \code{main}! DEFAULT: x@title}
 
 \item{eu}{Color of Europe country borders (\code{\link{EUR}}). DEFAULT: "black"}
 
-\item{col}{Color palette for the data itself. 
+\item{col}{Color palette for the data itself.
 DEFAULT: \code{berryFunctions::\link[berryFunctions]{seqPal}}}
 
 \item{xlim}{xlim. DEFAULT: NULL, i.e. taken from x extent (after reprojection if \code{project=TRUE})}
 
 \item{ylim}{ylim. DEFAULT: NULL, i.e. taken from y extent (after reprojection if \code{project=TRUE})}
 
-\item{zlim}{zlim. 3 Options: two-number vector, 
-\code{zlim="ind"} for individual zlim per layer, 
+\item{zlim}{zlim. 3 Options: two-number vector,
+\code{zlim="ind"} for individual zlim per layer,
 or NULL for \code{range} of selected layer(s).
 DEFAULT: NULL}
 
@@ -62,21 +62,21 @@ DEFAULT: NULL}
 
 \item{mar}{Vector with plot margins. DEFAULT: c(2.5, 3.5, 2.5, 5)}
 
-\item{keeppar}{Logical: keep the margins set with par, so later points etc are 
-added in the right location? 
+\item{keeppar}{Logical: keep the margins set with par, so later points etc are
+added in the right location?
 DEFAULT: TRUE, opposite to \code{sf::plot} with reset=TRUE, see
 \url{https://github.com/cran/sf/blob/master/R/plot.R}}
 
-\item{project}{Project the data before plotting? Not needed if 
+\item{project}{Project the data before plotting? Not needed if
 \code{\link{projectRasterDWD}} has already been called. DEFAULT: TRUE}
 
-\item{proj}{current projection, see \code{\link{projectRasterDWD}}, 
+\item{proj}{current projection, see \code{\link{projectRasterDWD}},
 used only if \code{project=TRUE}. DEFAULT: "radolan"}
 
-\item{extent}{current extent, see \code{\link{projectRasterDWD}}, 
+\item{extent}{current extent, see \code{\link{projectRasterDWD}},
 used only if \code{project=TRUE}. DEFAULT: "radolan"}
 
-\item{targetproj}{target projection, see \code{\link{projectRasterDWD}}, 
+\item{targetproj}{target projection, see \code{\link{projectRasterDWD}},
 used only if \code{project=TRUE}. DEFAULT: "ll"}
 
 \item{quiet}{suppress progress messages? DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
@@ -89,7 +89,7 @@ If \code{length(layer)==1}, only that selected layer is returned.
 \code{output@title} is set to \code{main}.
 }
 \description{
-Convenience function to plot radar products on a pretty map. 
+Convenience function to plot radar products on a pretty map.
 Creates a separate plot for each layer, a selection is possible.
 }
 \examples{
@@ -101,7 +101,7 @@ radp <- plotRadar(rad, proj="seasonal", extent=rad@extent, main="plotRadar ex")
 plotRadar(radp, ylim=c(52,54), project=FALSE) # reuses main
 
 # plotRadar equivalent, map only country borders:
-radpm <- projectRasterDWD(rad[[1]], proj="seasonal", extent=rad@extent) 
+radpm <- projectRasterDWD(rad[[1]], proj="seasonal", extent=rad@extent)
 raster::plot(radpm)
 addBorders()
 
@@ -109,7 +109,7 @@ addBorders()
 url <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
 nc <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=localtestdir())
 
-ncp3 <- plotRadar(nc, main=paste(nc@title, nc@z[[1]]), layer=1:3, 
+ncp3 <- plotRadar(nc, main=paste(nc@title, nc@z[[1]]), layer=1:3,
                   col=terrain.colors(100), proj="nc", extent="nc")
 plotRadar(ncp3, layer=3:4, project=FALSE) # still has all layers
 plotRadar(ncp3, layer=4:5, project=FALSE, zlim="ind") # individual zlims per layer

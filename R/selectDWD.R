@@ -3,7 +3,7 @@
 #' @description Select files for downloading with \code{\link{dataDWD}}.\cr
 #' The available folders with datasets are listed at
 #' \url{https://bookdown.org/brry/rdwd/available-datasets.html}.
-#' To use an updated index (if necessary), see 
+#' To use an updated index (if necessary), see
 #' \url{https://bookdown.org/brry/rdwd/fileindex.html}.\cr\cr
 #' All arguments (except for \code{mindex}, \code{findex} and \code{base})
 #' can be a vector and will be recycled to the maximum length of all arguments.
@@ -20,7 +20,7 @@
 #'  3 \tab |  ""  \tab | "xx" \tab | The zip file names at \bold{path} \cr
 #'  4 \tab | "xx" \tab | "xx" \tab | Regular single data file name \cr
 #' }
-#' For case 2, you can explicitly set \code{res="",var="",per=""} to avoid the 
+#' For case 2, you can explicitly set \code{res="",var="",per=""} to avoid the
 #' default interactive selection.\cr
 #' For case 3 and 4 (\bold{path} given), you can set \code{meta=TRUE}.
 #' Then selectDWD will return the name of the station description file at \bold{path}.
@@ -68,23 +68,23 @@
 #' }
 #' 
 #' @param name  Char: station name(s) passed to \code{\link{findID}}, along with
-#'              \code{exactmatch} and \code{mindex}. 
+#'              \code{exactmatch} and \code{mindex}.
 #'              All 3 arguments are ignored if \code{id} is given. DEFAULT: ""
 #' @param res   Char: temporal \bold{res}olution available at \code{base}, usually one of
 #'              \code{c("hourly","daily","monthly")}, see section 'Description' above.
-#'              \code{res/var/per} together form the \bold{path}. 
+#'              \code{res/var/per} together form the \bold{path}.
 #'              DEFAULT: NA for interactive selection
 #' @param var   Char: weather \bold{var}iable of interest, like e.g.
 #'              \code{"air_temperature", "cloudiness", "precipitation",
 #'                      "soil_temperature", "solar", "kl", "more_precip"}
-#'              See above and in \code{View(rdwd:::\link{fileIndex})}. 
+#'              See above and in \code{View(rdwd:::\link{fileIndex})}.
 #'              DEFAULT: NA for interactive selection
 #' @param per   Char: desired time \bold{per}iod. One of
 #'              "recent" (data from the last year, up to date usually within a few days) or
 #'              "historical" (long time series). Can be abbreviated (if the first
 #'              letter is "r" or "h", full names are used). To get both datasets,
 #'              use \code{per="hr"} or \code{per="rh"} (and \code{outvec=TRUE}).
-#'              \code{per} is set to "" if var=="solar". 
+#'              \code{per} is set to "" if var=="solar".
 #'              DEFAULT: NA for interactive selection
 #' @param exactmatch Logical passed to \code{\link{findID}}: match \code{name}
 #'              with \code{\link{==}})? Else with \code{\link{grepl}}. DEFAULT: TRUE
@@ -110,7 +110,7 @@
 #'              Relevant only in case 4 (path and id given) and case 3 for res="multi_annual".
 #'              See \code{\link{metaIndex}} for a compilation of all metaData files.
 #'              DEFAULT: FALSE
-#' @param meta_txt_only Logical: if \code{meta}, only return .txt files, not the 
+#' @param meta_txt_only Logical: if \code{meta}, only return .txt files, not the
 #'              pdf and html files? DEFAULT: TRUE
 #' @param outvec Single logical: if \bold{path} or \bold{ID} length > 1,
 #'              instead of a list, return a vector? (via \code{\link{unlist}}).
@@ -161,7 +161,7 @@ if(any(per=="hr"|per=="rh", na.rm=TRUE))
 # recycle input vectors
 len <- max(length(id), length(res), length(var), length(per), length(meta)  )
 lmin <-  c(length(id), length(res), length(var), length(per), length(meta)  )
-if(any(lmin==0)) stop(sum(lmin==0), " input vectors have length zero: ", 
+if(any(lmin==0)) stop(sum(lmin==0), " input vectors have length zero: ",
                       toString(c("id","res","var","per","meta")[lmin==0]))
 # outside of the loop, the slowest part of the code is getting length(id)
 # because findID obtains id from name. All computing time happens in tolower
@@ -185,10 +185,10 @@ per[var=="solar" & res %in% c("hourly","daily")] <- ""
 rma <- res=="multi_annual"
 if(any(rma, na.rm=TRUE))
   {
-  if(any(id[rma]!="", na.rm=TRUE)) warning(traceCall(1, "", ": "), "multi_annual data is not ", 
+  if(any(id[rma]!="", na.rm=TRUE)) warning(traceCall(1, "", ": "), "multi_annual data is not ",
       "organized by station ID. Setting id to ''.", call.=FALSE)
   id[rma] <- ""
-  if(any(per[rma]!="", na.rm=TRUE)) warning(traceCall(1, "", ": "), "multi_annual data is not ", 
+  if(any(per[rma]!="", na.rm=TRUE)) warning(traceCall(1, "", ": "), "multi_annual data is not ",
       "organized in period folders. Setting per to ''.", call.=FALSE)
   per[rma] <- ""
   }
@@ -218,7 +218,7 @@ selectPrompt <- function(column, RES="", VAR="", PER="", ID="", index=findex)
  VAR[is.na(VAR)] <- ""
  PER[is.na(PER)] <- ""
  if(all(VAR=="solar" & RES %in% c("hourly","daily"))) return("")
- question <- if(column=="res") "resolutions" else 
+ question <- if(column=="res") "resolutions" else
              if(column=="var") "variables"   else "periods"
  question <- paste("Which of the following", question, "would you like to use?")
  sid  <- if(any(ID !="")) index$id  %in% ID  else TRUE
@@ -227,7 +227,7 @@ selectPrompt <- function(column, RES="", VAR="", PER="", ID="", index=findex)
  sper <- if(any(PER!="")) index$per %in% PER else TRUE
  options <- index[sid & sres & svar & sper , column]
  options <- sort(unique(options))
- if(length(options)<1) 
+ if(length(options)<1)
    {
    warning("For interactive selection, no options were found for your request. ",
            "Proceeding with ", column,"=''.", call.=FALSE)
@@ -249,7 +249,7 @@ selectPrompt <- function(column, RES="", VAR="", PER="", ID="", index=findex)
 if(anyNA(res)) res[is.na(res)] <- selectPrompt("res", res, var, per, id)
 if(anyNA(var)) var[is.na(var)] <- selectPrompt("var", res, var, per, id)
 if(anyNA(per)) per[is.na(per)] <- selectPrompt("per", res, var, per, id)
-# 
+#
 # ------------------------------------------------------------------------------
 #
 # loop over each input element:
@@ -278,10 +278,10 @@ if(givenid & !givenpath)
   filename <- findex[findex$id %in% id[i], "path"]
   filename <- filename[!is.na(filename)]
   # check output length
-  if(length(filename)<1 & !quiet) warning(traceCall(3, "", ": "), "in file index '", 
+  if(length(filename)<1 & !quiet) warning(traceCall(3, "", ": "), "in file index '",
      findexname, "', no filename could be detected with ID ", id[i], ".", call.=FALSE)
-  if(length(filename)>1 & !quiet) warning(traceCall(3, "", ": "), "in file index '", 
-     findexname, "', there are ", length(filename), " files with ID ",id[i], ".", 
+  if(length(filename)>1 & !quiet) warning(traceCall(3, "", ": "), "in file index '",
+     findexname, "', there are ", length(filename), " files with ID ",id[i], ".",
      call.=FALSE)
   return(   paste0(base,"/",filename)   )
   }
@@ -313,7 +313,7 @@ if(!givenid & givenpath & !meta[i])
   {
   isnotmeta <- grepl('.zip$', findex$path)
   if(res[i]=="multi_annual") isnotmeta <- !findex$ismeta
-  sel <- sel & isnotmeta 
+  sel <- sel & isnotmeta
   filename <- findex[sel,"path"]
   if(length(filename)<1) warning(traceCall(3, "", ": "), "according to file index '",
                                  findexname, "', there is no file in '", path,

@@ -21,19 +21,19 @@ indexFTP(
 }
 \arguments{
 \item{folder}{Folder(s) to be indexed recursively, e.g. "/hourly/wind/".
-Leading slashes will be removed. 
+Leading slashes will be removed.
 Use \code{folder=""} to search at the location of \code{base} itself.
-If \code{folder} is "currentfindex" (the default) and \code{base} 
-is the default, \code{folder} is changed to all observational 
-folders listed in the current tree file at 
-\url{ftp://opendata.dwd.de/weather/tree.html}. With "currentgindex" 
+If \code{folder} is "currentfindex" (the default) and \code{base}
+is the default, \code{folder} is changed to all observational
+folders listed in the current tree file at
+\url{ftp://opendata.dwd.de/weather/tree.html}. With "currentgindex"
 and \code{gridbase}, the grid folders in the tree are used.
 DEFAULT: "currentfindex"}
 
-\item{base}{Main directory of FTP server. Trailing slashes will be removed. 
+\item{base}{Main directory of FTP server. Trailing slashes will be removed.
 DEFAULT: \code{\link{dwdbase}}}
 
-\item{is.file.if.has.dot}{Logical: if some of the input paths contain a dot, 
+\item{is.file.if.has.dot}{Logical: if some of the input paths contain a dot,
 treat those as files, i.e. do not try to read those as if they
 were a folder. Only set this to FALSE if you know what you're doing.
 DEFAULT: TRUE}
@@ -42,8 +42,8 @@ DEFAULT: TRUE}
 RCurl::getURL indicates this is a pointer to the last regularly named file.
 DEFAULT: TRUE}
 
-\item{fast}{Read tree file with \code{data.table::\link[data.table]{fread}} 
-(1 sec) instead of \code{\link{readLines}} (10 secs)? 
+\item{fast}{Read tree file with \code{data.table::\link[data.table]{fread}}
+(1 sec) instead of \code{\link{readLines}} (10 secs)?
 DEFAULT: TRUE}
 
 \item{sleep}{If not 0, a random number of seconds between 0 and \code{sleep}
@@ -61,7 +61,7 @@ DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
 filename, see \code{berryFunctions::\link[berryFunctions]{newFilename}}.
 DEFAULT: FALSE}
 
-\item{quiet}{Suppress progbars and message about directory/files? 
+\item{quiet}{Suppress progbars and message about directory/files?
 DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 
 \item{progbar}{Logical: present a progress bar in each level? DEFAULT: TRUE}
@@ -78,14 +78,14 @@ Defaults to the German Weather Service (DWD, Deutscher WetterDienst) OpenData se
 \url{ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/}.\cr
 The R package \code{RCurl} must be available to do this.\cr\cr
 \bold{Getting banned from the FTP Server}\cr
-Normally, this shouldn't happen anymore: since Version 0.10.10 (2018-11-26), 
+Normally, this shouldn't happen anymore: since Version 0.10.10 (2018-11-26),
 a single RCurl handle is used for all FTP requests and since version 1.0.17 (2019-05-14),
-the file tree provided by the DWD is used to obtain all folders first, 
-eliminating the recursive calls.\cr 
+the file tree provided by the DWD is used to obtain all folders first,
+eliminating the recursive calls.\cr
 There's a provision if the FTP server detects bot requests and denies access.
-If \code{RCurl::\link[RCurl]{getURL}} fails, there will still be an output 
+If \code{RCurl::\link[RCurl]{getURL}} fails, there will still be an output
 which you can pass in a second run via \code{folder} to extract the remaining dirs.
-You might need to wait a bit and set \code{sleep} to a higher value in that case. 
+You might need to wait a bit and set \code{sleep} to a higher value in that case.
 Here's an example:\cr
 \code{gridindex <- indexFTP("", gridbase)}\cr
 \code{gridindex <- indexFTP(gridindex, gridbase, sleep=15)}\cr

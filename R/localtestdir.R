@@ -1,6 +1,6 @@
 #' @title local test data directory
 #' @description returns a directory used for local tests on Berry's computers.
-#' This is used in many examples to save the downloaded DWD data in this directory, 
+#' This is used in many examples to save the downloaded DWD data in this directory,
 #' thus avoiding multiple downloads of the same file.
 #' @seealso \code{\link{runLocalTests}}
 #' @return charstring (directory)
@@ -10,11 +10,11 @@
 #' @export
 #' @examples
 #' localtestdir()
-#'
+#' 
 #' @param packdir Path to package directory. DEFAULT: "."
 #' @param folder  Path inside package. DEFAULT: "misc/localdata"
 #' @param file    Optional: path(s) at \code{folder}. DEFAULT: NULL
-#'
+#' 
 localtestdir <- function(
 packdir=".",
 folder="misc/localdata",

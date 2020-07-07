@@ -26,7 +26,7 @@ readDWD(
 )
 }
 \arguments{
-\item{file}{Char (vector): name(s) of the file(s) downloaded with 
+\item{file}{Char (vector): name(s) of the file(s) downloaded with
 \code{\link{dataDWD}},
 e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip" or
 "~/DWDdata/RR_Stundenwerte_Beschreibung_Stationen.txt"}
@@ -40,7 +40,7 @@ DEFAULT: !quiet}
 \item{fread}{Logical (vector): read fast? See \code{\link{readDWD.data}}.
 DEFAULT: FALSE (some users complain it doesn't work on their PC)}
 
-\item{varnames}{Logical (vector): Expand column names? 
+\item{varnames}{Logical (vector): Expand column names?
 See \code{\link{readDWD.data}}. DEFAULT: FALSE}
 
 \item{var}{var for \code{\link{readDWD.nc}}. DEFAULT: ""}
@@ -52,15 +52,15 @@ Used in \code{\link{readDWD.raster}} and \code{\link{readDWD.asc}}.
 DEFAULT: TRUE}
 
 \item{multia}{Logical (vector): is the \code{file} a multi_annual file?
-Overrides \code{meta}, so set to FALSE manually if 
-\code{\link{readDWD.meta}} needs to be called on a (manually renamed) 
-Beschreibung file ending with "Standort.txt". 
+Overrides \code{meta}, so set to FALSE manually if
+\code{\link{readDWD.meta}} needs to be called on a (manually renamed)
+Beschreibung file ending with "Standort.txt".
 See \code{\link{readDWD.multia}}.
 DEFAULT: TRUE for each file ending in "Standort.txt"}
 
 \item{meta}{Logical (vector): is the \code{file} a meta file (Beschreibung.txt)?
 See \code{\link{readDWD.meta}}.
-For zip files containing station meta information, see 
+For zip files containing station meta information, see
 \code{\link{readMeta}}.
 DEFAULT: TRUE for each file ending in ".txt"}
 
@@ -88,12 +88,12 @@ DEFAULT: TRUE for each file ending in ".gz"}
 See \code{\link{readDWD.asc}}.
 DEFAULT: TRUE for each file ending in ".tar"}
 
-\item{\dots}{Further arguments passed to the internal \code{readDWD.*} 
+\item{\dots}{Further arguments passed to the internal \code{readDWD.*}
 functions and from those to the underlying reading functions
 documented in each internal function.}
 }
 \value{
-Invisible data.frame of the desired dataset, 
+Invisible data.frame of the desired dataset,
         or a named list of data.frames if length(file) > 1.\cr
         The functions for gridded data return raster objects instead of data.frames.
 }
@@ -109,8 +109,8 @@ to read observational data (\href{https://bookdown.org/brry/rdwd/available-datas
          \link{readDWD.multia}, \link{readDWD.stand}, \link{readDWD.meta}}\cr
 to read gridded data (\href{https://bookdown.org/brry/rdwd/raster-data.html}{overview}): \code{\link{readDWD.binary},
          \link{readDWD.raster}, \link{readDWD.radar}, \link{readDWD.nc}, \link{readDWD.asc}}\cr
-Not all arguments to \code{readDWD} are used for all functions, e.g. 
-\code{fread} is used only by \code{.data}, while \code{dividebyten} 
+Not all arguments to \code{readDWD} are used for all functions, e.g.
+\code{fread} is used only by \code{.data}, while \code{dividebyten}
 is used in \code{.raster} and \code{.asc}.\cr\cr
 \code{file} can be a vector with several filenames. Most other arguments can
 also be a vector and will be recycled to the length of \code{file}.
@@ -120,7 +120,7 @@ also be a vector and will be recycled to the length of \code{file}.
 
 }
 \seealso{
-\code{\link{dataDWD}}, \code{\link{readVars}}, 
+\code{\link{dataDWD}}, \code{\link{readVars}},
          \code{\link{readMeta}}, \code{\link{selectDWD}}\cr
          \url{https://bookdown.org/brry/rdwd}
 }

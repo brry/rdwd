@@ -15,22 +15,22 @@ readDWD.binary(
 )
 }
 \arguments{
-\item{file}{Name of file on harddrive, like e.g. 
+\item{file}{Name of file on harddrive, like e.g.
 DWDdata/daily_radolan_historical_bin_2017_SF201712.tar.gz}
 
 \item{exdir}{Directory to unzip into. If existing, only the needed files
 will be unpacked with \code{\link{untar}}. Note that exdir
-size will be around 1.1 GB. exdir can contain other files, 
-these will be ignored for the actual reading with 
+size will be around 1.1 GB. exdir can contain other files,
+these will be ignored for the actual reading with
 \code{dwdradar::\link[dwdradar]{readRadarFile}}.
 DEFAULT exdir: sub(".tar.gz$", "", file)}
 
 \item{toraster}{Logical: convert output (list of matrixes + meta informations)
-to a list with dat (\code{raster \link[raster]{stack}}) + 
+to a list with dat (\code{raster \link[raster]{stack}}) +
 meta (list from the first subfile, but with vector of dates)?
 DEFAULT: TRUE}
 
-\item{quiet}{Suppress progress messages? 
+\item{quiet}{Suppress progress messages?
 DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 
 \item{progbar}{Show progress bars? \code{\link{readDWD}} will
@@ -40,7 +40,7 @@ DEFAULT: !quiet, i.e. TRUE}
 \item{selection}{Optionally read only a subset of the ~24*31=744 files.
 Called as \code{f[selection]}. DEFAULT: NULL (ignored)}
 
-\item{\dots}{Further arguments passed to \code{dwdradar::\link[dwdradar]{readRadarFile}}, 
+\item{\dots}{Further arguments passed to \code{dwdradar::\link[dwdradar]{readRadarFile}},
 i.e. \code{na} and \code{clutter}}
 }
 \value{
@@ -62,7 +62,7 @@ SF_file <- dataDWD(file=SF_link, base=gridbase, joinbf=TRUE,   # 204 MB
 SF_exdir <- "C:/Users/berry/Desktop/DWDbinarySF"
 if(!file.exists(SF_exdir)) SF_exdir <- tempdir()
 # no need to read all 24*31=744 files, so setting selection:
-SF_rad <- readDWD(SF_file, selection=1:10, exdir=SF_exdir) #with toraster=TRUE 
+SF_rad <- readDWD(SF_file, selection=1:10, exdir=SF_exdir) #with toraster=TRUE
 if(length(SF_rad)!=2) stop("length(SF_rad) should be 2, but is ", length(SF_rad))
 
 SF_radp <- plotRadar(SF_rad$dat, layer=1:3, main=SF_rad$meta$date)
@@ -92,7 +92,7 @@ head(grep("historical", gridIndex, value=TRUE))
   for format description
 }
 \author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Dec 2018. 
+Berry Boessenkool, \email{berry-b@gmx.de}, Dec 2018.
         Significant input for the underlying \code{dwdradar::\link[dwdradar]{readRadarFile}} came
         from Henning Rust & Christoph Ritschel at FU Berlin.
 }

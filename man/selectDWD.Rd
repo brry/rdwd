@@ -24,18 +24,18 @@ selectDWD(
 }
 \arguments{
 \item{name}{Char: station name(s) passed to \code{\link{findID}}, along with
-\code{exactmatch} and \code{mindex}. 
+\code{exactmatch} and \code{mindex}.
 All 3 arguments are ignored if \code{id} is given. DEFAULT: ""}
 
 \item{res}{Char: temporal \bold{res}olution available at \code{base}, usually one of
 \code{c("hourly","daily","monthly")}, see section 'Description' above.
-\code{res/var/per} together form the \bold{path}. 
+\code{res/var/per} together form the \bold{path}.
 DEFAULT: NA for interactive selection}
 
 \item{var}{Char: weather \bold{var}iable of interest, like e.g.
 \code{"air_temperature", "cloudiness", "precipitation",
         "soil_temperature", "solar", "kl", "more_precip"}
-See above and in \code{View(rdwd:::\link{fileIndex})}. 
+See above and in \code{View(rdwd:::\link{fileIndex})}.
 DEFAULT: NA for interactive selection}
 
 \item{per}{Char: desired time \bold{per}iod. One of
@@ -43,7 +43,7 @@ DEFAULT: NA for interactive selection}
 "historical" (long time series). Can be abbreviated (if the first
 letter is "r" or "h", full names are used). To get both datasets,
 use \code{per="hr"} or \code{per="rh"} (and \code{outvec=TRUE}).
-\code{per} is set to "" if var=="solar". 
+\code{per} is set to "" if var=="solar".
 DEFAULT: NA for interactive selection}
 
 \item{exactmatch}{Logical passed to \code{\link{findID}}: match \code{name}
@@ -78,7 +78,7 @@ Relevant only in case 4 (path and id given) and case 3 for res="multi_annual".
 See \code{\link{metaIndex}} for a compilation of all metaData files.
 DEFAULT: FALSE}
 
-\item{meta_txt_only}{Logical: if \code{meta}, only return .txt files, not the 
+\item{meta_txt_only}{Logical: if \code{meta}, only return .txt files, not the
 pdf and html files? DEFAULT: TRUE}
 
 \item{outvec}{Single logical: if \bold{path} or \bold{ID} length > 1,
@@ -96,7 +96,7 @@ Character string with file path and name(s) in the format
 Select files for downloading with \code{\link{dataDWD}}.\cr
 The available folders with datasets are listed at
 \url{https://bookdown.org/brry/rdwd/available-datasets.html}.
-To use an updated index (if necessary), see 
+To use an updated index (if necessary), see
 \url{https://bookdown.org/brry/rdwd/fileindex.html}.\cr\cr
 All arguments (except for \code{mindex}, \code{findex} and \code{base})
 can be a vector and will be recycled to the maximum length of all arguments.
@@ -113,7 +113,7 @@ case \tab |  \bold{id} \tab |  \bold{path} \tab | output \cr
  3 \tab |  ""  \tab | "xx" \tab | The zip file names at \bold{path} \cr
  4 \tab | "xx" \tab | "xx" \tab | Regular single data file name \cr
 }
-For case 2, you can explicitly set \code{res="",var="",per=""} to avoid the 
+For case 2, you can explicitly set \code{res="",var="",per=""} to avoid the
 default interactive selection.\cr
 For case 3 and 4 (\bold{path} given), you can set \code{meta=TRUE}.
 Then selectDWD will return the name of the station description file at \bold{path}.

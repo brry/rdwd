@@ -17,7 +17,7 @@ updateRdwd(
 
 \item{user}{Github username. repo will then be user/pack. DEFAULT: "brry"}
 
-\item{vignette}{build_vignettes in \code{remotes::\link[remotes]{install_github}}? 
+\item{vignette}{build_vignettes in \code{remotes::\link[remotes]{install_github}}?
 DEFAULT: TRUE}
 
 \item{quiet}{Suppress version messages and \code{remotes::install} output?
@@ -30,7 +30,7 @@ data.frame with version information
 }
 \description{
 Update rdwd to the latest development version on github, if necessary.
-        If the version number or date is larger on github, 
+        If the version number or date is larger on github,
         \code{remotes::\link[remotes]{install_github}} will be called.
 }
 \examples{

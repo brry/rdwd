@@ -1,5 +1,5 @@
 #' @title update rdwd indexes
-#' @description This is meant to be called with getwd at the 
+#' @description This is meant to be called with getwd at the
 #'  rdwd package source code directory to update the indexes with one single call.
 #' @return \code{\link{checkIndex}} results
 #' @importFrom berryFunctions sortDF
@@ -8,9 +8,9 @@
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2019
 #' @seealso \code{\link{createIndex}}
 #' @keywords data file internal
-#' @examples 
+#' @examples
 #' # number of files at dwdbase
-#' #  25'757 (2017-03-14) 
+#' #  25'757 (2017-03-14)
 #' # 218'593 (2018-03-25)
 #' # 228'830 (2018-11-26)
 #' # 240'737 (2019-02-19)
@@ -25,7 +25,7 @@
 #' # 265'712 (2020-04-24)
 #' # 266'106 (2020-06-01)
 #' # 266'216 (2020-07-06)
-#'  
+#' 
 #' # gridbase
 #' #  49'247 (2019-05-26)
 #' #  49'402 (2019-05-30)
@@ -42,9 +42,9 @@
 #'                 \code{\link{indexFTP}}? DEFAULT: FALSE
 #' @param grdlocal Read "DWDdata/INDEX_of_DWD_grids.txt" instead of calling
 #'                 \code{\link{indexFTP}}? DEFAULT: FALSE
-#' @param metaforce \code{\link{dataDWD} force} argument for BESCHREIBUNG files. 
+#' @param metaforce \code{\link{dataDWD} force} argument for BESCHREIBUNG files.
 #'                 DEFAULT: NA (re-download if older than 24 hours)
-#'
+#' 
 updateIndexes <- function(
 dwdlocal=FALSE,
 grdlocal=FALSE,
@@ -66,8 +66,8 @@ if(grdlocal) grdfiles <- readLines("DWDdata/INDEX_of_DWD_grids.txt") else
  {
  messaget("Indexing FTP Server at gridbase...")
  grdfiles <- indexFTP("currentgindex", filename="grids", base=gridbase, overwrite=TRUE)
- } 
- 
+ }
+
 messaget("Calling createIndex...")
 index <- createIndex(paths=dwdfiles, meta=TRUE, force=metaforce, overwrite=TRUE, checkwarn=FALSE)
 

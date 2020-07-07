@@ -29,7 +29,7 @@ dataDWD(
 \item{base}{Single char: base URL that will be removed from output file names.
 DEFAULT: \code{\link{dwdbase}}}
 
-\item{joinbf}{Logical: paste \code{base} and \code{file} together? 
+\item{joinbf}{Logical: paste \code{base} and \code{file} together?
 Needed mostly for data at \code{\link{gridbase}}.
 DEFAULT: FALSE (selectDWD returns complete URLs already)}
 
@@ -40,25 +40,25 @@ Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}}
 Use NA to force re-downloading files older than 24 hours.
 Use a numerical value to force after that amount of hours.
 Note: if \code{force!=FALSE}, you might want to set \code{overwrite=TRUE} as well.
-If \code{force=FALSE}, the file is still read (or name returned). 
+If \code{force=FALSE}, the file is still read (or name returned).
 DEFAULT: FALSE}
 
 \item{overwrite}{Logical (vector): if force=TRUE, overwrite the existing file
 rather than append "_1"/"_2" etc to the filename? DEFAULT: FALSE}
 
 \item{dbin}{Logical: Download binary file, i.e. add \code{mode="wb"} to the
-\code{\link{download.file}} call? This is needed for .tar files 
-(see \code{\link{readDWD.asc}}) and binary files like those at 
+\code{\link{download.file}} call? This is needed for .tar files
+(see \code{\link{readDWD.asc}}) and binary files like those at
 \href{https://opendata.dwd.de/weather/radar/radolan/rw/}{weather/radar/radolan}.
 This seems to be a CRLF issue on MS Windows.
 DEFAULT: FALSE}
 
 \item{sleep}{Number. If not 0, a random number of seconds between 0 and
 \code{sleep} is passed to \code{\link{Sys.sleep}} after each download
-to avoid getting kicked off the FTP-Server, 
+to avoid getting kicked off the FTP-Server,
 see note in \code{\link{indexFTP}}. DEFAULT: 0}
 
-\item{quiet}{Logical: suppress message about directory / filenames? 
+\item{quiet}{Logical: suppress message about directory / filenames?
 DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 
 \item{progbar}{Logical: present a progress bar with estimated remaining time?
@@ -79,8 +79,8 @@ before they get truncated with message "(and xx more)". DEFAULT: 2}
 \item{dfargs}{Named list of additional arguments passed to \code{\link{download.file}}
 Note that mode="wb" is already passed if \code{dbin=TRUE}}
 
-\item{\dots}{Further arguments passed to \code{\link{readDWD}}, 
-like fread, varnames etc. Dots were passed to 
+\item{\dots}{Further arguments passed to \code{\link{readDWD}},
+like fread, varnames etc. Dots were passed to
 \code{\link{download.file}} prior to rdwd 0.11.7 (2019-02-25)}
 }
 \value{
@@ -96,11 +96,11 @@ Presuming downloading and processing were successful:
 Get climate data from the German Weather Service (DWD) FTP-server.
 The desired dataset is downloaded into \code{dir}.
 If \code{read=TRUE}, it is also read and processed.\cr
-\code{dataDWD} handles vectors of URLs, 
-displays progress bars (if the package \code{pbapply} is available) 
-and by default does not re-download data already in \code{dir} 
+\code{dataDWD} handles vectors of URLs,
+displays progress bars (if the package \code{pbapply} is available)
+and by default does not re-download data already in \code{dir}
 (but see argument \code{force} to update files).\cr
-To solve "errors in download.file: cannot open URL", see 
+To solve "errors in download.file: cannot open URL", see
 \url{https://bookdown.org/brry/rdwd/fileindex.html}.\cr
 }
 \examples{

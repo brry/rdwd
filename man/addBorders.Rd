@@ -23,7 +23,7 @@ add country and Bundesland borders to a map
 }
 \examples{
 if(requireNamespace("raster", quietly=TRUE)){
-plot(1, xlim=c(2,16), ylim=c(47,55)) 
+plot(1, xlim=c(2,16), ylim=c(47,55))
 addBorders()
 plot(1, xlim=c(2,16), ylim=c(47,55))
 addBorders(de="orange", eu=NA)

@@ -18,7 +18,7 @@ charstring (directory)
 }
 \description{
 returns a directory used for local tests on Berry's computers.
-This is used in many examples to save the downloaded DWD data in this directory, 
+This is used in many examples to save the downloaded DWD data in this directory,
 thus avoiding multiple downloads of the same file.
 }
 \examples{

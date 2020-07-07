@@ -7,10 +7,10 @@
 readDWD.meta(file, quiet = rdwdquiet(), ...)
 }
 \arguments{
-\item{file}{Name of file on harddrive, like e.g. 
+\item{file}{Name of file on harddrive, like e.g.
 DWDdata/daily_kl_recent_KL_Tageswerte_Beschreibung_Stationen.txt}
 
-\item{quiet}{Suppress subfunction name message? 
+\item{quiet}{Suppress subfunction name message?
 DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 
 \item{\dots}{Further arguments passed to \code{\link{read.fwf}}}
@@ -22,17 +22,17 @@ data.frame
 read dwd metadata (Beschreibung*.txt files).
  Intended to be called via \code{\link{readDWD}}.\cr
  Column widths for \code{\link{read.fwf}} are computed internally.\cr
- if(any(meta)), \code{\link{readDWD}} tries to set the locale to German 
+ if(any(meta)), \code{\link{readDWD}} tries to set the locale to German
  (to handle Umlaute correctly). It is hence not recommended to call
  \code{rdwd:::readDWD.meta} directly on a file!\cr
- Names can later be changed to ascii with 
+ Names can later be changed to ascii with
  \code{berryFunctions::\link{convertUmlaut}}.
 }
 \examples{
 \dontrun{ # Excluded from CRAN checks, but run in localtests
 
 link <- selectDWD(res="daily", var="kl", per="r", meta=TRUE)
-if(length(link)!=1) stop("length of link should be 1, but is ", length(link), 
+if(length(link)!=1) stop("length of link should be 1, but is ", length(link),
                 ":\n", berryFunctions::truncMessage(link,prefix="",sep="\n"))
 
 file <- dataDWD(link, dir=localtestdir(), read=FALSE)

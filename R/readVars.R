@@ -1,12 +1,12 @@
 #' Process data from the DWD CDC FTP Server
 #' 
-#' Read climate variables (column meta data) from zip folders downloaded with 
+#' Read climate variables (column meta data) from zip folders downloaded with
 #' \code{\link{dataDWD}}.
-#' The metadata file \code{"Metadaten_Parameter.*txt"} in the zip folder \code{file} 
+#' The metadata file \code{"Metadaten_Parameter.*txt"} in the zip folder \code{file}
 #' is read, processed and returned as a data.frame.\cr
-#' \code{file} can be a vector with several filenames. 
+#' \code{file} can be a vector with several filenames.
 #' 
-#' @return data.frame of the desired dataset, 
+#' @return data.frame of the desired dataset,
 #'         or a named list of data.frames if length(file) > 1.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jun 2018
 #' @seealso \code{\link{dataDWD}}, \code{\link{readDWD}}, \code{\link{dwdparams}}
@@ -20,7 +20,7 @@
 #' # see dataDWD
 #' 
 #' @param file   Char (vector): name(s) of the file(s) downloaded with \code{\link{dataDWD}},
-#'               e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip" 
+#'               e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip"
 #' @param progbar Logical: present a progress bar with estimated remaining time?
 #'               If missing and length(file)==1, progbar is internally set to FALSE.
 #'               DEFAULT: TRUE
@@ -49,7 +49,7 @@ f <- dir(exdir, pattern="Metadaten_Parameter.*txt", full.names=TRUE)
 if(length(f)!=1) return(length(f))
 nr <- readLines(f) # number of rows
 nr <- sum(!substr(nr, 1, 7) %in% c("Legende", "generie"))
-tab <- read.table(f, na.strings=na9(), sep=";", header=TRUE, nrows=nr-1, 
+tab <- read.table(f, na.strings=na9(), sep=";", header=TRUE, nrows=nr-1,
                   stringsAsFactors=FALSE)
 #
 tab <- tab[,c("Parameter", "Parameterbeschreibung", "Einheit")]
@@ -80,7 +80,7 @@ return(tab2)
 #
 # Warn about zip folders with no meta file:
 nometa <- sapply(output, class)=="integer"
-if(any(nometa)) 
+if(any(nometa))
  {
  msg <- paste(unlist(output[nometa]), file[nometa], sep=" in ")
  exp <- grepl("_minute", file[nometa]) # expected no meta files
@@ -88,8 +88,8 @@ if(any(nometa))
            "meta-information in most of the zip folders (as of 2019-02).\n")
  mnexp <- "\nPlease contact berry-b@gmx.de with with a copy of this warning.\n"
  warning(traceCall(1, "", ": "), "The number of determined ",
-         "'Metadaten_Parameter*.txt' files should be 1, but is instead:\n", 
-         paste(msg[ exp],collapse="\n"), if(any( exp)) mexp, 
+         "'Metadaten_Parameter*.txt' files should be 1, but is instead:\n",
+         paste(msg[ exp],collapse="\n"), if(any( exp)) mexp,
          paste(msg[!exp],collapse="\n"), if(any(!exp)) mnexp,
          call.=FALSE)
  }

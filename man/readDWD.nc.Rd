@@ -14,36 +14,36 @@ readDWD.nc(
 )
 }
 \arguments{
-\item{file}{Name of file on harddrive, like e.g. 
+\item{file}{Name of file on harddrive, like e.g.
 DWDdata/grids_germany/daily/Project_TRY/humidity/RH_199509_daymean.nc.gz}
 
-\item{gargs}{Named list of arguments passed to 
-\code{R.utils::\link[R.utils:compressFile]{gunzip}}, 
+\item{gargs}{Named list of arguments passed to
+\code{R.utils::\link[R.utils:compressFile]{gunzip}},
 see \code{\link{readDWD.raster}}. DEFAULT: NULL}
 
-\item{var}{if toraster=FALSE: Charstring with name of variable to be read with 
-\code{ncdf4::\link[ncdf4]{ncvar_get}}. If not available, 
+\item{var}{if toraster=FALSE: Charstring with name of variable to be read with
+\code{ncdf4::\link[ncdf4]{ncvar_get}}. If not available,
 an interactive selection is presented.
 DEFAULT: "" (last variable)}
 
-\item{toraster}{Read file with \code{raster::\link[raster]{brick}}? 
+\item{toraster}{Read file with \code{raster::\link[raster]{brick}}?
 All further arguments will be ignored. Specify e.g. var through \dots.
 DEFAULT: TRUE}
 
-\item{quiet}{Logical: Suppress Suppress subfunction name message and 
-time conversion failure warning? 
+\item{quiet}{Logical: Suppress Suppress subfunction name message and
+time conversion failure warning?
 DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 
 \item{\dots}{Further arguments passed to \code{raster::\link[raster]{brick}}
 or \code{ncdf4::\link[ncdf4]{nc_open}}}
 }
 \value{
-\code{raster::\link[raster]{brick}} object. Alternatively, 
+\code{raster::\link[raster]{brick}} object. Alternatively,
 if toraster=FALSE, a list with time, lat, lon, var, varname, file and cdf.
 \bold{cdf} is the output of \code{ncdf4::\link[ncdf4]{nc_open}}.
 }
 \description{
-Read netcdf data. 
+Read netcdf data.
 Intended to be called via \code{\link{readDWD}}.\cr
 Note that \code{R.utils} and \code{ncdf4} must be installed to unzip and read the .nc.gz files.
 }
@@ -56,12 +56,12 @@ url <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
 url <- "daily/Project_TRY/humidity/RH_199509_daymean.nc.gz"    # 25 MB
 file <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=localtestdir(), read=FALSE)
 nc <- readDWD(file)
-ncp <- plotRadar(nc, main=paste(nc@title, nc@z[[1]]), layer=1:3, 
+ncp <- plotRadar(nc, main=paste(nc@title, nc@z[[1]]), layer=1:3,
                  col=seqPal(), proj="nc", extent="nc")
 str(nc, max.level=2)
 
 raster::values(nc[[1]]) # obtain actual values into memory
- 
+
 raster::plot(nc[[1]]) # axes 0:938 / 0:720, the number of grid cells
 raster::plot(ncp[[1]])# properly projected, per default onto latlon
 
@@ -74,7 +74,7 @@ image(nc$var[,,1], col=seqPal(), asp=1.1)
 colPointsLegend(nc$var[,,1], title=paste(nc$varname, nc$time[1]))
 
 # interactive selection of variable:
-# nc <- readDWD(file, var="-") # uncommented to not block automated tests 
+# nc <- readDWD(file, var="-") # uncommented to not block automated tests
 str(nc$var)
 }
 }

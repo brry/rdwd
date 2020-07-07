@@ -36,7 +36,7 @@ this to FALSE. DEFAULT: !fast}
 Time taken to run tests in minutes
 }
 \description{
-Run \code{rdwd} tests on local machine. Due to time-intensive 
+Run \code{rdwd} tests on local machine. Due to time-intensive
 data downloads, these tests are not run automatically on CRAN.
 }
 \seealso{

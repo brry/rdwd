@@ -7,26 +7,26 @@
 readDWD.raster(file, gargs = NULL, dividebyten, quiet = rdwdquiet(), ...)
 }
 \arguments{
-\item{file}{Name of file on harddrive, like e.g. 
+\item{file}{Name of file on harddrive, like e.g.
 DWDdata/grids_germany/seasonal/air_temperature_mean/
 16_DJF_grids_germany_seasonal_air_temp_mean_188216.asc.gz}
 
-\item{gargs}{Named list of arguments passed to 
-\code{R.utils::\link[R.utils:compressFile]{gunzip}}. The internal 
+\item{gargs}{Named list of arguments passed to
+\code{R.utils::\link[R.utils:compressFile]{gunzip}}. The internal
 defaults are: \code{remove=FALSE} (recommended to keep this
 so \code{file} does not get deleted) and \code{skip=TRUE}
 (which reads previously unzipped files as is).
-If \code{file} has changed, you might want to use 
+If \code{file} has changed, you might want to use
 \code{gargs=list(skip=FALSE, overwrite=TRUE)}
 or alternatively \code{gargs=list(temporary=TRUE)}.
-The \code{gunzip} default \code{destname} means that the 
+The \code{gunzip} default \code{destname} means that the
 unzipped file is stored at the same path as \code{file}.
 DEFAULT gargs: NULL}
 
 \item{dividebyten}{Logical: Divide the numerical values by 10?
 DEFAULT: TRUE}
 
-\item{quiet}{Suppress subfunction name message? 
+\item{quiet}{Suppress subfunction name message?
 DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 
 \item{\dots}{Further arguments passed to \code{raster::\link[raster]{raster}}}
@@ -35,7 +35,7 @@ DEFAULT: FALSE through \code{\link{rdwdquiet}()}}
 \code{raster::\link[raster]{raster}} object
 }
 \description{
-Read gridded raster data. 
+Read gridded raster data.
 Intended to be called via \code{\link{readDWD}}.\cr
 Note that \code{R.utils} must be installed to unzip the .asc.gz files.
 }

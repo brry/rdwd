@@ -1,6 +1,6 @@
 #' @title Update rdwd development version
 #' @description Update rdwd to the latest development version on github, if necessary.
-#'         If the version number or date is larger on github, 
+#'         If the version number or date is larger on github,
 #'         \code{remotes::\link[remotes]{install_github}} will be called.
 #' @return data.frame with version information
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Nov 2019
@@ -10,15 +10,15 @@
 #' @export
 #' @examples
 #' # updateRdwd()
-#'
+#' 
 #' @param pack     Name of (already installed) package. DEFAULT: "rdwd"
 #' @param user     Github username. repo will then be user/pack. DEFAULT: "brry"
-#' @param vignette build_vignettes in \code{remotes::\link[remotes]{install_github}}? 
+#' @param vignette build_vignettes in \code{remotes::\link[remotes]{install_github}}?
 #'                 DEFAULT: TRUE
 #' @param quiet    Suppress version messages and \code{remotes::install} output?
 #'                 DEFAULT: FALSE through \code{\link{rdwdquiet}()}
 #' @param \dots    Further arguments passed to \code{remotes::\link[remotes]{install_github}}
-#'
+#' 
 updateRdwd <- function(
 pack="rdwd",
 user="brry",
@@ -36,7 +36,7 @@ tf <- tempfile("DESCRIPTION")
 download.file(url, tf, quiet=TRUE)
 Vsrc <- read.dcf(file=tf, fields=c("Date","Version"))
 Vsrc <- split(unname(Vsrc),colnames(Vsrc)) # transform matrix to list
-output <- data.frame(Version=c(Vinst$Version, Vsrc$Version), 
+output <- data.frame(Version=c(Vinst$Version, Vsrc$Version),
                         Date=c(Vinst$Date,    Vsrc$Date))
 rownames(output) <- paste0(pack,"_",c("Locally_installed", "Github_latest"))
 # install if outdated:
@@ -48,7 +48,7 @@ if(!quiet) message(pack, " is up to date, compared to github.com/",repo,
 return(invisible(output))
 }
 if(!quiet) message(pack, " local version ", Vinst$Version, " (", Vinst$Date,
-        ") is outdated.\nInstalling development version ", 
+        ") is outdated.\nInstalling development version ",
         Vsrc$Version, " (", Vsrc$Date,") from github.com/",repo)
 checkSuggestedPackage("remotes", "updateRdwd")
 if(!quiet) message("First unloading ",pack," so it can be installed by remotes::install_github.")

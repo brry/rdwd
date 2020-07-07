@@ -53,7 +53,7 @@ m <- nearbyStations(49.211784, 9.812475, radius=30,
     res=c("daily","hourly"), var= c("precipitation","more_precip","kl") ,
     mindate=as.Date("2016-05-30"), statname="Braunsbach catchment center")
 # View(m)
-    
+
 # for a continued example of this, see the vignette in chapter
 # use case: plot all rainfall values around a given point
 # browseURL("https://bookdown.org/brry/rdwd")

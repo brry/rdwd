@@ -3,10 +3,10 @@
 #' Just write the following in your code and all subsequent calls will be quiet:\cr
 #' \code{options(rdwdquiet=TRUE)}
 #' @export
-rdwdquiet <- function() 
+rdwdquiet <- function()
 {
 cv <- getOption("rdwdquiet", default=FALSE) # current value
-if(!(isTRUE(cv)|isFALSE(cv))) stop("options('rdwdquiet') must be TRUE or FALSE, not '", 
+if(!(isTRUE(cv)|isFALSE(cv))) stop("options('rdwdquiet') must be TRUE or FALSE, not '",
                                  toString(cv), "'.")
 cv
 }

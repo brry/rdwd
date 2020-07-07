@@ -89,7 +89,7 @@ release_questions <- function() {
 #' (..._Beschreibung_Stationen.txt) under \code{\link{dwdbase}}.\cr
 #' \bold{geoIndex}: \code{metaIndex} distilled to geographic locations.\cr
 #' \bold{gridIndex}: Vector of file paths at \code{\link{gridbase}}.\cr
-#' \bold{formatIndex}: (modified) table from 
+#' \bold{formatIndex}: (modified) table from
 #' \url{ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/subdaily/standard_format/formate_kl.html}\cr
 #' 
 #' @name index
@@ -169,17 +169,17 @@ apply(x, MARGIN=1, perrow)
 # checkSuggestedPackage --------------------------------------------------------
 
 #' @title check suggested package for availability
-#' @description check suggested package for availability, 
+#' @description check suggested package for availability,
 #'              yielding an instructive error message if not
 #' @return invisible success logical value from \code{\link{requireNamespace}}
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019
 #' @seealso \code{\link{requireNamespace}}
 #' @keywords package
 # @export # only needed internally, I think
-#'
+#' 
 #' @param package      Charstring: package to be checked for loadability
 #' @param functionname Charstring: function name to be used in the message
-#'
+#' 
 checkSuggestedPackage <- function(package, functionname)
 {
 available <- requireNamespace(package, quietly=TRUE)

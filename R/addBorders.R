@@ -9,26 +9,26 @@
 #' @export
 #' @examples
 #' if(requireNamespace("raster", quietly=TRUE)){
-#' plot(1, xlim=c(2,16), ylim=c(47,55)) 
+#' plot(1, xlim=c(2,16), ylim=c(47,55))
 #' addBorders()
 #' plot(1, xlim=c(2,16), ylim=c(47,55))
 #' addBorders(de="orange", eu=NA)
 #' }
-#'
+#' 
 #' @param de      Color for Bundeslaender line (\code{\link{DEU}}). NA to suppress. DEFAULT: "grey80"
 #' @param eu      Color for countries line (\code{\link{EUR}}). NA to suppress. DEFAULT: "black"
 #' @param add     Logical: add to existing plot? DEFAULT: TRUE
 #' @param \dots   Further arguments passed to \code{raster::\link[raster]{plot}}
 addBorders <- function(
- de="grey80", 
- eu="black", 
- add=TRUE, 
+ de="grey80",
+ eu="black",
+ add=TRUE,
  ...)
 {
 checkSuggestedPackage("raster", "addBorders") # stops also if sp is missing
 load(system.file("extdata/DEU.rda", package="rdwd"), envir=environment())
 load(system.file("extdata/EUR.rda", package="rdwd"), envir=environment())
-raster::plot(DEU, add=add, border=de, ...) 
+raster::plot(DEU, add=add, border=de, ...)
 raster::plot(EUR, add=TRUE, border=eu, ...)
 return(invisible(list(DEU=DEU, EUR=EUR)))
 }

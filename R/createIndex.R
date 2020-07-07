@@ -49,13 +49,13 @@
 #'              write \code{\link{metaIndex}}.
 #'              Use \code{mname=""} to suppress writing. DEFAULT: "metaIndex.txt"
 #' @param gname Filename for \code{\link{geoIndex}}. DEFAULT: "geoIndex.txt"
-#' @param overwrite Logical: Overwrite existing \code{fname / mname / gname} files? 
-#'              If not, "_n" is added to the filenames, see 
+#' @param overwrite Logical: Overwrite existing \code{fname / mname / gname} files?
+#'              If not, "_n" is added to the filenames, see
 #'              \code{berryFunctions::\link[berryFunctions]{newFilename}}.
 #'              DEFAULT: FALSE
 #' @param checkwarn Logical: warn about \code{\link{checkIndex}} issues? DEFAULT: TRUE
 #' @param checklog Logfile for \code{\link{checkIndex}}. DEFAULT: \code{\link{tempfile}()}
-#' @param quiet Logical: Suppress messages about progress and filenames? 
+#' @param quiet Logical: Suppress messages about progress and filenames?
 #'              DEFAULT: FALSE through \code{\link{rdwdquiet}()}
 #' @param \dots Further arguments passed to \code{\link{dataDWD}} for the meta part.
 #' 
@@ -94,7 +94,7 @@ ncolumns <- 4 + any1min # supposed number of columns: 4, 5 if any prec1min in pa
 if(!quiet) messaget("Splitting filenames...")
 fileIndex <- berryFunctions::l2df(pbapply::pblapply(fileIndex,function(x) strsplit(x,"/")[[1]]))
 # check if there are actually 4/5 columns (might be different with non-standard base)
-if(ncol(fileIndex)!=ncolumns) stop(berryFunctions::traceCall(1, "in ", ": "), 
+if(ncol(fileIndex)!=ncolumns) stop(berryFunctions::traceCall(1, "in ", ": "),
     "index does not have ", ncolumns," columns, but ", ncol(fileIndex), call.=FALSE)
 if(any1min) fileIndex[prec1min,4] <- fileIndex[prec1min,5]
 colnames(fileIndex) <- c("res","var","per","file",if(any1min) "dummyfromyear1minute")
@@ -107,7 +107,7 @@ info <- berryFunctions::l2df(pbapply::pblapply(file, function(x) rev(strsplit(x,
 # Station ID (identification number):
 id <- ""
 per <- fileIndex$per
-sol <- fileIndex$var=="solar" 
+sol <- fileIndex$var=="solar"
 zip <- info[,1]=="zip"
 if(!quiet) messaget("Extracting station IDs from filenames...")
 id <- ifelse(zip & per=="historical"       , info[,5], id)
@@ -174,7 +174,7 @@ if(sum(sel)<2) stop(berryFunctions::traceCall(1, "in ", ": "),
               "There need to be at least two 'Beschreibung' files. (There is ",
               sum(sel),")", call.=FALSE)
 # download and read those files:
-metas <- dataDWD(fileIndex[sel, "path"], base=base, joinbf=TRUE, dir=metadir, 
+metas <- dataDWD(fileIndex[sel, "path"], base=base, joinbf=TRUE, dir=metadir,
                  overwrite=overwrite, read=FALSE, ...)
 metas <- readDWD(metas, stand=FALSE, quiet=TRUE)
 for(i in seq_along(metas))
@@ -292,12 +292,12 @@ if(gname!="")
   }
 #
 # Check all indexes:
-checks <- checkIndex(fileIndex, metaIndex, geoIndex, fast=TRUE, warn=checkwarn, 
+checks <- checkIndex(fileIndex, metaIndex, geoIndex, fast=TRUE, warn=checkwarn,
                      quiet=quiet, logfile=checklog)
 #
 # Output -----------------------------------------------------------------------
 if(!quiet) messaget("Done.")
-return(invisible(list(fileIndex=fileIndex, metaIndex=metaIndex, geoIndex=geoIndex, 
+return(invisible(list(fileIndex=fileIndex, metaIndex=metaIndex, geoIndex=geoIndex,
                       checks=checks)))
 }
 
