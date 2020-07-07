@@ -23,15 +23,15 @@
 #' findID("Muenchen", FALSE)
 #' berryFunctions::convertUmlaut("M?nchen") # use this to convert umlauts in lists
 #' 
-#' @param name  Char: station name(s) that will be matched in \code{mindex} to obtain
-#'              \bold{id}. DEFAULT: ""
-#' @param exactmatch Logical: Should \code{name} match an entry in \code{mindex}
+#' @param name  Char: station name(s) that will be matched in `mindex` to obtain
+#'              **id**. DEFAULT: ""
+#' @param exactmatch Logical: Should `name` match an entry in `mindex`
 #'              exactly (be \code{\link{==}})?
-#'              If FALSE, \code{name} may be a part of \code{mindex$Stationsname},
+#'              If FALSE, `name` may be a part of `mindex$Stationsname`,
 #'              as checked with \code{\link{grepl}}. This is useful e.g. to get
 #'              all stations starting with a name (e.g. 42 IDs for Berlin).
 #'              DEFAULT: TRUE
-#' @param mindex Single object: Index used to select \code{id} if \code{name}
+#' @param mindex Single object: Index used to select `id` if `name`
 #'              is given. DEFAULT: \code{rdwd:::\link{metaIndex}}
 #' @param quiet Logical: suppress length warnings? DEFAULT: FALSE through \code{\link{rdwdquiet}()}
 #' 

@@ -13,7 +13,7 @@
 #' 
 #' @param packdir Path to package directory. DEFAULT: "."
 #' @param folder  Path inside package. DEFAULT: "misc/localdata"
-#' @param file    Optional: path(s) at \code{folder}. DEFAULT: NULL
+#' @param file    Optional: path(s) at `folder`. DEFAULT: NULL
 #' 
 localtestdir <- function(
 packdir=".",

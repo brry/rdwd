@@ -2,20 +2,22 @@
 #' 
 #' Create a list of all the files (in all subfolders) of an FTP server.
 #' Defaults to the German Weather Service (DWD, Deutscher WetterDienst) OpenData server at
-#' \url{ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/}.\cr
-#' The R package \code{RCurl} must be available to do this.\cr\cr
-#' \bold{Getting banned from the FTP Server}\cr
+#' <ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/>.\cr
+#' The R package `RCurl` must be available to do this.\cr\cr
+#' **Getting banned from the FTP Server**\cr
 #' Normally, this shouldn't happen anymore: since Version 0.10.10 (2018-11-26),
 #' a single RCurl handle is used for all FTP requests and since version 1.0.17 (2019-05-14),
 #' the file tree provided by the DWD is used to obtain all folders first,
 #' eliminating the recursive calls.\cr
 #' There's a provision if the FTP server detects bot requests and denies access.
 #' If \code{RCurl::\link[RCurl]{getURL}} fails, there will still be an output
-#' which you can pass in a second run via \code{folder} to extract the remaining dirs.
-#' You might need to wait a bit and set \code{sleep} to a higher value in that case.
+#' which you can pass in a second run via `folder` to extract the remaining dirs.
+#' You might need to wait a bit and set `sleep` to a higher value in that case.
 #' Here's an example:\cr
-#' \code{gridindex <- indexFTP("", gridbase)}\cr
-#' \code{gridindex <- indexFTP(gridindex, gridbase, sleep=15)}\cr
+#' ```
+#' gridindex <- indexFTP("", gridbase)
+#' gridindex <- indexFTP(gridindex, gridbase, sleep=15)
+#' ```
 #' Of course, with a higher sleep value, the execution will take longer!
 #' 
 #' @details
@@ -43,12 +45,12 @@
 #' 
 #' @param folder  Folder(s) to be indexed recursively, e.g. "/hourly/wind/".
 #'                Leading slashes will be removed.
-#'                Use \code{folder=""} to search at the location of \code{base} itself.
-#'                If \code{folder} is "currentfindex" (the default) and \code{base}
-#'                is the default, \code{folder} is changed to all observational
+#'                Use `folder=""` to search at the location of `base` itself.
+#'                If `folder` is "currentfindex" (the default) and `base`
+#'                is the default, `folder` is changed to all observational
 #'                folders listed in the current tree file at
-#'                \url{ftp://opendata.dwd.de/weather/tree.html}. With "currentgindex"
-#'                and \code{gridbase}, the grid folders in the tree are used.
+#'                <ftp://opendata.dwd.de/weather/tree.html>. With "currentgindex"
+#'                and `gridbase`, the grid folders in the tree are used.
 #'                DEFAULT: "currentfindex"
 #' @param base    Main directory of FTP server. Trailing slashes will be removed.
 #'                DEFAULT: \code{\link{dwdbase}}
@@ -62,7 +64,7 @@
 #' @param fast    Read tree file with \code{data.table::\link[data.table]{fread}}
 #'                (1 sec) instead of \code{\link{readLines}} (10 secs)?
 #'                DEFAULT: TRUE
-#' @param sleep   If not 0, a random number of seconds between 0 and \code{sleep}
+#' @param sleep   If not 0, a random number of seconds between 0 and `sleep`
 #'                is passed to \code{\link{Sys.sleep}} after each read folder
 #'                to avoid getting kicked off the FTP-Server, see note above. DEFAULT: 0
 #' @param dir     Writeable directory name where to save the downloaded file.

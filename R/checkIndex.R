@@ -2,7 +2,7 @@
 #' @description check indexes. Mainly for internal usage in \code{\link{createIndex}}.
 #'              Not exported, so call it as rdwd:::checkIndex() if you want to
 #'              run tests yourself. Further test suggestions are welcome!
-#' @return Charstring with issues (if any) to be printed with \code{cat()}.
+#' @return Charstring with issues (if any) to be printed with `cat()`.
 #' @importFrom berryFunctions truncMessage round0 traceCall
 #' @importFrom pbapply pbsapply
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, May 2019
@@ -17,7 +17,7 @@
 #' @param excludefp Exclude false positives from geoIndex coordinate check results?
 #'                  DEFAULT: TRUE
 #' @param fast      Exclude the 3-minute location per ID check? DEFAULT: FALSE
-#' @param warn      Warn about issues? DEFAULT: \code{!quiet} (TRUE)
+#' @param warn      Warn about issues? DEFAULT: `!quiet` (TRUE)
 #' @param logfile   File to copy log to, appended to existing content. NULL to suppress.
 #'                  DEFAULT: "misc/ExampleTests/warnings.txt"
 #' @param quiet     Logical: Suppress progress messages?

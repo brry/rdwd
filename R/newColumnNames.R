@@ -3,10 +3,10 @@
 #' This uses \code{\link{dwdparams}} to create column names like
 #' "TT_TU.Lufttemperatur" and "RSK.Niederschlagshoehe."
 #' Column names not in the abbreviation list will be left untouched.
-#' @return The \code{dataframe} with new column names
+#' @return The `dataframe` with new column names
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Apr 2019
 #' @seealso \code{\link{dwdparams}}, \code{\link{readVars}},
-#'          \code{\link{readDWD}} argument \code{varnames}
+#'          \code{\link{readDWD}} argument `varnames`
 #' @export
 #' @examples
 #' # mainly for internal usage

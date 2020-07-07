@@ -1,7 +1,7 @@
 #' @title global quiet option for rdwd
-#' @description global quiet option. The default \code{rdwdquiet()} is \code{FALSE}.\cr
+#' @description global quiet option. The default `rdwdquiet()` is `FALSE`.\cr
 #' Just write the following in your code and all subsequent calls will be quiet:\cr
-#' \code{options(rdwdquiet=TRUE)}
+#' `options(rdwdquiet=TRUE)`
 #' @export
 rdwdquiet <- function()
 {

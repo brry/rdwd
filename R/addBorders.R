@@ -38,18 +38,20 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("DEU", "EUR"))
 
 # DEU Map dataset --------------------------------------------------------------
 
-#' Map of German states (Bundeslaender) from GADM through the \code{raster} package
+#' Map of German states (Bundeslaender) from GADM through the `raster` package
 #' @name DEU
 #' @seealso \code{\link{addBorders}}, \code{\link{EUR}}
 #' @details Use directly with:\cr
-#' \code{load(system.file("extdata/DEU.rda", package="rdwd"))}\cr\cr
+#' `load(system.file("extdata/DEU.rda", package="rdwd"))`\cr\cr
 #' Obtained with the code: \cr
-#' \code{DEU1 <- raster::getData("GADM", country="DEU", level=1)}\cr
-#' \code{DEU <- rgeos::gSimplify(DEU1, tol=0.02, topologyPreserve=FALSE)}\cr
-#' \code{raster::plot(DEU1)}\cr
-#' \code{raster::plot(DEU)}\cr
-#' \code{save(DEU,        file="inst/extdata/DEU.rda")}\cr
-#' \code{tools::resaveRdaFiles("inst/extdata/DEU.rda")}\cr
+#' ```
+#' DEU1 <- raster::getData("GADM", country="DEU", level=1)
+#' DEU <- rgeos::gSimplify(DEU1, tol=0.02, topologyPreserve=FALSE)
+#' raster::plot(DEU1)
+#' raster::plot(DEU)
+#' save(DEU,        file="inst/extdata/DEU.rda")
+#' tools::resaveRdaFiles("inst/extdata/DEU.rda")
+#' ```
 #' @docType data
 #' @format Formal class 'SpatialPolygons' [package "sp"] with 4 slots
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, May 2018
@@ -61,17 +63,19 @@ load(system.file("extdata/DEU.rda", package="rdwd"), envir=environment())
 
 # EUR Map dataset --------------------------------------------------------------
 
-#' Map of Western European countries through the \code{rworldmap} package
+#' Map of Western European countries through the `rworldmap` package
 #' @name EUR
 #' @seealso \code{\link{addBorders}}, \code{\link{DEU}}
 #' @details Use directly with:\cr
-#' \code{load(system.file("extdata/EUR.rda", package="rdwd"))}\cr\cr
+#' `load(system.file("extdata/EUR.rda", package="rdwd"))`\cr\cr
 #' Obtained with the code: \cr
-#' \code{EUR <- rworldmap::getMap("low")}\cr
-#' \code{EUR <- raster::crop(EUR, c(-5,25, 40,60)) }\cr
-#' \code{raster::plot(EUR)}\cr
-#' \code{save(EUR,        file="inst/extdata/EUR.rda", version=2)}\cr
-#' \code{tools::resaveRdaFiles("inst/extdata/EUR.rda", version=2)}\cr
+#' ```
+#' EUR <- rworldmap::getMap("low")
+#' EUR <- raster::crop(EUR, c(-5,25, 40,60))
+#' raster::plot(EUR)
+#' save(EUR,        file="inst/extdata/EUR.rda", version=2)
+#' tools::resaveRdaFiles("inst/extdata/EUR.rda", version=2)
+#' ```
 #' @docType data
 #' @format SpatialPolygonsDataFrame [package "sp"] with 32 rows
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019

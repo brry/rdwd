@@ -22,18 +22,18 @@
 #'   -> rain, temperature, wind, sunshine, pressure, cloudiness, humidity, snow, ...\cr
 #' - gridded raster data from radar + interpolation\cr
 #' - european data stock slowly growing\cr
-#' For an introduction to the package, see \url{https://bookdown.org/brry/rdwd}.\cr
+#' For an introduction to the package, see <https://bookdown.org/brry/rdwd>.\cr
 #' 
 #' @name rdwd
 #' @aliases rdwd-package rdwd
 #' @docType package
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}
 #' @keywords package documentation
-#' @seealso USA data: \href{https://www.rdocumentation.org/packages/countyweather}{countyweather},
-#'          \href{https://www.rdocumentation.org/packages/rnoaa}{rnoaa}\cr
-#'          World data: \href{https://ropensci.org/blog/blog/2017/04/04/gsodr}{Global Surface Summary of the Day}\cr
-#'          Dutch data (Netherlands): \url{https://github.com/bvhest/KNMIr}\cr
-#'          Canadian data: \url{https://cran.r-project.org/package=weathercan}\cr
+#' @seealso USA data: [countyweather](https://www.rdocumentation.org/packages/countyweather),
+#'          [rnoaa](https://www.rdocumentation.org/packages/rnoaa)\cr
+#'          World data: [Global Surface Summary of the Day](https://ropensci.org/blog/blog/2017/04/04/gsodr)\cr
+#'          Dutch data (Netherlands): <https://github.com/bvhest/KNMIr>\cr
+#'          Canadian data: <https://cran.r-project.org/package=weathercan>\cr
 #' @section Searchability Terms:
 #' Weather Data Germany download with R, Climate Data Germany\cr
 #' Deutscher Wetterdienst R Daten download Klimastationen\cr
@@ -48,15 +48,15 @@ NULL
 #' @aliases gridbase
 #' @export
 #' @description base URLs to the DWD FTP Server\cr\cr
-#' \bold{\code{dwdbase}}: observed climatic records at\cr
-#' \url{ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate}\cr
+#' **`dwdbase`**: observed climatic records at\cr
+#' <ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate>\cr
 #' An overview of available datasets and usage suggestions can be found at\cr
-#' \url{https://bookdown.org/brry/rdwd/available-datasets.html}\cr
-#' \url{https://bookdown.org/brry/rdwd/station-selection.html}\cr\cr\cr
-#' \bold{\code{gridbase}}: spatially interpolated gridded data at\cr
-#' \url{ftp://opendata.dwd.de/climate_environment/CDC/grids_germany}\cr
+#' <https://bookdown.org/brry/rdwd/available-datasets.html>\cr
+#' <https://bookdown.org/brry/rdwd/station-selection.html>\cr\cr\cr
+#' **`gridbase`**: spatially interpolated gridded data at\cr
+#' <ftp://opendata.dwd.de/climate_environment/CDC/grids_germany>\cr
 #' Usage instructions can be found at\cr
-#' \url{https://bookdown.org/brry/rdwd/raster-data.html}
+#' <https://bookdown.org/brry/rdwd/raster-data.html>
 #' 
 dwdbase <- "ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate"
 #' @export
@@ -82,38 +82,38 @@ release_questions <- function() {
 #' Indexes of files and metadata on the DWD CDC FTP server
 #' 
 #' Created with \code{\link{indexFTP}} and \code{\link{createIndex}} used in \code{\link{updateIndexes}}.\cr
-#' In functions, you can access them with \code{rdwd:::fileIndex} etc.\cr
-#' \bold{fileIndex}: A data.frame with the filenames (and derived information)
-#' at the default \code{base} value \code{\link{dwdbase}}.\cr
-#' \bold{metaIndex}: A data.frame with the contents of all the station description files
+#' In functions, you can access them with `rdwd:::fileIndex` etc.\cr
+#' **fileIndex**: A data.frame with the filenames (and derived information)
+#' at the default `base` value \code{\link{dwdbase}}.\cr
+#' **metaIndex**: A data.frame with the contents of all the station description files
 #' (..._Beschreibung_Stationen.txt) under \code{\link{dwdbase}}.\cr
-#' \bold{geoIndex}: \code{metaIndex} distilled to geographic locations.\cr
-#' \bold{gridIndex}: Vector of file paths at \code{\link{gridbase}}.\cr
-#' \bold{formatIndex}: (modified) table from
-#' \url{ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/subdaily/standard_format/formate_kl.html}\cr
+#' **geoIndex**: `metaIndex` distilled to geographic locations.\cr
+#' **gridIndex**: Vector of file paths at \code{\link{gridbase}}.\cr
+#' **formatIndex**: (modified) table from
+#' <ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/subdaily/standard_format/formate_kl.html>\cr
 #' 
 #' @name index
 #' @aliases fileIndex metaIndex geoIndex gridIndex formatIndex
 #' @docType data
 #' @format
-#' \bold{fileIndex}: data.frame with character strings. ca 260k rows x 8 columns:\cr
-#'         \code{res}, \code{var}, \code{per} (see \code{\link{selectDWD}}),
-#'         station \code{id}, time series \code{start} and \code{end}, and
-#'         \code{ismeta} information, all according to \code{path}.\cr
-#' \bold{metaIndex}: data.frame with ca 97k rows for 12 columns:\cr
-#'         \code{Stations_id, von_datum, bis_datum,
+#' **fileIndex**: data.frame with character strings. ca 260k rows x 8 columns:\cr
+#'         `res`, `var`, `per` (see \code{\link{selectDWD}}),
+#'         station `id`, time series `start` and `end`, and
+#'         `ismeta` information, all according to `path`.\cr
+#' **metaIndex**: data.frame with ca 97k rows for 12 columns:\cr
+#'         `Stations_id, von_datum, bis_datum,
 #'         Stationshoehe, geoBreite, geoLaenge, Stationsname, Bundesland,
-#'         res, var, per, hasfile} \cr
-#' \bold{geoIndex}: data.frame with ca 6k rows for 11 columns:\cr
-#'         \code{id, name, state, lat, lon, ele, nfiles, nonpublic, recentfile, display, col}\cr
-#' \bold{gridIndex}: Vector with ca 50k file paths at \code{\link{gridbase}}\cr
-#' \bold{formatIndex}: data.frame with 140 rows for 12 columns:\cr
-#'         \code{Ke_Ind, Kennung, Label, Beschreibung, Einheit, Code-Tabellen,
-#'         Zusatzinfo, Typ, Pos, Erlaubt, Fehlk, dividebyten}\cr
+#'         res, var, per, hasfile` \cr
+#' **geoIndex**: data.frame with ca 6k rows for 11 columns:\cr
+#'         `id, name, state, lat, lon, ele, nfiles, nonpublic, recentfile, display, col`\cr
+#' **gridIndex**: Vector with ca 50k file paths at \code{\link{gridbase}}\cr
+#' **formatIndex**: data.frame with 140 rows for 12 columns:\cr
+#'         `Ke_Ind, Kennung, Label, Beschreibung, Einheit, Code-Tabellen,
+#'         Zusatzinfo, Typ, Pos, Erlaubt, Fehlk, dividebyten`\cr
 #' @source Deutscher WetterDienst / Climate Data Center  FTP Server
 #' @seealso \code{\link{createIndex}}, \code{\link{indexFTP}}, \code{\link{selectDWD}},
 #'          \code{\link{findID}}, \code{\link{metaInfo}},
-#'          \url{https://bookdown.org/brry/rdwd}
+#'          <https://bookdown.org/brry/rdwd>
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June-Nov 2016, June 2017, Oct 2019
 #' @keywords datasets
 #' @importFrom utils data

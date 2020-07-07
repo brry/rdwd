@@ -2,35 +2,35 @@
 #' 
 #' @description Select files for downloading with \code{\link{dataDWD}}.\cr
 #' The available folders with datasets are listed at
-#' \url{https://bookdown.org/brry/rdwd/available-datasets.html}.
+#' <https://bookdown.org/brry/rdwd/available-datasets.html>.
 #' To use an updated index (if necessary), see
-#' \url{https://bookdown.org/brry/rdwd/fileindex.html}.\cr\cr
-#' All arguments (except for \code{mindex}, \code{findex} and \code{base})
+#' <https://bookdown.org/brry/rdwd/fileindex.html>.\cr\cr
+#' All arguments (except for `mindex`, `findex` and `base`)
 #' can be a vector and will be recycled to the maximum length of all arguments.
-#' If that length > 1, the output is a list of filenames (or vector if \code{outvec=TRUE}).\cr
-#' If station \code{name} is given, but \code{id} is empty (""),
-#' \bold{id} is inferred via \code{mindex}.
-#' If \code{res/var/per} are given and valid (existing in \code{findex}),
-#' they are pasted together to form a \bold{path}.
+#' If that length > 1, the output is a list of filenames (or vector if `outvec=TRUE`).\cr
+#' If station `name` is given, but `id` is empty (""),
+#' **id** is inferred via `mindex`.
+#' If `res/var/per` are given and valid (existing in `findex`),
+#' they are pasted together to form a **path**.
 #' Here is an overview of the behavior in each case of availability:
 #' \tabular{llll}{
-#' case \tab |  \bold{id} \tab |  \bold{path} \tab | output \cr
-#'  1 \tab |  ""  \tab |  ""  \tab | \code{base} (and some warnings) \cr
-#'  2 \tab | "xx" \tab |  ""  \tab | All file names (across paths) for station \bold{id} \cr
-#'  3 \tab |  ""  \tab | "xx" \tab | The zip file names at \bold{path} \cr
+#' case \tab |  **id** \tab |  **path** \tab | output \cr
+#'  1 \tab |  ""  \tab |  ""  \tab | `base` (and some warnings) \cr
+#'  2 \tab | "xx" \tab |  ""  \tab | All file names (across paths) for station **id** \cr
+#'  3 \tab |  ""  \tab | "xx" \tab | The zip file names at **path** \cr
 #'  4 \tab | "xx" \tab | "xx" \tab | Regular single data file name \cr
 #' }
-#' For case 2, you can explicitly set \code{res="",var="",per=""} to avoid the
+#' For case 2, you can explicitly set `res="",var="",per=""` to avoid the
 #' default interactive selection.\cr
-#' For case 3 and 4 (\bold{path} given), you can set \code{meta=TRUE}.
-#' Then selectDWD will return the name of the station description file at \bold{path}.
-#' This is why case 3 with \code{meta=FALSE} only returns the data file names (ending in .zip).\cr\cr\cr
+#' For case 3 and 4 (**path** given), you can set `meta=TRUE`.
+#' Then selectDWD will return the name of the station description file at **path**.
+#' This is why case 3 with `meta=FALSE` only returns the data file names (ending in .zip).\cr\cr\cr
 #' 
 #' @return Character string with file path and name(s) in the format
 #'         "base/res/var/per/filename.zip"
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2016
 #' @seealso \code{\link{dataDWD}}, \code{\link{metaIndex}},
-#'          \url{https://bookdown.org/brry/rdwd}
+#'          <https://bookdown.org/brry/rdwd>
 #' @keywords file
 #' @importFrom berryFunctions truncMessage traceCall
 #' @importFrom utils menu
@@ -68,25 +68,25 @@
 #' }
 #' 
 #' @param name  Char: station name(s) passed to \code{\link{findID}}, along with
-#'              \code{exactmatch} and \code{mindex}.
-#'              All 3 arguments are ignored if \code{id} is given. DEFAULT: ""
-#' @param res   Char: temporal \bold{res}olution available at \code{base}, usually one of
-#'              \code{c("hourly","daily","monthly")}, see section 'Description' above.
-#'              \code{res/var/per} together form the \bold{path}.
+#'              `exactmatch` and `mindex`.
+#'              All 3 arguments are ignored if `id` is given. DEFAULT: ""
+#' @param res   Char: temporal **res**olution available at `base`, usually one of
+#'              `c("hourly","daily","monthly")`, see section 'Description' above.
+#'              `res/var/per` together form the **path**.
 #'              DEFAULT: NA for interactive selection
-#' @param var   Char: weather \bold{var}iable of interest, like e.g.
-#'              \code{"air_temperature", "cloudiness", "precipitation",
-#'              "soil_temperature", "solar", "kl", "more_precip"}
+#' @param var   Char: weather **var**iable of interest, like e.g.
+#'              `"air_temperature", "cloudiness", "precipitation",
+#'              "soil_temperature", "solar", "kl", "more_precip"`
 #'              See above and in \code{View(rdwd:::\link{fileIndex})}.
 #'              DEFAULT: NA for interactive selection
-#' @param per   Char: desired time \bold{per}iod. One of
+#' @param per   Char: desired time **per**iod. One of
 #'              "recent" (data from the last year, up to date usually within a few days) or
 #'              "historical" (long time series). Can be abbreviated (if the first
 #'              letter is "r" or "h", full names are used). To get both datasets,
-#'              use \code{per="hr"} or \code{per="rh"} (and \code{outvec=TRUE}).
-#'              \code{per} is set to "" if var=="solar".
+#'              use `per="hr"` or `per="rh"` (and `outvec=TRUE`).
+#'              `per` is set to "" if var=="solar".
 #'              DEFAULT: NA for interactive selection
-#' @param exactmatch Logical passed to \code{\link{findID}}: match \code{name}
+#' @param exactmatch Logical passed to \code{\link{findID}}: match `name`
 #'              with \code{\link{==}})? Else with \code{\link{grepl}}. DEFAULT: TRUE
 #' @param mindex Single object: Index with metadata passed to \code{\link{findID}}.
 #'              DEFAULT: \code{rdwd:::\link{metaIndex}}
@@ -95,27 +95,27 @@
 #'              Is internally converted to an integer, because some DWD meta data
 #'              files also contain no leading zeros. DEFAULT: findID(name, exaxtmatch, mindex)
 #' @param base  Single char: main directory of DWD ftp server.
-#'              Must be the same \code{base} used to create \code{findex}.
+#'              Must be the same `base` used to create `findex`.
 #'              DEFAULT: \code{\link{dwdbase}}
 #' @param findex Single object: Index used to select filename, as returned by
 #'              \code{\link{createIndex}}.To use a current / custom index, use
-#'              \code{myIndex <- createIndex(indexFTP("/daily/solar"))}
+#'              `myIndex <- createIndex(indexFTP("/daily/solar"))`
 #'              (with desired path, of course). DEFAULT: \code{rdwd:::\link{fileIndex}}
-#' @param current Single logical for case 3/4 with given \code{path}: instead of
-#'              \code{findex}, use a list of the currently available files at
+#' @param current Single logical for case 3/4 with given `path`: instead of
+#'              `findex`, use a list of the currently available files at
 #'              base/res/var/per? This will call \code{\link{indexFTP}}, thus
-#'              requires availability of the \code{RCurl} package.
+#'              requires availability of the `RCurl` package.
 #'              DEFAULT: FALSE
 #' @param meta  Logical: return metadata txt file name instead of climate data zip file?
 #'              Relevant only in case 4 (path and id given) and case 3 for res="multi_annual".
 #'              See \code{\link{metaIndex}} for a compilation of all metaData files.
 #'              DEFAULT: FALSE
-#' @param meta_txt_only Logical: if \code{meta}, only return .txt files, not the
+#' @param meta_txt_only Logical: if `meta`, only return .txt files, not the
 #'              pdf and html files? DEFAULT: TRUE
-#' @param outvec Single logical: if \bold{path} or \bold{ID} length > 1,
+#' @param outvec Single logical: if **path** or **ID** length > 1,
 #'              instead of a list, return a vector? (via \code{\link{unlist}}).
-#'              DEFAULT: \code{per \%in\% c("rh","hr")}
-#' @param \dots Further arguments passed to \code{\link{indexFTP}} if \code{current=TRUE},
+#'              DEFAULT: `per %in% c("rh","hr")`
+#' @param \dots Further arguments passed to \code{\link{indexFTP}} if `current=TRUE`,
 #'              except folder and base.
 #' 
 selectDWD <- function(

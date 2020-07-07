@@ -2,9 +2,9 @@
 #' 
 #' Read climate variables (column meta data) from zip folders downloaded with
 #' \code{\link{dataDWD}}.
-#' The metadata file \code{"Metadaten_Parameter.*txt"} in the zip folder \code{file}
+#' The metadata file `"Metadaten_Parameter.*txt"` in the zip folder `file`
 #' is read, processed and returned as a data.frame.\cr
-#' \code{file} can be a vector with several filenames.
+#' `file` can be a vector with several filenames.
 #' 
 #' @return data.frame of the desired dataset,
 #'         or a named list of data.frames if length(file) > 1.
@@ -109,7 +109,7 @@ return(output)
 #' These are manually created by me and might need to be expanded if the DWD adds
 #' more abbreviations.\cr
 #' \code{\link{readVars}} maps them to the variable abbreviations in the
-#' \code{"Metadaten_Parameter.*txt"} file in any given zip folder
+#' `"Metadaten_Parameter.*txt"` file in any given zip folder
 #' and will warn about missing entries.
 #' 
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jun 2018

@@ -4,17 +4,17 @@
 #
 #' @title Download data from the DWD CDC FTP Server
 #' @description Get climate data from the German Weather Service (DWD) FTP-server.
-#' The desired dataset is downloaded into \code{dir}.
-#' If \code{read=TRUE}, it is also read and processed.\cr
-#' \code{dataDWD} handles vectors of URLs,
-#' displays progress bars (if the package \code{pbapply} is available)
-#' and by default does not re-download data already in \code{dir}
-#' (but see argument \code{force} to update files).\cr
+#' The desired dataset is downloaded into `dir`.
+#' If `read=TRUE`, it is also read and processed.\cr
+#' `dataDWD` handles vectors of URLs,
+#' displays progress bars (if the package `pbapply` is available)
+#' and by default does not re-download data already in `dir`
+#' (but see argument `force` to update files).\cr
 #' To solve "errors in download.file: cannot open URL", see
-#' \url{https://bookdown.org/brry/rdwd/fileindex.html}.\cr
+#' <https://bookdown.org/brry/rdwd/fileindex.html>.\cr
 #' 
 #' @return Presuming downloading and processing were successful:
-#'         if \code{read=TRUE}, the desired dataset
+#'         if `read=TRUE`, the desired dataset
 #'         (as returned by \code{\link{readDWD}}),
 #'         otherwise the filename as saved on disc
 #'         (may have "_n" appended in name, see \code{\link{newFilename}}).\cr
@@ -22,7 +22,7 @@
 #'         The output is always invisible.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jun-Oct 2016
 #' @seealso \code{\link{selectDWD}}. \code{\link{readDWD}}, \code{\link{download.file}}.\cr
-#'          \url{https://bookdown.org/brry/rdwd}\cr
+#'          <https://bookdown.org/brry/rdwd>\cr
 #'          Helpful for plotting: \code{berryFunctions::\link[berryFunctions]{monthAxis}},
 #'          see also \code{berryFunctions::\link[berryFunctions]{climateGraph}}
 #' @keywords data file
@@ -72,34 +72,34 @@
 #'               \code{\link{selectDWD}}. Can be a vector with several filenames.
 #' @param base   Single char: base URL that will be removed from output file names.
 #'               DEFAULT: \code{\link{dwdbase}}
-#' @param joinbf Logical: paste \code{base} and \code{file} together?
+#' @param joinbf Logical: paste `base` and `file` together?
 #'               Needed mostly for data at \code{\link{gridbase}}.
 #'               DEFAULT: FALSE (selectDWD returns complete URLs already)
 #' @param dir    Char: Writeable directory name where to save the downloaded file.
 #'               Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}
-#' @param force  Logical (vector): always download, even if the file already exists in \code{dir}?
+#' @param force  Logical (vector): always download, even if the file already exists in `dir`?
 #'               Use NA to force re-downloading files older than 24 hours.
 #'               Use a numerical value to force after that amount of hours.
-#'               Note: if \code{force!=FALSE}, you might want to set \code{overwrite=TRUE} as well.
-#'               If \code{force=FALSE}, the file is still read (or name returned).
+#'               Note: if `force!=FALSE`, you might want to set `overwrite=TRUE` as well.
+#'               If `force=FALSE`, the file is still read (or name returned).
 #'               DEFAULT: FALSE
 #' @param overwrite Logical (vector): if force=TRUE, overwrite the existing file
 #'               rather than append "_1"/"_2" etc to the filename? DEFAULT: FALSE
-#' @param dbin   Logical: Download binary file, i.e. add \code{mode="wb"} to the
+#' @param dbin   Logical: Download binary file, i.e. add `mode="wb"` to the
 #'               \code{\link{download.file}} call? This is needed for .tar files
 #'               (see \code{\link{readDWD.asc}}) and binary files like those at
-#'               \href{https://opendata.dwd.de/weather/radar/radolan/rw/}{weather/radar/radolan}.
+#'               [weather/radar/radolan](https://opendata.dwd.de/weather/radar/radolan/rw/).
 #'               This seems to be a CRLF issue on MS Windows.
 #'               DEFAULT: FALSE
 #' @param sleep  Number. If not 0, a random number of seconds between 0 and
-#'               \code{sleep} is passed to \code{\link{Sys.sleep}} after each download
+#'               `sleep` is passed to \code{\link{Sys.sleep}} after each download
 #'               to avoid getting kicked off the FTP-Server,
 #'               see note in \code{\link{indexFTP}}. DEFAULT: 0
 #' @param quiet  Logical: suppress message about directory / filenames?
 #'               DEFAULT: FALSE through \code{\link{rdwdquiet}()}
 #' @param progbar Logical: present a progress bar with estimated remaining time?
 #'               If missing and length(file)==1, progbar is internally set to FALSE.
-#'               Only works if the R package \code{pbapply} is available. DEFAULT: TRUE (!quiet)
+#'               Only works if the R package `pbapply` is available. DEFAULT: TRUE (!quiet)
 #' @param browse Logical: open repository via \code{\link{browseURL}} and
 #'               return URL folder path? If TRUE, no data is downloaded.
 #'               If file has several values, only unique folders will be opened.
@@ -109,7 +109,7 @@
 #' @param ntrunc Single integer: number of filenames printed in messages
 #'               before they get truncated with message "(and xx more)". DEFAULT: 2
 #' @param dfargs Named list of additional arguments passed to \code{\link{download.file}}
-#'               Note that mode="wb" is already passed if \code{dbin=TRUE}
+#'               Note that mode="wb" is already passed if `dbin=TRUE`
 #' @param \dots  Further arguments passed to \code{\link{readDWD}},
 #'               like fread, varnames etc. Dots were passed to
 #'               \code{\link{download.file}} prior to rdwd 0.11.7 (2019-02-25)

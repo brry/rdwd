@@ -2,11 +2,11 @@
 #' 
 #' This is mainly an internal function.
 #' Create data.frames out of the vector index returned by \code{\link{indexFTP}}.
-#' For \code{\link{fileIndex}} (the first output element) \code{createIndex}
+#' For \code{\link{fileIndex}} (the first output element) `createIndex`
 #' tries to obtain res, var, per, file, id, start and end from the paths.
-#' If \code{meta=TRUE}, \code{\link{metaIndex}} and \code{\link{geoIndex}} are also
+#' If `meta=TRUE`, \code{\link{metaIndex}} and \code{\link{geoIndex}} are also
 #' created. They combine all Beschreibung files into a single data.frame.\cr
-#' If you create your own index as suggested in selectDWD (argument \code{findex}),
+#' If you create your own index as suggested in selectDWD (argument `findex`),
 #' you can read the produced file as shown in the example section.
 #' 
 #' @return invisible data.frame (or if meta=TRUE, list with two data.frames)
@@ -32,24 +32,24 @@
 #' }
 #' 
 #' @param paths Char: vector of DWD paths returned by \code{\link{indexFTP}} called
-#'              with the same \code{base} value as this function
+#'              with the same `base` value as this function
 #' @param base  Main directory of DWD ftp server, defaulting to observed climatic records.
 #'              DEFAULT: \code{\link{dwdbase}}
 #' @param dir   Char: writeable directory name where to save the main output(s).
 #'              Created if not existent. DEFAULT: "DWDdata" at current \code{\link{getwd}()}
-#' @param fname Char: Name of file in \code{dir} in which to write \code{\link{fileIndex}}.
-#'              Use \code{fname=""} to suppress writing. DEFAULT: "fileIndex.txt"
+#' @param fname Char: Name of file in `dir` in which to write \code{\link{fileIndex}}.
+#'              Use `fname=""` to suppress writing. DEFAULT: "fileIndex.txt"
 #' @param meta  Logical: should metaIndex also be created from fileIndex?
 #'              Uses \code{\link{dataDWD}} to download files if not present.
 #'              DEFAULT: FALSE
-#' @param metadir Char: Directory (subfolder of \code{dir}) where original
+#' @param metadir Char: Directory (subfolder of `dir`) where original
 #'              description files are downloaded to if meta=TRUE. Passed to
-#'              \code{\link{dataDWD}}. "" to write in \code{dir}. DEFAULT: "meta"
-#' @param mname Char: Name of file in \code{dir} (not \code{metadir}) in which to
+#'              \code{\link{dataDWD}}. "" to write in `dir`. DEFAULT: "meta"
+#' @param mname Char: Name of file in `dir` (not `metadir`) in which to
 #'              write \code{\link{metaIndex}}.
-#'              Use \code{mname=""} to suppress writing. DEFAULT: "metaIndex.txt"
+#'              Use `mname=""` to suppress writing. DEFAULT: "metaIndex.txt"
 #' @param gname Filename for \code{\link{geoIndex}}. DEFAULT: "geoIndex.txt"
-#' @param overwrite Logical: Overwrite existing \code{fname / mname / gname} files?
+#' @param overwrite Logical: Overwrite existing `fname / mname / gname` files?
 #'              If not, "_n" is added to the filenames, see
 #'              \code{berryFunctions::\link[berryFunctions]{newFilename}}.
 #'              DEFAULT: FALSE
