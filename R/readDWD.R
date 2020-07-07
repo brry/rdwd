@@ -733,7 +733,7 @@ return(invisible(r))
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019
 #' @seealso \code{\link{readDWD}}
 #' @importFrom berryFunctions removeSpace
-#' @importFrom utils menu tail
+#' @importFrom utils menu tail capture.output
 #' @examples
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
 #' 
