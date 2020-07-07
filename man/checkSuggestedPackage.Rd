@@ -16,7 +16,7 @@ invisible success logical value from \code{\link{requireNamespace}}
 }
 \description{
 check suggested package for availability,
-             yielding an instructive error message if not
+yielding an instructive error message if not
 }
 \seealso{
 \code{\link{requireNamespace}}

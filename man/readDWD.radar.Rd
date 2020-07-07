@@ -54,12 +54,12 @@ plotRadar(r$dat, main=r$meta$date)
 }
 \seealso{
 \code{\link{readDWD}}, especially \code{\link{readDWD.binary}}\cr
-  \url{https://wradlib.org} for much more extensive radar analysis in Python\cr
-  Kompositformatbeschreibung at \url{https://www.dwd.de/DE/leistungen/radolan/radolan.html}
-  for format description
+\url{https://wradlib.org} for much more extensive radar analysis in Python\cr
+Kompositformatbeschreibung at \url{https://www.dwd.de/DE/leistungen/radolan/radolan.html}
+for format description
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Aug 2019.
-        Significant input for the underlying \code{dwdradar::\link[dwdradar]{readRadarFile}} came
-        from Henning Rust & Christoph Ritschel at FU Berlin.
+Significant input for the underlying \code{dwdradar::\link[dwdradar]{readRadarFile}} came
+from Henning Rust & Christoph Ritschel at FU Berlin.
 }

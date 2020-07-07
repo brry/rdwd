@@ -11,18 +11,18 @@
 \title{Indexes of files and metadata on the DWD CDC FTP server}
 \format{
 \bold{fileIndex}: data.frame with character strings. ca 260k rows x 8 columns:\cr
-        \code{res}, \code{var}, \code{per} (see \code{\link{selectDWD}}),
-        station \code{id}, time series \code{start} and \code{end}, and
-        \code{ismeta} information, all according to \code{path}.\cr
+\code{res}, \code{var}, \code{per} (see \code{\link{selectDWD}}),
+station \code{id}, time series \code{start} and \code{end}, and
+\code{ismeta} information, all according to \code{path}.\cr
 \bold{metaIndex}: data.frame with ca 97k rows for 12 columns:\cr
-        \code{Stations_id, von_datum, bis_datum,
+\code{Stations_id, von_datum, bis_datum,
         Stationshoehe, geoBreite, geoLaenge, Stationsname, Bundesland,
         res, var, per, hasfile} \cr
 \bold{geoIndex}: data.frame with ca 6k rows for 11 columns:\cr
-        \code{id, name, state, lat, lon, ele, nfiles, nonpublic, recentfile, display, col}\cr
+\code{id, name, state, lat, lon, ele, nfiles, nonpublic, recentfile, display, col}\cr
 \bold{gridIndex}: Vector with ca 50k file paths at \code{\link{gridbase}}\cr
 \bold{formatIndex}: data.frame with 140 rows for 12 columns:\cr
-        \code{Ke_Ind, Kennung, Label, Beschreibung, Einheit, Code-Tabellen,
+\code{Ke_Ind, Kennung, Label, Beschreibung, Einheit, Code-Tabellen,
         Zusatzinfo, Typ, Pos, Erlaubt, Fehlk, dividebyten}\cr
 }
 \source{
@@ -55,8 +55,8 @@ head(geoIndex)
 }
 \seealso{
 \code{\link{createIndex}}, \code{\link{indexFTP}}, \code{\link{selectDWD}},
-         \code{\link{findID}}, \code{\link{metaInfo}},
-         \url{https://bookdown.org/brry/rdwd}
+\code{\link{findID}}, \code{\link{metaInfo}},
+\url{https://bookdown.org/brry/rdwd}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, June-Nov 2016, June 2017, Oct 2019

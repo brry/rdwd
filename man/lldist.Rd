@@ -41,6 +41,6 @@ Does not check coordinates. Not exported.
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Aug 2016 + Jan 2017.
-        Angle formula from Diercke Weltatlas 1996, Page 245
+Angle formula from Diercke Weltatlas 1996, Page 245
 }
 \keyword{spatial}

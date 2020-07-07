@@ -87,12 +87,12 @@ head(grep("historical", gridIndex, value=TRUE))
 }
 \seealso{
 \code{\link{readDWD}}, especially \code{\link{readDWD.radar}}\cr
-  \url{https://wradlib.org} for much more extensive radar analysis in Python\cr
-  Kompositformatbeschreibung at \url{https://www.dwd.de/DE/leistungen/radolan/radolan.html}
-  for format description
+\url{https://wradlib.org} for much more extensive radar analysis in Python\cr
+Kompositformatbeschreibung at \url{https://www.dwd.de/DE/leistungen/radolan/radolan.html}
+for format description
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Dec 2018.
-        Significant input for the underlying \code{dwdradar::\link[dwdradar]{readRadarFile}} came
-        from Henning Rust & Christoph Ritschel at FU Berlin.
+Significant input for the underlying \code{dwdradar::\link[dwdradar]{readRadarFile}} came
+from Henning Rust & Christoph Ritschel at FU Berlin.
 }

@@ -69,7 +69,7 @@
 #'                Created if not existent.
 #'                DEFAULT: "DWDdata" at current \code{\link{getwd}()}
 #' @param filename Character: Part of output filename. "INDEX_of_DWD_" is prepended,
-#'                "/" replaced with "_", ".txt" appended. DEFAULT: folder[1]
+#'                "/" replaced with "_", ".txt" appended. DEFAULT: folder\[1]
 #' @param overwrite Logical: Overwrite existing file? If not, "_n" is added to the
 #'                filename, see \code{berryFunctions::\link[berryFunctions]{newFilename}}.
 #'                DEFAULT: FALSE

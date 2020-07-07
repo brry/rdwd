@@ -21,7 +21,7 @@ DEFAULT: NA (re-download if older than 24 hours)}
 }
 \description{
 This is meant to be called with getwd at the
- rdwd package source code directory to update the indexes with one single call.
+rdwd package source code directory to update the indexes with one single call.
 }
 \examples{
 # number of files at dwdbase

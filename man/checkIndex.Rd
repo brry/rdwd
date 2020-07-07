@@ -40,8 +40,8 @@ Charstring with issues (if any) to be printed with \code{cat()}.
 }
 \description{
 check indexes. Mainly for internal usage in \code{\link{createIndex}}.
-             Not exported, so call it as rdwd:::checkIndex() if you want to
-             run tests yourself. Further test suggestions are welcome!
+Not exported, so call it as rdwd:::checkIndex() if you want to
+run tests yourself. Further test suggestions are welcome!
 }
 \examples{
 data(fileIndex) ; data(metaIndex) ; data(geoIndex)

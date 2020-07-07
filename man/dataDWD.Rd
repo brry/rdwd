@@ -85,12 +85,12 @@ like fread, varnames etc. Dots were passed to
 }
 \value{
 Presuming downloading and processing were successful:
-        if \code{read=TRUE}, the desired dataset
-        (as returned by \code{\link{readDWD}}),
-        otherwise the filename as saved on disc
-        (may have "_n" appended in name, see \code{\link{newFilename}}).\cr
-        If length(file)>1, the output is a list of outputs / vector of filenames.\cr
-        The output is always invisible.
+if \code{read=TRUE}, the desired dataset
+(as returned by \code{\link{readDWD}}),
+otherwise the filename as saved on disc
+(may have "_n" appended in name, see \code{\link{newFilename}}).\cr
+If length(file)>1, the output is a list of outputs / vector of filenames.\cr
+The output is always invisible.
 }
 \description{
 Get climate data from the German Weather Service (DWD) FTP-server.
@@ -143,9 +143,9 @@ potsdam <- potsdam[!duplicated(potsdam$MESS_DATUM),]
 }
 \seealso{
 \code{\link{selectDWD}}. \code{\link{readDWD}}, \code{\link{download.file}}.\cr
-         \url{https://bookdown.org/brry/rdwd}\cr
-         Helpful for plotting: \code{berryFunctions::\link[berryFunctions]{monthAxis}},
-         see also \code{berryFunctions::\link[berryFunctions]{climateGraph}}
+\url{https://bookdown.org/brry/rdwd}\cr
+Helpful for plotting: \code{berryFunctions::\link[berryFunctions]{monthAxis}},
+see also \code{berryFunctions::\link[berryFunctions]{climateGraph}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Jun-Oct 2016

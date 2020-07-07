@@ -34,7 +34,7 @@ DEFAULT: NA for interactive selection}
 
 \item{var}{Char: weather \bold{var}iable of interest, like e.g.
 \code{"air_temperature", "cloudiness", "precipitation",
-        "soil_temperature", "solar", "kl", "more_precip"}
+             "soil_temperature", "solar", "kl", "more_precip"}
 See above and in \code{View(rdwd:::\link{fileIndex})}.
 DEFAULT: NA for interactive selection}
 
@@ -90,7 +90,7 @@ except folder and base.}
 }
 \value{
 Character string with file path and name(s) in the format
-        "base/res/var/per/filename.zip"
+"base/res/var/per/filename.zip"
 }
 \description{
 Select files for downloading with \code{\link{dataDWD}}.\cr
@@ -108,10 +108,10 @@ they are pasted together to form a \bold{path}.
 Here is an overview of the behavior in each case of availability:
 \tabular{llll}{
 case \tab |  \bold{id} \tab |  \bold{path} \tab | output \cr
- 1 \tab |  ""  \tab |  ""  \tab | \code{base} (and some warnings) \cr
- 2 \tab | "xx" \tab |  ""  \tab | All file names (across paths) for station \bold{id} \cr
- 3 \tab |  ""  \tab | "xx" \tab | The zip file names at \bold{path} \cr
- 4 \tab | "xx" \tab | "xx" \tab | Regular single data file name \cr
+1 \tab |  ""  \tab |  ""  \tab | \code{base} (and some warnings) \cr
+2 \tab | "xx" \tab |  ""  \tab | All file names (across paths) for station \bold{id} \cr
+3 \tab |  ""  \tab | "xx" \tab | The zip file names at \bold{path} \cr
+4 \tab | "xx" \tab | "xx" \tab | Regular single data file name \cr
 }
 For case 2, you can explicitly set \code{res="",var="",per=""} to avoid the
 default interactive selection.\cr
@@ -154,7 +154,7 @@ head(  selectDWD(id="", res="daily", var="kl", per="recent")   )
 }
 \seealso{
 \code{\link{dataDWD}}, \code{\link{metaIndex}},
-         \url{https://bookdown.org/brry/rdwd}
+\url{https://bookdown.org/brry/rdwd}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2016

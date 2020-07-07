@@ -18,9 +18,9 @@
 #' # use case: plot all rainfall values around a given point
 #' # browseURL("https://bookdown.org/brry/rdwd")
 #' 
-#' @param lat         Coordinates y component [degrees N/S, range 47:55]
-#' @param lon         Coordinates x component [degrees E/W, range 6:15]
-#' @param radius      Maximum distance [km] within which stations will be selected
+#' @param lat         Coordinates y component \[degrees N/S, range 47:55]
+#' @param lon         Coordinates x component \[degrees E/W, range 6:15]
+#' @param radius      Maximum distance \[km] within which stations will be selected
 #' @param res,var,per Restrictions for dataset type as documented in
 #'                    \code{\link{selectDWD}}. Each can be a vector of entries.
 #'                    DEFAULTS: NA (ignored)

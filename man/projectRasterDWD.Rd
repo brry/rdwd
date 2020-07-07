@@ -38,19 +38,19 @@ Raster object with projection and extent, invisible
 }
 \description{
 Set projection and extent for DWD raster data. Optionally (and
-  per default) also reprojects to latlon data.\cr\cr
-  \bold{WARNING:} reprojection to latlon changes values slightly. For the
-  tested RX product, this change is significant, see:
-  \url{https://github.com/brry/rdwd/blob/master/misc/ExampleTests/Radartests.pdf}\cr
-   In raster::plot, \bold{use zlim with the original range} if needed.
+per default) also reprojects to latlon data.\cr\cr
+\bold{WARNING:} reprojection to latlon changes values slightly. For the
+tested RX product, this change is significant, see:
+\url{https://github.com/brry/rdwd/blob/master/misc/ExampleTests/Radartests.pdf}\cr
+In raster::plot, \bold{use zlim with the original range} if needed.
 }
 \details{
 The internal defaults are extracted from the Kompositformatbeschreibung at
-  \url{https://www.dwd.de/DE/leistungen/radolan/radolan.html}, as provided
-  2019-04 by Antonia Hengst.\cr The nc extent was obtained by projecting
-  Germanys bbox to EPSG 3034 (specified in the DWD documentation). Using that
-  as a starting point, I then refined the extent to a visual match, see
-  \href{https://github.com/brry/rdwd/blob/master/misc/developmentNotes.R}{developmentNotes.R}\cr\cr
+\url{https://www.dwd.de/DE/leistungen/radolan/radolan.html}, as provided
+2019-04 by Antonia Hengst.\cr The nc extent was obtained by projecting
+Germanys bbox to EPSG 3034 (specified in the DWD documentation). Using that
+as a starting point, I then refined the extent to a visual match, see
+\href{https://github.com/brry/rdwd/blob/master/misc/developmentNotes.R}{developmentNotes.R}\cr\cr
 }
 \examples{
 # To be used after readDWD.binary etc
@@ -58,7 +58,7 @@ The internal defaults are extracted from the Kompositformatbeschreibung at
 \seealso{
 \code{raster::\link[raster:projection]{crs},
   \link[raster]{projection},\link[raster]{extent},\link[raster]{projectRaster}}\cr
-   \code{\link{readDWD.binary}, \link{readDWD.raster}, \link{readDWD.asc},
+\code{\link{readDWD.binary}, \link{readDWD.raster}, \link{readDWD.asc},
   \link{readDWD.radar}, \link{readDWD.nc}}
 }
 \author{

@@ -6,14 +6,16 @@
 \alias{rdwd-package}
 \title{Handle Climate Data from DWD (German Weather Service)}
 \description{
-- find, select, download + read data from the German weather service DWD\cr
-- vectorized, progress bars, no re-downloads\cr
-- index of files + meta data\cr
-- observational time series from 6k meteorological recording stations (2.5k active)\cr
-  -> rain, temperature, wind, sunshine, pressure, cloudiness, humidity, snow, ...\cr
-- gridded raster data from radar + interpolation\cr
-- european data stock slowly growing\cr
+\itemize{
+\item find, select, download + read data from the German weather service DWD\cr
+\item vectorized, progress bars, no re-downloads\cr
+\item index of files + meta data\cr
+\item observational time series from 6k meteorological recording stations (2.5k active)\cr
+-> rain, temperature, wind, sunshine, pressure, cloudiness, humidity, snow, ...\cr
+\item gridded raster data from radar + interpolation\cr
+\item european data stock slowly growing\cr
 For an introduction to the package, see \url{https://bookdown.org/brry/rdwd}.\cr
+}
 }
 \section{Searchability Terms}{
 
@@ -24,10 +26,10 @@ DWD Daten mit R runterladen, Wetter und Klimadaten in R
 
 \seealso{
 USA data: \href{https://www.rdocumentation.org/packages/countyweather}{countyweather},
-         \href{https://www.rdocumentation.org/packages/rnoaa}{rnoaa}\cr
-         World data: \href{https://ropensci.org/blog/blog/2017/04/04/gsodr}{Global Surface Summary of the Day}\cr
-         Dutch data (Netherlands): \url{https://github.com/bvhest/KNMIr}\cr
-         Canadian data: \url{https://cran.r-project.org/package=weathercan}\cr
+\href{https://www.rdocumentation.org/packages/rnoaa}{rnoaa}\cr
+World data: \href{https://ropensci.org/blog/blog/2017/04/04/gsodr}{Global Surface Summary of the Day}\cr
+Dutch data (Netherlands): \url{https://github.com/bvhest/KNMIr}\cr
+Canadian data: \url{https://cran.r-project.org/package=weathercan}\cr
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}

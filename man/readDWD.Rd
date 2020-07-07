@@ -94,8 +94,8 @@ documented in each internal function.}
 }
 \value{
 Invisible data.frame of the desired dataset,
-        or a named list of data.frames if length(file) > 1.\cr
-        The functions for gridded data return raster objects instead of data.frames.
+or a named list of data.frames if length(file) > 1.\cr
+The functions for gridded data return raster objects instead of data.frames.
 }
 \description{
 Read climate data that was downloaded with \code{\link{dataDWD}}.
@@ -121,8 +121,8 @@ also be a vector and will be recycled to the length of \code{file}.
 }
 \seealso{
 \code{\link{dataDWD}}, \code{\link{readVars}},
-         \code{\link{readMeta}}, \code{\link{selectDWD}}\cr
-         \url{https://bookdown.org/brry/rdwd}
+\code{\link{readMeta}}, \code{\link{selectDWD}}\cr
+\url{https://bookdown.org/brry/rdwd}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Jul-Oct 2016, Winter 2018/19

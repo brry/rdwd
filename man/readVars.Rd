@@ -16,7 +16,7 @@ DEFAULT: TRUE}
 }
 \value{
 data.frame of the desired dataset,
-        or a named list of data.frames if length(file) > 1.
+or a named list of data.frames if length(file) > 1.
 }
 \description{
 Read climate variables (column meta data) from zip folders downloaded with

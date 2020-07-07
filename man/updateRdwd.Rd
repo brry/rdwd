@@ -30,8 +30,8 @@ data.frame with version information
 }
 \description{
 Update rdwd to the latest development version on github, if necessary.
-        If the version number or date is larger on github,
-        \code{remotes::\link[remotes]{install_github}} will be called.
+If the version number or date is larger on github,
+\code{remotes::\link[remotes]{install_github}} will be called.
 }
 \examples{
 # updateRdwd()

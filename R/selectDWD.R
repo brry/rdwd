@@ -76,7 +76,7 @@
 #'              DEFAULT: NA for interactive selection
 #' @param var   Char: weather \bold{var}iable of interest, like e.g.
 #'              \code{"air_temperature", "cloudiness", "precipitation",
-#'                      "soil_temperature", "solar", "kl", "more_precip"}
+#'              "soil_temperature", "solar", "kl", "more_precip"}
 #'              See above and in \code{View(rdwd:::\link{fileIndex})}.
 #'              DEFAULT: NA for interactive selection
 #' @param per   Char: desired time \bold{per}iod. One of

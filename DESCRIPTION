@@ -18,5 +18,6 @@ License: GPL (>= 2)
 Encoding: UTF-8
 URL: https://github.com/brry/rdwd
 RoxygenNote: 7.1.1
+Roxygen: list(markdown=TRUE)
 BugReports: https://github.com/brry/rdwd/issues
 VignetteBuilder: knitr

@@ -20,13 +20,13 @@ data.frame
 }
 \description{
 read dwd metadata (Beschreibung*.txt files).
- Intended to be called via \code{\link{readDWD}}.\cr
- Column widths for \code{\link{read.fwf}} are computed internally.\cr
- if(any(meta)), \code{\link{readDWD}} tries to set the locale to German
- (to handle Umlaute correctly). It is hence not recommended to call
- \code{rdwd:::readDWD.meta} directly on a file!\cr
- Names can later be changed to ascii with
- \code{berryFunctions::\link{convertUmlaut}}.
+Intended to be called via \code{\link{readDWD}}.\cr
+Column widths for \code{\link{read.fwf}} are computed internally.\cr
+if(any(meta)), \code{\link{readDWD}} tries to set the locale to German
+(to handle Umlaute correctly). It is hence not recommended to call
+\code{rdwd:::readDWD.meta} directly on a file!\cr
+Names can later be changed to ascii with
+\code{berryFunctions::\link{convertUmlaut}}.
 }
 \examples{
 \dontrun{ # Excluded from CRAN checks, but run in localtests

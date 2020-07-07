@@ -5,7 +5,7 @@
 \alias{EUR}
 \title{Map of Western European countries through the \code{rworldmap} package}
 \format{
-SpatialPolygonsDataFrame [package "sp"] with 32 rows
+SpatialPolygonsDataFrame \link{package "sp"} with 32 rows
 }
 \description{
 Map of Western European countries through the \code{rworldmap} package
