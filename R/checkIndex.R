@@ -1,19 +1,19 @@
 #' @title check indexes
-#' @description check indexes. Mainly for internal usage in \code{\link{createIndex}}.
+#' @description check indexes. Mainly for internal usage in [createIndex()].
 #'              Not exported, so call it as rdwd:::checkIndex() if you want to
 #'              run tests yourself. Further test suggestions are welcome!
-#' @return Charstring with issues (if any) to be printed with `cat()`.
+#' @return Charstring with issues (if any) to be printed with [cat()].
 #' @importFrom berryFunctions truncMessage round0 traceCall
 #' @importFrom pbapply pbsapply
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, May 2019
-#' @seealso \code{\link{createIndex}}
+#' @seealso [`createIndex`]
 #' @examples
 #' data(fileIndex) ; data(metaIndex) ; data(geoIndex)
 #' # ci <- rdwd:::checkIndex(findex=fileIndex, mindex=metaIndex, gindex=geoIndex)
 #' # cat(ci)
-#' @param findex    \code{\link{fileIndex}}. DEFAULT: NULL
-#' @param mindex    \code{\link{metaIndex}}. DEFAULT: NULL
-#' @param gindex    \code{\link{geoIndex}}.  DEFAULT: NULL
+#' @param findex    [`fileIndex`]. DEFAULT: NULL
+#' @param mindex    [`metaIndex`]. DEFAULT: NULL
+#' @param gindex    [`geoIndex`].  DEFAULT: NULL
 #' @param excludefp Exclude false positives from geoIndex coordinate check results?
 #'                  DEFAULT: TRUE
 #' @param fast      Exclude the 3-minute location per ID check? DEFAULT: FALSE
@@ -21,7 +21,7 @@
 #' @param logfile   File to copy log to, appended to existing content. NULL to suppress.
 #'                  DEFAULT: "misc/ExampleTests/warnings.txt"
 #' @param quiet     Logical: Suppress progress messages?
-#'                  DEFAULT: FALSE through \code{\link{rdwdquiet}()}
+#'                  DEFAULT: FALSE through [rdwdquiet()]
 checkIndex <- function(
   findex=NULL,
   mindex=NULL,

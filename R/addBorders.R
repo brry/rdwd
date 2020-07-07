@@ -3,7 +3,7 @@
 #' @title add country and Bundesland borders to a map
 #' @return invisible list with DEU and EUR
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019
-#' @seealso \code{\link{plotRadar}}, \code{\link{DEU}}, \code{\link{EUR}}
+#' @seealso [`plotRadar`], [`DEU`], [`EUR`]
 #' @keywords aplot
 #' @importFrom utils globalVariables
 #' @export
@@ -15,10 +15,10 @@
 #' addBorders(de="orange", eu=NA)
 #' }
 #' 
-#' @param de      Color for Bundeslaender line (\code{\link{DEU}}). NA to suppress. DEFAULT: "grey80"
-#' @param eu      Color for countries line (\code{\link{EUR}}). NA to suppress. DEFAULT: "black"
+#' @param de      Color for Bundeslaender line ([`DEU`]). NA to suppress. DEFAULT: "grey80"
+#' @param eu      Color for countries line ([`EUR`]). NA to suppress. DEFAULT: "black"
 #' @param add     Logical: add to existing plot? DEFAULT: TRUE
-#' @param \dots   Further arguments passed to \code{raster::\link[raster]{plot}}
+#' @param \dots   Further arguments passed to [raster::plot()]
 addBorders <- function(
  de="grey80",
  eu="black",
@@ -40,7 +40,7 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("DEU", "EUR"))
 
 #' Map of German states (Bundeslaender) from GADM through the `raster` package
 #' @name DEU
-#' @seealso \code{\link{addBorders}}, \code{\link{EUR}}
+#' @seealso [`addBorders`], [`EUR`]
 #' @details Use directly with:\cr
 #' `load(system.file("extdata/DEU.rda", package="rdwd"))`\cr\cr
 #' Obtained with the code: \cr
@@ -65,7 +65,7 @@ load(system.file("extdata/DEU.rda", package="rdwd"), envir=environment())
 
 #' Map of Western European countries through the `rworldmap` package
 #' @name EUR
-#' @seealso \code{\link{addBorders}}, \code{\link{DEU}}
+#' @seealso[`addBorders`], [`DEU`]
 #' @details Use directly with:\cr
 #' `load(system.file("extdata/EUR.rda", package="rdwd"))`\cr\cr
 #' Obtained with the code: \cr

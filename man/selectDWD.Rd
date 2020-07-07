@@ -115,8 +115,14 @@ case \tab |  \strong{id} \tab |  \strong{path} \tab | output \cr
 For case 2, you can explicitly set \verb{res="",var="",per=""} to avoid the
 default interactive selection.\cr
 For case 3 and 4 (\strong{path} given), you can set \code{meta=TRUE}.
-Then selectDWD will return the name of the station description file at \strong{path}.
-This is why case 3 with \code{meta=FALSE} only returns the data file names (ending in .zip).\cr\cr\cr
+Then selectDWD will return the name of the station description txt file at \strong{path}.
+This is why case 3 with the default \code{meta=FALSE} only returns the
+data file names (ending in .zip) and not the description and Beschreibung txt/pdf files.
+Open those in a browser with\preformatted{pdfpath <- grep("daily/kl/h.*DESCRIPTION", fileIndex$path, value=TRUE)
+browseURL(paste0(dwdbase, "/", pdfpath))
+}
+
+Let me know if besides \code{meta}, \code{pdf} is needed for automated opening.\cr\cr\cr
 }
 \examples{
 # Give weather station name (must be existing in metaIndex):

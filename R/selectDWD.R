@@ -23,13 +23,20 @@
 #' For case 2, you can explicitly set `res="",var="",per=""` to avoid the
 #' default interactive selection.\cr
 #' For case 3 and 4 (**path** given), you can set `meta=TRUE`.
-#' Then selectDWD will return the name of the station description file at **path**.
-#' This is why case 3 with `meta=FALSE` only returns the data file names (ending in .zip).\cr\cr\cr
+#' Then selectDWD will return the name of the station description txt file at **path**.
+#' This is why case 3 with the default `meta=FALSE` only returns the 
+#' data file names (ending in .zip) and not the description and Beschreibung txt/pdf files.
+#' Open those in a browser with
+#' ```
+#' pdfpath <- grep("daily/kl/h.*DESCRIPTION", fileIndex$path, value=TRUE)
+#' browseURL(paste0(dwdbase, "/", pdfpath))
+#' ```
+#' Let me know if besides `meta`, `pdf` is needed for automated opening.\cr\cr\cr
 #' 
 #' @return Character string with file path and name(s) in the format
 #'         "base/res/var/per/filename.zip"
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2016
-#' @seealso \code{\link{dataDWD}}, \code{\link{metaIndex}},
+#' @seealso [dataDWD()], [`metaIndex`],
 #'          <https://bookdown.org/brry/rdwd>
 #' @keywords file
 #' @importFrom berryFunctions truncMessage traceCall
