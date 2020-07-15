@@ -54,6 +54,17 @@ For data interpolated onto a 1 km raster, including radar data up to the last ho
 see the corresponding [chapter](https://bookdown.org/brry/rdwd/raster-data.html) on the website.
 
 
+### New to R
+
+If you're new to R, these links might help you to get started:
+
+- [install R & Rstudio](https://github.com/brry/course/#install)
+- [brief introduction to R](https://github.com/brry/hour)
+- [very large set of slides I use for my courses](https://github.com/brry/course/#slides)
+
+back to `rdwd`:
+
+
 ### Installation
 
 #### Normal
