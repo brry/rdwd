@@ -1,9 +1,4 @@
 
-toDo before next CRAN release:
-- readDWD.data: figure out reason for fread trouble (reported in emails by some users)
-
-
-
 -----------------------------
 -----------------------------
 

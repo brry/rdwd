@@ -8,7 +8,7 @@ readDWD(
   file,
   quiet = rdwdquiet(),
   progbar = !quiet,
-  fread = FALSE,
+  fread = NA,
   varnames = FALSE,
   var = "",
   format = NA,
@@ -38,7 +38,7 @@ If missing and length(file)==1, progbar is internally set to FALSE.
 DEFAULT: !quiet}
 
 \item{fread}{Logical (vector): read fast? See \code{\link[=readDWD.data]{readDWD.data()}}.
-DEFAULT: FALSE (some users complain it doesn't work on their PC)}
+DEFAULT: NA (experimental, see \link{https://github.com/brry/rdwd/issues/22})}
 
 \item{varnames}{Logical (vector): Expand column names?
 See \code{\link[=readDWD.data]{readDWD.data()}}. DEFAULT: FALSE}

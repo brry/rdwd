@@ -43,7 +43,7 @@
 #'               If missing and length(file)==1, progbar is internally set to FALSE.
 #'               DEFAULT: !quiet
 #' @param fread  Logical (vector): read fast? See [readDWD.data()].
-#'               DEFAULT: FALSE (some users complain it doesn't work on their PC)
+#'               DEFAULT: NA (experimental, see [https://github.com/brry/rdwd/issues/22])
 #' @param varnames Logical (vector): Expand column names?
 #'               See [readDWD.data()]. DEFAULT: FALSE
 #' @param var    var for [readDWD.nc()]. DEFAULT: ""
@@ -88,7 +88,7 @@ readDWD <- function(
 file,
 quiet=rdwdquiet(),
 progbar=!quiet,
-fread=FALSE,
+fread=NA,
 varnames=FALSE,
 var="",
 format=NA,
@@ -187,7 +187,8 @@ return(invisible(output))
 #'                 DWDdata/daily_kl_recent_tageswerte_KL_03987_akt.zip
 #' @param fread    Logical: read faster with [data.table::fread]?
 #'                 When reading many large historical files, speedup is significant.
-#'                 NA can also be used, which means TRUE if data.table is available.
+#'                 When called from [readDWD()], NA can also be used, which means 
+#'                 TRUE if data.table is available.
 #'                 DEFAULT: FALSE
 #' @param varnames Logical (vector): add a short description to the DWD variable
 #'                 abbreviations in the column names?
