@@ -44,7 +44,7 @@ options(rdwdquiet=TRUE)
 reme <- readLines('../../README.md')
 doc <- grep("## Documentation", reme) + 0:4
 reme <- gsub("###", "##", reme)
-cat(reme[-c(1,2,doc)], sep='\n')
+cat(reme[-c(1,doc)], sep='\n')
 ```
 
 ```{r helplink_macro, echo=FALSE}
@@ -105,8 +105,7 @@ The following folders in **`res/var/per`** notation (resolution/variable/period)
 [`dwdbase`](ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate).
 
 Here's a full example URL, for a file at hourly/wind/recent:
-[ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/](ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/wind/recent/stundenwerte_FF_00164_akt.zip)
-[hourly/wind/recent/stundenwerte_FF_00164_akt.zip](ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/wind/recent/stundenwerte_FF_00164_akt.zip)
+[ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/wind/recent/stundenwerte_FF_00164_akt.zip](ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/wind/recent/stundenwerte_FF_00164_akt.zip)
 
 "<" signifies a split into the folders `per` = "recent" and "historical".  
 "<<" signifies a split into the folders `per` = "now", "recent", "historical" and "meta_data".  
