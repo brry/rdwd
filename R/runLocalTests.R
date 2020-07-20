@@ -218,6 +218,8 @@ testthat::expect_gte(length(allzip_folder), 573)
 
 messaget("++ Testing selectDWD warnings")
 
+oop <- options(rdwdquiet=FALSE)
+
 testthat::test_that("selectDWD warns as intended", {
 testthat::expect_warning(selectDWD(res="",var="",per=""),
                "selectDWD: neither station ID nor valid FTP folder is given.")
@@ -226,9 +228,9 @@ testthat::expect_warning(selectDWD(7777, res="",var="",per=""),
 testthat::expect_warning(selectDWD(7777, res="",var="",per=""),
                "selectDWD: neither station ID nor valid FTP folder is given.")
 testthat::expect_warning(selectDWD(id=7777, res="",var="",per=""),
-               "selectDWD: in file index 'fileIndex', no filename could be detected with ID 7777.")
+               "selectDWD: in file index 'fileIndex', there are 0 files with ID 7777")
 testthat::expect_warning(selectDWD(id="", res="dummy", var="dummy", per=""),
-               "according to file index 'fileIndex', the path '/dummy/dummy/' doesn't exist.")
+               "according to file index 'fileIndex', the following path doesn't exist: /dummy/dummy/")
 testthat::expect_warning(selectDWD(id="", res="dummy", var="dummy", per=""),
                "according to file index 'fileIndex', there is no file in '/dummy/dummy/' with ID NA.")
 testthat::expect_warning(selectDWD(res="dummy", var="", per=""),
@@ -238,9 +240,9 @@ testthat::expect_warning(selectDWD(res="daily", var="", per="r"),
 testthat::expect_warning(selectDWD(res="daily", var="kl", per=""),
                "according to file index 'fileIndex', there is no file in '/daily/kl/' with ID NA.")
 testthat::expect_warning(selectDWD(id="01050", res=c("daily","monthly"), var="kl", per=""), # needs 'per'
-               "according to file index 'fileIndex', there is no file in '/daily/kl/' with ID 1050.")
+               "according to file index 'fileIndex', there is no file in \n - '/daily/kl/' with ID 1050")
 testthat::expect_warning(selectDWD(id="00386", res="",var="",per="", meta=TRUE),
-               "selectDWD: meta is ignored if id is given, but path is not given.")
+               "meta is ignored if id is given, but path is not given.")
 testthat::expect_warning(selectDWD("Potsdam", res="multi_annual", var="mean_81-10", per=""),
                "selectDWD: multi_annual data is not organized by station ID")
 testthat::expect_warning(selectDWD(res="multi_annual", var="mean_81-10", per="r"),

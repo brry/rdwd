@@ -1,7 +1,6 @@
 
 toDo before next CRAN release:
 - readDWD.data: figure out reason for fread trouble (reported in emails by some users)
-- selectDWD("Berlin", res="monthly", var="kl", per="h", exactmatch = F) should only return stations with data, with a single warning only
 
 
 

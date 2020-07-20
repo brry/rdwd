@@ -260,6 +260,7 @@ if(anyNA(per)) per[is.na(per)] <- selectPrompt("per", res, var, per, id)
 # ------------------------------------------------------------------------------
 #
 # loop over each input element:
+outwarn <- new.env() # collect all warnings from the loop
 output <- lapply(seq_len(len), function(i)
 {
 # ------------------------------------------------------------------------------
@@ -272,7 +273,7 @@ if(res[i]=="multi_annual") givenpath <- res[i]!=""
 # base + warning
 if(!givenid & !givenpath)
   {
-  warning(traceCall(3, "", ": "), "neither station ID nor valid FTP folder is given.", call.=FALSE)
+  outwarn$idpath <- "neither station ID nor valid FTP folder is given."
   # call.=FALSE to avoid uninformative  Error in FUN(X[[i]], ...) :
   return(base)
   }
@@ -280,16 +281,16 @@ if(!givenid & !givenpath)
 # all file names for station ID, regardless of path
 if(givenid & !givenpath)
   {
-  if(meta[i]) warning(traceCall(3, "", ": "),
-          "meta is ignored if id is given, but path is not given.", call.=FALSE)
+  if(meta[i]) outwarn$idpathmeta <- "meta is ignored if id is given, but path is not given."
   filename <- findex[findex$id %in% id[i], "path"]
   filename <- filename[!is.na(filename)]
   # check output length
-  if(length(filename)<1 & !quiet) warning(traceCall(3, "", ": "), "in file index '",
-     findexname, "', no filename could be detected with ID ", id[i], ".", call.=FALSE)
-  if(length(filename)>1 & !quiet) warning(traceCall(3, "", ": "), "in file index '",
-     findexname, "', there are ", length(filename), " files with ID ",id[i], ".",
-     call.=FALSE)
+  if(length(filename)!=1 & !quiet) 
+    {
+    outwarn$id_non1_msg <- paste0("in file index '", findexname, "', there are ")
+    outwarn$id_non1_len <- c(outwarn$id_non1_len, length(filename))
+    outwarn$id_non1_ids <- c(outwarn$id_non1_ids, id[i])
+    }
   return(   paste0(base,"/",filename)   )
   }
 #
@@ -299,8 +300,11 @@ if(res[i]=="multi_annual" & per[i]=="") {per[i] <- var[i]; var[i] <- ""}
 # select entries from file index:
 sel <- res[i]==findex$res & var[i]==findex$var & per[i]==findex$per
 # within the loop, computing time seems to come from the selection
-if(sum(sel)<1) warning(traceCall(3, "", ": "), "according to file index '",
-           findexname, "', the path '", path, "' doesn't exist.", call.=FALSE)
+if(sum(sel)<1)  
+    {
+    outwarn$miss_path_msg <- paste0("according to file index '", findexname, "', the following ") # paths don't exist
+    outwarn$miss_path_pth <- c(outwarn$miss_path_pth, path)
+    }
 #
 # case 3 or 4 with meta=TRUE
 # return name of description txt file
@@ -309,8 +313,11 @@ if(meta[i])
   sel <- sel & findex$ismeta
   if(meta_txt_only[i]) sel <- sel & ! grepl(".pdf$", findex$path)
   # checks:
-  if(sum(sel)==0) warning(traceCall(3, "", ": "), "according to file index '",findexname,
-                     "', there is no description file in '", path, "'.", call.=FALSE)
+  if(sum(sel)==0) 
+    {
+    outwarn$miss_desc_msg <- paste0("according to file index '", findexname, "', there is no description file in ")
+    outwarn$miss_desc_pth <- c(outwarn$miss_desc_pth, path)
+    }
   filename <- findex[sel,"path"]
   return(   paste0(base,"/",filename)   )
   }
@@ -322,9 +329,12 @@ if(!givenid & givenpath & !meta[i])
   if(res[i]=="multi_annual") isnotmeta <- !findex$ismeta
   sel <- sel & isnotmeta
   filename <- findex[sel,"path"]
-  if(length(filename)<1) warning(traceCall(3, "", ": "), "according to file index '",
-                                 findexname, "', there is no file in '", path,
-                                 "' with ID ", id[i], ".", call.=FALSE)
+  if(length(filename)<1)
+    {
+    outwarn$miss_file_msg <- paste0("according to file index '", findexname, "', there is no file in")
+    outwarn$miss_file_pth[[path]] <- c(outwarn$miss_file_pth[[path]], id[i])
+    return(base)
+    }
   return(   paste0(base,"/",filename)   )
   }
 # 4: id and path are both given ------------------------------------------------
@@ -332,9 +342,12 @@ if(!givenid & givenpath & !meta[i])
 if(givenid & givenpath & !meta[i])
   {
   sel <- sel & findex$id %in% id[i]
-  if(sum(sel)==0) warning(traceCall(3, "", ": "), "according to file index '",findexname,
-                          "', there is no file in '", path, "' with ID ",
-                          id[i], ".", call.=FALSE)
+  if(sum(sel)==0)
+    {
+    outwarn$miss_file_msg <- paste0("according to file index '", findexname, "', there is no file in")
+    outwarn$miss_file_pth[[path]] <- c(outwarn$miss_file_pth[[path]], id[i])
+    return(base)
+    }
   filename <- findex[sel,"path"]
   if(length(filename)>1) warning(traceCall(3, "", ": "), "several files (",
                                  length(filename),") were selected:",
@@ -343,6 +356,43 @@ if(givenid & givenpath & !meta[i])
   return(   paste0(base,"/",filename)   )
   }
 }) # loop end
+# combine all collected warnings into a single warning message:
+truncM <- function(x) berryFunctions::truncMessage(x, ntrunc=30, prefix="", midfix="", altnix="")
+if(!is.null(outwarn$id_non1_msg)) 
+  {
+  outwarn$id_non1 <- paste0(outwarn$id_non1_msg, truncM(outwarn$id_non1_len), " files with ID ", truncM(outwarn$id_non1_ids))
+  rm(id_non1_msg, envir=outwarn)
+  rm(id_non1_len, envir=outwarn)
+  rm(id_non1_ids, envir=outwarn)
+  }
+if(!is.null(outwarn$miss_path_msg)) 
+  {
+  missing_path_msg <- if(length(outwarn$miss_path_pth)>1) 
+    paste0(length(outwarn$miss_path), " paths don't exist: ") else "path doesn't exist: "
+  outwarn$miss_path <- paste0(outwarn$miss_path_msg, missing_path_msg, truncM(outwarn$miss_path_pth))
+  rm(miss_path_pth, envir=outwarn)
+  rm(miss_path_msg, envir=outwarn)
+  }
+if(!is.null(outwarn$miss_desc_msg)) 
+  {
+  outwarn$miss_desc <- paste0(outwarn$miss_desc_msg, truncM(outwarn$miss_desc_pth))
+  rm(miss_desc_pth, envir=outwarn)
+  rm(miss_desc_msg, envir=outwarn)
+  }
+if(!is.null(outwarn$miss_file_msg)) 
+  {
+  missing_file <- sapply(outwarn$miss_file_pth, truncM)
+  missing_file <- paste0("'", names(missing_file), "' with ID ", missing_file)
+  if(length(missing_file)>1) missing_file <- paste0("\n - ", missing_file)
+  outwarn$miss_file <- paste0(outwarn$miss_file_msg, " ", paste(missing_file, collapse=""), ".")
+  rm(miss_file_pth, envir=outwarn)
+  rm(miss_file_msg, envir=outwarn)
+  }
+
+outwarn <- as.list(outwarn)
+if(length(outwarn)>0 & !quiet) warning(berryFunctions::traceCall(1, "", ": "), 
+                                       paste0(outwarn, collapse="\n"), call.=FALSE)
+
 output <- if(len==1) output[[1]] else output
 if(len>1 & outvec) output <- unlist(output)
 return(output)
