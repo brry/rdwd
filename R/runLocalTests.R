@@ -319,7 +319,53 @@ if(examples)
   oo <- options(rdwdquiet=TRUE)
   berryFunctions::testExamples(logfolder=dir_exmpl, telldocument=FALSE) # version >= 1.18.18
   options(oo)
-  }
+
+# remove false positives in warnings.txt
+logfile <- paste0(dir_exmpl,"/warnings.txt")
+log <- readLines(logfile)
+log <- paste0(log, collapse="\n")
+rem <- "\nList of 8
+ $ Metadaten_Fehldaten_05856_20190117_20200719.txt:'data.frame':	12 obs. of  9 variables:
+ $ Metadaten_Fehlwerte_05856_20190117_20200719.txt:'data.frame':	9 obs. of  9 variables:
+ $ Metadaten_Fehlwerte_Gesamt_05856.txt           :'data.frame':	2 obs. of  9 variables:
+ $ Metadaten_Geographie_05856.txt                 :'data.frame':	3 obs. of  7 variables:
+ $ Metadaten_Geraete_Windgeschwindigkeit_05856.txt:'data.frame':	3 obs. of  12 variables:
+ $ Metadaten_Geraete_Windrichtung_05856.txt       :'data.frame':	3 obs. of  12 variables:
+ $ Metadaten_Parameter_ff_stunde_05856.txt        :'data.frame':	8 obs. of  13 variables:
+ $ Metadaten_Stationsname_05856.txt               :'data.frame':	1 obs. of  4 variables:\n"
+log <- sub(rem, "", log, fixed=TRUE)
+rem <- "\nrdwd station id 2849 with 3 files.
+Name: Langenburg-Baechlingen, State: Baden-Wuerttemberg
+Additionally, there are 3 non-public files. Display all with  metaInfo(2849,FALSE)
+To request those datasets, please contact cdc.daten@dwd.de or klima.vertrieb@dwd.de
+      res         var        per hasfile       from         to     lat   long ele
+1  annual more_precip historical    TRUE 1991-01-01 2007-12-31 49.2445 9.8499 300
+2   daily more_precip historical    TRUE 1990-10-01 2008-06-30 49.2445 9.8499 300
+3 monthly more_precip historical    TRUE 1990-10-01 2008-06-30 49.2445 9.8499 300"
+log <- sub(rem, "", log, fixed=TRUE)
+rem <- "\nNote in is.error: Error in plotRadar(ncp1, layer = 1:4, project = FALSE) : 
+  3 layers selected that do not exist.\n"
+log <- sub(rem, "", log, fixed=TRUE)
+rem <- "\nFormal class 'RasterBrick' [package \"raster\"] with 12 slots
+  ..@ file    :Formal class '.RasterFile' [package \"raster\"] with 13 slots
+  ..@ data    :Formal class '.MultipleRasterData' [package \"raster\"] with 14 slots
+  ..@ legend  :Formal class '.RasterLegend' [package \"raster\"] with 5 slots
+  ..@ title   : chr \"mean relative humidity at 2 m height\"
+  ..@ extent  :Formal class 'Extent' [package \"raster\"] with 4 slots
+  ..@ rotated : logi FALSE
+  ..@ rotation:Formal class '.Rotation' [package \"raster\"] with 2 slots
+  ..@ ncols   : int 720
+  ..@ nrows   : int 938
+  ..@ crs     :Formal class 'CRS' [package \"sp\"] with 1 slot
+  ..@ history : list()
+  ..@ z       :List of 1
+ num [1:720, 1:938, 1:30] NA NA NA NA NA NA NA NA NA NA ..."
+log <- sub(rem, "", log, fixed=TRUE)
+
+cat(log, file=logfile)
+
+} # end if(examples)
+
 
 # Output ----
 runtime <- round(difftime(Sys.time(), begintime, units="min"),1)
