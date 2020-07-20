@@ -10,6 +10,8 @@ runLocalTests(
   fast = FALSE,
   radar = !fast,
   all_Potsdam_files = !fast,
+  index = !fast,
+  indexfast = fast,
   examples = !fast,
   quiet = rdwdquiet()
 )
@@ -27,6 +29,10 @@ DEFAULT: \code{\link[=localtestdir]{localtestdir()}}}
 \item{all_Potsdam_files}{Read all (ca 60) files for Potsdam? Re-downloads if
 files are older than 24 hours. Reduce test time a lot by setting
 this to FALSE. DEFAULT: !fast}
+
+\item{index}{Run \code{\link[=checkIndex]{checkIndex()}}? DEFAULT: !fast}
+
+\item{indexfast}{\code{fast} option passed to \code{\link[=checkIndex]{checkIndex()}}. DEFAULT: !fast}
 
 \item{examples}{Run Examples (including donttest sections) DEFAULT: !fast}
 

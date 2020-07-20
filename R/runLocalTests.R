@@ -18,6 +18,8 @@
 #' @param all_Potsdam_files Read all (ca 60) files for Potsdam? Re-downloads if
 #'              files are older than 24 hours. Reduce test time a lot by setting
 #'              this to FALSE. DEFAULT: !fast
+#' @param index Run [checkIndex()]? DEFAULT: !fast
+#' @param indexfast `fast` option passed to [checkIndex()]. DEFAULT: !fast
 #' @param examples Run Examples (including donttest sections) DEFAULT: !fast
 #' @param quiet Suppress progress messages? DEFAULT: FALSE through [rdwdquiet()]
 #' 
@@ -26,8 +28,10 @@ dir_data=localtestdir(),
 dir_exmpl=localtestdir(folder="misc/ExampleTests"),
 fast=FALSE,              # ca 0.1 minutes (always, even if fast=T)
 radar=!fast,             # ca 0.3 minutes
-all_Potsdam_files=!fast, # ca 1.6 minutes
-examples=!fast,          # ca 2.1 minutes
+all_Potsdam_files=!fast, # ca 1.4 minutes
+index=!fast,             # ca 0.3 minutes
+indexfast=fast,          # ca 1.3 minutes
+examples=!fast,          # ca 2.6 minutes
 quiet=rdwdquiet()
 )
 {
@@ -254,10 +258,13 @@ testthat::expect_error(selectDWD(id="", current=TRUE, res="",var="",per=""),
              "selectDWD: current=TRUE, but no valid paths available.")
 })
 
+options(oop)
+rm(oop)
+
 
 # checkIndex ----
 
-checkIndex(findex=fileIndex, mindex=metaIndex, gindex=geoIndex, fast=fast,
+if(index) checkIndex(findex=fileIndex, mindex=metaIndex, gindex=geoIndex, fast=indexfast,
           logfile=paste0(dir_exmpl,"/warnings.txt"), warn=FALSE)
 
 
