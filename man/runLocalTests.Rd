@@ -8,6 +8,7 @@ runLocalTests(
   dir_data = localtestdir(),
   dir_exmpl = localtestdir(folder = "misc/ExampleTests"),
   fast = FALSE,
+  devcheck = !fast,
   radar = !fast,
   all_Potsdam_files = !fast,
   index = !fast,

@@ -27,6 +27,7 @@ runLocalTests <- function(
 dir_data=localtestdir(),
 dir_exmpl=localtestdir(folder="misc/ExampleTests"),
 fast=FALSE,              # ca 0.1 minutes (always, even if fast=T)
+devcheck=!fast,          # ca 1.0 minutes
 radar=!fast,             # ca 0.3 minutes
 all_Potsdam_files=!fast, # ca 1.4 minutes
 index=!fast,             # ca 0.3 minutes
@@ -310,12 +311,23 @@ if(any(alloutdated)) stop("The DWD has not yet updated any historical files in "
 }})
 
 
+
+# devtools::check ----
+
+if(devcheck) 
+  {
+  checkSuggestedPackage("devtools", "runLocalTests with devcheck=TRUE")
+  messaget("++ Running devtools::check")
+  devtools::check(quiet=quiet)
+  }
+
+  
 # Testing examples ----
 if(examples)
   {
   checkSuggestedPackage("roxygen2", "runLocalTests with examples=TRUE")
   messaget("++ Testing examples")
-  roxygen2::roxygenise()
+  if(!devcheck) roxygen2::roxygenise()
   oo <- options(rdwdquiet=TRUE)
   berryFunctions::testExamples(logfolder=dir_exmpl, telldocument=FALSE) # version >= 1.18.18
   options(oo)
