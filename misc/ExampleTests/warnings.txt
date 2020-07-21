@@ -1,0 +1,141 @@
+---------------
+C:/Dropbox/Rpack/rdwd/man/updateRdwd.Rd -- 2020-07-20 18:36:57
+checkIndex results at 2020-07-21 20:09:39 for
+ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate
+File 'data/fileIndex.rda' was last modified 2020-07-06 13:46:53
+Call stack: runLocalTests -> checkIndex
+-------
+IDs with duplicate files:
+-  1 at annual/kl/historical;  '1605'
+-  55 at daily/more_precip/historical;  21, 23, 317, 494, 524, 564, 650, 699, 753, 898  (and 45 more)
+-  2 at monthly/kl/historical;  1568, 1762
+Different names per id:
+- ID=15526: 30xHamburg (Deutsche Seewarte), 1xHamburg(Seewarte)
+Coordinates used for more than one station:
+- 13.3833_52.5333: 10x ID=408 (Berlin-Invalidenstrasse), 16x ID=422 (Berlin-Mitte)
+- 7.5833_51.0167: 6x ID=1895 (Gummersbach), 2x ID=3601 (Niedersessmar)
+- 10.4333_51.8: 6x ID=107 (Altenau (A)), 6x ID=3973 (Polsterberg)
+- 6.15_51.6: 16x ID=2798 (Laarbruch), 6x ID=5386 (Weeze-Hees)
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/addBorders.Rd -- 2020-07-21 20:13:57
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/checkIndex.Rd -- 2020-07-21 20:13:57
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/createIndex.Rd -- 2020-07-21 20:13:58
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/dataDWD.Rd -- 2020-07-21 20:14:00
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/dirDWD.Rd -- 2020-07-21 20:14:02
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/dwdparams.Rd -- 2020-07-21 20:14:02
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/fileType.Rd -- 2020-07-21 20:14:03
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/findID.Rd -- 2020-07-21 20:14:03
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/index.Rd -- 2020-07-21 20:14:03
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/indexFTP.Rd -- 2020-07-21 20:14:04
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/localtestdir.Rd -- 2020-07-21 20:14:05
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/metaInfo.Rd -- 2020-07-21 20:14:05
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/nearbyStations.Rd -- 2020-07-21 20:14:05
+
+Warning: runLocalTests -> berryFunctions::testExamples -> sapply -> lapply -> FUN -> eval -> eval -> nearbyStations -> with -> with.default -> eval -> eval -> selectDWD: several files (2) were selected: daily/more_precip/historical/tageswerte_RR_03761_18890101_20191231_hist.zip, daily/more_precip/historical/tageswerte_RR_03761_18890701_20191231_hist.zip
+Warning in m$url[-1] <- with(m[-1, ], selectDWD(id = Stations_id, res = res,  :
+  number of items to replace is not a multiple of replacement length
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/newColumnNames.Rd -- 2020-07-21 20:14:06
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/plotRadar.Rd -- 2020-07-21 20:14:06
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/projectRasterDWD.Rd -- 2020-07-21 20:14:50
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/readDWD.asc.Rd -- 2020-07-21 20:14:50
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/readDWD.binary.Rd -- 2020-07-21 20:15:15
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/readDWD.meta.Rd -- 2020-07-21 20:15:38
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/readDWD.multia.Rd -- 2020-07-21 20:15:38
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/readDWD.nc.Rd -- 2020-07-21 20:15:40
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/readDWD.radar.Rd -- 2020-07-21 20:16:08
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/readDWD.raster.Rd -- 2020-07-21 20:16:13
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/readDWD.Rd -- 2020-07-21 20:16:19
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/readDWD.stand.Rd -- 2020-07-21 20:16:19
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/readMeta.Rd -- 2020-07-21 20:16:39
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/readVars.Rd -- 2020-07-21 20:16:40
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/selectDWD.Rd -- 2020-07-21 20:16:40
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/updateIndexes.Rd -- 2020-07-21 20:16:41
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/updateRdwd.Rd -- 2020-07-21 20:16:41
