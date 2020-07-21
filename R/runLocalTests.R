@@ -14,6 +14,7 @@
 #'                  DEFAULT: [localtestdir()]
 #' @param dir_exmpl Reusable example location. DEFAULT: localtestdir(folder="misc/ExampleTests")
 #' @param fast      Exclude many tests? DEFAULT: FALSE
+#' @param devcheck  Run `devtools::check()`? DEFAULT: !fast
 #' @param radar     Test reading radar example files. DEFAULT: !fast
 #' @param all_Potsdam_files Read all (ca 60) files for Potsdam? Re-downloads if
 #'              files are older than 24 hours. Reduce test time a lot by setting

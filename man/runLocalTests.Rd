@@ -25,6 +25,8 @@ DEFAULT: \code{\link[=localtestdir]{localtestdir()}}}
 
 \item{fast}{Exclude many tests? DEFAULT: FALSE}
 
+\item{devcheck}{Run \code{devtools::check()}? DEFAULT: !fast}
+
 \item{radar}{Test reading radar example files. DEFAULT: !fast}
 
 \item{all_Potsdam_files}{Read all (ca 60) files for Potsdam? Re-downloads if
