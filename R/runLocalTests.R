@@ -43,7 +43,11 @@ if(!grepl("rdwd$", getwd())) stop("getwd must be in package root folder.")
 begintime <- Sys.time()
 messaget <- function(x) if(!quiet) message(x, " (",
           round(difftime(Sys.time(), begintime, units="s")), " secs so far)")
-#
+
+# clear warnings logfile:
+cat("", file=paste0(dir_exmpl,"/warnings.txt"))
+
+
 # readDWD.data ----
 
 messaget("++ Testing dataDWD + readDWD.data")
