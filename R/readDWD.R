@@ -78,6 +78,7 @@ if(len>1)
   format      <- rep(format,      length.out=len)
   tz          <- rep(tz,          length.out=len)
   dividebyten <- rep(dividebyten, length.out=len)
+  type        <- rep(type,        length.out=len)
   }
 # Optional progress bar:
 if(progbar) lapply <- pbapply::pblapply
