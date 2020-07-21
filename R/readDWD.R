@@ -130,7 +130,11 @@ meta[multia] <- FALSE
 # Optional progress bar:
 if(progbar) lapply <- pbapply::pblapply
 # check package availability:
-if(any(fread))  checkSuggestedPackage("data.table", "rdwd::readDWD with fread=TRUE")
+if(any(fread))
+  {
+  checkSuggestedPackage("data.table", "rdwd::readDWD with fread=TRUE")
+  checkSuggestedPackage("bit64",      "rdwd::readDWD with fread=TRUE")
+  }
 #
 checkFile(file)
 # Handle German Umlaute:

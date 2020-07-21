@@ -85,7 +85,7 @@ install.packages("rdwd", dependencies="Suggests")
 ```
 
 - `RCurl` for indexFTP and selectDWD(..., current=TRUE)
-- `data.table` for readDWD(..., fread=TRUE)
+- `data.table`, `bit64` for readDWD(..., fread=TRUE)
 - `raster`, `R.utils`, `ncdf4`, `dwdradar` for readDWD with gridded data
 - `readr` for readDWD.stand(..., fast=TRUE)
 - `knitr`, `rmarkdown`, `testthat`, `roxygen2`, `devtools`, `remotes`, `XML` for local testing, development and documentation
