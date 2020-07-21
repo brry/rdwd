@@ -175,7 +175,7 @@ if(sum(sel)<2) stop(berryFunctions::traceCall(1, "in ", ": "),
 # download and read those files:
 metas <- dataDWD(fileIndex[sel, "path"], base=base, joinbf=TRUE, dir=metadir,
                  overwrite=overwrite, read=FALSE, ...)
-metas <- readDWD(metas, stand=FALSE, quiet=TRUE)
+metas <- readDWD(metas, type="meta", quiet=TRUE)
 for(i in seq_along(metas))
   {
   metas[[i]]$res <- fileIndex[sel, "res"][i]
