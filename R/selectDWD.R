@@ -93,6 +93,19 @@
 #'              use `per="hr"` or `per="rh"` (and `outvec=TRUE`).
 #'              `per` is set to "" if var=="solar".
 #'              DEFAULT: NA for interactive selection
+#' @param remove_dupli Logical: Remove duplicate entries in the fileIndex? 
+#'              If duplicates are found, a warning will be issued, unless `quiet=TRUE`.\cr
+#'              The DWD updates files on the server quite often and sometimes
+#'              misses removing the old files, leading to duplicates, 
+#'              usually with differences only in the date range. 
+#'              A semi-current (manually updated) list of duplicates is on 
+#'              [github](https://github.com/brry/rdwd/blob/master/misc/ExampleTests/warnings.txt).\cr
+#'              Before reporting, run [updateRdwd()] to see if [`fileIndex`] has been updated.
+#'              I email the DWD about duplicates when I find them, they usually fix it soon.\cr
+#'              If `remove_dupli=TRUE`, only the file with the longer timespan will be kept. 
+#'              This is selected according to filename, which is not very reliable,
+#'              hence manual checking is recommended.
+#'              DEFAULT: TRUE
 #' @param exactmatch Logical passed to [findID()]: match `name`
 #'              with [`==`])? Else with [grepl()]. DEFAULT: TRUE
 #' @param mindex Single object: Index with metadata passed to [findID()].
@@ -130,6 +143,7 @@ name="",
 res=NA,
 var=NA,
 per=NA,
+remove_dupli=TRUE,
 exactmatch=TRUE,
 mindex=metaIndex,
 quiet=rdwdquiet(),
@@ -348,7 +362,18 @@ if(givenid & givenpath & !meta[i])
     outwarn$miss_file_pth[[path]] <- c(outwarn$miss_file_pth[[path]], id[i])
     return(base)
     }
-  filename <- findex[sel,"path"]
+  if(sum(sel)>1 & remove_dupli) 
+    {
+    filename <- findex[sel,]
+    filename <- filename[which.max(filename$end - filename$start),"path"]
+    if(!quiet) warning(traceCall(3, "", ": "), "duplicate file on FTP server according to file index '", 
+            findexname, "'.\n - Proceeding with file with longest time period, ",
+            "according to time stamps in file names. Unreliable, hence:\n",
+            " - Please check actual content manually. Get all urls by setting remove_dupli=FALSE.\n",
+            " - Please report this entire warning message to berry-b@gmx.de or at ",
+            "https://github.com/brry/rdwd/issues\n - Keeping: ", filename, call.=FALSE)
+    } else
+    filename <- findex[sel,"path"]
   if(length(filename)>1) warning(traceCall(3, "", ": "), "several files (",
                                  length(filename),") were selected:",
                                  berryFunctions::truncMessage(filename, prefix=""),

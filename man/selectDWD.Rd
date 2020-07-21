@@ -9,6 +9,7 @@ selectDWD(
   res = NA,
   var = NA,
   per = NA,
+  remove_dupli = TRUE,
   exactmatch = TRUE,
   mindex = metaIndex,
   quiet = rdwdquiet(),
@@ -44,6 +45,20 @@ letter is "r" or "h", full names are used). To get both datasets,
 use \code{per="hr"} or \code{per="rh"} (and \code{outvec=TRUE}).
 \code{per} is set to "" if var=="solar".
 DEFAULT: NA for interactive selection}
+
+\item{remove_dupli}{Logical: Remove duplicate entries in the fileIndex?
+If duplicates are found, a warning will be issued, unless \code{quiet=TRUE}.\cr
+The DWD updates files on the server quite often and sometimes
+misses removing the old files, leading to duplicates,
+usually with differences only in the date range.
+A semi-current (manually updated) list of duplicates is on
+\href{https://github.com/brry/rdwd/blob/master/misc/ExampleTests/warnings.txt}{github}.\cr
+Before reporting, run \code{\link[=updateRdwd]{updateRdwd()}} to see if \code{\link{fileIndex}} has been updated.
+I email the DWD about duplicates when I find them, they usually fix it soon.\cr
+If \code{remove_dupli=TRUE}, only the file with the longer timespan will be kept.
+This is selected according to filename, which is not very reliable,
+hence manual checking is recommended.
+DEFAULT: TRUE}
 
 \item{exactmatch}{Logical passed to \code{\link[=findID]{findID()}}: match \code{name}
 with \code{\link{==}})? Else with \code{\link[=grepl]{grepl()}}. DEFAULT: TRUE}

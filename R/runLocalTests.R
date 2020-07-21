@@ -223,6 +223,16 @@ testthat::expect_gte(length(allzip_folder), 573)
 })
 
 
+testthat::test_that("selectDWD uses remove_dupli correctly", {
+fi <- data.frame(res="aa", var="bb", per="cc", id=42, start=as.Date("1989-07-01"), 
+                 end=as.Date(c("2016-12-31","2015-12-31")), ismeta=FALSE, 
+                 path=c("longer", "shorter"))
+testthat::expect_length(selectDWD(res="aa",var="bb",per="cc",id=42,findex=fi), 1)
+testthat::expect_length(selectDWD(res="aa",var="bb",per="cc",id=42,findex=fi, remove_dupli=FALSE), 2)
+testthat::expect_warning(selectDWD(res="aa",var="bb",per="cc",id=42,findex=fi), 
+                         "selectDWD: duplicate file on FTP server")
+})
+
 # selectDWD warnings ----
 
 messaget("++ Testing selectDWD warnings")
