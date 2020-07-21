@@ -2,28 +2,23 @@
 
 #' @title Process data from the DWD CDC FTP Server
 #' @description Read climate data that was downloaded with [dataDWD()].
-#' The data is unzipped and subsequently, the file is read, processed and
-#' returned as a data.frame / raster object.\cr
-#' New users are advised to set `varnames=TRUE` to obtain more informative
-#' column names.\cr\cr
-#' `readDWD` will call internal (but documented) functions depending on the
-#' corresponding arguments:\cr
-#' to read observational data ([overview](https://bookdown.org/brry/rdwd/available-datasets.html)): [`readDWD.data`],
-#'          [`readDWD.multia`], [`readDWD.stand`], [`readDWD.meta`]\cr
-#' to read gridded data ([overview](https://bookdown.org/brry/rdwd/raster-data.html)): [`readDWD.binary`],
-#'          [`readDWD.raster`], [`readDWD.radar`], [`readDWD.nc`], [`readDWD.asc`]\cr
-#' Not all arguments to `readDWD` are used for all functions, e.g.
-#' `fread` is used only by [`.data`][readDWD.data], while `dividebyten`
-#' is used in [`.raster`][readDWD.raster] and [`.asc`][readDWD.asc].\cr\cr
+#' The data is unzipped and subsequently, the file(s) are read, processed and
+#' returned as a data.frame / raster object.\cr\cr
+#' For observational data, new users are advised to set `varnames=TRUE` 
+#' to obtain more informative column names.\cr\cr
+#' `readDWD` will call internal (but documented) subfunctions depending on the
+#' argument `type`, see the overview in [fileType()].\cr\cr
+#' Not all arguments to `readDWD` are used for all subfunctions, e.g.
+#' `fread` is used only by [`readDWD.data`], while `dividebyten`
+#' is used in [`readDWD.raster`] and [`readDWD.asc`].\cr\cr
 #' `file` can be a vector with several filenames. Most other arguments can
 #' also be a vector and will be recycled to the length of `file`.
 #' 
-#' @return Invisible data.frame of the desired dataset,
+#' @return For observational data, an invisible data.frame of the desired dataset,
 #'         or a named list of data.frames if length(file) > 1.\cr
-#'         The functions for gridded data return raster objects instead of data.frames.
+#'         For gridded data, raster objects.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jul-Oct 2016, Winter 2018/19
-#' @seealso [dataDWD()], [readVars()],
-#'          [readMeta()], [selectDWD()]\cr
+#' @seealso [dataDWD()], [readVars()], [readMeta()], [selectDWD()], [fileType()]\cr
 #'          <https://bookdown.org/brry/rdwd>
 #' @keywords file chron
 #' @importFrom utils read.table unzip read.fwf untar write.table
@@ -45,44 +40,17 @@
 #' @param fread  Logical (vector): read fast? See [readDWD.data()].
 #'               DEFAULT: NA (experimental, see [issue 22]([https://github.com/brry/rdwd/issues/22]))
 #' @param varnames Logical (vector): Expand column names?
-#'               See [readDWD.data()]. DEFAULT: FALSE
+#'               See [readDWD.data()]. DEFAULT: FALSE (for backward compatibility)
 #' @param var    var for [readDWD.nc()]. DEFAULT: ""
 #' @param format,tz Format and time zone of time stamps, see [readDWD.data()]
 #' @param dividebyten Logical (vector): Divide the values in raster files by ten?
 #'               Used in [readDWD.raster()] and [readDWD.asc()].
 #'               DEFAULT: TRUE
-#' @param multia Logical (vector): is the `file` a multi_annual file?
-#'               Overrides `meta`, so set to FALSE manually if
-#'               [readDWD.meta()] needs to be called on a (manually renamed)
-#'               Beschreibung file ending with "Standort.txt".
-#'               See [readDWD.multia()].
-#'               DEFAULT: TRUE for each file ending in "Standort.txt"
-#' @param stand  Logical (vector): is the `file` a subdaily/standard_format file?
-#'               See [readDWD.stand()].
-#'               DEFAULT: TRUE fo files containing "standard_format" in the name.
-#' @param meta   Logical (vector): is the `file` a meta file (Beschreibung.txt)?
-#'               See [readDWD.meta()].
-#'               For zip files containing station meta information, see
-#'               [readMeta()].
-#'               DEFAULT: TRUE for each file ending in ".txt"
-#' @param binary Logical (vector): does the `file` contain binary files?
-#'               See [readDWD.binary()].
-#'               DEFAULT: TRUE for each file ending in ".tar.gz"
-#' @param raster Logical (vector): does the `file` contain a raster file?
-#'               See [readDWD.raster()].
-#'               DEFAULT: TRUE for each file ending in ".asc.gz"
-#' @param nc     Logical (vector): does the `file` contain a netcdf file?
-#'               See [readDWD.nc()].
-#'               DEFAULT: TRUE for each file ending in ".nc.gz"
-#' @param radar  Logical (vector): does the `file` contain a single binary file?
-#'               See [readDWD.radar()].
-#'               DEFAULT: TRUE for each file ending in ".gz"
-#' @param asc    Logical (vector): does the `file` contain asc files?
-#'               See [readDWD.asc()].
-#'               DEFAULT: TRUE for each file ending in ".tar"
+#' @param type   Character (vector) determining which subfunction to call.
+#'               DEFAULT:  [`fileType`]`(file)`.
 #' @param \dots  Further arguments passed to the internal `readDWD.*`
-#'               functions and from those to the underlying reading functions
-#'               documented in each internal function.
+#'               subfunctions and from those to the underlying reading functions
+#'               documented in each subfunction.
 #' 
 readDWD <- function(
 file,
@@ -94,20 +62,13 @@ var="",
 format=NA,
 tz="GMT",
 dividebyten=TRUE,
-multia=grepl(  'Standort.txt$', file),
-meta=  grepl(          '.txt$', file),
-stand= grepl("standard_format", file),
-binary=grepl(       '.tar.gz$', file),
-raster=grepl(       '.asc.gz$', file),
-nc=    grepl(        '.nc.gz$', file),
-radar =grepl(           '.gz$', file),
-asc=   grepl(          '.tar$', file),
+type=fileType(file),
 ...
 )
 {
 # recycle arguments:
 len <- length(file)
-if(missing(progbar) & len==1 & all(!binary) & all(!asc)) progbar <- FALSE
+if(missing(progbar) & len==1 & all(type!="binary") & all(type!="asc")) progbar <- FALSE
 if(anyNA(fread)) fread[is.na(fread)] <- requireNamespace("data.table",quietly=TRUE)
 if(len>1)
   {
@@ -117,16 +78,7 @@ if(len>1)
   format      <- rep(format,      length.out=len)
   tz          <- rep(tz,          length.out=len)
   dividebyten <- rep(dividebyten, length.out=len)
-  multia      <- rep(multia,      length.out=len)
-  stand       <- rep(stand,       length.out=len)
-  meta        <- rep(meta,        length.out=len)
-  binary      <- rep(binary,      length.out=len)
-  raster      <- rep(raster,      length.out=len)
-  nc          <- rep(nc,          length.out=len)
-  radar       <- rep(radar,       length.out=len)
-  asc         <- rep(asc,         length.out=len)
   }
-meta[multia] <- FALSE
 # Optional progress bar:
 if(progbar) lapply <- pbapply::pblapply
 # check package availability:
@@ -138,7 +90,7 @@ if(any(fread))
 #
 checkFile(file)
 # Handle German Umlaute:
-if(any(meta)) # faster to change locale once here, instead of in each readDWD.meta call
+if(any(type=="meta")) # faster to change locale once here, instead of in each readDWD.meta call
 {
 lct <- Sys.getlocale("LC_CTYPE")
 on.exit(Sys.setlocale(category="LC_CTYPE", locale=lct), add=TRUE)
@@ -154,18 +106,17 @@ if(progbar) message("Reading ", length(file), " file", if(length(file)>1)"s", ".
 # loop over each filename
 output <- lapply(seq_along(file), function(i)
 {
-# if meta/multia/radar/binary/raster/asc:
-if(multia[i]) return(readDWD.multia(file[i], quiet=quiet, ...))
-if(stand[i])  return(readDWD.stand( file[i], quiet=quiet, ...))
-if(meta[i])   return(readDWD.meta(  file[i], quiet=quiet, ...))
-if(binary[i]) return(readDWD.binary(file[i], quiet=quiet, progbar=progbar, ...))
-if(raster[i]) return(readDWD.raster(file[i], dividebyten=dividebyten[i], quiet=quiet, ...))
-if(nc[i])     return(readDWD.nc(    file[i], var=var[i], quiet=quiet, ...))
-if(radar[i])  return(readDWD.radar( file[i], quiet=quiet, ...))
-if(asc[i])    return(readDWD.asc(   file[i], quiet=quiet, progbar=progbar, dividebyten=dividebyten[i], ...))
-# if data:
-readDWD.data(file[i], fread=fread[i], varnames=varnames[i],
-             format=format[i], tz=tz[i], quiet=quiet, ...)
+# call subfunction:
+if(type[i]=="multia") return(readDWD.multia(file[i], quiet=quiet, ...))
+if(type[i]=="stand")  return(readDWD.stand( file[i], quiet=quiet, ...))
+if(type[i]=="meta")   return(readDWD.meta(  file[i], quiet=quiet, ...))
+if(type[i]=="binary") return(readDWD.binary(file[i], quiet=quiet, progbar=progbar, ...))
+if(type[i]=="raster") return(readDWD.raster(file[i], quiet=quiet, dividebyten=dividebyten[i], ...))
+if(type[i]=="nc")     return(readDWD.nc(    file[i], quiet=quiet, var=var[i], ...))
+if(type[i]=="radar")  return(readDWD.radar( file[i], quiet=quiet, ...))
+if(type[i]=="asc")    return(readDWD.asc(   file[i], quiet=quiet, progbar=progbar, dividebyten=dividebyten[i], ...))
+if(type[i]=="data")   return(readDWD.data(  file[i], quiet=quiet, fread=fread[i], varnames=varnames[i], format=format[i], tz=tz[i], ...))
+stop("invalid type (",type[i],") given for file '",file[i],"'. See  ?fileType")
 }) # lapply loop end
 #
 names(output) <- tools::file_path_sans_ext(basename(file))
