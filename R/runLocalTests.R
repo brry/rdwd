@@ -318,8 +318,9 @@ if(any(alloutdated)) stop("The DWD has not yet updated any historical files in "
 if(devcheck) 
   {
   checkSuggestedPackage("devtools", "runLocalTests with devcheck=TRUE")
-  messaget("++ Running devtools::check")
-  devtools::check(quiet=quiet)
+  messaget("++ Running devtools::check. This will take a minute.")
+  dd <- devtools::check(quiet=quiet)
+  print(dd)
   }
 
   
