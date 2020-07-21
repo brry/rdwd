@@ -352,15 +352,20 @@ if(examples)
 logfile <- paste0(dir_exmpl,"/warnings.txt")
 log <- readLines(logfile)
 log <- paste0(log, collapse="\n")
+rem <- "Metadaten_Fehl[[:alpha:]]{5}_05856_[[:digit:]]{8}_[[:digit:]]{8}.txt:'data.frame':	"
+log <- gsub(rem, "Metadaten_Fehl--_05856_--.txt:'data.frame':	", log)
 rem <- "\nList of 8
- $ Metadaten_Fehldaten_05856_20190117_20200719.txt:'data.frame':	12 obs. of  9 variables:
- $ Metadaten_Fehlwerte_05856_20190117_20200719.txt:'data.frame':	9 obs. of  9 variables:
+ $ Metadaten_Fehl--_05856_--.txt:'data.frame':	12 obs. of  9 variables:
+ $ Metadaten_Fehl--_05856_--.txt:'data.frame':	9 obs. of  9 variables:
  $ Metadaten_Fehlwerte_Gesamt_05856.txt           :'data.frame':	2 obs. of  9 variables:
  $ Metadaten_Geographie_05856.txt                 :'data.frame':	3 obs. of  7 variables:
  $ Metadaten_Geraete_Windgeschwindigkeit_05856.txt:'data.frame':	3 obs. of  12 variables:
  $ Metadaten_Geraete_Windrichtung_05856.txt       :'data.frame':	3 obs. of  12 variables:
  $ Metadaten_Parameter_ff_stunde_05856.txt        :'data.frame':	8 obs. of  13 variables:
- $ Metadaten_Stationsname_05856.txt               :'data.frame':	1 obs. of  4 variables:\n"
+ $ Metadaten_Stationsname_05856.txt               :'data.frame':	1 obs. of  4 variables:"
+log <- sub(rem, "", log, fixed=TRUE)
+rem <- "Warning in fileType(\"random_stuff.odt\") :
+  fileType failed for the following file: 'random_stuff.odt'\n"
 log <- sub(rem, "", log, fixed=TRUE)
 rem <- "\nrdwd station id 2849 with 3 files.
 Name: Langenburg-Baechlingen, State: Baden-Wuerttemberg
@@ -389,6 +394,10 @@ rem <- "\nFormal class 'RasterBrick' [package \"raster\"] with 12 slots
   ..@ z       :List of 1
  num [1:720, 1:938, 1:30] NA NA NA NA NA NA NA NA NA NA ..."
 log <- sub(rem, "", log, fixed=TRUE)
+rem <- "---------------\nC:/Dropbox/Rpack/rdwd/man/.{10,50}\n\n\n"
+log <- gsub(rem, "", log)
+rem <- "---------------\nC:/Dropbox/Rpack/rdwd/man/updateRdwd.Rd -- .{19}"
+log <- sub(rem, "", log)
 
 cat(log, file=logfile)
 
