@@ -397,3 +397,8 @@ output <- if(len==1) output[[1]] else output
 if(len>1 & outvec) output <- unlist(output)
 return(output)
 }
+
+# Suppress CRAN check note 'no visible binding for global variable':
+if(getRversion() >= "2.15.1")  utils::globalVariables(c("id_non1_ids", "id_non1_len", 
+"id_non1_msg", "miss_desc_msg", "miss_desc_pth", "miss_file_msg", "miss_file_pth", 
+"miss_path_msg", "miss_path_pth"))
