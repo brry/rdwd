@@ -34,7 +34,7 @@ invisible(NULL)
 
 release_questions <- function() {
   c(
-    "Have you run updateIndexes() and runLocalTests()?"
+    "Have you run updateIndexes() and runLocalTests() and re-built the website?"
   )
 }
 
