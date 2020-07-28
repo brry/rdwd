@@ -31,7 +31,7 @@ If missing and length(file)==1, progbar is internally set to FALSE.
 DEFAULT: !quiet}
 
 \item{fread}{Logical (vector): read fast? See \code{\link[=readDWD.data]{readDWD.data()}}.
-DEFAULT: NA (experimental, see \href{[https://github.com/brry/rdwd/issues/22]}{issue 22})}
+DEFAULT: NA (experimental, see \href{https://github.com/brry/rdwd/issues/22}{issue 22})}
 
 \item{varnames}{Logical (vector): Expand column names?
 See \code{\link[=readDWD.data]{readDWD.data()}}. DEFAULT: FALSE (for backward compatibility)}

@@ -38,7 +38,7 @@
 #'               If missing and length(file)==1, progbar is internally set to FALSE.
 #'               DEFAULT: !quiet
 #' @param fread  Logical (vector): read fast? See [readDWD.data()].
-#'               DEFAULT: NA (experimental, see [issue 22]([https://github.com/brry/rdwd/issues/22]))
+#'               DEFAULT: NA (experimental, see [issue 22](https://github.com/brry/rdwd/issues/22))
 #' @param varnames Logical (vector): Expand column names?
 #'               See [readDWD.data()]. DEFAULT: FALSE (for backward compatibility)
 #' @param var    var for [readDWD.nc()]. DEFAULT: ""

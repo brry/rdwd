@@ -68,7 +68,7 @@ gridbase <- "ftp://opendata.dwd.de/climate_environment/CDC/grids_germany"
 #' 
 #' Create display character string for leaflet map popup from data.frame rows.
 #' This function is not exported, as it is only internally useful.
-#' A generic version is available in [berryFunctions::popleaf]().
+#' A generic version is available in [berryFunctions::popleaf()].
 #' 
 #' @return Vector of character strings, one for each row in x.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Feb 2017

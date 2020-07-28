@@ -15,7 +15,7 @@ Vector of character strings, one for each row in x.
 \description{
 Create display character string for leaflet map popup from data.frame rows.
 This function is not exported, as it is only internally useful.
-A generic version is available in \url{berryFunctions::popleaf}.
+A generic version is available in \code{\link[berryFunctions:popleaf]{berryFunctions::popleaf()}}.
 }
 \seealso{
 \code{\link{geoIndex}}
