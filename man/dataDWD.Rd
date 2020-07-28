@@ -11,14 +11,14 @@ dataDWD(
   dir = "DWDdata",
   force = FALSE,
   overwrite = FALSE,
+  read = TRUE,
   dbin = FALSE,
+  dfargs = NULL,
   sleep = 0,
-  quiet = rdwdquiet(),
   progbar = !quiet,
   browse = FALSE,
-  read = TRUE,
   ntrunc = 2,
-  dfargs = NULL,
+  quiet = rdwdquiet(),
   ...
 )
 }
@@ -46,6 +46,9 @@ DEFAULT: FALSE}
 \item{overwrite}{Logical (vector): if force=TRUE, overwrite the existing file
 rather than append "_1"/"_2" etc to the filename? DEFAULT: FALSE}
 
+\item{read}{Logical: read the file(s) with \code{\link[=readDWD]{readDWD()}}? If FALSE,
+only download is performed and the filename(s) returned. DEFAULT: TRUE}
+
 \item{dbin}{Logical: Download binary file, i.e. add \code{mode="wb"} to the
 \code{\link[=download.file]{download.file()}} call? This is needed for .tar files
 (see \code{\link[=readDWD.asc]{readDWD.asc()}}) and binary files like those at
@@ -53,13 +56,13 @@ rather than append "_1"/"_2" etc to the filename? DEFAULT: FALSE}
 This seems to be a CRLF issue on MS Windows.
 DEFAULT: FALSE}
 
+\item{dfargs}{Named list of additional arguments passed to \code{\link[=download.file]{download.file()}}
+Note that mode="wb" is already passed if \code{dbin=TRUE}}
+
 \item{sleep}{Number. If not 0, a random number of seconds between 0 and
 \code{sleep} is passed to \code{\link[=Sys.sleep]{Sys.sleep()}} after each download
 to avoid getting kicked off the FTP-Server,
 see note in \code{\link[=indexFTP]{indexFTP()}}. DEFAULT: 0}
-
-\item{quiet}{Logical: suppress message about directory / filenames?
-DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
 \item{progbar}{Logical: present a progress bar with estimated remaining time?
 If missing and length(file)==1, progbar is internally set to FALSE.
@@ -70,14 +73,11 @@ return URL folder path? If TRUE, no data is downloaded.
 If file has several values, only unique folders will be opened.
 DEFAULT: FALSE}
 
-\item{read}{Logical: read the file(s) with \code{\link[=readDWD]{readDWD()}}? If FALSE,
-only download is performed and the filename(s) returned. DEFAULT: TRUE}
-
 \item{ntrunc}{Single integer: number of filenames printed in messages
 before they get truncated with message "(and xx more)". DEFAULT: 2}
 
-\item{dfargs}{Named list of additional arguments passed to \code{\link[=download.file]{download.file()}}
-Note that mode="wb" is already passed if \code{dbin=TRUE}}
+\item{quiet}{Logical: suppress message about directory / filenames?
+DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
 \item{\dots}{Further arguments passed to \code{\link[=readDWD]{readDWD()}},
 like fread, varnames etc. Dots were passed to

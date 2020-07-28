@@ -85,18 +85,20 @@
 #'               DEFAULT: FALSE
 #' @param overwrite Logical (vector): if force=TRUE, overwrite the existing file
 #'               rather than append "_1"/"_2" etc to the filename? DEFAULT: FALSE
+#' @param read   Logical: read the file(s) with [readDWD()]? If FALSE,
+#'               only download is performed and the filename(s) returned. DEFAULT: TRUE
 #' @param dbin   Logical: Download binary file, i.e. add `mode="wb"` to the
 #'               [download.file()] call? This is needed for .tar files
 #'               (see [readDWD.asc()]) and binary files like those at
 #'               [weather/radar/radolan](https://opendata.dwd.de/weather/radar/radolan/rw/).
 #'               This seems to be a CRLF issue on MS Windows.
 #'               DEFAULT: FALSE
+#' @param dfargs Named list of additional arguments passed to [download.file()]
+#'               Note that mode="wb" is already passed if `dbin=TRUE`
 #' @param sleep  Number. If not 0, a random number of seconds between 0 and
 #'               `sleep` is passed to [Sys.sleep()] after each download
 #'               to avoid getting kicked off the FTP-Server,
 #'               see note in [indexFTP()]. DEFAULT: 0
-#' @param quiet  Logical: suppress message about directory / filenames?
-#'               DEFAULT: FALSE through [rdwdquiet()]
 #' @param progbar Logical: present a progress bar with estimated remaining time?
 #'               If missing and length(file)==1, progbar is internally set to FALSE.
 #'               Only works if the R package `pbapply` is available. DEFAULT: TRUE (!quiet)
@@ -104,12 +106,10 @@
 #'               return URL folder path? If TRUE, no data is downloaded.
 #'               If file has several values, only unique folders will be opened.
 #'               DEFAULT: FALSE
-#' @param read   Logical: read the file(s) with [readDWD()]? If FALSE,
-#'               only download is performed and the filename(s) returned. DEFAULT: TRUE
 #' @param ntrunc Single integer: number of filenames printed in messages
 #'               before they get truncated with message "(and xx more)". DEFAULT: 2
-#' @param dfargs Named list of additional arguments passed to [download.file()]
-#'               Note that mode="wb" is already passed if `dbin=TRUE`
+#' @param quiet  Logical: suppress message about directory / filenames?
+#'               DEFAULT: FALSE through [rdwdquiet()]
 #' @param \dots  Further arguments passed to [readDWD()],
 #'               like fread, varnames etc. Dots were passed to
 #'               [download.file()] prior to rdwd 0.11.7 (2019-02-25)
@@ -121,14 +121,14 @@ joinbf=FALSE,
 dir="DWDdata",
 force=FALSE,
 overwrite=FALSE,
+read=TRUE,
 dbin=FALSE,
+dfargs=NULL,
 sleep=0,
-quiet=rdwdquiet(),
 progbar=!quiet,
 browse=FALSE,
-read=TRUE,
 ntrunc=2,
-dfargs=NULL,
+quiet=rdwdquiet(),
 ...
 )
 {

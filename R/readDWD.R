@@ -33,36 +33,37 @@
 #'               [dataDWD()],
 #'               e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip" or
 #'               "~/DWDdata/RR_Stundenwerte_Beschreibung_Stationen.txt"
-#' @param quiet  Logical: suppress messages? DEFAULT: FALSE through [rdwdquiet()]
-#' @param progbar Logical: present a progress bar with estimated remaining time?
-#'               If missing and length(file)==1, progbar is internally set to FALSE.
-#'               DEFAULT: !quiet
-#' @param fread  Logical (vector): read fast? See [readDWD.data()].
-#'               DEFAULT: NA (experimental, see [issue 22](https://github.com/brry/rdwd/issues/22))
+#' @param type   Character (vector) determining which subfunction to call.
+#'               DEFAULT:  [`fileType`]`(file)`.
 #' @param varnames Logical (vector): Expand column names?
-#'               See [readDWD.data()]. DEFAULT: FALSE (for backward compatibility)
-#' @param var    var for [readDWD.nc()]. DEFAULT: ""
+#'               Only used in [readDWD.data()]. 
+#'               DEFAULT: FALSE (for backward compatibility)
+#' @param fread  Logical (vector): read fast? Used in [readDWD.data()].
+#'               DEFAULT: NA (experimental, see [issue 22](https://github.com/brry/rdwd/issues/22))
 #' @param format,tz Format and time zone of time stamps, see [readDWD.data()]
 #' @param dividebyten Logical (vector): Divide the values in raster files by ten?
 #'               Used in [readDWD.raster()] and [readDWD.asc()].
 #'               DEFAULT: TRUE
-#' @param type   Character (vector) determining which subfunction to call.
-#'               DEFAULT:  [`fileType`]`(file)`.
+#' @param var    var for [readDWD.nc()]. DEFAULT: ""
+#' @param progbar Logical: present a progress bar with estimated remaining time?
+#'               If missing and length(file)==1, progbar is internally set to FALSE.
+#'               DEFAULT: !quiet
+#' @param quiet  Logical: suppress messages? DEFAULT: FALSE through [rdwdquiet()]
 #' @param \dots  Further arguments passed to the internal `readDWD.*`
-#'               subfunctions and from those to the underlying reading functions
-#'               documented in each subfunction.
+#'               subfunctions (see [`fileType`]) and from those to the 
+#'               underlying actual reading functions
 #' 
 readDWD <- function(
 file,
-quiet=rdwdquiet(),
-progbar=!quiet,
-fread=NA,
+type=fileType(file),
 varnames=FALSE,
-var="",
+fread=NA,
 format=NA,
 tz="GMT",
 dividebyten=TRUE,
-type=fileType(file),
+var="",
+progbar=!quiet,
+quiet=rdwdquiet(),
 ...
 )
 {

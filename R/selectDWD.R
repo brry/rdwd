@@ -93,6 +93,16 @@
 #'              use `per="hr"` or `per="rh"` (and `outvec=TRUE`).
 #'              `per` is set to "" if var=="solar".
 #'              DEFAULT: NA for interactive selection
+#' @param base  Single char: main directory of DWD ftp server.
+#'              Must be the same `base` used to create `findex`.
+#'              DEFAULT: [`dwdbase`]
+#' @param outvec Single logical: if **path** or **ID** length > 1,
+#'              instead of a list, return a vector? (via [unlist()]).
+#'              DEFAULT: `per %in% c("rh","hr")`
+#' @param findex Single object: Index used to select filename, as returned by
+#'              [createIndex()].To use a current / custom index, see
+#'              <https://bookdown.org/brry/rdwd/fileindex.html>. 
+#'              DEFAULT: [`fileIndex`]
 #' @param remove_dupli Logical: Remove duplicate entries in the fileIndex? 
 #'              If duplicates are found, a warning will be issued, unless `quiet=TRUE`.\cr
 #'              The DWD updates files on the server quite often and sometimes
@@ -106,35 +116,26 @@
 #'              This is selected according to filename, which is not very reliable,
 #'              hence manual checking is recommended.
 #'              DEFAULT: TRUE
-#' @param exactmatch Logical passed to [findID()]: match `name`
-#'              with [`==`])? Else with [grepl()]. DEFAULT: TRUE
-#' @param mindex Single object: Index with metadata passed to [findID()].
-#'              DEFAULT: [`metaIndex`]
-#' @param quiet Suppress id length warnings? DEFAULT: FALSE through [rdwdquiet()]
-#' @param id    Char/Number: station ID with or without leading zeros, e.g. "00614" or 614.
-#'              Is internally converted to an integer, because some DWD meta data
-#'              files also contain no leading zeros. DEFAULT: findID(name, exaxtmatch, mindex)
-#' @param base  Single char: main directory of DWD ftp server.
-#'              Must be the same `base` used to create `findex`.
-#'              DEFAULT: [`dwdbase`]
-#' @param findex Single object: Index used to select filename, as returned by
-#'              [createIndex()].To use a current / custom index, use
-#'              `myIndex <- createIndex(indexFTP("/daily/solar"))`
-#'              (with desired path, of course). DEFAULT: [`fileIndex`]
 #' @param current Single logical for case 3/4 with given `path`: instead of
 #'              `findex`, use a list of the currently available files at
 #'              base/res/var/per? This will call [indexFTP()], thus
 #'              requires availability of the `RCurl` package.
 #'              DEFAULT: FALSE
+#' @param id    Char/Number: station ID with or without leading zeros, e.g. "00614" or 614.
+#'              Is internally converted to an integer, because some DWD meta data
+#'              files also contain no leading zeros. 
+#'              DEFAULT: findID(name, exaxtmatch, mindex)
+#' @param mindex Single object: Index with metadata passed to [findID()].
+#'              DEFAULT: [`metaIndex`]
+#' @param exactmatch Logical passed to [findID()]: match `name`
+#'              with [`==`])? Else with [grepl()]. DEFAULT: TRUE
 #' @param meta  Logical: return metadata txt file name instead of climate data zip file?
 #'              Relevant only in case 4 (path and id given) and case 3 for res="multi_annual".
 #'              See [`metaIndex`] for a compilation of all metaData files.
 #'              DEFAULT: FALSE
 #' @param meta_txt_only Logical: if `meta`, only return .txt files, not the
 #'              pdf and html files? DEFAULT: TRUE
-#' @param outvec Single logical: if **path** or **ID** length > 1,
-#'              instead of a list, return a vector? (via [unlist()]).
-#'              DEFAULT: `per %in% c("rh","hr")`
+#' @param quiet Suppress id length warnings? DEFAULT: FALSE through [rdwdquiet()]
 #' @param \dots Further arguments passed to [indexFTP()] if `current=TRUE`,
 #'              except folder and base.
 #' 
@@ -143,17 +144,17 @@ name="",
 res=NA,
 var=NA,
 per=NA,
-remove_dupli=TRUE,
-exactmatch=TRUE,
-mindex=metaIndex,
-quiet=rdwdquiet(),
-id=findID(name, exactmatch=exactmatch, mindex=mindex, quiet=quiet),
 base=dwdbase,
+outvec=any(per %in% c("rh","hr")),
 findex=fileIndex,
+remove_dupli=TRUE,
 current=FALSE,
+id=findID(name, exactmatch=exactmatch, mindex=mindex, quiet=quiet),
+mindex=metaIndex,
+exactmatch=TRUE,
 meta=FALSE,
 meta_txt_only=TRUE,
-outvec=any(per %in% c("rh","hr")),
+quiet=rdwdquiet(),
 ...
 )
 {

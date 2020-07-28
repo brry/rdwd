@@ -9,17 +9,17 @@ selectDWD(
   res = NA,
   var = NA,
   per = NA,
-  remove_dupli = TRUE,
-  exactmatch = TRUE,
-  mindex = metaIndex,
-  quiet = rdwdquiet(),
-  id = findID(name, exactmatch = exactmatch, mindex = mindex, quiet = quiet),
   base = dwdbase,
+  outvec = any(per \%in\% c("rh", "hr")),
   findex = fileIndex,
+  remove_dupli = TRUE,
   current = FALSE,
+  id = findID(name, exactmatch = exactmatch, mindex = mindex, quiet = quiet),
+  mindex = metaIndex,
+  exactmatch = TRUE,
   meta = FALSE,
   meta_txt_only = TRUE,
-  outvec = any(per \%in\% c("rh", "hr")),
+  quiet = rdwdquiet(),
   ...
 )
 }
@@ -46,6 +46,19 @@ use \code{per="hr"} or \code{per="rh"} (and \code{outvec=TRUE}).
 \code{per} is set to "" if var=="solar".
 DEFAULT: NA for interactive selection}
 
+\item{base}{Single char: main directory of DWD ftp server.
+Must be the same \code{base} used to create \code{findex}.
+DEFAULT: \code{\link{dwdbase}}}
+
+\item{outvec}{Single logical: if \strong{path} or \strong{ID} length > 1,
+instead of a list, return a vector? (via \code{\link[=unlist]{unlist()}}).
+DEFAULT: \code{per \%in\% c("rh","hr")}}
+
+\item{findex}{Single object: Index used to select filename, as returned by
+\code{\link[=createIndex]{createIndex()}}.To use a current / custom index, see
+\url{https://bookdown.org/brry/rdwd/fileindex.html}.
+DEFAULT: \code{\link{fileIndex}}}
+
 \item{remove_dupli}{Logical: Remove duplicate entries in the fileIndex?
 If duplicates are found, a warning will be issued, unless \code{quiet=TRUE}.\cr
 The DWD updates files on the server quite often and sometimes
@@ -60,32 +73,22 @@ This is selected according to filename, which is not very reliable,
 hence manual checking is recommended.
 DEFAULT: TRUE}
 
-\item{exactmatch}{Logical passed to \code{\link[=findID]{findID()}}: match \code{name}
-with \code{\link{==}})? Else with \code{\link[=grepl]{grepl()}}. DEFAULT: TRUE}
-
-\item{mindex}{Single object: Index with metadata passed to \code{\link[=findID]{findID()}}.
-DEFAULT: \code{\link{metaIndex}}}
-
-\item{quiet}{Suppress id length warnings? DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
-
-\item{id}{Char/Number: station ID with or without leading zeros, e.g. "00614" or 614.
-Is internally converted to an integer, because some DWD meta data
-files also contain no leading zeros. DEFAULT: findID(name, exaxtmatch, mindex)}
-
-\item{base}{Single char: main directory of DWD ftp server.
-Must be the same \code{base} used to create \code{findex}.
-DEFAULT: \code{\link{dwdbase}}}
-
-\item{findex}{Single object: Index used to select filename, as returned by
-\code{\link[=createIndex]{createIndex()}}.To use a current / custom index, use
-\code{myIndex <- createIndex(indexFTP("/daily/solar"))}
-(with desired path, of course). DEFAULT: \code{\link{fileIndex}}}
-
 \item{current}{Single logical for case 3/4 with given \code{path}: instead of
 \code{findex}, use a list of the currently available files at
 base/res/var/per? This will call \code{\link[=indexFTP]{indexFTP()}}, thus
 requires availability of the \code{RCurl} package.
 DEFAULT: FALSE}
+
+\item{id}{Char/Number: station ID with or without leading zeros, e.g. "00614" or 614.
+Is internally converted to an integer, because some DWD meta data
+files also contain no leading zeros.
+DEFAULT: findID(name, exaxtmatch, mindex)}
+
+\item{mindex}{Single object: Index with metadata passed to \code{\link[=findID]{findID()}}.
+DEFAULT: \code{\link{metaIndex}}}
+
+\item{exactmatch}{Logical passed to \code{\link[=findID]{findID()}}: match \code{name}
+with \code{\link{==}})? Else with \code{\link[=grepl]{grepl()}}. DEFAULT: TRUE}
 
 \item{meta}{Logical: return metadata txt file name instead of climate data zip file?
 Relevant only in case 4 (path and id given) and case 3 for res="multi_annual".
@@ -95,9 +98,7 @@ DEFAULT: FALSE}
 \item{meta_txt_only}{Logical: if \code{meta}, only return .txt files, not the
 pdf and html files? DEFAULT: TRUE}
 
-\item{outvec}{Single logical: if \strong{path} or \strong{ID} length > 1,
-instead of a list, return a vector? (via \code{\link[=unlist]{unlist()}}).
-DEFAULT: \code{per \%in\% c("rh","hr")}}
+\item{quiet}{Suppress id length warnings? DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
 \item{\dots}{Further arguments passed to \code{\link[=indexFTP]{indexFTP()}} if \code{current=TRUE},
 except folder and base.}

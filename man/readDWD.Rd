@@ -6,15 +6,15 @@
 \usage{
 readDWD(
   file,
-  quiet = rdwdquiet(),
-  progbar = !quiet,
-  fread = NA,
+  type = fileType(file),
   varnames = FALSE,
-  var = "",
+  fread = NA,
   format = NA,
   tz = "GMT",
   dividebyten = TRUE,
-  type = fileType(file),
+  var = "",
+  progbar = !quiet,
+  quiet = rdwdquiet(),
   ...
 )
 }
@@ -24,19 +24,15 @@ readDWD(
 e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip" or
 "~/DWDdata/RR_Stundenwerte_Beschreibung_Stationen.txt"}
 
-\item{quiet}{Logical: suppress messages? DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
-
-\item{progbar}{Logical: present a progress bar with estimated remaining time?
-If missing and length(file)==1, progbar is internally set to FALSE.
-DEFAULT: !quiet}
-
-\item{fread}{Logical (vector): read fast? See \code{\link[=readDWD.data]{readDWD.data()}}.
-DEFAULT: NA (experimental, see \href{https://github.com/brry/rdwd/issues/22}{issue 22})}
+\item{type}{Character (vector) determining which subfunction to call.
+DEFAULT:  \code{\link{fileType}}\code{(file)}.}
 
 \item{varnames}{Logical (vector): Expand column names?
-See \code{\link[=readDWD.data]{readDWD.data()}}. DEFAULT: FALSE (for backward compatibility)}
+Only used in \code{\link[=readDWD.data]{readDWD.data()}}.
+DEFAULT: FALSE (for backward compatibility)}
 
-\item{var}{var for \code{\link[=readDWD.nc]{readDWD.nc()}}. DEFAULT: ""}
+\item{fread}{Logical (vector): read fast? Used in \code{\link[=readDWD.data]{readDWD.data()}}.
+DEFAULT: NA (experimental, see \href{https://github.com/brry/rdwd/issues/22}{issue 22})}
 
 \item{format, tz}{Format and time zone of time stamps, see \code{\link[=readDWD.data]{readDWD.data()}}}
 
@@ -44,12 +40,17 @@ See \code{\link[=readDWD.data]{readDWD.data()}}. DEFAULT: FALSE (for backward co
 Used in \code{\link[=readDWD.raster]{readDWD.raster()}} and \code{\link[=readDWD.asc]{readDWD.asc()}}.
 DEFAULT: TRUE}
 
-\item{type}{Character (vector) determining which subfunction to call.
-DEFAULT:  \code{\link{fileType}}\code{(file)}.}
+\item{var}{var for \code{\link[=readDWD.nc]{readDWD.nc()}}. DEFAULT: ""}
+
+\item{progbar}{Logical: present a progress bar with estimated remaining time?
+If missing and length(file)==1, progbar is internally set to FALSE.
+DEFAULT: !quiet}
+
+\item{quiet}{Logical: suppress messages? DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
 \item{\dots}{Further arguments passed to the internal \verb{readDWD.*}
-subfunctions and from those to the underlying reading functions
-documented in each subfunction.}
+subfunctions (see \code{\link{fileType}}) and from those to the
+underlying actual reading functions}
 }
 \value{
 For observational data, an invisible data.frame of the desired dataset,
