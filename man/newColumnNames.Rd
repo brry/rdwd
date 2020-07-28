@@ -30,7 +30,7 @@ Column names not in the abbreviation list will be left untouched.
 
 }
 \seealso{
-\code{\link{dwdparams}}, \code{\link[=readVars]{readVars()}},  \code{\link[=readDWD]{readDWD()}} argument \code{varnames}
+\code{\link{dwdparams}}, \code{\link[=readVars]{readVars()}},  \code{\link[=readDWD]{readDWD()}} argument \code{varnames}, \code{\link[=newColumnNames]{newColumnNames()}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Apr 2019

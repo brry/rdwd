@@ -5,7 +5,7 @@
 #' Column names not in the abbreviation list will be left untouched.
 #' @return The `dataframe` with new column names
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Apr 2019
-#' @seealso [`dwdparams`], [readVars()],  [readDWD()] argument `varnames`
+#' @seealso [`dwdparams`], [readVars()],  [readDWD()] argument `varnames`, [newColumnNames()]
 #' @export
 #' @examples
 #' # mainly for internal usage

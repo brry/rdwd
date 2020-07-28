@@ -9,7 +9,7 @@
 #' @return data.frame of the desired dataset,
 #'         or a named list of data.frames if length(file) > 1.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jun 2018
-#' @seealso [dataDWD()], [readDWD()], [`dwdparams`]
+#' @seealso [dataDWD()], [readDWD()], [`dwdparams`], [newColumnNames()]
 #' @keywords file
 #' @importFrom utils read.table unzip
 #' @importFrom berryFunctions checkFile na9 traceCall

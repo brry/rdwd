@@ -30,7 +30,7 @@ is read, processed and returned as a data.frame.\cr
 
 }
 \seealso{
-\code{\link[=dataDWD]{dataDWD()}}, \code{\link[=readDWD]{readDWD()}}, \code{\link{dwdparams}}
+\code{\link[=dataDWD]{dataDWD()}}, \code{\link[=readDWD]{readDWD()}}, \code{\link{dwdparams}}, \code{\link[=newColumnNames]{newColumnNames()}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Jun 2018
