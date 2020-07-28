@@ -919,7 +919,7 @@ phenocrop_base <- paste0(sub("climate$", "phenology", dwdbase),
                         "/annual_reporters/crops/historical/")
 # pheno_urls <- indexFTP("", base=phenocrop_base, dir="Pheno")
 kohl_url <- "PH_Jahresmelder_Landwirtschaft_Kulturpflanze_Weisskohl_1951_1990_hist.txt"# 9 MB
-kohl_file <- dataDWD(base=phenocrop_base, file=kohl_url, joinbf=TRUE, 
+kohl_file <- dataDWD(base=phenocrop_base, url=kohl_url, joinbf=TRUE, 
                      dir=localtestdir(), read=FALSE) 
 kohl <- read.table(kohl_file, sep=";", header=TRUE)
 ```

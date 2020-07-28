@@ -68,8 +68,8 @@
 #' # browseURL("https://bookdown.org/brry/rdwd")
 #' }
 #' 
-#' @param file   Char (vector): complete file URL(s) (including base and filename.zip) as returned by
-#'               [selectDWD()]. Can be a vector with several filenames.
+#' @param url    Char (vector): complete file URL(s) (including base and filename.zip) 
+#'               as returned by [selectDWD()]. Can be a vector with several FTP URLs.
 #' @param base   Single char: base URL that will be removed from output file names.
 #'               DEFAULT: [`dwdbase`]
 #' @param joinbf Logical: paste `base` and `file` together?
@@ -108,6 +108,7 @@
 #'               DEFAULT: FALSE
 #' @param ntrunc Single integer: number of filenames printed in messages
 #'               before they get truncated with message "(and xx more)". DEFAULT: 2
+#' @param file   Deprecated since rdwd version 1.3.34, 2020-07-28.
 #' @param quiet  Logical: suppress message about directory / filenames?
 #'               DEFAULT: FALSE through [rdwdquiet()]
 #' @param \dots  Further arguments passed to [readDWD()],
@@ -115,7 +116,7 @@
 #'               [download.file()] prior to rdwd 0.11.7 (2019-02-25)
 #
 dataDWD <- function(
-file,
+url,
 base=dwdbase,
 joinbf=FALSE,
 dir="DWDdata",
@@ -128,22 +129,24 @@ sleep=0,
 progbar=!quiet,
 browse=FALSE,
 ntrunc=2,
+file=NULL,
 quiet=rdwdquiet(),
 ...
 )
 {
-if(!is.atomic(file)) stop("file must be a vector, not a ", class(file))
-if(!is.character(file)) stop("file must be char, not ", class(file))
+if(!is.null(file)) stop("The argument 'file' has been renamed to 'url' with rdwd version 1.3.34, 2020-07-28")
+if(!is.atomic(url)) stop("url must be a vector, not a ", class(url))
+if(!is.character(url)) stop("url must be char, not ", class(url))
 base <- sub("/$","",base) # remove accidental trailing slash
-file <- sub("^/","",file) # remove accidental leading slash
-if(joinbf)  file <- paste0(base,"/",file)
-if(missing(progbar) & length(file)==1) progbar <- FALSE
-if(any(file==""))
+url <- sub("^/","",url) # remove accidental leading slash
+if(joinbf)  url <- paste0(base,"/",url)
+if(missing(progbar) & length(url)==1) progbar <- FALSE
+if(any(url==""))
 {
-  message(traceCall(1, "", ": "), "Removing ", sum(file==""), " empty element(s) from file vector.")
-  file <- file[file!=""]
+  message(traceCall(1, "", ": "), "Removing ", sum(url==""), " empty element(s) from url vector.")
+  url <- url[url!=""]
 }
-if(length(file)<1) stop("The vector of files to be downloaded is empty.")
+if(length(url)<1) stop("The vector of urls to be downloaded is empty.")
 # be safe from accidental vector input:
 dir     <- dir[1]
 progbar <- progbar[1]
@@ -155,7 +158,7 @@ browse  <- browse[1]
 # open URL path(s) in internet browser:
 if(browse)
   {
-  folders <- unique(dirname(file))
+  folders <- unique(dirname(url))
   sapply(folders, browseURL)
   return(folders)
   }
@@ -163,7 +166,7 @@ if(browse)
 owd <- dirDWD(dir, quiet=quiet)
 on.exit(setwd(owd))
 # output file name(s)
-outfile <- gsub(paste0(base,"/"), "", file)
+outfile <- gsub(paste0(base,"/"), "", url)
 outfile <- gsub("/", "_", outfile)
 
 # force=NA management
@@ -191,11 +194,11 @@ outfile <- newFilename(outfile, quiet=quiet, ignore=dontdownload,
 if(progbar) lapply <- pbapply::pblapply
 # ------------------------------------------------------------------------------
 # loop over each filename
-dl_results <- lapply(seq_along(file), function(i)
+dl_results <- lapply(seq_along(url), function(i)
   if(!dontdownload[i])
   {
   # Actual file download:
-  dfdefaults <- list(url=file[i], destfile=outfile[i], quiet=TRUE)
+  dfdefaults <- list(url=url[i], destfile=outfile[i], quiet=TRUE)
   if(dbin) dfdefaults <- c(dfdefaults, mode="wb")
   e <- try(suppressWarnings(do.call(download.file,
                          berryFunctions::owa(dfdefaults, dfargs))), silent=TRUE)
@@ -216,7 +219,7 @@ if(any(iserror))
   msg <- paste0(msg, " download.file error",if(ne>1) "s",":\n")
   msg2 <- sapply(dl_results[iserror], function(e)attr(e,"condition")$message)
   msg2 <- berryFunctions::truncMessage(msg2, ntrunc=15, prefix="", midfix="", altnix="", sep="\n")
-  if(any(substr(file[iserror], 1, 4) != "ftp:"))
+  if(any(substr(url[iserror], 1, 4) != "ftp:"))
      msg2 <- paste0(msg2, "\n- dataDWD needs urls starting with 'ftp://'. You can use joinbf=TRUE for relative links.")
   if(grepl("cannot open URL", msg2))
      msg2 <- paste0(msg2, "\n- If files have been renamed on the DWD server, ",

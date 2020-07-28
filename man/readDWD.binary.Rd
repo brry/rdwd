@@ -56,7 +56,7 @@ Intended to be called via \code{\link[=readDWD]{readDWD()}}.\cr
 # SF file as example: ----
 
 SF_link <- "/daily/radolan/historical/bin/2017/SF201712.tar.gz"
-SF_file <- dataDWD(file=SF_link, base=gridbase, joinbf=TRUE,   # 204 MB
+SF_file <- dataDWD(url=SF_link, base=gridbase, joinbf=TRUE,   # 204 MB
                      dir=localtestdir(), read=FALSE)
 # exdir radardir set to speed up my tests:
 SF_exdir <- "C:/Users/berry/Desktop/DWDbinarySF"
@@ -71,7 +71,7 @@ plotRadar(SF_radp, layer=1, project=FALSE)
 # RW file as example: ----
 
 RW_link <- "hourly/radolan/reproc/2017_002/bin/2017/RW2017.002_201712.tar.gz"
-RW_file <- dataDWD(file=RW_link, base=gridbase, joinbf=TRUE,   # 25 MB
+RW_file <- dataDWD(url=RW_link, base=gridbase, joinbf=TRUE,   # 25 MB
                   dir=localtestdir(), read=FALSE)
 RW_exdir <- "C:/Users/berry/Desktop/DWDbinaryRW"
 if(!file.exists(RW_exdir)) RW_exdir <- tempdir()

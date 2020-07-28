@@ -5,7 +5,7 @@
 \title{Download data from the DWD CDC FTP Server}
 \usage{
 dataDWD(
-  file,
+  url,
   base = dwdbase,
   joinbf = FALSE,
   dir = "DWDdata",
@@ -18,13 +18,14 @@ dataDWD(
   progbar = !quiet,
   browse = FALSE,
   ntrunc = 2,
+  file = NULL,
   quiet = rdwdquiet(),
   ...
 )
 }
 \arguments{
-\item{file}{Char (vector): complete file URL(s) (including base and filename.zip) as returned by
-\code{\link[=selectDWD]{selectDWD()}}. Can be a vector with several filenames.}
+\item{url}{Char (vector): complete file URL(s) (including base and filename.zip)
+as returned by \code{\link[=selectDWD]{selectDWD()}}. Can be a vector with several FTP URLs.}
 
 \item{base}{Single char: base URL that will be removed from output file names.
 DEFAULT: \code{\link{dwdbase}}}
@@ -75,6 +76,8 @@ DEFAULT: FALSE}
 
 \item{ntrunc}{Single integer: number of filenames printed in messages
 before they get truncated with message "(and xx more)". DEFAULT: 2}
+
+\item{file}{Deprecated since rdwd version 1.3.34, 2020-07-28.}
 
 \item{quiet}{Logical: suppress message about directory / filenames?
 DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
