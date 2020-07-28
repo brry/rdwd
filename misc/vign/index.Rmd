@@ -270,16 +270,17 @@ str(bd[bd!=dwdbase])
 that is updated (at least) with each CRAN release of the package.  
 If you find the file index to be outdated ("download.file errors: [...]  cannot open URL"),
 check in the [latest commits](https://github.com/brry/rdwd/commits/master) 
-if the github development version (`r helplink("updateRdwd")`) already has an updated index.  
+if the github development version already has an updated index (install with `r helplink("updateRdwd")`).  
 If not, please let me [know](mailto:berry-b@gmx.de) and I will update it. 
-Meanwhile, use current=TRUE in `r helplink("selectDWD")`:
+
+Meanwhile, either use current=TRUE in `r helplink("selectDWD")`:
 
 ```{r files, eval=FALSE}
 # all files at a given path, with current file index (RCurl required):
 links <- selectDWD(res="monthly", var="more_precip", per="hist", current=TRUE)
 ```
 
-Alternatively, for repetitive usage, create your own file index, see next code chunk.  
+or, for repetitive usage, create your own file index, see next code chunk.  
 `r helplink("fileIndex")` for the entire DWD FTP server is created with the functions
 `r helplink("indexFTP")` and `r helplink("createIndex")` used in
 [`updateIndexes`](https://github.com/brry/rdwd/blob/master/R/updateIndexes.R).  
