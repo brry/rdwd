@@ -4,11 +4,13 @@
 \alias{readVars}
 \title{Process data from the DWD CDC FTP Server}
 \usage{
-readVars(file, progbar = TRUE)
+readVars(file, params = dwdparams, progbar = TRUE)
 }
 \arguments{
 \item{file}{Char (vector): name(s) of the file(s) downloaded with \code{\link[=dataDWD]{dataDWD()}},
 e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip"}
+
+\item{params}{data.frame: Parameter explanations. DEFAULT: \code{\link{dwdparams}}}
 
 \item{progbar}{Logical: present a progress bar with estimated remaining time?
 If missing and length(file)==1, progbar is internally set to FALSE.

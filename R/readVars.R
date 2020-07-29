@@ -19,14 +19,16 @@
 #' @examples
 #' # see dataDWD
 #' 
-#' @param file   Char (vector): name(s) of the file(s) downloaded with [dataDWD()],
-#'               e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip"
+#' @param file    Char (vector): name(s) of the file(s) downloaded with [dataDWD()],
+#'                e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip"
+#' @param params  data.frame: Parameter explanations. DEFAULT: [`dwdparams`]
 #' @param progbar Logical: present a progress bar with estimated remaining time?
-#'               If missing and length(file)==1, progbar is internally set to FALSE.
-#'               DEFAULT: TRUE
+#'                If missing and length(file)==1, progbar is internally set to FALSE.
+#'                DEFAULT: TRUE
 #' 
 readVars <- function(
 file,
+params=dwdparams,
 progbar=TRUE
 )
 {
@@ -63,7 +65,7 @@ if(any(dupli)) warning(traceCall(3, "", ": "), "The following entries are",
 rownames(tab) <- NULL
 #
 # Merge with short variable descriptions:
-tab2 <- merge(dwdparams, tab, all.y=TRUE)
+tab2 <- merge(params, tab, all.y=TRUE)
 kurzna <- is.na(tab2$Kurz)
 if(any(kurzna)) warning(traceCall(3, "", ": "), "The following entries are not",
                         " abbreviated yet: ", toString(tab2$Parameter[kurzna]),
