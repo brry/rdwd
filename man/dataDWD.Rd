@@ -30,7 +30,7 @@ as returned by \code{\link[=selectDWD]{selectDWD()}}. Can be a vector with sever
 \item{base}{Single char: base URL that will be removed from output file names.
 DEFAULT: \code{\link{dwdbase}}}
 
-\item{joinbf}{Logical: paste \code{base} and \code{file} together?
+\item{joinbf}{Logical: paste \code{base} and \verb{file url} together?
 Needed mostly for data at \code{\link{gridbase}}.
 DEFAULT: FALSE (selectDWD returns complete URLs already)}
 

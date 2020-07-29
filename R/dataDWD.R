@@ -72,7 +72,7 @@
 #'               as returned by [selectDWD()]. Can be a vector with several FTP URLs.
 #' @param base   Single char: base URL that will be removed from output file names.
 #'               DEFAULT: [`dwdbase`]
-#' @param joinbf Logical: paste `base` and `file` together?
+#' @param joinbf Logical: paste `base` and `file url` together?
 #'               Needed mostly for data at [`gridbase`].
 #'               DEFAULT: FALSE (selectDWD returns complete URLs already)
 #' @param dir    Char: Writeable directory name where to save the downloaded file.

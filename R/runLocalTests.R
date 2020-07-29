@@ -57,7 +57,7 @@ link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
 file <- dataDWD(link, read=FALSE, dir=dir_data, quiet=TRUE)
 testthat::expect_equal(basename(file), "daily_kl_recent_tageswerte_KL_03987_akt.zip")
 links <- selectDWD(id=c(5302,5711,6295),res="daily",var="more_precip",per="h")
-testthat::expect_error(dataDWD(links, dir=dir_data), "file must be a vector, not a list")
+testthat::expect_error(dataDWD(links, dir=dir_data), "url must be a vector, not a list")
 testthat::expect_warning(dataDWD("multi/mean/Temp.txt", quiet=TRUE),
                "dataDWD needs urls starting with 'ftp://'.")
 f <- paste0(dwdbase, "/daily/kl/historical/tageswerte_KL_03987_18930101_20181231_hist.zip")
