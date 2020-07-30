@@ -1,5 +1,5 @@
 # rdwd
-<img src="misc/hex/hex.png" width="104" height="120">
+<img src="https://github.com/brry/rdwd/raw/master/misc/hex/hex.png" width="104" height="120">
 
 `rdwd` is an [R](https://www.r-project.org/) package to select, download and read climate data from the 
 German Weather Service (Deutscher Wetterdienst, DWD).  
