@@ -203,7 +203,7 @@ To use the observational datasets, `rdwd` has been designed to mainly do 3 thing
 As this is time consuming, the result is stored in the package dataset `r helplink("fileIndex")`.
 From this, `r helplink("metaIndex")` and `r helplink("geoIndex")` are derived.
 
-<img src="PackageSchematic.png" width="600">
+<img src="PackageSchematic.png" width="740">
 
 
 
@@ -459,18 +459,14 @@ pp <- project_and_plot(rad$dat, ".radar RQ", rad$meta$date)
 Binary files must be downloaded by `download.file` with wb=TRUE (at least on Windows, due to CRLF issues).
 `download.file` will automatically do that for some file endings (like .gz, .zip).
 For others (e.g. .tar files in [readDWD.asc](https://bookdown.org/brry/rdwd/raster-data.html#readdwd.asc)), `r helplink("dataDWD")` has a dbin=TRUE option.  
-If you do not use this, your plots will look partially shifted like this (and have the wrong units):
-```{r wrong_binary, eval=-1}
-par(mar=c(2,2,1,1.6)) 
+If you do not use this, your plots may look partially shifted like this and have the wrong units (image from 2020-06-16 21:30 CEST):
+```{r wrong_binary, eval=FALSE}
 url <- "ftp://ftp-cdc.dwd.de/weather/radar/radolan/rw/raa01-rw_10000-latest-dwd---bin"
 rw_file <- dataDWD(url, dir=tempdir(), read=FALSE, dbin=FALSE)
 rw_orig <- dwdradar::readRadarFile(rw_file)
 raster::plot(raster::raster(rw_orig$dat))
 ```
-
-Fixed image at 2020-06-16 21:30 CEST (the latest file at website creation may sometimes seem to work correctly):
-
-<img src="dbin1.png" width="400">
+<img src="dbin1.png" width="600">
 
 
 I'm considering to set the default dbin to TRUE but need to assess the implications yet.
@@ -958,7 +954,7 @@ Nowadays, I just need to trigger them by calling the two related functions.
 
 More detailed (but still aggregated) changes can nicely be seen at https://github.com/brry/rdwd/releases
 
-# the future
+## the future
 
 I plan to continue maintaining the package, even though its capabilities have long exceeded my personal needs.
 Coding simply brings joy - and of course it's also very satisfactory to see my work actually used in many contexts.  

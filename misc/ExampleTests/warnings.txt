@@ -1,7 +1,7 @@
 
-checkIndex results at 2020-07-22 01:16:24 for
+checkIndex results at 2020-07-29 18:01:58 for
 ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate
-File 'data/fileIndex.rda' was last modified 2020-07-06 13:46:53
+File 'data/fileIndex.rda' was last modified 2020-07-28 16:05:49
 Call stack: runLocalTests -> checkIndex
 -------
 IDs with duplicate files:
@@ -15,5 +15,6 @@ Coordinates used for more than one station:
 - 7.5833_51.0167: 6x ID=1895 (Gummersbach), 2x ID=3601 (Niedersessmar)
 - 10.4333_51.8: 6x ID=107 (Altenau (A)), 6x ID=3973 (Polsterberg)
 - 6.15_51.6: 16x ID=2798 (Laarbruch), 6x ID=5386 (Weeze-Hees)
+
 
 
