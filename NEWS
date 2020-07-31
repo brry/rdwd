@@ -4,38 +4,40 @@
 
 Version 1.4.0 (2020-07-31)
 
-API changes:  
-- createIndex: gains argument checklog
-- readDWD: now has argument type (determined by new function fileType) to replace the ever growing list of types
+API changes:
+
 - dataDWD: argument 'file' renamed to 'url' to avoid confusion with local file names
+- readDWD: 'fread' default set to NA. This is an experiment, see issue #22 
+- readDWD: now has argument type (determined by new function fileType) to replace the ever growing list of types
 - dataDWD, readDWD, selectDWD: order of arguments changed to reflect importance
+- plotRadar: gains arguments axes, las, zlim, col, mar, keeppar. main now defaults to (and correctly keeps) x@title.
+- selectDWD: gains argument remove_dupli to ignore DWD file upload errors
 - readDWD.*: All subfunctions message their identity and have a 'quiet' argument
 - new function: rdwdquiet()
-- plotRadar: gains arguments axes, las, zlim, col, mar, keeppar. main now defaults to (and correctly keeps) x@title.
 - readDWD.meta: station and bundesland names are now char instead of factor (since R 4.0.0)
 - indexFTP: new argument 'fast' to read file tree with data.table
-- readDWD: fread default set to NA. This is an experiment, see issue #22 
+- createIndex: gains argument checklog
 - runLocalTests: new arguments for devtools::check and checkIndex
-- selectDWD: gains argument remove_dupli to ignore DWD file upload errors
 - readVars: params now an explicit argument (defaults to dwdparams)
 
-enhancements / bug fixes:  
+enhancements / bug fixes:
+
+- EUR: extends further east for plots with large width compared to height
+- updateRdwd: unloads package before installation and informs about the need to re-load
 - checkIndex: new check for duplicate meta files, writes to logfile (append, no overwrite), nicer path print, logs modification time of index files
 - lldist: fix error that occurred when a df with a single row was given
-- runLocalTests: example test logs much less verbose (easier to find actual warnings), checkIndex results written to warning logfile
+- runLocalTests: warning logfile cleared before writing, checkIndex results included, false positives removed, on github
 - source code function argument sections all have line breaks (except readDWD.*)
-- metaInfo: from/to columns date conversion corrected
+- documentation source code now is written in markdown, source files have been reorganized
 - cross-references in documentation improved
-- EUR: extends further east for plots with large width compared to height
+- metaInfo: from/to columns date conversion corrected
 - indexFTP + dataDWD: up to date and centralized sleep information 
-- updateRdwd: unloads package before installation and informs about the need to re-load
 - dataDWD: Download failure message improved, refer to fileIndex section on homepage if applicable.
 - readDWD.nc: ncdf warning suppressed
-- documentation source code now is written in markdown, source files have been reorganized
 - selectDWD: combines all warnings within the loop to a single message
-- runLocalTests: warning logfile cleared before writing, false positives removed, on github
 
-website changes: 
+website changes:
+
 - improved (and stand-alone) fileIndex section
 - plotRadar used for nice maps
 - huxtable fixed
