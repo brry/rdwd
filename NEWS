@@ -2,17 +2,22 @@
 -----------------------------
 -----------------------------
 
-Version 1.4.0 (2020-tbd)
-
-status: 2020-07-06
+Version 1.4.0 (2020-07-31)
 
 API changes:  
 - createIndex: gains argument checklog
+- readDWD: now has argument type (determined by new function fileType) to replace the ever growing list of types
+- dataDWD: argument 'file' renamed to 'url' to avoid confusion with local file names
+- dataDWD, readDWD, selectDWD: order of arguments changed to reflect importance
 - readDWD.*: All subfunctions message their identity and have a 'quiet' argument
 - new function: rdwdquiet()
 - plotRadar: gains arguments axes, las, zlim, col, mar, keeppar. main now defaults to (and correctly keeps) x@title.
 - readDWD.meta: station and bundesland names are now char instead of factor (since R 4.0.0)
 - indexFTP: new argument 'fast' to read file tree with data.table
+- readDWD: fread default set to NA. This is an experiment, see issue #22 
+- runLocalTests: new arguments for devtools::check and checkIndex
+- selectDWD: gains argument remove_dupli to ignore DWD file upload errors
+- readVars: params now an explicit argument (defaults to dwdparams)
 
 enhancements / bug fixes:  
 - checkIndex: new check for duplicate meta files, writes to logfile (append, no overwrite), nicer path print, logs modification time of index files
@@ -26,12 +31,17 @@ enhancements / bug fixes:
 - updateRdwd: unloads package before installation and informs about the need to re-load
 - dataDWD: Download failure message improved, refer to fileIndex section on homepage if applicable.
 - readDWD.nc: ncdf warning suppressed
+- documentation source code now is written in markdown, source files have been reorganized
+- selectDWD: combines all warnings within the loop to a single message
+- runLocalTests: warning logfile cleared before writing, false positives removed, on github
 
 website changes: 
 - improved (and stand-alone) fileIndex section
 - plotRadar used for nice maps
 - huxtable fixed
 - use global quiet option instead of explicit `quiet=TRUE` all the time
+- history section added
+- package schematic revamped completely
 
 
 -----------------------------
