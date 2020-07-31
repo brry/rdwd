@@ -16,7 +16,7 @@ editor_options:
 
 This website has 3 main sections:
 
-* time series from meteorological stations (chapters 2-6)
+* time series from meteorological stations (chapters 3-6)
 * raster data from radar + interpolation (chapter 7)
 * use cases, i.e. extended usage examples (chapter 8-end)
 
@@ -57,6 +57,33 @@ print_short <- function(x)
   {out <- lapply(x, gsub, pattern=dwdbase, replacement="---")
   if(is.list(x)) out else unlist(out)}
 ```
+
+
+
+# Package structure
+
+`rdwd` is designed around 5 main functions:
+
+* `r helplink("selectDWD")`: select time series data, needing:
+  * station id or name, see chapters [interactive map](interactive-map.html) and [station selection](station-selection.html)
+  * **res/var/per**, see available options in chapter [available datasets](available-datasets.html)
+    * temporal resolution (**res** = 1/10 minutes, hourly, daily, monthly, annual)
+    * variables (**var** = temperature, rain, wind, sun, clouds, etc)
+    * observation period (**per** = historical long term records or the current year)
+  * index of files on the FTP server (`r helplink("fileIndex")`), see chapter [fileIndex](fileindex.html)  
+&nbsp;
+
+* `r helplink("nearbyStations")`: alternative to `selectDWD` for a given lat/lon location 
+
+* `r helplink("dataDWD")`: download a file (or multiple files), without re-downloads for existing files
+
+* `r helplink("readDWD")`: read that data into R (handling all the various file formats)
+
+* `r helplink("plotRadar")`: visualize all raster data types nicely on a projected map  
+
+For time series there is no overarching plotting funtion and raster data must as of yet be selected manually.
+
+<img src="PackageSchematic.png" width="740">
 
 
 
@@ -184,28 +211,6 @@ if(l>0) stop("\n\nThe following ", l, " table entries in section 'Available data
 ```
 
 
-# Package structure
-
-To use the observational datasets, `rdwd` has been designed to mainly do 3 things:
-
-* `r helplink("selectDWD")`: facilitate file selection, needing:
-  * station id/name/location (see chapter [station selection](station-selection.html))
-  * temporal resolution (**res** = 1/10 minutes, hourly, daily, monthly, annual)
-  * variables (**var** = temperature, rain, wind, sun, clouds, etc)
-  * observation period (**per** = historical long term records or the current year)  
-
-
-* `r helplink("dataDWD")`: download a file (or multiple files), without re-downloads for existing files
-
-* `r helplink("readDWD")`: read that data into R (including useful defaults for metadata)
-
-`r helplink("selectDWD")` uses the result from `r helplink("indexFTP")` which recursively lists all the files on an FTP-server (using `RCurl::getURL`).
-As this is time consuming, the result is stored in the package dataset `r helplink("fileIndex")`.
-From this, `r helplink("metaIndex")` and `r helplink("geoIndex")` are derived.
-
-<img src="PackageSchematic.png" width="740">
-
-
 
 # Station selection
 
@@ -258,17 +263,21 @@ Since version 1.3.26 (2020-07-20), `SelectDWD` collects warnings from the loop i
 options(warn=0)
 # out of 43 stations with a partial match for the name "Berlin", only 20 have data in the folowing folder
 bd <- selectDWD("Berlin", exactmatch=FALSE, res="monthly", var="kl", per="h", outvec=TRUE, quiet=FALSE)
-str(bd[bd!=dwdbase])
+str(  print_short(bd[bd!=dwdbase])  )
 ```
 
 
 
 # fileIndex
 
-`r helplink("selectDWD")` needs an index of all the available files on the server.
-`rdwd` contains such an index (`r helplink("fileIndex")`) 
-that is updated (at least) with each CRAN release of the package.  
-If you find the file index to be outdated ("download.file errors: [...]  cannot open URL"),
+`r helplink("indexFTP")` recursively lists all the files on an FTP-server (using `RCurl::getURL`).  
+From those paths, `r helplink("createIndex")` generates `r helplink("fileIndex")` and `r helplink("gridIndex")`.
+It also downloads all (ca 84) description files with metadata and creates `r helplink("metaIndex")` and `r helplink("geoIndex")`.  
+All indexes are updated irregularly with the internal function [`updateIndexes`](https://github.com/brry/rdwd/blob/master/R/updateIndexes.R).
+
+`r helplink("selectDWD")` helps to query the `fileIndex`.
+
+If you find the index to be outdated ("download.file errors: [...]  cannot open URL"),
 check in the [latest commits](https://github.com/brry/rdwd/commits/master) 
 if the github development version already has an updated index (install with `r helplink("updateRdwd")`).  
 If not, please let me [know](mailto:berry-b@gmx.de) and I will update it. 
@@ -280,12 +289,8 @@ Meanwhile, either use current=TRUE in `r helplink("selectDWD")`:
 links <- selectDWD(res="monthly", var="more_precip", per="hist", current=TRUE)
 ```
 
-or, for repetitive usage, create your own file index, see next code chunk.  
-`r helplink("fileIndex")` for the entire DWD FTP server is created with the functions
-`r helplink("indexFTP")` and `r helplink("createIndex")` used in
-[`updateIndexes`](https://github.com/brry/rdwd/blob/master/R/updateIndexes.R).  
-To get an index for a certain subfolder, use:
-
+or, for repetitive usage, create your own file index (for a certain subfolder):  
+  
 ```{r listfiles, eval=FALSE}
 # recursively list files on the FTP-server:
 files <- indexFTP("hourly/sun") # use dir="some_path" to save the output elsewhere
@@ -317,7 +322,7 @@ str(metaIndex, vec.len=2)
 View(data.frame(sort(unique(rdwd:::metaIndex$Stationsname)))) # ca 6k entries
 ```
 
-`r helplink("dataDWD")` can download (and `r helplink("readDWD")` can correctly read) such a data.frame from any folder on the FTP server:
+`r helplink("readDWD")` can correctly read such a data.frame from any folder on the FTP server:
 ```{r meta1, eval=TRUE}
 # file with station metadata for a given path:
 m_link <- selectDWD(res="monthly", var="more_precip", per="hist", meta=TRUE)
