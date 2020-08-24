@@ -168,7 +168,7 @@ return(invisible(output))
 readDWD.data <- function(file, fread=FALSE, varnames=FALSE, format=NA, tz="GMT",
                          quiet=rdwdquiet(), ...)
 {
-if(!quiet) message("Reading file with readDWD.data().")
+if(!quiet) message("Reading file with readDWD.data() and fread=",fread,".")
 if(fread)
   {
   # http://dsnotes.com/post/2017-01-27-lessons-learned-from-outbrain-click-prediction-kaggle-competition/
