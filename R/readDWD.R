@@ -70,7 +70,7 @@ quiet=rdwdquiet(),
 # recycle arguments:
 len <- length(file)
 if(missing(progbar) & len==1 & all(type!="binary") & all(type!="asc")) progbar <- FALSE
-if(anyNA(fread)) fread[is.na(fread)] <- requireNamespace("data.table",quietly=TRUE)
+if(anyNA(fread)) fread[is.na(fread)] <- requireNamespace("data.table",quietly=TRUE) && Sys.which("unzip")!=""
 if(len>1)
   {
   fread       <- rep(fread,       length.out=len)
@@ -88,6 +88,7 @@ if(any(fread))
   {
   checkSuggestedPackage("data.table", "rdwd::readDWD with fread=TRUE")
   checkSuggestedPackage("bit64",      "rdwd::readDWD with fread=TRUE")
+  if(Sys.which("unzip")=="") warning("system command 'unzip' could not be found. Expect trouble with data.table::fread.")
   }
 #
 checkFile(file)
@@ -144,8 +145,9 @@ return(invisible(output))
 #'                 DWDdata/daily_kl_recent_tageswerte_KL_03987_akt.zip
 #' @param fread    Logical: read faster with [data.table::fread]?
 #'                 When reading many large historical files, speedup is significant.
-#'                 When called from [readDWD()], NA can also be used, which means 
-#'                 TRUE if data.table is available.
+#'                 When called from [readDWD()], `fread=NA` can also be used, which means 
+#'                 TRUE if R package `data.table` and system command `unzip` are available.
+#'                 Hint for Windows users: `unzip` comes with Rtools.
 #'                 DEFAULT: FALSE
 #' @param varnames Logical (vector): add a short description to the DWD variable
 #'                 abbreviations in the column names?
