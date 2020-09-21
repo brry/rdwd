@@ -32,7 +32,7 @@ Only used in \code{\link[=readDWD.data]{readDWD.data()}}.
 DEFAULT: FALSE (for backward compatibility)}
 
 \item{fread}{Logical (vector): read fast? Used in \code{\link[=readDWD.data]{readDWD.data()}}.
-DEFAULT: NA (experimental, see \href{https://github.com/brry/rdwd/issues/22}{issue 22})}
+DEFAULT: NA}
 
 \item{format, tz}{Format and time zone of time stamps, see \code{\link[=readDWD.data]{readDWD.data()}}}
 

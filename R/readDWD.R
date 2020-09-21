@@ -39,7 +39,7 @@
 #'               Only used in [readDWD.data()]. 
 #'               DEFAULT: FALSE (for backward compatibility)
 #' @param fread  Logical (vector): read fast? Used in [readDWD.data()].
-#'               DEFAULT: NA (experimental, see [issue 22](https://github.com/brry/rdwd/issues/22))
+#'               DEFAULT: NA
 #' @param format,tz Format and time zone of time stamps, see [readDWD.data()]
 #' @param dividebyten Logical (vector): Divide the values in raster files by ten?
 #'               Used in [readDWD.raster()] and [readDWD.asc()].
@@ -70,7 +70,24 @@ quiet=rdwdquiet(),
 # recycle arguments:
 len <- length(file)
 if(missing(progbar) & len==1 & all(type!="binary") & all(type!="asc")) progbar <- FALSE
-if(anyNA(fread)) fread[is.na(fread)] <- requireNamespace("data.table",quietly=TRUE) && Sys.which("unzip")!=""
+# fast reading with fread:
+if(anyNA(fread))
+  {
+  haspack <- requireNamespace("data.table", quietly=TRUE)
+  if(haspack && Sys.which("unzip")=="") 
+    warning("R package 'data.table' available for fast reading of files, ",
+            "but system command 'unzip' could not be found. Now reading slowly.\n",
+            "See   https://bookdown.org/brry/rdwd/fread.html")
+  fread[is.na(fread)] <- haspack && Sys.which("unzip")!=""
+  }
+if(any(fread))
+  {
+  checkSuggestedPackage("data.table", "rdwd::readDWD with fread=TRUE")
+  checkSuggestedPackage("bit64",      "rdwd::readDWD with fread=TRUE")
+  if(Sys.which("unzip")=="") warning("system command 'unzip' could not be found. ",
+                                     "Expect trouble with data.table::fread.\n",
+                                     "See   https://bookdown.org/brry/rdwd/fread.html")
+  }
 if(len>1)
   {
   fread       <- rep(fread,       length.out=len)
@@ -83,13 +100,6 @@ if(len>1)
   }
 # Optional progress bar:
 if(progbar) lapply <- pbapply::pblapply
-# check package availability:
-if(any(fread))
-  {
-  checkSuggestedPackage("data.table", "rdwd::readDWD with fread=TRUE")
-  checkSuggestedPackage("bit64",      "rdwd::readDWD with fread=TRUE")
-  if(Sys.which("unzip")=="") warning("system command 'unzip' could not be found. Expect trouble with data.table::fread.")
-  }
 #
 checkFile(file)
 # Handle German Umlaute:
