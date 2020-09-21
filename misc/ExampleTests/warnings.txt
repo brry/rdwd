@@ -1,13 +1,19 @@
 
-checkIndex results at 2020-07-29 18:01:58 for
+checkIndex results at 2020-09-21 22:44:04 for
 ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate
-File 'data/fileIndex.rda' was last modified 2020-07-28 16:05:49
+File 'data/fileIndex.rda' was last modified 2020-09-21 22:41:41
 Call stack: runLocalTests -> checkIndex
 -------
 IDs with duplicate files:
--  1 at annual/kl/historical;  '1605'
 -  55 at daily/more_precip/historical;  21, 23, 317, 494, 524, 564, 650, 699, 753, 898  (and 45 more)
 -  2 at monthly/kl/historical;  1568, 1762
+Duplicate 'Beschreibung' files:
+- 10_minutes/extreme_wind/now/_Beschreibung_Stationen.txt
+- 10_minutes/extreme_wind/now/zehn_now_fx_Beschreibung_Stationen.txt
+- 10_minutes/precipitation/now/_Beschreibung_Stationen.txt
+- 10_minutes/precipitation/now/zehn_now_rr_Beschreibung_Stationen.txt
+- 10_minutes/wind_test/now/_Beschreibung_Stationen.txt
+- 10_minutes/wind_test/now/zehn_now_ffs_Beschreibung_Stationen.txt
 Different names per id:
 - ID=15526: 30xHamburg (Deutsche Seewarte), 1xHamburg(Seewarte)
 Coordinates used for more than one station:

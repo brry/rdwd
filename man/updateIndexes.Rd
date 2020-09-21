@@ -41,6 +41,7 @@ rdwd package source code directory to update the indexes with one single call.
 # 266'106 (2020-06-01)
 # 266'216 (2020-07-06)
 # 266'216 (2020-07-28)
+# 267'175 (2020-09-21)
 
 # gridbase
 #  49'247 (2019-05-26)
@@ -54,6 +55,7 @@ rdwd package source code directory to update the indexes with one single call.
 #  34'203 (2020-06-01)
 #  35'953 (2020-07-06)
 #  37'038 (2020-07-28)
+#  39'791 (2020-09-21)
 
 }
 \seealso{
