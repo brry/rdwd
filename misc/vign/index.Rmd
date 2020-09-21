@@ -277,6 +277,8 @@ All indexes are updated irregularly with the internal function [`updateIndexes`]
 
 `r helplink("selectDWD")` helps to query the `fileIndex`.
 
+The DWD often (but irregularly) updates or expands datasets, at which point the filenames in historical folders change.
+
 If you find the index to be outdated ("download.file errors: [...]  cannot open URL"),
 check in the [latest commits](https://github.com/brry/rdwd/commits/master) 
 if the github development version already has an updated index (install with `r helplink("updateRdwd")`).  
