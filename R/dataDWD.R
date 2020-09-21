@@ -221,7 +221,7 @@ if(any(iserror))
   msg2 <- berryFunctions::truncMessage(msg2, ntrunc=15, prefix="", midfix="", altnix="", sep="\n")
   if(any(substr(url[iserror], 1, 4) != "ftp:"))
      msg2 <- paste0(msg2, "\n- dataDWD needs urls starting with 'ftp://'. You can use joinbf=TRUE for relative links.")
-  if(grepl("cannot open URL", msg2))
+  if(grepl("cannot open URL", msg2) || grepl("Kann URL .* nicht", msg2))
      msg2 <- paste0(msg2, "\n- If files have been renamed on the DWD server, ",
                     "see   https://bookdown.org/brry/rdwd/fileindex.html")
   msg <- paste0(msg, msg2)
