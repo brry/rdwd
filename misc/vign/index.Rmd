@@ -351,6 +351,13 @@ The default is `fread=NA`, which checks for availability of the R package `data.
 
 On Windows, the system command `unzip` is not available by default, only through e.g. a git shell or Rtools ([source](https://salesforce.stackexchange.com/questions/257846/unzip-is-not-recognized-as-an-internal-or-external-command)).  
 If needed, **install [Rtools](https://cran.r-project.org/bin/windows/Rtools)** _(directly at C:/Rtools since compiler paths may not have spaces, as there would be with C:/Program Files/R/Rtools/)_.  
+
+You might then need to add something like `C:/rtools40/usr/bin` to PATH, e.g. with the R code
+```{r rtoolspath, eval=FALSE}
+writeLines('PATH="${RTOOLS40_HOME}\\usr\\bin;${PATH}"', con = "~/.Renviron")
+```
+and then restart R (CTRL + SHIFT + F10 should suffice).
+
 Check the availability of `unzip` with
 ```{r unziploc, eval=FALSE}
 Sys.which("unzip") # gives me c:\\Rtools\\bin\\unzip.exe
