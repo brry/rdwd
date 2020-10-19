@@ -39,6 +39,7 @@ Vsrc <- split(unname(Vsrc),colnames(Vsrc)) # transform matrix to list
 output <- data.frame(Version=c(Vinst$Version, Vsrc$Version),
                         Date=c(Vinst$Date,    Vsrc$Date))
 rownames(output) <- paste0(pack,"_",c("Locally_installed", "Github_latest"))
+if(anyNA(output$Date)) stop("Date field is missing, cannot be compared.")
 # install if outdated:
 doinst <-  compareVersion(Vsrc$Version, Vinst$Version)==1   |   Vsrc$Date > Vinst$Date
 if(!doinst)
