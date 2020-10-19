@@ -45,7 +45,7 @@ doinst <-  compareVersion(Vsrc$Version, Vinst$Version)==1   |   Vsrc$Date > Vins
 if(!doinst)
 {
 if(!quiet) message(pack, " is up to date, compared to github.com/",repo,
-         ". Version ", Vsrc$Version, " (", Vsrc$Date,")")
+         ". Version ", Vinst$Version, " (", Vinst$Date,")")
 return(invisible(output))
 }
 if(!quiet) message(pack, " local version ", Vinst$Version, " (", Vinst$Date,
