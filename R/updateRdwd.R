@@ -40,7 +40,7 @@ output <- data.frame(Version=c(Vinst$Version, Vsrc$Version),
                         Date=c(Vinst$Date,    Vsrc$Date))
 rownames(output) <- paste0(pack,"_",c("Locally_installed", "Github_latest"))
 # install if outdated:
-doinst <-  Vsrc$Version > Vinst$Version   |   Vsrc$Date > Vinst$Date
+doinst <-  compareVersion(Vsrc$Version, Vinst$Version)==1   |   Vsrc$Date > Vinst$Date
 if(!doinst)
 {
 if(!quiet) message(pack, " is up to date, compared to github.com/",repo,
