@@ -162,7 +162,7 @@ if(!isTRUE(meta)) return(invisible(fileIndex))
 # metaIndex --------------------------------------------------------------------
 # select Beschreibung_.txt files only:
 sel <- grepl('.txt$', fileIndex$path)
-sel <- sel & grepl("Beschreibung", fileIndex$path)
+sel <- sel & grepl("Beschreibung_Stationen", fileIndex$path)
 # sel <- sel & fileIndex$res != "subdaily" # has different columns
 #sel <- sel & fileIndex$res %in% c("monthly","daily","hourly")
 # manual correction March 2018 for duplicate description files:
