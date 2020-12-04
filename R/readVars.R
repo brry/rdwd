@@ -9,7 +9,8 @@
 #' @return data.frame of the desired dataset,
 #'         or a named list of data.frames if length(file) > 1.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jun 2018
-#' @seealso [dataDWD()], [readDWD()], [`dwdparams`], [newColumnNames()]
+#' @seealso [dataDWD()], [readDWD()], [`dwdparams`], [newColumnNames()]\cr
+#'          [readMeta()] for complete  `Metadaten_Parameter` file.
 #' @keywords file
 #' @importFrom utils read.table unzip
 #' @importFrom berryFunctions checkFile na9 traceCall
@@ -22,6 +23,8 @@
 #' @param file    Char (vector): name(s) of the file(s) downloaded with [dataDWD()],
 #'                e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip"
 #' @param params  data.frame: Parameter explanations. DEFAULT: [`dwdparams`]
+#' @param quiet   Suppress message about non-abbreviated parameters?
+#'                DEFAULT: FALSE through [rdwdquiet()]
 #' @param progbar Logical: present a progress bar with estimated remaining time?
 #'                If missing and length(file)==1, progbar is internally set to FALSE.
 #'                DEFAULT: TRUE
@@ -29,6 +32,7 @@
 readVars <- function(
 file,
 params=dwdparams,
+quiet=rdwdquiet(),
 progbar=TRUE
 )
 {
@@ -67,7 +71,7 @@ rownames(tab) <- NULL
 # Merge with short variable descriptions:
 tab2 <- merge(params, tab, all.y=TRUE)
 kurzna <- is.na(tab2$Kurz)
-if(any(kurzna)) warning(traceCall(3, "", ": "), "The following entries are not",
+if(any(kurzna) && !quiet) warning(traceCall(3, "", ": "), "The following entries are not",
                         " abbreviated yet: ", toString(tab2$Parameter[kurzna]),
                         "\nThis occurs in '", fn, "/Metadaten_Parameter*.txt'.",
                         "\nPlease inform berry-b@gmx.de so this can be included!\n",

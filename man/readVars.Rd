@@ -4,13 +4,16 @@
 \alias{readVars}
 \title{Process data from the DWD CDC FTP Server}
 \usage{
-readVars(file, params = dwdparams, progbar = TRUE)
+readVars(file, params = dwdparams, quiet = rdwdquiet(), progbar = TRUE)
 }
 \arguments{
 \item{file}{Char (vector): name(s) of the file(s) downloaded with \code{\link[=dataDWD]{dataDWD()}},
 e.g. "~/DWDdata/tageswerte_KL_02575_akt.zip"}
 
 \item{params}{data.frame: Parameter explanations. DEFAULT: \code{\link{dwdparams}}}
+
+\item{quiet}{Suppress message about non-abbreviated parameters?
+DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
 \item{progbar}{Logical: present a progress bar with estimated remaining time?
 If missing and length(file)==1, progbar is internally set to FALSE.
@@ -32,7 +35,8 @@ is read, processed and returned as a data.frame.\cr
 
 }
 \seealso{
-\code{\link[=dataDWD]{dataDWD()}}, \code{\link[=readDWD]{readDWD()}}, \code{\link{dwdparams}}, \code{\link[=newColumnNames]{newColumnNames()}}
+\code{\link[=dataDWD]{dataDWD()}}, \code{\link[=readDWD]{readDWD()}}, \code{\link{dwdparams}}, \code{\link[=newColumnNames]{newColumnNames()}}\cr
+\code{\link[=readMeta]{readMeta()}} for complete  \code{Metadaten_Parameter} file.
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Jun 2018
