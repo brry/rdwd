@@ -109,6 +109,12 @@ return(output)
 
 # dwdparams --------------------------------------------------------------------
 
+# updateIndexes will add new rows with NA for Kurz in 'misc/params.txt'
+# Copy that to 'misc/params.xlsx', sheet 'input'.
+# Add the Kurz entries there manually.
+# Copy the 'output' sheet below here.
+# Remove the 0 0 row at the end.
+
 #' @title DWD parameter explanations
 #' @description Short German parameter explanations for the DWD abbreviations
 #' on the CDC FTP server.\cr

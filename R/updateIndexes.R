@@ -146,16 +146,15 @@ rv_df <- berryFunctions::sortDF(rv_df, "Kurz", decreasing=FALSE)
 colnames(rv_df)[1] <- "Parameter"
 write.table(rv_df, "misc/params.txt", sep="\t", quote=F, row.names=F)
 message("- Copy content of 'misc/params.txt' to 'params.xlsx'.
-- Manually add'Kurz' entries.
-- Copy to dwdparams in R/readVars.R")
+- Manually add 'Kurz' entries.
+- Copy sheet 'output' to dwdparams in R/readVars.R")
 }
 #
 # check for duplicates:
-dupli <- rv[sapply(rv, function(x) sum(duplicated(x[,"Kurz"]))>0)]
-if(length(dupli)!=0) print(dupli)
-# check for new entries:
-new <- which(sapply(rv, function(x)any(!x$Par %in% dwdparams$Parameter)))
-if(length(new)!=0) print(new)
+dupli <- sapply(rv, function(x) sum(duplicated(x[,"Kurz"]))>0)
+if(any(dupli)) message("Duplicate Kurz entries in:\n-", 
+                       truncMessage(names(dupli)[dupli], prefix="", sep="\n- ", ntrunc=8))
+
 
 
 # Final messages ----
