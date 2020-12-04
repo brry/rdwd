@@ -1,26 +1,37 @@
 
-checkIndex results at 2020-09-21 22:44:04 for
+checkIndex results at 2020-12-04 01:17:39 for
 ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate
-File 'data/fileIndex.rda' was last modified 2020-09-21 22:41:41
+File 'data/fileIndex.rda' was last modified 2020-12-04 01:09:16
 Call stack: runLocalTests -> checkIndex
 -------
 IDs with duplicate files:
+-  1 at annual/kl/historical;  '7393'
 -  55 at daily/more_precip/historical;  21, 23, 317, 494, 524, 564, 650, 699, 753, 898  (and 45 more)
--  2 at monthly/kl/historical;  1568, 1762
+-  10 at daily/weather_phenomena/historical;  888, 1691, 2629, 2985, 3166, 3513, 3666, 4373, 4464, 5705
+-  3 at hourly/dew_point/historical;  3093, 3348, 5822
+-  3 at hourly/sun/historical;  2522, 3093, 5822
+-  77 at hourly/weather_phenomena/historical;  3, 348, 554, 656, 662, 691, 701, 704, 891, 953  (and 67 more)
+-  2 at hourly/wind/historical;  2522, 3093
+-  4 at monthly/kl/historical;  1568, 1762, 3093, 5822
+-  1 at monthly/more_precip/historical;  '2970'
 Duplicate 'Beschreibung' files:
-- 10_minutes/extreme_wind/now/_Beschreibung_Stationen.txt
-- 10_minutes/extreme_wind/now/zehn_now_fx_Beschreibung_Stationen.txt
-- 10_minutes/precipitation/now/_Beschreibung_Stationen.txt
-- 10_minutes/precipitation/now/zehn_now_rr_Beschreibung_Stationen.txt
-- 10_minutes/wind_test/now/_Beschreibung_Stationen.txt
-- 10_minutes/wind_test/now/zehn_now_ffs_Beschreibung_Stationen.txt
+- 1_minute/precipitation/now/_Beschreibung_Stationen.txt
+- 1_minute/precipitation/now/ein_now_rr_Beschreibung_Stationen.txt
+Elevation differences >2.1m:
+- ID=1214: 64x431m, 1x440m
+- ID=6257: 19x723m, 1x720m
+- ID=2712: 90x428m, 1x443m
+- ID=3192: 17x506m, 1x501m
+- ID=4712: 19x428m, 1x419m
+- ID=4850: 19x779m, 1x782m
+- ID=5664: 61x296m, 1x291m
+Location differences >40m:
+- ID=2712: 90x47.6952_9.1307, 1x47.6774_9.19
+- ID=4548: 59x50.1847_12.0791, 1x50.2047_12.1435
 Different names per id:
-- ID=15526: 30xHamburg (Deutsche Seewarte), 1xHamburg(Seewarte)
+- ID=4548: 59xSchoenwald/Ofr.-Brunn, 1xSelb/Oberfranken-Lauterbach
 Coordinates used for more than one station:
-- 13.3833_52.5333: 10x ID=408 (Berlin-Invalidenstrasse), 16x ID=422 (Berlin-Mitte)
 - 7.5833_51.0167: 6x ID=1895 (Gummersbach), 2x ID=3601 (Niedersessmar)
 - 10.4333_51.8: 6x ID=107 (Altenau (A)), 6x ID=3973 (Polsterberg)
-- 6.15_51.6: 16x ID=2798 (Laarbruch), 6x ID=5386 (Weeze-Hees)
-
-
+- 6.15_51.6: 20x ID=2798 (Laarbruch), 6x ID=5386 (Weeze-Hees)
 
