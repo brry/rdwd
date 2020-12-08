@@ -33,7 +33,7 @@ To use a current / custom index, see the source code of
 \url{https://github.com/brry/rdwd/blob/master/R/updateIndexes.R}.
 DEFAULT: \code{\link{formatIndex}}}
 
-\item{quiet}{Suppress subfunction name message?
+\item{quiet}{Ignored.
 DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
 \item{\dots}{Further arguments passed to \code{\link[=read.fwf]{read.fwf()}} or \code{\link[readr:read_fwf]{readr::read_fwf()}}}

@@ -10,7 +10,7 @@ readDWD.meta(file, quiet = rdwdquiet(), ...)
 \item{file}{Name of file on harddrive, like e.g.
 DWDdata/daily_kl_recent_KL_Tageswerte_Beschreibung_Stationen.txt}
 
-\item{quiet}{Suppress subfunction name message?
+\item{quiet}{Ignored.
 DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
 \item{\dots}{Further arguments passed to \code{\link[=read.fwf]{read.fwf()}}}

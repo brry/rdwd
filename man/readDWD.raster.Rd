@@ -25,7 +25,7 @@ DEFAULT gargs: NULL}
 \item{dividebyten}{Logical: Divide the numerical values by 10?
 DEFAULT: TRUE}
 
-\item{quiet}{Suppress subfunction name message?
+\item{quiet}{Ignored.
 DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
 \item{\dots}{Further arguments passed to \code{\link[raster:raster]{raster::raster()}}}

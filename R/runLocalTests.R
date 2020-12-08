@@ -91,6 +91,14 @@ time_diff <- as.numeric(diff(air_temperature$MESS_DATUM[1:10]))
 testthat::expect_equal(time_diff, rep(10,9))
 })
 
+testthat::test_that("readDWD messages subfunctions correctly", {
+link <- c(selectDWD("Potsdam", res="daily", var="kl", per="hr"),
+          selectDWD("", "daily", "kl", "h", meta=TRUE))
+file <- dataDWD(link, read=FALSE, dir=dir_data)
+testthat::expect_message(readDWD(file), 
+  "Reading 3 files with readDWD.data (2) / readDWD.meta (1) and fread=TRUE ...", fixed=TRUE)
+})
+
 
 # readRadarFile ----
 

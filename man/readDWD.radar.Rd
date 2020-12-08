@@ -28,7 +28,7 @@ to a list with data (\code{\link[raster:stack]{raster::stack}}) +
 meta (list from the first subfile, but with vector of dates)?
 DEFAULT: TRUE}
 
-\item{quiet}{Suppress subfunction name message?
+\item{quiet}{Ignored.
 DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
 \item{\dots}{Further arguments passed to \code{\link[dwdradar:readRadarFile]{dwdradar::readRadarFile()}},

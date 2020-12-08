@@ -29,8 +29,7 @@ DEFAULT: "" (last variable)}
 All further arguments will be ignored. Specify e.g. \code{var}
 through \dots as \code{varname}. DEFAULT: TRUE}
 
-\item{quiet}{Logical: Suppress Suppress subfunction name message and
-time conversion failure warning?
+\item{quiet}{Logical: Suppress time conversion failure warning?
 DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
 \item{\dots}{Further arguments passed to \code{\link[raster:brick]{raster::brick()}} or \code{\link[ncdf4:nc_open]{ncdf4::nc_open()}}}

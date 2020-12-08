@@ -24,7 +24,7 @@ DEFAULT: "latin1" (needed on Linux, optional but not hurting on windows)}
 DEFAULT: "\\032" (needed 2019-04 to ignore the binary
 control character at the end of multi_annual files)}
 
-\item{quiet}{Suppress subfunction name message?
+\item{quiet}{Ignored.
 DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
 \item{\dots}{Further arguments passed to \code{\link[=read.table]{read.table()}}}
