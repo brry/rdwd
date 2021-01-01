@@ -71,7 +71,7 @@ load(system.file("extdata/DEU.rda", package="rdwd"), envir=environment())
 #' Obtained with the code: \cr
 #' ```
 #' EUR <- rworldmap::getMap("low")
-#' EUR <- raster::crop(EUR, c(-5,25, 40,60))
+#' EUR <- raster::crop(EUR, c(-11,25, 40,60))
 #' raster::plot(EUR)
 #' save(EUR,        file="inst/extdata/EUR.rda", version=2)
 #' tools::resaveRdaFiles("inst/extdata/EUR.rda", version=2)
