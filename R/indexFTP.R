@@ -132,8 +132,8 @@ if(progbar) lapply <- pbapply::pblapply
 curl_handle <- RCurl::getCurlHandle(ftp.use.epsv=TRUE)
 
 # remove trailing slashes in base and leading slashes in folder:
-while(grepl("/$", base)) base <- sub("/$", "", base)
-while(any(grepl("^/", folder))) folder <- sub("^/","",folder)
+base <- sub("/+$", "", base)
+folder <- sub("^/+","",folder)
 
 # central object: df_ff (dataframe with file/folder names)
 df_ff <- data.frame(path=folder, isfile=FALSE, stringsAsFactors=FALSE)

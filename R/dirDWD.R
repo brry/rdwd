@@ -22,7 +22,7 @@ quiet=rdwdquiet()
 {
 dir <- dir[1]
 # Remove trailing slashes to avoid Windows warning in dir.create(dir): 'folder' already exists
-while(grepl("/$", dir))  dir <- sub("/$","",dir)
+dir <- sub("[/|\\]+$", "", dir)
 if(dir=="")
   {
   if(!quiet) message(traceCall(1, "", ": "), "no directory is created, getwd remains at '", getwd(), "'")
