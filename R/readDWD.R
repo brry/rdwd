@@ -141,6 +141,7 @@ if(type[i]=="raster") return(readDWD.raster(file[i], quiet=quiet, dividebyten=di
 if(type[i]=="nc")     return(readDWD.nc(    file[i], quiet=quiet, var=var[i], ...))
 if(type[i]=="radar")  return(readDWD.radar( file[i], quiet=quiet, ...))
 if(type[i]=="asc")    return(readDWD.asc(   file[i], quiet=quiet, progbar=progbar, dividebyten=dividebyten[i], ...))
+if(type[i]=="grib2")  return(readDWD.grib2( file[i], quiet=quiet, ...))
 if(type[i]=="data")   return(readDWD.data(  file[i], quiet=quiet, fread=fread[i], varnames=varnames[i], format=format[i], tz=tz[i], ...))
 stop("invalid type (",type[i],") given for file '",file[i],"'. See  ?fileType")
 }) # lapply loop end
@@ -967,4 +968,61 @@ dat <- raster::stack(dat)
 #
 # output:
 return(invisible(dat))
+}
+
+
+
+# ~ grib2 ----
+
+#' @title read nwp forecast data
+#' @description read gridded numerical weather prediction data.
+#' Intended to be called via [readDWD()].\cr
+#' @return rgdal or raster object, depending on `toraster`
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jan 2021.
+#' @seealso [readDWD()]\cr
+#' <https://www.dwd.de/EN/ourservices/nwp_forecast_data/nwp_forecast_data.html>\cr
+#' <https://www.dwd.de/EN/aboutus/it/functions/Teasergroup/grib.html>\cr
+#' @examples
+#' \dontrun{ # Excluded from CRAN checks, but run in localtests
+#' nwp_t2m_base <- "ftp://ftp-cdc.dwd.de/weather/nwp/cosmo-d2/grib/00/t_2m/"
+#' nwp_urls <- indexFTP("", base=nwp_t2m_base, dir=tempdir())
+#' nwp_file <- dataDWD(nwp_urls[6], base=nwp_t2m_base, dir=tempdir(),
+#'                     joinbf=TRUE, dbin=TRUE, read=FALSE)
+#' nwp_data <- readDWD(nwp_file, quiet=TRUE)
+#' plotRadar(nwp_data, project=FALSE)
+#' 
+#' nwp_data_rgdal <- readDWD(nwp_file, toraster=FALSE)
+#' sp::plot(nwp_data_rgdal)
+#' 
+#' }
+#' @param file      Name of file on harddrive, like e.g.
+#'                  cosmo-d2_germany_regular-lat-lon_single-level_2021010100_005_T_2M.grib2.bz2
+#' @param bargs     Named list of arguments passed to
+#'                  [R.utils::bunzip2()], see `gargs` in [readDWD.raster()]. DEFAULT: NULL
+#' @param toraster  Logical: convert [rgdal::readGDAL] output with [raster::raster()]?
+#'                  DEFAULT: TRUE
+#' @param quiet     Silence readGDAL completely, including warnings on 
+#'                  discarded ellps / datum. 
+#'                  DEFAULT: FALSE through [rdwdquiet()]
+#' @param \dots     Further arguments passed to [rgdal::readGDAL()],
+readDWD.grib2 <- function(file, bargs=NULL, toraster=TRUE, quiet=rdwdquiet(), ...)
+{
+checkSuggestedPackage("R.utils", "rdwd:::readDWD.grib2")
+checkSuggestedPackage("rgdal"  , "rdwd:::readDWD.grib2")
+# bunzip arguments:
+bdef <- list(filename=file, remove=FALSE, skip=TRUE)
+bfinal <- berryFunctions::owa(bdef, bargs, "filename")
+# unzip:
+bdata <- do.call(R.utils::bunzip2, bfinal)
+# rgdal reading:
+out <- if(!quiet)    rgdal::readGDAL(bdata,              ...) else
+    suppressWarnings(rgdal::readGDAL(bdata, silent=TRUE, ...))
+# conversion to raster:
+if(toraster) 
+  {
+  checkSuggestedPackage("raster", "rdwd:::readDWD.grib2 with toraster=TRUE")
+  out <- raster::raster(out)
+  }
+# Output:
+return(invisible(out))
 }

@@ -512,6 +512,22 @@ rad <- readDWD(file)
 pp <- project_and_plot(rad$dat, ".radar RQ", rad$meta$date)
 ```
 
+## readDWD.grib2
+`r helplink("readDWD.grib2")` - since version 1.4.12 (2021-01-01)
+```{r readDWD_grib2}
+
+
+#' nwp_file <- dataDWD(nwp_urls[6], base=nwp_t2m_base, dir=tempdir(),
+#'                     joinbf=TRUE, dbin=TRUE, read=FALSE)
+#' nwp_data <- readDWD(nwp_file, quiet=TRUE)
+#' plotRadar(nwp_data, project=FALSE)
+#' 
+nwpbase <- "ftp://ftp-cdc.dwd.de/weather/nwp/cosmo-d2/grib/00/t_2m"
+links <- indexFTP("", base=nwpbase, dir=tdir)
+file <- dataDWD(links[6], base=nwpbase, joinbf=TRUE, dir=tdir, read=FALSE)
+forecast <- readDWD(file)
+pp <- project_and_plot(forecast, ".grib2", Sys.Date(), project=FALSE)
+```
 
 ## binary file errors
 Binary files must be downloaded by `download.file` with wb=TRUE (at least on Windows, due to CRLF issues).

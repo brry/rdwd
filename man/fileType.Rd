@@ -38,6 +38,8 @@ Click on the \code{type} for the subfunction documentation, e.g. \link[=readDWD.
    \link[=readDWD.nc]{nc} \tab .nc.gz \tab For netcdf files. \cr
     \tab  \tab  \cr
    \link[=readDWD.asc]{asc} \tab .tar \tab For a \code{file} containing asc files. \cr
+    \tab  \tab  \cr
+   \link[=readDWD.grib2]{grib2} \tab .grib2.bz2 \tab For an nwp forecast \code{file}. \cr
 }
 }
 \examples{
@@ -53,6 +55,7 @@ raster  16_DJF_grids_germany_seasonal_air_temp_mean_188216.asc.gz
 nc      daily_Project_TRY_humidity_RH_199509_daymean.nc.gz
 radar   radolan_recent_bin_raa01-rw_10000-1802020250-dwd---bin.gz
 asc     radolan_historical_asc_2018_RW-201809.tar
+grib2   ftp_weather_nwp_cosmo-d2_005_T_2M.grib2.bz2
 ")
 fileType(ft$filename)
 
