@@ -12,16 +12,7 @@ DWDdata/hourly/radolan/recent/bin/
 raa01-rw_10000-1802020250-dwd---bin.gz}
 
 \item{gargs}{Named list of arguments passed to
-\code{\link[R.utils:compressFile]{R.utils::gunzip()}}. The internal
-defaults are: \code{remove=FALSE} (recommended to keep this
-so \code{file} does not get deleted) and \code{skip=TRUE}
-(which reads previously unzipped files as is).
-If \code{file} has changed, you might want to use
-\code{gargs=list(skip=FALSE, overwrite=TRUE)}
-or alternatively \code{gargs=list(temporary=TRUE)}.
-The \code{gunzip} default \code{destname} means that the
-unzipped file is stored at the same path as \code{file}.
-DEFAULT gargs: NULL}
+\code{\link[R.utils:compressFile]{R.utils::gunzip()}}, see \code{\link[=readDWD.raster]{readDWD.raster()}}. DEFAULT: NULL}
 
 \item{toraster}{Logical: convert output (list of matrixes + meta informations)
 to a list with data (\code{\link[raster:stack]{raster::stack}}) +

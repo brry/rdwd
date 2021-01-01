@@ -840,16 +840,7 @@ return(invisible(list(time=time, lat=LAT, lon=LON, var=VAR, varname=var,
 #'                  DWDdata/hourly/radolan/recent/bin/
 #'                  raa01-rw_10000-1802020250-dwd---bin.gz
 #' @param gargs     Named list of arguments passed to
-#'                  [R.utils::gunzip()]. The internal
-#'                  defaults are: `remove=FALSE` (recommended to keep this
-#'                  so `file` does not get deleted) and `skip=TRUE`
-#'                  (which reads previously unzipped files as is).
-#'                  If `file` has changed, you might want to use
-#'                  `gargs=list(skip=FALSE, overwrite=TRUE)`
-#'                  or alternatively `gargs=list(temporary=TRUE)`.
-#'                  The `gunzip` default `destname` means that the
-#'                  unzipped file is stored at the same path as `file`.
-#'                  DEFAULT gargs: NULL
+#'                  [R.utils::gunzip()], see [readDWD.raster()]. DEFAULT: NULL
 #' @param toraster  Logical: convert output (list of matrixes + meta informations)
 #'                  to a list with data ([`raster::stack`]) +
 #'                  meta (list from the first subfile, but with vector of dates)?
