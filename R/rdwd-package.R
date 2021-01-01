@@ -19,6 +19,7 @@
 #'          World data: [Global Surface Summary of the Day](https://ropensci.org/blog/blog/2017/04/04/gsodr)\cr
 #'          Dutch data (Netherlands): <https://github.com/bvhest/KNMIr>\cr
 #'          Canadian data: <https://cran.r-project.org/package=weathercan>\cr
+#'          UK data website <https://www.metoffice.gov.uk/climate/uk/data>\cr
 #' @section Searchability Terms:
 #' Weather Data Germany download with R, Climate Data Germany\cr
 #' Deutscher Wetterdienst R Daten download Klimastationen\cr

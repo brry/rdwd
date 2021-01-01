@@ -30,6 +30,7 @@ USA data: \href{https://www.rdocumentation.org/packages/countyweather}{countywea
 World data: \href{https://ropensci.org/blog/blog/2017/04/04/gsodr}{Global Surface Summary of the Day}\cr
 Dutch data (Netherlands): \url{https://github.com/bvhest/KNMIr}\cr
 Canadian data: \url{https://cran.r-project.org/package=weathercan}\cr
+UK data website \url{https://www.metoffice.gov.uk/climate/uk/data}\cr
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}
