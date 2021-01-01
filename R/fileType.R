@@ -57,7 +57,7 @@
 #'
 fileType <- function(file)
 {
-out <- rep("", length(file))
+out <- rep("fileTypeError", length(file))
 out[grepl(          ".zip$", file)] <- "data"
 out[grepl(          ".txt$", file)] <- "meta"
 out[grepl(  "Standort.txt$", file)] <- "multia"
@@ -69,8 +69,8 @@ out[grepl(       ".asc.gz$", file)] <- "raster"
 out[grepl(        ".nc.gz$", file)] <- "nc"
 out[grepl(          ".tar$", file)] <- "asc"
 
-if(any(out=="")) warning("fileType failed for the following file", 
-                         truncMessage(file[out==""], midfix=": "))
+if(any(out=="fileTypeError")) warning("fileType failed for the following file", 
+             truncMessage(file[out=="fileTypeError"], midfix=": "), call.=FALSE)
 
 return(out)
 }
