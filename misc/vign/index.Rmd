@@ -514,14 +514,7 @@ pp <- project_and_plot(rad$dat, ".radar RQ", rad$meta$date)
 
 ## readDWD.grib2
 `r helplink("readDWD.grib2")` - since version 1.4.12 (2021-01-01)
-```{r readDWD_grib2}
-
-
-#' nwp_file <- dataDWD(nwp_urls[6], base=nwp_t2m_base, dir=tempdir(),
-#'                     joinbf=TRUE, dbin=TRUE, read=FALSE)
-#' nwp_data <- readDWD(nwp_file, quiet=TRUE)
-#' plotRadar(nwp_data, project=FALSE)
-#' 
+```{r readDWD_grib2, fig.width=6, fig.height=5}
 nwpbase <- "ftp://ftp-cdc.dwd.de/weather/nwp/cosmo-d2/grib/00/t_2m"
 links <- indexFTP("", base=nwpbase, dir=tdir)
 file <- dataDWD(links[6], base=nwpbase, joinbf=TRUE, dir=tdir, read=FALSE)
@@ -820,7 +813,7 @@ leaflet(data=mygeoIndex) %>% addTiles() %>%
 For a static map with scaleBar, OSMscale works nicely but has a Java dependency, see
 <https://github.com/brry/OSMscale#installation>
 
-```{r hourlyrain_map_static, message=FALSE, fig.height=2, fig.width=6}
+```{r hourlyrain_map_static, message=FALSE, fig.height=2, fig.width=6, warning=FALSE}
 library(OSMscale)
 pointsMap("lat", "lon", mygeoIndex, fx=2, fy=1, pargs=list(lwd=3), 
                     col="blue", zoom=5)
@@ -888,7 +881,7 @@ textField(prec29$geoLaenge, prec29$geoBreite, prec29$precsum, col=2)
 
 But it's nicer to have an actual map.
 If OSMscale installation fails, go to <https://github.com/brry/OSMscale#installation>
-```{r rainregion_static_map, message=FALSE, fig.height=4.1, fig.width=4}
+```{r rainregion_static_map, message=FALSE, fig.height=4.1, fig.width=4, warning=FALSE}
 library(OSMscale)
 map <- pointsMap(geoBreite,geoLaenge, data=m, type="osm", plot=FALSE)
 pp <- projectPoints("geoBreite", "geoLaenge", data=prec29, to=map$tiles[[1]]$projection)

@@ -1,5 +1,5 @@
 
-checkIndex results at 2020-12-04 01:17:39 for
+checkIndex results at 2021-01-02 02:13:45 for
 ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate
 File 'data/fileIndex.rda' was last modified 2020-12-04 01:09:16
 Call stack: runLocalTests -> checkIndex
@@ -17,6 +17,14 @@ IDs with duplicate files:
 Duplicate 'Beschreibung' files:
 - 1_minute/precipitation/now/_Beschreibung_Stationen.txt
 - 1_minute/precipitation/now/ein_now_rr_Beschreibung_Stationen.txt
+- hourly/weather_phenomena/historical/Wetter_Beschreibung.txt
+- hourly/weather_phenomena/historical/WW_Stundenwerte_Beschreibung_Stationen.txt
+- hourly/weather_phenomena/recent/Wetter_Beschreibung.txt
+- hourly/weather_phenomena/recent/WW_Stundenwerte_Beschreibung_Stationen.txt
+- subdaily/extreme_wind/historical/FX3_Terminwerte_Beschreibung_Stationen.txt
+- subdaily/extreme_wind/historical/FX6_Terminwerte_Beschreibung_Stationen.txt
+- subdaily/extreme_wind/recent/FX3_Terminwerte_Beschreibung_Stationen.txt
+- subdaily/extreme_wind/recent/FX6_Terminwerte_Beschreibung_Stationen.txt
 Elevation differences >2.1m:
 - ID=1214: 64x431m, 1x440m
 - ID=6257: 19x723m, 1x720m
@@ -29,9 +37,33 @@ Location differences >40m:
 - ID=2712: 90x47.6952_9.1307, 1x47.6774_9.19
 - ID=4548: 59x50.1847_12.0791, 1x50.2047_12.1435
 Different names per id:
+- ID=427: 87xBerlin Brandenburg, 1xBerlin-Schoenefeld
+- ID=15526: 30xHamburg (Deutsche Seewarte), 1xHamburg(Seewarte)
 - ID=4548: 59xSchoenwald/Ofr.-Brunn, 1xSelb/Oberfranken-Lauterbach
 Coordinates used for more than one station:
+- 13.3833_52.5333: 10x ID=408 (Berlin-Invalidenstrasse), 16x ID=422 (Berlin-Mitte)
+- 13.5306_52.3807: 88x ID=427 (Berlin-Schoenefeld), 88x ID=427 (Berlin Brandenburg)
 - 7.5833_51.0167: 6x ID=1895 (Gummersbach), 2x ID=3601 (Niedersessmar)
 - 10.4333_51.8: 6x ID=107 (Altenau (A)), 6x ID=3973 (Polsterberg)
 - 6.15_51.6: 20x ID=2798 (Laarbruch), 6x ID=5386 (Weeze-Hees)
+
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/dataDWD.Rd -- 2021-01-02 02:17:57
+
+List of 8
+ $ Metadaten_Fehl--_05856_--.txt:'data.frame':	7 obs. of  9 variables:
+ $ Metadaten_Fehl--_05856_--.txt:'data.frame':	4 obs. of  9 variables:
+ $ Metadaten_Fehlwerte_Gesamt_05856.txt           :'data.frame':	2 obs. of  9 variables:
+ $ Metadaten_Geographie_05856.txt                 :'data.frame':	3 obs. of  7 variables:
+ $ Metadaten_Geraete_Windgeschwindigkeit_05856.txt:'data.frame':	3 obs. of  12 variables:
+ $ Metadaten_Geraete_Windrichtung_05856.txt       :'data.frame':	3 obs. of  12 variables:
+ $ Metadaten_Parameter_ff_stunde_05856.txt        :'data.frame':	8 obs. of  13 variables:
+ $ Metadaten_Stationsname_05856.txt               :'data.frame':	1 obs. of  4 variables:
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/fileType.Rd -- 2021-01-02 02:18:00
+
+Warning: fileType failed for the following file: 'random_stuff.odt'
+
 
