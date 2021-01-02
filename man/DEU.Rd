@@ -13,12 +13,17 @@ Map of German states (Bundeslaender) from GADM through the \code{raster} package
 \details{
 Use directly with:\cr
 \code{load(system.file("extdata/DEU.rda", package="rdwd"))}\cr\cr
-Obtained with the code: \cr\preformatted{DEU1 <- raster::getData("GADM", country="DEU", level=1)
-DEU <- rgeos::gSimplify(DEU1, tol=0.02, topologyPreserve=FALSE)
-raster::plot(DEU1)
-raster::plot(DEU)
-save(DEU,        file="inst/extdata/DEU.rda")
-tools::resaveRdaFiles("inst/extdata/DEU.rda")
+Obtained with the code: \cr\preformatted{url <- "https://gisco-services.ec.europa.eu/distribution/v2/nuts/shp/NUTS_RG_03M_2021_4326_LEVL_1.shp.zip"
+tf <- tempfile(fileext=".zip")
+download.file(url, tf) # 0.9 MB
+unzip(tf, exdir="misc/vign") ; rm(url, tf)
+
+DEU <- raster::shapefile("misc/vign/NUTS_RG_03M_2021_4326_LEVL_1.shp")
+DEU <- DEU[DEU$CNTR_CODE=="DE","NUTS_NAME"]
+raster::plot(DEU) ; axis(1, line=-1) ; axis(2, line=-1)
+
+save(DEU,        file="inst/extdata/DEU.rda", version=2)
+tools::resaveRdaFiles("inst/extdata/DEU.rda", version=2)
 }
 }
 \seealso{
