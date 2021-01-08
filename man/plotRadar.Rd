@@ -23,6 +23,7 @@ plotRadar(
   project = TRUE,
   proj = "radolan",
   extent = "radolan",
+  adjust05 = FALSE,
   targetproj = "ll",
   quiet = rdwdquiet(),
   ...
@@ -75,6 +76,8 @@ used only if \code{project=TRUE}. DEFAULT: "radolan"}
 
 \item{extent}{current extent, see \code{\link[=projectRasterDWD]{projectRasterDWD()}},
 used only if \code{project=TRUE}. DEFAULT: "radolan"}
+
+\item{adjust05}{Logical: Adjust extent by 0.5m to match edges? DEFAULT: FALSE}
 
 \item{targetproj}{target projection, see \code{\link[=projectRasterDWD]{projectRasterDWD()}},
 used only if \code{project=TRUE}. DEFAULT: "ll"}

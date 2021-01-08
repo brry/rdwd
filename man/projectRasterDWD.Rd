@@ -8,6 +8,7 @@ projectRasterDWD(
   r,
   proj = "radolan",
   extent = "radolan",
+  adjust05 = FALSE,
   targetproj = "ll",
   quiet = rdwdquiet()
 )
@@ -26,6 +27,8 @@ DEFAULT: "radolan"}
 Ignored if \code{proj=NULL}. Can be an extent object,
 a vector with 4 numbers, or "radolan" / "rw" / "seasonal" / "nc" with internal defaults.
 DEFAULT: "radolan"}
+
+\item{adjust05}{Logical: Adjust extent by 0.5m to match edges? DEFAULT: FALSE}
 
 \item{targetproj}{\code{r} is reprojected to this \code{\link[raster:projection]{raster::crs()}}.
 Use NULL to not reproject (i.e. only set proj and extent).
