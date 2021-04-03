@@ -70,7 +70,10 @@ quiet=rdwdquiet(),
 # recycle arguments:
 len <- length(file)
 if(missing(progbar) & len==1 & all(type!="binary") & all(type!="asc")) progbar <- FALSE
+
 # fast reading with fread:
+if("data" %in% type)
+{
 if(anyNA(fread))
   {
   haspack <- requireNamespace("data.table", quietly=TRUE)
@@ -88,6 +91,8 @@ if(any(fread))
                                      "Expect trouble with data.table::fread.\n",
                                      "See   https://bookdown.org/brry/rdwd/fread.html")
   }
+} # end fread / unzip checks
+
 if(len>1)
   {
   fread       <- rep(fread,       length.out=len)
@@ -113,7 +118,7 @@ if(!grepl(pattern="german", lct, ignore.case=TRUE))
   for(lc in lctry) if(suppressWarnings(Sys.setlocale("LC_CTYPE", lc))!="") break
   }
 }
-#
+
 # subfunctions message:
 if(!quiet)
 {
@@ -128,7 +133,7 @@ msg <- paste0("Reading ",length(file)," file", if(length(file)>1)"s", " with ",n
 if(any(type=="data")) msg <- paste0(msg, " and fread=",nt(fread,"",""))
 message(msg, " ...")
 }
-#
+
 # loop over each filename
 output <- lapply(seq_along(file), function(i)
 {
@@ -145,7 +150,7 @@ if(type[i]=="grib2")  return(readDWD.grib2( file[i], quiet=quiet, ...))
 if(type[i]=="data")   return(readDWD.data(  file[i], quiet=quiet, fread=fread[i], varnames=varnames[i], format=format[i], tz=tz[i], ...))
 stop("invalid type (",type[i],") given for file '",file[i],"'. See  ?fileType")
 }) # lapply loop end
-#
+
 names(output) <- tools::file_path_sans_ext(basename(file))
 output <- if(length(file)==1) output[[1]] else output
 return(invisible(output))
