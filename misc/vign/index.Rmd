@@ -48,7 +48,7 @@ cat(reme[-c(1,doc)], sep='\n')
 ```
 
 ```{r helplink_macro, echo=FALSE}
-helplink <- function(doc) paste0("[`",doc,"`](https://www.rdocumentation.org/packages/rdwd/topics/",doc,")")
+helplink <- function(doc, topic=doc) paste0("[`",doc,"`](https://www.rdocumentation.org/packages/rdwd/topics/",topic,"){target=\"_blank\"}")
 ```
 
 ```{r lib_rdwd, echo=FALSE}
@@ -70,7 +70,7 @@ print_short <- function(x)
     * temporal resolution (**res** = 1/10 minutes, hourly, daily, monthly, annual)
     * variables (**var** = temperature, rain, wind, sun, clouds, etc)
     * observation period (**per** = historical long term records or the current year)
-  * index of files on the FTP server (`r helplink("fileIndex")`), see chapter [fileIndex](fileindex.html)  
+  * index of files on the FTP server (`r helplink("fileIndex", "index")`), see chapter [fileIndex](fileindex.html)  
 &nbsp;
 
 * `r helplink("nearbyStations")`: alternative to `selectDWD` for a given lat/lon location 
@@ -119,7 +119,7 @@ leaflet(data=geoIndex[geoIndex$recentfile,]) %>% addTiles() %>%
 To request the nonpublic datasets counted in the infobox, please contact <cdc.daten@dwd.de> or <klima.vertrieb@dwd.de>.
 (The DWD cannot publish all datasets because of copyright restrictions).
 
-Note: `r helplink("geoIndex")` is created using `r helplink("createIndex")` in
+Note: `r helplink("geoIndex", "index")` is created using `r helplink("createIndex")` in
 [`updateIndexes`](https://github.com/brry/rdwd/blob/master/R/updateIndexes.R).
 
 
@@ -271,8 +271,8 @@ str(  print_short(bd[bd!=dwdbase])  )
 # fileIndex
 
 `r helplink("indexFTP")` recursively lists all the files on an FTP-server (using `RCurl::getURL`).  
-From those paths, `r helplink("createIndex")` generates `r helplink("fileIndex")` and `r helplink("gridIndex")`.
-It also downloads all (ca 84) description files with metadata and creates `r helplink("metaIndex")` and `r helplink("geoIndex")`.  
+From those paths, `r helplink("createIndex")` generates `r helplink("fileIndex", "index")` and `r helplink("gridIndex", "index")`.
+It also downloads all (ca 84) description files with metadata and creates `r helplink("metaIndex", "index")` and `r helplink("geoIndex", "index")`.  
 All indexes are updated irregularly with the internal function [`updateIndexes`](https://github.com/brry/rdwd/blob/master/R/updateIndexes.R).
 
 `r helplink("selectDWD")` helps to query the `fileIndex`.
@@ -281,7 +281,7 @@ The DWD often (but irregularly) updates or expands datasets, at which point the 
 
 If you find the index to be outdated ("download.file errors: [...]  cannot open URL"),
 check in the [latest commits](https://github.com/brry/rdwd/commits/master) 
-if the github development version already has an updated index (install with `r helplink("updateRdwd")`).  
+if the github development version already has an updated index (install with `r helplink("rdwd::updateRdwd()", "updateRdwd")`).  
 If not, please let me [know](mailto:berry-b@gmx.de) and I will update it. 
 
 Meanwhile, either use current=TRUE in `r helplink("selectDWD")`:
@@ -313,8 +313,8 @@ p <- RCurl::getURL(    "ftp.funet.fi/pub/standards/w3/TR/xhtml11/",
 ## metaIndex
 
 `r helplink("selectDWD")` also uses a complete data.frame with meta information,
-`r helplink("metaIndex")` 
-(derived from the "Beschreibung" files in `r helplink("fileIndex")`).
+`r helplink("metaIndex", "index")` 
+(derived from the "Beschreibung" files in `r helplink("fileIndex", "index")`).
 ```{r meta23, eval=TRUE}
 # All metadata at all folders:
 data(metaIndex)
@@ -400,7 +400,7 @@ For observational data at `r helplink("dwdbase")`,
 For gridded data at [`gridbase`](ftp://opendata.dwd.de/climate_environment/CDC/grids_germany), including 
 data interpolated onto a 1 km raster and radar data up to the last hour, 
 I don't yet understand the structure of the FTP server as well.  
-For now, you'll have to query `r helplink("gridIndex")` yourself, e.g. with
+For now, you'll have to query `r helplink("gridIndex", "index")` yourself, e.g. with
 ```{r, gridIndex, eval=FALSE}
 data(gridIndex)
 head(grep("historical", gridIndex, value=TRUE))
@@ -416,7 +416,7 @@ If you send me examples of how you use it, I can then expand this in `rdwd`.
 For files that are not yet read correctly, you can also consult the 
 Kompositformatbeschreibung at <https://www.dwd.de/DE/leistungen/radolan/radolan.html>
 
-Besides `r helplink("dwdbase")` and [`gridbase`](ftp://opendata.dwd.de/climate_environment/CDC/grids_germany), 
+Besides at `r helplink("dwdbase")` and `r helplink("gridbase", "dwdbase")`, 
 there's yet more data at <ftp://ftp-cdc.dwd.de/weather>.
 
 A helper function to reduce code duplication:
@@ -594,7 +594,7 @@ mtext("Source: Deutscher Wetterdienst", adj=-0.05, line=2.8, font=3)
 # - use case: monthy gridded data
 
 From the [monthly](ftp://ftp-cdc.dwd.de/climate_environment/CDC/grids_germany/monthly) 
-folder at `r helplink("gridbase")`, we want to
+folder at `r helplink("gridbase", "dwdbase")`, we want to
 download .asc.gz files for selected years and open them in R for further processing.
 
 ```{r grid_monthly_index, message=FALSE}
