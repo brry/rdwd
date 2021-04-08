@@ -12,7 +12,7 @@ dataDWD(
   force = FALSE,
   overwrite = FALSE,
   read = TRUE,
-  dbin = FALSE,
+  dbin = TRUE,
   dfargs = NULL,
   sleep = 0,
   progbar = !quiet,
@@ -51,11 +51,10 @@ rather than append "_1"/"_2" etc to the filename? DEFAULT: FALSE}
 only download is performed and the filename(s) returned. DEFAULT: TRUE}
 
 \item{dbin}{Logical: Download binary file, i.e. add \code{mode="wb"} to the
-\code{\link[=download.file]{download.file()}} call? This is needed for .tar files
-(see \code{\link[=readDWD.asc]{readDWD.asc()}}) and binary files like those at
-\href{https://opendata.dwd.de/weather/radar/radolan/rw/}{weather/radar/radolan}.
-This seems to be a CRLF issue on MS Windows.
-DEFAULT: FALSE}
+\code{\link[=download.file]{download.file()}} call?
+See \href{https://bookdown.org/brry/rdwd/raster-data.html#binary-file-errors}{Website}
+for details.
+DEFAULT: TRUE}
 
 \item{dfargs}{Named list of additional arguments passed to \code{\link[=download.file]{download.file()}}
 Note that mode="wb" is already passed if \code{dbin=TRUE}}

@@ -88,11 +88,10 @@
 #' @param read   Logical: read the file(s) with [readDWD()]? If FALSE,
 #'               only download is performed and the filename(s) returned. DEFAULT: TRUE
 #' @param dbin   Logical: Download binary file, i.e. add `mode="wb"` to the
-#'               [download.file()] call? This is needed for .tar files
-#'               (see [readDWD.asc()]) and binary files like those at
-#'               [weather/radar/radolan](https://opendata.dwd.de/weather/radar/radolan/rw/).
-#'               This seems to be a CRLF issue on MS Windows.
-#'               DEFAULT: FALSE
+#'               [download.file()] call? 
+#'               See [Website](https://bookdown.org/brry/rdwd/raster-data.html#binary-file-errors) 
+#'               for details.
+#'               DEFAULT: TRUE
 #' @param dfargs Named list of additional arguments passed to [download.file()]
 #'               Note that mode="wb" is already passed if `dbin=TRUE`
 #' @param sleep  Number. If not 0, a random number of seconds between 0 and
@@ -123,7 +122,7 @@ dir="DWDdata",
 force=FALSE,
 overwrite=FALSE,
 read=TRUE,
-dbin=FALSE,
+dbin=TRUE,
 dfargs=NULL,
 sleep=0,
 progbar=!quiet,

@@ -525,7 +525,10 @@ pp <- project_and_plot(forecast, ".grib2", Sys.Date(), project=FALSE)
 ## binary file errors
 Binary files must be downloaded by `download.file` with wb=TRUE (at least on Windows, due to CRLF issues).
 `download.file` will automatically do that for some file endings (like .gz, .zip).
-For others (e.g. .tar files in [readDWD.asc](https://bookdown.org/brry/rdwd/raster-data.html#readdwd.asc)), `r helplink("dataDWD")` has a dbin=TRUE option.  
+For others (e.g. .tar files in [readDWD.asc](https://bookdown.org/brry/rdwd/raster-data.html#readdwd.asc) 
+or files at [weather/radar/radolan](https://opendata.dwd.de/weather/radar/radolan/rw/)),
+`r helplink("dataDWD")` has a dbin=TRUE option. 
+Since Version 1.4.18 (2021-04-08), the default is `dbin=TRUE`. Report errors [here](https://github.com/brry/rdwd/issues/20) if needed.
 If you do not use this, your plots may look partially shifted like this and have the wrong units (image from 2020-06-16 21:30 CEST):
 ```{r wrong_binary, eval=FALSE}
 url <- "ftp://ftp-cdc.dwd.de/weather/radar/radolan/rw/raa01-rw_10000-latest-dwd---bin"
