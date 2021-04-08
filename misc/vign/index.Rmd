@@ -147,12 +147,12 @@ Please note:
 
 ```{r ftp_folders_1, echo=FALSE}
 library(magrittr)
-suppressPackageStartupMessages(library(huxtable))
+suppressWarnings(suppressPackageStartupMessages(library(huxtable)))
 options(huxtable.bookdown = FALSE) # no captions on tables
 f <- readODS::read_ods("FTP_folders.ods", sheet="folders", col_types=NA)
 fu <- f # f with urls
 for(i in 2:ncol(f)) fu[-1,i] <- ifelse(f[-1,i]=="", " ", 
-    paste0('<a href="',dwdbase,'/',colnames(f)[i],'/',f[-1,1],'">',f[-1,i],'</a>'))
+    paste0('<a href="',dwdbase,'/',colnames(f)[i],'/',f[-1,1],'" target="_blank">',f[-1,i],'</a>'))
 ht <- huxtable::hux(fu, add_colnames=TRUE)
 ht %>%
   # set_label("") %>% 
@@ -417,7 +417,7 @@ For files that are not yet read correctly, you can also consult the
 Kompositformatbeschreibung at <https://www.dwd.de/DE/leistungen/radolan/radolan.html>
 
 Besides at `r helplink("dwdbase")` and `r helplink("gridbase", "dwdbase")`, 
-there's yet more data at <ftp://ftp-cdc.dwd.de/weather>.
+there's yet more data at <ftp://opendata.dwd.de/weather>.
 
 A helper function to reduce code duplication:
 
@@ -515,12 +515,14 @@ pp <- project_and_plot(rad$dat, ".radar RQ", rad$meta$date)
 ## readDWD.grib2
 `r helplink("readDWD.grib2")` - since version 1.4.12 (2021-01-01)
 ```{r readDWD_grib2, fig.width=6, fig.height=5}
-nwpbase <- "ftp://ftp-cdc.dwd.de/weather/nwp/cosmo-d2/grib/00/t_2m"
+nwpbase <- "ftp://opendata.dwd.de/weather/nwp/icon-d2/grib/00/t_2m"
 links <- indexFTP("", base=nwpbase, dir=tdir)
 file <- dataDWD(links[6], base=nwpbase, joinbf=TRUE, dir=tdir, read=FALSE)
-forecast <- readDWD(file)
-pp <- project_and_plot(forecast, ".grib2", Sys.Date(), project=FALSE)
+#forecast <- readDWD(file)
+#pp <- project_and_plot(forecast, ".grib2", Sys.Date(), project=FALSE)
 ```
+grib files are currently [broken](https://github.com/brry/rdwd/issues/28) (2021-04-08) but would look like this:
+<img src="readDWD_grib2-1.png" width="600">
 
 ## binary file errors
 Binary files must be downloaded by `download.file` with wb=TRUE (at least on Windows, due to CRLF issues).
@@ -531,7 +533,7 @@ or files at [weather/radar/radolan](https://opendata.dwd.de/weather/radar/radola
 Since Version 1.4.18 (2021-04-08), the default is `dbin=TRUE`. Report errors [here](https://github.com/brry/rdwd/issues/20) if needed.
 If you do not use this, your plots may look partially shifted like this and have the wrong units (image from 2020-06-16 21:30 CEST):
 ```{r wrong_binary, eval=FALSE}
-url <- "ftp://ftp-cdc.dwd.de/weather/radar/radolan/rw/raa01-rw_10000-latest-dwd---bin"
+url <- "ftp://opendata.dwd.de/weather/radar/radolan/rw/raa01-rw_10000-latest-dwd---bin"
 rw_file <- dataDWD(url, dir=tempdir(), read=FALSE, dbin=FALSE)
 rw_orig <- dwdradar::readRadarFile(rw_file)
 raster::plot(raster::raster(rw_orig$dat))
@@ -549,7 +551,7 @@ pdf("../ExampleTests/Radartests_Vign.pdf", width=6, height=6)
 par(mar=c(0,0,3,5))
 dummy <- lapply(pp, function(x) plotRadar(x, xlim=c(3,16), ylim=c(47, 55), 
                                         main=x@title, project=FALSE))
-dev.off()
+invisible(dev.off())
 ```
 
 Open the pdf at <https://github.com/brry/rdwd/tree/master/misc/ExampleTests>
@@ -596,7 +598,7 @@ mtext("Source: Deutscher Wetterdienst", adj=-0.05, line=2.8, font=3)
 
 # - use case: monthy gridded data
 
-From the [monthly](ftp://ftp-cdc.dwd.de/climate_environment/CDC/grids_germany/monthly) 
+From the [monthly](ftp://opendata.dwd.de/climate_environment/CDC/grids_germany/monthly) 
 folder at `r helplink("gridbase", "dwdbase")`, we want to
 download .asc.gz files for selected years and open them in R for further processing.
 
@@ -622,6 +624,8 @@ For further processing, we can create a raster stack from the list, which e.g. e
 ```{r grid_monthly_stack, eval=FALSE}
 precip_stack <- raster::stack(precip)
 ```
+This is expanded upon in the next [use case](use-case-values-at-locations-in-grid.html).
+
 
 A few projection references:
 
@@ -629,7 +633,7 @@ The [Beschreibung file](ftp://opendata.dwd.de/climate_environment/CDC/grids_germ
 leads to
 <https://spatialreference.org/ref/epsg/31467/>
 from which the proj4 format is used internally in `r helplink("projectRasterDWD")`, currently at 
-[line 54](https://github.com/brry/rdwd/blob/master/R/projectRasterDWD.R#L54).  
+[line 62](https://github.com/brry/rdwd/blob/master/R/projectRasterDWD.R#L62).  
 Bettina Ohse reported using `dwd.projection <- '+init=epsg:31467'` instead.
 
 
@@ -676,7 +680,7 @@ raster::extract(tempmax_stack, loc)
 
 
 # - use case: recent hourly radar files
-Single RW files at <ftp://ftp-cdc.dwd.de/weather/radar/radolan/rw> should be read
+Single RW files at <ftp://opendata.dwd.de/weather/radar/radolan/rw> should be read
 with the underlying [`readRadarFile`](https://www.rdocumentation.org/packages/dwdradar/topics/readRadarFile)
 that has been outsourced to `dwdradar` to keep the basic `rdwd` as lean as possible.
 
@@ -686,7 +690,7 @@ Please note that for projecting (see `r helplink("projectRasterDWD")`),
 the radolan extent seems to be needed, not the rw extent.
 
 ```{r recent_radar}
-rw_base <- "ftp://ftp-cdc.dwd.de/weather/radar/radolan/rw"
+rw_base <- "ftp://opendata.dwd.de/weather/radar/radolan/rw"
 rw_urls <- indexFTP(base=rw_base, dir=tempdir(), folder="", exclude.latest.bin=TRUE)
 rw_file <- dataDWD(rw_urls[8], base=rw_base, joinbf=TRUE, dir=tempdir(), read=FALSE, dbin=TRUE)
 
@@ -946,7 +950,7 @@ Shapefile of Landkreis districts:
 
 ## find available meteo stations for each district
 
-```{r climdistrict_data_selection}
+```{r climdistrict_data_selection, message=FALSE}
 # Select monthly climate data:
 data("metaIndex") ; m <- metaIndex
 m <- m[m$res=="monthly" & m$var=="kl" & m$per=="recent" & m$hasfile, ]
@@ -954,7 +958,7 @@ m <- m[m$res=="monthly" & m$var=="kl" & m$per=="recent" & m$hasfile, ]
 msf <- sf::st_as_sf(m, coords=c("geoLaenge", "geoBreite"), crs=4326)
 
 # Read district shapefile, see link above:
-lk <- sf::st_read("landkreise-in-germany.shp")
+lk <- sf::st_read("landkreise-in-germany.shp", quiet=TRUE)
 
 # intersections: list with msf rownumbers for each district:
 int <- sf::st_intersects(lk, msf)
@@ -1030,6 +1034,7 @@ kohl_url <- "PH_Jahresmelder_Landwirtschaft_Kulturpflanze_Weisskohl_1951_1990_hi
 kohl_file <- dataDWD(base=phenocrop_base, url=kohl_url, joinbf=TRUE, 
                      dir=localtestdir(), read=FALSE) 
 kohl <- read.table(kohl_file, sep=";", header=TRUE)
+summary(kohl)
 ```
 
 
