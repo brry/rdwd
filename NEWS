@@ -1,3 +1,40 @@
+-----------------------------
+-----------------------------
+
+Version 1.5.0 (2021-04-08)
+
+API changes:
+
+- readVars: new argument 'quiet' (for updateIndexes)
+- readDWD.grib2: initial release
+- projectRasterDWD: new argument adjust05 
+- dataDWD: new default: dbin=TRUE
+
+enhancements / bug fixes:
+
+- readDWD.data: fread checks for system command unzip, prints final value in message
+- dataDWD: unfound URL messages also link to website fileIndex in German locale
+- updateRdwd: version and date comparison improved, print local version if newer than on github
+- createIndex: improved recognition of "Beschreibung_Stationen" meta files
+- dwdparams + updateIndexes: missing/duplicate Kurz entry messages improved
+- readDWD: subfunction names in elegant message outside the loop to avoid interrupted progbars.
+- indexFTP + dirDWD: trailing slashes removed with regexp
+- fileType: more informative message for failed type determination 
+- DEU: now derived from NUTS regions and with new CRS (along with EUR)
+- runLocalTests: improved logfiles, false positive messages removed 
+
+website changes:
+
+- package structure moved to first chapter
+- fread instructions expanded
+- FTP Folder list expanded
+- more messages / warnings suppressed that are irrelevant to readers
+- linked to in seeAlso sections of suitable function documentations
+- Website: redirected man pages are now correctly linked to (e.g. fileIndex -> index)
+- Documentation and dataset links are now opened in a new window
+- new use case: values at locations in grid
+- FTP address updated everywhere
+
 
 -----------------------------
 -----------------------------
