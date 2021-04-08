@@ -630,6 +630,48 @@ from which the proj4 format is used internally in `r helplink("projectRasterDWD"
 Bettina Ohse reported using `dwd.projection <- '+init=epsg:31467'` instead.
 
 
+
+# - use case: values at locations in grid
+
+Obtain time series of values at a selected location in gridded data.
+
+```{r grid_loc_val_index}
+library(rdwd)
+# select data
+index <- indexFTP(folder="annual/air_temperature_max", base=gridbase, dir=localtestdir())
+index <- index[-(1:2)] # exclude description files
+index <- index[as.numeric(substr(index,62,65))>=2013] # after year 2013
+index
+```
+
+```{r grid_loc_val_downloadread}
+# download & read data:
+tempmax <- dataDWD(index, base=gridbase, joinbf=TRUE, dir=localtestdir())
+names(tempmax) <- substr(names(tempmax), 62, 65)
+```
+
+```{r grid_loc_val_project}
+# visual data & projection check:
+plotRadar(tempmax[[1]], proj="seasonal",extent="seasonal", 
+          main="Annual grid of monthly averaged daily maximum air temperature (2m) - 2013")
+```
+
+```{r grid_loc_val_stack}
+# raster stack:
+tempmax_stack <- raster::stack(tempmax)
+tempmax_stack <- projectRasterDWD(tempmax_stack, proj="seasonal",extent="seasonal")
+tempmax_stack
+raster::plot(tempmax_stack, zlim=range(raster::cellStats(tempmax_stack, range)) )
+```
+
+```{r grid_loc_val_extract}
+# Time series at given location:
+loc <- data.frame(x=12.65295, y=53.06547) # Aussichtspunkt Kyritz-Ruppiner Heide
+raster::extract(tempmax_stack, loc)
+```
+
+
+
 # - use case: recent hourly radar files
 Single RW files at <ftp://ftp-cdc.dwd.de/weather/radar/radolan/rw> should be read
 with the underlying [`readRadarFile`](https://www.rdocumentation.org/packages/dwdradar/topics/readRadarFile)
