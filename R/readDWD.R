@@ -177,6 +177,7 @@ return(invisible(output))
 #'                 When called from [readDWD()], `fread=NA` can also be used, which means 
 #'                 TRUE if R package `data.table` and system command `unzip` are available.
 #'                 Hint for Windows users: `unzip` comes with Rtools.
+#'                 See <https://bookdown.org/brry/rdwd/fread.html>
 #'                 DEFAULT: FALSE
 #' @param varnames Logical (vector): add a short description to the DWD variable
 #'                 abbreviations in the column names?

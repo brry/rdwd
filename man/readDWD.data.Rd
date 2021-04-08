@@ -23,6 +23,7 @@ When reading many large historical files, speedup is significant.
 When called from \code{\link[=readDWD]{readDWD()}}, \code{fread=NA} can also be used, which means
 TRUE if R package \code{data.table} and system command \code{unzip} are available.
 Hint for Windows users: \code{unzip} comes with Rtools.
+See \url{https://bookdown.org/brry/rdwd/fread.html}
 DEFAULT: FALSE}
 
 \item{varnames}{Logical (vector): add a short description to the DWD variable
