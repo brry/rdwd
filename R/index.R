@@ -34,7 +34,7 @@
 #' @source Deutscher WetterDienst / Climate Data Center  FTP Server
 #' @seealso [createIndex()], [indexFTP()], [selectDWD()],
 #'          [findID()], [metaInfo()],
-#'          <https://bookdown.org/brry/rdwd>
+#'          [website index chapter](https://bookdown.org/brry/rdwd/fileindex.html)
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June-Nov 2016, June 2017, Oct 2019
 #' @keywords datasets
 #' @importFrom utils data

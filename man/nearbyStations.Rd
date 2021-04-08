@@ -60,7 +60,8 @@ m <- nearbyStations(49.211784, 9.812475, radius=30,
 
 }
 \seealso{
-\code{\link[=selectDWD]{selectDWD()}}, \code{\link{metaIndex}}
+\code{\link[=selectDWD]{selectDWD()}}, \code{\link{metaIndex}},
+\href{https://bookdown.org/brry/rdwd/use-case-plot-all-rainfall-values-around-a-given-point.html}{website use case with nearbyStations}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Mar 2017

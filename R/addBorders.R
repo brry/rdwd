@@ -3,7 +3,8 @@
 #' @title add country and Bundesland borders to a map
 #' @return invisible list with DEU and EUR
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019
-#' @seealso [`plotRadar`], [`DEU`], [`EUR`]
+#' @seealso [`plotRadar`], [`DEU`], [`EUR`],
+#'          [website raster chapter](https://bookdown.org/brry/rdwd/raster-data.html)
 #' @keywords aplot
 #' @importFrom utils globalVariables
 #' @export

@@ -37,7 +37,7 @@
 #'         "base/res/var/per/filename.zip"
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2016
 #' @seealso [dataDWD()], [`metaIndex`],
-#'          <https://bookdown.org/brry/rdwd>
+#'          [website station selection chapter](https://bookdown.org/brry/rdwd/station-selection.html#by-name)
 #' @keywords file
 #' @importFrom berryFunctions truncMessage traceCall
 #' @importFrom utils menu

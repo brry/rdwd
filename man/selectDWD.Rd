@@ -175,7 +175,7 @@ head(  selectDWD(id="", res="daily", var="kl", per="recent")   )
 }
 \seealso{
 \code{\link[=dataDWD]{dataDWD()}}, \code{\link{metaIndex}},
-\url{https://bookdown.org/brry/rdwd}
+\href{https://bookdown.org/brry/rdwd/station-selection.html#by-name}{website station selection chapter}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2016

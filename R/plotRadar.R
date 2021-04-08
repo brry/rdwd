@@ -5,7 +5,8 @@
 #' If `length(layer)==1`, only that selected layer is returned.
 #' `output@@title` is set to `main`.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Feb 2020
-#' @seealso [addBorders()], [readDWD()], <https://bookdown.org/brry/rdwd/raster-data.html>
+#' @seealso [projectRasterDWD()], [addBorders()], [readDWD()],
+#'          [website raster chapter](https://bookdown.org/brry/rdwd/raster-data.html)
 #' @keywords aplot spatial
 #' @importFrom graphics box rect par title
 #' @importFrom berryFunctions seqPal

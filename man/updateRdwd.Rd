@@ -38,7 +38,7 @@ If the version number or date is larger on github,
 
 }
 \seealso{
-\code{\link[=help]{help()}}, \code{\link[remotes:install_github]{remotes::install_github()}}
+\code{\link[remotes:install_github]{remotes::install_github()}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Nov 2019

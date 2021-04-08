@@ -13,10 +13,12 @@
 #'   [developmentNotes.R](https://github.com/brry/rdwd/blob/master/misc/developmentNotes.R)\cr\cr
 #' @return Raster object with projection and extent, invisible
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, May 2019
-#' @seealso `raster::`[`crs`][raster::crs] / [`extent`][raster::extent] /
+#' @seealso [plotRadar()]\cr
+#' `raster::`[`crs`][raster::crs] / [`extent`][raster::extent] /
 #' [`projectRaster`][raster::projectRaster]\cr
 #' `readDWD.`[`binary`][readDWD.binary] / [`raster`][readDWD.raster] /
-#'  [`asc`][readDWD.asc] / [`radar`][readDWD.radar] / [`nc`][readDWD.nc]
+#' [`asc`][readDWD.asc] / [`radar`][readDWD.radar] / [`nc`][readDWD.nc]\cr
+#' [website raster chapter](https://bookdown.org/brry/rdwd/raster-data.html)
 #' @keywords aplot
 #' @export
 #' @examples

@@ -125,7 +125,8 @@ berryFunctions::is.error(plotRadar(ncp1, layer=1:4, project=FALSE), TRUE, TRUE)
 
 }
 \seealso{
-\code{\link[=addBorders]{addBorders()}}, \code{\link[=readDWD]{readDWD()}}, \url{https://bookdown.org/brry/rdwd/raster-data.html}
+\code{\link[=projectRasterDWD]{projectRasterDWD()}}, \code{\link[=addBorders]{addBorders()}}, \code{\link[=readDWD]{readDWD()}},
+\href{https://bookdown.org/brry/rdwd/raster-data.html}{website raster chapter}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Feb 2020

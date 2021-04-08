@@ -10,7 +10,8 @@
 #'         or a named list of data.frames if length(file) > 1.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jun 2018
 #' @seealso [dataDWD()], [readDWD()], [`dwdparams`], [newColumnNames()]\cr
-#'          [readMeta()] for complete  `Metadaten_Parameter` file.
+#'          [readMeta()] for complete  `Metadaten_Parameter` file.\cr
+#'          [website use case](https://bookdown.org/brry/rdwd/use-case-get-all-hourly-rainfall-data-20142016.html#read-the-data)
 #' @keywords file
 #' @importFrom utils read.table unzip
 #' @importFrom berryFunctions checkFile na9 traceCall

@@ -4,7 +4,7 @@
 #'         [remotes::install_github()] will be called.
 #' @return data.frame with version information
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Nov 2019
-#' @seealso [help()], [remotes::install_github()]
+#' @seealso [remotes::install_github()]
 #' @keywords file
 #' @importFrom utils packageDescription download.file compareVersion
 #' @export

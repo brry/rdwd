@@ -59,10 +59,12 @@ as a starting point, I then refined the extent to a visual match, see
 # To be used after readDWD.binary etc
 }
 \seealso{
+\code{\link[=plotRadar]{plotRadar()}}\cr
 \verb{raster::}\code{\link[raster:projection]{crs}} / \code{\link[raster:extent]{extent}} /
 \code{\link[raster:projectRaster]{projectRaster}}\cr
 \code{readDWD.}\code{\link[=readDWD.binary]{binary}} / \code{\link[=readDWD.raster]{raster}} /
-\code{\link[=readDWD.asc]{asc}} / \code{\link[=readDWD.radar]{radar}} / \code{\link[=readDWD.nc]{nc}}
+\code{\link[=readDWD.asc]{asc}} / \code{\link[=readDWD.radar]{radar}} / \code{\link[=readDWD.nc]{nc}}\cr
+\href{https://bookdown.org/brry/rdwd/raster-data.html}{website raster chapter}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, May 2019

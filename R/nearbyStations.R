@@ -4,7 +4,8 @@
 #' 
 #' @return [`metaIndex`] subset with additional columns "dist" and "url"
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Mar 2017
-#' @seealso [selectDWD()], [`metaIndex`]
+#' @seealso [selectDWD()], [`metaIndex`],
+#'          [website use case with nearbyStations](https://bookdown.org/brry/rdwd/use-case-plot-all-rainfall-values-around-a-given-point.html)
 #' @export
 #' @importFrom berryFunctions sortDF
 #' @examples

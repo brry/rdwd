@@ -12,7 +12,8 @@
 #' @return invisible data.frame (or if meta=TRUE, list with two data.frames)
 #' with a number of columns inferred from the paths. Each is also written to disc.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct-Nov 2016, June 2017
-#' @seealso [indexFTP()], [updateIndexes()], [`index`], [selectDWD()]
+#' @seealso [indexFTP()], [updateIndexes()], [`index`], [selectDWD()],
+#'          [website index chapter](https://bookdown.org/brry/rdwd/fileindex.html)
 #' @keywords manip
 #' @importFrom berryFunctions l2df convertUmlaut newFilename sortDF traceCall seqPal
 #' @importFrom utils write.table
