@@ -15,12 +15,10 @@ dwdbase
 base URLs to the DWD FTP Server\cr\cr
 \strong{\code{dwdbase}}: observed climatic records at\cr
 \url{ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate}\cr
-An overview of available datasets and usage suggestions can be found at\cr
-\url{https://bookdown.org/brry/rdwd/available-datasets.html}\cr
-\url{https://bookdown.org/brry/rdwd/station-selection.html}\cr\cr\cr
+See \href{https://bookdown.org/brry/rdwd/available-datasets.html}{overview of available datasets}
+and \href{https://bookdown.org/brry/rdwd/station-selection.html}{usage suggestions}.\cr\cr\cr
 \strong{\code{gridbase}}: spatially interpolated gridded data at\cr
 \url{ftp://opendata.dwd.de/climate_environment/CDC/grids_germany}\cr
-Usage instructions can be found at\cr
-\url{https://bookdown.org/brry/rdwd/raster-data.html}
+See \href{https://bookdown.org/brry/rdwd/raster-data.html}{usage suggestions}
 }
 \keyword{datasets}
