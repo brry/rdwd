@@ -360,20 +360,9 @@ if(examples)
 logfile <- paste0(dir_exmpl,"/warnings.txt")
 log <- readLines(logfile)
 log <- paste0(log, collapse="\n")
-rem <- "Metadaten_Fehl[[:alpha:]]{5}_05856_[[:digit:]]{8}_[[:digit:]]{8}.txt:'data.frame':	"
-log <- gsub(rem, "Metadaten_Fehl--_05856_--.txt:'data.frame':	", log)
-rem <- "\nList of 8
- $ Metadaten_Fehl--_05856_--.txt:'data.frame':	12 obs. of  9 variables:
- $ Metadaten_Fehl--_05856_--.txt:'data.frame':	9 obs. of  9 variables:
- $ Metadaten_Fehlwerte_Gesamt_05856.txt           :'data.frame':	2 obs. of  9 variables:
- $ Metadaten_Geographie_05856.txt                 :'data.frame':	3 obs. of  7 variables:
- $ Metadaten_Geraete_Windgeschwindigkeit_05856.txt:'data.frame':	3 obs. of  12 variables:
- $ Metadaten_Geraete_Windrichtung_05856.txt       :'data.frame':	3 obs. of  12 variables:
- $ Metadaten_Parameter_ff_stunde_05856.txt        :'data.frame':	8 obs. of  13 variables:
- $ Metadaten_Stationsname_05856.txt               :'data.frame':	1 obs. of  4 variables:"
-log <- sub(rem, "", log, fixed=TRUE)
-rem <- "Warning in fileType(\"random_stuff.odt\") :
-  fileType failed for the following file: 'random_stuff.odt'\n"
+rem <- "\nList of 8\n \\$ Metadaten_Fehldaten_05856_.*obs. of  4 variables:"
+log <- sub(rem, "", log)
+rem <- "Warning: fileType failed for the following file: 'random_stuff.odt'\n"
 log <- sub(rem, "", log, fixed=TRUE)
 rem <- "\nrdwd station id 2849 with 3 files.
 Name: Langenburg-Baechlingen, State: Baden-Wuerttemberg
