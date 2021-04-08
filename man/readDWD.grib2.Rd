@@ -31,7 +31,11 @@ Intended to be called via \code{\link[=readDWD]{readDWD()}}.\cr
 }
 \examples{
 \dontrun{ # Excluded from CRAN checks, but run in localtests
-nwp_t2m_base <- "ftp://ftp-cdc.dwd.de/weather/nwp/cosmo-d2/grib/00/t_2m/"
+# Deactivated 2021-04-08 since readDWD.grib2 -> rgdal::readGDAL -> Error:
+# **.grib2 is a grib file, but no raster dataset was successfully identified.
+warning("readDWD.grib2 is not tested due to unresolved problems.")
+if(FALSE){
+nwp_t2m_base <- "ftp://opendata.dwd.de/weather/nwp/icon-d2/grib/03/p"
 nwp_urls <- indexFTP("", base=nwp_t2m_base, dir=tempdir())
 nwp_file <- dataDWD(nwp_urls[6], base=nwp_t2m_base, dir=tempdir(),
                     joinbf=TRUE, dbin=TRUE, read=FALSE)
@@ -40,7 +44,7 @@ plotRadar(nwp_data, project=FALSE)
 
 nwp_data_rgdal <- readDWD(nwp_file, toraster=FALSE)
 sp::plot(nwp_data_rgdal)
-
+}
 }
 }
 \seealso{
