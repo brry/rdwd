@@ -56,7 +56,7 @@ testthat::test_that("dataDWD works", {
 link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
 file <- dataDWD(link, read=FALSE, dir=dir_data, quiet=TRUE)
 testthat::expect_equal(basename(file), "daily_kl_recent_tageswerte_KL_03987_akt.zip")
-links <- selectDWD(id=c(5302,5711,6295),res="daily",var="more_precip",per="h")
+links <- selectDWD(id=c(5302,5711,3987),res="daily",var="more_precip",per="h")
 testthat::expect_error(dataDWD(links, dir=dir_data), "url must be a vector, not a list")
 testthat::expect_warning(dataDWD("multi/mean/Temp.txt", quiet=TRUE),
                "dataDWD needs urls starting with 'ftp://'.")
@@ -94,8 +94,8 @@ testthat::expect_equal(time_diff, rep(10,9))
 testthat::test_that("readDWD messages subfunctions correctly", {
 link <- c(selectDWD("Potsdam", res="daily", var="kl", per="hr"),
           selectDWD("", "daily", "kl", "h", meta=TRUE))
-file <- dataDWD(link, read=FALSE, dir=dir_data)
-testthat::expect_message(readDWD(file), 
+file <- dataDWD(link, read=FALSE, dir=dir_data, progbar=FALSE)
+testthat::expect_message(readDWD(file, progbar=FALSE), 
   "Reading 3 files with readDWD.data (2) / readDWD.meta (1) and fread=TRUE ...", fixed=TRUE)
 })
 
@@ -187,7 +187,7 @@ testthat::test_that("indexFTP warns and works as intended", {
 base <- "https://opendata.dwd.de/weather/radar/radolan/rw/"
 testthat::expect_warning(indexFTP(base, folder="", dir=tempdir(), quiet=TRUE),
                          "base should start with ftp://")
-base <- "ftp://ftp-cdc.dwd.de/weather/radar/radolan/rw"
+base <- "ftp://opendata.dwd.de/weather/radar/radolan/rw"
 rw <- indexFTP(base, folder="", dir=tempdir(), quiet=TRUE, exclude.latest.bin=FALSE)
 testthat::expect_equal(tail(rw,1), "/raa01-rw_10000-latest-dwd---bin")
 })
@@ -221,7 +221,7 @@ testthat::test_that("selectDWD properly vectorizes", {
 testthat::expect_type(selectDWD(id="01050", res="daily", var="kl", per=c("r","h")), "list")
 testthat::expect_type(selectDWD(id="01050", res="daily", var="kl", per="rh"), "character")
 # all zip files in all paths matching id:
-allzip_id <- selectDWD(id=c(1050, 386), res="",var="",per="")
+allzip_id <- selectDWD(id=c(1050, 386), res="",var="",per="", quiet=TRUE)
 # all zip files in a given path (if ID is empty):
 allzip_folder <- selectDWD(id="", res="daily", var="kl", per="recent")
 testthat::expect_equal(length(allzip_id), 2)
@@ -235,8 +235,8 @@ testthat::test_that("selectDWD uses remove_dupli correctly", {
 fi <- data.frame(res="aa", var="bb", per="cc", id=42, start=as.Date("1989-07-01"), 
                  end=as.Date(c("2016-12-31","2015-12-31")), ismeta=FALSE, 
                  path=c("longer", "shorter"))
-testthat::expect_length(selectDWD(res="aa",var="bb",per="cc",id=42,findex=fi), 1)
-testthat::expect_length(selectDWD(res="aa",var="bb",per="cc",id=42,findex=fi, remove_dupli=FALSE), 2)
+testthat::expect_length(selectDWD(res="aa",var="bb",per="cc",id=42,findex=fi, quiet=TRUE), 1)
+testthat::expect_length(selectDWD(res="aa",var="bb",per="cc",id=42,findex=fi, quiet=TRUE, remove_dupli=FALSE), 2)
 testthat::expect_warning(selectDWD(res="aa",var="bb",per="cc",id=42,findex=fi), 
                          "selectDWD: duplicate file on FTP server")
 })
@@ -298,12 +298,12 @@ messaget("++ Testing index up to date?")
 # simply try all files for Potsdam (for 1_minute and 10_minutes only 1 each)
 if(all_Potsdam_files)
 testthat::test_that("index is up to date - all files can be downloaded and read", {
-links <- selectDWD("Potsdam","","","") # does not include multi_annual data!
+links <- selectDWD("Potsdam","","","", quiet=TRUE) # does not include multi_annual data!
 toexclude <- grep("1_minute", links)
 toexclude <- toexclude[-(length(toexclude)-3)]
 toexclude <- c(toexclude, grep("10_minutes", links)[-1])
-files <- dataDWD(links[-toexclude], dir=dir_data, force=NA, overwrite=TRUE, read=FALSE)
-contents <- readDWD(files)
+files <- dataDWD(links[-toexclude], dir=dir_data, force=NA, overwrite=TRUE, read=FALSE, progbar=FALSE)
+contents <- readDWD(files, progbar=FALSE)
 })
 
 
@@ -331,6 +331,7 @@ rvp <- unname(rvp)
 if(any(alloutdated)) stop("The DWD has not yet updated any historical files in ",
                           "the following ", sum(alloutdated), " folders:\n",
                           toString(rvp[alloutdated]))
+testthat::expect_equal(1,1) # silence message about skipping empty test
 }})
 
 
