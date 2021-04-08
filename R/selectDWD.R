@@ -375,7 +375,7 @@ if(givenid & givenpath & !meta[i])
             "https://github.com/brry/rdwd/issues\n - Keeping: ", filename, call.=FALSE)
     } else
     filename <- findex[sel,"path"]
-  if(length(filename)>1) warning(traceCall(3, "", ": "), "several files (",
+  if(length(filename)>1 && !quiet) warning(traceCall(3, "", ": "), "several files (",
                                  length(filename),") were selected:",
                                  berryFunctions::truncMessage(filename, prefix=""),
                                  call.=FALSE)
