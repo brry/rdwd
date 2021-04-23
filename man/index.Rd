@@ -35,7 +35,7 @@ at the default \code{base} value \code{\link{dwdbase}}.\cr
 \strong{geoIndex}: \code{metaIndex} distilled to geographic locations.\cr
 \strong{gridIndex}: Vector of file paths at \code{\link{gridbase}}.\cr
 \strong{formatIndex}: (modified) table from
-\url{ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/subdaily/standard_format/formate_kl.html}\cr
+\url{https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/subdaily/standard_format/formate_kl.html}\cr
 }
 \examples{
 data(fileIndex)

@@ -2,7 +2,7 @@
 #' 
 #' Create a list of all the files (in all subfolders) of an FTP server.
 #' Defaults to the German Weather Service (DWD, Deutscher WetterDienst) OpenData server at
-#' <ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/>.\cr
+#' <https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/>.\cr
 #' The R package `RCurl` must be available to do this.\cr\cr
 #' It's not suggested to run this for all folders, as it can take quite some time
 #' and you may get kicked off the FTP-Server. This package contains an index
@@ -49,7 +49,7 @@
 #'                If `folder` is "currentfindex" (the default) and `base`
 #'                is the default, `folder` is changed to all observational
 #'                folders listed in the current tree file at
-#'                <ftp://opendata.dwd.de/weather/tree.html>. With "currentgindex"
+#'                <https://opendata.dwd.de/weather/tree.html>. With "currentgindex"
 #'                and `gridbase`, the grid folders in the tree are used.
 #'                DEFAULT: "currentfindex"
 #' @param base    Main directory of FTP server. Trailing slashes will be removed.

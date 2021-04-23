@@ -11,7 +11,7 @@
 #' **geoIndex**: `metaIndex` distilled to geographic locations.\cr
 #' **gridIndex**: Vector of file paths at [`gridbase`].\cr
 #' **formatIndex**: (modified) table from
-#' <ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/subdaily/standard_format/formate_kl.html>\cr
+#' <https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/subdaily/standard_format/formate_kl.html>\cr
 #' 
 #' @name index
 #' @aliases fileIndex metaIndex geoIndex gridIndex formatIndex

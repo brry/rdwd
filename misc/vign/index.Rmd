@@ -22,7 +22,7 @@ This website has 3 main sections:
 
 Important links:
 
-* further details on the data: [DWD FTP server documentation](ftp://opendata.dwd.de/climate_environment/CDC/Readme_intro_CDC_ftp.pdf)
+* further details on the data: [DWD FTP server documentation](https://opendata.dwd.de/climate_environment/CDC/Readme_intro_CDC_ftp.pdf)
 * website [source code and files](https://github.com/brry/rdwd/tree/master/misc/vign)
 * feedback is very welcome via [github](https://github.com/brry/rdwd) or [berry-b@gmx.de](mailto:berry-b@gmx.de)!  
 
@@ -90,7 +90,7 @@ For time series there is no overarching plotting funtion and raster data must as
 # Interactive map
 
 The `rdwd` package provides a collection of all the metafiles on the 
-[DWD data server](ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate).
+[DWD data server](https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate).
 It is presented as an interactive map below.
 
 When a point is clicked, an infobox should appear.
@@ -129,10 +129,10 @@ Note: `r helplink("geoIndex", "index")` is created using `r helplink("createInde
 *overview of the FTP folder structure*
 
 The following folders in **`res/var/per`** notation (resolution/variable/period) are available at
-[`dwdbase`](ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate).
+[`dwdbase`](https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate).
 
 Here's a full example URL, for a file at hourly/wind/recent:
-[ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/wind/recent/stundenwerte_FF_00164_akt.zip](ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/wind/recent/stundenwerte_FF_00164_akt.zip)
+[ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/wind/recent/stundenwerte_FF_00164_akt.zip](https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/wind/recent/stundenwerte_FF_00164_akt.zip)
 
 "<" signifies a split into the folders `per` = "recent" and "historical".  
 "<<" signifies a split into the folders `per` = "now", "recent", "historical" and "meta_data".  
@@ -143,7 +143,9 @@ Please note:
 
 * both "solar" (-/<<) and "sun" (<) are available!  
 * `1_minute/precipitation/historical` has a subfolder for each year.  
-* `subdaily/standard_format` does not actually split in subfolders, but has recent/hist information in `fileIndex`
+* `subdaily/standard_format` does not actually split in subfolders, but has recent/hist information in `fileIndex`.
+
+* internally, `rdwd` uses ftp://opendata.dwd.de URLS, but web browsers no longer support FTP, so the documentation links to the https variant.
 
 ```{r ftp_folders_1, echo=FALSE}
 library(magrittr)
@@ -152,7 +154,7 @@ options(huxtable.bookdown = FALSE) # no captions on tables
 f <- readODS::read_ods("FTP_folders.ods", sheet="folders", col_types=NA)
 fu <- f # f with urls
 for(i in 2:ncol(f)) fu[-1,i] <- ifelse(f[-1,i]=="", " ", 
-    paste0('<a href="',dwdbase,'/',colnames(f)[i],'/',f[-1,1],'" target="_blank">',f[-1,i],'</a>'))
+    paste0('<a href="',sub("ftp:","https:",dwdbase),'/',colnames(f)[i],'/',f[-1,1],'" target="_blank">',f[-1,i],'</a>'))
 ht <- huxtable::hux(fu, add_colnames=TRUE)
 ht %>%
   # set_label("") %>% 
@@ -214,7 +216,7 @@ if(l>0) stop("\n\nThe following ", l, " table entries in section 'Available data
 
 # Station selection
 
-*`print_short` in this chapter is just a helper function to replace [dwdbase](ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate) with `---` for shorter output.*
+*`print_short` in this chapter is just a helper function to replace [dwdbase](https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate) with `---` for shorter output.*
 
 ## by location
 
@@ -397,7 +399,7 @@ The command "unzip" is either misspelled or could not be found.
 For observational data at `r helplink("dwdbase")`, 
 `r helplink("selectDWD")` is the main function to choose data to be downloaded.
 
-For gridded data at [`gridbase`](ftp://opendata.dwd.de/climate_environment/CDC/grids_germany), including 
+For gridded data at [`gridbase`](https://opendata.dwd.de/climate_environment/CDC/grids_germany), including 
 data interpolated onto a 1 km raster and radar data up to the last hour, 
 I don't yet understand the structure of the FTP server as well.  
 For now, you'll have to query `r helplink("gridIndex", "index")` yourself, e.g. with
@@ -417,7 +419,7 @@ For files that are not yet read correctly, you can also consult the
 Kompositformatbeschreibung at <https://www.dwd.de/DE/leistungen/radolan/radolan.html>
 
 Besides at `r helplink("dwdbase")` and `r helplink("gridbase", "dwdbase")`, 
-there's yet more data at <ftp://opendata.dwd.de/weather>.
+there's yet more data at <https://opendata.dwd.de/weather>.
 
 A helper function to reduce code duplication:
 
@@ -440,7 +442,7 @@ You can also remove `read=FALSE` in dataDWD and add the needed arguments right t
 but I wanted to be explicit here.
 
 The first line in each code block below shows for which FTP folder 
-at [`gridbase`](ftp://opendata.dwd.de/climate_environment/CDC/grids_germany) 
+at [`gridbase`](https://opendata.dwd.de/climate_environment/CDC/grids_germany) 
 this function will be called.  
 The last line shows what projection and extent to use in `r helplink("projectRasterDWD")` 
 (called through `r helplink("plotRadar")`). 
@@ -598,7 +600,7 @@ mtext("Source: Deutscher Wetterdienst", adj=-0.05, line=2.8, font=3)
 
 # - use case: monthy gridded data
 
-From the [monthly](ftp://opendata.dwd.de/climate_environment/CDC/grids_germany/monthly) 
+From the [monthly](https://opendata.dwd.de/climate_environment/CDC/grids_germany/monthly) 
 folder at `r helplink("gridbase", "dwdbase")`, we want to
 download .asc.gz files for selected years and open them in R for further processing.
 
@@ -629,7 +631,7 @@ This is expanded upon in the next [use case](use-case-values-at-locations-in-gri
 
 A few projection references:
 
-The [Beschreibung file](ftp://opendata.dwd.de/climate_environment/CDC/grids_germany/seasonal/air_temperature_max/BESCHREIBUNG_gridsgermany_seasonal_air_temperature_max_de.pdf)
+The [Beschreibung file](https://opendata.dwd.de/climate_environment/CDC/grids_germany/seasonal/air_temperature_max/BESCHREIBUNG_gridsgermany_seasonal_air_temperature_max_de.pdf)
 leads to
 <https://spatialreference.org/ref/epsg/31467/>
 from which the proj4 format is used internally in `r helplink("projectRasterDWD")`, currently at 
@@ -680,7 +682,7 @@ raster::extract(tempmax_stack, loc)
 
 
 # - use case: recent hourly radar files
-Single RW files at <ftp://opendata.dwd.de/weather/radar/radolan/rw> should be read
+Single RW files at <https://opendata.dwd.de/weather/radar/radolan/rw> should be read
 with the underlying [`readRadarFile`](https://www.rdocumentation.org/packages/dwdradar/topics/readRadarFile)
 that has been outsourced to `dwdradar` to keep the basic `rdwd` as lean as possible.
 
@@ -1023,9 +1025,9 @@ head(rainLK)
 # - use case: phenology data
 
 Located here:
-ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/phenology
+https://opendata.dwd.de/climate_environment/CDC/observations_germany/phenology
 
-This example uses data in the subfolder [annual/crops/hist](ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/phenology/annual_reporters/crops/historical/)
+This example uses data in the subfolder [annual/crops/hist](https://opendata.dwd.de/climate_environment/CDC/observations_germany/phenology/annual_reporters/crops/historical/)
 ```{r}
 phenocrop_base <- paste0(sub("climate$", "phenology", dwdbase), 
                         "/annual_reporters/crops/historical/")
