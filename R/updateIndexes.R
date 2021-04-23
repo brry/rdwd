@@ -1,6 +1,7 @@
 #' @title update rdwd indexes
 #' @description This is meant to be called with getwd at the
-#'  rdwd package source code directory to update the indexes with one single call.
+#'  rdwd package source code directory to update the indexes with one single call.\cr
+#'  To use custom or current indexes, see <https://bookdown.org/brry/rdwd/fileindex.html>
 #' @return [checkIndex()] results
 #' @importFrom berryFunctions sortDF
 #' @importFrom tools resaveRdaFiles
@@ -30,6 +31,7 @@
 #' # 269'561 (2020-12-03)
 #' # 286'306 (2021-04-02)
 #' # 286'189 (2021-04-08)
+#' # 285'246 (2021-04-23)
 #' 
 #' # gridbase
 #' #  49'247 (2019-05-26)
@@ -47,6 +49,7 @@
 #' #  43'435 (2020-12-03)
 #' #  31'698 (2021-04-02)
 #' #  32'015 (2021-04-08)
+#' #  32'736 (2021-04-23)
 #' 
 #' @param dwdlocal Read "DWDdata/INDEX_of_DWD_.txt" instead of calling
 #'                 [indexFTP()]? DEFAULT: FALSE
