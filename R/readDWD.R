@@ -139,6 +139,7 @@ message(msg, " ...")
 output <- lapply(seq_along(file), function(i)
 {
 # call subfunction:
+if(type[i]=="data")   return(readDWD.data(  file[i], quiet=quiet, fread=fread[i], varnames=varnames[i], format=format[i], tz=tz[i], ...))
 if(type[i]=="deriv")  return(readDWD.deriv( file[i], quiet=quiet, ...))
 if(type[i]=="multia") return(readDWD.multia(file[i], quiet=quiet, ...))
 if(type[i]=="stand")  return(readDWD.stand( file[i], quiet=quiet, ...))
@@ -149,7 +150,6 @@ if(type[i]=="nc")     return(readDWD.nc(    file[i], quiet=quiet, var=var[i], ..
 if(type[i]=="radar")  return(readDWD.radar( file[i], quiet=quiet, ...))
 if(type[i]=="asc")    return(readDWD.asc(   file[i], quiet=quiet, progbar=progbar, dividebyten=dividebyten[i], ...))
 if(type[i]=="grib2")  return(readDWD.grib2( file[i], quiet=quiet, ...))
-if(type[i]=="data")   return(readDWD.data(  file[i], quiet=quiet, fread=fread[i], varnames=varnames[i], format=format[i], tz=tz[i], ...))
 stop("invalid type (",type[i],") given for file '",file[i],"'. See  ?fileType")
 }) # lapply loop end
 
