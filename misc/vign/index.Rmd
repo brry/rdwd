@@ -1041,6 +1041,48 @@ summary(kohl)
 
 
 
+# - use case: derived data
+
+This needs rdwd >= 1.5.3 (2021-06-01)
+
+https://opendata.dwd.de/climate_environment/CDC/derived_germany/soil/daily/historical/  
+
+```{r derivdata_basics}
+dbase <- "ftp://opendata.dwd.de/climate_environment/CDC/derived_germany"
+soilIndex <- indexFTP(folder="soil/daily", base=dbase, dir="../localdata")
+soilIndex <- createIndex(soilIndex, base=dbase, dir="../localdata")
+
+#  "res" and "var" are inverted in the derived_germany folder!
+colnames(soilIndex)[1:2] <- c("var", "res")
+# non-standard column order, but rdwd should always use names (not positions)
+
+head(soilIndex)
+summary(soilIndex$id)
+
+# select URL:
+soil_link <- selectDWD("Potsdam", res="", var="", per="",
+                       base=dbase, findex=soilIndex)
+# Add monthly data:
+soilIndexm <- indexFTP(folder="soil/monthly", base=dbase, dir="../localdata")
+soilIndexm <- createIndex(soilIndexm, base=dbase, dir="../localdata")
+soil_link <- c(soil_link, selectDWD("Potsdam", res="", var="", per="",
+                                    base=dbase, findex=soilIndexm))
+
+# download and read files:
+soil_data <- dataDWD(soil_link, base=dbase, dir="../localdata")
+# later reading runs are much faster because unzipping is already done :)
+```
+
+To get files for all stations, use the following:
+```{r derivdata_allstations, eval=FALSE}
+dbase <- "ftp://opendata.dwd.de/climate_environment/CDC/derived_germany"
+soil_index <- indexFTP(folder="soil/daily", base=dbase, dir="../localdata")
+soil_index <- createIndex(soil_index, base=dbase, dir="../localdata")
+soil_links <- selectDWD(res="soil", var="daily", per="r", base=dbase, findex=soil_index)
+soil_data <- dataDWD(soil_links, base=dbase, dir="../localdata")
+```
+
+
 # history
 
 ## early beginnings
