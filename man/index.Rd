@@ -49,6 +49,16 @@ head(geoIndex)
 # because Hadley says 'Never @export a data set' in
 # browseURL("http://r-pkgs.had.co.nz/data.html#data-data")
 
+\dontrun{ # Excluded from CRAN checks to avoid file creation
+
+# To use a custom index, since especially gridfiles names are updated daily:
+# library(rdwd)
+customFolders <- c("monthly/air_temperature_mean","daily/Project_TRY/pressure")
+customFiles <- indexFTP(customFolders, base=gridbase, dir=tempdir())
+customIndex<- createIndex(customFiles, dir=tempdir())
+browseURL("https://bookdown.org/brry/rdwd/fileindex.html")
+}
+
 }
 \seealso{
 \code{\link[=createIndex]{createIndex()}}, \code{\link[=indexFTP]{indexFTP()}}, \code{\link[=selectDWD]{selectDWD()}},
