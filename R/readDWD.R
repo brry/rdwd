@@ -92,12 +92,6 @@ if(any(fread))
                                      "See   https://bookdown.org/brry/rdwd/fread.html")
   }
 } 
-
-if("deriv" %in% type)
-{
-if(anyNA(fread)) fread[is.na(fread)] <- requireNamespace("data.table", quietly=TRUE)
-if(any(fread)) checkSuggestedPackage("data.table", "rdwd::readDWD with fread=TRUE")
-} 
 # end fread / unzip checks
 
 if(len>1)
@@ -137,7 +131,7 @@ nt <- function(x, pre="readDWD.", post="()") # nt: nice table
   paste0(pre,x, collapse=" / ")
   }
 msg <- paste0("Reading ",length(file)," file", if(length(file)>1)"s", " with ",nt(type))
-if(any(c("data", "deriv") %in% type)) msg <- paste0(msg, " and fread=",nt(fread,"",""))
+if(any("data" %in% type)) msg <- paste0(msg, " and fread=",nt(fread,"",""))
 message(msg, " ...")
 }
 
@@ -145,7 +139,7 @@ message(msg, " ...")
 output <- lapply(seq_along(file), function(i)
 {
 # call subfunction:
-if(type[i]=="deriv")  return(readDWD.deriv( file[i], quiet=quiet, fread=fread[i], ...))
+if(type[i]=="deriv")  return(readDWD.deriv( file[i], quiet=quiet, ...))
 if(type[i]=="multia") return(readDWD.multia(file[i], quiet=quiet, ...))
 if(type[i]=="stand")  return(readDWD.stand( file[i], quiet=quiet, ...))
 if(type[i]=="meta")   return(readDWD.meta(  file[i], quiet=quiet, ...))
@@ -266,13 +260,6 @@ return(dat)
 #' @seealso [readDWD()], https://bookdown.org/brry/rdwd/use-case-derived-data.html
 #' @param file     Name of file on harddrive, like e.g.
 #'                 DWDdata/soil_daily_historical_derived_germany_soil_daily_historical_3987.txt.gz
-#' @param fread    Logical: if TRUE, uses [data.table::fread()]. 
-#'                 This is the fastest option if the data is read only once.
-#'                 If FALSE, [R.utils::gunzip()] takes a while on the first run, 
-#'                 but subsequent reading calls are very fast.
-#'                 When called from [readDWD()], `fread=NA` is used, which means
-#'                 TRUE if `data.table` is available.
-#'                 DEFAULT: FALSE
 #' @param gargs    If fread=FALSE: Named list of arguments passed to
 #'                 [R.utils::gunzip()], see [readDWD.raster()]. DEFAULT: NULL
 #' @param todate   Logical: Convert char column 'Datum' or 'Monat' with [as.Date()]?
@@ -281,23 +268,16 @@ return(dat)
 #' @param quiet    Ignored.
 #'                 DEFAULT: FALSE through [rdwdquiet()]
 #' @param \dots    Further arguments passed to [read.table()] or [data.table::fread()]
-readDWD.deriv <- function(file, fread=FALSE, gargs=NULL, todate=TRUE, quiet=rdwdquiet(), ...)
+readDWD.deriv <- function(file, gargs=NULL, todate=TRUE, quiet=rdwdquiet(), ...)
 {
-if(fread)
-  {
-  checkSuggestedPackage("data.table", "rdwd:::readDWD.derived")
-  # https://stackoverflow.com/a/62953327
-  dat <- data.table::fread(file, na.strings=na9(nspace=0),
-                           header=TRUE, sep=";", data.table=FALSE, ...)
-  } else
-  {
-  checkSuggestedPackage("R.utils", "rdwd:::readDWD.derived")
-  gdef <- list(filename=file, remove=FALSE, skip=TRUE) # gunzip arguments
-  gfinal <- berryFunctions::owa(gdef, gargs, "filename")
-  file2 <- do.call(R.utils::gunzip, gfinal)
-  dat <- read.table(file2, header=TRUE, sep=";", ...)
-  }
-#
+# I tried data.table::fread(file, na.strings=na9(nspace=0), header=TRUE, sep=";", data.table=FALSE, ...)
+# but it's not really faster in most cases. 
+# gunzip is very fast in subsequent calls, only slow in the first call.
+checkSuggestedPackage("R.utils", "rdwd:::readDWD.derived")
+gdef <- list(filename=file, remove=FALSE, skip=TRUE) # gunzip arguments
+gfinal <- berryFunctions::owa(gdef, gargs, "filename")
+file2 <- do.call(R.utils::gunzip, gfinal)
+dat <- read.table(file2, header=TRUE, sep=";", ...)
 # convert time-stamp:
 if(todate)
   if(!any(c("Datum","Monat") %in% colnames(dat)))

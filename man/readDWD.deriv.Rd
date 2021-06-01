@@ -4,26 +4,11 @@
 \alias{readDWD.deriv}
 \title{read derived dwd data}
 \usage{
-readDWD.deriv(
-  file,
-  fread = FALSE,
-  gargs = NULL,
-  todate = TRUE,
-  quiet = rdwdquiet(),
-  ...
-)
+readDWD.deriv(file, gargs = NULL, todate = TRUE, quiet = rdwdquiet(), ...)
 }
 \arguments{
 \item{file}{Name of file on harddrive, like e.g.
 DWDdata/soil_daily_historical_derived_germany_soil_daily_historical_3987.txt.gz}
-
-\item{fread}{Logical: if TRUE, uses \code{\link[data.table:fread]{data.table::fread()}}.
-This is the fastest option if the data is read only once.
-If FALSE, \code{\link[R.utils:compressFile]{R.utils::gunzip()}} takes a while on the first run,
-but subsequent reading calls are very fast.
-When called from \code{\link[=readDWD]{readDWD()}}, \code{fread=NA} is used, which means
-TRUE if \code{data.table} is available.
-DEFAULT: FALSE}
 
 \item{gargs}{If fread=FALSE: Named list of arguments passed to
 \code{\link[R.utils:compressFile]{R.utils::gunzip()}}, see \code{\link[=readDWD.raster]{readDWD.raster()}}. DEFAULT: NULL}
@@ -45,7 +30,7 @@ Read dwd data from /CDC/derived_germany/.
 Intended to be called via \code{\link[=readDWD]{readDWD()}}.
 }
 \seealso{
-\code{\link[=readDWD]{readDWD()}}, USECASELINK
+\code{\link[=readDWD]{readDWD()}}, https://bookdown.org/brry/rdwd/use-case-derived-data.html
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}
