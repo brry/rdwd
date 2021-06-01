@@ -337,12 +337,10 @@ if(meta[i])
   return(   paste0(base,"/",filename)   )
   }
 # 3: id is empty, path is given ------------------------------------------------
-# all filenames EXCEPT metadata (-> only zipfiles)
+# all filenames EXCEPT metadata (-> only .zip, .txt.gz, ... files)
 if(!givenid & givenpath & !meta[i])
   {
-  isnotmeta <- grepl('.zip$', findex$path)
-  if(res[i]=="multi_annual") isnotmeta <- !findex$ismeta
-  sel <- sel & isnotmeta
+  sel <- sel & !findex$ismeta
   filename <- findex[sel,"path"]
   if(length(filename)<1)
     {
