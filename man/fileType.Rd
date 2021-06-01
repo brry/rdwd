@@ -51,6 +51,7 @@ data    daily_kl_recent_tageswerte_KL_03987_akt.zip
 stand   subdaily_standard_format_kl_10381_00_akt.txt
 meta    daily_kl_recent_KL_Tageswerte_Beschreibung_Stationen.txt
 multia  multi_annual_mean_81-10_Temperatur_1981-2010_aktStandort.txt
+deriv   derived_germany_soil_daily_historical_3987.txt.gz
 
 binary  daily_radolan_historical_bin_2017_SF201712.tar.gz
 raster  16_DJF_grids_germany_seasonal_air_temp_mean_188216.asc.gz
