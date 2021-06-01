@@ -16,6 +16,8 @@
 #' |                        |             |
 #' | [stand][readDWD.stand] | \[SF\]      | \[SF\]: `file` contains "standard_format". For subdaily/standard_format files.
 #' |                        |             |
+#' |  [data][readDWD.deriv] | .txt.gz     | For data at /CDC/derived_germany/.
+#' |                        |             |
 #' |  -------               |             |
 #' |                        |             |
 #' | [radar][readDWD.radar] | .gz         | For when the `file` contains a single binary file.
@@ -72,6 +74,7 @@ out[grepl(       ".asc.gz$", file)] <- "raster"
 out[grepl(        ".nc.gz$", file)] <- "nc"
 out[grepl(          ".tar$", file)] <- "asc"
 out[grepl(    ".grib2.bz2$", file)] <- "grib2"
+out[grepl(       ".txt.gz$", file)] <- "deriv"
 
 if(any(out=="fileTypeError")) warning("fileType failed for the following file", 
              truncMessage(file[out=="fileTypeError"], midfix=": "), call.=FALSE)

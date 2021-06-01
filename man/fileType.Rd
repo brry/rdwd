@@ -27,6 +27,8 @@ Click on the \code{type} for the subfunction documentation, e.g. \link[=readDWD.
     \tab  \tab  \cr
    \link[=readDWD.stand]{stand} \tab [SF] \tab [SF]: \code{file} contains "standard_format". For subdaily/standard_format files. \cr
     \tab  \tab  \cr
+   \link[=readDWD.deriv]{data} \tab .txt.gz \tab For data at /CDC/derived_germany/. \cr
+    \tab  \tab  \cr
    ------- \tab  \tab  \cr
     \tab  \tab  \cr
    \link[=readDWD.radar]{radar} \tab .gz \tab For when the \code{file} contains a single binary file. \cr
