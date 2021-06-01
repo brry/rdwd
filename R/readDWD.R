@@ -155,7 +155,7 @@ out <- try(do.call(paste0("readDWD.",type[i]), arg), silent=TRUE)
 if(inherits(out, "try-error")) stop("failure reading file:\n", file[i], "\n", out, call.=FALSE)
 return(out)
 }
-output <- lapply(seq_along(file), readDWDloopfun)
+output <- lapply(seq_along(file), readDWDloopfun, ...)
 
 names(output) <- tools::file_path_sans_ext(basename(file))
 output <- if(length(file)==1) output[[1]] else output
