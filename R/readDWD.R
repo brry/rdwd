@@ -71,6 +71,11 @@ quiet=rdwdquiet(),
 len <- length(file)
 if(missing(progbar) & len==1 & all(type!="binary") & all(type!="asc")) progbar <- FALSE
 
+wrongtype <- !type %in% validFileTypes
+if(any(wrongtype)) stop("invalid type (",type[wrongtype],") given for file '",
+                        file[wrongtype],"'. See  ?fileType")
+
+
 # fast reading with fread:
 if("data" %in% type)
 {
@@ -136,22 +141,21 @@ message(msg, " ...")
 }
 
 # loop over each filename
-output <- lapply(seq_along(file), function(i)
-{
+readDWDloopfun <- function(i, ...){
+arg <- NULL
+if(type[i]=="data")   arg <- list(fread=fread[i], varnames=varnames[i], format=format[i], tz=tz[i])
+if(type[i]=="binary") arg <- list(progbar=progbar)
+if(type[i]=="raster") arg <- list(dividebyten=dividebyten[i])
+if(type[i]=="nc")     arg <- list(var=var[i])
+if(type[i]=="asc")    arg <- list(progbar=progbar, dividebyten=dividebyten[i])
+# arguments to subfunction:
+arg <- c(list(file=file[i], quiet=quiet, ...), arg)
 # call subfunction:
-if(type[i]=="data")   return(readDWD.data(  file[i], quiet=quiet, fread=fread[i], varnames=varnames[i], format=format[i], tz=tz[i], ...))
-if(type[i]=="deriv")  return(readDWD.deriv( file[i], quiet=quiet, ...))
-if(type[i]=="multia") return(readDWD.multia(file[i], quiet=quiet, ...))
-if(type[i]=="stand")  return(readDWD.stand( file[i], quiet=quiet, ...))
-if(type[i]=="meta")   return(readDWD.meta(  file[i], quiet=quiet, ...))
-if(type[i]=="binary") return(readDWD.binary(file[i], quiet=quiet, progbar=progbar, ...))
-if(type[i]=="raster") return(readDWD.raster(file[i], quiet=quiet, dividebyten=dividebyten[i], ...))
-if(type[i]=="nc")     return(readDWD.nc(    file[i], quiet=quiet, var=var[i], ...))
-if(type[i]=="radar")  return(readDWD.radar( file[i], quiet=quiet, ...))
-if(type[i]=="asc")    return(readDWD.asc(   file[i], quiet=quiet, progbar=progbar, dividebyten=dividebyten[i], ...))
-if(type[i]=="grib2")  return(readDWD.grib2( file[i], quiet=quiet, ...))
-stop("invalid type (",type[i],") given for file '",file[i],"'. See  ?fileType")
-}) # lapply loop end
+out <- try(do.call(paste0("readDWD.",type[i]), arg), silent=TRUE)
+if(inherits(out, "try-error")) stop("failure reading file:\n", file[i], "\n", out, call.=FALSE)
+return(out)
+}
+output <- lapply(seq_along(file), readDWDloopfun)
 
 names(output) <- tools::file_path_sans_ext(basename(file))
 output <- if(length(file)==1) output[[1]] else output
