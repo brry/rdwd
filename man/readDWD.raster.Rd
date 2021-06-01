@@ -15,9 +15,7 @@ DWDdata/grids_germany/seasonal/air_temperature_mean/
 The internal defaults are: \code{remove=FALSE} (recommended to
 keep this so \code{file} does not get deleted) and \code{skip=TRUE}
 (which reads previously unzipped files as is).
-If \code{file} has changed, you might want to use
-\code{gargs=list(skip=FALSE, overwrite=TRUE)}
-or alternatively \code{gargs=list(temporary=TRUE)}.
+If \code{file} has changed, use \code{gargs=list(temporary=TRUE)}.
 The \code{gunzip} default \code{destname} means that the
 unzipped file is stored at the same path as \code{file}.
 DEFAULT gargs: NULL}

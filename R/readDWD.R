@@ -672,9 +672,7 @@ return(invisible(list(dat=rbmat, meta=rbmeta)))
 #'                    The internal defaults are: `remove=FALSE` (recommended to
 #'                    keep this so `file` does not get deleted) and `skip=TRUE`
 #'                    (which reads previously unzipped files as is).
-#'                    If `file` has changed, you might want to use
-#'                    `gargs=list(skip=FALSE, overwrite=TRUE)`
-#'                    or alternatively `gargs=list(temporary=TRUE)`.
+#'                    If `file` has changed, use `gargs=list(temporary=TRUE)`.
 #'                    The `gunzip` default `destname` means that the
 #'                    unzipped file is stored at the same path as `file`.
 #'                    DEFAULT gargs: NULL
