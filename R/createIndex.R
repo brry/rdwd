@@ -116,6 +116,7 @@ id <- ifelse(zip & per=="now"              , info[,3], id)
 id <- ifelse(zip & sol & per!="historical" , info[,3], id) # var==solar
 id <- ifelse(zip & per=="meta_data"        , info[,2], id)
 id <- ifelse(substr(file,1,2)=="kl", substr(file,4,8), id) # res==subdaily
+id <- ifelse(info[,1]=="gz"&info[,2]=="txt", info[,3], id) # /CDC/derived_germany/soil/daily/historical/ 
 fileIndex$id <- suppressWarnings(as.integer(id))
 rm(id, per, sol, zip)
 #
