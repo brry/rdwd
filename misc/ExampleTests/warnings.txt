@@ -1,18 +1,14 @@
 
-checkIndex results at 2021-04-08 17:19:49 for
+checkIndex results at 2021-06-02 07:15:18 for
 ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate
-File 'data/fileIndex.rda' was last modified 2021-04-08 15:29:42
+File 'data/fileIndex.rda' was last modified 2021-06-02 01:21:32
 Call stack: runLocalTests -> checkIndex
 -------
 IDs with duplicate files:
--  6 at daily/weather_phenomena/historical;  424, 729, 1757, 2014, 2475, 3811
--  49 at hourly/air_temperature/historical;  44, 78, 102, 294, 342, 368, 656, 662, 704, 760  (and 39 more)
--  11 at hourly/cloud_type/historical;  71, 410, 850, 954, 1228, 1341, 2410, 3348, 3518, 5822  (and 1 more)
+-  1 at annual/weather_phenomena/historical;  '3023'
 -  1 at hourly/cloudiness/historical;  '3093'
 -  1 at hourly/moisture/historical;  '3946'
--  4 at hourly/precipitation/historical;  3093, 3348, 5822, 6157
 -  1 at hourly/pressure/historical;  '850'
--  3 at hourly/soil_temperature/historical;  3093, 3348, 6159
 -  1 at hourly/visibility/historical;  '3093'
 -  1 at hourly/wind_synop/historical;  '3093'
 Duplicate 'Beschreibung' files:
@@ -20,6 +16,8 @@ Duplicate 'Beschreibung' files:
 - 1_minute/precipitation/now/ein_now_rr_Beschreibung_Stationen.txt
 - 10_minutes/precipitation/now/_Beschreibung_Stationen.txt
 - 10_minutes/precipitation/now/zehn_now_rr_Beschreibung_Stationen.txt
+- 10_minutes/wind_test/now/_Beschreibung_Stationen.txt
+- 10_minutes/wind_test/now/zehn_now_ffs_Beschreibung_Stationen.txt
 - hourly/weather_phenomena/historical/Wetter_Beschreibung.txt
 - hourly/weather_phenomena/historical/WW_Stundenwerte_Beschreibung_Stationen.txt
 - hourly/weather_phenomena/recent/Wetter_Beschreibung.txt
@@ -29,24 +27,20 @@ Duplicate 'Beschreibung' files:
 - subdaily/extreme_wind/recent/FX3_Terminwerte_Beschreibung_Stationen.txt
 - subdaily/extreme_wind/recent/FX6_Terminwerte_Beschreibung_Stationen.txt
 Elevation differences >2.1m:
-- ID=2575: 62x432m, 1x426m
-- ID=2958: 20x204m, 1x213m
-- ID=7335: 20x138m, 1x128m
-- ID=13654: 19x285m, 1x288m
+- ID=630: 17x87m, 2x83m
+- ID=4349: 65x251m, 2x248m
+Location differences >40m:
+- ID=2293: 18x50.1918_8.0888, 1x50.1919_8.088
 Different names per id:
-- ID=7285: 20xOebisfelde-Weferlingen-Boesdorf, 1xBoesdorf
-- ID=1770: 18xTangerhuette-Grieben, 1xGrieben
 - ID=15526: 30xHamburg (Deutsche Seewarte), 1xHamburg(Seewarte)
 More than one id per name:
-- Name=Creglingen: 10x7492, 6x883
+- Name=Creglingen: 12x7492, 6x883
 Coordinates used for more than one station:
 - 13.3833_52.5333: 10x ID=408 (Berlin-Invalidenstrasse), 16x ID=422 (Berlin-Mitte)
-- 11.0758_52.4153: 21x ID=7285 (Boesdorf), 21x ID=7285 (Oebisfelde-Weferlingen-Boesdorf)
-- 11.966_52.4233: 19x ID=1770 (Grieben), 19x ID=1770 (Tangerhuette-Grieben)
 
 
 ---------------
-C:/Dropbox/Rpack/rdwd/man/readDWD.grib2.Rd -- 2021-04-08 17:25:23
+C:/Dropbox/Rpack/rdwd/man/readDWD.grib2.Rd -- 2021-06-02 07:21:02
 
 Warning in eval(rd_ex_parsed[[repi]], envir = env) :
   readDWD.grib2 is not tested due to unresolved problems.

@@ -181,6 +181,7 @@ data("fileIndex")
 # online and table folder comparison
 on <- paste(fileIndex$res, fileIndex$var, fileIndex$per, sep="/")
 on <- unique(on)
+on <- on[!grepl("timeseries_overview$", on)]
 
 tab <- lapply(colnames(f)[-1], function(r) 
   {
@@ -542,8 +543,6 @@ raster::plot(raster::raster(rw_orig$dat))
 ```
 <img src="dbin1.png" width="600">
 
-
-I'm considering to set the default dbin to TRUE but need to assess the implications yet.
 
 
 ## PDF overview
