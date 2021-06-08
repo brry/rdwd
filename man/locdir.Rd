@@ -8,8 +8,8 @@ locdir(dir = getOption("rdwdlocdir"), file = NULL, quiet = rdwdquiet())
 }
 \arguments{
 \item{dir}{Path to data directory.
-If \code{dir} does not exist, \code{\link[=tempdir]{tempdir()}} is used instead.
-Unless \code{quiet=TRUE}, a warning is then given.
+If \code{dir} does not exist, \code{\link[=tempdir]{tempdir()}} is used instead
+(with a warning, unless \code{quiet=TRUE}).
 If \code{dir} is NULL, locdir tries "C:/DWDdata".\cr
 \code{dir} can also be set with
 \code{options(rdwdlocdir="YOUR/PATH")} thanks to the
@@ -29,7 +29,7 @@ thus avoiding multiple downloads of the same file.\cr
 Set the default for all subsequent calls with \code{options(rdwdlocdir="YOUR/PATH")}.\cr
 Currently, the \code{\link[=dataDWD]{dataDWD()}} \code{dir} defaults to a project specific folder at \link{getwd}.
 In the future, this may change to \code{locdir()}.\cr
-\code{locdir()} is used for the website, local tests and examples.
+\code{locdir()} is used especially for the website, local tests and examples.
 }
 \examples{
 locdir()

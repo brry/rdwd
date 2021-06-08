@@ -315,8 +315,8 @@ return(dat)
 #' durl <- selectDWD(res="multi_annual", var="mean_81-10", per="")[9]
 #' murl <- selectDWD(res="multi_annual", var="mean_81-10", per="", meta=TRUE)[9]
 #' 
-#' ma_temp <- dataDWD(durl, dir=localtestdir())
-#' ma_meta <- dataDWD(murl, dir=localtestdir())
+#' ma_temp <- dataDWD(durl, dir=locdir())
+#' ma_meta <- dataDWD(murl, dir=locdir())
 #' 
 #' head(ma_temp)
 #' head(ma_meta)
@@ -388,7 +388,7 @@ out
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
 #' 
 #' link <- selectDWD(id=10381, res="subdaily", var="standard_format", per="r")
-#' file <- dataDWD(link, dir=localtestdir(), read=FALSE)
+#' file <- dataDWD(link, dir=locdir(), read=FALSE)
 #' sf <- readDWD(file)
 #' 
 #' sf2 <- readDWD(file, fast=FALSE) # 20 secs!
@@ -499,7 +499,7 @@ return(sf)
 #' if(length(link)!=1) stop("length of link should be 1, but is ", length(link),
 #'                 ":\n", berryFunctions::truncMessage(link,prefix="",sep="\n"))
 #' 
-#' file <- dataDWD(link, dir=localtestdir(), read=FALSE)
+#' file <- dataDWD(link, dir=locdir(), read=FALSE)
 #' meta <- readDWD(file)
 #' head(meta)
 #' 
@@ -584,7 +584,7 @@ stats
 #' 
 #' SF_link <- "/daily/radolan/historical/bin/2017/SF201712.tar.gz"
 #' SF_file <- dataDWD(url=SF_link, base=gridbase, joinbf=TRUE,   # 204 MB
-#'                      dir=localtestdir(), read=FALSE)
+#'                      dir=locdir(), read=FALSE)
 #' # exdir radardir set to speed up my tests:
 #' SF_exdir <- "C:/Users/berry/Desktop/DWDbinarySF"
 #' if(!file.exists(SF_exdir)) SF_exdir <- tempdir()
@@ -599,7 +599,7 @@ stats
 #' 
 #' RW_link <- "hourly/radolan/reproc/2017_002/bin/2017/RW2017.002_201712.tar.gz"
 #' RW_file <- dataDWD(url=RW_link, base=gridbase, joinbf=TRUE,   # 25 MB
-#'                   dir=localtestdir(), read=FALSE)
+#'                   dir=locdir(), read=FALSE)
 #' RW_exdir <- "C:/Users/berry/Desktop/DWDbinaryRW"
 #' if(!file.exists(RW_exdir)) RW_exdir <- tempdir()
 #' RW_rad <- readDWD(RW_file, selection=1:10, exdir=RW_exdir)
@@ -702,7 +702,7 @@ return(invisible(list(dat=rbmat, meta=rbmeta)))
 #' rasterbase <- paste0(gridbase,"/seasonal/air_temperature_mean")
 #' ftp.files <- indexFTP("/16_DJF", base=rasterbase, dir=tempdir())
 #' localfiles <- dataDWD(ftp.files[1:2], base=rasterbase, joinbf=TRUE,
-#'                       dir=localtestdir(), read=FALSE)
+#'                       dir=locdir(), read=FALSE)
 #' rf <- readDWD(localfiles[1])
 #' rf <- readDWD(localfiles[1]) # runs faster at second time due to skip=TRUE
 #' raster::plot(rf)
@@ -767,7 +767,7 @@ return(invisible(r))
 #' 
 #' url <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
 #' url <- "daily/Project_TRY/humidity/RH_199509_daymean.nc.gz"    # 25 MB
-#' file <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=localtestdir(), read=FALSE)
+#' file <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=locdir(), read=FALSE)
 #' nc <- readDWD(file)
 #' ncp <- plotRadar(nc, main=paste(nc@title, nc@z[[1]]), layer=1:3,
 #'                  col=seqPal(), proj="nc", extent="nc")
@@ -934,7 +934,7 @@ return(invisible(rf))
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
 #' 
 #' # File selection and download:
-#' datadir <- localtestdir()
+#' datadir <- locdir()
 #' radbase <- paste0(gridbase,"/hourly/radolan/historical/asc/")
 #' radfile <- "2018/RW-201809.tar" # 25 MB to download
 #' file <- dataDWD(radfile, base=radbase, joinbf=TRUE, dir=datadir,

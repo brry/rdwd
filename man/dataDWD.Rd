@@ -110,7 +110,7 @@ To solve "errors in download.file: cannot open URL", see
 # find FTP files for a given station name and file path:
 link <- selectDWD("Fuerstenzell", res="hourly", var="wind", per="recent")
 # download file:
-fname <- dataDWD(link, dir=tempdir(), read=FALSE) ; fname
+fname <- dataDWD(link, dir=locdir(), read=FALSE) ; fname
 # dir="DWDdata" is the default directory to store files
 # unless force=TRUE, already obtained files will not be downloaded again
 
@@ -126,7 +126,7 @@ berryFunctions::monthAxis(1)
 
 # current and historical files:
 link <- selectDWD("Potsdam", res="daily", var="kl", per="hr"); link
-potsdam <- dataDWD(link, dir=tempdir())
+potsdam <- dataDWD(link, dir=locdir())
 potsdam <- do.call(rbind, potsdam) # this will partly overlap in time
 plot(TMK~MESS_DATUM, data=tail(potsdam,1500), type="l")
 # The straight line marks the jump back in time

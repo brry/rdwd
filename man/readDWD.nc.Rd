@@ -51,7 +51,7 @@ library(berryFunctions) # for seqPal and colPointsLegend
 
 url <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
 url <- "daily/Project_TRY/humidity/RH_199509_daymean.nc.gz"    # 25 MB
-file <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=localtestdir(), read=FALSE)
+file <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=locdir(), read=FALSE)
 nc <- readDWD(file)
 ncp <- plotRadar(nc, main=paste(nc@title, nc@z[[1]]), layer=1:3,
                  col=seqPal(), proj="nc", extent="nc")

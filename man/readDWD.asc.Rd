@@ -57,7 +57,7 @@ To project the data, use \code{\link[=projectRasterDWD]{projectRasterDWD()}}
 \dontrun{ # Excluded from CRAN checks, but run in localtests
 
 # File selection and download:
-datadir <- localtestdir()
+datadir <- locdir()
 radbase <- paste0(gridbase,"/hourly/radolan/historical/asc/")
 radfile <- "2018/RW-201809.tar" # 25 MB to download
 file <- dataDWD(radfile, base=radbase, joinbf=TRUE, dir=datadir,

@@ -3,7 +3,7 @@
 #' data downloads, these tests are not run automatically on CRAN.
 #' @return Time taken to run tests in minutes
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Apr-Oct 2019
-#' @seealso [localtestdir()]
+#' @seealso [locdir()]
 #' @keywords debugging
 #' @importFrom grDevices dev.off pdf
 #' @importFrom graphics par title
@@ -11,8 +11,8 @@
 #' @export
 #' 
 #' @param dir_data  Reusable data location. Preferably not under version control.
-#'                  DEFAULT: [localtestdir()]
-#' @param dir_exmpl Reusable example location. DEFAULT: localtestdir(folder="misc/ExampleTests")
+#'                  DEFAULT: [locdir()]
+#' @param dir_exmpl Reusable example location. DEFAULT: local directory
 #' @param fast      Exclude many tests? DEFAULT: FALSE
 #' @param devcheck  Run `devtools::check()`? DEFAULT: !fast
 #' @param radar     Test reading radar example files. DEFAULT: !fast
@@ -25,8 +25,8 @@
 #' @param quiet Suppress progress messages? DEFAULT: FALSE through [rdwdquiet()]
 #' 
 runLocalTests <- function(
-dir_data=localtestdir(),
-dir_exmpl=localtestdir(folder="misc/ExampleTests"),
+dir_data=locdir(),
+dir_exmpl=berryFunctions::packagePath(file="misc/ExampleTests"),
 fast=FALSE,              # ca 0.1 minutes (always, even if fast=T)
 devcheck=!fast,          # ca 1.0 minutes
 radar=!fast,             # ca 0.3 minutes
@@ -112,7 +112,7 @@ testthat::test_that("readRadarFile works", {
 trr <- function(file, ext="radolan", readdwd=FALSE) # trr: test reading radar data
   {
   main <- deparse(substitute(file))
-  file2 <- localtestdir(folder="misc", file=file)
+  file2 <- berryFunctions::packagePath(file=paste0("misc/",file))
   rrf <- if(readdwd) readDWD(file2, toraster=FALSE) else dwdradar::readRadarFile(file2)
   rrr <- raster::raster(rrf$dat)
   rrp <- projectRasterDWD(rrr, extent=ext)

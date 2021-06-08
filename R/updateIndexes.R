@@ -141,7 +141,7 @@ tools::resaveRdaFiles( "data/formatIndex.rda", version=2)
 messaget("Checking readVars parameter abbreviations...")
 urls <- selectDWD("Potsdam","","","", quiet=TRUE, mindex=metaIndex, findex=fileIndex)
 urls <- urls[!  (grepl("1*_minute", urls) & !grepl("meta_data", urls))     ]
-files <- dataDWD(urls, dir=localtestdir(), read=F)
+files <- dataDWD(urls, dir=locdir(), read=F)
 rv <- readVars(files, quiet=TRUE) # quiet, message through nkurzmissing
 #str(rv, max.level=1)
 k <- unlist(lapply(rv, function(x)x$Kurz))

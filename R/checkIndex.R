@@ -29,7 +29,7 @@ checkIndex <- function(
   excludefp=TRUE,
   fast=FALSE,
   warn=!quiet,
-  logfile=localtestdir(".", "misc/ExampleTests/warnings.txt"),
+  logfile=berryFunctions::packagePath(file="misc/ExampleTests/warnings.txt"),
   quiet=rdwdquiet()
   )
 {

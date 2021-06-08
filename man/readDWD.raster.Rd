@@ -42,7 +42,7 @@ Note that \code{R.utils} must be installed to unzip the .asc.gz files.
 rasterbase <- paste0(gridbase,"/seasonal/air_temperature_mean")
 ftp.files <- indexFTP("/16_DJF", base=rasterbase, dir=tempdir())
 localfiles <- dataDWD(ftp.files[1:2], base=rasterbase, joinbf=TRUE,
-                      dir=localtestdir(), read=FALSE)
+                      dir=locdir(), read=FALSE)
 rf <- readDWD(localfiles[1])
 rf <- readDWD(localfiles[1]) # runs faster at second time due to skip=TRUE
 raster::plot(rf)

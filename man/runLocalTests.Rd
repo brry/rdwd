@@ -5,8 +5,8 @@
 \title{run local tests of rdwd}
 \usage{
 runLocalTests(
-  dir_data = localtestdir(),
-  dir_exmpl = localtestdir(folder = "misc/ExampleTests"),
+  dir_data = locdir(),
+  dir_exmpl = berryFunctions::packagePath(file = "misc/ExampleTests"),
   fast = FALSE,
   devcheck = !fast,
   radar = !fast,
@@ -19,9 +19,9 @@ runLocalTests(
 }
 \arguments{
 \item{dir_data}{Reusable data location. Preferably not under version control.
-DEFAULT: \code{\link[=localtestdir]{localtestdir()}}}
+DEFAULT: \code{\link[=locdir]{locdir()}}}
 
-\item{dir_exmpl}{Reusable example location. DEFAULT: localtestdir(folder="misc/ExampleTests")}
+\item{dir_exmpl}{Reusable example location. DEFAULT: local directory}
 
 \item{fast}{Exclude many tests? DEFAULT: FALSE}
 
@@ -49,7 +49,7 @@ Run \code{rdwd} tests on local machine. Due to time-intensive
 data downloads, these tests are not run automatically on CRAN.
 }
 \seealso{
-\code{\link[=localtestdir]{localtestdir()}}
+\code{\link[=locdir]{locdir()}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Apr-Oct 2019

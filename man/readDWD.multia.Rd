@@ -46,8 +46,8 @@ subdaily/standard_format data.
 durl <- selectDWD(res="multi_annual", var="mean_81-10", per="")[9]
 murl <- selectDWD(res="multi_annual", var="mean_81-10", per="", meta=TRUE)[9]
 
-ma_temp <- dataDWD(durl, dir=localtestdir())
-ma_meta <- dataDWD(murl, dir=localtestdir())
+ma_temp <- dataDWD(durl, dir=locdir())
+ma_meta <- dataDWD(murl, dir=locdir())
 
 head(ma_temp)
 head(ma_meta)

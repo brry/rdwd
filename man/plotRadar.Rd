@@ -99,7 +99,7 @@ Creates a separate plot for each layer, a selection is possible.
 # See homepage in the section 'See Also'
 \dontrun{ ## Excluded from CRAN checks: requires internet connection
 link <- "seasonal/air_temperature_mean/16_DJF/grids_germany_seasonal_air_temp_mean_188216.asc.gz"
-rad <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=tempdir())
+rad <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=locdir())
 radp <- plotRadar(rad, proj="seasonal", extent=rad@extent, main="plotRadar ex")
 plotRadar(radp, ylim=c(52,54), project=FALSE) # reuses main
 
@@ -110,7 +110,7 @@ addBorders()
 
 # several layers
 url <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
-nc <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=localtestdir())
+nc <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=locdir())
 
 ncp3 <- plotRadar(nc, main=paste(nc@title, nc@z[[1]]), layer=1:3,
                   col=terrain.colors(100), proj="nc", extent="nc")

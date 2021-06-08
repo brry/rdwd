@@ -54,7 +54,7 @@ subdaily/standard_format data.
 \dontrun{ # Excluded from CRAN checks, but run in localtests
 
 link <- selectDWD(id=10381, res="subdaily", var="standard_format", per="r")
-file <- dataDWD(link, dir=localtestdir(), read=FALSE)
+file <- dataDWD(link, dir=locdir(), read=FALSE)
 sf <- readDWD(file)
 
 sf2 <- readDWD(file, fast=FALSE) # 20 secs!
