@@ -1,5 +1,5 @@
 
-checkIndex results at 2021-06-02 07:15:18 for
+checkIndex results at 2021-06-09 00:44:01 for
 ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate
 File 'data/fileIndex.rda' was last modified 2021-06-02 01:21:32
 Call stack: runLocalTests -> checkIndex
@@ -40,7 +40,7 @@ Coordinates used for more than one station:
 
 
 ---------------
-C:/Dropbox/Rpack/rdwd/man/readDWD.grib2.Rd -- 2021-06-02 07:21:02
+C:/Dropbox/Rpack/rdwd/man/readDWD.grib2.Rd -- 2021-06-09 00:49:50
 
 Warning in eval(rd_ex_parsed[[repi]], envir = env) :
   readDWD.grib2 is not tested due to unresolved problems.
