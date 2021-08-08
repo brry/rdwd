@@ -2,7 +2,7 @@
 #' @title valid fileType values
 #' @description fileType values that have a reading subfunction `readDWD.ftype()`.
 #' @export
-validFileTypes <- strsplit("data,meta,multia,stand,deriv,radar,binary,raster,nc,asc,grib2", ",")[[1]]
+validFileTypes <- strsplit("data,meta,multia,stand,deriv,radar,binary,raster,nc,asc,rklim,grib2", ",")[[1]]
 
 
 
@@ -38,6 +38,8 @@ validFileTypes <- strsplit("data,meta,multia,stand,deriv,radar,binary,raster,nc,
 #' |                        |             |
 #' |   [asc][readDWD.asc]   | .tar        | For a `file` containing asc files.
 #' |                        |             |
+#' | [rklim][readDWD.rklim] | YW*.tar     | For a `file` containing bin files.
+#' |                        |             |
 #' | [grib2][readDWD.grib2] | .grib2.bz2  | For an nwp forecast `file`.
 #'               
 #' @return Character (vector)
@@ -60,6 +62,7 @@ validFileTypes <- strsplit("data,meta,multia,stand,deriv,radar,binary,raster,nc,
 #' raster  16_DJF_grids_germany_seasonal_air_temp_mean_188216.asc.gz
 #' nc      daily_Project_TRY_humidity_RH_199509_daymean.nc.gz
 #' asc     radolan_historical_asc_2018_RW-201809.tar
+#' rklim   5_minutes_radolan_reproc_2017_002_bin_2020_YW2017.002_202006.tar
 #' grib2   ftp_weather_nwp_cosmo-d2_005_T_2M.grib2.bz2
 #' ")
 #' fileType(ft$filename)
@@ -85,6 +88,7 @@ out[grepl(       ".tar.gz$", file)] <- "binary"
 out[grepl(       ".asc.gz$", file)] <- "raster"
 out[grepl(        ".nc.gz$", file)] <- "nc"
 out[grepl(          ".tar$", file)] <- "asc"
+out[grepl(      "YW.*.tar$", file)] <- "rklim"
 out[grepl(    ".grib2.bz2$", file)] <- "grib2"
 out[grepl(       ".txt.gz$", file)] <- "deriv"
 

@@ -43,7 +43,8 @@ DEFAULT: TRUE}
 \item{var}{var for \code{\link[=readDWD.nc]{readDWD.nc()}}. DEFAULT: ""}
 
 \item{progbar}{Logical: present a progress bar with estimated remaining time?
-If missing and length(file)==1, progbar is internally set to FALSE.
+If missing and length(file)==1, progbar is internally set to FALSE,
+unless binary files are to be read.
 DEFAULT: !quiet}
 
 \item{quiet}{Logical: suppress messages? DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}

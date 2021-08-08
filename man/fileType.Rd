@@ -41,6 +41,8 @@ Click on the \code{type} for the subfunction documentation, e.g. \link[=readDWD.
     \tab  \tab  \cr
    \link[=readDWD.asc]{asc} \tab .tar \tab For a \code{file} containing asc files. \cr
     \tab  \tab  \cr
+   \link[=readDWD.rklim]{rklim} \tab YW*.tar \tab For a \code{file} containing bin files. \cr
+    \tab  \tab  \cr
    \link[=readDWD.grib2]{grib2} \tab .grib2.bz2 \tab For an nwp forecast \code{file}. \cr
 }
 }
@@ -58,6 +60,7 @@ binary  daily_radolan_historical_bin_2017_SF201712.tar.gz
 raster  16_DJF_grids_germany_seasonal_air_temp_mean_188216.asc.gz
 nc      daily_Project_TRY_humidity_RH_199509_daymean.nc.gz
 asc     radolan_historical_asc_2018_RW-201809.tar
+rklim   5_minutes_radolan_reproc_2017_002_bin_2020_YW2017.002_202006.tar
 grib2   ftp_weather_nwp_cosmo-d2_005_T_2M.grib2.bz2
 ")
 fileType(ft$filename)

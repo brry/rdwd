@@ -5,7 +5,7 @@
 \alias{validFileTypes}
 \title{valid fileType values}
 \format{
-An object of class \code{character} of length 11.
+An object of class \code{character} of length 12.
 }
 \usage{
 validFileTypes

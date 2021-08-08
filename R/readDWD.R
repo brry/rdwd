@@ -46,7 +46,8 @@
 #'               DEFAULT: TRUE
 #' @param var    var for [readDWD.nc()]. DEFAULT: ""
 #' @param progbar Logical: present a progress bar with estimated remaining time?
-#'               If missing and length(file)==1, progbar is internally set to FALSE.
+#'               If missing and length(file)==1, progbar is internally set to FALSE,
+#'               unless binary files are to be read.
 #'               DEFAULT: !quiet
 #' @param quiet  Logical: suppress messages? DEFAULT: FALSE through [rdwdquiet()]
 #' @param \dots  Further arguments passed to the internal `readDWD.*`
@@ -69,7 +70,7 @@ quiet=rdwdquiet(),
 {
 # recycle arguments:
 len <- length(file)
-if(missing(progbar) & len==1 & all(type!="binary") & all(type!="asc")) progbar <- FALSE
+if(missing(progbar) & len==1 & all(!type %in% c("binary","asc","rklim"))) progbar <- FALSE
 
 wrongtype <- !type %in% validFileTypes
 if(any(wrongtype)) stop("invalid type (",type[wrongtype],") given for file '",
@@ -145,6 +146,7 @@ readDWDloopfun <- function(i, ...){
 arg <- NULL
 if(type[i]=="data")   arg <- list(fread=fread[i], varnames=varnames[i], format=format[i], tz=tz[i])
 if(type[i]=="binary") arg <- list(progbar=progbar)
+if(type[i]=="rklim")  arg <- list(progbar=progbar)
 if(type[i]=="raster") arg <- list(dividebyten=dividebyten[i])
 if(type[i]=="nc")     arg <- list(var=var[i])
 if(type[i]=="asc")    arg <- list(progbar=progbar, dividebyten=dividebyten[i])
@@ -1021,6 +1023,110 @@ dat <- raster::stack(dat)
 #
 # output:
 return(invisible(dat))
+}
+
+
+
+# ~ rklim ----
+
+#' @title read dwd gridded radklim binary data
+#' @description read gridded radklim binary data.
+#' Intended to be called via [readDWD()].\cr
+#' Note: needs dwdradar >= 0.2.6 (2021-08-08)
+#' @return list depending on argument `toraster`, see there for details
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2021.
+#' @seealso [readDWD.binary()]
+#' @examples
+#' \dontrun{ # Excluded from CRAN checks, but run in localtests
+#' yw_link <- "/5_minutes/radolan/reproc/2017_002/bin/2020/YW2017.002_202006.tar"
+#' yw_file <- dataDWD(url=yw_link, base=gridbase, joinbf=TRUE, dir=locdir(), read=FALSE)
+#' x <- readDWD(yw_file, selection=3641:3644)
+#' raster::plot(x$dat)
+#'
+#' f <- system.file("tests//raa01-yw2017.002_10000-2006131525-dwd---bin", package="dwdradar")
+#' x <- dwdradar::readRadarFile(f)
+#' x$dat <- raster::raster(x$dat)
+#' raster::plot(x$dat)
+#' plotRadar(x$dat)
+#' }
+#' @param file      Name of file on harddrive, like e.g.
+#'                  DWDdata/5_minutes_radolan_reproc_2017_002_bin_2020_YW2017.002_202006.tar
+#' @param exdir     Directory to unzip into. If existing, only the needed files
+#'                  will be unpacked with [untar()]. Note that exdir
+#'                  size will be around 17 GB for 5-minute files.
+#'                  If `unpacked=FALSE`, exdir can contain other files
+#'                  that will be ignored for the actual reading.
+#'                  DEFAULT: basename(file) at tempdir
+#' @param unpacked  Manually indicate whether .tar.gz files within .tar file
+#'                  have already been unpacked before.
+#'                  DEFAULT: NULL: checks if 'yw.*--bin' file(s) are present
+#' @param selection Optionally read only a subset of the ~ 12 x 24 x 30/31 = 8640 files.
+#'                  Called as `f[selection]`. DEFAULT: NULL (ignored)
+#' @param toraster  Logical: convert to raster stack? see [readDWD.binary]
+#'                  DEFAULT: TRUE
+#' @param quiet     Suppress progress messages?
+#'                  DEFAULT: FALSE through [rdwdquiet()]
+#' @param progbar   Show progress bars?
+#'                  DEFAULT: !quiet, i.e. TRUE
+#' @param \dots     Further arguments passed to [dwdradar::readRadarFile()],
+#'                  i.e. `na` and `clutter`
+
+readDWD.rklim <- function(file, exdir=NULL, unpacked=NULL, selection=NULL,
+                            toraster=TRUE, quiet=rdwdquiet(), progbar=!quiet, ...)
+{
+checkSuggestedPackage("dwdradar", "rdwd:::readDWD.radklim")
+if(progbar) lapply <- pbapply::pblapply
+# exdir:
+fn <- tools::file_path_sans_ext(basename(file))
+if(is.null(exdir)) exdir <- paste0(tempdir(),"/", fn)
+#
+if(is.null(unpacked)){
+unpacked <- any(grepl("yw.*--bin", dir(exdir)))
+if(!quiet) if(unpacked) message("Assuming files have been unpacked.") else
+                        message("Assuming files need to be unpacked.")
+}
+
+if(!unpacked){
+# untar layer 1:
+daydir <- paste0(exdir,"/dayfiles")
+untar(file, exdir=daydir) # 30/31 .tar.gz files (one for each day). overwrites existing files
+dayfiles <- dir(daydir, full.names=TRUE)
+# untar layer 2:
+if(!quiet) message("Listing contents of ",length(dayfiles)," .tar files ...")
+original <- lapply(dayfiles, untar, list=TRUE) # needed for dir file selection
+if(!quiet) message("Unpacking .tar files into ",exdir,"...")
+lapply(dayfiles, untar, exdir=exdir)
+# yields 30 * 24 * 12 = 8640 files each 1.7MB, takes ~25 secs
+f <- dir(exdir, full.names=TRUE) # 8641 files (including "dayfiles" folder name)
+# use only the files from file, not other stuff at exdir:
+f <- f[basename(f) %in% unlist(original)]
+unlink(daydir, recursive=TRUE)
+} else
+{
+message("Assuming exdir ",exdir," \n         only contains binary files from file '",file,"'")
+f <- dir(exdir, full.names=TRUE)
+}
+
+# read data (e.g 5-minutely files):
+if(!is.null(selection)) f <- f[selection]
+if(!quiet) message("Reading ",length(f)," files...")
+rb <- lapply(f, dwdradar::readRadarFile, ...)
+
+# list element names (time stamp):
+time <- sapply(rb, function(x) format(x$meta$date, "%F %T"))
+names(rb) <- time
+
+if(!toraster) return(invisible(rb))
+# else if toraster:
+checkSuggestedPackage("raster", "rdwd:::readDWD.radklim with toraster=TRUE")
+if(!quiet) message("Converting to raster...")
+rbmat <- base::lapply(rb,"[[",1)
+rbmat <- lapply(rbmat, raster::raster)
+rbmat <- raster::stack(rbmat)
+rbmeta <- rb[[1]]$meta
+rbmeta$filename <- file
+rbmeta$date <- as.POSIXct(time)
+return(invisible(list(dat=rbmat, meta=rbmeta)))
 }
 
 
