@@ -64,11 +64,46 @@ f <- system.file("tests//raa01-yw2017.002_10000-2006131525-dwd---bin", package="
 x <- dwdradar::readRadarFile(f)
 x$dat <- raster::raster(x$dat)
 raster::plot(x$dat)
-plotRadar(x$dat)
+plotRadar(x$dat, extent=c(-360, 380, -4730 ,-3690))
+
+radloc <- read.table(header=T, sep=",", text="
+ND, NM, NS  ,   ED, EM, ES
+53, 33, 50.4,   06, 44, 53.9
+51, 07, 26.5,   13, 45, 48.5
+51, 24, 18.5,   06, 57, 49.8
+47, 52, 21.3,   08, 00, 24.6
+54, 10, 23.2,   12, 06, 25.3
+52, 28, 40.3,   13, 23, 13.0
+54, 00, 15.8,   10, 02, 48.7
+51, 07, 28.7,   13, 46, 07.1
+49, 32, 26.4,   12, 24, 10.0
+53, 20, 19.4,   07, 01, 25.5
+51, 24, 20.2,   06, 58, 01.6
+47, 52, 25.0,   08, 00, 13.0
+51, 20, 06.0,   08, 51, 09.0
+51, 18, 40.3,   08, 48, 07.2
+50, 03, 06.0,   08, 34, 05.0
+50, 01, 20.8,   08, 33, 30.7
+53, 37, 16.5,   09, 59, 47.6
+52, 27, 47.0,   09, 41, 53.9
+52, 27, 36.2,   09, 41, 40.2
+48, 10, 28.9,   12, 06, 06.3
+48, 02, 31.7,   10, 13, 09.2
+48, 20, 10.9,   11, 36, 42.1
+50, 30, 00.4,   11, 08, 06.2
+50, 06, 34.7,   06, 32, 53.9
+49, 59, 05.1,   08, 42, 46.6
+52, 38, 55.2,   13, 51, 29.6
+54, 10, 32.4,   12, 03, 29.1
+48, 35, 07.0,   09, 46, 58.0
+52, 09, 36.3,   11, 10, 33.9")
+radloc$x <- radloc$ED + radloc$EM/60 + radloc$ES/3600
+radloc$y <- radloc$ND + radloc$NM/60 + radloc$NS/3600
+for(i in 1:29) berryFunctions::circle(radloc$x[i], radloc$y[i], 0.9)
 }
 }
 \seealso{
-\code{\link[=readDWD.binary]{readDWD.binary()}}
+\code{\link[=readDWD.binary]{readDWD.binary()}}, radar locations from \url{https://www.dwd.de/DE/leistungen/radarklimatologie/radklim_kompositformat_1_0.pdf?__blob=publicationFile&v=1}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Aug 2021.
