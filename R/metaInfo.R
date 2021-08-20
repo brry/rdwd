@@ -10,28 +10,31 @@
 #' metaInfo(2849)
 #' 
 #' @param id Station ID (integer number or convertible to one)
+#' @param mindex      Index dataframe with metadata. DEFAULT: [`metaIndex`]
 #' @param hasfileonly Logical: Only show entries that have files? DEFAULT: TRUE
 #' 
 metaInfo <- function(
   id,
+  mindex=metaIndex,
   hasfileonly=TRUE
   )
 {
+mindexname <- deparse(substitute(mindex))
 # ID preparation:
 id <- as.integer(id[1])
 # Selection of rows:
-sel <- metaIndex$Stations_id==id
-if(sum(sel)<1) stop("rdwd::metaIndex contains no entries for id=", id,
+sel <- mindex$Stations_id==id
+if(sum(sel)<1) stop(mindexname," contains no entries for id=", id,
                     ". This ID probably does not exist.")
 # public / nonpublic files
 nonpubmes <- ""
-nonpub <- !metaIndex[sel,"hasfile"]
+nonpub <- !mindex[sel,"hasfile"]
 if(any(nonpub)&hasfileonly) nonpubmes <- paste0("\nAdditionally, there are ",
       sum(nonpub), " non-public files. Display all with  metaInfo(",id,",FALSE)",
       "\nTo request those datasets, please contact cdc.daten@dwd.de or klima.vertrieb@dwd.de")
-if(hasfileonly) sel <- sel & metaIndex$hasfile
+if(hasfileonly) sel <- sel & mindex$hasfile
 # Output preparation:
-out <- metaIndex[sel,]
+out <- mindex[sel,]
 #
 # Print preparation I:
 p_id <- toString(unique(out$Stations_id))
@@ -40,7 +43,10 @@ p_bl <- toString(unique(out$Bundesland))
 p_nf <- length(unique(paste(out$res, out$var, out$per)))
 if(p_id=="") p_id <- id
 # message I:
-message("rdwd station id ", p_id, " with ", p_nf, " files.\nName: ", p_sn, ", State: ", p_bl, nonpubmes)
+message("rdwd station id ", p_id, " with ", p_nf, " files.\n",
+        "Name: ", p_sn, ", State: ", p_bl, 
+        "\nFor up-to-date info, see https://bookdown.org/brry/rdwd/fileindex.html#metaindex",
+        nonpubmes)
 #
 if(nrow(out)==0) return()
 #

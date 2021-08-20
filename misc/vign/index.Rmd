@@ -333,8 +333,8 @@ View(data.frame(sort(unique(rdwd:::metaIndex$Stationsname)))) # ca 6k entries
 m_link <- selectDWD(res="monthly", var="more_precip", per="hist", meta=TRUE)
 print_short(m_link) # (Monatswerte = monthly values, Beschreibung = description)
 ```
-```{r meta2, eval=FALSE}
-meta_monthly_rain <- dataDWD(m_link) # not executed in website creation
+```{r meta2}
+meta_monthly_rain <- dataDWD(m_link, dir=locdir())
 str(meta_monthly_rain)
 ```
 
@@ -342,6 +342,18 @@ Meta files may list stations for which there are actually no files.
 These refer to nonpublic datasets (The DWD cannot publish all datasets because of copyright restrictions).
 To request those, please contact <cdc.daten@dwd.de> or <klima.vertrieb@dwd.de>.
 
+The from and to dates do not always reflect the real time period with avalaible data.
+They are read from the DWD `_Beschreibung_Stationen.txt` files, e.g. [this one](https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/daily/kl/historical/KL_Tageswerte_Beschreibung_Stationen.txt), see also [issue 32](https://github.com/brry/rdwd/issues/32).
+
+For up-to-date metaIndexes, check for updates in the development version (`r helplink("rdwd::updateRdwd()", "updateRdwd")`), [prompt](mailto:berry-b@gmx.de) me to update it, or use your own version:
+```{r mindexupdate}
+ll <- selectDWD("Potsdam", c("hourly","daily"), c("wind","kl"), "r", meta=TRUE)
+ll <- sub(dwdbase, "", ll)
+ll
+ind <- createIndex(ll, dir=tempdir(), meta=TRUE, checkwarn=FALSE)
+ind$metaIndex$hasfile <- TRUE
+metaInfo(3987, mindex=ind$metaIndex)
+```
 
 
 # fread

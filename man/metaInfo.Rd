@@ -4,10 +4,12 @@
 \alias{metaInfo}
 \title{Information for a station ID on the DWD CDC FTP server}
 \usage{
-metaInfo(id, hasfileonly = TRUE)
+metaInfo(id, mindex = metaIndex, hasfileonly = TRUE)
 }
 \arguments{
 \item{id}{Station ID (integer number or convertible to one)}
+
+\item{mindex}{Index dataframe with metadata. DEFAULT: \code{\link{metaIndex}}}
 
 \item{hasfileonly}{Logical: Only show entries that have files? DEFAULT: TRUE}
 }
