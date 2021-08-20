@@ -68,7 +68,7 @@ metaforce=NA
 {
 # get indexes ----
 
-if(!grepl("rdwd$", getwd())) stop("getwd must be in package root folder.", immediate.=TRUE)
+if(!grepl("rdwd$", getwd())) stop("getwd must be in package root folder.")
 begintime <- Sys.time()
 messaget <- function(...) message(format(Sys.time(), "%T - "), ...)
 # get filenames on FTP server:
