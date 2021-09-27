@@ -62,7 +62,7 @@ print_short <- function(x)
 
 # Package structure
 
-`rdwd` is designed around 5 main functions:
+`rdwd` is designed around 6 main functions:
 
 * `r helplink("selectDWD")`: select time series data, needing:
   * station id or name, see chapters [interactive map](interactive-map.html) and [station selection](station-selection.html)
@@ -75,13 +75,15 @@ print_short <- function(x)
 
 * `r helplink("nearbyStations")`: alternative to `selectDWD` for a given lat/lon location 
 
+* raster data must be selected manually.
+
 * `r helplink("dataDWD")`: download a file (or multiple files), without re-downloads for existing files
 
 * `r helplink("readDWD")`: read that data into R (handling all the various file formats)
 
-* `r helplink("plotRadar")`: visualize all raster data types nicely on a projected map  
+* `r helplink("plotDWD")`: plot time series
 
-For time series there is no overarching plotting function and raster data must as of yet be selected manually.
+* `r helplink("plotRadar")`: visualize all raster data types nicely on a projected map  
 
 <img src="PackageSchematic.png" width="740">
 
