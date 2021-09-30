@@ -463,7 +463,7 @@ The last line shows what projection and extent to use in `r helplink("projectRas
 (called through `r helplink("plotRadar")`). 
 
 ## readDWD.raster
-`r helplink("readDWD.raster")`  
+`r helplink("readDWD.raster")` - for actual code, see [use case: monthly gridded data](use-case-monthy-gridded-data.html)
 ```{r readDWD_raster}
 link <- "seasonal/air_temperature_mean/16_DJF/grids_germany_seasonal_air_temp_mean_188216.asc.gz" # 0.2 MB
 file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE)
@@ -482,7 +482,7 @@ pp <- project_and_plot(rad, ".nc", rad@title, rad@z[[1]][1], proj="nc", extent="
 ```
 
 ## readDWD.binary (RW)
-`r helplink("readDWD.binary")`
+`r helplink("readDWD.binary")` - see also [use case: recent hourly radar files](use-case-recent-hourly-radar-files.html)
 ```{r readDWD_binary_rw}
 link <- "hourly/radolan/reproc/2017_002/bin/2017/RW2017.002_201712.tar.gz"  # 25 MB
 file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE)
@@ -510,7 +510,7 @@ pp <- project_and_plot(rad, ".asc", names(rad)[1])
 ```
  
 ## readDWD.radar (RW)
-`r helplink("readDWD.radar")`
+`r helplink("readDWD.radar")` - for actual code for daily data, see [use case: daily radar files](use-case-daily-radar-files.html)
 ```{r readDWD_radar, echo=-1}
 suppressPackageStartupMessages(library(R.utils)) 
 links <- indexFTP("hourly/radolan/recent/bin", base=gridbase, dir=tdir) # 0.04 MB
@@ -688,6 +688,37 @@ raster::plot(tempmax_stack, zlim=range(raster::cellStats(tempmax_stack, range)) 
 # Time series at given location:
 loc <- data.frame(x=12.65295, y=53.06547) # Aussichtspunkt Kyritz-Ruppiner Heide
 raster::extract(tempmax_stack, loc)
+```
+
+
+
+# - use case: daily radar files
+Download and read with `r helplink("readDWD.radar")` with `dividebyten=TRUE`:
+```{r daily_radar_read}
+# library("rdwd")
+radbase <- paste0(gridbase,"/daily/radolan/recent/bin/")
+radfile <- "raa01-sf_10000-2107142350-dwd---bin.gz" 
+rad <- dataDWD(radfile, base=radbase, joinbf=TRUE, dir=locdir())
+```
+Project and then plot:
+```{r daily_radar_plot}
+radp <- projectRasterDWD(rad$dat)
+plotRadar(radp, main=paste("mm in 24 hours preceding", rad$meta$date), project=FALSE)
+```
+
+Save the projected radar image as NCDF file, read back and plot (not executed):
+```{r daily_radar_ncdf, eval=FALSE}
+raster::writeRaster(radp, "rad_0714_2350.nc", format="CDF", overwrite=TRUE, 
+                    varname="pre", varunit="mm/day", longname="precipitation24hrs", 
+                    xname="X", yname="Y",zname="nbands", zunit="numeric")
+
+nc <- ncdf4::nc_open("rad_0714_2350.nc")
+nc
+pre <- ncdf4::ncvar_get(nc, "pre")
+lon <- nc$dim$X$vals
+lat <- nc$dim$Y$vals
+image(lon, rev(lat), pre[,ncol(pre):1]) # takes several seconds
+rdwd::addBorders()
 ```
 
 
