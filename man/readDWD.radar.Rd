@@ -4,7 +4,14 @@
 \alias{readDWD.radar}
 \title{read dwd gridded radolan radar data}
 \usage{
-readDWD.radar(file, gargs = NULL, toraster = TRUE, quiet = rdwdquiet(), ...)
+readDWD.radar(
+  file,
+  gargs = NULL,
+  toraster = TRUE,
+  dividebyten = TRUE,
+  quiet = rdwdquiet(),
+  ...
+)
 }
 \arguments{
 \item{file}{Name of file on harddrive, like e.g.
@@ -18,6 +25,9 @@ raa01-rw_10000-1802020250-dwd---bin.gz}
 to a list with data (\code{\link[raster:stack]{raster::stack}}) +
 meta (list from the first subfile, but with vector of dates)?
 DEFAULT: TRUE}
+
+\item{dividebyten}{Logical: Divide the numerical values by 10? See \link{readDWD}.
+toraster???  DEFAULT: TRUE}
 
 \item{quiet}{Ignored.
 DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
@@ -39,8 +49,7 @@ Intended to be called via \code{\link[=readDWD]{readDWD()}}.\cr
 rrf <- indexFTP("hourly/radolan/recent/bin", base=gridbase, dir=tempdir())
 lrf <- dataDWD(rrf[773], base=gridbase, joinbf=TRUE, dir=tempdir(), read=FALSE)
 r <- readDWD(lrf)
-
-plotRadar(r$dat, main=r$meta$date)
+plotRadar(r$dat, main=paste("mm in 24 hours preceding", rad$meta$date))
 }
 }
 \seealso{

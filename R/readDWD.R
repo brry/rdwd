@@ -42,7 +42,8 @@
 #'               DEFAULT: NA
 #' @param format,tz Format and time zone of time stamps, see [readDWD.data()]
 #' @param dividebyten Logical (vector): Divide the values in raster files by ten?
-#'               Used in [readDWD.raster()] and [readDWD.asc()].
+#'               That way, \[1/10 mm] gets transformed to \[mm] units.
+#'               Used in [readDWD.radar()], [readDWD.raster()] and [readDWD.asc()].
 #'               DEFAULT: TRUE
 #' @param var    var for [readDWD.nc()]. DEFAULT: ""
 #' @param progbar Logical: present a progress bar with estimated remaining time?
@@ -138,6 +139,8 @@ nt <- function(x, pre="readDWD.", post="()") # nt: nice table
   }
 msg <- paste0("Reading ",length(file)," file", if(length(file)>1)"s", " with ",nt(type))
 if(any("data" %in% type)) msg <- paste0(msg, " and fread=",nt(fread,"",""))
+if(any(c("radar", "raster", "asc") %in% type)) 
+  msg <- paste0(msg, " and dividebyten=",nt(dividebyten,"",""))
 message(msg, " ...")
 }
 
@@ -148,6 +151,7 @@ if(type[i]=="data")   arg <- list(fread=fread[i], varnames=varnames[i], format=f
 if(type[i]=="binary") arg <- list(progbar=progbar)
 if(type[i]=="rklim")  arg <- list(progbar=progbar)
 if(type[i]=="raster") arg <- list(dividebyten=dividebyten[i])
+if(type[i]=="radar")  arg <- list(dividebyten=dividebyten[i])
 if(type[i]=="nc")     arg <- list(var=var[i])
 if(type[i]=="asc")    arg <- list(progbar=progbar, dividebyten=dividebyten[i])
 # arguments to subfunction:
@@ -727,7 +731,7 @@ return(invisible(list(dat=rbmat, meta=rbmeta)))
 #'                    The `gunzip` default `destname` means that the
 #'                    unzipped file is stored at the same path as `file`.
 #'                    DEFAULT gargs: NULL
-#' @param dividebyten Logical: Divide the numerical values by 10?
+#' @param dividebyten Logical: Divide the numerical values by 10? See [readDWD].
 #'                    DEFAULT: TRUE
 #' @param quiet       Ignored.
 #'                    DEFAULT: FALSE through [rdwdquiet()]
@@ -889,8 +893,7 @@ return(invisible(list(time=time, lat=LAT, lon=LON, var=VAR, varname=var,
 #' rrf <- indexFTP("hourly/radolan/recent/bin", base=gridbase, dir=tempdir())
 #' lrf <- dataDWD(rrf[773], base=gridbase, joinbf=TRUE, dir=tempdir(), read=FALSE)
 #' r <- readDWD(lrf)
-#' 
-#' plotRadar(r$dat, main=r$meta$date)
+#' plotRadar(r$dat, main=paste("mm in 24 hours preceding", rad$meta$date))
 #' }
 #' @param file      Name of file on harddrive, like e.g.
 #'                  DWDdata/hourly/radolan/recent/bin/
@@ -901,11 +904,13 @@ return(invisible(list(time=time, lat=LAT, lon=LON, var=VAR, varname=var,
 #'                  to a list with data ([`raster::stack`]) +
 #'                  meta (list from the first subfile, but with vector of dates)?
 #'                  DEFAULT: TRUE
+#' @param dividebyten Logical: Divide the numerical values by 10? See [readDWD].
+#'                  toraster???  DEFAULT: TRUE
 #' @param quiet     Ignored.
 #'                  DEFAULT: FALSE through [rdwdquiet()]
 #' @param \dots     Further arguments passed to [dwdradar::readRadarFile()],
 #'                  i.e. `na` and `clutter`
-readDWD.radar <- function(file, gargs=NULL, toraster=TRUE, quiet=rdwdquiet(), ...)
+readDWD.radar <- function(file, gargs=NULL, toraster=TRUE, dividebyten=TRUE, quiet=rdwdquiet(), ...)
 {
 checkSuggestedPackage("dwdradar","rdwd:::readDWD.radar")
 checkSuggestedPackage("R.utils", "rdwd:::readDWD.radar")
@@ -916,6 +921,7 @@ rdata <- do.call(R.utils::gunzip, gfinal)
 rf <- dwdradar::readRadarFile(rdata, ...)
 if(toraster) checkSuggestedPackage("raster", "rdwd:::readDWD.radar with toraster=TRUE")
 if(toraster) rf$dat <- raster::raster(rf$dat)
+if(dividebyten) rf$dat <- rf$dat/10
 return(invisible(rf))
 }
 
@@ -968,7 +974,7 @@ return(invisible(rf))
 #' @param exdir       Directory to unzip into. Unpacked files existing therein
 #'                    will not be untarred again, saving up to 15 secs per file.
 #'                    DEFAULT: NULL (subfolder of [tempdir()])
-#' @param dividebyten Divide numerical values by 10?
+#' @param dividebyten Divide numerical values by 10? See [readDWD].
 #'                    If dividebyten=FALSE and exdir left at NULL (tempdir), save
 #'                    the result on disc with [raster::writeRaster()].
 #'                    Accessing out-of-memory raster objects won't work if

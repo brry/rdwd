@@ -37,7 +37,8 @@ DEFAULT: NA}
 \item{format, tz}{Format and time zone of time stamps, see \code{\link[=readDWD.data]{readDWD.data()}}}
 
 \item{dividebyten}{Logical (vector): Divide the values in raster files by ten?
-Used in \code{\link[=readDWD.raster]{readDWD.raster()}} and \code{\link[=readDWD.asc]{readDWD.asc()}}.
+That way, [1/10 mm] gets transformed to [mm] units.
+Used in \code{\link[=readDWD.radar]{readDWD.radar()}}, \code{\link[=readDWD.raster]{readDWD.raster()}} and \code{\link[=readDWD.asc]{readDWD.asc()}}.
 DEFAULT: TRUE}
 
 \item{var}{var for \code{\link[=readDWD.nc]{readDWD.nc()}}. DEFAULT: ""}

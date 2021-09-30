@@ -24,7 +24,7 @@ Must have been downloaded with \code{mode="wb"}!}
 will not be untarred again, saving up to 15 secs per file.
 DEFAULT: NULL (subfolder of \code{\link[=tempdir]{tempdir()}})}
 
-\item{dividebyten}{Divide numerical values by 10?
+\item{dividebyten}{Divide numerical values by 10? See \link{readDWD}.
 If dividebyten=FALSE and exdir left at NULL (tempdir), save
 the result on disc with \code{\link[raster:writeRaster]{raster::writeRaster()}}.
 Accessing out-of-memory raster objects won't work if

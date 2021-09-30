@@ -20,7 +20,7 @@ The \code{gunzip} default \code{destname} means that the
 unzipped file is stored at the same path as \code{file}.
 DEFAULT gargs: NULL}
 
-\item{dividebyten}{Logical: Divide the numerical values by 10?
+\item{dividebyten}{Logical: Divide the numerical values by 10? See \link{readDWD}.
 DEFAULT: TRUE}
 
 \item{quiet}{Ignored.
