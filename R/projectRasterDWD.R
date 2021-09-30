@@ -49,6 +49,9 @@ targetproj="ll",
 quiet=rdwdquiet()
 )
 {
+# input check
+if(is.null(r)) stop("r is NULL. Make sure you select the raster part properly.")
+if(identical(names(r),c("dat","meta"))) stop("projectRasterDWD needs the 'dat' element as input.")
 # package check
 checkSuggestedPackage("raster", "rdwd::projectRasterDWD")
 #
