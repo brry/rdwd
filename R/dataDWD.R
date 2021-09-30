@@ -229,7 +229,7 @@ if(any(iserror))
 # ------------------------------------------------------------------------------
 # Output: Read the file or outfile name:
 output <- outfile
-if(read) output <- readDWD(file=outfile, progbar=progbar, ...)
+if(read) output <- readDWD(file=outfile, quiet=quiet, progbar=progbar, ...)
 # output:
 return(invisible(output))
 }
