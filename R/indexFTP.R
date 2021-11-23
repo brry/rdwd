@@ -33,7 +33,7 @@
 #' @importFrom stats runif
 #' @importFrom pbapply pblapply
 #' @importFrom utils write.table read.table
-#' @importFrom berryFunctions removeSpace traceCall newFilename truncMessage
+#' @importFrom berryFunctions traceCall newFilename truncMessage
 #' @export
 #' @examples
 #' \dontrun{ ## Needs internet connection
@@ -154,7 +154,7 @@ getURL_ffe <- function(ff_row)
     {
      # Prepare warning message text:
      p <- gsub("Error in function (type, msg, asError = TRUE)  : ", "", p, fixed=TRUE)
-     p <- removeSpace(gsub("\n", "", p))
+     p <- trimws(gsub("\n", "", p))
      if(grepl("Could not resolve host", p))
        p <- paste0(p,"\nThis may mean you are not connected to the internet.")
      if(grepl("Server denied you to change to the given directory", p))

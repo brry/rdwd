@@ -764,7 +764,6 @@ return(invisible(r))
 #' **cdf** is the output of [ncdf4::nc_open()].
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019
 #' @seealso [readDWD()]
-#' @importFrom berryFunctions removeSpace
 #' @importFrom utils menu tail capture.output
 #' @examples
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
@@ -842,12 +841,12 @@ if(is.null(unit))
 if(substr(unit,1,4)=="days")
  {
  start <- sub("days since", "", unit)
- start <- strsplit(berryFunctions::removeSpace(start), " ")[[1]][1]
+ start <- strsplit(trimws(start), " ")[[1]][1]
  start <- as.Date(start)
  time <- start + ncdf4::ncvar_get(mycdf,'time')
  } else
  {
- start <- berryFunctions::removeSpace(sub("hours since", "", unit)) # always hours?
+ start <- trimws(sub("hours since", "", unit)) # always hours?
  start <- strptime(start, format="%F %T")
  time <- start + ncdf4::ncvar_get(mycdf,'time')*3600
  }

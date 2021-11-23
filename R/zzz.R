@@ -72,7 +72,6 @@ gridbase <- "ftp://opendata.dwd.de/climate_environment/CDC/grids_germany"
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Feb 2017
 #' @seealso [`geoIndex`]
 #' @keywords character
-#' @importFrom berryFunctions removeSpace
 #' 
 #' @param x data.frame with colnames
 #' 
@@ -80,7 +79,7 @@ rowDisplay <- function(
 x
 )
 {
-perrow <- function(x) paste0("rdwd::metaInfo(id=",removeSpace(x[1]),")<br>",
+perrow <- function(x) paste0("rdwd::metaInfo(id=",trimws(x[1]),")<br>",
                              paste0(names(x)[-1], ": ", x[-1], collapse="<br>"))
 apply(x, MARGIN=1, perrow)
 }
