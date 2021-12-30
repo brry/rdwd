@@ -10,7 +10,7 @@ locdir(dir = getOption("rdwdlocdir"), file = NULL, quiet = rdwdquiet())
 \item{dir}{Path to data directory.
 If \code{dir} does not exist, \code{\link[=tempdir]{tempdir()}} is used instead
 (with a warning, unless \code{quiet=TRUE}).
-If \code{dir} is NULL, locdir tries "C:/DWDdata".\cr
+If \code{dir} is NULL, locdir tries "C:/DWDdata", then "~/DWDdata".\cr
 \code{dir} can also be set with
 \code{options(rdwdlocdir="YOUR/PATH")} thanks to the
 DEFAULT: \link{getOption}\code{("rdwdlocdir")}}

@@ -21,7 +21,7 @@
 #' @param dir     Path to data directory. 
 #'                If `dir` does not exist, [tempdir()] is used instead 
 #'                (with a warning, unless `quiet=TRUE`).
-#'                If `dir` is NULL, locdir tries "C:/DWDdata".\cr
+#'                If `dir` is NULL, locdir tries "C:/DWDdata", then "~/DWDdata".\cr
 #'                `dir` can also be set with 
 #'                `options(rdwdlocdir="YOUR/PATH")` thanks to the 
 #'                DEFAULT: [getOption]`("rdwdlocdir")`
@@ -36,6 +36,7 @@ quiet=rdwdquiet()
 )
 {
 if(is.null(dir)) dir <- "C:/DWDdata"
+if(!file.exists(dir))dir <- "~/DWDdata"
 if(!file.exists(dir))
   {
   if(!quiet) warning("'", dir, "' does not exist, using tempdir() now.")
