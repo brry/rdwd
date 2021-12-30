@@ -166,7 +166,7 @@ if(length(unused)>0) warning("unused arguments in ", berryFunctions::traceCall(1
 # Input checks and processing:
 findexname <- deparse(substitute(findex))
 # time period insertations:
-outvec <- outvec # needs to be evaluated before per is changed
+force(outvec) # needs to be evaluated before per is changed
 if(any(per=="hr"|per=="rh", na.rm=TRUE))
   {
   p_index_hr <- which(per=="hr")
