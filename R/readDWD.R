@@ -523,6 +523,9 @@ readDWD.meta <- function(file, quiet=rdwdquiet(), ...)
 # read a few lines to get column widths and names
 oneline <- readLines(file, n=60, encoding="latin1")
 # n=60 or 15 has no influence on total readDWD.meta time for 97 meta files (16 secs)
+oneline <- sub("Berlin-Dahlem (LFAG)", "Berlin-Dahlem_(LFAG)", oneline, fixed=TRUE)
+oneline <- sub("Berlin-Dahlem (FU)"  , "Berlin-Dahlem_(FU)"  , oneline, fixed=TRUE)
+# Fix reading error if only these two exist, like in daily/kl/hist mn4_Beschreibung_Stationen.txt 2022-04-07
 
 # column names:
 # remove duplicate spaces (2018-03 only in subdaily_stand...Beschreibung....txt)
