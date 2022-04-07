@@ -40,7 +40,7 @@ exdir <- paste0(tempdir(),"/", fn)
 unzip(f, exdir=exdir)
 on.exit(unlink(exdir, recursive=TRUE), add=TRUE)
 # all meta info text files in zip folder:
-fm <- dir(exdir, pattern="*.txt", full.names=TRUE)
+fm <- dir(exdir, pattern=".*\\.txt", full.names=TRUE)
 fm <- fm[substr(basename(fm),1,7)!="produkt"]
 tabs <- base::lapply(fm, function(fi)
   {
