@@ -56,6 +56,10 @@ if(length(mindate)>1) stop("mindate mus be a single value, not ", length(mindate
 if(radius>1000) warning("radius is supposed to be given in km. ",
                         "Your value seems irreasonably high: ", radius)
 
+# per partial matching (abbreviation):
+per[substr(per,1,1)=="h"] <- "historical"
+per[substr(per,1,1)=="r"] <- "recent"
+
 if(!quiet) message("Selecting stations...")
 m <- metaIndex
 # Select restrictively for res/var/per, file availability, minimum end date:
