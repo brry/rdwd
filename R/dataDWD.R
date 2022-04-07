@@ -136,6 +136,8 @@ quiet=rdwdquiet(),
 if(!is.null(file)) stop("The argument 'file' has been renamed to 'url' with rdwd version 1.3.34, 2020-07-28")
 if(!is.atomic(url)) stop("url must be a vector, not a ", class(url))
 if(!is.character(url)) stop("url must be char, not ", class(url))
+if(missing(dir)) warning("In late 2022, dir will default to locdir(). ",
+                         "From then on, use dir='DWDdata' explicitely to store in a project-specific folder.")
 base <- sub("/$","",base) # remove accidental trailing slash
 url <- sub("^/","",url) # remove accidental leading slash
 if(joinbf)  url <- paste0(base,"/",url)
