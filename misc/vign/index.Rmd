@@ -139,6 +139,7 @@ Here's a full example URL, for a file at hourly/wind/recent:
 "<" signifies a split into the folders `per` = "recent" and "historical".  
 "<<" signifies a split into the folders `per` = "now", "recent", "historical" and "meta_data".  
 "-" signifies that there are no further sub-folders.  
+"+" signifies another structure of subfolders.  
 The symbols are clickable URLS leading to the corresponding **`res/var/`** FTP folder.  
 
 Please note:
@@ -204,7 +205,9 @@ tab <- lapply(colnames(f)[-1], function(r)
 tab <- unlist(tab)
 
 miss <- on[!on %in% tab]
-miss <- miss[! miss %in% c("subdaily/standard_format/recent", "subdaily/standard_format/historical")]
+miss <- miss[! miss %in% c("subdaily/standard_format/recent", "subdaily/standard_format/historical",
+                           "annual/climate_indices/kl", "annual/climate_indices/precip", 
+                           "monthly/climate_indices/kl", "monthly/climate_indices/precip")]
 l <- length(miss)
 if(l>0) stop("\n\nThe following ", l, " FTP folders must yet be added to the ",
              "table (FTP_folder.ods) in section 'Available datasets':\n", 
@@ -349,7 +352,7 @@ They are read from the DWD `_Beschreibung_Stationen.txt` files, e.g. [this one](
 
 For up-to-date metaIndexes, check for updates in the development version (`r helplink("rdwd::updateRdwd()", "updateRdwd")`), [prompt](mailto:berry-b@gmx.de) me to update it, or use your own version:
 ```{r mindexupdate}
-ll <- selectDWD("Potsdam", c("hourly","daily"), c("wind","kl"), "r", meta=TRUE)
+ll <- selectDWD("Potsdam", c("hourly","daily"), c("wind","kl"), "r", meta=TRUE, outvec=TRUE)[1:2]
 ll <- sub(dwdbase, "", ll)
 ll
 ind <- createIndex(ll, dir=tempdir(), meta=TRUE, checkwarn=FALSE)
@@ -371,7 +374,7 @@ If needed, **install [Rtools](https://cran.r-project.org/bin/windows/Rtools)** _
 
 You might then need to add something like `C:/rtools40/usr/bin` to PATH, e.g. with the R code
 ```{r rtoolspath, eval=FALSE}
-writeLines('PATH="${RTOOLS40_HOME}\\usr\\bin;${PATH}"', con = "~/.Renviron")
+cat('PATH="${RTOOLS40_HOME}\\usr\\bin;${PATH}"', file="~/.Renviron", append=TRUE)
 ```
 and then restart R (CTRL + SHIFT + F10 should suffice).
 
@@ -609,7 +612,24 @@ berryFunctions::climateGraph(temp, prec, main="Goettingen")
 mtext("Source: Deutscher Wetterdienst", adj=-0.05, line=2.8, font=3)
 ```
 
+# - use case: vectorized data
 
+I'ts always good to update before getting started:
+```{r uc_vector_penomena1, eval=FALSE}
+rdwd::updateRdwd()
+library(rdwd)
+```
+
+Now we'll just specify some IDs we're interested in:
+```{r uc_vector_penomena2}
+ids <-  c(3988, 5559, 2456, 3034, 1964, 4549, 2950, 5419, 2641, 3565)
+links <- selectDWD(id=ids, res="daily", var="weather_phenomena", per="h", outvec=TRUE)
+phen <- dataDWD(links, dir=locdir())
+names(phen) <- substr(names(phen), 54,58) # only IDs (not paths) as name
+str(phen, max.level=1)
+```
+
+All further analysis can now be done on this named list.
 
 # - use case: monthy gridded data
 
@@ -736,7 +756,7 @@ the radolan extent seems to be needed, not the rw extent.
 ```{r recent_radar}
 rw_base <- "ftp://opendata.dwd.de/weather/radar/radolan/rw"
 rw_urls <- indexFTP(base=rw_base, dir=tempdir(), folder="", exclude.latest.bin=TRUE)
-rw_file <- dataDWD(rw_urls[8], base=rw_base, joinbf=TRUE, dir=tempdir(), read=FALSE, dbin=TRUE)
+rw_file <- dataDWD(rw_urls[9], base=rw_base, joinbf=TRUE, dir=tempdir(), read=FALSE, dbin=TRUE)
 
 rw_orig <- dwdradar::readRadarFile(rw_file)
 str(rw_orig)
@@ -954,7 +974,9 @@ prec29 <- sapply(prec[m$res[-1]=="daily"], function(x)
          col <- "RS"
          if(!col %in% colnames(x)) col <- "R1"
          if(!col %in% colnames(x)) col <- "RSK"
-         x[x$MESS_DATUM==as.POSIXct(as.Date("2016-05-29")), col]
+         sel <- x$MESS_DATUM==as.POSIXct(as.Date("2016-05-29"))
+         if(!any(sel)) return(NA)
+         x[sel, col]
          })
 prec29 <- data.frame(Stations_id=names(prec29), precsum=unname(prec29))
 prec29 <- merge(prec29, m[m$res=="daily",c(1,4:7,14)], sort=FALSE)
