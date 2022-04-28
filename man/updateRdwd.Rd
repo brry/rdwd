@@ -7,7 +7,7 @@
 updateRdwd(
   pack = "rdwd",
   user = "brry",
-  vignette = TRUE,
+  vignette = NA,
   quiet = rdwdquiet(),
   ...
 )
@@ -18,7 +18,7 @@ updateRdwd(
 \item{user}{Github username. repo will then be user/pack. DEFAULT: "brry"}
 
 \item{vignette}{build_vignettes in \code{\link[remotes:install_github]{remotes::install_github()}}?
-DEFAULT: TRUE}
+DEFAULT: NA (changed to TRUE if rmarkdown and knitr are available)}
 
 \item{quiet}{Suppress version messages and \code{remotes::install} output?
 DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}

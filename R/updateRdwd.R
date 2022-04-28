@@ -14,7 +14,7 @@
 #' @param pack     Name of (already installed) package. DEFAULT: "rdwd"
 #' @param user     Github username. repo will then be user/pack. DEFAULT: "brry"
 #' @param vignette build_vignettes in [remotes::install_github()]?
-#'                 DEFAULT: TRUE
+#'                 DEFAULT: NA (changed to TRUE if rmarkdown and knitr are available)
 #' @param quiet    Suppress version messages and `remotes::install` output?
 #'                 DEFAULT: FALSE through [rdwdquiet()]
 #' @param \dots    Further arguments passed to [remotes::install_github()]
@@ -22,7 +22,7 @@
 updateRdwd <- function(
 pack="rdwd",
 user="brry",
-vignette=TRUE,
+vignette=NA,
 quiet=rdwdquiet(),
 ...
 )
@@ -55,6 +55,7 @@ checkSuggestedPackage("remotes", "updateRdwd")
 if(!quiet) message("First unloading ",pack," so it can be installed by remotes::install_github.")
 try(detach(paste0("package:",pack), character.only=TRUE, unload=TRUE), silent=TRUE)
 # actually install, with vignettes (unlike remotes default)
+if(is.na(vignette)) vignette <- requireNamespace("knitr", quietly=TRUE) && requireNamespace("rmarkdown", quietly=TRUE)
 remotes::install_github(repo=repo, build_vignettes=vignette, quiet=quiet, ...)
 if(!quiet) message("Please re-load ",pack," now.  library(",pack,")  should do.")
 return(invisible(output))
