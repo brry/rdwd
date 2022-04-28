@@ -28,7 +28,7 @@ Development of `rdwd` was triggered 2016 by flash flood research in Braunsbach
 ```diff
 - HELP NEEDED
 - with the new 5-minute data (April 2022), the fileIndex etc are getting very big.
-- ideas on package size reduction are welcome [here](https://github.com/brry/rdwd/issues/35)
+- ideas on package size reduction are welcome at  https://github.com/brry/rdwd/issues/35
 ```
 
 ### Documentation
