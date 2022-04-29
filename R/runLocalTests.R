@@ -94,6 +94,7 @@ testthat::expect_equal(time_diff, rep(10,9))
 testthat::test_that("readDWD messages subfunctions correctly", {
 link <- c(selectDWD("Potsdam", res="daily", var="kl", per="hr"),
           selectDWD("", "daily", "kl", "h", meta=TRUE))
+link <- link[!grepl("mn4_Beschreibung",link)] # mn4 file with only 2 Berlin stations, Apr 2022
 file <- dataDWD(link, read=FALSE, dir=dir_data, progbar=FALSE)
 testthat::expect_message(readDWD(file, progbar=FALSE), 
   "Reading 3 files with readDWD.data (2) / readDWD.meta (1) and fread=TRUE ...", fixed=TRUE)
@@ -154,11 +155,12 @@ rangecheck <- function(rr, orig, proj, tolerance=0.01)
   rc(rr$range_orig, orig, "Range (unprojected)")
   rc(rr$range_proj, proj, "Range (projected)")
   }
-rangecheck(w1, c( 0.0,  6.2), c( 0.00,  5.87))
-rangecheck(w2, c( 0.0, 72.6), c(-0.19, 70.98))
-rangecheck(rw, c( 0.0, 30.7), c(-0.45, 30.45))
-rangecheck(sf, c( 0.0, 39.2), c(-0.03, 38.20))
-rangecheck(rx, c(31.5, 95.0), c(18.30, 97.17))
+rangecheck(w1, c( 0.0,  6.2 ), c( 0.00,  5.87))
+rangecheck(w2, c( 0.0,  7.26), c(-0.02,  7.09)) # used to be 72.6 instead of 7.26 (Apr 2022)
+rangecheck(rw, c( 0.0, 30.7 ), c(-0.45, 30.45))
+rangecheck(sf, c( 0.0, 39.2 ), c(-0.03, 38.20))
+rangecheck(rx, c(31.5, 95.0 ), c(18.30, 97.17))
+testthat::expect_equal("Radar tests passed", "Radar tests passed")
 })
 } # End radar
 
@@ -185,11 +187,11 @@ testthat::expect_equal(findID(), "")
 
 testthat::test_that("indexFTP warns and works as intended", {
 base <- "https://opendata.dwd.de/weather/radar/radolan/rw/"
-testthat::expect_warning(indexFTP(base, folder="", dir=tempdir(), quiet=TRUE),
+testthat::expect_error(indexFTP(base, folder="", dir=tempdir(), quiet=TRUE),
                          "base should start with ftp://")
 base <- "ftp://opendata.dwd.de/weather/radar/radolan/rw"
 rw <- indexFTP(base, folder="", dir=tempdir(), quiet=TRUE, exclude.latest.bin=FALSE)
-testthat::expect_equal(tail(rw,1), "/raa01-rw_10000-latest-dwd---bin")
+testthat::expect_true("/raa01-rw_10000-latest-dwd---bin" %in% tail(rw,2))
 })
 
 
@@ -209,11 +211,13 @@ testthat::expect_equal(selectDWD(id="00386", res="daily", var="kl", per="histori
 })
 
 testthat::test_that("selectDWD can choose Beschreibung meta files", {
-testthat::expect_equal(selectDWD(id="00386", res="daily", var="kl", per="h", meta=TRUE),
+link <- selectDWD(id="00386", res="daily", var="kl", per="h", meta=TRUE)
+link2 <- selectDWD(           res="daily", var="kl", per="h", meta=TRUE)
+link  <- link [!grepl("mn4_Beschreibung",link )]
+link2 <- link2[!grepl("mn4_Beschreibung",link2)]
+testthat::expect_equal(link,
   paste0(dwdbase, "/daily/kl/historical/KL_Tageswerte_Beschreibung_Stationen.txt"))
-
-testthat::expect_equal(selectDWD(id="00386", res="daily", var="kl", per="h", meta=TRUE),
-  selectDWD(res="daily", var="kl", per="h", meta=TRUE))
+testthat::expect_equal(link, link2)
 })
 
 
@@ -302,8 +306,11 @@ links <- selectDWD("Potsdam","","","", quiet=TRUE) # does not include multi_annu
 toexclude <- grep("1_minute", links)
 toexclude <- toexclude[-(length(toexclude)-3)]
 toexclude <- c(toexclude, grep("10_minutes", links)[-1])
-files <- dataDWD(links[-toexclude], dir=dir_data, force=NA, overwrite=TRUE, read=FALSE, progbar=FALSE)
-contents <- readDWD(files, progbar=FALSE)
+links <- links[-toexclude]
+links <- links[!grepl("meta_data/Meta_Daten", links)]
+files <- dataDWD(links, dir=dir_data, force=NA, overwrite=TRUE, read=FALSE, progbar=FALSE)
+contents <- readDWD(sample(files), progbar=TRUE)
+testthat::expect_length(contents, length(files))
 })
 
 
@@ -322,9 +329,11 @@ rvp <- unique(fileIndex[outdated,1:3])
 alloutdated <- sapply(1:nrow(rvp), function(r)
  {
  fi <- fileIndex$res==rvp[r, "res"] &
-  fileIndex$var==rvp[r, "var"] &
-  fileIndex$per==rvp[r, "per"]
- all(fi[outdated])
+       fileIndex$var==rvp[r, "var"] &
+       fileIndex$per==rvp[r, "per"]
+ fi <- fileIndex[fi,]
+ fi <- as.numeric(format(fi$end, "%Y"))
+ all(fi<lastyear, na.rm=TRUE)
  })
 rvp <- apply(rvp, 1, paste, collapse="/")
 rvp <- unname(rvp)

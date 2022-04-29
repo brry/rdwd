@@ -84,6 +84,9 @@ link2 <- "daily/kl/historical/KL_Tageswerte_Beschreibung_Stationen.txt"
 link3 <- "daily/kl/recent/KL_Tageswerte_Beschreibung_Stationen.txt"
 ind2 <- createIndex(c(link,link2,link3), dir=tempdir(), meta=TRUE, checkwarn=FALSE)
 lapply(ind2, head)
+link4 <- "1_minute/precipitation/meta_data/Meta_Daten_ein_min_rr_00755.zip"
+ind <- createIndex(link4, dir=tempdir())
+ind
 }
 
 }

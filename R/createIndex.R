@@ -29,6 +29,9 @@
 #' link3 <- "daily/kl/recent/KL_Tageswerte_Beschreibung_Stationen.txt"
 #' ind2 <- createIndex(c(link,link2,link3), dir=tempdir(), meta=TRUE, checkwarn=FALSE)
 #' lapply(ind2, head)
+#' link4 <- "1_minute/precipitation/meta_data/Meta_Daten_ein_min_rr_00755.zip"
+#' ind <- createIndex(link4, dir=tempdir())
+#' ind
 #' }
 #' 
 #' @param paths Char: vector of DWD paths returned by [indexFTP()] called
@@ -142,7 +145,7 @@ fileIndex$end <- as.Date(fileIndex$end, "%Y%m%d")
 ma <- fileIndex$res=="multi_annual"
 ismeta1 <- !ma & grepl('.txt$', paths) & grepl("Beschreibung", paths)
 ismeta2 <-  ma & grepl("Stationsliste", paths)
-ismeta3 <- grepl("meta_data_Meta_Daten", paths)
+ismeta3 <- grepl("meta_data/Meta_Daten", paths)
 ismeta4 <- grepl('.pdf$', paths) | grepl('.html$', paths)
 fileIndex$ismeta <- ismeta1 | ismeta2 | ismeta3 | ismeta4
 rm(ma, ismeta1, ismeta2, ismeta3, ismeta4)

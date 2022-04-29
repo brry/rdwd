@@ -210,11 +210,14 @@ return(invisible(output))
 readDWD.data <- function(file, fread=FALSE, varnames=FALSE, format=NA, tz="GMT",
                          quiet=rdwdquiet(), ...)
 {
+if(grepl("meta_data_Meta_Daten", file)) stop("This 'meta_data_Meta_Daten' file should be read with readMeta(",file,")")
 if(fread)
   {
   # http://dsnotes.com/post/2017-01-27-lessons-learned-from-outbrain-click-prediction-kaggle-competition/
   fp <- unzip(file, list=TRUE) # file produkt*, the actual datafile
   fp <- fp$Name[grepl("produkt",fp$Name)]
+  if(length(fp)!=1) stop("There should be a single 'produkt*' file, but there are ",
+                        length(fp), " in\n  ", file, "\n  Consider re-downloading (with force=TRUE).")
   dat <- data.table::fread(cmd=paste("unzip -p", file, fp), na.strings=na9(nspace=0),
                            header=TRUE, sep=";", stringsAsFactors=TRUE, data.table=FALSE, ...)
   } else

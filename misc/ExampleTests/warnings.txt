@@ -1,48 +1,109 @@
 
-checkIndex results at 2021-06-09 00:44:01 for
+checkIndex results at 2022-04-29 16:20:54 for
 ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate
-File 'data/fileIndex.rda' was last modified 2021-06-02 01:21:32
-Call stack: runLocalTests -> checkIndex
+File 'data/fileIndex.rda' was last modified 2022-04-29 15:47:50
+Call stack: --empty stack--
 -------
 IDs with duplicate files:
--  1 at annual/weather_phenomena/historical;  '3023'
--  1 at hourly/cloudiness/historical;  '3093'
--  1 at hourly/moisture/historical;  '3946'
--  1 at hourly/pressure/historical;  '850'
--  1 at hourly/visibility/historical;  '3093'
--  1 at hourly/wind_synop/historical;  '3093'
+-  37 at hourly/sun/recent;  755, 757, 1197, 1214, 1346, 1443, 1468, 2074, 2485, 2638  (and 27 more)
 Duplicate 'Beschreibung' files:
-- 1_minute/precipitation/now/_Beschreibung_Stationen.txt
-- 1_minute/precipitation/now/ein_now_rr_Beschreibung_Stationen.txt
 - 10_minutes/precipitation/now/_Beschreibung_Stationen.txt
 - 10_minutes/precipitation/now/zehn_now_rr_Beschreibung_Stationen.txt
 - 10_minutes/wind_test/now/_Beschreibung_Stationen.txt
 - 10_minutes/wind_test/now/zehn_now_ffs_Beschreibung_Stationen.txt
+- annual/climate_indices/kl/historical/jahreswerte_klindex_Beschreibung_Stationen.txt
+- annual/climate_indices/kl/recent/jahreswerte_klindex_Beschreibung_Stationen.txt
+- annual/climate_indices/precip/historical/jahreswerte_rrindex_Beschreibung_Stationen.txt
+- annual/climate_indices/precip/recent/jahreswerte_rrindex_Beschreibung_Stationen.txt
+- daily/kl/historical/KL_Tageswerte_Beschreibung_Stationen.txt
+- daily/kl/historical/KL_Tageswerte_mn4_Beschreibung_Stationen.txt
+- daily/kl/recent/KL_Tageswerte_Beschreibung_Stationen.txt
+- daily/kl/recent/KL_Tageswerte_mn4_Beschreibung_Stationen.txt
 - hourly/weather_phenomena/historical/Wetter_Beschreibung.txt
 - hourly/weather_phenomena/historical/WW_Stundenwerte_Beschreibung_Stationen.txt
 - hourly/weather_phenomena/recent/Wetter_Beschreibung.txt
 - hourly/weather_phenomena/recent/WW_Stundenwerte_Beschreibung_Stationen.txt
+- monthly/climate_indices/kl/historical/monatswerte_klindex_Beschreibung_Stationen.txt
+- monthly/climate_indices/kl/recent/monatswerte_klindex_Beschreibung_Stationen.txt
+- monthly/climate_indices/precip/historical/monatswerte_rrindex_Beschreibung_Stationen.txt
+- monthly/climate_indices/precip/recent/monatswerte_rrindex_Beschreibung_Stationen.txt
 - subdaily/extreme_wind/historical/FX3_Terminwerte_Beschreibung_Stationen.txt
 - subdaily/extreme_wind/historical/FX6_Terminwerte_Beschreibung_Stationen.txt
 - subdaily/extreme_wind/recent/FX3_Terminwerte_Beschreibung_Stationen.txt
 - subdaily/extreme_wind/recent/FX6_Terminwerte_Beschreibung_Stationen.txt
 Elevation differences >2.1m:
-- ID=630: 17x87m, 2x83m
-- ID=4349: 65x251m, 2x248m
+- ID=630: 23x87m, 1x83m
+- ID=753: 25x305m, 1x310m
+- ID=850: 79x45m, 1x39m
+- ID=931: 51x712m, 1x708m
+- ID=1975: 100x11m, 2x14m
+- ID=2014: 98x55m, 2x59m
+- ID=7396: 85x740m, 2x743m
+- ID=2601: 97x822m, 2x826m
+- ID=2641: 73x90m, 1x85m
+- ID=7104: 23x220m, 1x225m
+- ID=2880: 23x319m, 1x324m
+- ID=2997: 23x50m, 1x47m
+- ID=3247: 25x559m, 1x567m
+- ID=3402: 95x755m, 2x750m
+- ID=4349: 73x251m, 1x248m
+- ID=815: 25x162m, 1x154m
+- ID=5009: 90x33m, 1x38m
+- ID=5158: 89x159m, 2x162m
+- ID=5227: 25x682m, 1x685m
+- ID=5335: 69x352m, 1x348m
+- ID=10510: 21x244m, 1x241m
+- ID=5731: 69x395m, 1x398m
 Location differences >40m:
-- ID=2293: 18x50.1918_8.0888, 1x50.1919_8.088
+- ID=167: 78x53.8408_13.6854, 1x53.8412_13.6846
+- ID=1166: 23x51.4603_12.6687, 1x51.4601_12.6692
+- ID=1750: 23x51.4511_9.4138, 1x51.4498_9.4131
+- ID=1801: 25x52.4169_12.8006, 1x52.4042_12.7923
+- ID=2988: 23x51.4882_9.2493, 1x51.4881_9.25
+- ID=4352: 23x54.5159_13.5305, 1x54.516_13.5313
+- ID=721: 23x51.5171_12.4362, 1x51.5168_12.4356
+- ID=5227: 25x47.9692_10.9152, 1x47.9688_10.9156
 Different names per id:
-- ID=15526: 30xHamburg (Deutsche Seewarte), 1xHamburg(Seewarte)
+- ID=1801: 25xGross Kreutz-Krielow, 1xGross Kreutz
+- ID=15526: 34xHamburg (Deutsche Seewarte), 1xHamburg(Seewarte)
+- ID=7334: 23xHirschstein-Heyda, 1xHeyda bei Riesa
 More than one id per name:
-- Name=Creglingen: 12x7492, 6x883
+- Name=Creglingen: 14x7492, 10x883
 Coordinates used for more than one station:
-- 13.3833_52.5333: 10x ID=408 (Berlin-Invalidenstrasse), 16x ID=422 (Berlin-Mitte)
+- 13.3833_52.5333: 12x ID=408 (Berlin-Invalidenstrasse), 22x ID=422 (Berlin-Mitte)
+- 11.4999_47.8529: 16x ID=14351 (Geretsried (Feuerwehrschule)), 8x ID=19274 (Geretsried/Isar)
+- 13.3588_51.2651: 24x ID=7334 (Heyda bei Riesa), 24x ID=7334 (Hirschstein-Heyda)
+- 10.7696_50.6545: 99x ID=4501 (Schmuecke), 5x ID=15232 (Schmuecke/Thuer.)
 
 
 ---------------
-C:/Dropbox/Rpack/rdwd/man/readDWD.grib2.Rd -- 2021-06-09 00:49:50
+C:/Dropbox/Rpack/rdwd/man/metaInfo.Rd -- 2022-04-29 16:25:58
+
+rdwd station id 2849 with 4 files.
+Name: Langenburg-Baechlingen, State: Baden-Wuerttemberg
+For up-to-date info, see https://bookdown.org/brry/rdwd/fileindex.html#metaindex
+Additionally, there are 6 non-public files. Display all with  metaInfo(2849,FALSE)
+To request those datasets, please contact cdc.daten@dwd.de or klima.vertrieb@dwd.de
+      res                    var        per hasfile       from         to     lat   long ele
+1  annual            more_precip historical    TRUE 1990-10-01 2008-06-30 49.2445 9.8499 300
+2   daily            more_precip historical    TRUE 1990-10-01 2008-06-30 49.2445 9.8499 300
+3   daily more_weather_phenomena historical    TRUE 1990-10-01 2008-06-30 49.2445 9.8499 300
+4 monthly            more_precip historical    TRUE 1990-10-01 2008-06-30 49.2445 9.8499 300
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/readDWD.grib2.Rd -- 2022-04-29 16:27:24
 
 Warning in eval(rd_ex_parsed[[repi]], envir = env) :
   readDWD.grib2 is not tested due to unresolved problems.
+
+---------------
+C:/Dropbox/Rpack/rdwd/man/readDWD.rklim.Rd -- 2022-04-29 16:27:59
+
+Warning: Error in try({ : The following file does not exist: ''.
+in file: 
+
+[1mindexing[0m [34msubdaily_standard_format_kl_10381_00_akt.txt[0m [-------------------------------------------------------------------------------------------------------------------] [32m0B/s[0m, eta: [36m?s[0m
+[1mindexing[0m [34msubdaily_standard_format_kl_10381_00_akt.txt[0m [============================================================================================================] [32m197.92MB/s[0m, eta: [36m 0s[0m
+                                                                                                                                                                                                                            
 
 
