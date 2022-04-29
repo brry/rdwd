@@ -142,8 +142,10 @@ fileIndex$end <- as.Date(fileIndex$end, "%Y%m%d")
 ma <- fileIndex$res=="multi_annual"
 ismeta1 <- !ma & grepl('.txt$', paths) & grepl("Beschreibung", paths)
 ismeta2 <-  ma & grepl("Stationsliste", paths)
-fileIndex$ismeta <- ismeta1 | ismeta2 | grepl('.pdf$', paths) | grepl('.html$', paths)
-rm(ma, ismeta1, ismeta2)
+ismeta3 <- grepl("meta_data_Meta_Daten", paths)
+ismeta4 <- grepl('.pdf$', paths) | grepl('.html$', paths)
+fileIndex$ismeta <- ismeta1 | ismeta2 | ismeta3 | ismeta4
+rm(ma, ismeta1, ismeta2, ismeta3, ismeta4)
 #
 # Append path for accurate file reading later on, e.g. with dataDWD:
 fileIndex$path <- paths

@@ -56,8 +56,18 @@ f <- dir(exdir, pattern="Metadaten_Parameter.*txt", full.names=TRUE)
 if(length(f)!=1) return(length(f))
 nr <- readLines(f) # number of rows
 nr <- sum(!substr(nr, 1, 7) %in% c("Legende", "generie"))
-tab <- read.table(f, na.strings=na9(), sep=";", header=TRUE, nrows=nr-1,
-                  stringsAsFactors=FALSE)
+# read file:
+read_with_encoding <- function(enc)
+ try(read.table(f, na.strings=na9(), sep=";", header=TRUE, nrows=nr-1,
+                stringsAsFactors=FALSE, encoding=enc),              silent=TRUE) 
+tab <- read_with_encoding(readr::guess_encoding(f)$encoding[1])
+if(inherits(tab,"try-error")) tab <- read_with_encoding("latin1")
+if(inherits(tab,"try-error")) tab <- read_with_encoding("UTF-8")
+if(inherits(tab,"try-error")) 
+ {
+ warning("readVars read.table failed for '", file[i], "/Metadaten_Parameter*.txt'", call.=FALSE)
+ return(NULL)
+ }
 #
 tab <- tab[,c("Parameter", "Parameterbeschreibung", "Einheit")]
 tab <- unique(tab)
