@@ -50,6 +50,7 @@ To use custom or current indexes, see \url{https://bookdown.org/brry/rdwd/filein
 # 285'972 (2021-06-02)
 # 321'477 (2022-04-07)
 # 477'236 (2022-04-28) # 5_minutes files added
+# 482'907 (2022-04-29)
 
 # gridbase
 #  49'247 (2019-05-26)
@@ -71,6 +72,7 @@ To use custom or current indexes, see \url{https://bookdown.org/brry/rdwd/filein
 #  34'708 (2021-06-02)
 #  34'854 (2022-04-07)
 #  35'874 (2022-04-28)
+#  35'937 (2022-04-29)
 
 }
 \seealso{

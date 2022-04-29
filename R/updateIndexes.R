@@ -35,6 +35,7 @@
 #' # 285'972 (2021-06-02)
 #' # 321'477 (2022-04-07)
 #' # 477'236 (2022-04-28) # 5_minutes files added
+#' # 482'907 (2022-04-29)
 #' 
 #' # gridbase
 #' #  49'247 (2019-05-26)
@@ -56,6 +57,7 @@
 #' #  34'708 (2021-06-02)
 #' #  34'854 (2022-04-07)
 #' #  35'874 (2022-04-28)
+#' #  35'937 (2022-04-29)
 #' 
 #' @param dwdlocal Read "DWDdata/INDEX_of_DWD_.txt" instead of calling
 #'                 [indexFTP()]? DEFAULT: FALSE
@@ -160,7 +162,7 @@ rv_df$Quelle <- rep(substr(urls, 76, 1e3), sapply(rv, nrow))
 rv_df <- berryFunctions::sortDF(rv_df, "Par", decreasing=FALSE)
 rv_df <- berryFunctions::sortDF(rv_df, "Kurz", decreasing=FALSE)
 colnames(rv_df)[1] <- "Parameter"
-write.table(rv_df, "misc/params.txt", sep="\t", quote=F, row.names=F)
+write.table(rv_df, "misc/params.txt", sep="\t", quote=FALSE, row.names=FALSE)
 message("- Copy content of 'misc/params.txt' to 'params.xlsx'.
 - Manually add 'Kurz' entries.
 - Copy sheet 'output' to dwdparams in R/readVars.R")
