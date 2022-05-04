@@ -9,7 +9,7 @@
 #'          [website raster chapter](https://bookdown.org/brry/rdwd/raster-data.html)
 #' @keywords aplot spatial
 #' @importFrom graphics box rect par title
-#' @importFrom berryFunctions seqPal
+#' @importFrom berryFunctions seqPal tstop
 #' @importFrom pbapply pblapply
 #' @export
 #' @examples
@@ -102,7 +102,7 @@ quiet=rdwdquiet(),
 {
 # Input checks:
 checkSuggestedPackage("raster", "plotRadar")
-if(identical(names(x),c("dat","meta"))) stop("plotRadar needs the 'dat' element as input.")
+if(identical(names(x),c("dat","meta"))) tstop("plotRadar needs the 'dat' element as input.")
 
 force(main)
 # projection (save time if layer is a single value):
@@ -145,7 +145,7 @@ lay2 <- lay
 main <- rep(main, length.out=length(lay)) # recycle for all existing layers
 if(length(layer)>1) lay <- lay[layer] # already done if layer length == 1
 nn <- sum(!lay %in% lay2) # number not existing layers:
-if(nn>0) stop(nn, " layer",if(nn>1)"s", " selected that do",if(nn==1)"es"," not exist.")
+if(nn>0) tstop(nn, " layer",if(nn>1)"s", " selected that do",if(nn==1)"es"," not exist.")
 
 if(is.null(  zlim)) zlim <- raster::cellStats(x, range)
 if(is.matrix(zlim)) zlim <- range(zlim[,lay], na.rm=TRUE)

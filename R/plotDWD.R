@@ -4,7 +4,7 @@
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Sep 2021
 #' @seealso [readDWD()]
 #' @keywords hplot
-#' @importFrom berryFunctions monthAxis
+#' @importFrom berryFunctions monthAxis tstop
 #' @export
 #' @examples
 #' link <- selectDWD("Potsdam", res="daily", var="kl", per="r")
@@ -48,9 +48,9 @@ keeppar=TRUE,
 )
 {
 # Check column names:
-if(!cn %in% colnames(x)) stop("Column '",cn,"' is not in '", 
+if(!cn %in% colnames(x)) tstop("Column '",cn,"' is not in '", 
   deparse(substitute(x)),"', which has the columns:\n", toString(colnames(x)))
-if(!"MESS_DATUM" %in% colnames(x)) stop(deparse(substitute(x)),
+if(!"MESS_DATUM" %in% colnames(x)) tstop(deparse(substitute(x)),
                     " should contain the column 'MESS_DATUM'.")
 
 # set graphical parameters:

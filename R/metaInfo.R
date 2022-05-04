@@ -4,7 +4,7 @@
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Nov 2016
 #' @seealso [`metaIndex`]
 #' @keywords datasets
-#' @importFrom berryFunctions sortDF
+#' @importFrom berryFunctions sortDF tstop
 #' @export
 #' @examples
 #' metaInfo(2849)
@@ -24,7 +24,7 @@ mindexname <- deparse(substitute(mindex))
 id <- as.integer(id[1])
 # Selection of rows:
 sel <- mindex$Stations_id==id
-if(sum(sel)<1) stop(mindexname," contains no entries for id=", id,
+if(sum(sel)<1) tstop(mindexname," contains no entries for id=", id,
                     ". This ID probably does not exist.")
 # public / nonpublic files
 nonpubmes <- ""

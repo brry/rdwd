@@ -9,7 +9,7 @@
 #' @return charstring (directory)
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Apr 2019, Jun 2021
 #' @keywords file
-#' @importFrom berryFunctions packagePath
+#' @importFrom berryFunctions packagePath twarning
 #' @export
 #' @examples
 #' locdir()
@@ -39,7 +39,7 @@ if(is.null(dir)) dir <- "C:/DWDdata"
 if(!file.exists(dir))dir <- "~/DWDdata"
 if(!file.exists(dir))
   {
-  if(!quiet) warning("'", dir, "' does not exist, using tempdir() now.")
+  if(!quiet) twarning("'", dir, "' does not exist, using tempdir() now.")
   dir <- tempdir()
   }
 if(!is.null(file)) dir <- paste0(dir, "/", file)

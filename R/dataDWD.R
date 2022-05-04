@@ -27,7 +27,7 @@
 #'          see also [berryFunctions::climateGraph()]
 #' @keywords data file
 #' @importFrom utils tail download.file browseURL
-#' @importFrom berryFunctions newFilename owa traceCall truncMessage
+#' @importFrom berryFunctions newFilename owa tmessage twarning tstop truncMessage
 #' @importFrom pbapply pblapply
 #' @importFrom stats runif
 #' @export
@@ -133,10 +133,10 @@ quiet=rdwdquiet(),
 ...
 )
 {
-if(!is.null(file)) stop("The argument 'file' has been renamed to 'url' with rdwd version 1.3.34, 2020-07-28")
-if(!is.atomic(url)) stop("url must be a vector, not a ", class(url))
-if(!is.character(url)) stop("url must be char, not ", class(url))
-if(missing(dir)) warning("In late 2022, dir will default to locdir(). ",
+if(!is.null(file)) tstop("The argument 'file' has been renamed to 'url' with rdwd version 1.3.34, 2020-07-28")
+if(!is.atomic(url)) tstop("url must be a vector, not a ", class(url))
+if(!is.character(url)) tstop("url must be char, not ", class(url))
+if(missing(dir)) twarning("In late 2022, dir will default to locdir(). ",
                          "From then on, use dir='DWDdata' explicitely to store in a project-specific folder.")
 base <- sub("/$","",base) # remove accidental trailing slash
 url <- sub("^/","",url) # remove accidental leading slash
@@ -144,10 +144,10 @@ if(joinbf)  url <- paste0(base,"/",url)
 if(missing(progbar) & length(url)==1) progbar <- FALSE
 if(any(url==""))
 {
-  message(traceCall(1, "", ": "), "Removing ", sum(url==""), " empty element(s) from url vector.")
+  tmessage("Removing ", sum(url==""), " empty element(s) from url vector.")
   url <- url[url!=""]
 }
-if(length(url)<1) stop("The vector of urls to be downloaded is empty.")
+if(length(url)<1) tstop("The vector of urls to be downloaded is empty.")
 # be safe from accidental vector input:
 dir     <- dir[1]
 progbar <- progbar[1]
@@ -171,7 +171,7 @@ outfile <- gsub(paste0(base,"/"), "", url)
 outfile <- gsub("/", "_", outfile)
 
 # force=NA management
-if(is.null(force)) stop("force cannot be NULL. Must be TRUE, FALSE, NA or a number.")
+if(is.null(force)) tstop("'force' cannot be NULL. Must be TRUE, FALSE, NA or a number.")
 force <- rep(force, length=length(outfile)) # recycle vector
 fT <- sapply(force, isTRUE)
 fF <- sapply(force, isFALSE)
@@ -183,7 +183,7 @@ force <- difftime(Sys.time(), file.mtime(outfile), units="h") > force
 dontdownload <- file.exists(outfile) & !force
 if( any(dontdownload) & !quiet )
   {
-  message(traceCall(1, "", ": "), sum(dontdownload), " file", if(sum(dontdownload)>1)"s",
+  tmessage(sum(dontdownload), " file", if(sum(dontdownload)>1)"s",
           " already existing and not downloaded again: ",
           berryFunctions::truncMessage(outfile[dontdownload], ntrunc=ntrunc, prefix=""),
           "\nNow downloading ",sum(!dontdownload)," files...")

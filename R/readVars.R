@@ -14,7 +14,7 @@
 #'          [website use case](https://bookdown.org/brry/rdwd/use-case-get-all-hourly-rainfall-data-20142016.html#read-the-data)
 #' @keywords file
 #' @importFrom utils read.table unzip
-#' @importFrom berryFunctions checkFile na9 traceCall
+#' @importFrom berryFunctions checkFile na9 twarning
 #' @importFrom pbapply pblapply
 #' @importFrom tools file_path_sans_ext
 #' @export
@@ -65,7 +65,7 @@ if(inherits(tab,"try-error")) tab <- read_with_encoding("latin1")
 if(inherits(tab,"try-error")) tab <- read_with_encoding("UTF-8")
 if(inherits(tab,"try-error")) 
  {
- warning("readVars read.table failed for '", file[i], "/Metadaten_Parameter*.txt'", call.=FALSE)
+ twarning("readVars read.table failed for '", file[i], "/Metadaten_Parameter*.txt'")
  return(NULL)
  }
 #
@@ -73,20 +73,20 @@ tab <- tab[,c("Parameter", "Parameterbeschreibung", "Einheit")]
 tab <- unique(tab)
 #
 dupli <- duplicated(tab$Parameter)
-if(any(dupli)) warning(traceCall(3, "", ": "), "The following entries are",
-                       " duplicated: ", toString(unique(tab$Parameter[dupli])),
+if(any(dupli)) twarning("The following entries are duplicated: ", 
+                       toString(unique(tab$Parameter[dupli])),
                        "\nThis occurs in '", fn, "/Metadaten_Parameter*.txt'",
-                       call.=FALSE)
+                       skip=2)
 rownames(tab) <- NULL
 #
 # Merge with short variable descriptions:
 tab2 <- merge(params, tab, all.y=TRUE)
 kurzna <- is.na(tab2$Kurz)
-if(any(kurzna) && !quiet) warning(traceCall(3, "", ": "), "The following entries are not",
+if(any(kurzna) && !quiet) twarning("The following entries are not",
                         " abbreviated yet: ", toString(tab2$Parameter[kurzna]),
                         "\nThis occurs in '", fn, "/Metadaten_Parameter*.txt'.",
                         "\nPlease inform berry-b@gmx.de so this can be included!\n",
-                        call.=FALSE)
+                        skip=2)
 #
 colnames(tab2)[1] <- "Par"
 rownames(tab2) <- tab2$Par
@@ -104,11 +104,10 @@ if(any(nometa))
  mexp <- c("\nThis is expected since 1 and 10 minute data do not have ",
            "meta-information in most of the zip folders (as of 2019-02).\n")
  mnexp <- "\nPlease contact berry-b@gmx.de with with a copy of this warning.\n"
- warning(traceCall(1, "", ": "), "The number of determined ",
+ twarning("The number of determined ",
          "'Metadaten_Parameter*.txt' files should be 1, but is instead:\n",
          paste(msg[ exp],collapse="\n"), if(any( exp)) mexp,
-         paste(msg[!exp],collapse="\n"), if(any(!exp)) mnexp,
-         call.=FALSE)
+         paste(msg[!exp],collapse="\n"), if(any(!exp)) mnexp)
  }
 #
 names(output) <- tools::file_path_sans_ext(basename(file))

@@ -46,7 +46,7 @@ validFileTypes <- strsplit("data,meta,multia,stand,deriv,radar,binary,raster,nc,
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jul 2020
 #' @seealso [readDWD()]
 #' @keywords file
-#' @importFrom berryFunctions truncMessage
+#' @importFrom berryFunctions truncMessage twarning
 #' @export
 #' @examples
 #' ft <- read.table(header=TRUE, stringsAsFactors=FALSE, text="
@@ -92,8 +92,8 @@ out[grepl(      "YW.*.tar$", file)] <- "rklim"
 out[grepl(    ".grib2.bz2$", file)] <- "grib2"
 out[grepl(       ".txt.gz$", file)] <- "deriv"
 
-if(any(out=="fileTypeError")) warning("fileType failed for the following file", 
-             truncMessage(file[out=="fileTypeError"], midfix=": "), call.=FALSE)
+if(any(out=="fileTypeError")) twarning("fileType failed for the following file", 
+             truncMessage(file[out=="fileTypeError"], midfix=": "))
 
 return(out)
 }

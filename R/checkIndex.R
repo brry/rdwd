@@ -3,7 +3,7 @@
 #'              Not exported, so call it as rdwd:::checkIndex() if you want to
 #'              run tests yourself. Further test suggestions are welcome!
 #' @return Charstring with issues (if any) to be printed with [cat()].
-#' @importFrom berryFunctions truncMessage round0 traceCall
+#' @importFrom berryFunctions truncMessage round0 traceCall twarning
 #' @importFrom pbapply pbsapply
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, May 2019
 #' @seealso [`createIndex`]
@@ -190,7 +190,7 @@ if(anyDuplicated(coord))
 # output stuff:
 logfileprint <- if(!is.null(logfile)) paste0("  openFile('",
                   normalizePath(logfile,winslash="/", mustWork=FALSE),"')") else ""
-if(length(out)>2 & warn) warning("There are issues in the indexes.", logfileprint)
+if(length(out)>2 & warn) twarning("There are issues in the indexes.", logfileprint)
 out <- c(out, "\n")
 out <- paste(out, collapse="\n")
 if(!is.null(logfile)) cat(out, file=logfile, append=TRUE)

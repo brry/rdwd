@@ -52,7 +52,7 @@ if(length(lat)>1) stop("lat mus be a single value, not ", length(lat))
 if(length(lon)>1) stop("lon mus be a single value, not ", length(lon))
 if(any(lon>lat)) warning("lon>lat, but lon should be smaller than lat in Germany.",
                          immediate.=TRUE)
-if(length(mindate)>1) stop("mindate mus be a single value, not ", length(mindate))
+if(length(mindate)>1) stop("mindate must be a single value, not ", length(mindate))
 if(radius>1000) warning("radius is supposed to be given in km. ",
                         "Your value seems irreasonably high: ", radius)
 

@@ -8,10 +8,11 @@
 #' Just write the following in your code and all subsequent calls will be quiet:\cr
 #' `options(rdwdquiet=TRUE)`
 #' @export
+#' @importFrom berryFunctions tstop
 rdwdquiet <- function()
 {
 cv <- getOption("rdwdquiet", default=FALSE) # current value
-if(!(isTRUE(cv)|isFALSE(cv))) stop("options('rdwdquiet') must be TRUE or FALSE, not '",
+if(!(isTRUE(cv)|isFALSE(cv))) tstop("options('rdwdquiet') must be TRUE or FALSE, not '",
                                  toString(cv), "'.")
 cv
 }
@@ -103,7 +104,7 @@ apply(x, MARGIN=1, perrow)
 checkSuggestedPackage <- function(package, functionname)
 {
 available <- requireNamespace(package, quietly=TRUE)
-if(!available) stop("To use ",functionname, ", please first install ",
+if(!available) tstop("To use ",functionname, ", please first install ",
                     package,":    install.packages('",package,"')", call.=FALSE)
 return(invisible(available))
 }

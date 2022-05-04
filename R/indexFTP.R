@@ -33,7 +33,7 @@
 #' @importFrom stats runif
 #' @importFrom pbapply pblapply
 #' @importFrom utils write.table read.table
-#' @importFrom berryFunctions traceCall newFilename truncMessage
+#' @importFrom berryFunctions twarning tstop newFilename truncMessage
 #' @export
 #' @examples
 #' \dontrun{ ## Needs internet connection
@@ -98,7 +98,7 @@ verbose=FALSE
 {
 # Check if RCurl is available:
 checkSuggestedPackage("RCurl", "rdwd::indexFTP")
-if(grepl("^https", base)) stop("base should start with ftp://, not https://. base value is: ",base)
+if(grepl("^https", base)) tstop("base should start with ftp://, not https://. base value is: ",base)
 # change folder:
 if(all(folder %in% c("currentfindex","currentgindex")) & base %in% c(dwdbase, gridbase))
   {
@@ -125,7 +125,7 @@ if(all(folder %in% c("currentfindex","currentgindex")) & base %in% c(dwdbase, gr
   }
 if(!quiet) message("Determining the content of the ",length(folder)," folder(s)...")
 if(base!=dwdbase)
- if(missing(folder)) warning('base is not the rdwd default. It is likely you want',
+ if(missing(folder)) twarning('base is not the rdwd default. It is likely you want',
                              ' to use folder="" instead of "',folder,'".')
 # Progress bar?
 if(progbar) lapply <- pbapply::pblapply
@@ -160,9 +160,7 @@ getURL_ffe <- function(ff_row)
      if(grepl("Server denied you to change to the given directory", p))
        p <- paste0(p,"\nThis could mean the path is a file, not a folder",
                    " or that it doesn't exist at base\n", base)
-     msg <- paste0(traceCall(3, "", ": "), "RCurl::getURL failed for '",
-                   ff_row$path, "/' with error:\n - ", p)
-     warning(msg, call.=FALSE)
+     twarning("RCurl::getURL failed for '", ff_row$path, "/' with error:\n - ", p)
      assign("stoppp_ffe", TRUE, inherits=TRUE) # to get out of the loop sans error
      return(ff_row) # exit getURL_ffe
     }
@@ -199,7 +197,7 @@ while(any(!df_ff$isfile))           # potential ToDo: exclude previously checked
   if(stoppp_ffe) break
   } # end while loop
 
-if(anyDuplicated(df_ff$path)) warning("Duplicate paths:",
+if(anyDuplicated(df_ff$path)) twarning("Duplicate paths:",
                    truncMessage(df_ff$path[duplicated(df_ff$path)], prefix=""))
 
 # sort final results alphabetically (path only, no f/f info):

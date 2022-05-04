@@ -1,8 +1,8 @@
 
-checkIndex results at 2022-04-29 16:20:54 for
+checkIndex results at 2022-05-05 00:05:41 for
 ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate
 File 'data/fileIndex.rda' was last modified 2022-04-29 15:47:50
-Call stack: --empty stack--
+Call stack: runLocalTests -> checkIndex
 -------
 IDs with duplicate files:
 -  37 at hourly/sun/recent;  755, 757, 1197, 1214, 1346, 1443, 1468, 2074, 2485, 2638  (and 27 more)
@@ -74,36 +74,4 @@ Coordinates used for more than one station:
 - 11.4999_47.8529: 16x ID=14351 (Geretsried (Feuerwehrschule)), 8x ID=19274 (Geretsried/Isar)
 - 13.3588_51.2651: 24x ID=7334 (Heyda bei Riesa), 24x ID=7334 (Hirschstein-Heyda)
 - 10.7696_50.6545: 99x ID=4501 (Schmuecke), 5x ID=15232 (Schmuecke/Thuer.)
-
-
----------------
-C:/Dropbox/Rpack/rdwd/man/metaInfo.Rd -- 2022-04-29 16:25:58
-
-rdwd station id 2849 with 4 files.
-Name: Langenburg-Baechlingen, State: Baden-Wuerttemberg
-For up-to-date info, see https://bookdown.org/brry/rdwd/fileindex.html#metaindex
-Additionally, there are 6 non-public files. Display all with  metaInfo(2849,FALSE)
-To request those datasets, please contact cdc.daten@dwd.de or klima.vertrieb@dwd.de
-      res                    var        per hasfile       from         to     lat   long ele
-1  annual            more_precip historical    TRUE 1990-10-01 2008-06-30 49.2445 9.8499 300
-2   daily            more_precip historical    TRUE 1990-10-01 2008-06-30 49.2445 9.8499 300
-3   daily more_weather_phenomena historical    TRUE 1990-10-01 2008-06-30 49.2445 9.8499 300
-4 monthly            more_precip historical    TRUE 1990-10-01 2008-06-30 49.2445 9.8499 300
-
----------------
-C:/Dropbox/Rpack/rdwd/man/readDWD.grib2.Rd -- 2022-04-29 16:27:24
-
-Warning in eval(rd_ex_parsed[[repi]], envir = env) :
-  readDWD.grib2 is not tested due to unresolved problems.
-
----------------
-C:/Dropbox/Rpack/rdwd/man/readDWD.rklim.Rd -- 2022-04-29 16:27:59
-
-Warning: Error in try({ : The following file does not exist: ''.
-in file: 
-
-[1mindexing[0m [34msubdaily_standard_format_kl_10381_00_akt.txt[0m [-------------------------------------------------------------------------------------------------------------------] [32m0B/s[0m, eta: [36m?s[0m
-[1mindexing[0m [34msubdaily_standard_format_kl_10381_00_akt.txt[0m [============================================================================================================] [32m197.92MB/s[0m, eta: [36m 0s[0m
-                                                                                                                                                                                                                            
-
 

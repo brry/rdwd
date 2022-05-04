@@ -15,7 +15,7 @@
 #' @seealso [indexFTP()], [updateIndexes()], [`index`], [selectDWD()],
 #'          [website index chapter](https://bookdown.org/brry/rdwd/fileindex.html)
 #' @keywords manip
-#' @importFrom berryFunctions l2df convertUmlaut newFilename sortDF traceCall seqPal
+#' @importFrom berryFunctions l2df convertUmlaut newFilename sortDF tstop twarning seqPal
 #' @importFrom utils write.table
 #' @importFrom pbapply pbsapply pblapply
 #' @importFrom graphics abline
@@ -97,8 +97,7 @@ ncolumns <- 4 + any1min # supposed number of columns: 4, 5 if any prec1min in pa
 if(!quiet) messaget("Splitting filenames...")
 fileIndex <- berryFunctions::l2df(pbapply::pblapply(fileIndex,function(x) strsplit(x,"/")[[1]]))
 # check if there are actually 4/5 columns (might be different with non-standard base)
-if(ncol(fileIndex)!=ncolumns) stop(berryFunctions::traceCall(1, "in ", ": "),
-    "index does not have ", ncolumns," columns, but ", ncol(fileIndex), call.=FALSE)
+if(ncol(fileIndex)!=ncolumns) tstop("index does not have ", ncolumns," columns, but ", ncol(fileIndex))
 if(any1min) fileIndex[prec1min,4] <- fileIndex[prec1min,5]
 colnames(fileIndex) <- c("res","var","per","file",if(any1min) "dummyfromyear1minute")
 file <- fileIndex$file
@@ -176,9 +175,7 @@ sel <- sel & grepl("Beschreibung_Stationen", fileIndex$path)
 #descdupli <- basename(paths)=="ein_min_rr_Beschreibung_Stationen.txt" & grepl("/20", dirname(paths))
 #sel <- sel & !descdupli
 
-if(sum(sel)<2) stop(berryFunctions::traceCall(1, "in ", ": "),
-              "There need to be at least two 'Beschreibung' files. (There is ",
-              sum(sel),")", call.=FALSE)
+if(sum(sel)<2) tstop("There need to be at least two 'Beschreibung' files. (There is ",sum(sel),")")
 # download and read those files:
 metas <- dataDWD(fileIndex[sel, "path"], base=base, joinbf=TRUE, dir=metadir,
                  overwrite=overwrite, read=FALSE, ...)
@@ -193,9 +190,9 @@ for(i in seq_along(metas))
 # check if all files have the same column names:
 cnames <- lapply(metas, colnames)
 sapply(2:length(cnames), function(i) if(!all(cnames[[i]] == cnames[[1]]))
-    warning(berryFunctions::traceCall(1, "in ", ": "), "The file ", fileIndex[sel, "path"][i],
+    twarning("The file ", fileIndex[sel, "path"][i],
          "\nhas incorrect column names: ", toString(cnames[[i]]),
-         "\n instead of \n", toString(cnames[[1]]), call.=FALSE))
+         "\n instead of \n", toString(cnames[[1]]), skip=2))
 #
 # merge:
 if(!quiet) messaget("Merging meta files...")

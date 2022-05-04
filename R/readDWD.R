@@ -22,7 +22,7 @@
 #'          <https://bookdown.org/brry/rdwd>
 #' @keywords file chron
 #' @importFrom utils read.table unzip read.fwf untar write.table
-#' @importFrom berryFunctions checkFile na9 traceCall l2df owa
+#' @importFrom berryFunctions checkFile na9 twarning tstop l2df owa
 #' @importFrom pbapply pblapply
 #' @importFrom tools file_path_sans_ext
 #' @export
@@ -74,7 +74,7 @@ len <- length(file)
 if(missing(progbar) & len==1 & all(!type %in% c("binary","asc","rklim"))) progbar <- FALSE
 
 wrongtype <- !type %in% validFileTypes
-if(any(wrongtype)) stop("invalid type (",type[wrongtype],") given for file '",
+if(any(wrongtype)) tstop("invalid type (",type[wrongtype],") given for file '",
                         file[wrongtype],"'. See  ?fileType")
 
 
@@ -85,7 +85,7 @@ if(anyNA(fread))
   {
   haspack <- requireNamespace("data.table", quietly=TRUE)
   if(haspack && Sys.which("unzip")=="") 
-    warning("R package 'data.table' available for fast reading of files, ",
+   twarning("R package 'data.table' available for fast reading of files, ",
             "but system command 'unzip' could not be found. Now reading slowly.\n",
             "See   https://bookdown.org/brry/rdwd/fread.html")
   fread[is.na(fread)] <- haspack && Sys.which("unzip")!=""
@@ -94,7 +94,7 @@ if(any(fread))
   {
   checkSuggestedPackage("data.table", "rdwd::readDWD with fread=TRUE")
   checkSuggestedPackage("bit64",      "rdwd::readDWD with fread=TRUE")
-  if(Sys.which("unzip")=="") warning("system command 'unzip' could not be found. ",
+  if(Sys.which("unzip")=="") twarning("system command 'unzip' could not be found. ",
                                      "Expect trouble with data.table::fread.\n",
                                      "See   https://bookdown.org/brry/rdwd/fread.html")
   }
@@ -158,7 +158,7 @@ if(type[i]=="asc")    arg <- list(progbar=progbar, dividebyten=dividebyten[i])
 arg <- c(list(file=file[i], quiet=quiet, ...), arg)
 # call subfunction:
 out <- try(do.call(paste0("readDWD.",type[i]), arg), silent=TRUE)
-if(inherits(out, "try-error")) stop("failure reading file:\n", file[i], "\n", out, call.=FALSE)
+if(inherits(out, "try-error")) tstop("failure reading file:\n", file[i], "\n", out)
 return(out)
 }
 output <- lapply(seq_along(file), readDWDloopfun, ...)
@@ -210,13 +210,13 @@ return(invisible(output))
 readDWD.data <- function(file, fread=FALSE, varnames=FALSE, format=NA, tz="GMT",
                          quiet=rdwdquiet(), ...)
 {
-if(grepl("meta_data_Meta_Daten", file)) stop("This 'meta_data_Meta_Daten' file should be read with readMeta(",file,")")
+if(grepl("meta_data_Meta_Daten", file)) tstop("This 'meta_data_Meta_Daten' file should be read with readMeta(",file,")")
 if(fread)
   {
   # http://dsnotes.com/post/2017-01-27-lessons-learned-from-outbrain-click-prediction-kaggle-competition/
   fp <- unzip(file, list=TRUE) # file produkt*, the actual datafile
   fp <- fp$Name[grepl("produkt",fp$Name)]
-  if(length(fp)!=1) stop("There should be a single 'produkt*' file, but there are ",
+  if(length(fp)!=1) tstop("There should be a single 'produkt*' file, but there are ",
                         length(fp), " in\n  ", file, "\n  Consider re-downloading (with force=TRUE).")
   dat <- data.table::fread(cmd=paste("unzip -p", file, fp), na.strings=na9(nspace=0),
                            header=TRUE, sep=";", stringsAsFactors=TRUE, data.table=FALSE, ...)
@@ -229,7 +229,7 @@ unzip(file, exdir=exdir)
 on.exit(unlink(exdir, recursive=TRUE), add=TRUE)
 # Read the actual data file:
 f <- dir(exdir, pattern="produkt*", full.names=TRUE)
-if(length(f)!=1) stop("There should be a single 'produkt*' file, but there are ",
+if(length(f)!=1) tstop("There should be a single 'produkt*' file, but there are ",
                       length(f), " in\n  ", file, "\n  Consider re-downloading (with force=TRUE).")
 dat <- read.table(f, na.strings=na9(), header=TRUE, sep=";", as.is=FALSE, ...)
 } # end if(!fread)
@@ -238,7 +238,7 @@ if(varnames)  dat <- newColumnNames(dat)
 # return if file is empty, e.g. for daily/more_precip/hist_05988 2019-05-16:
 if(nrow(dat)==0)
   {
-  if(!quiet) warning("File contains no rows: ", file)
+  if(!quiet) twarning("File contains no rows: ", file)
   return(dat)
   }
 # process time-stamp: http://stackoverflow.com/a/13022441
@@ -248,7 +248,7 @@ if(!is.null(format))
   if("MESS_DATUM_BEGINN" %in% colnames(dat))
     dat <- cbind(dat[,1, drop=FALSE], MESS_DATUM=dat$MESS_DATUM_BEGINN + 14, dat[,-1])
   if(!"MESS_DATUM" %in% colnames(dat))
-    warning("There is no column 'MESS_DATUM' in ",file, call.=FALSE) else
+    twarning("There is no column 'MESS_DATUM' in ",file) else
     {
     nch <- nchar(as.character(dat$MESS_DATUM[1]))
     if(is.na(format)) format <- if(nch== 8) "%Y%m%d" else
@@ -294,7 +294,7 @@ dat <- read.table(file2, header=TRUE, sep=";", ...)
 # convert time-stamp:
 if(todate)
   if(!any(c("Datum","Monat") %in% colnames(dat)))
-    warning("There is no column 'Datum' or 'Monat' in ",file, call.=FALSE) else
+    twarning("There is no column 'Datum' or 'Monat' in ",file) else
     {
     if(is.null(dat$Datum))
     dat$Monat <- as.Date(paste0(dat$Monat, "15"), format="%Y%m%d") else
@@ -444,7 +444,7 @@ readDWD.stand <- function(file, fast=TRUE, fileEncoding="latin1",
 # check column existence
 musthave <- c("Pos","Fehlk","dividebyten","Label")
 has <- musthave %in% colnames(formIndex)
-if(any(!has)) stop("formIndex must contain column(s) ", musthave[!has])
+if(any(!has)) tstop("formIndex must contain column(s) ", musthave[!has])
 # get column widths:
 width <- diff(as.numeric(formIndex$Pos))
 width <- c(width, 1)
@@ -462,13 +462,13 @@ if(fast)
   } else # see developmentNotes for speed comparison
   sf <- read.fwf(file, widths=width, stringsAsFactors=FALSE, fileEncoding=fileEncoding, ...)
 # dimension check:
-if(ncol(sf) != nrow(formIndex)) stop("incorrectly read file: ", file,"\n",
+if(ncol(sf) != nrow(formIndex)) tstop("incorrectly read file: ", file,"\n",
    ncol(sf), " columns instead of ", nrow(formIndex), " as dictated by formIndex.")
 # NAs (starting with column 7):
 for(i in which(formIndex$Fehlk!=""))
   {
   isNA <- as.character(sf[,i])==formIndex$Fehlk[i]
-  if(anyNA(isNA)) stop("NAs in comparison in column ", i, " of file ", file)
+  if(anyNA(isNA)) tstop("NAs in comparison in column ", i, " of file ", file)
   sf[isNA, i] <- NA
   }
 # divide by ten:
@@ -556,7 +556,7 @@ if(grepl("subdaily_standard_format", file))
                       "geoBreite", "geoLaenge", "Stationsname", "Bundesland")
  }
 # check classes:
-if(ncol(stats)!=8) stop(ncol(stats)," columns detected instead of 8 for ", file)
+if(ncol(stats)!=8) tstop(ncol(stats)," columns detected instead of 8 for ", file)
 classes <- c("integer", "integer", "integer", "integer", "numeric", "numeric", "character", "character")
 actual <- sapply(stats, class)
 if(actual[4]=="numeric") classes[4] <- "numeric"
@@ -565,8 +565,7 @@ if(!all(actual == classes))
   msg <- paste0(names(actual)[actual!=classes], ": ", actual[actual!=classes],
                 " instead of ", classes[actual!=classes], ".")
   msg <- paste(msg, collapse=" ")
-  warning(traceCall(3, "", ": "), "reading file '", file,
-          "' did not give the correct column classes. ", msg, call.=FALSE)
+  twarning("reading file '", file,"' did not give the correct column classes. ", msg)
   }
 # return meta data.frame:
 stats

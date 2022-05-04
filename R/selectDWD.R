@@ -39,7 +39,7 @@
 #' @seealso [dataDWD()], [`metaIndex`],
 #'          [website station selection chapter](https://bookdown.org/brry/rdwd/station-selection.html#by-name)
 #' @keywords file
-#' @importFrom berryFunctions truncMessage traceCall
+#' @importFrom berryFunctions truncMessage twarning tstop
 #' @importFrom utils menu
 #' @export
 #' @examples
@@ -161,8 +161,7 @@ quiet=rdwdquiet(),
 # unused arguments:
 unused <- names(list(...))
 unused <- unused[!unused %in% names(formals(indexFTP))]
-if(length(unused)>0) warning("unused arguments in ", berryFunctions::traceCall(1,"",""), ": ",
-                             toString(unused), call.=FALSE)
+if(length(unused)>0) twarning("unused arguments: ", toString(unused))
 # Input checks and processing:
 findexname <- deparse(substitute(findex))
 # time period insertations:
@@ -183,7 +182,7 @@ if(any(per=="hr"|per=="rh", na.rm=TRUE))
 # recycle input vectors
 len <- max(length(id), length(res), length(var), length(per), length(meta)  )
 lmin <-  c(length(id), length(res), length(var), length(per), length(meta)  )
-if(any(lmin==0)) stop(sum(lmin==0), " input vectors have length zero: ",
+if(any(lmin==0)) tstop(sum(lmin==0), " input vectors have length zero: ",
                       toString(c("id","res","var","per","meta")[lmin==0]))
 # outside of the loop, the slowest part of the code is getting length(id)
 # because findID obtains id from name. All computing time happens in tolower
@@ -207,24 +206,22 @@ per[var=="solar" & res %in% c("hourly","daily")] <- ""
 rma <- res=="multi_annual"
 if(any(rma, na.rm=TRUE))
   {
-  if(any(id[rma]!="", na.rm=TRUE)) warning(traceCall(1, "", ": "), "multi_annual data is not ",
-      "organized by station ID. Setting id to ''.", call.=FALSE)
+  if(any(id[rma]!="", na.rm=TRUE)) twarning("multi_annual data is not ",
+      "organized by station ID. Setting id to ''.")
   id[rma] <- ""
-  if(any(per[rma]!="", na.rm=TRUE)) warning(traceCall(1, "", ": "), "multi_annual data is not ",
-      "organized in period folders. Setting per to ''.", call.=FALSE)
+  if(any(per[rma]!="", na.rm=TRUE)) twarning("multi_annual data is not ",
+      "organized in period folders. Setting per to ''.")
   per[rma] <- ""
   }
 # check ids for accidental letters:
 idlett <- grepl("[A-Za-z]", id)
-if(any(idlett)) stop(traceCall(1, "in ", ": "), "id may not contain letters: ",
-                     toString(id[idlett]), call.=FALSE)
+if(any(idlett)) tstop("id may not contain letters: ", toString(id[idlett]))
 # update file index:
 if(current)
   {
   uniquepaths <- unique(paste0("/",res,"/",var,"/",per))
   uniquepaths <- uniquepaths[uniquepaths!="///"]
-  if(length(uniquepaths)<1) stop(traceCall(1, "in ", ": "),
-                    "current=TRUE, but no valid paths available.", call.=FALSE)
+  if(length(uniquepaths)<1) tstop("current=TRUE, but no valid paths available.")
   findex <- createIndex(indexFTP(folder=uniquepaths, base=base, quiet=quiet, ...), fname="")
   findexname <- "currentIndex"
   }
@@ -251,8 +248,8 @@ selectPrompt <- function(column, RES="", VAR="", PER="", ID="", index=findex)
  options <- sort(unique(options))
  if(length(options)<1)
    {
-   warning("For interactive selection, no options were found for your request. ",
-           "Proceeding with ", column,"=''.", call.=FALSE)
+   twarning("For interactive selection, no options were found for your request. ",
+           "Proceeding with ", column,"=''.")
    return("")
    }
  if("hourly" %in% options) # order resolution manually:
@@ -365,18 +362,18 @@ if(givenid & givenpath & !meta[i])
     {
     filename <- findex[sel,]
     filename <- filename[which.max(filename$end - filename$start),"path"]
-    if(!quiet) warning(traceCall(3, "", ": "), "duplicate file on FTP server according to file index '", 
+    if(!quiet) twarning("duplicate file on FTP server according to file index '", 
             findexname, "'.\n - Proceeding with file with longest time period, ",
             "according to time stamps in file names. Unreliable, hence:\n",
             " - Please check actual content manually. Get all urls by setting remove_dupli=FALSE.\n",
             " - Please report this entire warning message to berry-b@gmx.de or at ",
-            "https://github.com/brry/rdwd/issues\n - Keeping: ", filename, call.=FALSE)
+            "https://github.com/brry/rdwd/issues\n - Keeping: ", filename, skip=2)
     } else
     filename <- findex[sel,"path"]
-  if(length(filename)>1 && !quiet) warning(traceCall(3, "", ": "), "several files (",
+  if(length(filename)>1 && !quiet) twarning("several files (",
                                  length(filename),") were selected:",
                                  berryFunctions::truncMessage(filename, prefix=""),
-                                 call.=FALSE)
+                                 skip=2)
   return(   paste0(base,"/",filename)   )
   }
 }) # loop end
@@ -414,8 +411,7 @@ if(!is.null(outwarn$miss_file_msg))
   }
 
 outwarn <- as.list(outwarn)
-if(length(outwarn)>0 & !quiet) warning(berryFunctions::traceCall(1, "", ": "), 
-                                       paste0(outwarn, collapse="\n"), call.=FALSE)
+if(length(outwarn)>0 & !quiet) twarning(paste0(outwarn, collapse="\n"))
 
 output <- if(len==1) output[[1]] else output
 if(len>1 & outvec) output <- unlist(output)

@@ -7,7 +7,7 @@
 #' @seealso used in [selectDWD()], [metaInfo()]
 #' @keywords character
 #' @export
-#' @importFrom berryFunctions traceCall
+#' @importFrom berryFunctions twarning
 #' @examples
 #' # Give weather station name (must be existing in metaIndex):
 #' findID("Potsdam")
@@ -58,12 +58,11 @@ output <- lapply(seq_len(len), function(i)
   if(length(id)<1)
     {
     id <- NA
-    if(!quiet) warning(traceCall(3, "", ": "), "no ID could be determined from name '",
-                             name[i], "'.", call.=FALSE)
+    if(!quiet) twarning("no ID could be determined from name '",name[i], "'.", skip=2)
     }
-  if(length(id)>1 & !quiet) warning(traceCall(3, "", ": "), "ID determined from name '",
+  if(length(id)>1 & !quiet) twarning("ID determined from name '",
                              name[i], "' has ", length(id), " elements (",
-                             toString(sort(id)), ").", call.=FALSE)
+                             toString(sort(id)), ").", skip=2)
   # ID names:
   names(id) <- mindex[ match(id, mindex$Stations_id), "Stationsname" ]
   id
