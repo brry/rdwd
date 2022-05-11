@@ -42,15 +42,22 @@ on.exit(unlink(exdir, recursive=TRUE), add=TRUE)
 # all meta info text files in zip folder:
 fm <- dir(exdir, pattern=".*\\.txt", full.names=TRUE)
 fm <- fm[substr(basename(fm),1,7)!="produkt"]
+
 tabs <- base::lapply(fm, function(fi)
   {
-  #tab <- XML::readHTMLTable(fi, stringsAsFactors=FALSE)[[1]]
-  #tab <- paste(apply(tab,1,paste,collapse=";"), collapse="\n")
-  #tab <- read.table(header=TRUE, sep=";",stringsAsFactors=FALSE, text=tab)
-  nr <- readLines(fi) # number of rows
-  nr <- sum(!substr(nr, 1, 7) %in% c("Legende", "generie"))
-  # message("reading ", nr, " rows in ", normalizePath(fi, winslash="/"), "...")
-  tab <- read.table(fi, sep=";", header=TRUE, nrows=nr-1, ...)
+  read_with_encoding <- function(enc)
+   try({nr <- readLines(fi, encoding=enc) # number of rows
+    nr <- sum(!substr(nr, 1, 7) %in% c("Legende", "generie"))
+    tab <- read.table(fi, sep=";", header=TRUE, nrows=nr-1, encoding=enc, ...)
+    tab},              silent=TRUE)
+  tab <- read_with_encoding("latin1")
+  if(inherits(tab,"try-error")) tab <- read_with_encoding("UTF-8")
+  if(inherits(tab,"try-error")) tab <- read_with_encoding(readr::guess_encoding(f)$encoding[1])
+  if(inherits(tab,"try-error")) 
+    {
+    twarning("readMeta failed for '", file, " with: ", tab)
+    return(NULL)
+    }
   tab
   })
 names(tabs) <- basename(fm)
