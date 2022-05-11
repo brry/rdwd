@@ -42,9 +42,9 @@ subdaily/standard_format data.
 \examples{
 \dontrun{ # Excluded from CRAN checks, but run in localtests
 
-# Temperature aggregates (2019-04 the 9th file):
-durl <- selectDWD(res="multi_annual", var="mean_81-10", per="")[9]
-murl <- selectDWD(res="multi_annual", var="mean_81-10", per="", meta=TRUE)[9]
+# Temperature aggregates (2019-04 the 9th file, 2022-05 the 8th):
+durl <- selectDWD(res="multi_annual", var="mean_81-10", per="")[8]
+murl <- selectDWD(res="multi_annual", var="mean_81-10", per="", meta=TRUE)[8]
 
 ma_temp <- dataDWD(durl, dir=locdir())
 ma_meta <- dataDWD(murl, dir=locdir())
@@ -67,10 +67,10 @@ berryFunctions::colPoints(ma$geogr..Laenge, ma$geogr..Breite, ma$Jahr, add=F, as
 
 load(system.file("extdata/DEU.rda", package="rdwd"))
 pdf("MultiAnn.pdf", width=8, height=10)
-par(bg=8)
+par(bg="grey90")
 for(m in colnames(ma)[8:19])
   {
-  raster::plot(DEU, border="darkgrey")
+  raster::plot(DEU, border="grey40")
   berryFunctions::colPoints(ma[-262,]$geogr..Laenge, ma[-262,]$geogr..Breite, ma[-262,m],
                             asp=1.4, # Range=range(ma[-262,8:19]),
                             col=berryFunctions::divPal(200, rev=TRUE), zlab=m, add=T)

@@ -20,7 +20,7 @@ validFileTypes <- strsplit("data,meta,multia,stand,deriv,radar,binary,raster,nc,
 #' |                        |             |
 #' |  [meta][readDWD.meta]  | .txt        | For Beschreibung.txt files. For zip files containing station meta information, see [readMeta()].
 #' |                        |             | 
-#' |[multia][readDWD.multia]| \[SO\]      | \[SO\]: `file` ends with "Standort.txt". Overrides `meta`.
+#' |[multia][readDWD.multia]| \[SO\]      | \[SO\]: `file` ends with "Standort.txt" or contains multi_annual. Overrides `meta`.
 #' |                        |             |
 #' | [stand][readDWD.stand] | \[SF\]      | \[SF\]: `file` contains "standard_format". For subdaily/standard_format files.
 #' |                        |             |
@@ -54,6 +54,7 @@ validFileTypes <- strsplit("data,meta,multia,stand,deriv,radar,binary,raster,nc,
 #' data    daily_kl_recent_tageswerte_KL_03987_akt.zip
 #' meta    daily_kl_recent_KL_Tageswerte_Beschreibung_Stationen.txt
 #' multia  multi_annual_mean_81-10_Temperatur_1981-2010_aktStandort.txt
+#' multia  multi_annual_mean_81-10_Temperatur_1981-2010.txt
 #' stand   subdaily_standard_format_kl_10381_00_akt.txt
 #' deriv   derived_germany_soil_daily_historical_3987.txt.gz
 #' 
@@ -81,6 +82,7 @@ out <- rep("fileTypeError", length(file))
 out[grepl(          ".zip$", file)] <- "data"
 out[grepl(          ".txt$", file)] <- "meta"
 out[grepl(  "Standort.txt$", file)] <- "multia"
+out[grepl(  "multi.?annual", file)] <- "multia" # new format 2022
 out[grepl("standard_format", file)] <- "stand"
 
 out[grepl(           ".gz$", file)] <- "radar"

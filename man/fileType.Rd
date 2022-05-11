@@ -23,7 +23,7 @@ Click on the \code{type} for the subfunction documentation, e.g. \link[=readDWD.
     \tab  \tab  \cr
    \link[=readDWD.meta]{meta} \tab .txt \tab For Beschreibung.txt files. For zip files containing station meta information, see \code{\link[=readMeta]{readMeta()}}. \cr
     \tab  \tab  \cr
-   \link[=readDWD.multia]{multia} \tab [SO] \tab [SO]: \code{file} ends with "Standort.txt". Overrides \code{meta}. \cr
+   \link[=readDWD.multia]{multia} \tab [SO] \tab [SO]: \code{file} ends with "Standort.txt" or contains multi_annual. Overrides \code{meta}. \cr
     \tab  \tab  \cr
    \link[=readDWD.stand]{stand} \tab [SF] \tab [SF]: \code{file} contains "standard_format". For subdaily/standard_format files. \cr
     \tab  \tab  \cr
@@ -52,6 +52,7 @@ type    filename
 data    daily_kl_recent_tageswerte_KL_03987_akt.zip
 meta    daily_kl_recent_KL_Tageswerte_Beschreibung_Stationen.txt
 multia  multi_annual_mean_81-10_Temperatur_1981-2010_aktStandort.txt
+multia  multi_annual_mean_81-10_Temperatur_1981-2010.txt
 stand   subdaily_standard_format_kl_10381_00_akt.txt
 deriv   derived_germany_soil_daily_historical_3987.txt.gz
 

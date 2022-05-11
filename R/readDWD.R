@@ -320,9 +320,9 @@ return(dat)
 #' @examples
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
 #' 
-#' # Temperature aggregates (2019-04 the 9th file):
-#' durl <- selectDWD(res="multi_annual", var="mean_81-10", per="")[9]
-#' murl <- selectDWD(res="multi_annual", var="mean_81-10", per="", meta=TRUE)[9]
+#' # Temperature aggregates (2019-04 the 9th file, 2022-05 the 8th):
+#' durl <- selectDWD(res="multi_annual", var="mean_81-10", per="")[8]
+#' murl <- selectDWD(res="multi_annual", var="mean_81-10", per="", meta=TRUE)[8]
 #' 
 #' ma_temp <- dataDWD(durl, dir=locdir())
 #' ma_meta <- dataDWD(murl, dir=locdir())
@@ -345,10 +345,10 @@ return(dat)
 #' 
 #' load(system.file("extdata/DEU.rda", package="rdwd"))
 #' pdf("MultiAnn.pdf", width=8, height=10)
-#' par(bg=8)
+#' par(bg="grey90")
 #' for(m in colnames(ma)[8:19])
 #'   {
-#'   raster::plot(DEU, border="darkgrey")
+#'   raster::plot(DEU, border="grey40")
 #'   berryFunctions::colPoints(ma[-262,]$geogr..Laenge, ma[-262,]$geogr..Breite, ma[-262,m],
 #'                             asp=1.4, # Range=range(ma[-262,8:19]),
 #'                             col=berryFunctions::divPal(200, rev=TRUE), zlab=m, add=T)
@@ -505,6 +505,7 @@ return(sf)
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
 #' 
 #' link <- selectDWD(res="daily", var="kl", per="r", meta=TRUE)
+#' link <- link[!grepl("mn4", link)] # for mn4 file May 2022
 #' if(length(link)!=1) stop("length of link should be 1, but is ", length(link),
 #'                 ":\n", berryFunctions::truncMessage(link,prefix="",sep="\n"))
 #' 
