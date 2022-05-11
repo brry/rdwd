@@ -1051,10 +1051,15 @@ return(invisible(dat))
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
 #' yw_link <- "/5_minutes/radolan/reproc/2017_002/bin/2020/YW2017.002_202006.tar"
 #' yw_file <- dataDWD(url=yw_link, base=gridbase, joinbf=TRUE, dir=locdir(), read=FALSE)
-#' x <- readDWD(yw_file, selection=3641:3644)
+#' x <- readDWD(yw_file, selection=3641:3644) 
+#' # 00:30 for tar files, 01:40 for unpacking. 
+#' # If you need a preselection argument, let me know.
 #' raster::plot(x$dat)
 #'
 #' f <- system.file("tests//raa01-yw2017.002_10000-2006131525-dwd---bin", package="dwdradar")
+#' if(f=="") stop("dwdradar test file not found")
+#' # https://stackoverflow.com/a/72207233/1587132 on how to install with tests folder
+#' 
 #' x <- dwdradar::readRadarFile(f)
 #' x$dat <- raster::raster(x$dat)
 #' raster::plot(x$dat)
