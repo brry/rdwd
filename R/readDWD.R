@@ -898,7 +898,7 @@ return(invisible(list(time=time, lat=LAT, lon=LON, var=VAR, varname=var,
 #' rrf <- indexFTP("hourly/radolan/recent/bin", base=gridbase, dir=tempdir())
 #' lrf <- dataDWD(rrf[773], base=gridbase, joinbf=TRUE, dir=tempdir(), read=FALSE)
 #' r <- readDWD(lrf)
-#' plotRadar(r$dat, main=paste("mm in 24 hours preceding", rad$meta$date))
+#' plotRadar(r$dat, main=paste("mm in 24 hours preceding", r$meta$date))
 #' }
 #' @param file      Name of file on harddrive, like e.g.
 #'                  DWDdata/hourly/radolan/recent/bin/

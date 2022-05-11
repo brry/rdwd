@@ -49,7 +49,7 @@ Intended to be called via \code{\link[=readDWD]{readDWD()}}.\cr
 rrf <- indexFTP("hourly/radolan/recent/bin", base=gridbase, dir=tempdir())
 lrf <- dataDWD(rrf[773], base=gridbase, joinbf=TRUE, dir=tempdir(), read=FALSE)
 r <- readDWD(lrf)
-plotRadar(r$dat, main=paste("mm in 24 hours preceding", rad$meta$date))
+plotRadar(r$dat, main=paste("mm in 24 hours preceding", r$meta$date))
 }
 }
 \seealso{
