@@ -80,11 +80,11 @@
 #' @param force  Logical (vector): always download, even if the file already exists in `dir`?
 #'               Use NA to force re-downloading files older than 24 hours.
 #'               Use a numerical value to force after that amount of hours.
-#'               Note: if `force!=FALSE`, you might want to set `overwrite=TRUE` as well.
-#'               If `force=FALSE`, the file is still read (or name returned).
+#'               Note: if `force` is not FALSE, the `overwrite` default is TRUE.
 #'               DEFAULT: FALSE
 #' @param overwrite Logical (vector): if force=TRUE, overwrite the existing file
-#'               rather than append "_1"/"_2" etc to the filename? DEFAULT: FALSE
+#'               rather than append "_1"/"_2" etc to the filename? 
+#'               DEFAULT: `!isFALSE(force)`, i.e. true when `force` is specified.
 #' @param read   Logical: read the file(s) with [readDWD()]? If FALSE,
 #'               only download is performed and the filename(s) returned. DEFAULT: TRUE
 #' @param dbin   Logical: Download binary file, i.e. add `mode="wb"` to the
@@ -120,7 +120,7 @@ base=dwdbase,
 joinbf=FALSE,
 dir="DWDdata",
 force=FALSE,
-overwrite=FALSE,
+overwrite=!isFALSE(force),
 read=TRUE,
 dbin=TRUE,
 dfargs=NULL,

@@ -10,7 +10,7 @@ dataDWD(
   joinbf = FALSE,
   dir = "DWDdata",
   force = FALSE,
-  overwrite = FALSE,
+  overwrite = !isFALSE(force),
   read = TRUE,
   dbin = TRUE,
   dfargs = NULL,
@@ -40,12 +40,12 @@ Created if not existent. DEFAULT: "DWDdata" at current \code{\link[=getwd]{getwd
 \item{force}{Logical (vector): always download, even if the file already exists in \code{dir}?
 Use NA to force re-downloading files older than 24 hours.
 Use a numerical value to force after that amount of hours.
-Note: if \code{force!=FALSE}, you might want to set \code{overwrite=TRUE} as well.
-If \code{force=FALSE}, the file is still read (or name returned).
+Note: if \code{force} is not FALSE, the \code{overwrite} default is TRUE.
 DEFAULT: FALSE}
 
 \item{overwrite}{Logical (vector): if force=TRUE, overwrite the existing file
-rather than append "_1"/"_2" etc to the filename? DEFAULT: FALSE}
+rather than append "_1"/"_2" etc to the filename?
+DEFAULT: \code{!isFALSE(force)}, i.e. true when \code{force} is specified.}
 
 \item{read}{Logical: read the file(s) with \code{\link[=readDWD]{readDWD()}}? If FALSE,
 only download is performed and the filename(s) returned. DEFAULT: TRUE}
