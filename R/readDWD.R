@@ -1240,3 +1240,31 @@ if(toraster)
 # Output:
 return(invisible(out))
 }
+
+
+
+# ~ pdf ----
+
+#' @title open pdf data
+#' @description open pdf file. This leads to less failures in the new `meta=TRUE`
+#' # system in [selectDWD()].\cr
+#' Intended to be called via [readDWD()].\cr
+#' @return [berryFunctions::openFile()] output
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, May 2022.
+#' @seealso [readDWD()]
+#' @examples
+#' \dontrun{ # Excluded from CRAN checks, but run in localtests
+#' link <- selectDWD(res="hourly", var="sun", per="r", meta=TRUE)[2]
+#' file <- dataDWD(link, dir=locdir(), read=FALSE)
+#' readDWD(file)
+#' }
+#' @param file      Name of file on harddrive, like e.g.
+#'                  monthly_kl_historical_DESCRIPTION_obsgermany_climate_monthly_kl_historical_en.pdf
+#' @param quiet     Ignored. DEFAULT: FALSE through [rdwdquiet()]
+#' @param \dots     Further arguments passed to [berryFunctions::openFile()] and from there to [system2()]
+
+readDWD.pdf <- function(file, quiet=rdwdquiet(), ...)
+{
+berryFunctions::openFile(file, ...)
+}
+

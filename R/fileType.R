@@ -2,7 +2,7 @@
 #' @title valid fileType values
 #' @description fileType values that have a reading subfunction `readDWD.ftype()`.
 #' @export
-validFileTypes <- strsplit("data,meta,multia,stand,deriv,radar,binary,raster,nc,asc,rklim,grib2", ",")[[1]]
+validFileTypes <- strsplit("data,meta,multia,stand,deriv,radar,binary,raster,nc,asc,rklim,grib2,pdf", ",")[[1]]
 
 
 
@@ -93,6 +93,8 @@ out[grepl(          ".tar$", file)] <- "asc"
 out[grepl(      "YW.*.tar$", file)] <- "rklim"
 out[grepl(    ".grib2.bz2$", file)] <- "grib2"
 out[grepl(       ".txt.gz$", file)] <- "deriv"
+
+out[grepl(          ".pdf$", file)] <- "pdf"
 
 if(any(out=="fileTypeError")) tstop("fileType failed for the following file", 
              truncMessage(file[out=="fileTypeError"], midfix="\n- ", sep="\n- "))
