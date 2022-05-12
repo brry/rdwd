@@ -63,11 +63,13 @@ nc      daily_Project_TRY_humidity_RH_199509_daymean.nc.gz
 asc     radolan_historical_asc_2018_RW-201809.tar
 rklim   5_minutes_radolan_reproc_2017_002_bin_2020_YW2017.002_202006.tar
 grib2   ftp_weather_nwp_cosmo-d2_005_T_2M.grib2.bz2
+
+pdf     DESCRIPTION_obsgermany_climate_monthly_kl_historical_en.pdf
 ")
 fileType(ft$filename)
 
 stopifnot(fileType(ft$filename)==ft$type)
-fileType("random_stuff.odt")
+berryFunctions::is.error(fileType("random_stuff.odt"), force=TRUE)
 
 stopifnot(validFileTypes \%in\% ft$type)
 stopifnot(ft$type \%in\% validFileTypes)

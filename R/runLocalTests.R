@@ -97,7 +97,7 @@ link <- c(selectDWD("Potsdam", res="daily", var="kl", per="hr"),
 link <- link[!grepl("mn4_Beschreibung",link)] # mn4 file with only 2 Berlin stations, Apr 2022
 file <- dataDWD(link, read=FALSE, dir=dir_data, progbar=FALSE)
 testthat::expect_message(readDWD(file, progbar=FALSE), 
-  "Reading 3 files with readDWD.data (2) / readDWD.meta (1) and fread=TRUE ...", fixed=TRUE)
+  "Reading 5 files with readDWD.data (2) / readDWD.meta (1) / readDWD.pdf (2) and fread=TRUE ...", fixed=TRUE)
 })
 
 
