@@ -506,6 +506,7 @@ return(sf)
 #' 
 #' link <- selectDWD(res="daily", var="kl", per="r", meta=TRUE)
 #' link <- link[!grepl("mn4", link)] # for mn4 file May 2022
+#' link <- grep(".txt$", link, value=TRUE)
 #' if(length(link)!=1) stop("length of link should be 1, but is ", length(link),
 #'                 ":\n", berryFunctions::truncMessage(link,prefix="",sep="\n"))
 #' 

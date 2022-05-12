@@ -57,7 +57,6 @@ link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
 file <- dataDWD(link, read=FALSE, dir=dir_data, quiet=TRUE)
 testthat::expect_equal(basename(file), "daily_kl_recent_tageswerte_KL_03987_akt.zip")
 links <- selectDWD(id=c(5302,5711,3987),res="daily",var="more_precip",per="h")
-testthat::expect_error(dataDWD(links, dir=dir_data), "url must be a vector, not a list")
 testthat::expect_warning(dataDWD("multi/mean/Temp.txt", quiet=TRUE),
                "dataDWD needs urls starting with 'ftp://'.")
 f <- paste0(dwdbase, "/daily/kl/historical/tageswerte_KL_03987_18930101_20181231_hist.zip")
@@ -211,39 +210,25 @@ testthat::expect_equal(selectDWD(id="00386", res="daily", var="kl", per="histori
 })
 
 testthat::test_that("selectDWD can choose Beschreibung meta files", {
-link <- selectDWD(id="00386", res="daily", var="kl", per="h", meta=TRUE)
-link2 <- selectDWD(           res="daily", var="kl", per="h", meta=TRUE)
-link  <- link [!grepl("mn4_Beschreibung",link )]
-link2 <- link2[!grepl("mn4_Beschreibung",link2)]
+link <- selectDWD(res="daily", var="kl", per="h", meta=TRUE)
+link <- link[!grepl("mn4_Beschreibung",link)]
+link <- grep(".txt$", link, value=TRUE)
 testthat::expect_equal(link,
   paste0(dwdbase, "/daily/kl/historical/KL_Tageswerte_Beschreibung_Stationen.txt"))
-testthat::expect_equal(link, link2)
 })
 
 
 testthat::test_that("selectDWD properly vectorizes", {
-testthat::expect_type(selectDWD(id="01050", res="daily", var="kl", per=c("r","h")), "list")
+testthat::expect_type(selectDWD(id="01050", res="daily", var="kl", per=c("r","h")), "character")
 testthat::expect_type(selectDWD(id="01050", res="daily", var="kl", per="rh"), "character")
 # all zip files in all paths matching id:
 allzip_id <- selectDWD(id=c(1050, 386), res="",var="",per="", quiet=TRUE)
 # all zip files in a given path (if ID is empty):
 allzip_folder <- selectDWD(id="", res="daily", var="kl", per="recent")
-testthat::expect_equal(length(allzip_id), 2)
-testthat::expect_gte(length(allzip_id[[1]]), 200)
-testthat::expect_gte(length(allzip_id[[2]]), 7)
+testthat::expect_gte(length(allzip_id), 277)
 testthat::expect_gte(length(allzip_folder), 573)
 })
 
-
-testthat::test_that("selectDWD uses remove_dupli correctly", {
-fi <- data.frame(res="aa", var="bb", per="cc", id=42, start=as.Date("1989-07-01"), 
-                 end=as.Date(c("2016-12-31","2015-12-31")), ismeta=FALSE, 
-                 path=c("longer", "shorter"))
-testthat::expect_length(selectDWD(res="aa",var="bb",per="cc",id=42,findex=fi, quiet=TRUE), 1)
-testthat::expect_length(selectDWD(res="aa",var="bb",per="cc",id=42,findex=fi, quiet=TRUE, remove_dupli=FALSE), 2)
-testthat::expect_warning(selectDWD(res="aa",var="bb",per="cc",id=42,findex=fi), 
-                         "selectDWD: duplicate file on FTP server")
-})
 
 # selectDWD warnings ----
 
@@ -252,37 +237,36 @@ messaget("++ Testing selectDWD warnings")
 oop <- options(rdwdquiet=FALSE)
 
 testthat::test_that("selectDWD warns as intended", {
-testthat::expect_warning(selectDWD(res="",var="",per=""),
-               "selectDWD: neither station ID nor valid FTP folder is given.")
+testthat::expect_error(selectDWD(res="",var="",per=""),
+               "selectDWD: One \\(or both\\) of 'id' and 'res/var/per' must be given.")
+testthat::expect_error(
 testthat::expect_warning(selectDWD(7777, res="",var="",per=""),
-               "selectDWD -> findID: no ID could be determined from name '7777'.")
-testthat::expect_warning(selectDWD(7777, res="",var="",per=""),
-               "selectDWD: neither station ID nor valid FTP folder is given.")
+               "selectDWD -> findID: no ID could be determined from name '7777'."),
+          "of 'id' and 'res/var/per' must be given.")
+
 testthat::expect_warning(selectDWD(id=7777, res="",var="",per=""),
-               "selectDWD: in file index 'fileIndex', there are 0 files with ID 7777")
+               "selectDWD: No entries in file index 'fileIndex' match your query")
 testthat::expect_warning(selectDWD(id="", res="dummy", var="dummy", per=""),
-               "according to file index 'fileIndex', the following path doesn't exist: /dummy/dummy/")
+               "selectDWD: No entries in file index 'fileIndex' match your query")
 testthat::expect_warning(selectDWD(id="", res="dummy", var="dummy", per=""),
-               "according to file index 'fileIndex', there is no file in '/dummy/dummy/' with ID NA.")
+               "selectDWD: No entries in file index 'fileIndex' match your query")
 testthat::expect_warning(selectDWD(res="dummy", var="", per=""),
-               "selectDWD: neither station ID nor valid FTP folder is given.")
-testthat::expect_warning(selectDWD(res="daily", var="", per="r"),
-               "selectDWD: neither station ID nor valid FTP folder is given.")
-testthat::expect_warning(selectDWD(res="daily", var="kl", per=""),
-               "according to file index 'fileIndex', there is no file in '/daily/kl/' with ID NA.")
-testthat::expect_warning(selectDWD(id="01050", res=c("daily","monthly"), var="kl", per=""), # needs 'per'
-               "according to file index 'fileIndex', there is no file in \n - '/daily/kl/' with ID 1050")
+               "selectDWD: No entries in file index 'fileIndex' match your query")
+testthat::expect_gte(length(selectDWD(res="daily", var="",   per="r")), 3414)
+testthat::expect_gte(length(selectDWD(res="daily", var="kl", per="" )), 1863)
+testthat::expect_length(selectDWD(id="01050", res=c("daily","monthly"), var="kl", per=""), 4)
 testthat::expect_warning(selectDWD(id="00386", res="",var="",per="", meta=TRUE),
-               "meta is ignored if id is given, but path is not given.")
+               "selectDWD: No entries in file index 'fileIndex' match your query")
 testthat::expect_warning(selectDWD("Potsdam", res="multi_annual", var="mean_81-10", per=""),
-               "selectDWD: multi_annual data is not organized by station ID")
-testthat::expect_warning(selectDWD(res="multi_annual", var="mean_81-10", per="r"),
-               "selectDWD: multi_annual data is not organized in period folders")
+               "selectDWD: Setting id and var to '' for multi_annual data. Use per to choose period.")
+testthat::expect_length(selectDWD("", res="multi_annual", per="mean_81-10"), 8)
+testthat::expect_warning(selectDWD("Potsdam", "annual", "kl", "r", dude=55),
+                "selectDWD: unused arguments: dude")
 
 testthat::expect_error(selectDWD(id="Potsdam", res="daily", var="solar"),
              "selectDWD: id may not contain letters: Potsdam")
 testthat::expect_error(selectDWD(id="", current=TRUE, res="",var="",per=""),
-             "selectDWD: current=TRUE, but no valid paths available.")
+             "of 'id' and 'res/var/per' must be given.")
 })
 
 options(oop)
