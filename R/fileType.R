@@ -94,8 +94,8 @@ out[grepl(      "YW.*.tar$", file)] <- "rklim"
 out[grepl(    ".grib2.bz2$", file)] <- "grib2"
 out[grepl(       ".txt.gz$", file)] <- "deriv"
 
-if(any(out=="fileTypeError")) twarning("fileType failed for the following file", 
-             truncMessage(file[out=="fileTypeError"], midfix=": "))
+if(any(out=="fileTypeError")) tstop("fileType failed for the following file", 
+             truncMessage(file[out=="fileTypeError"], midfix="\n- ", sep="\n- "))
 
 return(out)
 }

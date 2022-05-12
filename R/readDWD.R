@@ -73,9 +73,9 @@ quiet=rdwdquiet(),
 len <- length(file)
 if(missing(progbar) & len==1 & all(!type %in% c("binary","asc","rklim"))) progbar <- FALSE
 
-wrongtype <- !type %in% validFileTypes
-if(any(wrongtype)) tstop("invalid type (",type[wrongtype],") given for file '",
-                        file[wrongtype],"'. See  ?fileType")
+wrongtype <- !type %in% validFileTypes # should be caught by fileType, but just in case
+if(any(wrongtype)) tstop("invalid type (",type[wrongtype][1],") given for file '",
+                         file[wrongtype][1],"'. See  ?fileType")
 
 
 # fast reading with fread:
