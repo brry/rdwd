@@ -9,16 +9,13 @@ selectDWD(
   res = NA,
   var = NA,
   per = NA,
-  base = dwdbase,
-  outvec = any(per \%in\% c("rh", "hr")),
-  findex = fileIndex,
-  remove_dupli = TRUE,
-  current = FALSE,
   id = findID(name, exactmatch = exactmatch, mindex = mindex, quiet = quiet),
-  mindex = metaIndex,
   exactmatch = TRUE,
+  mindex = metaIndex,
+  findex = fileIndex,
+  current = FALSE,
+  base = dwdbase,
   meta = FALSE,
-  meta_txt_only = TRUE,
   quiet = rdwdquiet(),
   ...
 )
@@ -28,75 +25,53 @@ selectDWD(
 \code{exactmatch} and \code{mindex}.
 All 3 arguments are ignored if \code{id} is given. DEFAULT: ""}
 
-\item{res}{Char: temporal \strong{res}olution available at \code{base}, usually one of
-\code{c("hourly","daily","monthly")}, see section 'Description' above.
-\code{res/var/per} together form the \strong{path}.
+\item{res}{Char: temporal \strong{res}olution at \code{base}, e.g.
+\verb{"hourly","daily","monthly"}.
+See section 'Description' above and \code{\link{fileIndex}}.
+Use \code{res=""} for matching options from all resolutions.
 DEFAULT: NA for interactive selection}
 
-\item{var}{Char: weather \strong{var}iable of interest, like e.g.
-\verb{"air_temperature", "cloudiness", "precipitation", "soil_temperature", "solar", "kl", "more_precip"}
-See above and in \code{\link{fileIndex}}.
+\item{var}{Char: weather \strong{var}iable of interest, e.g.
+\verb{"air_temperature", "cloudiness", "precipitation", "solar", "kl"}.
+See section 'Description' above and \code{\link{fileIndex}}.
 DEFAULT: NA for interactive selection}
 
-\item{per}{Char: desired time \strong{per}iod. One of
-"recent" (data from the last year, up to date usually within a few days) or
-"historical" (long time series). Can be abbreviated (if the first
-letter is "r" or "h", full names are used). To get both datasets,
-use \code{per="hr"} or \code{per="rh"} (and \code{outvec=TRUE}).
-\code{per} is set to "" if var=="solar".
+\item{per}{Char: desired time \strong{per}iod, e.g.
+"recent" (up to date records from the last 1.5 years) or
+"historical" (long time series).
+Can be abbreviated. To get both datasets, use \code{per="hr"}.
 DEFAULT: NA for interactive selection}
+
+\item{id}{Char/Number: station ID with or without leading zeros, e.g. "00614" or 614.
+Is internally converted to an integer.
+DEFAULT: \code{\link{findID}}\verb{(name, exaxtmatch, mindex)}}
+
+\item{exactmatch}{Logical passed to \code{\link[=findID]{findID()}}: match \code{name}
+with \code{\link{==}})? Else with \code{\link[=grepl]{grepl()}}. DEFAULT: TRUE}
+
+\item{mindex}{Single object: Index with metadata passed to \code{\link[=findID]{findID()}}.
+DEFAULT: \code{\link{metaIndex}}}
+
+\item{findex}{Single object: Index used to select filename, as returned by
+\code{\link[=createIndex]{createIndex()}}.To use a current / custom index, see \code{current} and
+\url{https://bookdown.org/brry/rdwd/fileindex.html}.
+DEFAULT: \code{\link{fileIndex}}}
+
+\item{current}{Single logical when \code{res/var/per} is given: instead of
+\code{findex}, use a list of the currently available files at
+base/res/var/per? This will call \code{\link[=indexFTP]{indexFTP()}}, thus
+requires availability of the \code{RCurl} package.
+See \url{https://bookdown.org/brry/rdwd/fileindex.html}.
+DEFAULT: FALSE}
 
 \item{base}{Single char: main directory of DWD ftp server.
 Must be the same \code{base} used to create \code{findex}.
 DEFAULT: \code{\link{dwdbase}}}
 
-\item{outvec}{Single logical: if \strong{path} or \strong{ID} length > 1,
-instead of a list, return a vector? (via \code{\link[=unlist]{unlist()}}).
-DEFAULT: \code{per \%in\% c("rh","hr")}}
-
-\item{findex}{Single object: Index used to select filename, as returned by
-\code{\link[=createIndex]{createIndex()}}.To use a current / custom index, see
-\url{https://bookdown.org/brry/rdwd/fileindex.html}.
-DEFAULT: \code{\link{fileIndex}}}
-
-\item{remove_dupli}{Logical: Remove duplicate entries in the fileIndex?
-If duplicates are found, a warning will be issued, unless \code{quiet=TRUE}.\cr
-The DWD updates files on the server quite often and sometimes
-misses removing the old files, leading to duplicates,
-usually with differences only in the date range.
-A semi-current (manually updated) list of duplicates is on
-\href{https://github.com/brry/rdwd/blob/master/misc/ExampleTests/warnings.txt}{github}.\cr
-Before reporting, run \code{\link[=updateRdwd]{updateRdwd()}} to see if \code{\link{fileIndex}} has been updated.
-I email the DWD about duplicates when I find them, they usually fix it soon.\cr
-If \code{remove_dupli=TRUE}, only the file with the longer timespan will be kept.
-This is selected according to filename, which is not very reliable,
-hence manual checking is recommended.
-DEFAULT: TRUE}
-
-\item{current}{Single logical for case 3/4 with given \code{path}: instead of
-\code{findex}, use a list of the currently available files at
-base/res/var/per? This will call \code{\link[=indexFTP]{indexFTP()}}, thus
-requires availability of the \code{RCurl} package.
+\item{meta}{Logical: select Beschreibung file from \code{ismeta} entries in \code{findex}?
+See \code{\link{metaIndex}} for a compilation of all Beschreibung files.
+See the 'Examples' section for handling pdf and txt files.
 DEFAULT: FALSE}
-
-\item{id}{Char/Number: station ID with or without leading zeros, e.g. "00614" or 614.
-Is internally converted to an integer, because some DWD meta data
-files also contain no leading zeros.
-DEFAULT: findID(name, exaxtmatch, mindex)}
-
-\item{mindex}{Single object: Index with metadata passed to \code{\link[=findID]{findID()}}.
-DEFAULT: \code{\link{metaIndex}}}
-
-\item{exactmatch}{Logical passed to \code{\link[=findID]{findID()}}: match \code{name}
-with \code{\link{==}})? Else with \code{\link[=grepl]{grepl()}}. DEFAULT: TRUE}
-
-\item{meta}{Logical: return metadata txt file name instead of climate data zip file?
-Relevant only in case 4 (path and id given) and case 3 for res="multi_annual".
-See \code{\link{metaIndex}} for a compilation of all metaData files.
-DEFAULT: FALSE}
-
-\item{meta_txt_only}{Logical: if \code{meta}, only return .txt files, not the
-pdf and html files? DEFAULT: TRUE}
 
 \item{quiet}{Suppress id length warnings? DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
@@ -108,68 +83,54 @@ Character string with file path and name(s) in the format
 "base/res/var/per/filename.zip"
 }
 \description{
-Select files for downloading with \code{\link[=dataDWD]{dataDWD()}}.\cr
-The available folders with datasets are listed at
-\url{https://bookdown.org/brry/rdwd/available-datasets.html}.
-To use an updated index (if necessary), see
-\url{https://bookdown.org/brry/rdwd/fileindex.html}.\cr\cr
-All arguments (except for \code{mindex}, \code{findex} and \code{base})
-can be a vector and will be recycled to the maximum length of all arguments.
-If that length > 1, the output is a list of filenames (or vector if \code{outvec=TRUE}).\cr
-If station \code{name} is given, but \code{id} is empty (""),
-\strong{id} is inferred via \code{\link[=findID]{findID()}} using \code{mindex}.
-If \code{res/var/per} are given and valid (existing in \code{findex}),
-they are pasted together to form a \strong{path}.
-Here is an overview of the behavior in each case of availability:
-\tabular{llll}{
-case \tab |  \strong{id} \tab |  \strong{path} \tab | output \cr
-1 \tab |  ""  \tab |  ""  \tab | \code{base} (and some warnings) \cr
-2 \tab | "xx" \tab |  ""  \tab | All file names (across paths) for station \strong{id} \cr
-3 \tab |  ""  \tab | "xx" \tab | The zip file names at \strong{path} \cr
-4 \tab | "xx" \tab | "xx" \tab | Regular single data file name \cr
-}
-For case 2, you can explicitly set \verb{res="",var="",per=""} to avoid the
-default interactive selection.\cr
-For case 3 and 4 (\strong{path} given), you can set \code{meta=TRUE}.
-Then selectDWD will return the name of the station description txt file at \strong{path}.
-This is why case 3 with the default \code{meta=FALSE} only returns the
-data file names (ending in .zip) and not the description and Beschreibung txt/pdf files.
-Open those in a browser with\preformatted{pdfpath <- grep("daily/kl/h.*DESCRIPTION", fileIndex$path, value=TRUE)
-browseURL(paste0(dwdbase, "/", pdfpath))
-}
-
-Let me know if besides \code{meta}, \code{pdf} is needed for automated opening.\cr\cr\cr
+Select data files for downloading with \code{\link[=dataDWD]{dataDWD()}}.\cr
+The available \code{res/var/per} folders with datasets are listed
+\href{https://bookdown.org/brry/rdwd/available-datasets.html}{online}.\cr
+Set \verb{res="", var="", per=""} to avoid the default interactive selection.\cr
+The arguments \code{name/id} and \code{res/var/per} can be vectors.
 }
 \examples{
-# Give weather station name (must be existing in metaIndex):
+# Give weather station name (must exist in metaIndex):
 selectDWD("Potsdam", res="daily", var="kl", per="historical")
 
 # all files for all stations matching "Koeln":
-selectDWD("Koeln", res="", var="", per="", exactmatch=FALSE)
+tail(selectDWD("Koeln", res="", var="", per="", exactmatch=FALSE)) # 686 files
 findID("Koeln", FALSE)
 
 \dontrun{ # Excluded from CRAN checks to save time
 
 # selectDWD("Potsdam") # interactive selection of res/var/per
 
-# directly give station ID, can also be id="00386" :
-selectDWD(id=386, res="daily", var="kl", per="historical")
+# directly give station ID:
+selectDWD(id="00386", res="daily", var="kl", per="historical")
+selectDWD(id=537, "", "", "", "") # 8 files
 
 # period can be abbreviated:
-selectDWD(id="00386", res="daily", var="kl", per="h")
-selectDWD(id="00386", res="daily", var="kl", per="h", meta=TRUE)
+selectDWD(id="5419", res="daily", var="kl", per="h")
 
-# vectorizable:
-selectDWD(id="01050", res="daily", var="kl", per="rh") # list if outvec=F
-selectDWD(id="01050", res=c("daily","monthly"), var="kl", per="r")
-# vectorization gives not the outer product, but elementwise comparison:
-selectDWD(id="01050", res=c("daily","monthly"), var="kl", per="hr")
+# selectDWD is vectorizable!
+# since version 1.5.28 (2022-05-12) outer product, not elementwise comparison:
+selectDWD("Freiburg", res="daily", var="kl", per="rh")
+selectDWD("Freiburg", res=c("daily","monthly"), var="kl", per="r")
+selectDWD("Freiburg", res=c("daily","monthly"), var="kl", per="hr")
 
-# all zip files in all paths matching id:
-selectDWD(id=c(1050, 386), res="",var="",per="")
-# all zip files in a given path (if ID is empty):
-head(  selectDWD(id="", res="daily", var="kl", per="recent")   )
+# all files in all paths matching id:
+head( selectDWD(id=c(1050, 386), res="",var="",per="") ) # 277 files
+# all files in a given path (if ID is empty):
+head(  selectDWD(id="", res="daily", var="kl", per="recent")   ) # 585 files
 
+selectDWD(id=386, res="monthly", var="kl", per="h")
+
+# Meta  data - Description and Beschreibung txt/pdf files.:
+# manually select .txt (not pdf) files for automated opening with readDWD.
+link <- selectDWD(res="monthly", var="kl", per="h", meta=TRUE) # omit ID/Name!
+link
+link2 <- grep("\\\\.txt$", link, value=TRUE)   ;   link2
+m <- dataDWD(link2, dir=locdir())
+head(m)
+# 
+# Open PDF files with your system's default Viewer:
+dataDWD(link[1], dir=locdir())
 }
 
 }
@@ -178,6 +139,6 @@ head(  selectDWD(id="", res="daily", var="kl", per="recent")   )
 \href{https://bookdown.org/brry/rdwd/station-selection.html#by-name}{website station selection chapter}
 }
 \author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2016
+Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2016, rewritten May 2022
 }
 \keyword{file}
