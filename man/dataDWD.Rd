@@ -13,6 +13,7 @@ dataDWD(
   overwrite = !isFALSE(force),
   read = TRUE,
   dbin = TRUE,
+  method = getOption("download.file.method"),
   dfargs = NULL,
   sleep = 0,
   progbar = !quiet,
@@ -55,6 +56,10 @@ only download is performed and the filename(s) returned. DEFAULT: TRUE}
 See \href{https://bookdown.org/brry/rdwd/raster-data.html#binary-file-errors}{Website}
 for details.
 DEFAULT: TRUE}
+
+\item{method}{\link{download.file} \code{method}. Introduced in version 1.5.25 (2022-05-12)
+as triggered by \url{https://github.com/brry/rdwd/issues/34}.
+DEFAULT: \code{getOption("download.file.method")}}
 
 \item{dfargs}{Named list of additional arguments passed to \code{\link[=download.file]{download.file()}}
 Note that mode="wb" is already passed if \code{dbin=TRUE}}

@@ -92,6 +92,9 @@
 #'               See [Website](https://bookdown.org/brry/rdwd/raster-data.html#binary-file-errors) 
 #'               for details.
 #'               DEFAULT: TRUE
+#' @param method [download.file] `method`. Introduced in version 1.5.25 (2022-05-12)
+#'               as triggered by <https://github.com/brry/rdwd/issues/34>.
+#'               DEFAULT: `getOption("download.file.method")`
 #' @param dfargs Named list of additional arguments passed to [download.file()]
 #'               Note that mode="wb" is already passed if `dbin=TRUE`
 #' @param sleep  Number. If not 0, a random number of seconds between 0 and
@@ -123,6 +126,7 @@ force=FALSE,
 overwrite=!isFALSE(force),
 read=TRUE,
 dbin=TRUE,
+method=getOption("download.file.method"),
 dfargs=NULL,
 sleep=0,
 progbar=!quiet,
@@ -199,7 +203,7 @@ dl_results <- lapply(seq_along(url), function(i)
   if(!dontdownload[i])
   {
   # Actual file download:
-  dfdefaults <- list(url=url[i], destfile=outfile[i], quiet=TRUE)
+  dfdefaults <- list(url=url[i], destfile=outfile[i], method=method, quiet=TRUE)
   if(dbin) dfdefaults <- c(dfdefaults, mode="wb")
   e <- try(suppressWarnings(do.call(download.file,
                          berryFunctions::owa(dfdefaults, dfargs))), silent=TRUE)
