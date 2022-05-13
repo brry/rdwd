@@ -26,6 +26,8 @@ validFileTypes <- strsplit("data,meta,multia,stand,deriv,radar,binary,raster,nc,
 #' |                        |             |
 #' |  [data][readDWD.deriv] | .txt.gz     | For data at /CDC/derived_germany/.
 #' |                        |             |
+#' |   [pdf][readDWD.pdf]   | .pdf        | only opens `file` in default viewer.
+#' |                        |             |
 #' |  -------               |             |
 #' |                        |             |
 #' | [radar][readDWD.radar] | .gz         | For when the `file` contains a single binary file.
@@ -57,6 +59,7 @@ validFileTypes <- strsplit("data,meta,multia,stand,deriv,radar,binary,raster,nc,
 #' multia  multi_annual_mean_81-10_Temperatur_1981-2010.txt
 #' stand   subdaily_standard_format_kl_10381_00_akt.txt
 #' deriv   derived_germany_soil_daily_historical_3987.txt.gz
+#' pdf     DESCRIPTION_obsgermany_climate_monthly_kl_historical_en.pdf
 #' 
 #' radar   radolan_recent_bin_raa01-rw_10000-1802020250-dwd---bin.gz
 #' binary  daily_radolan_historical_bin_2017_SF201712.tar.gz
@@ -65,8 +68,6 @@ validFileTypes <- strsplit("data,meta,multia,stand,deriv,radar,binary,raster,nc,
 #' asc     radolan_historical_asc_2018_RW-201809.tar
 #' rklim   5_minutes_radolan_reproc_2017_002_bin_2020_YW2017.002_202006.tar
 #' grib2   ftp_weather_nwp_cosmo-d2_005_T_2M.grib2.bz2
-#' 
-#' pdf     DESCRIPTION_obsgermany_climate_monthly_kl_historical_en.pdf
 #' ")
 #' fileType(ft$filename)
 #' 
@@ -86,6 +87,7 @@ out[grepl(          ".txt$", file)] <- "meta"
 out[grepl(  "Standort.txt$", file)] <- "multia"
 out[grepl(  "multi.?annual", file)] <- "multia" # new format 2022
 out[grepl("standard_format", file)] <- "stand"
+out[grepl(          ".pdf$", file)] <- "pdf"
 
 out[grepl(           ".gz$", file)] <- "radar"
 out[grepl(       ".tar.gz$", file)] <- "binary"
@@ -95,8 +97,6 @@ out[grepl(          ".tar$", file)] <- "asc"
 out[grepl(      "YW.*.tar$", file)] <- "rklim"
 out[grepl(    ".grib2.bz2$", file)] <- "grib2"
 out[grepl(       ".txt.gz$", file)] <- "deriv"
-
-out[grepl(          ".pdf$", file)] <- "pdf"
 
 if(any(out=="fileTypeError")) tstop("fileType failed for the following file", 
              truncMessage(file[out=="fileTypeError"], midfix="\n- ", sep="\n- "))

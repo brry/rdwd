@@ -29,6 +29,8 @@ Click on the \code{type} for the subfunction documentation, e.g. \link[=readDWD.
     \tab  \tab  \cr
    \link[=readDWD.deriv]{data} \tab .txt.gz \tab For data at /CDC/derived_germany/. \cr
     \tab  \tab  \cr
+   \link[=readDWD.pdf]{pdf} \tab .pdf \tab only opens \code{file} in default viewer. \cr
+    \tab  \tab  \cr
    ------- \tab  \tab  \cr
     \tab  \tab  \cr
    \link[=readDWD.radar]{radar} \tab .gz \tab For when the \code{file} contains a single binary file. \cr
@@ -55,6 +57,7 @@ multia  multi_annual_mean_81-10_Temperatur_1981-2010_aktStandort.txt
 multia  multi_annual_mean_81-10_Temperatur_1981-2010.txt
 stand   subdaily_standard_format_kl_10381_00_akt.txt
 deriv   derived_germany_soil_daily_historical_3987.txt.gz
+pdf     DESCRIPTION_obsgermany_climate_monthly_kl_historical_en.pdf
 
 radar   radolan_recent_bin_raa01-rw_10000-1802020250-dwd---bin.gz
 binary  daily_radolan_historical_bin_2017_SF201712.tar.gz
@@ -63,8 +66,6 @@ nc      daily_Project_TRY_humidity_RH_199509_daymean.nc.gz
 asc     radolan_historical_asc_2018_RW-201809.tar
 rklim   5_minutes_radolan_reproc_2017_002_bin_2020_YW2017.002_202006.tar
 grib2   ftp_weather_nwp_cosmo-d2_005_T_2M.grib2.bz2
-
-pdf     DESCRIPTION_obsgermany_climate_monthly_kl_historical_en.pdf
 ")
 fileType(ft$filename)
 
