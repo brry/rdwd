@@ -14,11 +14,11 @@ dwdbase
 \description{
 base URLs to the DWD FTP Server\cr\cr
 \strong{\code{dwdbase}}: observed climatic records at ftp:// variant of\cr
-\url{https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate}\cr
+\url{https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/}\cr
 See \href{https://bookdown.org/brry/rdwd/available-datasets.html}{overview of available datasets}
 and \href{https://bookdown.org/brry/rdwd/station-selection.html}{usage suggestions}.\cr\cr\cr
 \strong{\code{gridbase}}: spatially interpolated gridded data at ftp:// variant of\cr
-\url{https://opendata.dwd.de/climate_environment/CDC/grids_germany}\cr
+\url{https://opendata.dwd.de/climate_environment/CDC/grids_germany/}\cr
 See \href{https://bookdown.org/brry/rdwd/raster-data.html}{usage suggestions}
 }
 \keyword{datasets}

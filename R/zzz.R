@@ -48,11 +48,11 @@ release_questions <- function() {
 #' @export
 #' @description base URLs to the DWD FTP Server\cr\cr
 #' **`dwdbase`**: observed climatic records at ftp:// variant of\cr
-#' <https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate>\cr
+#' <https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/>\cr
 #' See [overview of available datasets](https://bookdown.org/brry/rdwd/available-datasets.html) 
 #' and [usage suggestions](https://bookdown.org/brry/rdwd/station-selection.html).\cr\cr\cr
 #' **`gridbase`**: spatially interpolated gridded data at ftp:// variant of\cr
-#' <https://opendata.dwd.de/climate_environment/CDC/grids_germany>\cr
+#' <https://opendata.dwd.de/climate_environment/CDC/grids_germany/>\cr
 #' See [usage suggestions](https://bookdown.org/brry/rdwd/raster-data.html)
 #' 
 dwdbase <- "ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate"

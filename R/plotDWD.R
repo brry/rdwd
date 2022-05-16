@@ -18,7 +18,7 @@
 #' @param xlab      X axis label. DEFAULT: ""
 #' @param ylab      Y axis label. DEFAULT: cn
 #' @param main      Plot title. DEFAULT: ""
-#' @param type      [plot](plot.default) type. DEFAULT: "l"
+#' @param type      [graphics::plot] type. DEFAULT: "l"
 #' @param lwd       Line width. DEFAULT: 3
 #' @param col       Line color. DEFAULT: "blue"
 #' @param las       Label axis style. DEFAULT: 1 (all upright)
@@ -27,7 +27,7 @@
 #' @param keeppar   Keep `las, mar and mgp` as set with [par], 
 #'                  so later points are added in the right location?
 #'                  DEFAULT: TRUE
-#' @param \dots     Further arguments passed to [plot]
+#' @param \dots     Further arguments passed to [graphics::plot]
 #'
 plotDWD <- function(
 x,

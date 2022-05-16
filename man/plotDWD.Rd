@@ -37,7 +37,7 @@ plotDWD(
 
 \item{main}{Plot title. DEFAULT: ""}
 
-\item{type}{\href{plot.default}{plot} type. DEFAULT: "l"}
+\item{type}{\link[graphics:plot.default]{graphics::plot} type. DEFAULT: "l"}
 
 \item{lwd}{Line width. DEFAULT: 3}
 
@@ -53,7 +53,7 @@ plotDWD(
 so later points are added in the right location?
 DEFAULT: TRUE}
 
-\item{\dots}{Further arguments passed to \link{plot}}
+\item{\dots}{Further arguments passed to \link[graphics:plot.default]{graphics::plot}}
 }
 \value{
 Nothing
