@@ -104,7 +104,7 @@ apply(x, MARGIN=1, perrow)
 checkSuggestedPackage <- function(package, functionname)
 {
 available <- requireNamespace(package, quietly=TRUE)
-if(!available) tstop("To use ",functionname, ", please first install ",
+if(!available) tstop("\nTo use ",functionname, ", please first install ",
                     package,":    install.packages('",package,"')", call.=FALSE)
 return(invisible(available))
 }
