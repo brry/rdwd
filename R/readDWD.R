@@ -141,6 +141,8 @@ msg <- paste0("Reading ",length(file)," file", if(length(file)>1)"s", " with ",n
 if(any("data" %in% type)) msg <- paste0(msg, " and fread=",nt(fread,"",""))
 if(any(c("radar", "raster", "asc") %in% type)) 
   msg <- paste0(msg, " and dividebyten=",nt(dividebyten,"",""))
+if(any("grib2" %in% type))
+ message(msg, appendLF=FALSE) else
 message(msg, " ...")
 }
 
@@ -1195,49 +1197,86 @@ return(invisible(list(dat=rbmat, meta=rbmeta)))
 #' <https://www.dwd.de/EN/aboutus/it/functions/Teasergroup/grib.html>\cr
 #' @examples
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
-#' # Deactivated 2021-04-08 since readDWD.grib2 -> rgdal::readGDAL -> Error:
-#' # **.grib2 is a grib file, but no raster dataset was successfully identified.
-#' warning("readDWD.grib2 is not tested due to unresolved problems.")
-#' if(FALSE){
-#' nwp_t2m_base <- "ftp://opendata.dwd.de/weather/nwp/icon-d2/grib/03/p"
+#' nwp_t2m_base <- "ftp://opendata.dwd.de/weather/nwp/icon-d2/grib/15/soiltyp"
 #' nwp_urls <- indexFTP("", base=nwp_t2m_base, dir=tempdir())
-#' nwp_file <- dataDWD(nwp_urls[6], base=nwp_t2m_base, dir=tempdir(),
-#'                     joinbf=TRUE, dbin=TRUE, read=FALSE)
-#' nwp_data <- readDWD(nwp_file, quiet=TRUE)
-#' plotRadar(nwp_data, project=FALSE)
+#' # for p instead of soiltyp, icosahedral_model-level files fail with GDAL errors,
+#' # see https://github.com/brry/rdwd/issues/28
+#' # regular-lat-lon_pressure-level files work with pack="terra" or "stars"
 #' 
-#' nwp_data_rgdal <- readDWD(nwp_file, toraster=FALSE)
-#' sp::plot(nwp_data_rgdal)
+#' nwp_file <- dataDWD(tail(nwp_urls,1), base=nwp_t2m_base, dir=tempdir(), 
+#'                     joinbf=TRUE, dbin=TRUE, read=FALSE)
+#' nwp_data <- readDWD(nwp_file)
+#' terra::plot(nwp_data) # same map with sp::plot
+#' addBorders() # the projection seems to be perfectly good :)
+#' 
+#' # index of GRIB files
+#' if(FALSE){ # indexing takes about 6 minutes!
+#' grib_base <- "ftp://opendata.dwd.de/weather/nwp/icon-d2/grib"
+#' grib_files <- indexFTP("", base=grib_base, dir=tempdir())
+#' for(f in unique(substr(grib_files, 1,3))) print(grib_files[which(substr(grib_files, 1,3)==f)[1]])
+#' View(data.frame(grep("regular",grib_files, value=TRUE)))
 #' }
 #' }
 #' @param file      Name of file on harddrive, like e.g.
 #'                  cosmo-d2_germany_regular-lat-lon_single-level_2021010100_005_T_2M.grib2.bz2
+#' @param pack      Char: package used for reading. 
+#'                  One of "terra" (the default), "stars"
+#'                  or "rgdal" (for the deprecated cosmo-d2 data). 
+#'                  See [issue](https://github.com/brry/rdwd/issues/28).
+#'                  DEFAULT: "terra"
 #' @param bargs     Named list of arguments passed to
 #'                  [R.utils::bunzip2()], see `gargs` in [readDWD.raster()]. DEFAULT: NULL
 #' @param toraster  Logical: convert [rgdal::readGDAL] output with [raster::raster()]?
+#'                  Only used if pack="rgdal".
 #'                  DEFAULT: TRUE
 #' @param quiet     Silence readGDAL completely, including warnings on 
 #'                  discarded ellps / datum. 
 #'                  DEFAULT: FALSE through [rdwdquiet()]
-#' @param \dots     Further arguments passed to [rgdal::readGDAL()],
-readDWD.grib2 <- function(file, bargs=NULL, toraster=TRUE, quiet=rdwdquiet(), ...)
+#' @param \dots     Further arguments passed to [stars::read_stars()],
+#'                  [rgdal::readGDAL()] or [rgdal::readGDAL()].
+readDWD.grib2 <- function(
+file,
+pack="terra",
+bargs=NULL,
+toraster=TRUE,
+quiet=rdwdquiet(),
+...)
 {
 checkSuggestedPackage("R.utils", "rdwd:::readDWD.grib2")
-checkSuggestedPackage("rgdal"  , "rdwd:::readDWD.grib2")
 # bunzip arguments:
 bdef <- list(filename=file, remove=FALSE, skip=TRUE)
 bfinal <- berryFunctions::owa(bdef, bargs, "filename")
 # unzip:
 bdata <- do.call(R.utils::bunzip2, bfinal)
-# rgdal reading:
+
+# actual reading:
+# TERRA ---
+if(pack=="terra"){
+if(!quiet) message(" with pack='terra' ...")
+checkSuggestedPackage("terra"  , "rdwd:::readDWD.grib2")
+out <- terra::rast(bdata, ...)
+} else
+# STARS ---
+if(pack=="stars"){
+if(!quiet) message(" with pack='stars' ...")
+checkSuggestedPackage("stars"  , "rdwd:::readDWD.grib2")
+out <- stars::read_stars(bdata, quiet=quiet, ...)
+} else
+# RGDAL ---
+if(pack=="rgdal"){
+if(!quiet) message(" with pack='rgdal' ...")
+checkSuggestedPackage("rgdal"  , "rdwd:::readDWD.grib2")
 out <- if(!quiet)    rgdal::readGDAL(bdata,              ...) else
     suppressWarnings(rgdal::readGDAL(bdata, silent=TRUE, ...))
-# conversion to raster:
 if(toraster) 
   {
   checkSuggestedPackage("raster", "rdwd:::readDWD.grib2 with toraster=TRUE")
   out <- raster::raster(out)
   }
+# WRONG ---
+} else
+tstop("pack='",pack,"' is not a valid option.")
+
 # Output:
 return(invisible(out))
 }
