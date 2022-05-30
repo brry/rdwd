@@ -175,7 +175,7 @@ getURL_ffe <- function(ff_row)
    p[ilf] <- sub(" -> .*", "", p[ilf]) # to keep p suited for read.text
  #
  isdir <- substr(p,1,1) =="d" # directory, else file
- pnames <- read.table(text=p, stringsAsFactors=FALSE)
+ pnames <- read.table(text=p, colClasses="character") # do not convert "00" folder to 0
  pnames <- pnames[,ncol(pnames)] # only use last column with path names
  output <- data.frame(path=paste0(ff_row$path,"/",pnames), isfile=!isdir, stringsAsFactors=FALSE)
  #
