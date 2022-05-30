@@ -1,6 +1,32 @@
 -----------------------------
 -----------------------------
 
+Version 1.6.0 (2022-05-30)
+
+new functions
+
+- `plotDWD`
+- `locdir` (will replace fixed "DWDdata" folder in `dataDWD`)
+- `readDWD.deriv`
+- `readDWD.rklim`
+- `readDWD.pdf`
+- `validFileTypes` (charstring vector)
+
+improvements
+
+- `selectDWD`: is completely rewritten and now vectorizes expandingly
+- reading functions: use latin1 encoding
+- `dataDWD`: new argument *method*, new default for *overwrite*
+- several improvements for input checks, messages, tests and documentation
+- `metaInfo`: accepts custom index
+- `readDWD.radar`: new argument *dividebyten* 
+- `readDWD.grib2`: new argument *pack* 
+- website: new use case daily radar files
+
+
+-----------------------------
+-----------------------------
+
 Version 1.5.0 (2021-04-08)
 
 API changes:
