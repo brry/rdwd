@@ -33,12 +33,15 @@
 #'              DEFAULT: TRUE
 #' @param mindex Single object: Index used to select `id` if `name`
 #'              is given. DEFAULT: [`metaIndex`]
+#' @param failempty Logical: fail if no matching names are found 
+#'              (instead of returning NA with a warning)? DEFAULT: FALSE
 #' @param quiet Logical: suppress length warnings? DEFAULT: FALSE through [rdwdquiet()]
 #' 
 findID <- function(
 name="",
 exactmatch=TRUE,
 mindex=metaIndex,
+failempty=FALSE,
 quiet=rdwdquiet()
 )
 {
@@ -58,6 +61,7 @@ output <- lapply(seq_len(len), function(i)
   if(length(id)<1)
     {
     id <- NA
+    if(failempty) tstop("no ID could be determined from name '",name[i], "'.", skip=2)
     if(!quiet) twarning("no ID could be determined from name '",name[i], "'.", skip=2)
     }
   if(length(id)>1 & !quiet) twarning("ID determined from name '",
