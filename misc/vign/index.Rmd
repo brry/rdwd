@@ -588,7 +588,7 @@ download & read data
 ```{r uc_recent_time_series_data, eval=TRUE, fig.height=3, fig.width=7}
 library(rdwd)
 link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
-file <- dataDWD(link, read=FALSE, dir=locdir(), force=NA, overwrite=TRUE)
+file <- dataDWD(link, read=FALSE, dir=locdir(), force=NA)
 clim <- readDWD(file, varnames=TRUE)
 
 str(clim)
@@ -616,6 +616,26 @@ prec <- tapply(clim$MO_RR, clim$month, mean, na.rm=TRUE)
 
 berryFunctions::climateGraph(temp, prec, main="Goettingen")
 mtext("Source: Deutscher Wetterdienst", adj=-0.05, line=2.8, font=3)
+```
+
+# - use case: merge historical and recent data
+
+```{r uc_histrecent}
+histrecent <- function(station)
+  {
+  id <- findID(station, failempty=TRUE) # avoid id=NA download of all files
+  kl <- rdwd::selectDWD(id=id, res="daily", var="kl", per="hr")
+  if(length(kl) != 2) stop(station, " has ", length(kl), " files instead of 2.")
+  kl <- rdwd::dataDWD(kl, dir=locdir(), force=NA)
+  kl <- do.call(rbind, kl) # historical and recent data
+  kl <- kl[!duplicated(kl$MESS_DATUM),] # keep only hist for overlap
+  kl[,c("STATIONS_ID", "QN_3", "QN_4", "eor")] <- NULL # unneeded columns
+  rownames(kl) <- NULL
+  kl # output
+  }
+hr_pot <- histrecent("Potsdam")
+hr_cel <- histrecent("Celle")
+str(hr_pot)
 ```
 
 # - use case: vectorized data
