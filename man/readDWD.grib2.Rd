@@ -21,12 +21,13 @@ cosmo-d2_germany_regular-lat-lon_single-level_2021010100_005_T_2M.grib2.bz2}
 One of "terra" (the default), "stars"
 or "rgdal" (for the deprecated cosmo-d2 data).
 See \href{https://github.com/brry/rdwd/issues/28}{issue}.
+"rgdal" will be deprecated in 2023.
 DEFAULT: "terra"}
 
 \item{bargs}{Named list of arguments passed to
 \code{\link[R.utils:compressFile]{R.utils::bunzip2()}}, see \code{gargs} in \code{\link[=readDWD.raster]{readDWD.raster()}}. DEFAULT: NULL}
 
-\item{toraster}{Logical: convert \link[rgdal:readGDAL]{rgdal::readGDAL} output with \code{\link[raster:raster]{raster::raster()}}?
+\item{toraster}{Logical: convert \link[rgdal:rgdal-deprecated]{rgdal::readGDAL} output with \code{\link[raster:raster]{raster::raster()}}?
 Only used if pack="rgdal".
 DEFAULT: TRUE}
 
@@ -34,8 +35,8 @@ DEFAULT: TRUE}
 discarded ellps / datum.
 DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
-\item{\dots}{Further arguments passed to \code{\link[stars:read_stars]{stars::read_stars()}},
-\code{\link[rgdal:readGDAL]{rgdal::readGDAL()}} or \code{\link[rgdal:readGDAL]{rgdal::readGDAL()}}.}
+\item{\dots}{Further arguments passed to \code{\link[terra:rast]{terra::rast()}} or
+\code{\link[stars:read_stars]{stars::read_stars()}}.}
 }
 \value{
 rgdal or raster object, depending on \code{toraster}

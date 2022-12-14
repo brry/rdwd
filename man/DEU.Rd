@@ -13,7 +13,9 @@ Map of German states (Bundeslaender) from GADM through the \code{raster} package
 \details{
 Use directly with:\cr
 \code{load(system.file("extdata/DEU.rda", package="rdwd"))}\cr\cr
-Obtained with the code: \cr\preformatted{url <- "https://gisco-services.ec.europa.eu/distribution/v2/nuts/shp/NUTS_RG_03M_2021_4326_LEVL_1.shp.zip"
+Obtained with the code: \cr
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{url <- "https://gisco-services.ec.europa.eu/distribution/v2/nuts/shp/NUTS_RG_03M_2021_4326_LEVL_1.shp.zip"
 tf <- tempfile(fileext=".zip")
 download.file(url, tf) # 0.9 MB
 unzip(tf, exdir="misc/vign") ; rm(url, tf)
@@ -24,7 +26,7 @@ raster::plot(DEU) ; axis(1, line=-1) ; axis(2, line=-1)
 
 save(DEU,        file="inst/extdata/DEU.rda", version=2)
 tools::resaveRdaFiles("inst/extdata/DEU.rda", version=2)
-}
+}\if{html}{\out{</div>}}
 }
 \seealso{
 \code{\link{addBorders}}, \code{\link{EUR}}

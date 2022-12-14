@@ -13,13 +13,15 @@ Map of Western European countries through the \code{rworldmap} package
 \details{
 Use directly with:\cr
 \code{load(system.file("extdata/EUR.rda", package="rdwd"))}\cr\cr
-Obtained with the code: \cr\preformatted{EUR <- rworldmap::getMap("low")
+Obtained with the code: \cr
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{EUR <- rworldmap::getMap("low")
 EUR <- raster::crop(EUR, c(-11,25, 40,60))
 raster::crs(EUR) <- raster::crs(DEU)
 raster::plot(EUR)
 save(EUR,        file="inst/extdata/EUR.rda", version=2)
 tools::resaveRdaFiles("inst/extdata/EUR.rda", version=2)
-}
+}\if{html}{\out{</div>}}
 }
 \seealso{
 \code{\link{addBorders}}, \code{\link{DEU}}

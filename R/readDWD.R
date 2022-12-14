@@ -1223,6 +1223,7 @@ return(invisible(list(dat=rbmat, meta=rbmeta)))
 #'                  One of "terra" (the default), "stars"
 #'                  or "rgdal" (for the deprecated cosmo-d2 data). 
 #'                  See [issue](https://github.com/brry/rdwd/issues/28).
+#'                  "rgdal" will be deprecated in 2023.
 #'                  DEFAULT: "terra"
 #' @param bargs     Named list of arguments passed to
 #'                  [R.utils::bunzip2()], see `gargs` in [readDWD.raster()]. DEFAULT: NULL
@@ -1232,8 +1233,8 @@ return(invisible(list(dat=rbmat, meta=rbmeta)))
 #' @param quiet     Silence readGDAL completely, including warnings on 
 #'                  discarded ellps / datum. 
 #'                  DEFAULT: FALSE through [rdwdquiet()]
-#' @param \dots     Further arguments passed to [stars::read_stars()],
-#'                  [rgdal::readGDAL()] or [rgdal::readGDAL()].
+#' @param \dots     Further arguments passed to [terra::rast()] or
+#'                  [stars::read_stars()].
 readDWD.grib2 <- function(
 file,
 pack="terra",
@@ -1266,6 +1267,8 @@ out <- stars::read_stars(bdata, quiet=quiet, ...)
 if(pack=="rgdal"){
 if(!quiet) message(" with pack='rgdal' ...")
 checkSuggestedPackage("rgdal"  , "rdwd:::readDWD.grib2")
+warning("rgdal is retiring (https://r-spatial.org/r/2022/04/12/evolution.html). 
+        This option will be removed in 2023. Use pack='terra' or 'stars'.")
 out <- if(!quiet)    rgdal::readGDAL(bdata,              ...) else
     suppressWarnings(rgdal::readGDAL(bdata, silent=TRUE, ...))
 if(toraster) 

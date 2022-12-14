@@ -91,9 +91,11 @@ There's a provision if the FTP server detects bot requests and denies access.
 If \code{\link[RCurl:getURL]{RCurl::getURL()}} fails, there will still be an output
 which you can pass in a second run via \code{folder} to extract the remaining dirs.
 You might need to wait a bit and set \code{sleep} to a higher value in that case.
-Here's an example:\cr\preformatted{gridindex <- indexFTP("", gridbase)
+Here's an example:\cr
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{gridindex <- indexFTP("", gridbase)
 gridindex <- indexFTP(gridindex, gridbase, sleep=15)
-}
+}\if{html}{\out{</div>}}
 
 Of course, with a higher sleep value, the execution will take longer!
 }
