@@ -44,7 +44,6 @@ Usage for observational weather data from the measuring stations usually looks s
 ```R
 # Download and install (once only):
 install.packages("rdwd")
-
 # Load the package into library (needed in every R session):
 library(rdwd)
 
@@ -53,12 +52,13 @@ link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
 
 # Actually download that dataset, returning the local storage file name:
 file <- dataDWD(link, read=FALSE)
-
 # Read the file from the zip folder:
 clim <- readDWD(file, varnames=TRUE)
 
 # Inspect the data.frame:
 str(clim)
+# Quick time series graphic:
+plotDWD(clim, "FM.Windgeschwindigkeit")
 ```
 
 For data interpolated onto a 1 km raster, including radar data up to the last hour,
