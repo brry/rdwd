@@ -76,7 +76,7 @@
 #'               Needed mostly for data at [`gridbase`].
 #'               DEFAULT: FALSE (selectDWD returns complete URLs already)
 #' @param dir    Char: Writeable directory name where to save the downloaded file.
-#'               Created if not existent. DEFAULT: "DWDdata" at current [getwd()]
+#'               Created if not existent. DEFAULT: [locdir()]
 #' @param force  Logical (vector): always download, even if the file already exists in `dir`?
 #'               Use NA to force re-downloading files older than 24 hours.
 #'               Use a numerical value to force after that amount of hours.
@@ -121,7 +121,7 @@ dataDWD <- function(
 url,
 base=dwdbase,
 joinbf=FALSE,
-dir="DWDdata",
+dir=locdir(),
 force=FALSE,
 overwrite=!isFALSE(force),
 read=TRUE,
@@ -140,8 +140,6 @@ quiet=rdwdquiet(),
 if(!is.null(file)) tstop("The argument 'file' has been renamed to 'url' with rdwd version 1.3.34, 2020-07-28")
 if(!is.atomic(url)) tstop("url must be a vector, not a ", class(url))
 if(!is.character(url)) tstop("url must be char, not ", class(url))
-if(missing(dir)) twarning("In late 2022, dir will default to locdir(). ",
-                         "From then on, use dir='DWDdata' explicitely to store in a project-specific folder.")
 base <- sub("/$","",base) # remove accidental trailing slash
 url <- sub("^/","",url) # remove accidental leading slash
 if(joinbf)  url <- paste0(base,"/",url)

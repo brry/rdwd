@@ -8,7 +8,7 @@ dataDWD(
   url,
   base = dwdbase,
   joinbf = FALSE,
-  dir = "DWDdata",
+  dir = locdir(),
   force = FALSE,
   overwrite = !isFALSE(force),
   read = TRUE,
@@ -36,7 +36,7 @@ Needed mostly for data at \code{\link{gridbase}}.
 DEFAULT: FALSE (selectDWD returns complete URLs already)}
 
 \item{dir}{Char: Writeable directory name where to save the downloaded file.
-Created if not existent. DEFAULT: "DWDdata" at current \code{\link[=getwd]{getwd()}}}
+Created if not existent. DEFAULT: \code{\link[=locdir]{locdir()}}}
 
 \item{force}{Logical (vector): always download, even if the file already exists in \code{dir}?
 Use NA to force re-downloading files older than 24 hours.
