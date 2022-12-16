@@ -9,9 +9,11 @@ selectDWD(
   res = NA,
   var = NA,
   per = NA,
-  id = findID(name, exactmatch = exactmatch, mindex = mindex, quiet = quiet),
+  id = findID(name, exactmatch = exactmatch, mindex = mindex, quiet = quiet, failempty =
+    failempty),
   exactmatch = TRUE,
   mindex = metaIndex,
+  failempty = FALSE,
   findex = fileIndex,
   current = FALSE,
   base = dwdbase,
@@ -22,8 +24,9 @@ selectDWD(
 }
 \arguments{
 \item{name}{Char: station name(s) passed to \code{\link[=findID]{findID()}}, along with
-\code{exactmatch} and \code{mindex}.
-All 3 arguments are ignored if \code{id} is given. DEFAULT: ""}
+\code{exactmatch}, \code{mindex} and \code{failempty}.
+All 3 arguments are ignored if \code{id} is given.
+DEFAULT: "" (all stations at \code{res/var/per})}
 
 \item{res}{Char: temporal \strong{res}olution at \code{base}, e.g.
 \verb{"hourly","daily","monthly"}.
@@ -44,7 +47,8 @@ DEFAULT: NA for interactive selection}
 
 \item{id}{Char/Number: station ID with or without leading zeros, e.g. "00614" or 614.
 Is internally converted to an integer.
-DEFAULT: \code{\link{findID}}\verb{(name, exaxtmatch, mindex)}}
+Use NA (the default from \code{findID}) to get all data at \code{res/var/per}.
+DEFAULT: \code{\link{findID}}\verb{(name, exaxtmatch, mindex, failempty)}}
 
 \item{exactmatch}{Logical passed to \code{\link[=findID]{findID()}}: match \code{name}
 with \code{\link{==}})? Else with \code{\link[=grepl]{grepl()}}. DEFAULT: TRUE}

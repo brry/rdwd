@@ -27,7 +27,10 @@ DEFAULT: TRUE}
 is given. DEFAULT: \code{\link{metaIndex}}}
 
 \item{failempty}{Logical: fail if no matching names are found
-(instead of returning NA with a warning)? DEFAULT: FALSE}
+(instead of returning NA with a warning)?
+With the latter, \code{\link[=selectDWD]{selectDWD()}} returns all files at a \code{res/var/per} folder.
+This may be especially unwanted with \verb{per="hr}.
+DEFAULT: FALSE}
 
 \item{quiet}{Logical: suppress length warnings? DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 }

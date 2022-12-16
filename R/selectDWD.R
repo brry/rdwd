@@ -61,8 +61,9 @@
 #' }
 #' 
 #' @param name  Char: station name(s) passed to [findID()], along with
-#'              `exactmatch` and `mindex`.
-#'              All 3 arguments are ignored if `id` is given. DEFAULT: ""
+#'              `exactmatch`, `mindex` and `failempty`.
+#'              All 3 arguments are ignored if `id` is given. 
+#'              DEFAULT: "" (all stations at `res/var/per`)
 #' @param res   Char: temporal **res**olution at `base`, e.g.
 #'              `"hourly","daily","monthly"`.
 #'              See section 'Description' above and [`fileIndex`].
@@ -79,7 +80,8 @@
 #'              DEFAULT: NA for interactive selection
 #' @param id    Char/Number: station ID with or without leading zeros, e.g. "00614" or 614.
 #'              Is internally converted to an integer. 
-#'              DEFAULT: [`findID`]`(name, exaxtmatch, mindex)`
+#'              Use NA (the default from `findID`) to get all data at `res/var/per`.
+#'              DEFAULT: [`findID`]`(name, exaxtmatch, mindex, failempty)`
 #' @param exactmatch Logical passed to [findID()]: match `name`
 #'              with [`==`])? Else with [grepl()]. DEFAULT: TRUE
 #' @param mindex Single object: Index with metadata passed to [findID()].
@@ -110,9 +112,10 @@ name="",
 res=NA,
 var=NA,
 per=NA,
-id=findID(name, exactmatch=exactmatch, mindex=mindex, quiet=quiet),
+id=findID(name, exactmatch=exactmatch, mindex=mindex, quiet=quiet, failempty=failempty),
 exactmatch=TRUE,
 mindex=metaIndex,
+failempty=FALSE,
 findex=fileIndex,
 current=FALSE,
 base=dwdbase,
