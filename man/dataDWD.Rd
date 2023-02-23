@@ -87,8 +87,7 @@ before they get truncated with message "(and xx more)". DEFAULT: 2}
 DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
 \item{\dots}{Further arguments passed to \code{\link[=readDWD]{readDWD()}},
-like fread, varnames etc. Dots were passed to
-\code{\link[=download.file]{download.file()}} prior to rdwd 0.11.7 (2019-02-25)}
+like fread, varnames, hr etc.}
 }
 \value{
 Presuming downloading and processing were successful:

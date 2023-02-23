@@ -114,8 +114,7 @@
 #' @param quiet  Logical: suppress message about directory / filenames?
 #'               DEFAULT: FALSE through [rdwdquiet()]
 #' @param \dots  Further arguments passed to [readDWD()],
-#'               like fread, varnames etc. Dots were passed to
-#'               [download.file()] prior to rdwd 0.11.7 (2019-02-25)
+#'               like fread, varnames, hr etc.
 #
 dataDWD <- function(
 url,
