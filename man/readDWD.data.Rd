@@ -10,6 +10,7 @@ readDWD.data(
   varnames = FALSE,
   format = NA,
   tz = "GMT",
+  hr = 0,
   quiet = rdwdquiet(),
   ...
 )
@@ -41,6 +42,16 @@ on the number of characters. DEFAULT: NA}
 \item{tz}{Char (vector): time zone for \code{\link[=as.POSIXct]{as.POSIXct()}}.
 "" is the current time zone, and "GMT" is UTC (Universal Time,
 Coordinated). DEFAULT: "GMT"}
+
+\item{hr}{Integer code to automatically merge historical and recent datasets.
+If set, \code{readDWD} returns a data.frame instead of a list.
+This is not actually used in \url{readDWD.data}, but in \url{readDWD}.\cr
+0 (default): ignore this argument\cr
+1: sort by hr (if given) + merge\cr
+2: also remove duplicated dates from recent\cr
+3: also remove columns QN3,QN4,eor\cr
+4: also remove column STATIONS_ID\cr
+DEFAULT: 0}
 
 \item{quiet}{Suppress empty file warnings?
 DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}

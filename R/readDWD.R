@@ -41,6 +41,9 @@
 #' @param fread  Logical (vector): read fast? Used in [readDWD.data()].
 #'               DEFAULT: NA
 #' @param format,tz Format and time zone of time stamps, see [readDWD.data()]
+#' @param hr     Integer code to merge historical and recent file. 
+#'               Used here, but documented in detail in [readDWD.data()].
+#'               DEFAULT: 0 (ignore argument)
 #' @param dividebyten Logical (vector): Divide the values in raster files by ten?
 #'               That way, \[1/10 mm] gets transformed to \[mm] units.
 #'               Used in [readDWD.radar()], [readDWD.raster()] and [readDWD.asc()].
@@ -62,6 +65,7 @@ varnames=FALSE,
 fread=NA,
 format=NA,
 tz="GMT",
+hr=0,
 dividebyten=TRUE,
 var="",
 progbar=!quiet,
@@ -77,10 +81,11 @@ wrongtype <- !type %in% validFileTypes # should be caught by fileType, but just 
 if(any(wrongtype)) tstop("invalid type (",type[wrongtype][1],") given for file '",
                          file[wrongtype][1],"'. See  ?fileType")
 
-
-# fast reading with fread:
 if("data" %in% type)
 {
+if(!is.numeric(hr)) tstop("hr must be an integer, not ", toString(class(hr)), 
+                          " with the value ", toString(hr))
+# fast reading with fread:
 if(anyNA(fread))
   {
   haspack <- requireNamespace("data.table", quietly=TRUE)
@@ -99,7 +104,7 @@ if(any(fread))
                                      "See   https://bookdown.org/brry/rdwd/fread.html")
   }
 } 
-# end fread / unzip checks
+# end hr + fread / unzip checks
 
 if(len>1)
   {
@@ -167,7 +172,23 @@ output <- lapply(seq_along(file), readDWDloopfun, ...)
 
 names(output) <- tools::file_path_sans_ext(basename(file))
 output <- if(length(file)==1) output[[1]] else output
-return(invisible(output))
+output <- invisible(output)
+
+# hr for merging historical + recent data:
+if("data" %in% type && hr>0){
+if(length(file)!=2)
+  {
+  twarning("hr is ", hr, ", but ", length(file), " files are given.",
+           "Currently, hr only works for exactly 2 files.")
+  return(output)
+  }
+if(!quiet) message("merging historical and recent file.")
+
+stop("Actual implementation is yet pending.")
+ 
+}
+
+return(output)
 }
 
 
@@ -206,11 +227,20 @@ return(invisible(output))
 #' @param tz       Char (vector): time zone for [as.POSIXct()].
 #'                 "" is the current time zone, and "GMT" is UTC (Universal Time,
 #'                 Coordinated). DEFAULT: "GMT"
+#' @param hr       Integer code to automatically merge historical and recent datasets.
+#'                 If set, `readDWD` returns a data.frame instead of a list.
+#'                 This is not actually used in [readDWD.data](), but in [readDWD]().\cr
+#'                 0 (default): ignore this argument\cr
+#'                 1: sort by hr (if given) + merge\cr
+#'                 2: also remove duplicated dates from recent\cr
+#'                 3: also remove columns QN3,QN4,eor\cr
+#'                 4: also remove column STATIONS_ID\cr
+#'                 DEFAULT: 0
 #' @param quiet    Suppress empty file warnings?
 #'                 DEFAULT: FALSE through [rdwdquiet()]
 #' @param \dots    Further arguments passed to [read.table()] or [data.table::fread()]
 readDWD.data <- function(file, fread=FALSE, varnames=FALSE, format=NA, tz="GMT",
-                         quiet=rdwdquiet(), ...)
+                         hr=0, quiet=rdwdquiet(), ...)
 {
 if(grepl("meta_data_Meta_Daten", file)) tstop("This 'meta_data_Meta_Daten' file should be read with readMeta(",file,")")
 if(fread)
