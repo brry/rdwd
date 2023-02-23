@@ -54,6 +54,9 @@
 #'               unless binary files are to be read.
 #'               DEFAULT: !quiet
 #' @param quiet  Logical: suppress messages? DEFAULT: FALSE through [rdwdquiet()]
+#' @param quietread Logical: suppress message like 
+#'               "Reading 1 file with readDWD.data() and fread=TRUE ...".
+#'               DEFAULT: `quiet`
 #' @param \dots  Further arguments passed to the internal `readDWD.*`
 #'               subfunctions (see [`fileType`]) and from those to the 
 #'               underlying actual reading functions
@@ -70,6 +73,7 @@ dividebyten=TRUE,
 var="",
 progbar=!quiet,
 quiet=rdwdquiet(),
+quietread=quiet,
 ...
 )
 {
@@ -133,7 +137,7 @@ if(!grepl(pattern="german", lct, ignore.case=TRUE))
 }
 
 # subfunctions message:
-if(!quiet)
+if(!quietread)
 {
 nt <- function(x, pre="readDWD.", post="()") # nt: nice table
   {

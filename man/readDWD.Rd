@@ -16,6 +16,7 @@ readDWD(
   var = "",
   progbar = !quiet,
   quiet = rdwdquiet(),
+  quietread = quiet,
   ...
 )
 }
@@ -54,6 +55,10 @@ unless binary files are to be read.
 DEFAULT: !quiet}
 
 \item{quiet}{Logical: suppress messages? DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
+
+\item{quietread}{Logical: suppress message like
+"Reading 1 file with readDWD.data() and fread=TRUE ...".
+DEFAULT: \code{quiet}}
 
 \item{\dots}{Further arguments passed to the internal \verb{readDWD.*}
 subfunctions (see \code{\link{fileType}}) and from those to the
