@@ -37,6 +37,7 @@
 #' # 477'236 (2022-04-28) # 5_minutes files added
 #' # 482'907 (2022-04-29)
 #' # 497'190 (2022-05-13)
+#' # 576'768 (2023-04-06) # lots of duplicate historical files in transition period
 #' 
 #' # gridbase
 #' #  49'247 (2019-05-26)
@@ -60,6 +61,7 @@
 #' #  35'874 (2022-04-28)
 #' #  35'937 (2022-04-29)
 #' #  36'630 (2022-05-13)
+#' #  36'059 (2023-04-06)
 #' 
 #' @param dwdlocal Read "DWDdata/INDEX_of_DWD_.txt" instead of calling
 #'                 [indexFTP()]? DEFAULT: FALSE
