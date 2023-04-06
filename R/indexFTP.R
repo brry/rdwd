@@ -164,6 +164,13 @@ getURL_ffe <- function(ff_row)
      assign("stoppp_ffe", TRUE, inherits=TRUE) # to get out of the loop sans error
      return(ff_row) # exit getURL_ffe
     }
+ # Do not go down when folder is empty:
+ if(p=="")
+    {
+    # found Apr 2013 for ftp://opendata.dwd.de/climate_environment/CDC/grids_germany/daily/regnie/
+    ff_row$isfile <- TRUE
+    return(ff_row) # exit getURL_ffe
+    }
  # Process vector of sub-paths:
  # carriage return / newline is OS-dependent:
  p <- unlist(strsplit(p,"[\n\r]")) # http://stackoverflow.com/a/40763124/1587132
@@ -187,7 +194,7 @@ getURL_ffe <- function(ff_row)
 
 stoppp_ffe <- FALSE
 # as long as df_ff contains folders, run the following:
-while(any(!df_ff$isfile))           # potential ToDo: exclude previously checked empty folders
+while(any(!df_ff$isfile)) # excludes checked empty folders: there, isfile is set to TRUE
   {
   df_ff <- unique(df_ff)
   df_ff1 <- df_ff[df_ff$isfile,] # these are finished
