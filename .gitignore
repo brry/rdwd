@@ -1,9 +1,7 @@
 .Rproj.user
 .Rhistory
 .RData
-DWDdata/meta
-DWDdata/xls_index.xlsx
-DWDdata/INDEX_of_DWD_.txt
+DWDdata/
 inst/shinyapps/
 misc/eRum/DWDdata/
 misc/eRum/cache/
