@@ -50,14 +50,10 @@
 #' berryFunctions::monthAxis(1)
 #' 
 #' 
-#' # current and historical files:
+#' # current and historical files, keep historical in the overlap time period:
 #' link <- selectDWD("Potsdam", res="daily", var="kl", per="hr"); link
-#' potsdam <- dataDWD(link, dir=locdir())
-#' potsdam <- do.call(rbind, potsdam) # this will partly overlap in time
+#' potsdam <- dataDWD(link, dir=locdir(), hr=4)
 #' plot(TMK~MESS_DATUM, data=tail(potsdam,1500), type="l")
-#' # The straight line marks the jump back in time
-#' # Keep only historical data in the overlap time period:
-#' potsdam <- potsdam[!duplicated(potsdam$MESS_DATUM),]
 #' 
 #' 
 #' # With many files (>>50), use sleep to avoid getting kicked off the FTP server
@@ -114,7 +110,7 @@
 #' @param quiet  Logical: suppress message about directory / filenames?
 #'               DEFAULT: FALSE through [rdwdquiet()]
 #' @param \dots  Further arguments passed to [readDWD()],
-#'               like fread, varnames, hr etc.
+#'               like `fread`, `varnames`, `hr`, etc.
 #
 dataDWD <- function(
 url,

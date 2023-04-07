@@ -621,21 +621,13 @@ mtext("Source: Deutscher Wetterdienst", adj=-0.05, line=2.8, font=3)
 # - use case: merge historical and recent data
 
 ```{r uc_histrecent}
-histrecent <- function(station)
-  {
-  id <- findID(station, failempty=TRUE) # avoid id=NA download of all files
-  kl <- rdwd::selectDWD(id=id, res="daily", var="kl", per="hr")
-  if(length(kl) != 2) stop(station, " has ", length(kl), " files instead of 2.")
-  kl <- rdwd::dataDWD(kl, dir=locdir(), force=NA)
-  kl <- do.call(rbind, kl) # historical and recent data
-  kl <- kl[!duplicated(kl$MESS_DATUM),] # keep only hist for overlap
-  kl[,c("STATIONS_ID", "QN_3", "QN_4", "eor")] <- NULL # unneeded columns
-  rownames(kl) <- NULL
-  kl # output
-  }
-hr_pot <- histrecent("Potsdam")
-hr_cel <- histrecent("Celle")
-str(hr_pot)
+links <- selectDWD("Potsdam", res="daily", var="kl", per="hr")
+klima <- dataDWD(links, hr=4)
+plot(TMK~MESS_DATUM, data=tail(klima,1500), type="l")
+
+links <- selectDWD("Celle", res="daily", var="kl", per="hr")
+klima <- dataDWD(links, hr=4, varnames=TRUE)
+plotDWD(tail(klima,800), "PM.Luftdruck")
 ```
 
 # - use case: vectorized data

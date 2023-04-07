@@ -182,15 +182,22 @@ output <- invisible(output)
 if("data" %in% type && hr>0){
 if(length(file)!=2)
   {
-  twarning("hr is ", hr, ", but ", length(file), " files are given.",
+  tstop("hr is ", hr, ", but ", length(file), " files are given.",
            "Currently, hr only works for exactly 2 files.")
-  return(output)
+  return(output) # in case I want to change tstop back to twarning
   }
 if(!quiet) message("merging historical and recent file.")
-
-stop("Actual implementation is yet pending.")
- 
-}
+h <- grep("historical", names(output), fixed=TRUE)
+if(length(h)!=1) tstop("hr=", hr, ", but ", length(h), " files have 'historical' in the name (must be 1).")
+r <- grep("recent", names(output), fixed=TRUE)
+if(length(r)!=1) tstop("hr=", hr, ", but ", length(r), " files have 'recent' in the name (must be 1).")
+output <- output[c(h,r)] # to have the right order
+output <- do.call(rbind, output) # historical and recent data
+if(hr>=2) output <- output[!duplicated(output$MESS_DATUM),] # keep only hist for overlap
+if(hr>=2) rownames(output) <- NULL
+if(hr>=3) output[,c("QN_3", "QN_4", "eor")] <- NULL # unneeded columns
+if(hr>=4) output$STATIONS_ID <- NULL
+} # End of hr merging
 
 return(output)
 }

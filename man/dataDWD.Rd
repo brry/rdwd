@@ -87,7 +87,7 @@ before they get truncated with message "(and xx more)". DEFAULT: 2}
 DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
 \item{\dots}{Further arguments passed to \code{\link[=readDWD]{readDWD()}},
-like fread, varnames, hr etc.}
+like \code{fread}, \code{varnames}, \code{hr}, etc.}
 }
 \value{
 Presuming downloading and processing were successful:
@@ -128,14 +128,10 @@ plot(wind$MESS_DATUM, wind$F, main="DWD hourly wind Fuerstenzell", col="blue",
 berryFunctions::monthAxis(1)
 
 
-# current and historical files:
+# current and historical files, keep historical in the overlap time period:
 link <- selectDWD("Potsdam", res="daily", var="kl", per="hr"); link
-potsdam <- dataDWD(link, dir=locdir())
-potsdam <- do.call(rbind, potsdam) # this will partly overlap in time
+potsdam <- dataDWD(link, dir=locdir(), hr=4)
 plot(TMK~MESS_DATUM, data=tail(potsdam,1500), type="l")
-# The straight line marks the jump back in time
-# Keep only historical data in the overlap time period:
-potsdam <- potsdam[!duplicated(potsdam$MESS_DATUM),]
 
 
 # With many files (>>50), use sleep to avoid getting kicked off the FTP server
