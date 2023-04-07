@@ -56,6 +56,8 @@ with \code{\link{==}})? Else with \code{\link[=grepl]{grepl()}}. DEFAULT: TRUE}
 \item{mindex}{Single object: Index with metadata passed to \code{\link[=findID]{findID()}}.
 DEFAULT: \code{\link{metaIndex}}}
 
+\item{failempty}{Fail if no matching station is found in \code{\link[=findID]{findID()}}? DEFAULT: FALSE.}
+
 \item{findex}{Single object: Index used to select filename, as returned by
 \code{\link[=createIndex]{createIndex()}}.To use a current / custom index, see \code{current} and
 \url{https://bookdown.org/brry/rdwd/fileindex.html}.

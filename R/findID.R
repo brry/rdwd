@@ -36,7 +36,7 @@
 #' @param failempty Logical: fail if no matching names are found 
 #'              (instead of returning NA with a warning)? 
 #'              With the latter, [selectDWD()] returns all files at a `res/var/per` folder.
-#'              This may be especially unwanted with `per="hr`.
+#'              This may be especially unwanted with `per="hr"`.
 #'              DEFAULT: FALSE
 #' @param quiet Logical: suppress length warnings? DEFAULT: FALSE through [rdwdquiet()]
 #' 

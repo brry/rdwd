@@ -86,6 +86,7 @@
 #'              with [`==`])? Else with [grepl()]. DEFAULT: TRUE
 #' @param mindex Single object: Index with metadata passed to [findID()].
 #'              DEFAULT: [`metaIndex`]
+#' @param failempty Fail if no matching station is found in [findID()]? DEFAULT: FALSE.
 #' @param findex Single object: Index used to select filename, as returned by
 #'              [createIndex()].To use a current / custom index, see `current` and
 #'              <https://bookdown.org/brry/rdwd/fileindex.html>. 
