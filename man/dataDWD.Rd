@@ -41,6 +41,7 @@ Created if not existent. DEFAULT: \code{\link[=locdir]{locdir()}}}
 \item{force}{Logical (vector): always download, even if the file already exists in \code{dir}?
 Use NA to force re-downloading files older than 24 hours.
 Use a numerical value to force after that amount of hours.
+Use something like \code{c(Inf, 24)} or \code{force=c(24*365, 6)}, for per="hr".
 Note: if \code{force} is not FALSE, the \code{overwrite} default is TRUE.
 DEFAULT: FALSE}
 

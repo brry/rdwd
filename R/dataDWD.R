@@ -76,6 +76,7 @@
 #' @param force  Logical (vector): always download, even if the file already exists in `dir`?
 #'               Use NA to force re-downloading files older than 24 hours.
 #'               Use a numerical value to force after that amount of hours.
+#'               Use something like `c(Inf, 24)` or `force=c(24*365, 6)`, for per="hr".
 #'               Note: if `force` is not FALSE, the `overwrite` default is TRUE.
 #'               DEFAULT: FALSE
 #' @param overwrite Logical (vector): if force=TRUE, overwrite the existing file
