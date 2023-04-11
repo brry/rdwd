@@ -86,7 +86,8 @@
 #'              with [`==`])? Else with [grepl()]. DEFAULT: TRUE
 #' @param mindex Single object: Index with metadata passed to [findID()].
 #'              DEFAULT: [`metaIndex`]
-#' @param failempty Fail if no matching station is found in [findID()]? DEFAULT: FALSE.
+#' @param failempty Fail if no matching station is found in [findID()]? 
+#'              Avoid downloading all files. DEFAULT: TRUE
 #' @param findex Single object: Index used to select filename, as returned by
 #'              [createIndex()].To use a current / custom index, see `current` and
 #'              <https://bookdown.org/brry/rdwd/fileindex.html>. 
@@ -116,7 +117,7 @@ per=NA,
 id=findID(name, exactmatch=exactmatch, mindex=mindex, quiet=quiet, failempty=failempty),
 exactmatch=TRUE,
 mindex=metaIndex,
-failempty=FALSE,
+failempty=TRUE,
 findex=fileIndex,
 current=FALSE,
 base=dwdbase,

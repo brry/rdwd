@@ -13,7 +13,7 @@ selectDWD(
     failempty),
   exactmatch = TRUE,
   mindex = metaIndex,
-  failempty = FALSE,
+  failempty = TRUE,
   findex = fileIndex,
   current = FALSE,
   base = dwdbase,
@@ -56,7 +56,8 @@ with \code{\link{==}})? Else with \code{\link[=grepl]{grepl()}}. DEFAULT: TRUE}
 \item{mindex}{Single object: Index with metadata passed to \code{\link[=findID]{findID()}}.
 DEFAULT: \code{\link{metaIndex}}}
 
-\item{failempty}{Fail if no matching station is found in \code{\link[=findID]{findID()}}? DEFAULT: FALSE.}
+\item{failempty}{Fail if no matching station is found in \code{\link[=findID]{findID()}}?
+Avoid downloading all files. DEFAULT: TRUE}
 
 \item{findex}{Single object: Index used to select filename, as returned by
 \code{\link[=createIndex]{createIndex()}}.To use a current / custom index, see \code{current} and
