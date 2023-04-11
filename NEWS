@@ -1,6 +1,16 @@
 -----------------------------
 -----------------------------
 
+Version 1.7.0 (2023-04-xx)
+
+- `dataDWD`: dir default set to `locdir()`
+- `findID`+`selectDWD`: new argument 'failempty' to stop instead of warn if name does not match
+- `readDWD.grib2`: rgdal retirement warning added
+- `dataDWD` + `readDWD`: new argument 'hr' to auto-merge historical and recent files
+
+-----------------------------
+-----------------------------
+
 Version 1.6.0 (2022-05-30)
 
 new functions
