@@ -52,7 +52,7 @@ mean   : Mittelwert
 sum    : Summe
 max    : Maximum
 min    : Minimum
-function(x,...) quantile(x,probs=0.8,...) : Quantil 80%
+# function(x,...) quantile(x,probs=0.8,...) : Quantil 80%
 ")
 
 load(system.file("extdata/DEU.rda", package="rdwd"))
@@ -212,7 +212,7 @@ i <- process_kl()
 ylim <- suppressWarnings(range(i$kl_agg[,2], finite=TRUE))
 if(all(!is.finite(ylim))) ylim <- c(0,1)
 par(mar=c(2.5,3,1,0.2), mgp=c(2,0.7,0), las=1)
-plot(i$kl_agg[,1:2], type="l", xlab="", ylab=i$aggfun, ylim=ylim, col="steelblue")
+plot(i$kl_agg[,1:2], type="l", xlab="", ylab=paste(i$aggfun,"pro Jahresbereich"), ylim=ylim, col="steelblue")
 points(i$kl_agg[year_sel(),1:2], col="salmon", cex=2, lwd=3)
 sna <- sum(i$kl_agg$nna)
 pna <- sna/length(i$kl_vals_plot)
@@ -229,7 +229,7 @@ allNA <- all(is.na(values))
 if(allNA) values <- 0
 par(mar=c(3,3,2,0.2), mgp=c(1.8,0.7,0), las=1)
 hist(values, breaks=25, col=berryFunctions::addAlpha("steelblue",0.4), main="",
-     ylab="Anzahl Jahre pro Wertebereich", xlab=i$aggfun)
+     ylab="Anzahl Jahre pro Wertebereich", xlab=paste(i$aggfun,"pro Jahresbereich"))
 if(allNA) return()
 abline(v=values[year_sel()], col="salmon", lwd=4)
 points(median(values, na.rm=TRUE), mean(par("usr")[3:4]), pch=8, cex=1.5, lwd=2)

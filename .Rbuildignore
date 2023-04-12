@@ -1,6 +1,5 @@
 ^doc$
 ^DWDdata$
-^inst/shinyapps$
 ^Meta$
 ^misc$
 ^.*\.Rproj$

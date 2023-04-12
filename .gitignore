@@ -2,8 +2,6 @@
 .Rhistory
 .RData
 DWDdata/
-inst/shinyapps/compare_years/GADM.rds
-inst/shinyapps/compare_years/old_app.R
 misc/eRum/DWDdata/
 misc/eRum/cache/
 misc/eRum/figure/
