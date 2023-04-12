@@ -115,29 +115,26 @@ output$location <- renderUI({
 
 
 # year_sel ----
-year_reactive <- reactiveVal("2023", label="year_sel_val") # ToDo: do not hardcode to 2023
-year_clicked <- reactive({
-  xy <- list(x=NA, y=NA)
-  if(!is.null(input$ts_click)){
-    xy$x <- as.Date(input$ts_click$x, origin="1970-01-01")
-    xy$y <- input$ts_click$y
-  }
-  xy
-})
+year_sel <- reactiveVal(format(Sys.Date(),"%Y"), label="year_sel_val")
 
-year_sel <- function(i){
-  xy <- year_clicked()
-  if(is.na(xy$x)) return(year_reactive())
-  col <- ncol(i$kl_vals_plot) - as.numeric(round(i$day - xy$x))
-  year <- names(which.min(abs(i$kl_vals_plot[,col] - xy$y)))
-  year_reactive(year) # set
-}
+observeEvent(input$ts_click, {
+ i <- process_kl()
+ x <- as.Date(input$ts_click$x, origin="1970-01-01")
+ y <- input$ts_click$y
+ col <- ncol(i$kl_vals_plot) - as.numeric(round(i$day - x))
+ year <- names(which.min(abs(i$kl_vals_plot[,col] - y)))
+ year_sel(year) # set
+ })
 
 observeEvent(input$agg_click, {
  i <- process_kl()
  pdist <- berryFunctions::distance(x=i$kl_agg$year , xref=input$agg_click$x, 
                                    y=i$kl_agg$value, yref=input$agg_click$y)
- year_reactive(i$year[which.min(pdist)])
+ year_sel(i$year[which.min(pdist)])
+ })
+
+observeEvent(input$enddate, {
+ year_sel(format(input$enddate,"%Y"))
  })
 
 # process_kl ----
@@ -199,7 +196,7 @@ plot(i$day,0, type="n", xlim=i$day-c(i$ndays,1)+1, ylim=ylim,
 berryFunctions::timeAxis(format="%d.%m.\n")
 sapply(i$year, function(y) lines(i$day-i$ndays:1+1, i$kl_vals_plot[y,],
                          col=berryFunctions::addAlpha("steelblue",0.2), lwd=2) )
-selyear <- year_sel(i)
+selyear <- year_sel()
 if(!is.logical(selyear))
 lines(i$day-i$ndays:1+1, i$kl_vals_plot[selyear,], col="salmon", lwd=4)
 # dd <- try(lines(i$day-i$ndays:1+1, i$kl_vals_plot[selyear,], col="salmon", lwd=4))
@@ -216,7 +213,7 @@ ylim <- suppressWarnings(range(i$kl_agg[,2], finite=TRUE))
 if(all(!is.finite(ylim))) ylim <- c(0,1)
 par(mar=c(2.5,3,1,0.2), mgp=c(2,0.7,0), las=1)
 plot(i$kl_agg[,1:2], type="l", xlab="", ylab=i$aggfun, ylim=ylim, col="steelblue")
-points(i$kl_agg[year_sel(i),1:2], col="salmon", cex=2, lwd=3)
+points(i$kl_agg[year_sel(),1:2], col="salmon", cex=2, lwd=3)
 sna <- sum(i$kl_agg$nna)
 pna <- sna/length(i$kl_vals_plot)
 legend("topleft", paste0(sna," Fehlwerte (",round(pna*100),"%)"), bty="n")
@@ -234,7 +231,7 @@ par(mar=c(3,3,2,0.2), mgp=c(1.8,0.7,0), las=1)
 hist(values, breaks=25, col=berryFunctions::addAlpha("steelblue",0.4), main="",
      ylab="Anzahl Jahre pro Wertebereich", xlab=i$aggfun)
 if(allNA) return()
-abline(v=values[year_sel(i)], col="salmon", lwd=4)
+abline(v=values[year_sel()], col="salmon", lwd=4)
 points(median(values, na.rm=TRUE), mean(par("usr")[3:4]), pch=8, cex=1.5, lwd=2)
 # box("outer")
 }
@@ -247,7 +244,7 @@ output$plot_2_agg <- renderPlot(plot_2_agg())
 output$plot_3_hist <- renderPlot(plot_3_hist())
 
 output$map <- renderPlot({
-  par(mar=rep(0,4))
+  par(mar=rep(0,4), bg="grey96")
   raster::plot(DEU, border=8) # see ?DEU
   points(meta$geoLaenge, meta$geoBreite, asp=1.6, pch=3, lwd=1, col="steelblue")
   points(geoBreite~geoLaenge, data=meta[meta$Stationsname==loc_sel(),], cex=3, 
