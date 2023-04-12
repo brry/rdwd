@@ -9,13 +9,13 @@
 #' @importFrom berryFunctions tstop
 #' @export
 #' @examples
-#' # compare_years()
+#' # app()
 #' @param \dots Arguments passed to [shiny::runApp()]
 #'
-compare_years <- function(...)
+app <- function(...)
 {
-checkSuggestedPackage("shiny", "rdwd::compare_years")
+checkSuggestedPackage("shiny", "rdwd::app")
 appDir <- system.file("shinyapps/compare_years", package="rdwd")
-if(appDir=="") tstop("Could not find directory 'shinyapps'. Try re-installing 'rdwd'.")
+if(appDir=="") tstop("Could not find directory 'shinyapps/compare_years'. Try re-installing 'rdwd'.")
 shiny::runApp(appDir, ...)
 }
