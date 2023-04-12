@@ -45,6 +45,8 @@ Coordinated). DEFAULT: "GMT"}
 
 \item{hr}{Integer code to automatically merge historical and recent datasets.
 If set, \code{readDWD} returns a data.frame instead of a list.
+If multiple historical files are present,
+the longest date range (per file name) is used.
 This is not actually used in \url{readDWD.data}, but in \url{readDWD}.\cr
 0 (default): ignore this argument\cr
 1: sort by hr (if given) + merge\cr

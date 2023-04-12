@@ -90,6 +90,15 @@ time_diff <- as.numeric(diff(air_temperature$MESS_DATUM[1:10]))
 testthat::expect_equal(time_diff, rep(10,9))
 })
 
+testthat::test_that("readDWD.data works with hr", {
+link <- selectDWD("Potsdam", res="daily", var="kl", per="hr")
+kl <- dataDWD(link, hr=4)
+testthat::expect_s3_class(kl, "data.frame") # instead of the usual list
+# vector of stations:
+link <- selectDWD(c("Potsdam","Celle"), res="daily", var="kl", per="hr")
+testthat::expect_error(dataDWD(link, hr=4), "hr=4, but 2 ids are given: 850, 3987")
+})
+
 testthat::test_that("readDWD messages subfunctions correctly", {
 link <- c(selectDWD("Potsdam", res="daily", var="kl", per="hr"),
           selectDWD("", "daily", "kl", "h", meta=TRUE))

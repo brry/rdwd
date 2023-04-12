@@ -180,15 +180,27 @@ output <- invisible(output)
 
 # hr for merging historical + recent data:
 if("data" %in% type && hr>0){
-if(length(file)!=2)
-  {
-  tstop("hr is ", hr, ", but ", length(file), " files are given.",
-           "Currently, hr only works for exactly 2 files.")
-  return(output) # in case I want to change tstop back to twarning
-  }
 if(!quiet) message("merging historical and recent file.")
 h <- grep("historical", names(output), fixed=TRUE)
-if(length(h)!=1) tstop("hr=", hr, ", but ", length(h), " files have 'historical' in the name (must be 1).")
+if(length(h)<1) tstop("hr=", hr, ", but ", length(h), " files have 'historical' in the name (must be 1).")
+if(length(h)!=1) 
+{
+fn <- basename(file[h])
+fnp <- strsplit(fn,"_")[[1]] # fnp: file name path
+# fnp <- paste0(fnp[1],"/",fnp[2],"/",substr(fnp[3],1,1))
+fnp <- paste(fnp[1:2], collapse="/")
+fnid <- as.numeric(sub("\\D*(\\d{5}).*", "\\1", fn)) # first five digits after non-digits
+fnid <- unique(fnid)
+if(length(fnid)>1) tstop("hr=", hr, ", but ", length(fnid), " ids are given:", 
+                         truncMessage(fnid, prefix=""))
+fny <- sub(".*(\\d{8}).*(\\d{8})\\D*$", "\\1-\\2", fn) # fn years
+fnu <- base::lapply(strsplit(fny,"-"), as.Date, format="%Y%m%d") # fn to be used
+fnu <- which.max(sapply(fnu, diff))
+twarning("For ID '",fnid,"' at path '",fnp,"', ",length(h)," files have 'historical' in the name.\n",
+         "Using longest range ",fny[fnu]," (not ",toString(fny[-fnu]),"). ",
+         "Use hr=0 to read all data.")
+h <- h[fnu] # for selection in output[c(h,r)]
+}
 r <- grep("recent", names(output), fixed=TRUE)
 if(length(r)!=1) tstop("hr=", hr, ", but ", length(r), " files have 'recent' in the name (must be 1).")
 output <- output[c(h,r)] # to have the right order
@@ -240,6 +252,8 @@ return(output)
 #'                 Coordinated). DEFAULT: "GMT"
 #' @param hr       Integer code to automatically merge historical and recent datasets.
 #'                 If set, `readDWD` returns a data.frame instead of a list.
+#'                 If multiple historical files are present, 
+#'                 the longest date range (per file name) is used.
 #'                 This is not actually used in [readDWD.data](), but in [readDWD]().\cr
 #'                 0 (default): ignore this argument\cr
 #'                 1: sort by hr (if given) + merge\cr
