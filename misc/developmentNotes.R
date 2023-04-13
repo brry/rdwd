@@ -196,7 +196,7 @@ sb[which(diff(sb)!=1)]
 #
 # Check a couple different styles with:
 mf <- selectDWD(res=c(rep("hourly",3), "monthly", "daily"), var=c("cloudiness","solar","sun","kl","kl"),
-                time=c(rep("r",4), "h"), meta=TRUE, outvec=T, current=TRUE)
+                time=c(rep("r",4), "h"), meta=TRUE, current=TRUE)
 m <- dataDWD(mf)
 lapply(m, head)
 #

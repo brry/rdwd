@@ -89,7 +89,7 @@ if(nrow(m)<=1) stop("No data was found for this query. Try increasing the radius
 if(!quiet) message("Preparing URLs...")
 m$url <- ""
 m$url[-1] <- with(m[-1,],
-               selectDWD(id=Stations_id, res=res, var=var,per=per, outvec=TRUE, ...)  )
+               selectDWD(id=Stations_id, res=res, var=var, per=per, expand=FALSE, ...)  )
 # final output:
 return(m)
 }

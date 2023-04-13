@@ -9,6 +9,7 @@ selectDWD(
   res = NA,
   var = NA,
   per = NA,
+  expand = TRUE,
   id = findID(name, exactmatch = exactmatch, mindex = mindex, quiet = quiet, failempty =
     failempty),
   exactmatch = TRUE,
@@ -44,6 +45,11 @@ DEFAULT: NA for interactive selection}
 "historical" (long time series).
 Can be abbreviated. To get both datasets, use \code{per="hr"}.
 DEFAULT: NA for interactive selection}
+
+\item{expand}{Logical: get all possible \code{res/var/per} combinations?
+Set to FALSE if you want only the given combinations.
+If FALSE, they cannot be NA or "".
+DEFAULT: TRUE}
 
 \item{id}{Char/Number: station ID with or without leading zeros, e.g. "00614" or 614.
 Is internally converted to an integer.
@@ -120,6 +126,12 @@ selectDWD(id="5419", res="daily", var="kl", per="h")
 selectDWD("Freiburg", res="daily", var="kl", per="rh")
 selectDWD("Freiburg", res=c("daily","monthly"), var="kl", per="r")
 selectDWD("Freiburg", res=c("daily","monthly"), var="kl", per="hr")
+# get old behaviour (needed e.g. in nearbyStations):
+ids <- c(3761,3761, 3603)
+# all combinations:
+selectDWD(id=ids, res="daily", var="kl", per=c("h","r","r")) # 4
+# only given combinations:
+selectDWD(id=ids, res="daily", var="kl", per=c("h","r","r"), expand=FALSE) # 3
 
 # all files in all paths matching id:
 head( selectDWD(id=c(1050, 386), res="",var="",per="") ) # 277 files
