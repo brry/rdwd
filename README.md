@@ -53,7 +53,7 @@ link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
 # Actually download that dataset, returning the local storage file name:
 file <- dataDWD(link, read=FALSE)
 # Read the file from the zip folder:
-clim <- readDWD(file, varnames=TRUE)
+clim <- readDWD(file, varnames=TRUE) # can happen directly in dataDWD
 
 # Inspect the data.frame:
 str(clim)

@@ -212,7 +212,10 @@ tab <- unlist(tab)
 miss <- on[!on %in% tab]
 miss <- miss[! miss %in% c("subdaily/standard_format/recent", "subdaily/standard_format/historical",
                            "annual/climate_indices/kl", "annual/climate_indices/precip", 
-                           "monthly/climate_indices/kl", "monthly/climate_indices/precip")]
+                           "monthly/climate_indices/kl", "monthly/climate_indices/precip",
+                           "annual/climate_indices/historical", "annual/climate_indices/recent", 
+                           "monthly/climate_indices/historical", "monthly/climate_indices/recent"
+                           )]
 l <- length(miss)
 if(l>0) stop("\n\nThe following ", l, " FTP folders must yet be added to the ",
              "table (FTP_folder.ods) in section 'Available datasets':\n", 
@@ -343,7 +346,7 @@ m_link <- grep(".txt$", m_link, value=TRUE)
 print_short(m_link) # (Monatswerte = monthly values, Beschreibung = description)
 ```
 ```{r meta2}
-meta_monthly_rain <- dataDWD(m_link, dir=locdir())
+meta_monthly_rain <- dataDWD(m_link)
 str(meta_monthly_rain)
 ```
 
@@ -560,7 +563,7 @@ Since Version 1.4.18 (2021-04-08), the default is `dbin=TRUE`. Report errors [he
 If you do not use this, your plots may look partially shifted like this and have the wrong units (image from 2020-06-16 21:30 CEST):
 ```{r wrong_binary, eval=FALSE}
 url <- "ftp://opendata.dwd.de/weather/radar/radolan/rw/raa01-rw_10000-latest-dwd---bin"
-rw_file <- dataDWD(url, dir=locdir(), read=FALSE, dbin=FALSE)
+rw_file <- dataDWD(url, read=FALSE, dbin=FALSE)
 rw_orig <- dwdradar::readRadarFile(rw_file)
 raster::plot(raster::raster(rw_orig$dat))
 ```
@@ -588,9 +591,7 @@ download & read data
 ```{r uc_recent_time_series_data, eval=TRUE, fig.height=3, fig.width=7}
 library(rdwd)
 link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
-file <- dataDWD(link, read=FALSE, dir=locdir(), force=NA)
-clim <- readDWD(file, varnames=TRUE)
-
+clim <- dataDWD(link, force=NA, varnames=TRUE)
 str(clim)
 ```
 
@@ -608,7 +609,7 @@ mtext("Source: Deutscher Wetterdienst", adj=-0.1, line=0.5, font=3)
 ```{r uc_climgraph, eval=TRUE, fig.height=3, fig.width=7, echo=-1}
 par(mar=c(4,4,2,0.5), mgp=c(2.7, 0.8, 0), cex=0.8)
 link <- selectDWD("Goettingen", res="monthly", var="kl", per="h")
-clim <- dataDWD(link, dir=locdir())
+clim <- dataDWD(link)
 
 clim$month <- substr(clim$MESS_DATUM_BEGINN,5,6)
 temp <- tapply(clim$MO_TT, clim$month, mean, na.rm=TRUE)
@@ -642,7 +643,7 @@ Now we'll just specify some IDs we're interested in:
 ```{r uc_vector_penomena2}
 ids <-  c(3988, 5559, 2456, 3034, 1964, 4549, 2950, 5419, 2641, 3565)
 links <- selectDWD(id=ids, res="daily", var="weather_phenomena", per="h")
-phen <- dataDWD(links, dir=locdir())
+phen <- dataDWD(links)
 names(phen) <- substr(names(phen), 54,58) # only IDs (not paths) as name
 str(phen, max.level=1)
 ```
@@ -661,7 +662,7 @@ index <- grep("monthly",   gridIndex, value=TRUE) # 12'295
 index <- grep('precipitation', index, value=TRUE) #  1'664
 index <- grep('2014|2015|2016',index, value=TRUE) #     36 (3*12)
 
-precip <- dataDWD(index[6:8], base=gridbase, joinbf=TRUE, dir=locdir())
+precip <- dataDWD(index[6:8], base=gridbase, joinbf=TRUE)
 ```
 For .asc.gz files, `r helplink("readDWD")` calls `r helplink("readDWD.raster")`.
 This runs faster if called a second time due to skip=TRUE in `gunzip`.  
@@ -696,7 +697,7 @@ Obtain time series of values at a selected location in gridded data.
 ```{r grid_loc_val_index}
 library(rdwd)
 # select data
-index <- indexFTP(folder="annual/air_temperature_max", base=gridbase, dir=locdir())
+index <- indexFTP(folder="annual/air_temperature_max", base=gridbase)
 index <- index[-(1:2)] # exclude description files
 index <- index[as.numeric(substr(index,62,65))>=2013] # after year 2013
 index
@@ -704,7 +705,7 @@ index
 
 ```{r grid_loc_val_downloadread}
 # download & read data:
-tempmax <- dataDWD(index, base=gridbase, joinbf=TRUE, dir=locdir())
+tempmax <- dataDWD(index, base=gridbase, joinbf=TRUE)
 names(tempmax) <- substr(names(tempmax), 62, 65)
 ```
 
@@ -736,7 +737,7 @@ Download and read with `r helplink("readDWD.radar")` with `dividebyten=TRUE`:
 # library("rdwd")
 radbase <- paste0(gridbase,"/daily/radolan/recent/bin/")
 radfile <- format(Sys.Date()-5, "raa01-sf_10000-%y%m%d1450-dwd---bin.gz")
-rad <- dataDWD(radfile, base=radbase, joinbf=TRUE, dir=locdir())
+rad <- dataDWD(radfile, base=radbase, joinbf=TRUE)
 ```
 Project and then plot:
 ```{r daily_radar_plot}
@@ -774,9 +775,10 @@ the radolan extent seems to be needed, not the rw extent.
 ```{r recent_radar}
 rw_base <- "ftp://opendata.dwd.de/weather/radar/radolan/rw"
 rw_urls <- indexFTP(base=rw_base, dir=tempdir(), folder="", exclude.latest.bin=TRUE)
-rw_file <- dataDWD(rw_urls[9], base=rw_base, joinbf=TRUE, dir=tempdir(), read=FALSE, dbin=TRUE)
+rw_file <- dataDWD(rw_urls[14], base=rw_base, joinbf=TRUE, dir=tempdir(), read=FALSE)
+rw_file_actual <- R.utils::bunzip2(rw_file) # zipped since between 2022-06 and 2023-04
 
-rw_orig <- dwdradar::readRadarFile(rw_file)
+rw_orig <- dwdradar::readRadarFile(rw_file_actual)
 str(rw_orig)
 # NB: this is an rw file, but needs radolan extent instead of rw
 plotRadar(raster::raster(rw_orig$dat), extent="radolan", main=rw_orig$meta$date)
@@ -806,7 +808,7 @@ berlin # Dahlem (FU) has data since 1719 !
 ```{r uc_berlindata, fig.height=5, fig.width=7, echo=-1}
 par(mar=c(2,2,0.2,0.2))
 url <- selectDWD("Berlin-Dahlem (FU)", res="monthly", var="kl", per="h")
-kl <- dataDWD(url, varnames=TRUE, dir=locdir())
+kl <- dataDWD(url, varnames=TRUE)
 plot(kl$MESS_DATUM, kl$MO_TT.Lufttemperatur, type="l", las=1) # pretty complete
 ```
 
@@ -879,7 +881,7 @@ you might need to set `sleep` in `r helplink("dataDWD")` to a relatively high va
 For speed, we'll only work with the first 3 urls.
 
 ```{r hourlyrain_data_download, message=FALSE}
-localfiles <- dataDWD(links[1:3], joinbf=TRUE, sleep=0.2, read=FALSE, dir=locdir())
+localfiles <- dataDWD(links[1:3], joinbf=TRUE, sleep=0.2, read=FALSE)
 ```
 
 
@@ -984,7 +986,7 @@ leaflet(m) %>% addTiles() %>%
 
 Download and process data for the stations, get the rainfall sums of a particular day (Braunsbach flood May 2016):
 ```{r rainregion_download_data, message=FALSE, warning=FALSE}
-prec <- dataDWD(m$url, fread=TRUE, dir=locdir())
+prec <- dataDWD(m$url, fread=TRUE)
 names(prec) <- m$Stations_id[-1]
 prec29 <- sapply(prec[m$res[-1]=="daily"], function(x)
          {
@@ -1076,7 +1078,7 @@ if(length(rnr)<1)
   return(out)
   }
 urls <- selectDWD(id=m[rnr, "Stations_id"], res="monthly", var="kl", per="r")
-clims <- dataDWD(urls, varnames=FALSE, dir=locdir())
+clims <- dataDWD(urls, varnames=FALSE)
 if(length(urls)==1) 
   {rainmean <- clims$MO_RR 
   monthlyrain <- clims[c("MESS_DATUM", "MO_RR")]
@@ -1114,8 +1116,7 @@ phenocrop_base <- paste0(sub("climate$", "phenology", dwdbase),
                         "/annual_reporters/crops/historical/")
 # pheno_urls <- indexFTP("", base=phenocrop_base, dir="Pheno")
 kohl_url <- "PH_Jahresmelder_Landwirtschaft_Kulturpflanze_Weisskohl_1951_1990_hist.txt"# 9 MB
-kohl_file <- dataDWD(base=phenocrop_base, url=kohl_url, joinbf=TRUE, 
-                     dir=locdir(), read=FALSE) 
+kohl_file <- dataDWD(base=phenocrop_base, url=kohl_url, joinbf=TRUE, read=FALSE) 
 kohl <- read.table(kohl_file, sep=";", header=TRUE)
 summary(kohl)
 ```
@@ -1130,8 +1131,8 @@ https://opendata.dwd.de/climate_environment/CDC/derived_germany/soil/daily/histo
 
 ```{r derivdata_basics}
 dbase <- "ftp://opendata.dwd.de/climate_environment/CDC/derived_germany"
-soilIndex <- indexFTP(folder="soil/daily", base=dbase, dir=locdir())
-soilIndex <- createIndex(soilIndex, base=dbase, dir=locdir())
+soilIndex <- indexFTP(folder="soil/daily", base=dbase)
+soilIndex <- createIndex(soilIndex, base=dbase)
 
 #  "res" and "var" are inverted in the derived_germany folder!
 colnames(soilIndex)[1:2] <- c("var", "res")
@@ -1144,23 +1145,23 @@ summary(soilIndex$id)
 soil_link <- selectDWD("Potsdam", res="", var="", per="",
                        base=dbase, findex=soilIndex)
 # Add monthly data:
-soilIndexm <- indexFTP(folder="soil/monthly", base=dbase, dir=locdir())
-soilIndexm <- createIndex(soilIndexm, base=dbase, dir=locdir())
+soilIndexm <- indexFTP(folder="soil/monthly", base=dbase)
+soilIndexm <- createIndex(soilIndexm, base=dbase)
 soil_link <- c(soil_link, selectDWD("Potsdam", res="", var="", per="",
                                     base=dbase, findex=soilIndexm))
 
 # download and read files:
-soil_data <- dataDWD(soil_link, base=dbase, dir=locdir())
+soil_data <- dataDWD(soil_link, base=dbase)
 # later reading runs are much faster because unzipping is already done :)
 ```
 
 To get files for all stations, use the following:
 ```{r derivdata_allstations, eval=FALSE}
 dbase <- "ftp://opendata.dwd.de/climate_environment/CDC/derived_germany"
-soil_index <- indexFTP(folder="soil/daily", base=dbase, dir=locdir())
-soil_index <- createIndex(soil_index, base=dbase, dir=locdir())
+soil_index <- indexFTP(folder="soil/daily", base=dbase)
+soil_index <- createIndex(soil_index, base=dbase)
 soil_links <- selectDWD(res="soil", var="daily", per="r", base=dbase, findex=soil_index)
-soil_data <- dataDWD(soil_links, base=dbase, dir=locdir())
+soil_data <- dataDWD(soil_links, base=dbase)
 ```
 
 
