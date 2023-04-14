@@ -131,9 +131,7 @@ rfile <- file
 rb <- readRadarFile(rfile, ...)
 if(!toraster) return(invisible(rb))
 # else if toraster:
-if(!requireNamespace("raster", quietly=TRUE))
- stop("To use rdwd:::readDWD.recrad with toraster=TRUE, please first install raster:",
-      "   install.packages('raster')", call.=FALSE)
+checkSuggestedPackage("raster", "rdwd:::readDWD.recrad with toraster=TRUE")
 rb$dat <- raster::raster(rb$dat)
 return(invisible(rb))
 }

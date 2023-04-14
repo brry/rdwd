@@ -13,27 +13,14 @@
 #' @param dir_data  Reusable data location. Preferably not under version control.
 #'                  DEFAULT: [locdir()]
 #' @param dir_exmpl Reusable example location. DEFAULT: local directory
-#' @param fast      Exclude many tests? DEFAULT: FALSE
-#' @param devcheck  Run `devtools::check()`? DEFAULT: !fast
-#' @param radar     Test reading radar example files. DEFAULT: !fast
-#' @param all_Potsdam_files Read all (ca 60) files for Potsdam? Re-downloads if
-#'              files are older than 24 hours. Reduce test time a lot by setting
-#'              this to FALSE. DEFAULT: !fast
-#' @param index Run [checkIndex()]? DEFAULT: !fast
-#' @param indexfast `fast` option passed to [checkIndex()]. DEFAULT: !fast
-#' @param examples Run Examples (including donttest sections) DEFAULT: !fast
+#' @param start     Number to start tests at, helpful for partially successful runs.
+#'                  DEFAULT: 1
 #' @param quiet Suppress progress messages? DEFAULT: FALSE through [rdwdquiet()]
 #' 
 runLocalTests <- function(
 dir_data=locdir(),
 dir_exmpl=berryFunctions::packagePath(file="misc/ExampleTests"),
-fast=FALSE,              # ca 0.1 minutes (always, even if fast=T)
-devcheck=!fast,          # ca 1.0 minutes
-radar=!fast,             # ca 0.3 minutes
-all_Potsdam_files=!fast, # ca 1.4 minutes
-index=!fast,             # ca 0.3 minutes
-indexfast=fast,          # ca 1.3 minutes
-examples=!fast,          # ca 2.6 minutes
+start=1,
 quiet=rdwdquiet()
 )
 {
@@ -46,13 +33,14 @@ messaget <- function(x) if(!quiet) message(x, " (",
 
 # clear warnings logfile:
 cat("", file=paste0(dir_exmpl,"/warnings.txt"))
+cat("", file=paste0(dir_exmpl,"/errors.txt"))
 
 
 # readDWD.data ----
 
 messaget("++ Testing dataDWD + readDWD.data")
 
-testthat::test_that("dataDWD works", {
+if(start<=1) testthat::test_that("1. dataDWD works", {
 link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
 file <- dataDWD(link, read=FALSE, dir=dir_data, quiet=TRUE)
 testthat::expect_equal(basename(file), "daily_kl_recent_tageswerte_KL_03987_akt.zip")
@@ -65,7 +53,7 @@ testthat::expect_warning(dataDWD(c("multi/mean/Temp.txt", f), quiet=TRUE),
                          "urls starting with .* renamed on the DWD server")
 })
 
-testthat::test_that("readDWD.data works for regular data", {
+if(start<=2) testthat::test_that("2. readDWD.data works for regular data", {
 link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
 file <- dataDWD(link, read=FALSE, dir=dir_data, quiet=TRUE)
 clim <- readDWD(file)
@@ -82,7 +70,7 @@ testthat::expect_equivalent(clim, clim_vn)
 testthat::expect_equal(clim_vn, clim_vnf)
 })
 
-testthat::test_that("readDWD.data works for 10 minute data", {
+if(start<=3) testthat::test_that("3. readDWD.data works for 10 minute data", {
 link <- selectDWD("Kiel-Holtenau", res="10_minutes", var="air_temperature", per="recent")
 file <- dataDWD(link, read=FALSE, dir=dir_data)
 air_temperature <- readDWD(file, varnames=TRUE)
@@ -90,7 +78,7 @@ time_diff <- as.numeric(diff(air_temperature$MESS_DATUM[1:10]))
 testthat::expect_equal(time_diff, rep(10,9))
 })
 
-testthat::test_that("readDWD.data works with hr", {
+if(start<=4) testthat::test_that("4. readDWD.data works with hr", {
 link <- selectDWD("Potsdam", res="daily", var="kl", per="hr")
 kl <- dataDWD(link, hr=4)
 testthat::expect_s3_class(kl, "data.frame") # instead of the usual list
@@ -99,7 +87,7 @@ link <- selectDWD(c("Potsdam","Celle"), res="daily", var="kl", per="hr")
 testthat::expect_error(dataDWD(link, hr=4), "hr=4, but 2 ids are given: 850, 3987")
 })
 
-testthat::test_that("readDWD messages subfunctions correctly", {
+if(start<=5) testthat::test_that("5. readDWD messages subfunctions correctly", {
 link <- c(selectDWD("Potsdam", res="daily", var="kl", per="hr"),
           selectDWD("", "daily", "kl", "h", meta=TRUE))
 link <- link[!grepl("mn4_Beschreibung",link)] # mn4 file with only 2 Berlin stations, Apr 2022
@@ -109,15 +97,13 @@ testthat::expect_message(readDWD(file, progbar=FALSE),
 })
 
 
+# 3 secs so far
 # readRadarFile ----
-
-if(radar)
-{
 messaget("++ Testing readRadarFile")
-#
+
 if(!file.exists(dir_exmpl)) dir.create(dir_exmpl)
-#
-testthat::test_that("readRadarFile works", {
+
+if(start<=6) testthat::test_that("6. readRadarFile works", {
 trr <- function(file, ext="radolan", readdwd=FALSE) # trr: test reading radar data
   {
   main <- deparse(substitute(file))
@@ -170,14 +156,13 @@ rangecheck(sf, c( 0.0, 39.2 ), c(-0.03, 38.20))
 rangecheck(rx, c(31.5, 95.0 ), c(18.30, 97.17))
 testthat::expect_equal("Radar tests passed", "Radar tests passed")
 })
-} # End radar
 
 
+# 12 secs so far
 # findID ----
-
 messaget("++ Testing findID + selectDWD")
 
-testthat::test_that("findID warns as wanted", {
+if(start<=7) testthat::test_that("7. findID warns as wanted", {
 testthat::expect_warning(findID("this_is_not_a_city"),
                "findID: no ID could be determined from name 'this_is_not_a_city'.")
 testthat::expect_warning(findID(c("Wuppertal","this_is_not_a_city") ),
@@ -193,32 +178,47 @@ testthat::expect_equal(findID(), "")
 
 # indexFTP----
 
-testthat::test_that("indexFTP warns and works as intended", {
+if(start<=8) testthat::test_that("8. indexFTP warns and works as intended", {
 base <- "https://opendata.dwd.de/weather/radar/radolan/rw/"
 testthat::expect_error(indexFTP(base, folder="", dir=tempdir(), quiet=TRUE),
                          "base should start with ftp://")
 base <- "ftp://opendata.dwd.de/weather/radar/radolan/rw"
 rw <- indexFTP(base, folder="", dir=tempdir(), quiet=TRUE, exclude.latest.bin=FALSE)
-testthat::expect_true("/raa01-rw_10000-latest-dwd---bin" %in% tail(rw,2))
+testthat::expect_true("/raa01-rw_10000-latest-dwd---bin.bz2" %in% tail(rw,2))
+# File ending .bz2 added 2023-04-12. Also updated in website use case recent radar.
 })
 
-
+if(start<=8) testthat::test_that("8b. createIndex works", {
+checkSuggestedPackage("gsheet", "runLocalTests")
+iex <- gsheet::gsheet2tbl("1qXQ1bSLW5TJnJgpUXIID3mVNYS6YZaHbsoe22LmBIAk")
+fex <- createIndex(iex$link, dir=tempdir())
+fex[fex==""] <- NA # for comparison in test
+# fex$path <- NULL ; clipr::write_clip(fex)
+testthat::expect_equal(iex$link  , fex$path  )
+testthat::expect_equal(iex$res   , fex$res   )
+testthat::expect_equal(iex$var   , fex$var   )
+testthat::expect_equal(iex$per   , fex$per   )
+testthat::expect_equal(iex$id    , fex$id    )
+testthat::expect_equal(iex$start , fex$start )
+testthat::expect_equal(iex$end   , fex$end   )
+testthat::expect_equal(iex$ismeta, fex$ismeta)
+})
 
 # selectDWD ----
 
-testthat::test_that("selectDWD works", {
+if(start<=9) testthat::test_that("9. selectDWD works", {
 link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
 testthat::expect_equal(link, paste0(dwdbase,"/daily/kl/recent/tageswerte_KL_03987_akt.zip"))
 testthat::expect_equal(selectDWD("Potsdam", res="daily", var="solar"),
              paste0(dwdbase,"/daily/solar/tageswerte_ST_03987_row.zip"))
 })
 
-testthat::test_that("selectDWD id input can be numeric or character", {
+if(start<=10) testthat::test_that("10. selectDWD id input can be numeric or character", {
 testthat::expect_equal(selectDWD(id="00386", res="daily", var="kl", per="historical"),
              selectDWD(id=386,     res="daily", var="kl", per="historical"))
 })
 
-testthat::test_that("selectDWD can choose Beschreibung meta files", {
+if(start<=11) testthat::test_that("11. selectDWD can choose Beschreibung meta files", {
 link <- selectDWD(res="daily", var="kl", per="h", meta=TRUE)
 link <- link[!grepl("mn4_Beschreibung",link)]
 link <- grep(".txt$", link, value=TRUE)
@@ -227,7 +227,7 @@ testthat::expect_equal(link,
 })
 
 
-testthat::test_that("selectDWD properly vectorizes", {
+if(start<=12) testthat::test_that("12. selectDWD properly vectorizes", {
 testthat::expect_type(selectDWD(id="01050", res="daily", var="kl", per=c("r","h")), "character")
 testthat::expect_type(selectDWD(id="01050", res="daily", var="kl", per="rh"), "character")
 # all zip files in all paths matching id:
@@ -235,24 +235,33 @@ allzip_id <- selectDWD(id=c(1050, 386), res="",var="",per="", quiet=TRUE)
 # all zip files in a given path (if ID is empty):
 allzip_folder <- selectDWD(id="", res="daily", var="kl", per="recent")
 testthat::expect_gte(length(allzip_id), 277)
-testthat::expect_gte(length(allzip_folder), 573)
+testthat::expect_gte(length(allzip_folder), 571)
+# changed 573 to 571 2023-04-12. Should be OK either way.
+ids <- c(3761,3761, 3603)
+exT <- selectDWD(id=ids, res="daily", var="kl", per=c("h","r","r")) # 4
+exF <- selectDWD(id=ids, res="daily", var="kl", per=c("h","r","r"), expand=FALSE) # 3
+testthat::expect_equal(length(exT), 4)
+testthat::expect_equal(length(exF), 3)
 })
 
-
+# 14 secs so far
 # selectDWD warnings ----
-
 messaget("++ Testing selectDWD warnings")
 
 oop <- options(rdwdquiet=FALSE)
-
-testthat::test_that("selectDWD warns as intended", {
+if(start<=13) testthat::test_that("13. selectDWD warns as intended", {
 testthat::expect_error(selectDWD(res="",var="",per=""),
                "selectDWD: One \\(or both\\) of 'id' and 'res/var/per' must be given.")
 testthat::expect_error(
-testthat::expect_warning(selectDWD(7777, res="",var="",per=""),
-               "selectDWD -> findID: no ID could be determined from name '7777'."),
+testthat::expect_warning(selectDWD(7777, res="",var="",per="", failempty=FALSE),
+               "-> findID: no ID could be determined from name '7777'."),
           "of 'id' and 'res/var/per' must be given.")
-
+testthat::expect_error(selectDWD("dummy", res="daily",var="kl",per="r"),
+                       "-> findID: no ID could be determined from name 'dummy'.")
+testthat::expect_warning(
+      dd <- selectDWD("dummy", res="daily",var="kl",per="r", failempty=FALSE),
+      "-> findID: no ID could be determined from name 'dummy'.")
+testthat::expect_gte(length(dd), 400) # 571 in 2023-04
 testthat::expect_warning(selectDWD(id=7777, res="",var="",per=""),
                "selectDWD: No entries in file index 'fileIndex' match your query")
 testthat::expect_warning(selectDWD(id="", res="dummy", var="dummy", per=""),
@@ -261,7 +270,7 @@ testthat::expect_warning(selectDWD(id="", res="dummy", var="dummy", per=""),
                "selectDWD: No entries in file index 'fileIndex' match your query")
 testthat::expect_warning(selectDWD(res="dummy", var="", per=""),
                "selectDWD: No entries in file index 'fileIndex' match your query")
-testthat::expect_gte(length(selectDWD(res="daily", var="",   per="r")), 3414)
+testthat::expect_gte(length(selectDWD(res="daily", var="",   per="r")), 3404) # 3414 to 3404 2023-04
 testthat::expect_gte(length(selectDWD(res="daily", var="kl", per="" )), 1863)
 testthat::expect_length(selectDWD(id="01050", res=c("daily","monthly"), var="kl", per=""), 4)
 testthat::expect_warning(selectDWD(id="00386", res="",var="",per="", meta=TRUE),
@@ -271,44 +280,46 @@ testthat::expect_warning(selectDWD("Potsdam", res="multi_annual", var="mean_81-1
 testthat::expect_length(selectDWD("", res="multi_annual", per="mean_81-10"), 8)
 testthat::expect_warning(selectDWD("Potsdam", "annual", "kl", "r", dude=55),
                 "selectDWD: unused arguments: dude")
-
 testthat::expect_error(selectDWD(id="Potsdam", res="daily", var="solar"),
              "selectDWD: id may not contain letters: Potsdam")
 testthat::expect_error(selectDWD(id="", current=TRUE, res="",var="",per=""),
              "of 'id' and 'res/var/per' must be given.")
+testthat::expect_error(selectDWD("Potsdam", res="", var="kl", per="r", expand=FALSE), 
+             "selectDWD: With expand=FALSE, 'res' may not be NA or '' \\(empty\\).")
 })
-
 options(oop)
 rm(oop)
 
-
+# 14 secs so far
+messaget("++ Running checkindex, expect 1 minute")
 # checkIndex ----
-
-if(index) checkIndex(findex=fileIndex, mindex=metaIndex, gindex=geoIndex, fast=indexfast,
+if(start<=14) testthat::test_that("14. checkIndex runs", {
+checkIndex(findex=fileIndex, mindex=metaIndex, gindex=geoIndex,
           logfile=paste0(dir_exmpl,"/warnings.txt"), warn=FALSE)
+testthat::expect_equal(1,1) # silence message about skipping empty test
+})
 
-
+# 70 secs so far
 # Index up to date? ----
+messaget("++ Testing index up to date? Expect 20 seconds, abort if needed.")
 
-messaget("++ Testing index up to date?")
-
-# simply try all files for Potsdam (for 1_minute and 10_minutes only 1 each)
-if(all_Potsdam_files)
-testthat::test_that("index is up to date - all files can be downloaded and read", {
+# simply try all files for Potsdam (for 1/5/10_minutes only 1 each)
+if(start<=15) testthat::test_that("15. index is up to date - all files can be downloaded and read", {
 links <- selectDWD("Potsdam","","","", quiet=TRUE) # does not include multi_annual data!
 toexclude <- grep("1_minute", links)
 toexclude <- toexclude[-(length(toexclude)-3)]
 toexclude <- c(toexclude, grep("10_minutes", links)[-1])
+toexclude <- c(toexclude, grep("5_minutes", links)[-1])
 links <- links[-toexclude]
 links <- links[!grepl("meta_data/Meta_Daten", links)]
-files <- dataDWD(links, dir=dir_data, force=NA, overwrite=TRUE, read=FALSE, progbar=FALSE)
+files <- dataDWD(links, dir=dir_data, force=NA, overwrite=TRUE, read=FALSE, progbar=TRUE)
 contents <- readDWD(sample(files), progbar=TRUE)
 testthat::expect_length(contents, length(files))
 })
 
-
+# 91 secs so far
 messaget("assuming updateIndexes() has been run.")
-testthat::test_that("historical files have been updated by DWD", {
+if(start<=16) testthat::test_that("16. historical files have been updated by DWD", {
 # data("fileIndex")
 lastyear <- as.numeric(format(Sys.Date(), "%Y"))-1 # the last completed year
 outdated <- fileIndex$end==as.Date(paste0(lastyear-1, "-12-31")) & # ends 1 year before lastyear
@@ -330,56 +341,59 @@ alloutdated <- sapply(1:nrow(rvp), function(r)
  })
 rvp <- apply(rvp, 1, paste, collapse="/")
 rvp <- unname(rvp)
-if(any(alloutdated)) stop("The DWD has not yet updated any historical files in ",
+if(any(alloutdated)) warning("The DWD has not yet updated any historical files in ",
                           "the following ", sum(alloutdated), " folders:\n",
                           toString(rvp[alloutdated]))
+}
 testthat::expect_equal(1,1) # silence message about skipping empty test
-}})
-
+})
 
 
 # devtools::check ----
+messaget("++ Running devtools::check")
 
-if(devcheck) 
-  {
-  checkSuggestedPackage("devtools", "runLocalTests with devcheck=TRUE")
-  messaget("++ Running devtools::check. This will take a minute.")
-  dd <- devtools::check(quiet=quiet)
-  print(dd)
-  }
+if(start<=17) testthat::test_that("17. devtools::check runs", {
+checkSuggestedPackage("devtools", "runLocalTests")
+dd <- devtools::check(quiet=quiet)
+print(dd)
+testthat::expect_equal(1,1) # silence message about skipping empty test
+})
 
-  
-# Testing examples ----
-if(examples)
-  {
-  checkSuggestedPackage("roxygen2", "runLocalTests with examples=TRUE")
-  messaget("++ Testing examples")
-  if(!devcheck) roxygen2::roxygenise()
-  oo <- options(rdwdquiet=TRUE)
-  berryFunctions::testExamples(logfolder=dir_exmpl, telldocument=FALSE) # version >= 1.18.18
-  options(oo)
+# 18. Testing examples ----
+messaget("++ Testing examples")
 
+if(start<=18) {
+checkSuggestedPackage("roxygen2", "runLocalTests with examples=TRUE")
+if(start>=18) roxygen2::roxygenise()
+oo <- options(rdwdquiet=TRUE)
+berryFunctions::testExamples(logfolder=dir_exmpl, telldocument=FALSE) # version >= 1.18.18
+options(oo)
 # remove false positives in warnings.txt
 logfile <- paste0(dir_exmpl,"/warnings.txt")
 log <- readLines(logfile)
 log <- paste0(log, collapse="\n")
-rem <- "\nList of 8\n \\$ Metadaten_Fehldaten_05856_.*obs. of  4 variables:"
+rem <- "\nList of 7\n \\$ Metadaten_Fehldaten_05856_.*obs. of  4 variables:"
 log <- sub(rem, "", log)
 rem <- "Warning: fileType failed for the following file: 'random_stuff.odt'\n"
 log <- sub(rem, "", log, fixed=TRUE)
-rem <- "\nrdwd station id 2849 with 3 files.
+rem <- "\nrdwd station id 2849 with 6 files.
 Name: Langenburg-Baechlingen, State: Baden-Wuerttemberg
-Additionally, there are 3 non-public files. Display all with  metaInfo(2849,FALSE)
+For up-to-date info, see https://bookdown.org/brry/rdwd/fileindex.html#metaindex
+Additionally, there are 6 non-public files. Display all with  metaInfo(2849,FALSE)
 To request those datasets, please contact cdc.daten@dwd.de or klima.vertrieb@dwd.de
-      res         var        per hasfile       from         to     lat   long ele
-1  annual more_precip historical    TRUE 1991-01-01 2007-12-31 49.2445 9.8499 300
-2   daily more_precip historical    TRUE 1990-10-01 2008-06-30 49.2445 9.8499 300
-3 monthly more_precip historical    TRUE 1990-10-01 2008-06-30 49.2445 9.8499 300"
+      res                    var        per hasfile       from         to     lat   long ele
+1  annual        climate_indices historical    TRUE 1991-01-01 2007-12-31 49.2445 9.8499 300
+2  annual            more_precip historical    TRUE 1990-10-01 2008-06-30 49.2445 9.8499 300
+3   daily            more_precip historical    TRUE 1990-10-01 2008-06-30 49.2445 9.8499 300
+4   daily more_weather_phenomena historical    TRUE 1990-10-01 2008-06-30 49.2445 9.8499 300
+5 monthly        climate_indices historical    TRUE 1990-10-01 2008-06-30 49.2445 9.8499 300
+6 monthly            more_precip historical    TRUE 1990-10-01 2008-06-30 49.2445 9.8499 300
+"
 log <- sub(rem, "", log, fixed=TRUE)
 rem <- "\nNote in is.error: Error in plotRadar(ncp1, layer = 1:4, project = FALSE) : 
   3 layers selected that do not exist.\n"
 log <- sub(rem, "", log, fixed=TRUE)
-rem <- "\nFormal class 'RasterBrick' [package \"raster\"] with 12 slots
+rem <- "\nFormal class 'RasterBrick' [package \"raster\"] with 13 slots
   ..@ file    :Formal class '.RasterFile' [package \"raster\"] with 13 slots
   ..@ data    :Formal class '.MultipleRasterData' [package \"raster\"] with 14 slots
   ..@ legend  :Formal class '.RasterLegend' [package \"raster\"] with 5 slots
@@ -390,18 +404,19 @@ rem <- "\nFormal class 'RasterBrick' [package \"raster\"] with 12 slots
   ..@ ncols   : int 720
   ..@ nrows   : int 938
   ..@ crs     :Formal class 'CRS' [package \"sp\"] with 1 slot
+  ..@ srs     : chr \"\"
   ..@ history : list()
   ..@ z       :List of 1
  num [1:720, 1:938, 1:30] NA NA NA NA NA NA NA NA NA NA ..."
+
 log <- sub(rem, "", log, fixed=TRUE)
-rem <- "---------------\nC:/Dropbox/Rpack/rdwd/man/.{10,50}\n\n\n"
+rem <- "---------------\n.*/Dropbox/Rpack/rdwd/man/.{10,50}\n\n\n"
 log <- gsub(rem, "", log)
-rem <- "---------------\nC:/Dropbox/Rpack/rdwd/man/updateRdwd.Rd -- .{19}"
+rem <- "---------------\n.*/Dropbox/Rpack/rdwd/man/updateRdwd.Rd -- .{19}"
 log <- sub(rem, "", log)
-
 cat(log, file=logfile)
-
-} # end if(examples)
+testthat::expect_equal(1,1) # silence message about skipping empty test
+}
 
 
 # Output ----

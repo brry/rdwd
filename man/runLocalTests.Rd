@@ -7,13 +7,7 @@
 runLocalTests(
   dir_data = locdir(),
   dir_exmpl = berryFunctions::packagePath(file = "misc/ExampleTests"),
-  fast = FALSE,
-  devcheck = !fast,
-  radar = !fast,
-  all_Potsdam_files = !fast,
-  index = !fast,
-  indexfast = fast,
-  examples = !fast,
+  start = 1,
   quiet = rdwdquiet()
 )
 }
@@ -23,21 +17,8 @@ DEFAULT: \code{\link[=locdir]{locdir()}}}
 
 \item{dir_exmpl}{Reusable example location. DEFAULT: local directory}
 
-\item{fast}{Exclude many tests? DEFAULT: FALSE}
-
-\item{devcheck}{Run \code{devtools::check()}? DEFAULT: !fast}
-
-\item{radar}{Test reading radar example files. DEFAULT: !fast}
-
-\item{all_Potsdam_files}{Read all (ca 60) files for Potsdam? Re-downloads if
-files are older than 24 hours. Reduce test time a lot by setting
-this to FALSE. DEFAULT: !fast}
-
-\item{index}{Run \code{\link[=checkIndex]{checkIndex()}}? DEFAULT: !fast}
-
-\item{indexfast}{\code{fast} option passed to \code{\link[=checkIndex]{checkIndex()}}. DEFAULT: !fast}
-
-\item{examples}{Run Examples (including donttest sections) DEFAULT: !fast}
+\item{start}{Number to start tests at, helpful for partially successful runs.
+DEFAULT: 1}
 
 \item{quiet}{Suppress progress messages? DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 }
