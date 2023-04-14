@@ -101,6 +101,7 @@ install.packages("rdwd", dependencies="Suggests")
 - `readr` for readDWD.stand(..., fast=TRUE)
 - `knitr`, `rmarkdown`, `testthat`, `roxygen2`, `devtools`, `remotes`, `XML` for local testing, development and documentation
 - `leaflet`, `OSMscale`, `sp` for interactive/static maps, see [OSMscale installation tips](https://github.com/brry/OSMscale#installation)
+- `shiny` for the interactive weather comparison app
 
 Note: on Linux (Ubuntu), install `RCurl` via the terminal (CTRL+ALT+T, note lowercase rcurl):
 ```

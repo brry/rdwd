@@ -1,5 +1,4 @@
-On some test platforms I see installed size is 5.4 Mb.
-This stems from the DWD (german weather service) expanding the available datasets yet again.
-The issue is known but could not be resolved in this CRAN release.
+I know installed size is 5.4 Mb.  
+The package contains an index of available datasets from the DWD (german weather service).  
+I'm still looking for ways to reduce the size and hope it can be accepted for now.  
 https://github.com/brry/rdwd/issues/35
-I hope to find a solution by the next release and would greatly appreciate if you could accept it this time.
