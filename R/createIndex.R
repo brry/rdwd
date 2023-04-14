@@ -22,9 +22,11 @@
 #' @export
 #' @examples
 #' \dontrun{ # Not tested with R CMD check because of file writing
-#' link <- "daily/kl/historical/tageswerte_00699_19490101_19580630_hist.zip"
+#' link <- "daily/kl/historical/tageswerte_KL_00699_19490101_19580630_hist.zip"
 #' ind <- createIndex(link, dir=tempdir())
 #' ind
+#' # res  var        per  id    start          end ismeta
+#' # daily kl historical 699 1949-01-01 1958-06-30 FALSE
 #' link2 <- "daily/kl/historical/KL_Tageswerte_Beschreibung_Stationen.txt"
 #' link3 <- "daily/kl/recent/KL_Tageswerte_Beschreibung_Stationen.txt"
 #' ind2 <- createIndex(c(link,link2,link3), dir=tempdir(), meta=TRUE, checkwarn=FALSE)
@@ -83,22 +85,21 @@ compstart <- Sys.time()
 messaget <- function(x) message(x, " (",
           round(difftime(Sys.time(), compstart, units="s")), " secs so far)")
 # overview of all index variants:
-if(FALSE){ # for development
-    dd <- unlist(pblapply(unique(dirname(paths)), function(p){
-     f <- paths[startsWith(paths,paste0(p,"/"))]
-     f <- f[tools::file_ext(f)!="pdf"]
-     f <- f[tools::file_ext(f)!="html"]
-     f <- f[!grepl("Beschreibung",f, fixed=TRUE)]
-     f <- f[!duplicated(tools::file_ext(f))]
-     f
-     }))
-    sc <- stringr::str_count(dd, "/")
-    dd <- dd[c(which(sc==2), which(sc==4), which(sc==3))]
-    dd <- dd[-which(startsWith(dd,"1_minute"))[-1]]
-    dd <- dd[-which(startsWith(dd,"5_minute"))[-1]]
-    clipr::write_clip(dd)
-    # https://docs.google.com/spreadsheets/d/1qXQ1bSLW5TJnJgpUXIID3mVNYS6YZaHbsoe22LmBIAk/edit#gid=0
-}
+# dd <- unlist(pblapply(unique(dirname(paths)), function(p){
+#  f <- paths[startsWith(paths,paste0(p,"/"))]
+#  f <- f[tools::file_ext(f)!="pdf"]
+#  f <- f[tools::file_ext(f)!="html"]
+#  f <- f[!grepl("Beschreibung",f, fixed=TRUE)]
+#  f <- f[!duplicated(tools::file_ext(f))]
+#  f
+#  }))
+# sc <- stringr::str_count(dd, "/")
+# dd <- dd[c(which(sc==2), which(sc==4), which(sc==3))]
+# dd <- dd[-which(startsWith(dd,"1_minute"))[-1]]
+# dd <- dd[-which(startsWith(dd,"5_minute"))[-1]]
+# clipr::write_clip(dd)
+# https://docs.google.com/spreadsheets/d/1qXQ1bSLW5TJnJgpUXIID3mVNYS6YZaHbsoe22LmBIAk/edit#gid=0
+
 # All paths should have the same amount of levels before being splitted:
 err <- "1_minute/precipitation/historical/2021/1minutenwerte_nieder1minutenwerte_nieder_000_hist.zip"
 paths <- paths[paths!=err] ; rm(err)
@@ -126,9 +127,6 @@ fileIndex$per[startsWith(fileIndex$per, "historical|")] <- "historical"
 fileIndex$var[startsWith(fileIndex$var, "climate_indices|")] <- "climate_indices"
 #
 # Get detailed info from file name elements:
-fileIndex$id    <- "" # Station ID (identification number)
-fileIndex$start <- ""
-fileIndex$end   <- ""
 if(!quiet) messaget("Extracting station IDs + time range from filenames...")
 now <- grepl("akt.zip",file,fixed=TRUE) | grepl("now.zip",file,fixed=TRUE) | 
        grepl("row.zip",file,fixed=TRUE)
@@ -141,9 +139,14 @@ filesel <- sub("extrema_temp", "extrema|temp", filesel, fixed=TRUE)
 filesel <- sub("extrema_wind", "extrema|wind", filesel, fixed=TRUE)
 filesel <- strsplit(filesel, "_", fixed=TRUE)
 # info <- l2df(filesel) ; View(info[grepl("\\D",info$V5),])
+fileIndex$id    <- "" # Station ID (identification number)
+fileIndex$start <- ""
+fileIndex$end   <- ""
+if(length(filesel)>=1){
 fileIndex$id   [selmeta] <- sapply(filesel, "[", 3)
 fileIndex$start[selmeta] <- sapply(filesel, "[", 4)
 fileIndex$end  [selmeta] <- sapply(filesel, "[", 5)
+}
 selmeta <- fileIndex$per=="meta_data"
 fileIndex$id[selmeta] <-sub(".*_(\\d*)\\.zip"       , "\\1", basename(file[selmeta]))
 fileIndex$id[now] <-    sub(".*_(\\d*)_\\D{3}\\.zip", "\\1", basename(file[now])    )
@@ -151,8 +154,9 @@ fileIndex$id[deriv] <-  sub(".*_(\\d*)\\.txt\\.gz"  , "\\1", basename(file[deriv
 rm(selmeta, deriv, now, file, filesel)
 fileIndex$id <- suppressWarnings(as.integer(fileIndex$id))
 fileIndex$start <- as.Date(fileIndex$start, "%Y%m%d")
-fileIndex$end <- as.Date(fileIndex$end, "%Y%m%d")
-#
+fileIndex$end   <- as.Date(fileIndex$end, "%Y%m%d")
+fileIndex$start <- replace(fileIndex$start, is.na(fileIndex$start), "")
+fileIndex$end   <- replace(fileIndex$end  , is.na(fileIndex$end  ), "")
 # standard_format hist/recent
 sf <- fileIndex$var=="standard_format" & fileIndex$per==""
 fileIndex[sf & grepl("akt.txt", paths, fixed=TRUE), "per"] <- "recent"

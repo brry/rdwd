@@ -77,9 +77,11 @@ you can read the produced file as shown in the example section.
 }
 \examples{
 \dontrun{ # Not tested with R CMD check because of file writing
-link <- "daily/kl/historical/tageswerte_00699_19490101_19580630_hist.zip"
+link <- "daily/kl/historical/tageswerte_KL_00699_19490101_19580630_hist.zip"
 ind <- createIndex(link, dir=tempdir())
 ind
+# res  var        per  id    start          end ismeta
+# daily kl historical 699 1949-01-01 1958-06-30 FALSE
 link2 <- "daily/kl/historical/KL_Tageswerte_Beschreibung_Stationen.txt"
 link3 <- "daily/kl/recent/KL_Tageswerte_Beschreibung_Stationen.txt"
 ind2 <- createIndex(c(link,link2,link3), dir=tempdir(), meta=TRUE, checkwarn=FALSE)

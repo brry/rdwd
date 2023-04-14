@@ -99,7 +99,7 @@ install.packages("rdwd", dependencies="Suggests")
 - `data.table`, `bit64` for readDWD(..., fread=TRUE)
 - `raster`, `R.utils`, `ncdf4`, `dwdradar` for readDWD with gridded data
 - `readr` for readDWD.stand(..., fast=TRUE)
-- `knitr`, `rmarkdown`, `testthat`, `roxygen2`, `devtools`, `remotes`, `XML` for local testing, development and documentation
+- `knitr`, `rmarkdown`, `testthat`, `roxygen2`, `devtools`, `remotes`, `XML`, `gsheet` for local testing, development and documentation
 - `leaflet`, `OSMscale`, `sp` for interactive/static maps, see [OSMscale installation tips](https://github.com/brry/OSMscale#installation)
 - `shiny` for the interactive weather comparison app
 
