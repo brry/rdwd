@@ -118,7 +118,10 @@ fileIndex <- sub("^/","",fileIndex)
 if(!quiet) messaget("Splitting filenames...")
 fileIndex <- strsplit(fileIndex,"/", fixed=TRUE)
 # check if there are actually 4 columns:
-if(any(lengths(fileIndex)!=4)) tstop("index should have 4 columns, not ", ncol(fileIndex))
+ln4 <- lengths(fileIndex)!=4
+if(any(ln4)) tstop("paths should have 4 elements (res/var/per/file), not ", 
+                   toString(unique(lengths(fileIndex)[ln4])))
+rm(ln4)
 fileIndex <- data.frame(t(simplify2array(fileIndex))) # much faster than l2df
 colnames(fileIndex) <- c("res","var","per","file")
 file <- fileIndex$file
