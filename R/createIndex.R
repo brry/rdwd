@@ -88,7 +88,7 @@ if(FALSE){ # for development
      f <- paths[startsWith(paths,paste0(p,"/"))]
      f <- f[tools::file_ext(f)!="pdf"]
      f <- f[tools::file_ext(f)!="html"]
-     f <- f[!grepl("Beschreibung",f)]
+     f <- f[!grepl("Beschreibung",f, fixed=TRUE)]
      f <- f[!duplicated(tools::file_ext(f))]
      f
      }))
@@ -188,14 +188,8 @@ if(!isTRUE(meta)) return(invisible(fileIndex))
 # metaIndex --------------------------------------------------------------------
 if(!quiet) messaget("Generating metaIndex...")
 # select Beschreibung_.txt files only:
-sel <- grepl('.txt$', fileIndex$path)
-sel <- sel & grepl("Beschreibung_Stationen", fileIndex$path)
-# sel <- sel & fileIndex$res != "subdaily" # has different columns
-#sel <- sel & fileIndex$res %in% c("monthly","daily","hourly")
-# manual correction March 2018 for duplicate description files:
-#descdupli <- basename(paths)=="ein_min_rr_Beschreibung_Stationen.txt" & grepl("/20", dirname(paths))
-#sel <- sel & !descdupli
-
+sel <- endsWith(fileIndex$path, '.txt')
+sel <- sel & grepl("Beschreibung_Stationen", fileIndex$path, fixed=TRUE)
 if(sum(sel)<2) tstop("There need to be at least two 'Beschreibung' files. (There is ",sum(sel),")")
 # download and read those files:
 metas <- dataDWD(fileIndex[sel, "path"], base=base, joinbf=TRUE, dir=metadir,
@@ -237,6 +231,7 @@ metaIndex$hasfile <- metaComb  %in% fileComb
 # convert date columns to date:
 metaIndex$von_datum <- as.Date(as.character(metaIndex$von_datum),"%Y%m%d")
 metaIndex$bis_datum <- as.Date(as.character(metaIndex$bis_datum),"%Y%m%d")
+# hist files end date too recent: not my fault, is in DWD Beschreibung files
 
 # Write to disc
 if(mname!="")
@@ -302,7 +297,7 @@ geoIndex <- geoIndex[!duplicated(geoIndex), ]  #  ca 6k rows (=unique station ID
 #
 # column for interactive map popup display:
 geoIndex$display <- rowDisplay(geoIndex)
-geoIndex$display <- gsub("nfiles", "n public files", geoIndex$display)
+geoIndex$display <- gsub("nfiles", "n public files", geoIndex$display, fixed=TRUE)
 # colors for map:
 geoIndex$col <- "blue"
 geoIndex$col[!geoIndex$recentfile] <- "red"
