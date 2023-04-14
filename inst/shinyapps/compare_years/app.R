@@ -2,6 +2,11 @@
 # How was the weather in the last weeks, compared to the same time period in the past?
 # Berry Boessenkool, berry-b@gmx.de.   April 2023
 
+# before deploying, run:
+# devtools::install_github("brry/rdwd")
+
+library(rdwd)
+
 check_package_version <- function(pack, minv)
 {
  library(pack, character.only=TRUE)

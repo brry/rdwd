@@ -1,11 +1,14 @@
 
-# Version 1.7.0 (2023-04-13)
+# Version 1.7.0 (2023-04-14)
 
 - `dataDWD`: *dir* default set to `locdir()`
 - interactive weather comparison app added
 - `findID`+`selectDWD`: new argument *failempty* to stop instead of warn if name does not match
 - `readDWD.grib2`: rgdal retirement warning added
 - `dataDWD` + `readDWD`: new argument *hr* to auto-merge historical and recent files
+- `createIndex`: speed and correctness improved
+- `runLocalTests`: tests expanded, internally restructured
+- `readDWD`: new argument *quietread*
 - this NEWS file is completely reformatted and changed into NEWS.md
 
 

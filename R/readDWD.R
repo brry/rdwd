@@ -254,7 +254,7 @@ return(output)
 #'                 If set, `readDWD` returns a data.frame instead of a list.
 #'                 If multiple historical files are present, 
 #'                 the longest date range (per file name) is used.
-#'                 This is not actually used in [readDWD.data](), but in [readDWD]().\cr
+#'                 This is not actually used in `readDWD.data`, but in [readDWD]().\cr
 #'                 0 (default): ignore this argument\cr
 #'                 1: sort by hr (if given) + merge\cr
 #'                 2: also remove duplicated dates from recent\cr
