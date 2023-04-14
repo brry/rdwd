@@ -453,7 +453,9 @@ out
 #' @examples
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
 #' 
-#' link <- selectDWD(id=10381, res="subdaily", var="standard_format", per="r")
+#' link <- selectDWD(res="subdaily", var="standard_format", per="r")
+#' link <- link[grepl("10381", link, fixed=TRUE)]
+#' # Not ID, according to meta data, hence no longer in column id (2023-04).
 #' file <- dataDWD(link, dir=locdir(), read=FALSE)
 #' sf <- readDWD(file)
 #' 
@@ -511,7 +513,7 @@ if(fast)
   checkSuggestedPackage("readr", "readDWD.stand with fast=TRUE")
   coltypes <- readr::cols(X22=readr::col_character()) # 22 is S column
   # if not specified, will guess logical and then complain about character input later in file
-  sf <- readr::read_fwf(file, readr::fwf_widths(width), col_types=coltypes, ...)
+  sf <- readr::read_fwf(file, readr::fwf_widths(width), col_types=coltypes, progress=FALSE)
   sf <- data.frame(sf) # loose tibble attributes and printing methods
   # mimick read.fwf behaviour:
   sf[is.na(sf)] <- " " # to avoid NA comparison

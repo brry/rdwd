@@ -53,7 +53,9 @@ subdaily/standard_format data.
 \examples{
 \dontrun{ # Excluded from CRAN checks, but run in localtests
 
-link <- selectDWD(id=10381, res="subdaily", var="standard_format", per="r")
+link <- selectDWD(res="subdaily", var="standard_format", per="r")
+link <- link[grepl("10381", link, fixed=TRUE)]
+# Not ID, according to meta data, hence no longer in column id (2023-04).
 file <- dataDWD(link, dir=locdir(), read=FALSE)
 sf <- readDWD(file)
 
