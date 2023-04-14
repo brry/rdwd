@@ -65,6 +65,12 @@ For data interpolated onto a 1 km raster, including radar data up to the last ho
 see the corresponding [chapter](https://bookdown.org/brry/rdwd/raster-data.html) on the website.
 
 
+### App
+Since April 2023, there is an [interactive app](https://brry.shinyapps.io/wetter/) to compare weather periods:
+
+<img src="https://github.com/brry/rdwd/raw/master/misc/app.png" width="577" height="415">
+
+
 ### New to R
 
 If you're new to R, these links might help you to get started:
