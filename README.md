@@ -70,6 +70,7 @@ Since April 2023, there is an [interactive app](https://brry.shinyapps.io/wetter
 
 <img src="https://github.com/brry/rdwd/raw/master/misc/app.png" width="577" height="415">
 
+With `rdwd::app()`, you can run this locally with cached data, i.e. faster responses.
 
 ### New to R
 

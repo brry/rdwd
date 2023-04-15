@@ -25,7 +25,7 @@ Important links:
 * further details on the data: [DWD FTP server documentation](https://opendata.dwd.de/climate_environment/CDC/Readme_intro_CDC_ftp.pdf)
 * website [source code and files](https://github.com/brry/rdwd/tree/master/misc/vign)
 * feedback is very welcome via [github](https://github.com/brry/rdwd) or [berry-b@gmx.de](mailto:berry-b@gmx.de)!  
-
+* app for [comparing weather periods](https://brry.shinyapps.io/wetter/)
 
 ```{r globalquiet, echo=FALSE}
 options(rdwdquiet=TRUE)
@@ -99,8 +99,9 @@ When a point is clicked, an infobox should appear.
 The first line can be copypasted into R to obtain more information on the available files.
 The map is created with the following code:
 
-```{r map, fig.height=7, fig.width=7, warning=FALSE, screenshot.force=FALSE}
-library(rdwd)  ;  data(geoIndex)  ;  library(leaflet) 
+```{r map, fig.height=7, fig.width=7, warning=FALSE, eval=-1, screenshot.force=FALSE}
+rdwd::updateRdwd() # for the latest version
+library(rdwd)  ;  data(geoIndex)  ;  library(leaflet)
 leaflet(geoIndex) %>% addTiles() %>%
         addCircles(~lon, ~lat, radius=900, stroke=F, color=~col) %>%
         addCircleMarkers(~lon, ~lat, popup=~display, stroke=F, color=~col)
@@ -124,6 +125,7 @@ To request the nonpublic datasets counted in the infobox, please contact <cdc.da
 Note: `r helplink("geoIndex", "index")` is created using `r helplink("createIndex")` in
 [`updateIndexes`](https://github.com/brry/rdwd/blob/master/R/updateIndexes.R).
 
+See also: interactive app to [compare the weather](https://brry.shinyapps.io/wetter/) of a certain time period across years, run locally with `rdwd::app()`.
 
 
 # Available datasets
@@ -448,7 +450,12 @@ Kompositformatbeschreibung at <https://www.dwd.de/DE/leistungen/radolan/radolan.
 Besides at `r helplink("dwdbase")` and `r helplink("gridbase", "dwdbase")`, 
 there's yet more data at <https://opendata.dwd.de/weather>.
 
-A helper function to reduce code duplication:
+Before running the code below, update the package:
+```{r updaterdwd_raster, eval=FALSE}
+rdwd::updateRdwd()
+```
+
+A helper function to reduce code duplication - in real life, use `plotRadar` directly, not `project_and_plot`:
 
 ```{r readDWD_gridded}
 ddir <- locdir()
@@ -483,6 +490,8 @@ rad <- readDWD(file) # with dividebyten=TRUE
 rad <- readDWD(file) # runs faster at second time due to skip=TRUE
 pp <- project_and_plot(rad, ".raster", "", proj="seasonal", extent=rad@extent)
 ```
+`project_and_plot` is additional stuff on this website. Use `plotRadar` in real life.
+
 
 ## readDWD.nc
 `r helplink("readDWD.nc")`
@@ -588,7 +597,8 @@ Open the pdf at <https://github.com/brry/rdwd/tree/master/misc/ExampleTests>
 
 download & read data
 
-```{r uc_recent_time_series_data, eval=TRUE, fig.height=3, fig.width=7}
+```{r uc_recent_time_series_data, eval=TRUE, fig.height=3, fig.width=7, eval=-1}
+rdwd::updateRdwd()
 library(rdwd)
 link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
 clim <- dataDWD(link, force=NA, varnames=TRUE)
@@ -618,6 +628,9 @@ prec <- tapply(clim$MO_RR, clim$month, mean, na.rm=TRUE)
 berryFunctions::climateGraph(temp, prec, main="Goettingen")
 mtext("Source: Deutscher Wetterdienst", adj=-0.05, line=2.8, font=3)
 ```
+
+See also the [app](https://brry.shinyapps.io/wetter/) to visualize the weather of a given time period, compared to the measurements of the same period in other years.  
+This can also be run locally with `rdwd::app()`.
 
 # - use case: merge historical and recent data
 
@@ -732,6 +745,13 @@ raster::extract(tempmax_stack, loc)
 
 
 # - use case: daily radar files
+Update the package first:
+```{r updatardwd_radar, eval=FALSE}
+rdwd::updateRdwd()
+library(rdwd)
+```
+
+rdwd::updateRdwd()
 Download and read with `r helplink("readDWD.radar")` with `dividebyten=TRUE`:
 ```{r daily_radar_read}
 # library("rdwd")
@@ -849,7 +869,8 @@ Publication:
 
 ## get the URLS of data to be downloaded
 
-```{r hourlyrain_data_selection, warning=FALSE}
+```{r hourlyrain_data_selection, warning=FALSE, eval=-1}
+rdwd::updateRdwd()
 library(rdwd)
 links <- selectDWD(res="daily", var="more_precip", per="hist")
 length(links) # ca 5k stations - would take very long to download
@@ -1200,9 +1221,7 @@ More detailed (but still aggregated) changes can nicely be seen at https://githu
 ## the future
 
 I plan to continue maintaining the package, even though its capabilities have long exceeded my personal needs.
-Coding simply brings joy - and of course it's also very satisfactory to see my work actually used in many contexts.  
-One big thing I have planned is an interactive app to visualize the weather of a given time period,
-compared to the measurements of the same period in other years.  
+Coding simply brings joy - and of course it's also very satisfactory to see my work actually used in many contexts. 
 A few (rather minor) issues are also still open and I expect that state of things to continue for a long time :).  
 Lastly, I hope to find some help in understanding the structure of gridded data to improve that part of the package.  
 
