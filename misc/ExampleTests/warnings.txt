@@ -1,18 +1,28 @@
 
-checkIndex results at 2023-04-14 19:09:08 for
+checkIndex results at 2023-05-10 20:58:10 for
 ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate
-File 'data/fileIndex.rda' was last modified 2023-04-14 12:34:36
+File 'data/fileIndex.rda' was last modified 2023-05-10 20:53:22
 Call stack: runLocalTests -> testthat::test_that -> test_code -> eval -> checkIndex
 -------
 IDs with duplicate files:
--  1049 at annual/climate_indices/historical;  1, 3, 44, 52, 61, 70, 71, 72, 73, 78  (and 1039 more)
--  484 at annual/climate_indices/recent;  44, 71, 73, 78, 91, 96, 131, 142, 150, 151  (and 474 more)
--  1 at daily/kl/historical;  '403'
--  11 at daily/more_precip/historical;  603, 604, 1563, 2584, 2677, 2844, 3208, 4745, 5174, 5840  (and 1 more)
--  143 at daily/more_weather_phenomena/historical;  73, 116, 154, 291, 314, 450, 506, 555, 591, 596  (and 133 more)
+-  1132 at annual/climate_indices/historical;  1, 3, 44, 52, 61, 70, 71, 72, 73, 78  (and 1122 more)
+-  485 at annual/climate_indices/recent;  44, 71, 73, 78, 91, 96, 131, 142, 150, 151  (and 475 more)
+-  4 at annual/kl/historical;  1684, 2444, 2475, 4748
+-  3 at daily/kl/historical;  403, 1003, 2475
+-  27 at daily/more_precip/historical;  46, 141, 146, 323, 522, 603, 604, 1205, 1563, 1678  (and 17 more)
 -  1 at daily/soil_temperature/historical;  '5158'
--  1064 at monthly/climate_indices/historical;  1, 3, 44, 52, 61, 70, 71, 72, 73, 78  (and 1054 more)
+-  1 at daily/weather_phenomena/historical;  '1003'
+-  2 at hourly/cloud_type/historical;  5839, 7341
+-  1 at hourly/cloudiness/historical;  '5158'
+-  8 at hourly/dew_point/historical;  96, 963, 1078, 1792, 2410, 2712, 2968, 3873
+-  1 at hourly/precipitation/historical;  '5158'
+-  1 at hourly/soil_temperature/historical;  '5158'
+-  2 at hourly/visibility/historical;  3196, 5158
+-  1277 at monthly/climate_indices/historical;  1, 3, 44, 52, 61, 70, 71, 72, 73, 78  (and 1267 more)
 -  476 at monthly/climate_indices/recent;  44, 73, 78, 91, 96, 131, 142, 150, 151, 154  (and 466 more)
+-  12 at monthly/kl/historical;  1684, 2160, 2223, 2396, 2444, 4469, 4748, 4806, 4966, 5498  (and 2 more)
+-  123 at monthly/more_precip/historical;  116, 141, 173, 291, 387, 477, 503, 506, 555, 641  (and 113 more)
+-  46 at monthly/weather_phenomena/historical;  116, 403, 427, 691, 736, 876, 1003, 1048, 1078, 1091  (and 36 more)
 Duplicate 'Beschreibung' files:
 - 10_minutes/wind_test/now/_Beschreibung_Stationen.txt
 - 10_minutes/wind_test/now/zehn_now_ffs_Beschreibung_Stationen.txt
@@ -37,76 +47,49 @@ Duplicate 'Beschreibung' files:
 - subdaily/extreme_wind/recent/FX3_Terminwerte_Beschreibung_Stationen.txt
 - subdaily/extreme_wind/recent/FX6_Terminwerte_Beschreibung_Stationen.txt
 Elevation differences >2.1m:
-- ID=481: 10x670m, 2x674m
-- ID=639: 10x332m, 2x375m
-- ID=642: 58x4m, 6x1m
-- ID=1278: 23x163m, 4x160m
-- ID=1336: 23x67m, 4x70m
-- ID=1346: 97x1486m, 8x1490m
-- ID=3491: 27x734m, 2x738m
-- ID=7421: 27x388m, 2x383m
-- ID=1600: 10x270m, 2x230m
-- ID=1749: 10x478m, 2x475m
-- ID=1815: 10x168m, 2x150m
-- ID=1934: 10x290m, 2x255m
+- ID=642: 62x4m, 2x1m
+- ID=1278: 23x163m, 2x160m
+- ID=1336: 23x67m, 2x70m
+- ID=1346: 101x1486m, 4x1490m
+- ID=3491: 25x734m, 2x738m
+- ID=7421: 25x388m, 2x383m
 - ID=1975: 104x11m, 1x14m
 - ID=2014: 102x55m, 1x59m
-- ID=2233: 25x449m, 4x446m
+- ID=2233: 25x449m, 2x446m
 - ID=7396: 89x740m, 1x743m
 - ID=2601: 101x822m, 1x826m
-- ID=2852: 10x234m, 2x230m
-- ID=2961: 65x0m, 1x31m
-- ID=2316: 10x31m, 2x28m
-- ID=3402: 100x755m, 1x750m
-- ID=3587: 10x178m, 2x132m
-- ID=4651: 72x189m, 7x186m
-- ID=4771: 10x260m, 2x196m
-- ID=5100: 106x261m, 1x265m
-- ID=5158: 92x159m, 1x162m
-- ID=5410: 35x135m, 5x150m
+- ID=2961: 67x0m, 1x31m
+- ID=3402: 98x755m, 1x750m
+- ID=4651: 74x189m, 3x186m
+- ID=4982: 25x528m, 2x532m
+- ID=5100: 104x261m, 1x265m
+- ID=5158: 96x159m, 1x162m
+- ID=5410: 39x135m, 1x150m
 - ID=10510: 21x244m, 1x241m
-- ID=5668: 10x80m, 2x84m
-- ID=5792: 85x2956m, 6x2965m
+- ID=5792: 91x2956m, 2x2965m
 Location differences >40m:
-- ID=196: 10x51.4256_9.0236, 2x51.4333_9.0167
-- ID=481: 10x50.9518_8.5321, 2x50.951_8.5313
-- ID=639: 10x50.3074_9.2753, 2x50.3071_9.2661
-- ID=1600: 10x50.7_9.1167, 2x50.7047_9.1011
-- ID=1641: 10x52.5319_10.5182, 2x52.5322_10.5172
-- ID=1749: 10x50.5333_9.3167, 2x50.5154_9.3128
-- ID=1815: 10x49.8667_8.9333, 2x49.8886_8.9168
-- ID=1877: 10x51.1667_9.35, 2x51.1734_9.3594
-- ID=1934: 10x50.75_8.2, 2x50.743_8.2261
-- ID=2893: 10x49.6612_7.5977, 2x49.6617_7.5981
-- ID=3587: 10x50.4167_8.9833, 2x50.4013_8.9878
-- ID=14320: 10x50.3049_7.31, 2x50.3041_7.31
-- ID=4771: 10x51.1167_9.6667, 2x51.1129_9.604
-- ID=5179: 8x50.3333_8.5333, 2x50.3426_8.5317
-- ID=5357: 10x52.76_9.0713, 2x52.7593_9.0714
-- ID=5410: 35x50.4732_8.2594, 5x50.4732_8.2588
+- ID=5410: 39x50.4732_8.2594, 1x50.4732_8.2588
 Different names per id:
-- ID=196: 10xArolsen-Schmillinghausen, 2xArolsen-Schmillinghausen, Bad
-- ID=1052: 72xMoeckern-Drewitz, 7xDrewitz bei Burg
-- ID=3234: 77xKlipphausen-Garsebach, 2xGarsebach bei Meissen
-- ID=5201: 10xGumtow-Vehlow, 2xVehlow
+- ID=1052: 74xMoeckern-Drewitz, 3xDrewitz bei Burg
+- ID=3234: 75xKlipphausen-Garsebach, 2xGarsebach bei Meissen
 - ID=15526: 34xHamburg (Deutsche Seewarte), 1xHamburg(Seewarte)
-- ID=4412: 25xHohe Boerde-Schackensleben, 2xSchackensleben
+- ID=4412: 23xHohe Boerde-Schackensleben, 2xSchackensleben
 More than one id per name:
-- Name=Creglingen: 27x7492, 12x883
-- Name=Lenggries (Rissbachwehr): 14x19410, 12x2944
-- Name=Lenggries-Vorderriss: 14x19407, 12x2946
+- Name=Creglingen: 23x7492, 12x883
+- Name=Lenggries (Rissbachwehr): 12x2944, 12x19410
+- Name=Lenggries-Vorderriss: 12x2946, 12x19407
 Coordinates used for more than one station:
+- 12.5731_50.9932: 10x ID=19494 (Altmoerbitz), 14x ID=141 (Altmoerbitz/Wyhra)
 - 13.3833_52.5333: 14x ID=408 (Berlin-Invalidenstrasse), 26x ID=422 (Berlin-Mitte)
-- 8.3348_47.8194: 31x ID=19579 (Bonndorf), 30x ID=604 (Bonndorf/Schwarzwald)
-- 8.47_48.6671: 30x ID=5840 (Enzkloesterle), 35x ID=19581 (Enzkloesterle/Schwarzwald)
-- 11.4999_47.8529: 18x ID=14351 (Geretsried (Feuerwehrschule)), 8x ID=19274 (Geretsried/Isar)
-- 13.4328_51.1294: 79x ID=3234 (Garsebach bei Meissen), 79x ID=3234 (Klipphausen-Garsebach)
-- 12.1641_52.2174: 79x ID=1052 (Drewitz bei Burg), 79x ID=1052 (Moeckern-Drewitz)
-- 7.31_50.3049: 12x ID=14320 (Polch), 27x ID=3969 (Polch, Kr. Mayen-Koblenz)
-- 11.4218_52.198: 27x ID=4412 (Hohe Boerde-Schackensleben), 27x ID=4412 (Schackensleben)
-- 10.7696_50.6545: 102x ID=4501 (Schmuecke), 6x ID=15232 (Schmuecke/Thuer.)
-- 9.4003_48.4951: 30x ID=5174 (Urach, Bad), 32x ID=19580 (Urach, Bad/Erms)
-- 12.3177_53.0168: 12x ID=5201 (Gumtow-Vehlow), 12x ID=5201 (Vehlow)
+- 8.3348_47.8194: 39x ID=19579 (Bonndorf), 24x ID=604 (Bonndorf/Schwarzwald)
+- 8.47_48.6671: 24x ID=5840 (Enzkloesterle), 43x ID=19581 (Enzkloesterle/Schwarzwald)
+- 11.4999_47.8529: 16x ID=14351 (Geretsried (Feuerwehrschule)), 10x ID=19274 (Geretsried/Isar)
+- 13.4328_51.1294: 77x ID=3234 (Garsebach bei Meissen), 77x ID=3234 (Klipphausen-Garsebach)
+- 12.1641_52.2174: 77x ID=1052 (Drewitz bei Burg), 77x ID=1052 (Moeckern-Drewitz)
+- 7.31_50.3049: 12x ID=14320 (Polch), 23x ID=3969 (Polch, Kr. Mayen-Koblenz)
+- 11.4218_52.198: 25x ID=4412 (Hohe Boerde-Schackensleben), 25x ID=4412 (Schackensleben)
+- 10.7696_50.6545: 102x ID=4501 (Schmuecke), 8x ID=15232 (Schmuecke/Thuer.)
+- 9.4003_48.4951: 24x ID=5174 (Urach, Bad), 39x ID=19580 (Urach, Bad/Erms)
 
 
 
