@@ -4,14 +4,7 @@
 \alias{readDWD.grib2}
 \title{read nwp forecast data}
 \usage{
-readDWD.grib2(
-  file,
-  pack = "terra",
-  bargs = NULL,
-  toraster = TRUE,
-  quiet = rdwdquiet(),
-  ...
-)
+readDWD.grib2(file, pack = "terra", bargs = NULL, quiet = rdwdquiet(), ...)
 }
 \arguments{
 \item{file}{Name of file on harddrive, like e.g.
@@ -25,10 +18,6 @@ DEFAULT: "terra"}
 
 \item{bargs}{Named list of arguments passed to
 \code{\link[R.utils:compressFile]{R.utils::bunzip2()}}, see \code{gargs} in \code{\link[=readDWD.raster]{readDWD.raster()}}. DEFAULT: NULL}
-
-\item{toraster}{Logical: convert \link[rgdal:rgdal-deprecated]{rgdal::readGDAL} output with \code{\link[raster:raster]{raster::raster()}}?
-Only used if pack="rgdal".
-DEFAULT: TRUE}
 
 \item{quiet}{Silence readGDAL completely, including warnings on
 discarded ellps / datum.

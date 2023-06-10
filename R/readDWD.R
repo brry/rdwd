@@ -1288,9 +1288,6 @@ return(invisible(list(dat=rbmat, meta=rbmeta)))
 #'                  DEFAULT: "terra"
 #' @param bargs     Named list of arguments passed to
 #'                  [R.utils::bunzip2()], see `gargs` in [readDWD.raster()]. DEFAULT: NULL
-#' @param toraster  Logical: convert [rgdal::readGDAL] output with [raster::raster()]?
-#'                  Only used if pack="rgdal".
-#'                  DEFAULT: TRUE
 #' @param quiet     Silence readGDAL completely, including warnings on 
 #'                  discarded ellps / datum. 
 #'                  DEFAULT: FALSE through [rdwdquiet()]
@@ -1300,7 +1297,6 @@ readDWD.grib2 <- function(
 file,
 pack="terra",
 bargs=NULL,
-toraster=TRUE,
 quiet=rdwdquiet(),
 ...)
 {
@@ -1324,9 +1320,8 @@ if(!quiet) message(" with pack='stars' ...")
 checkSuggestedPackage("stars"  , "rdwd:::readDWD.grib2")
 out <- stars::read_stars(bdata, quiet=quiet, ...)
 } else
-# WRONG ---
+# WRONG pack ---
 tstop("pack='",pack,"' is not a valid option.")
-
 # Output:
 return(invisible(out))
 }
