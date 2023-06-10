@@ -18,10 +18,9 @@ readDWD.grib2(
 cosmo-d2_germany_regular-lat-lon_single-level_2021010100_005_T_2M.grib2.bz2}
 
 \item{pack}{Char: package used for reading.
-One of "terra" (the default), "stars"
-or "rgdal" (for the deprecated cosmo-d2 data).
-See \href{https://github.com/brry/rdwd/issues/28}{issue}.
-"rgdal" will be deprecated in 2023.
+One of "terra" or "stars".
+"rgdal" (for the deprecated cosmo-d2 data) is no longer available,
+see \href{https://github.com/brry/rdwd/issues/28}{issue}.
 DEFAULT: "terra"}
 
 \item{bargs}{Named list of arguments passed to
@@ -39,7 +38,7 @@ DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 \code{\link[stars:read_stars]{stars::read_stars()}}.}
 }
 \value{
-rgdal or raster object, depending on \code{toraster}
+terra or stars object, depending on \code{pack}
 }
 \description{
 read gridded numerical weather prediction data.

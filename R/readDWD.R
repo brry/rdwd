@@ -1252,7 +1252,7 @@ return(invisible(list(dat=rbmat, meta=rbmeta)))
 #' @title read nwp forecast data
 #' @description read gridded numerical weather prediction data.
 #' Intended to be called via [readDWD()].\cr
-#' @return rgdal or raster object, depending on `toraster`
+#' @return terra or stars object, depending on `pack`
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jan 2021.
 #' @seealso [readDWD()]\cr
 #' <https://www.dwd.de/EN/ourservices/nwp_forecast_data/nwp_forecast_data.html>\cr
@@ -1282,10 +1282,9 @@ return(invisible(list(dat=rbmat, meta=rbmeta)))
 #' @param file      Name of file on harddrive, like e.g.
 #'                  cosmo-d2_germany_regular-lat-lon_single-level_2021010100_005_T_2M.grib2.bz2
 #' @param pack      Char: package used for reading. 
-#'                  One of "terra" (the default), "stars"
-#'                  or "rgdal" (for the deprecated cosmo-d2 data). 
-#'                  See [issue](https://github.com/brry/rdwd/issues/28).
-#'                  "rgdal" will be deprecated in 2023.
+#'                  One of "terra" or "stars".
+#'                  "rgdal" (for the deprecated cosmo-d2 data) is no longer available,
+#'                  see [issue](https://github.com/brry/rdwd/issues/28).
 #'                  DEFAULT: "terra"
 #' @param bargs     Named list of arguments passed to
 #'                  [R.utils::bunzip2()], see `gargs` in [readDWD.raster()]. DEFAULT: NULL
@@ -1325,21 +1324,7 @@ if(!quiet) message(" with pack='stars' ...")
 checkSuggestedPackage("stars"  , "rdwd:::readDWD.grib2")
 out <- stars::read_stars(bdata, quiet=quiet, ...)
 } else
-# RGDAL ---
-if(pack=="rgdal"){
-if(!quiet) message(" with pack='rgdal' ...")
-checkSuggestedPackage("rgdal"  , "rdwd:::readDWD.grib2")
-warning("rgdal is retiring (https://r-spatial.org/r/2022/04/12/evolution.html). 
-        This option will be removed in 2023. Use pack='terra' or 'stars'.")
-out <- if(!quiet)    rgdal::readGDAL(bdata,              ...) else
-    suppressWarnings(rgdal::readGDAL(bdata, silent=TRUE, ...))
-if(toraster) 
-  {
-  checkSuggestedPackage("raster", "rdwd:::readDWD.grib2 with toraster=TRUE")
-  out <- raster::raster(out)
-  }
 # WRONG ---
-} else
 tstop("pack='",pack,"' is not a valid option.")
 
 # Output:
