@@ -592,6 +592,27 @@ invisible(dev.off())
 
 Open the pdf at <https://github.com/brry/rdwd/tree/master/misc/ExampleTests>
 
+# see also
+
+Here are some references related to weather data analysis. Expansion suggestions are very welcome via [github](https://github.com/brry/rdwd) or [berry-b@gmx.de](mailto:berry-b@gmx.de)!
+
+- USA data: [countyweather](https://www.rdocumentation.org/packages/countyweather),
+          [rnoaa](https://docs.ropensci.org/rnoaa/)
+
+- World data: [Global Surface Summary of the Day](https://ropensci.org/blog/blog/2017/04/04/gsodr)
+
+- Dutch data (Netherlands): [KNMIr](https://github.com/bvhest/KNMIr)
+
+- Canadian data: [weathercan](https://cran.r-project.org/package=weathercan)
+
+- UK data [website](https://www.metoffice.gov.uk/climate/uk/data)
+
+- The Python equivalent of rdwd: the package [wetterdienst](https://github.com/earthobservations/wetterdienst)
+by the *Catchment Attributes and MEteorology for Large-sample Studies* initiative 
+([CAMELS](https://zenodo.org/record/6517142)).
+It also covers Radolan and Radvor and has local caching (even with an SQL interface), but has many dependencies. 
+It accesses more data sources than rdwd and currently has a more active development community.
+
 
 # - use case: recent time series
 
@@ -613,6 +634,8 @@ plot(clim[,c(2,14)], type="l", xaxt="n", las=1, main="Daily temp Potsdam")
 berryFunctions::monthAxis()   ;   abline(h=0)
 mtext("Source: Deutscher Wetterdienst", adj=-0.1, line=0.5, font=3)
 ```
+
+
 
 # - use case: long term climate graph
 

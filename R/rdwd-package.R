@@ -14,12 +14,8 @@
 #' @docType package
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}
 #' @keywords package documentation
-#' @seealso USA data: [countyweather](https://www.rdocumentation.org/packages/countyweather),
-#'          [rnoaa](https://docs.ropensci.org/rnoaa/)\cr
-#'          World data: [Global Surface Summary of the Day](https://ropensci.org/blog/blog/2017/04/04/gsodr)\cr
-#'          Dutch data (Netherlands): <https://github.com/bvhest/KNMIr>\cr
-#'          Canadian data: <https://cran.r-project.org/package=weathercan>\cr
-#'          UK data website <https://www.metoffice.gov.uk/climate/uk/data>\cr
+#' @seealso related weather data processing references at <https://bookdown.org/brry/rdwd/see-also.html>
+#' 
 #' @section Searchability Terms:
 #' Weather Data Germany download with R, Climate Data Germany\cr
 #' Deutscher Wetterdienst R Daten download Klimastationen\cr
