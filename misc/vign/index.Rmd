@@ -596,22 +596,26 @@ Open the pdf at <https://github.com/brry/rdwd/tree/master/misc/ExampleTests>
 
 Here are some references related to weather data analysis. Expansion suggestions are very welcome via [github](https://github.com/brry/rdwd) or [berry-b@gmx.de](mailto:berry-b@gmx.de)!
 
-- USA data: [countyweather](https://www.rdocumentation.org/packages/countyweather),
-          [rnoaa](https://docs.ropensci.org/rnoaa/)
+R packages for weather data
 
-- World data: [Global Surface Summary of the Day](https://ropensci.org/blog/blog/2017/04/04/gsodr)
+- USA: [countyweather](https://www.rdocumentation.org/packages/countyweather),
+       [rnoaa](https://docs.ropensci.org/rnoaa/)
 
-- Dutch data (Netherlands): [KNMIr](https://github.com/bvhest/KNMIr)
+- Canada: [weathercan](https://cran.r-project.org/package=weathercan)
 
-- Canadian data: [weathercan](https://cran.r-project.org/package=weathercan)
+- Netherlands: [KNMIr](https://github.com/bvhest/KNMIr)
+
+- World: [GSODR](https://docs.ropensci.org/GSODR)
+
+Other resources
 
 - UK data [website](https://www.metoffice.gov.uk/climate/uk/data)
 
-- The Python equivalent of rdwd: the package [wetterdienst](https://github.com/earthobservations/wetterdienst)
-by the *Catchment Attributes and MEteorology for Large-sample Studies* initiative 
-([CAMELS](https://zenodo.org/record/6517142)).
-It also covers Radolan and Radvor and has local caching (even with an SQL interface), but has many dependencies. 
+- The Python equivalent of rdwd: the package [wetterdienst](https://github.com/earthobservations/wetterdienst) that also covers Radolan and Radvor and has local caching (even with an SQL interface), but has many dependencies. 
 It accesses more data sources than rdwd and currently has a more active development community.
+
+- the *Catchment Attributes and MEteorology for Large-sample Studies* initiative 
+([CAMELS](https://zenodo.org/record/6517142)).
 
 
 # - use case: recent time series
