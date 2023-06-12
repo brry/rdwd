@@ -28,6 +28,7 @@ Important links:
 * app for [comparing weather periods](https://brry.shinyapps.io/wetter/)
 
 ```{r globalquiet, echo=FALSE}
+library(rdwd) # not sure why this is needed to  actually make it quiet...
 options(rdwdquiet=TRUE)
 # This should suppress all progress and info messages in the website output
 # while not suggesting users to copypaste with explicit quiet=TRUE all the time.
