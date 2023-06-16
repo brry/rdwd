@@ -22,7 +22,7 @@ raa01-rw_10000-1802020250-dwd---bin.gz}
 \code{\link[R.utils:compressFile]{R.utils::gunzip()}}, see \code{\link[=readDWD.raster]{readDWD.raster()}}. DEFAULT: NULL}
 
 \item{toraster}{Logical: convert output (list of matrixes + meta informations)
-to a list with data (\code{\link[raster:stack]{raster::stack}}) +
+to a list with data (\code{\link[terra:rast]{terra::rast}}) +
 meta (list from the first subfile, but with vector of dates)?
 DEFAULT: TRUE}
 

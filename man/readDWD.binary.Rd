@@ -26,7 +26,7 @@ these will be ignored for the actual reading with
 DEFAULT exdir: sub(".tar.gz$", "", file)}
 
 \item{toraster}{Logical: convert output (list of matrixes + meta informations)
-to a list with dat (\code{\link[raster:stack]{raster::stack}}) +
+to a list with dat (\code{\link[terra:rast]{terra::rast}}) +
 meta (list from the first subfile, but with vector of dates)?
 DEFAULT: TRUE}
 

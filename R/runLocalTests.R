@@ -109,14 +109,14 @@ trr <- function(file, ext="radolan", readdwd=FALSE) # trr: test reading radar da
   main <- deparse(substitute(file))
   file2 <- berryFunctions::packagePath(file=paste0("misc/",file))
   rrf <- if(readdwd) readDWD(file2, toraster=FALSE) else dwdradar::readRadarFile(file2)
-  rrr <- raster::raster(rrf$dat)
+  rrr <- terra::rast(rrf$dat)
   rrp <- projectRasterDWD(rrr, extent=ext)
-  raster::plot(rrr, main="\nOriginal")
-  raster::plot(rrp, main="\nProjected")
+  terra::plot(rrr, main="\nOriginal")
+  terra::plot(rrp, main="\nProjected")
   addBorders()
   title(main=main, outer=TRUE, line=-1.1)
-  rngr <- range(raster::cellStats(rrr, "range"))
-  rngp <- range(raster::cellStats(rrp, "range"))
+  rngr <- range(terra::minmax(rrr))
+  rngp <- range(terra::minmax(rrp))
   return(list(file=file2, rrp=rrp, meta=rrf$meta, range_orig=rngr, range_proj=rngp))
   }
 pdf(paste0(dir_exmpl,"/Radartests.pdf"), width=10, height=7)
@@ -126,10 +126,10 @@ w2 <- trr("raa01-rw_10000-1907311350-dwd---bin_hourRadRecentBin.gz", readdwd=TRU
 rw <- trr("raa01-rw_10000-1907010950-dwd---bin_weatherRadolan")
 sf <- trr("raa01-sf_10000-1605010450-dwd---bin_dailyRadHist")
 rx <- trr("raa01-rx_10000-1605290600-dwd---bin_Braunsbach")
-rx1 <- raster::raster(dwdradar::readRadarFile(rx$file)$dat)
+rx1 <- terra::rast(dwdradar::readRadarFile(rx$file)$dat)
 rx2 <- projectRasterDWD(rx1, targetproj=NULL)
-raster::plot(rx2, main="\nProjected without latlon")
-raster::plot(rx$rrp, zlim=rx$range_orig, main="\nProjected, with custom zlim")
+terra::plot(rx2, main="\nProjected without latlon")
+terra::plot(rx$rrp, zlim=rx$range_orig, main="\nProjected, with custom zlim")
 addBorders()
 dev.off()
 if(interactive()) berryFunctions::openFile(paste0(dir_exmpl,"/Radartests.pdf"))
@@ -393,21 +393,7 @@ log <- sub(rem, "", log, fixed=TRUE)
 rem <- "\nNote in is.error: Error in plotRadar(ncp1, layer = 1:4, project = FALSE) : 
   3 layers selected that do not exist.\n"
 log <- sub(rem, "", log, fixed=TRUE)
-rem <- "\nFormal class 'RasterBrick' [package \"raster\"] with 13 slots
-  ..@ file    :Formal class '.RasterFile' [package \"raster\"] with 13 slots
-  ..@ data    :Formal class '.MultipleRasterData' [package \"raster\"] with 14 slots
-  ..@ legend  :Formal class '.RasterLegend' [package \"raster\"] with 5 slots
-  ..@ title   : chr \"mean relative humidity at 2 m height\"
-  ..@ extent  :Formal class 'Extent' [package \"raster\"] with 4 slots
-  ..@ rotated : logi FALSE
-  ..@ rotation:Formal class '.Rotation' [package \"raster\"] with 2 slots
-  ..@ ncols   : int 720
-  ..@ nrows   : int 938
-  ..@ crs     :Formal class 'CRS' [package \"sp\"] with 1 slot
-  ..@ srs     : chr \"\"
-  ..@ history : list()
-  ..@ z       :List of 1
- num [1:720, 1:938, 1:30] NA NA NA NA NA NA NA NA NA NA ..."
+rem <- "ToDO: replace this with the terra output"
 
 log <- sub(rem, "", log, fixed=TRUE)
 rem <- "---------------\n.*/Dropbox/Rpack/rdwd/man/.{10,50}\n\n\n"

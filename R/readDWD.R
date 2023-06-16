@@ -3,7 +3,7 @@
 #' @title Process data from the DWD CDC FTP Server
 #' @description Read climate data that was downloaded with [dataDWD()].
 #' The data is unzipped and subsequently, the file(s) are read, processed and
-#' returned as a data.frame / raster object.\cr\cr
+#' returned as a data.frame / terra raster object.\cr\cr
 #' For observational data, new users are advised to set `varnames=TRUE` 
 #' to obtain more informative column names.\cr\cr
 #' `readDWD` will call internal (but documented) subfunctions depending on the
@@ -16,7 +16,7 @@
 #' 
 #' @return For observational data, an invisible data.frame of the desired dataset,
 #'         or a named list of data.frames if length(file) > 1.\cr
-#'         For gridded data, raster objects.
+#'         For gridded data, terra raster objects.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jul-Oct 2016, Winter 2018/19
 #' @seealso [dataDWD()], [readVars()], [readMeta()], [selectDWD()], [fileType()]\cr
 #'          <https://bookdown.org/brry/rdwd>
@@ -400,12 +400,12 @@ return(dat)
 #' par(bg=8)
 #' berryFunctions::colPoints(ma$geogr..Laenge, ma$geogr..Breite, ma$Jahr, add=F, asp=1.4)
 #' 
-#' load(system.file("extdata/DEU.rda", package="rdwd"))
+#' DEU <- terra::vect(system.file("extdata/DEU.gpkg", package="rdwd"))
 #' pdf("MultiAnn.pdf", width=8, height=10)
 #' par(bg="grey90")
 #' for(m in colnames(ma)[8:19])
 #'   {
-#'   raster::plot(DEU, border="grey40")
+#'   terra::plot(DEU, border="grey40")
 #'   berryFunctions::colPoints(ma[-262,]$geogr..Laenge, ma[-262,]$geogr..Breite, ma[-262,m],
 #'                             asp=1.4, # Range=range(ma[-262,8:19]),
 #'                             col=berryFunctions::divPal(200, rev=TRUE), zlab=m, add=T)
@@ -692,7 +692,7 @@ stats
 #'                  [dwdradar::readRadarFile()].
 #'                  DEFAULT exdir: sub(".tar.gz$", "", file)
 #' @param toraster  Logical: convert output (list of matrixes + meta informations)
-#'                  to a list with dat ([`raster::stack`]) +
+#'                  to a list with dat ([`terra::rast`]) +
 #'                  meta (list from the first subfile, but with vector of dates)?
 #'                  DEFAULT: TRUE
 #' @param quiet     Suppress progress messages?
@@ -739,17 +739,9 @@ time <- sapply(rb, function(x) as.character(x$meta$date))
 names(rb) <- time
 if(!toraster) return(invisible(rb))
 # else if toraster:
-checkSuggestedPackage("raster", "rdwd:::readDWD.binary with toraster=TRUE")
-pmessage("Converting to raster...")
-rbmat <- base::lapply(rb,"[[",1)
-rbmat <- lapply(rbmat, raster::raster)
-rbmat <- raster::stack(rbmat)
-# rbmeta <- base::lapply(rb,"[[",2)
-# rbmeta <- base::lapply(rbmeta, function(x){x$radars <- toString(x$radars);
-#                                            x$radarn <- toString(x$radarn);
-#                                            x$dim    <- toString(x$dim)   ; x})
-# mnames <- names(rbmeta[[1]])[-(1:2)] # filename and date will differ
-# sapply(mnames, function(mn) length(unique(sapply(rbmeta, "[[", mn)))) # all equal
+checkSuggestedPackage("terra", "rdwd:::readDWD.binary with toraster=TRUE")
+pmessage("Converting to terra raster...")
+rbmat <- terra::rast(rb)
 rbmeta <- rb[[1]]$meta
 rbmeta$filename <- file
 rbmeta$date <- as.POSIXct(time)
@@ -765,7 +757,7 @@ return(invisible(list(dat=rbmat, meta=rbmeta)))
 #' @description Read gridded raster data.
 #' Intended to be called via [readDWD()].\cr
 #' Note that `R.utils` must be installed to unzip the .asc.gz files.
-#' @return [`raster::raster`] object
+#' @return [`terra::rast`] object
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2018
 #' @seealso [readDWD()]
 #' @examples
@@ -777,14 +769,14 @@ return(invisible(list(dat=rbmat, meta=rbmeta)))
 #'                       dir=locdir(), read=FALSE)
 #' rf <- readDWD(localfiles[1])
 #' rf <- readDWD(localfiles[1]) # runs faster at second time due to skip=TRUE
-#' raster::plot(rf)
+#' terra::plot(rf)
 #' 
 #' plotRadar(rf,proj="seasonal", extent=rf@extent)
 #' 
-#' testthat::expect_equal(raster::cellStats(rf, range), c(-8.2,4.4))
+#' testthat::expect_equal(terra::minmax(rf), c(-8.2,4.4))
 #' rf10 <- readDWD(localfiles[1], dividebyten=FALSE)
-#' raster::plot(rf10)
-#' testthat::expect_equal(raster::cellStats(rf10, range), c(-82,44))
+#' terra::plot(rf10)
+#' testthat::expect_equal(terra::minmax(rf10), c(-82,44))
 #' }
 #' @param file        Name of file on harddrive, like e.g.
 #'                    DWDdata/grids_germany/seasonal/air_temperature_mean/
@@ -801,18 +793,18 @@ return(invisible(list(dat=rbmat, meta=rbmeta)))
 #'                    DEFAULT: TRUE
 #' @param quiet       Ignored.
 #'                    DEFAULT: FALSE through [rdwdquiet()]
-#' @param \dots       Further arguments passed to [raster::raster()]
+#' @param \dots       Further arguments passed to [terra::rast()]
 readDWD.raster <- function(file, gargs=NULL, dividebyten, quiet=rdwdquiet(), ...)
 {
 checkSuggestedPackage("R.utils", "rdwd:::readDWD.raster")
-checkSuggestedPackage("raster",  "rdwd:::readDWD.raster")
+checkSuggestedPackage("terra",  "rdwd:::readDWD.raster")
 #https://stackoverflow.com/questions/5227444/recursively-ftp-download-then-extract-gz-files
 # gunzip arguments:
 gdef <- list(filename=file, remove=FALSE, skip=TRUE)
 gfinal <- berryFunctions::owa(gdef, gargs, "filename")
 rdata <- do.call(R.utils::gunzip, gfinal)
 # raster reading:
-r <- raster::raster(rdata, ...)
+r <- terra::rast(rdata, ...)
 if(dividebyten) r <- r/10
 return(invisible(r))
 }
@@ -825,7 +817,7 @@ return(invisible(r))
 #' @description Read netcdf data.
 #' Intended to be called via [readDWD()].\cr
 #' Note that `R.utils` and `ncdf4` must be installed to unzip and read the .nc.gz files.
-#' @return [raster::brick()] object. Alternatively,
+#' @return [terra::rast()] object. Alternatively,
 #' if toraster=FALSE, a list with time, lat, lon, var, varname, file and cdf.
 #' **cdf** is the output of [ncdf4::nc_open()].
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019
@@ -844,28 +836,28 @@ return(invisible(r))
 #'                  col=seqPal(), proj="nc", extent="nc")
 #' str(nc, max.level=2)
 #' 
-#' raster::values(nc[[1]]) # obtain actual values into memory
+#' terra::values(nc[[1]]) # obtain actual values into memory # ToDo : check this
 #' 
-#' raster::plot(nc[[1]]) # axes 0:938 / 0:720, the number of grid cells
-#' raster::plot(ncp[[1]])# properly projected, per default onto latlon
+#' terra::plot(nc[[1]]) # axes 0:938 / 0:720, the number of grid cells
+#' terra::plot(ncp[[1]])# properly projected, per default onto latlon
 #' 
-#' rng <- range(raster::cellStats(nc[[1:6]], "range"))
-#' raster::plot(nc, col=seqPal(), zlim=rng, maxnl=6)
+#' rng <- range(terra::minmax(nc[[1:6]]))
+#' terra::plot(nc, col=seqPal(), zlim=rng, maxnl=6)
 #' 
-#' # Array instead of raster brick:
+#' # Array instead of terra rast:
 #' nc <- readDWD(file, toraster=FALSE)
 #' image(nc$var[,,1], col=seqPal(), asp=1.1)
 #' colPointsLegend(nc$var[,,1], title=paste(nc$varname, nc$time[1]))
 #' 
 #' # interactive selection of variable:
-#' # nc <- readDWD(file, var="-") # uncommented to not block automated tests
+#' # nc <- readDWD(file, var="-") # commented out to not block automated tests
 #' str(nc$var)
 #' }
 #' @param file        Name of file on harddrive, like e.g.
 #'                    DWDdata/grids_germany/daily/Project_TRY/humidity/RH_199509_daymean.nc.gz
 #' @param gargs       Named list of arguments passed to
 #'                    [R.utils::gunzip()], see [readDWD.raster()]. DEFAULT: NULL
-#' @param toraster    Read file with [raster::brick()]?
+#' @param toraster    Read file with [terra::rast()]?
 #'                    All further arguments will be ignored. Specify e.g. `var` 
 #'                    through \dots as `varname`. DEFAULT: TRUE
 #' @param var         if toraster=FALSE: Charstring with name of variable to be read with
@@ -874,7 +866,7 @@ return(invisible(r))
 #'                    DEFAULT: "" (last variable)
 #' @param quiet       Logical: Suppress time conversion failure warning?
 #'                    DEFAULT: FALSE through [rdwdquiet()]
-#' @param \dots       Further arguments passed to [raster::brick()] or [ncdf4::nc_open()]
+#' @param \dots       Further arguments passed to [terra::rast()] or [ncdf4::nc_open()]
 #' 
 readDWD.nc <- function(file, gargs=NULL, var="", toraster=TRUE, quiet=rdwdquiet(), ...)
 {
@@ -887,9 +879,9 @@ ncfile <- do.call(R.utils::gunzip, gfinal)
 #
 if(toraster)
   {
-  checkSuggestedPackage("raster", "rdwd:::readDWD.nc with toraster=TRUE")
+  checkSuggestedPackage("terra", "rdwd:::readDWD.nc with toraster=TRUE")
   # ignore ncdf print, see https://github.com/rspatial/raster/issues/143
-  capture.output(out <- raster::brick(ncfile, ...))
+  capture.output(out <- terra::rast(ncfile, ...))
   return(invisible(out))
   }
 #
@@ -966,7 +958,7 @@ return(invisible(list(time=time, lat=LAT, lon=LON, var=VAR, varname=var,
 #' @param gargs     Named list of arguments passed to
 #'                  [R.utils::gunzip()], see [readDWD.raster()]. DEFAULT: NULL
 #' @param toraster  Logical: convert output (list of matrixes + meta informations)
-#'                  to a list with data ([`raster::stack`]) +
+#'                  to a list with data ([`terra::rast`]) +
 #'                  meta (list from the first subfile, but with vector of dates)?
 #'                  DEFAULT: TRUE
 #' @param dividebyten Logical: Divide the numerical values by 10? See [readDWD].
@@ -984,8 +976,8 @@ gdef <- list(filename=file, remove=FALSE, skip=TRUE)
 gfinal <- berryFunctions::owa(gdef, gargs, "filename")
 rdata <- do.call(R.utils::gunzip, gfinal)
 rf <- dwdradar::readRadarFile(rdata, ...)
-if(toraster) checkSuggestedPackage("raster", "rdwd:::readDWD.radar with toraster=TRUE")
-if(toraster) rf$dat <- raster::raster(rf$dat)
+if(toraster) checkSuggestedPackage("terra", "rdwd:::readDWD.radar with toraster=TRUE")
+if(toraster) rf$dat <- terra::rast(rf$dat)
 if(dividebyten) rf$dat <- rf$dat/10
 return(invisible(rf))
 }
@@ -998,7 +990,7 @@ return(invisible(rf))
 #' @description read grid-interpolated radolan asc data.
 #' Intended to be called via [readDWD()].\cr
 #' All layers (following `selection` if given) in all .tar.gz files are
-#' combined into a raster stack with [raster::stack()].\cr
+#' combined into a terra raster with [terra::rast()].\cr
 #' To project the data, use [projectRasterDWD()]
 #' @return data.frame
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, April 2019
@@ -1028,9 +1020,9 @@ return(invisible(rf))
 #' # Time series of a given point in space:
 #' plot(as.vector(asc[800,800,]), type="l", xlab="Time [hours]")
 #' 
-#' # if dividebyten=FALSE, raster stores things out of memory in the exdir.
+#' # if dividebyten=FALSE, terra stores things out of memory in the exdir.
 #' # by default, this is in tempdir, hence you would need to save asc manually:
-#' # raster::writeRaster(asc, paste0(datadir,"/RW2018-09"), overwrite=TRUE)
+#' # terra::writeRaster(asc, paste0(datadir,"/RW2018-09"), overwrite=TRUE)
 #' }
 #' @param file        Name of file on harddrive, like e.g.
 #'                    DWDdata/grids_germany/hourly/radolan/historical/asc/
@@ -1041,7 +1033,7 @@ return(invisible(rf))
 #'                    DEFAULT: NULL (subfolder of [tempdir()])
 #' @param dividebyten Divide numerical values by 10? See [readDWD].
 #'                    If dividebyten=FALSE and exdir left at NULL (tempdir), save
-#'                    the result on disc with [raster::writeRaster()].
+#'                    the result on disc with [terra::writeRaster()].
 #'                    Accessing out-of-memory raster objects won't work if
 #'                    exdir is removed! -> Error in .local(.Object, ...)
 #'                    DEFAULT: TRUE
@@ -1052,11 +1044,11 @@ return(invisible(rf))
 #'                    DEFAULT: !quiet, i.e. TRUE
 #' @param selection   Optionally read only a subset of the ~24*31=744 files.
 #'                    Called as `f[selection]`. DEFAULT: NULL (ignored)
-#' @param \dots       Further arguments passed to [raster::raster()]
+#' @param \dots       Further arguments passed to [terra::rast()]
 readDWD.asc <- function(file, exdir=NULL, dividebyten=TRUE,
                         selection=NULL, quiet=rdwdquiet(), progbar=!quiet, ...)
 {
-checkSuggestedPackage("raster", "rdwd:::readDWD.asc")
+checkSuggestedPackage("terra", "rdwd:::readDWD.asc")
 if(progbar) lapply <- pbapply::pblapply
 # prepare to untar data (two layers):
 fn <- tools::file_path_sans_ext(basename(file))
@@ -1083,14 +1075,14 @@ if(any(to_untar)){
 f <- dir(exdir, pattern=".asc$", full.names=TRUE) # 720 files
 if(!is.null(selection)) f <- f[selection]
 if(!quiet) message("Reading ",length(f)," files...")
-dat <- lapply(f, raster::raster, ...)
+dat <- lapply(f, terra::rast, ...)
 #
 # divide by ten (takes ~9 min!)
 if(!quiet & dividebyten) message("Dividing values by ten...")
 if(dividebyten) dat <- lapply(dat, function(x) x/10)
 #
 # stack layers:
-dat <- raster::stack(dat)
+dat <- terra::rast(dat)
 #
 # output:
 return(invisible(dat))
@@ -1116,7 +1108,7 @@ return(invisible(dat))
 #' x <- readDWD(yw_file, selection=3641:3644)
 #' # 00:30 for tar files, 01:40 for unpacking. 
 #' # If you need a preselection argument, let me know.
-#' raster::plot(x$dat)
+#' terra::plot(x$dat)
 #'
 #' f <- system.file("tests//raa01-yw2017.002_10000-2006131525-dwd---bin", package="dwdradar")
 #' # https://stackoverflow.com/a/72207233/1587132 on how to install with tests folder
@@ -1126,8 +1118,8 @@ return(invisible(dat))
 #' if(!file.exists(f)) stop("dwdradar test file not found")
 #' 
 #' x <- dwdradar::readRadarFile(f)
-#' x$dat <- raster::raster(x$dat)
-#' raster::plot(x$dat)
+#' x$dat <- terra::rast(x$dat)
+#' terra::plot(x$dat)
 #' plotRadar(x$dat, extent=c(-360, 380, -4730 ,-3690))
 #' 
 #' radloc <- read.table(header=T, sep=",", text="
@@ -1178,7 +1170,7 @@ return(invisible(dat))
 #'                  DEFAULT: NULL: checks if 'yw.*--bin' file(s) are present
 #' @param selection Optionally read only a subset of the ~ 12 x 24 x 30/31 = 8640 files.
 #'                  Called as `f[selection]`. DEFAULT: NULL (ignored)
-#' @param toraster  Logical: convert to raster stack? see [readDWD.binary]
+#' @param toraster  Logical: convert to [terra::rast]? see [readDWD.binary]
 #'                  DEFAULT: TRUE
 #' @param quiet     Suppress progress messages?
 #'                  DEFAULT: FALSE through [rdwdquiet()]
@@ -1234,11 +1226,11 @@ names(rb) <- time
 
 if(!toraster) return(invisible(rb))
 # else if toraster:
-checkSuggestedPackage("raster", "rdwd:::readDWD.radklim with toraster=TRUE")
-if(!quiet) message("Converting to raster...")
+checkSuggestedPackage("terra", "rdwd:::readDWD.radklim with toraster=TRUE")
+if(!quiet) message("Converting to terra raster...")
 rbmat <- base::lapply(rb,"[[",1)
-rbmat <- lapply(rbmat, raster::raster)
-rbmat <- raster::stack(rbmat)
+rbmat <- lapply(rbmat, terra::rast)
+rbmat <- terra::rast(rbmat)
 rbmeta <- rb[[1]]$meta
 rbmeta$filename <- file
 rbmeta$date <- as.POSIXct(time)

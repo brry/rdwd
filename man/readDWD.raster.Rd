@@ -26,10 +26,10 @@ DEFAULT: TRUE}
 \item{quiet}{Ignored.
 DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
-\item{\dots}{Further arguments passed to \code{\link[raster:raster]{raster::raster()}}}
+\item{\dots}{Further arguments passed to \code{\link[terra:rast]{terra::rast()}}}
 }
 \value{
-\code{\link[raster:raster]{raster::raster}} object
+\code{\link[terra:rast]{terra::rast}} object
 }
 \description{
 Read gridded raster data.
@@ -45,14 +45,14 @@ localfiles <- dataDWD(ftp.files[1:2], base=rasterbase, joinbf=TRUE,
                       dir=locdir(), read=FALSE)
 rf <- readDWD(localfiles[1])
 rf <- readDWD(localfiles[1]) # runs faster at second time due to skip=TRUE
-raster::plot(rf)
+terra::plot(rf)
 
 plotRadar(rf,proj="seasonal", extent=rf@extent)
 
-testthat::expect_equal(raster::cellStats(rf, range), c(-8.2,4.4))
+testthat::expect_equal(terra::minmax(rf), c(-8.2,4.4))
 rf10 <- readDWD(localfiles[1], dividebyten=FALSE)
-raster::plot(rf10)
-testthat::expect_equal(raster::cellStats(rf10, range), c(-82,44))
+terra::plot(rf10)
+testthat::expect_equal(terra::minmax(rf10), c(-82,44))
 }
 }
 \seealso{

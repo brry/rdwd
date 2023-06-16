@@ -67,12 +67,12 @@ underlying actual reading functions}
 \value{
 For observational data, an invisible data.frame of the desired dataset,
 or a named list of data.frames if length(file) > 1.\cr
-For gridded data, raster objects.
+For gridded data, terra raster objects.
 }
 \description{
 Read climate data that was downloaded with \code{\link[=dataDWD]{dataDWD()}}.
 The data is unzipped and subsequently, the file(s) are read, processed and
-returned as a data.frame / raster object.\cr\cr
+returned as a data.frame / terra raster object.\cr\cr
 For observational data, new users are advised to set \code{varnames=TRUE}
 to obtain more informative column names.\cr\cr
 \code{readDWD} will call internal (but documented) subfunctions depending on the

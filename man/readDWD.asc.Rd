@@ -26,7 +26,7 @@ DEFAULT: NULL (subfolder of \code{\link[=tempdir]{tempdir()}})}
 
 \item{dividebyten}{Divide numerical values by 10? See \link{readDWD}.
 If dividebyten=FALSE and exdir left at NULL (tempdir), save
-the result on disc with \code{\link[raster:writeRaster]{raster::writeRaster()}}.
+the result on disc with \code{\link[terra:writeRaster]{terra::writeRaster()}}.
 Accessing out-of-memory raster objects won't work if
 exdir is removed! -> Error in .local(.Object, ...)
 DEFAULT: TRUE}
@@ -41,7 +41,7 @@ DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 keep progbar=TRUE for asc files, even if length(file)==1.
 DEFAULT: !quiet, i.e. TRUE}
 
-\item{\dots}{Further arguments passed to \code{\link[raster:raster]{raster::raster()}}}
+\item{\dots}{Further arguments passed to \code{\link[terra:rast]{terra::rast()}}}
 }
 \value{
 data.frame
@@ -50,7 +50,7 @@ data.frame
 read grid-interpolated radolan asc data.
 Intended to be called via \code{\link[=readDWD]{readDWD()}}.\cr
 All layers (following \code{selection} if given) in all .tar.gz files are
-combined into a raster stack with \code{\link[raster:stack]{raster::stack()}}.\cr
+combined into a terra raster with \code{\link[terra:rast]{terra::rast()}}.\cr
 To project the data, use \code{\link[=projectRasterDWD]{projectRasterDWD()}}
 }
 \examples{
@@ -77,9 +77,9 @@ berryFunctions::openFile(paste0(viddir,"/Radolan_001.png"))
 # Time series of a given point in space:
 plot(as.vector(asc[800,800,]), type="l", xlab="Time [hours]")
 
-# if dividebyten=FALSE, raster stores things out of memory in the exdir.
+# if dividebyten=FALSE, terra stores things out of memory in the exdir.
 # by default, this is in tempdir, hence you would need to save asc manually:
-# raster::writeRaster(asc, paste0(datadir,"/RW2018-09"), overwrite=TRUE)
+# terra::writeRaster(asc, paste0(datadir,"/RW2018-09"), overwrite=TRUE)
 }
 }
 \seealso{

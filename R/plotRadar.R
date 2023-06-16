@@ -1,10 +1,9 @@
 #' @title plot radar products on a pretty map
 #' @description Convenience function to plot radar products on a pretty map.
 #' Creates a separate plot for each layer, a selection is possible.
-#' @return raster object, projected (if `project=TRUE`).
+#' @return terra object, (re)projected (if `project=TRUE`).
 #' If `length(layer)==1`, only that selected layer is returned.
-#' `output@@title` is set to `main`.
-#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Feb 2020
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Feb 2020, June 2023
 #' @seealso [projectRasterDWD()], [addBorders()], [readDWD()],
 #'          [website raster chapter](https://bookdown.org/brry/rdwd/raster-data.html)
 #' @keywords aplot spatial
@@ -13,23 +12,23 @@
 #' @importFrom pbapply pblapply
 #' @export
 #' @examples
-#' # See homepage in the section 'See Also'
+#' # See https://bookdown.org/brry/rdwd/raster-data.html
 #' \dontrun{ ## Excluded from CRAN checks: requires internet connection
 #' link <- "seasonal/air_temperature_mean/16_DJF/grids_germany_seasonal_air_temp_mean_188216.asc.gz"
-#' rad <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=locdir())
-#' radp <- plotRadar(rad, proj="seasonal", extent=rad@extent, main="plotRadar ex")
-#' plotRadar(radp, ylim=c(52,54), project=FALSE) # reuses main
+#' rad <- dataDWD(link, base=gridbase, joinbf=TRUE)
+#' radp <- plotRadar(rad, proj="seasonal", extent=NULL, main="plotRadar ex")
+#' plotRadar(radp, ylim=c(52,54), project=FALSE)
 #' 
 #' # plotRadar equivalent, map only country borders:
-#' radpm <- projectRasterDWD(rad[[1]], proj="seasonal", extent=rad@extent)
-#' raster::plot(radpm)
+#' radpm <- projectRasterDWD(rad[[1]], proj="seasonal", extent=NULL)
+#' terra::plot(radpm)
 #' addBorders()
 #' 
 #' # several layers
 #' url <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
-#' nc <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=locdir())
+#' nc <- dataDWD(url, base=gridbase, joinbf=TRUE)
 #' 
-#' ncp3 <- plotRadar(nc, main=paste(nc@title, nc@z[[1]]), layer=1:3,
+#' ncp3 <- plotRadar(nc, main=paste(terra::longnames(nc), terra::time(nc)), layer=1:3,
 #'                   col=terrain.colors(100), proj="nc", extent="nc")
 #' plotRadar(ncp3, layer=3:4, project=FALSE) # still has all layers
 #' plotRadar(ncp3, layer=4:5, project=FALSE, zlim="ind") # individual zlims per layer
@@ -40,10 +39,10 @@
 #' berryFunctions::is.error(plotRadar(ncp1, layer=1:4, project=FALSE), TRUE, TRUE)
 #' }
 #' 
-#' @param x          raster oject, e.g. 'dat' element of object returned by [readDWD()].
+#' @param x          terra raster oject, e.g. 'dat' element of object returned by [readDWD()].
 #' @param layer      Optional: selected layer(s) to be plotted. DEFAULT: NULL
 #' @param main       Graph title(s). Use "" to suppress.
-#'                   Note`output@@title` is set to `main`! DEFAULT: x@@title
+#'                   DEFAULT: names(x)
 #' @param land       Color of land areas in the map. DEFAULT: "gray80"
 #' @param sea        Color of sea areas in the map. DEFAULT: "cadetblue1"
 #' @param de         Color of Deutschland Bundesland borders ([`DEU`]). DEFAULT: "grey80"
@@ -73,12 +72,12 @@
 #' @param targetproj target projection, see [projectRasterDWD()],
 #'                   used only if `project=TRUE`. DEFAULT: "ll"
 #' @param quiet      suppress progress messages? DEFAULT: FALSE through [rdwdquiet()]
-#' @param \dots      Further arguments passed to [raster::plot()]
+#' @param \dots      Further arguments passed to [terra::plot()]
 #' 
 plotRadar <- function(
 x,
 layer=NULL,
-main=x@title,
+main=names(x),
 land="gray80",
 sea="cadetblue1",
 de="grey80",
@@ -101,53 +100,49 @@ quiet=rdwdquiet(),
 )
 {
 # Input checks:
-checkSuggestedPackage("raster", "plotRadar")
+checkSuggestedPackage("terra", "plotRadar")
 if(identical(names(x),c("dat","meta"))) tstop("plotRadar needs the 'dat' element as input.")
 
 force(main)
 # projection (save time if layer is a single value):
 if(length(layer)==1) x <- x[[layer]] # use only selected layer
 
-x@title <- as.character(main) # https://github.com/rspatial/raster/issues/128
-
 if(project)
  {
  if(!quiet) message("- projecting:")
  x <- projectRasterDWD(x, proj=proj,extent=extent,adjust05=adjust05,targetproj=targetproj,quiet=quiet)
  }
-if(!quiet) message("- preparing plots...")
-# Extent:
-ext <- raster::extent(x)
-if(is.null(xlim)) xlim <- c(ext@xmin, ext@xmax)
-if(is.null(ylim)) ylim <- c(ext@ymin, ext@ymax)
 
+if(!quiet) message("- preparing plots...")
 # DEU / EUR borders:
-load(system.file("extdata/DEU.rda", package="rdwd"), envir=environment())
-load(system.file("extdata/EUR.rda", package="rdwd"), envir=environment())
+DEU <- terra::vect(system.file("extdata/DEU.gpkg", package="rdwd"))
+EUR <- terra::vect(system.file("extdata/EUR.gpkg", package="rdwd"))
 
 singlemap <- function(x_i, main_i)
-  {
-  # even if manually given, xlim/ylim not consistently adhered to for different x
-  # hence plot is set up with DEU
-  raster::plot(DEU, add=FALSE, xlim=xlim, ylim=ylim, axes=axes, las=las)
-  rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], col=sea)
-  raster::plot(EUR, add=TRUE, col=land)
-  box()
-  raster::plot(x_i, add=TRUE, zlim=zlim, col=col, ...)
-  raster::plot(DEU, add=TRUE, border=de)
-  raster::plot(EUR, add=TRUE, border=eu)
-  title(main=main_i)
-  }
+ {
+ terra::plot(EUR, border=eu, col=land, xlim=xlim, ylim=ylim, background=sea, las=las)
+ terra::plot(x_i, add=TRUE, range=zlim, col=col, ...)
+ terra::plot(DEU, add=TRUE, border=de)
+ title(main=main_i)
+ }
 
-# Use function for each layer separately
-lay <- 1:raster::nlayers(x)
+lay <- 1:dim(x)[3]
 lay2 <- lay
 main <- rep(main, length.out=length(lay)) # recycle for all existing layers
 if(length(layer)>1) lay <- lay[layer] # already done if layer length == 1
 nn <- sum(!lay %in% lay2) # number not existing layers:
 if(nn>0) tstop(nn, " layer",if(nn>1)"s", " selected that do",if(nn==1)"es"," not exist.")
 
-if(is.null(  zlim)) zlim <- raster::cellStats(x, range)
+# Extent:
+ext <- terra::ext(x)
+if(is.null(xlim)) xlim <- ext[1:2]
+if(is.null(ylim)) ylim <- ext[3:4]
+# zlim:
+if(is.null(zlim)) 
+ {
+ zlim <- suppressWarnings(terra::minmax(x))
+ if(any(!is.finite(zlim))) zlim <- t(terra::global(x, "range", na.rm=TRUE))
+ }
 if(is.matrix(zlim)) zlim <- range(zlim[,lay], na.rm=TRUE)
 if(identical(zlim, "ind")) zlim <- NULL
 
@@ -155,8 +150,9 @@ if(identical(zlim, "ind")) zlim <- NULL
 op <- par(mar=mar)
 if(!keeppar) on.exit(par(op), add=TRUE)
 
-if(!quiet) lapply <- pbapply::pblapply
+# Use function for each layer separately
 if(!quiet) message("- plotting ", length(lay), " layer", if(length(lay)>1)"s", ":")
+if(!quiet) lapply <- pbapply::pblapply
 dummy <- lapply(lay, function(i) singlemap(x[[i]], main[i]) )
 
 # Output:

@@ -1,10 +1,10 @@
 library(rdwd)
 library(berryFunctions)
 data("geoIndex")
-if(!exists("ws")) ws <- readxl::read_excel("localtests/weather_symbol.xlsx", col_types="numeric")
+if(!exists("ws")) ws <- readxl::read_excel("misc/hex/weather_symbol.xlsx", col_types="numeric")
 if(!exists("map")){
-map <- rworldmap::getMap("low")
-map <- raster::crop(map, c(0,20, 40,60)) # for faster plotting
+map <- geodata::world(path=locdir())
+map <- terra::crop(map, c(0,20, 40,60)) # for faster plotting
 }
 
 
@@ -13,9 +13,10 @@ pdf("hexraw.pdf", width=7, height=7*600/518*1.05)
 par(bg="cadetblue1", mar=rep(0,4))
 plot(lat~lon, data=geoIndex, type="n", axes=FALSE, xlab="", ylab="", asp=1.5,
      xlim=c(3,18), ylim=c(45,57))
-sp::plot(map, add=TRUE, border="gray70", col="gray80", lwd=6)
+terra::plot(map, add=TRUE, border="gray70", col="gray80", lwd=6)
 points(lat~lon, data=geoIndex[geoIndex$recentfile,], col="red", cex=1.2, pch=3)
-lines(rescale(ws$x, 7.4, 11.4)+0.2, rescale(ws$y, 49.2, 51.7)-0.6, lwd=11)
+lines(berryFunctions::rescale(ws$x, 7.4, 11.4)+0.2, 
+      berryFunctions::rescale(ws$y, 49.2, 51.7)-0.6, lwd=11)
 text(10.7, 53-0.5, "rdwd", cex=7, font=2)
 dev.off()
 }

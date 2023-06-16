@@ -104,10 +104,10 @@ install.packages("rdwd", dependencies="Suggests")
 
 - `RCurl` for indexFTP and selectDWD(..., current=TRUE)
 - `data.table`, `bit64` for readDWD(..., fread=TRUE)
-- `raster`, `R.utils`, `ncdf4`, `dwdradar` for readDWD with gridded data
+- `terra`, `stars`, `R.utils`, `ncdf4`, `dwdradar` for readDWD with gridded data
 - `readr` for readDWD.stand(..., fast=TRUE)
 - `knitr`, `rmarkdown`, `testthat`, `roxygen2`, `devtools`, `remotes`, `XML`, `gsheet` for local testing, development and documentation
-- `leaflet`, `OSMscale`, `sp` for interactive/static maps, see [OSMscale installation tips](https://github.com/brry/OSMscale#installation)
+- `leaflet`, `OSMscale` for interactive/static maps, see [OSMscale installation tips](https://github.com/brry/OSMscale#installation)
 - `shiny` for the interactive weather comparison app
 
 Note: on Linux (Ubuntu), install `RCurl` via the terminal (CTRL+ALT+T, note lowercase rcurl):

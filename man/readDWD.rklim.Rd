@@ -33,7 +33,7 @@ DEFAULT: NULL: checks if 'yw.*--bin' file(s) are present}
 \item{selection}{Optionally read only a subset of the ~ 12 x 24 x 30/31 = 8640 files.
 Called as \code{f[selection]}. DEFAULT: NULL (ignored)}
 
-\item{toraster}{Logical: convert to raster stack? see \link{readDWD.binary}
+\item{toraster}{Logical: convert to \link[terra:rast]{terra::rast}? see \link{readDWD.binary}
 DEFAULT: TRUE}
 
 \item{quiet}{Suppress progress messages?
@@ -62,7 +62,7 @@ yw_file <- dataDWD(url=yw_link, base=gridbase, joinbf=TRUE, dir=locdir(), read=F
 x <- readDWD(yw_file, selection=3641:3644)
 # 00:30 for tar files, 01:40 for unpacking. 
 # If you need a preselection argument, let me know.
-raster::plot(x$dat)
+terra::plot(x$dat)
 
 f <- system.file("tests//raa01-yw2017.002_10000-2006131525-dwd---bin", package="dwdradar")
 # https://stackoverflow.com/a/72207233/1587132 on how to install with tests folder
@@ -72,8 +72,8 @@ if(!file.exists(f)) f <- paste0("/Users/berry/Dropbox/Rpack/dwdradar/tests/",
 if(!file.exists(f)) stop("dwdradar test file not found")
 
 x <- dwdradar::readRadarFile(f)
-x$dat <- raster::raster(x$dat)
-raster::plot(x$dat)
+x$dat <- terra::rast(x$dat)
+terra::plot(x$dat)
 plotRadar(x$dat, extent=c(-360, 380, -4730 ,-3690))
 
 radloc <- read.table(header=T, sep=",", text="

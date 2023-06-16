@@ -575,7 +575,7 @@ If you do not use this, your plots may look partially shifted like this and have
 url <- "ftp://opendata.dwd.de/weather/radar/radolan/rw/raa01-rw_10000-latest-dwd---bin"
 rw_file <- dataDWD(url, read=FALSE, dbin=FALSE)
 rw_orig <- dwdradar::readRadarFile(rw_file)
-raster::plot(raster::raster(rw_orig$dat))
+terra::plot(terra::rast(rw_orig$dat))
 ```
 <img src="dbin1.png" width="600">
 
@@ -713,9 +713,9 @@ Now we can project and visualize with:
 plotRadar(precip[[1]], proj="seasonal", extent=precip[[1]]@extent, main=names(precip)[1])
 ```
 
-For further processing, we can create a raster stack from the list, which e.g. enables fast and easy indexing.
+For further processing, we can create a terra raster from the list, which e.g. enables fast and easy indexing.
 ```{r grid_monthly_stack, eval=FALSE}
-precip_stack <- raster::stack(precip)
+precip_stack <- terra::rast(precip)
 ```
 This is expanded upon in the next [use case](use-case-values-at-locations-in-grid.html).
 
@@ -725,10 +725,8 @@ A few projection references:
 The [Beschreibung file](https://opendata.dwd.de/climate_environment/CDC/grids_germany/seasonal/air_temperature_max/BESCHREIBUNG_gridsgermany_seasonal_air_temperature_max_de.pdf)
 leads to
 <https://spatialreference.org/ref/epsg/31467/>
-from which the proj4 format is used internally in `r helplink("projectRasterDWD")`, currently at 
-[line 62](https://github.com/brry/rdwd/blob/master/R/projectRasterDWD.R#L62).  
-Bettina Ohse reported using `dwd.projection <- '+init=epsg:31467'` instead.
-
+which is used internally in `r helplink("projectRasterDWD")`, currently at 
+[line 70](https://github.com/brry/rdwd/blob/master/R/projectRasterDWD.R#L70).  
 
 
 # - use case: values at locations in grid
@@ -757,17 +755,17 @@ plotRadar(tempmax[[1]], proj="seasonal",extent="seasonal",
 ```
 
 ```{r grid_loc_val_stack}
-# raster stack:
-tempmax_stack <- raster::stack(tempmax)
+# terra raster:
+tempmax_stack <- terra::rast(tempmax)
 tempmax_stack <- projectRasterDWD(tempmax_stack, proj="seasonal",extent="seasonal")
 tempmax_stack
-raster::plot(tempmax_stack, zlim=range(raster::cellStats(tempmax_stack, range)) )
+terra::plot(tempmax_stack, range=range(terra::minmax(tempmax_stack)) )
 ```
 
 ```{r grid_loc_val_extract}
 # Time series at given location:
 loc <- data.frame(x=12.65295, y=53.06547) # Aussichtspunkt Kyritz-Ruppiner Heide
-raster::extract(tempmax_stack, loc)
+terra::extract(tempmax_stack, loc)
 ```
 
 
@@ -795,7 +793,7 @@ plotRadar(radp, main=paste("mm in 24 hours preceding", rad$meta$date), project=F
 
 Save the projected radar image as NCDF file, read back and plot (not executed):
 ```{r daily_radar_ncdf, eval=FALSE}
-raster::writeRaster(radp, "rad_0714_2350.nc", format="CDF", overwrite=TRUE, 
+terra::writeRaster(radp, "rad_0714_2350.nc", format="CDF", overwrite=TRUE, 
                     varname="pre", varunit="mm/day", longname="precipitation24hrs", 
                     xname="X", yname="Y",zname="nbands", zunit="numeric")
 
@@ -829,7 +827,7 @@ rw_file_actual <- R.utils::bunzip2(rw_file) # zipped since between 2022-06 and 2
 rw_orig <- dwdradar::readRadarFile(rw_file_actual)
 str(rw_orig)
 # NB: this is an rw file, but needs radolan extent instead of rw
-plotRadar(raster::raster(rw_orig$dat), extent="radolan", main=rw_orig$meta$date)
+plotRadar(terra::rast(rw_orig$dat), extent="radolan", main=rw_orig$meta$date)
 ```
 
 
@@ -1242,7 +1240,7 @@ Over 2019, an increasing number of feature requests spurred further development,
 A lot of automation went into updating the indexes of available files and runnning all local tests (code and index). 
 Nowadays, I just need to trigger them by calling the two related functions.  
 2020 (especially the summer) then saw a lot of refinement in details, slowly morphing `rdwd` into a mature and stable package.
-
+In 2023, I finally built the app and changed all raster/sp/rgdal code to terra.
 
 More detailed (but still aggregated) changes can nicely be seen at https://github.com/brry/rdwd/releases
 

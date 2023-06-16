@@ -13,7 +13,7 @@ addBorders(de = "grey80", eu = "black", add = TRUE, ...)
 
 \item{add}{Logical: add to existing plot? DEFAULT: TRUE}
 
-\item{\dots}{Further arguments passed to \code{\link[raster:plot]{raster::plot()}}}
+\item{\dots}{Further arguments passed to \code{\link[terra:plot]{terra::plot()}}}
 }
 \value{
 invisible list with DEU and EUR
@@ -21,20 +21,41 @@ invisible list with DEU and EUR
 \description{
 add country and Bundesland borders to a map
 }
+\details{
+\if{html}{\out{<div class="sourceCode">}}\preformatted{# Use the SpatVectors directly with:
+DEU <- terra::vect(system.file("extdata/DEU.gpkg", package="rdwd"))
+EUR <- terra::vect(system.file("extdata/EUR.gpkg", package="rdwd"))
+
+# Obtained with the code:
+url <- "https://gisco-services.ec.europa.eu/distribution/v2/nuts/shp/NUTS_RG_03M_2021_4326_LEVL_1.shp.zip"
+tf <- tempfile(fileext=".zip")
+download.file(url, tf) # 0.9 MB # in 2023-06 error 'Transferred a partial file'
+unzip(tf, exdir="misc/vign") ; rm(url, tf)
+
+DEU <- terra::vect("misc/vign/NUTS_RG_03M_2021_4326_LEVL_1.shp")
+library(terra)
+DEU <- DEU[DEU$CNTR_CODE=="DE","NUTS_NAME"]
+terra::writeVector(DEU, "inst/extdata/DEU.gpkg", overwrite=TRUE)
+
+EUR <- geodata::world(path=locdir())
+EUR <- terra::crop(EUR, c(-11,25, 40,60))
+terra::writeVector(EUR, "inst/extdata/EUR.gpkg", overwrite=TRUE)
+}\if{html}{\out{</div>}}
+}
 \examples{
-if(requireNamespace("raster", quietly=TRUE)){
+if(requireNamespace("terra", quietly=TRUE)){
 plot(1, xlim=c(2,16), ylim=c(47,55))
 addBorders()
+addBorders(add=FALSE)
 plot(1, xlim=c(2,16), ylim=c(47,55))
 addBorders(de="orange", eu=NA)
 }
 
 }
 \seealso{
-\code{\link{plotRadar}}, \code{\link{DEU}}, \code{\link{EUR}},
-\href{https://bookdown.org/brry/rdwd/raster-data.html}{website raster chapter}
+\code{\link{plotRadar}}, \href{https://bookdown.org/brry/rdwd/raster-data.html}{website raster chapter}
 }
 \author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Aug 2019
+Berry Boessenkool, \email{berry-b@gmx.de}, Aug 2019, June 2023
 }
 \keyword{aplot}

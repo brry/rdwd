@@ -60,7 +60,7 @@ min    : Minimum
 # function(x,...) quantile(x,probs=0.8,...) : Quantil 80%
 ")
 
-load(system.file("extdata/DEU.rda", package="rdwd"))
+DEU <- terra::vect(system.file("extdata/DEU.gpkg", package="rdwd"))
 } # end meta data
 
 # weather data ----
@@ -250,7 +250,7 @@ output$plot_3_hist <- renderPlot(plot_3_hist())
 
 output$map <- renderPlot({
   par(mar=rep(0,4), bg="grey96")
-  raster::plot(DEU, border=8) # see ?DEU
+  terra::plot(DEU, border=8)
   points(meta$geoLaenge, meta$geoBreite, asp=1.6, pch=3, lwd=1, col="steelblue")
   points(geoBreite~geoLaenge, data=meta[meta$Stationsname==loc_sel(),], cex=3, 
          lwd=2, col="salmon")

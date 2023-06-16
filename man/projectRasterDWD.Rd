@@ -10,34 +10,38 @@ projectRasterDWD(
   extent = "radolan",
   adjust05 = FALSE,
   targetproj = "ll",
+  threads = TRUE,
   quiet = rdwdquiet()
 )
 }
 \arguments{
-\item{r}{Raster object}
+\item{r}{terra raster object}
 
 \item{proj}{Current projection to be given to \code{r}. Can be\cr
-- a \code{\link[raster:projection]{raster::crs()}} input (e.g. a projection character string),\cr
+- a \code{\link[terra:crs]{terra::crs()}} input,\cr
 - NULL to not set proj+extent (but still consider \code{targetproj}),\cr
 - or a special charstring for internal defaults, namely:
 "radolan" (readDWD.binary + .asc + .radar), "seasonal" (.raster) or "nc"  (.nc).\cr
 DEFAULT: "radolan"}
 
-\item{extent}{Current \code{\link[raster:extent]{raster::extent()}} to be given to \code{r}.
-Ignored if \code{proj=NULL}. Can be an extent object,
+\item{extent}{Current \code{\link[terra:ext]{terra::ext()}} extent to be given to \code{r}.
+Ignored if \code{proj=NULL}. Can be NULL to be ignored, an extent object,
 a vector with 4 numbers, or "radolan" / "rw" / "seasonal" / "nc" with internal defaults.
 DEFAULT: "radolan"}
 
 \item{adjust05}{Logical: Adjust extent by 0.5m to match edges? DEFAULT: FALSE}
 
-\item{targetproj}{\code{r} is reprojected to this \code{\link[raster:projection]{raster::crs()}}.
+\item{targetproj}{\code{r} is reprojected to this \code{\link[terra:crs]{terra::crs()}}.
 Use NULL to not reproject (i.e. only set proj and extent).
 DEFAULT: "ll" with internal default for lat-lon.}
+
+\item{threads}{Use multiple CPU threads for \code{\link[terra:project]{terra::project()}}?
+DEFAULT: TRUE (opposite from terra::project)}
 
 \item{quiet}{Logical: suppress progress messages? DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 }
 \value{
-Raster object with projection and extent, invisible
+terra raster object with projection and extent, invisible
 }
 \description{
 Set projection and extent for DWD raster data. Optionally (and
@@ -45,7 +49,7 @@ per default) also reprojects to latlon data.\cr\cr
 \strong{WARNING:} reprojection to latlon changes values slightly. For the
 tested RX product, this change is significant, see:
 \url{https://github.com/brry/rdwd/blob/master/misc/ExampleTests/Radartests.pdf}\cr
-In raster::plot, \strong{use zlim with the original range} if needed.
+In terra::plot, \strong{use range=zlim with the original range} if needed.
 }
 \details{
 The internal defaults are extracted from the Kompositformatbeschreibung at
@@ -60,13 +64,12 @@ as a starting point, I then refined the extent to a visual match, see
 }
 \seealso{
 \code{\link[=plotRadar]{plotRadar()}}\cr
-\verb{raster::}\code{\link[raster:projection]{crs}} / \code{\link[raster:extent]{extent}} /
-\code{\link[raster:projectRaster]{projectRaster}}\cr
+\verb{terra::}\code{\link[terra:crs]{crs}} / \code{\link[terra:ext]{ext}} / \code{\link[terra:project]{project}}\cr
 \code{readDWD.}\code{\link[=readDWD.binary]{binary}} / \code{\link[=readDWD.raster]{raster}} /
 \code{\link[=readDWD.asc]{asc}} / \code{\link[=readDWD.radar]{radar}} / \code{\link[=readDWD.nc]{nc}}\cr
 \href{https://bookdown.org/brry/rdwd/raster-data.html}{website raster chapter}
 }
 \author{
-Berry Boessenkool, \email{berry-b@gmx.de}, May 2019
+Berry Boessenkool, \email{berry-b@gmx.de}, May 2019, June 2023
 }
 \keyword{aplot}

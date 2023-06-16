@@ -7,7 +7,7 @@
 plotRadar(
   x,
   layer = NULL,
-  main = x@title,
+  main = names(x),
   land = "gray80",
   sea = "cadetblue1",
   de = "grey80",
@@ -30,12 +30,12 @@ plotRadar(
 )
 }
 \arguments{
-\item{x}{raster oject, e.g. 'dat' element of object returned by \code{\link[=readDWD]{readDWD()}}.}
+\item{x}{terra raster oject, e.g. 'dat' element of object returned by \code{\link[=readDWD]{readDWD()}}.}
 
 \item{layer}{Optional: selected layer(s) to be plotted. DEFAULT: NULL}
 
 \item{main}{Graph title(s). Use "" to suppress.
-Note\code{output@title} is set to \code{main}! DEFAULT: x@title}
+DEFAULT: names(x)}
 
 \item{land}{Color of land areas in the map. DEFAULT: "gray80"}
 
@@ -84,35 +84,34 @@ used only if \code{project=TRUE}. DEFAULT: "ll"}
 
 \item{quiet}{suppress progress messages? DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 
-\item{\dots}{Further arguments passed to \code{\link[raster:plot]{raster::plot()}}}
+\item{\dots}{Further arguments passed to \code{\link[terra:plot]{terra::plot()}}}
 }
 \value{
-raster object, projected (if \code{project=TRUE}).
+terra object, (re)projected (if \code{project=TRUE}).
 If \code{length(layer)==1}, only that selected layer is returned.
-\code{output@title} is set to \code{main}.
 }
 \description{
 Convenience function to plot radar products on a pretty map.
 Creates a separate plot for each layer, a selection is possible.
 }
 \examples{
-# See homepage in the section 'See Also'
+# See https://bookdown.org/brry/rdwd/raster-data.html
 \dontrun{ ## Excluded from CRAN checks: requires internet connection
 link <- "seasonal/air_temperature_mean/16_DJF/grids_germany_seasonal_air_temp_mean_188216.asc.gz"
-rad <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=locdir())
-radp <- plotRadar(rad, proj="seasonal", extent=rad@extent, main="plotRadar ex")
-plotRadar(radp, ylim=c(52,54), project=FALSE) # reuses main
+rad <- dataDWD(link, base=gridbase, joinbf=TRUE)
+radp <- plotRadar(rad, proj="seasonal", extent=NULL, main="plotRadar ex")
+plotRadar(radp, ylim=c(52,54), project=FALSE)
 
 # plotRadar equivalent, map only country borders:
-radpm <- projectRasterDWD(rad[[1]], proj="seasonal", extent=rad@extent)
-raster::plot(radpm)
+radpm <- projectRasterDWD(rad[[1]], proj="seasonal", extent=NULL)
+terra::plot(radpm)
 addBorders()
 
 # several layers
 url <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
-nc <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=locdir())
+nc <- dataDWD(url, base=gridbase, joinbf=TRUE)
 
-ncp3 <- plotRadar(nc, main=paste(nc@title, nc@z[[1]]), layer=1:3,
+ncp3 <- plotRadar(nc, main=paste(terra::longnames(nc), terra::time(nc)), layer=1:3,
                   col=terrain.colors(100), proj="nc", extent="nc")
 plotRadar(ncp3, layer=3:4, project=FALSE) # still has all layers
 plotRadar(ncp3, layer=4:5, project=FALSE, zlim="ind") # individual zlims per layer
@@ -129,7 +128,7 @@ berryFunctions::is.error(plotRadar(ncp1, layer=1:4, project=FALSE), TRUE, TRUE)
 \href{https://bookdown.org/brry/rdwd/raster-data.html}{website raster chapter}
 }
 \author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Feb 2020
+Berry Boessenkool, \email{berry-b@gmx.de}, Feb 2020, June 2023
 }
 \keyword{aplot}
 \keyword{spatial}
