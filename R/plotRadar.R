@@ -45,8 +45,8 @@
 #'                   DEFAULT: names(x)
 #' @param land       Color of land areas in the map. DEFAULT: "gray80"
 #' @param sea        Color of sea areas in the map. DEFAULT: "cadetblue1"
-#' @param de         Color of Deutschland Bundesland borders ([`DEU`]). DEFAULT: "grey80"
-#' @param eu         Color of Europe country borders ([`EUR`]). DEFAULT: "black"
+#' @param de         Color of Deutschland Bundesland borders. DEFAULT: "grey80"
+#' @param eu         Color of Europe country borders . DEFAULT: "black"
 #' @param col        Color palette for the data itself.
 #'                   DEFAULT: [berryFunctions::seqPal()]
 #' @param xlim       xlim. DEFAULT: NULL, i.e. taken from x extent (after reprojection if `project=TRUE`)
@@ -120,9 +120,10 @@ EUR <- terra::vect(system.file("extdata/EUR.gpkg", package="rdwd"))
 
 singlemap <- function(x_i, main_i)
  {
- terra::plot(EUR, border=eu, col=land, xlim=xlim, ylim=ylim, background=sea, las=las)
+ terra::plot(EUR, xlim=xlim, ylim=ylim, border=eu, col=land, background=sea, las=las)
  terra::plot(x_i, add=TRUE, range=zlim, col=col, ...)
  terra::plot(DEU, add=TRUE, border=de)
+ terra::plot(EUR, add=TRUE, border=eu)
  title(main=main_i)
  }
 
@@ -141,6 +142,7 @@ if(is.null(ylim)) ylim <- ext[3:4]
 if(is.null(zlim)) 
  {
  zlim <- suppressWarnings(terra::minmax(x))
+ # fails with out-of-memora data, where global is needed: (or get it in mem with x*1)
  if(any(!is.finite(zlim))) zlim <- t(terra::global(x, "range", na.rm=TRUE))
  }
 if(is.matrix(zlim)) zlim <- range(zlim[,lay], na.rm=TRUE)

@@ -41,9 +41,9 @@ DEFAULT: names(x)}
 
 \item{sea}{Color of sea areas in the map. DEFAULT: "cadetblue1"}
 
-\item{de}{Color of Deutschland Bundesland borders (\code{\link{DEU}}). DEFAULT: "grey80"}
+\item{de}{Color of Deutschland Bundesland borders. DEFAULT: "grey80"}
 
-\item{eu}{Color of Europe country borders (\code{\link{EUR}}). DEFAULT: "black"}
+\item{eu}{Color of Europe country borders . DEFAULT: "black"}
 
 \item{col}{Color palette for the data itself.
 DEFAULT: \code{\link[berryFunctions:seqPal]{berryFunctions::seqPal()}}}

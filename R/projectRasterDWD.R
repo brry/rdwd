@@ -70,7 +70,7 @@ if(!quiet) message("Setting terra raster crs to ", proj, " ...")
 p_radolan <- "+proj=stere +lat_0=90 +lat_ts=90 +lon_0=10 +k=0.93301270189
               +x_0=0 +y_0=0 +a=6370040 +b=6370040 +to_meter=1000 +no_defs"
 p_seasonal <- "EPSG:31467"
-p_nc <- "+init=epsg:3034" # ToDo: replace with EPSG:3034 ?
+p_nc <- "EPSG:3034"
 #
 if(is.character(proj))
   proj <- switch(proj, radolan=p_radolan, seasonal=p_seasonal, nc=p_nc, proj)

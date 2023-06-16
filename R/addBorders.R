@@ -15,12 +15,18 @@
 #' unzip(tf, exdir="misc/vign") ; rm(url, tf)
 #' 
 #' DEU <- terra::vect("misc/vign/NUTS_RG_03M_2021_4326_LEVL_1.shp")
-#' library(terra)
+#' library(terra) # for bracket method
 #' DEU <- DEU[DEU$CNTR_CODE=="DE","NUTS_NAME"]
 #' terra::writeVector(DEU, "inst/extdata/DEU.gpkg", overwrite=TRUE)
 #' 
-#' EUR <- geodata::world(path=locdir())
+#' url <- "https://gisco-services.ec.europa.eu/distribution/v2/nuts/shp/NUTS_RG_03M_2021_4326_LEVL_0.shp.zip"
+#' tf <- tempfile(fileext=".zip")
+#' download.file(url, tf) # 0.7 MB # in 2023-06 error 'Transferred a partial file'
+#' unzip(tf, exdir="misc/vign") ; rm(url, tf)
+#' 
+#' EUR <- terra::vect("misc/vign/NUTS_RG_03M_2021_4326_LEVL_0.shp")
 #' EUR <- terra::crop(EUR, c(-11,25, 40,60))
+#' EUR <- EUR[,"NUTS_NAME"]
 #' terra::writeVector(EUR, "inst/extdata/EUR.gpkg", overwrite=TRUE)
 #' ```
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019, June 2023
@@ -36,8 +42,8 @@
 #' addBorders(de="orange", eu=NA)
 #' }
 #' 
-#' @param de      Color for Bundeslaender line ([`DEU`]). NA to suppress. DEFAULT: "grey80"
-#' @param eu      Color for countries line ([`EUR`]). NA to suppress. DEFAULT: "black"
+#' @param de      Color for Bundeslaender lines. NA to suppress. DEFAULT: "grey80"
+#' @param eu      Color for countries lines. NA to suppress. DEFAULT: "black"
 #' @param add     Logical: add to existing plot? DEFAULT: TRUE
 #' @param \dots   Further arguments passed to [terra::plot()]
 addBorders <- function(
