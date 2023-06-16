@@ -71,11 +71,11 @@ dev.off()
 berryFunctions::openFile(paste0(viddir,"/Radolan_001.png"))
 
 # Time series of a given point in space:
-plot(as.vector(asc[800,800,]), type="l", xlab="Time [hours]")
+plot(unlist(asc[800,800,]), type="l", xlab="Time [hours]")
 
 # if dividebyten=FALSE, terra stores things out of memory in the exdir.
 # by default, this is in tempdir, hence you would need to save asc manually:
-# terra::writeRaster(asc, paste0(datadir,"/RW2018-09"), overwrite=TRUE)
+# terra::writeRaster(asc, tempfile(fileext="/RW2018-09.gpkg"), overwrite=TRUE)
 }
 }
 \seealso{

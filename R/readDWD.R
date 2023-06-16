@@ -378,11 +378,10 @@ return(dat)
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
 #' 
 #' # Temperature aggregates (2019-04 the 9th file, 2022-05 the 8th):
-#' durl <- selectDWD(res="multi_annual", var="mean_81-10", per="")[8]
-#' murl <- selectDWD(res="multi_annual", var="mean_81-10", per="", meta=TRUE)[8]
-#' 
-#' ma_temp <- dataDWD(durl, dir=locdir())
-#' ma_meta <- dataDWD(murl, dir=locdir())
+#' durl <- selectDWD(res="multi_annual", per="mean_81-10")[8]
+#' murl <- selectDWD(res="multi_annual", per="mean_81-10", meta=TRUE)[8]
+#' ma_temp <- dataDWD(durl)
+#' ma_meta <- dataDWD(murl)
 #' 
 #' head(ma_temp)
 #' head(ma_meta)
@@ -417,14 +416,15 @@ return(dat)
 #'              DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_aktStandort.txt or
 #'              DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_Stationsliste_aktStandort.txt
 #' @param fileEncoding [read.table()] file encoding.
-#'              DEFAULT: "latin1" (needed on Linux, optional but not hurting on windows)
+#'              "latin1" needed on Linux (before 2023 at least).
+#'              DEFAULT: ""
 #' @param comment.char [read.table()] comment character.
 #'              DEFAULT: "\\032" (needed 2019-04 to ignore the binary
 #'              control character at the end of multi_annual files)
 #' @param quiet Ignored.
 #'              DEFAULT: FALSE through [rdwdquiet()]
 #' @param \dots Further arguments passed to [read.table()]
-readDWD.multia <- function(file, fileEncoding="latin1", comment.char="\032",
+readDWD.multia <- function(file, fileEncoding="", comment.char="\032",
                            quiet=rdwdquiet(), ...)
 {
 out <- read.table(file, sep=";", header=TRUE, fileEncoding=fileEncoding,
@@ -1015,11 +1015,11 @@ return(invisible(rf))
 #' berryFunctions::openFile(paste0(viddir,"/Radolan_001.png"))
 #' 
 #' # Time series of a given point in space:
-#' plot(as.vector(asc[800,800,]), type="l", xlab="Time [hours]")
+#' plot(unlist(asc[800,800,]), type="l", xlab="Time [hours]")
 #' 
 #' # if dividebyten=FALSE, terra stores things out of memory in the exdir.
 #' # by default, this is in tempdir, hence you would need to save asc manually:
-#' # terra::writeRaster(asc, paste0(datadir,"/RW2018-09"), overwrite=TRUE)
+#' # terra::writeRaster(asc, tempfile(fileext="/RW2018-09.gpkg"), overwrite=TRUE)
 #' }
 #' @param file        Name of file on harddrive, like e.g.
 #'                    DWDdata/grids_germany/hourly/radolan/historical/asc/

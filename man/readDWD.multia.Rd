@@ -6,7 +6,7 @@
 \usage{
 readDWD.multia(
   file,
-  fileEncoding = "latin1",
+  fileEncoding = "",
   comment.char = "\\032",
   quiet = rdwdquiet(),
   ...
@@ -18,7 +18,8 @@ DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_aktStandort.txt or
 DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_Stationsliste_aktStandort.txt}
 
 \item{fileEncoding}{\code{\link[=read.table]{read.table()}} file encoding.
-DEFAULT: "latin1" (needed on Linux, optional but not hurting on windows)}
+"latin1" needed on Linux (before 2023 at least).
+DEFAULT: ""}
 
 \item{comment.char}{\code{\link[=read.table]{read.table()}} comment character.
 DEFAULT: "\\032" (needed 2019-04 to ignore the binary
@@ -43,11 +44,10 @@ subdaily/standard_format data.
 \dontrun{ # Excluded from CRAN checks, but run in localtests
 
 # Temperature aggregates (2019-04 the 9th file, 2022-05 the 8th):
-durl <- selectDWD(res="multi_annual", var="mean_81-10", per="")[8]
-murl <- selectDWD(res="multi_annual", var="mean_81-10", per="", meta=TRUE)[8]
-
-ma_temp <- dataDWD(durl, dir=locdir())
-ma_meta <- dataDWD(murl, dir=locdir())
+durl <- selectDWD(res="multi_annual", per="mean_81-10")[8]
+murl <- selectDWD(res="multi_annual", per="mean_81-10", meta=TRUE)[8]
+ma_temp <- dataDWD(durl)
+ma_meta <- dataDWD(murl)
 
 head(ma_temp)
 head(ma_meta)
