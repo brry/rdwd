@@ -456,21 +456,6 @@ Before running the code below, update the package:
 rdwd::updateRdwd()
 ```
 
-A helper function to reduce code duplication - in real life, use `plotRadar` directly, not `project_and_plot`:
-
-```{r readDWD_gridded}
-ddir <- locdir()
-tdir <- tempdir()
-project_and_plot <- function(x, main1, main2, main3=NULL, ...)
-  {
-  par(mar=c(2,2,2.2,5), mgp=c(3,0.7,0))
-  main <- paste(main1, "\n", as.character(main2), as.character(main3))
-  out <- plotRadar(x, main=main, layer=1, ...)
-  return(invisible(c(pp,out)))
-  }
-pp <- list()
-```
-
 The following overview will usually unzip only a few selected files for speed and memory considerations.
 In real life, you probably do not want to unzip to a temporary `exdir`.
 You can also remove `read=FALSE` in dataDWD and add the needed arguments right there, 
@@ -479,86 +464,91 @@ but I wanted to be explicit here.
 The first line in each code block below shows for which FTP folder 
 at [`gridbase`](https://opendata.dwd.de/climate_environment/CDC/grids_germany) 
 this function will be called.  
-The last line shows what projection and extent to use in `r helplink("projectRasterDWD")` 
-(called through `r helplink("plotRadar")`). 
+The last line shows what projection and extent to use in `r helplink("plotRadar")`. 
 
 ## readDWD.raster
 `r helplink("readDWD.raster")` - for actual code, see [use case: monthly gridded data](use-case-monthy-gridded-data.html)
-```{r readDWD_raster}
+```{r readDWD_raster, echo=-1}
+par(mar=c(2,2,2.2,5), mgp=c(3,0.7,0))
 link <- "seasonal/air_temperature_mean/16_DJF/grids_germany_seasonal_air_temp_mean_188216.asc.gz" # 0.2 MB
-file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE)
+file <- dataDWD(link, base=gridbase, joinbf=TRUE, read=FALSE)
 rad <- readDWD(file) # with dividebyten=TRUE
 rad <- readDWD(file) # runs faster at second time due to skip=TRUE
-pp <- project_and_plot(rad, ".raster", "", proj="seasonal", extent=rad@extent)
+plotRadar(rad, main=".raster", proj="seasonal", extent=NULL)
 ```
-`project_and_plot` is additional stuff on this website. Use `plotRadar` in real life.
 
 
 ## readDWD.nc
 `r helplink("readDWD.nc")`
-```{r readDWD_nc}
+```{r readDWD_nc, echo=-1}
+par(mar=c(2,2,2.2,5), mgp=c(3,0.7,0))
 link <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
-file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE)
+file <- dataDWD(link, base=gridbase, joinbf=TRUE, read=FALSE)
 rad <- readDWD(file) # can also have interactive selection of variable
-pp <- project_and_plot(rad, ".nc", rad@title, rad@z[[1]][1], proj="nc", extent="nc")
+plotRadar(rad, main=".nc", proj="nc", extent="nc", layer=1)
 ```
 
 ## readDWD.binary (RW)
 `r helplink("readDWD.binary")` - see also [use case: recent hourly radar files](use-case-recent-hourly-radar-files.html)
-```{r readDWD_binary_rw}
+```{r readDWD_binary_rw, echo=-1}
+par(mar=c(2,2,2.2,5), mgp=c(3,0.7,0))
 link <- "hourly/radolan/reproc/2017_002/bin/2017/RW2017.002_201712.tar.gz"  # 25 MB
-file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE)
-rad <- readDWD(file, exdir=tdir, selection=1:3)
-pp <- project_and_plot(rad$dat, ".binary RW", rad$meta$date[1], extent="rw")
+file <- dataDWD(link, base=gridbase, joinbf=TRUE, read=FALSE)
+rad <- readDWD(file, exdir=tempdir(), selection=1:3)
+plotRadar(rad$dat, main=".binary RW", extent="rw", layer=1)
 ```
 
 ## readDWD.binary (SF)
 `r helplink("readDWD.binary")`  
-```{r readDWD_binary_sf}
+```{r readDWD_binary_sf, echo=-1}
+par(mar=c(2,2,2.2,5), mgp=c(3,0.7,0))
 link <- "/daily/radolan/historical/bin/2017/SF201712.tar.gz"           # 204 MB
-file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir, read=FALSE)
-rad <- readDWD(file, exdir=tdir, selection=1:3) # with toraster=TRUE
-pp <- project_and_plot(rad$dat, ".binary SF", rad$meta$date[1])
+file <- dataDWD(link, base=gridbase, joinbf=TRUE, read=FALSE)
+rad <- readDWD(file, exdir=tempdir(), selection=1:3) # with toraster=TRUE
+plotRadar(rad$dat, main=".binary SF", layer=1)
 ```
 
 ## readDWD.asc
 `r helplink("readDWD.asc")` 
-```{r readDWD_asc}
+```{r readDWD_asc, echo=-1}
+par(mar=c(2,2,2.2,5), mgp=c(3,0.7,0))
 link <- "hourly/radolan/historical/asc/2018/RW-201809.tar" # 25 mB
-file <- dataDWD(link, base=gridbase, joinbf=TRUE, dir=ddir,
-                dbin=TRUE, read=FALSE) # download with mode=wb!!!
+file <- dataDWD(link, base=gridbase, joinbf=TRUE, read=FALSE) # dbin -> mode=wb
 rad <- readDWD(file, selection=1:3, dividebyten=TRUE)
-pp <- project_and_plot(rad, ".asc", names(rad)[1])
+plotRadar(rad, main=".asc", layer=1)
 ```
  
 ## readDWD.radar (RW)
 `r helplink("readDWD.radar")` - for actual code for daily data, see [use case: daily radar files](use-case-daily-radar-files.html)
-```{r readDWD_radar, echo=-1}
+```{r readDWD_radar, echo=-(1:2)}
+par(mar=c(2,2,2.2,5), mgp=c(3,0.7,0))
 suppressPackageStartupMessages(library(R.utils)) 
-links <- indexFTP("hourly/radolan/recent/bin", base=gridbase, dir=tdir) # 0.04 MB
-file <- dataDWD(links[773], base=gridbase, joinbf=TRUE, dir=tdir, read=FALSE)
+links <- indexFTP("hourly/radolan/recent/bin", base=gridbase, dir=tempdir()) # 0.04 MB
+file <- dataDWD(links[773], base=gridbase, joinbf=TRUE, dir=tempdir(), read=FALSE)
 rad <- readDWD(file)
-pp <- project_and_plot(rad$dat, ".radar RW", rad$meta$date)
+plotRadar(rad$dat, main=".radar RW")
 ```
 
 ## readDWD.radar (RQ)
 `r helplink("readDWD.radar")`
-```{r readDWD_radar_RQ}
+```{r readDWD_radar_RQ, echo=-1}
+par(mar=c(2,2,2.2,5), mgp=c(3,0.7,0))
 rqbase <- "ftp://opendata.dwd.de/weather/radar/radvor/rq"
-links <- indexFTP("", base=rqbase, dir=tdir) # 0.07 MB
-file <- dataDWD(links[17], base=rqbase, joinbf=TRUE, dir=tdir, read=FALSE)
+links <- indexFTP("", base=rqbase, dir=tempdir()) # 0.07 MB
+file <- dataDWD(links[17], base=rqbase, joinbf=TRUE, dir=tempdir(), read=FALSE)
 rad <- readDWD(file)
-pp <- project_and_plot(rad$dat, ".radar RQ", rad$meta$date)
+plotRadar(rad$dat, main=".radar RQ")
 ```
 
 ## readDWD.grib2
-`r helplink("readDWD.grib2")` - since version 1.4.12 (2021-01-01)
-```{r readDWD_grib2, fig.width=6, fig.height=5}
+`r helplink("readDWD.grib2")`
+```{r readDWD_grib2, fig.width=6, fig.height=5, echo=-1}
+par(mar=c(2,2,2.2,5), mgp=c(3,0.7,0))
 nwpbase <- "ftp://opendata.dwd.de/weather/nwp/icon-d2/grib/00/t_2m"
-links <- indexFTP("", base=nwpbase, dir=tdir)
-file <- dataDWD(links[6], base=nwpbase, joinbf=TRUE, dir=tdir, read=FALSE)
+links <- indexFTP("", base=nwpbase, dir=tempdir())
+file <- dataDWD(links[6], base=nwpbase, joinbf=TRUE, dir=tempdir(), read=FALSE)
 #forecast <- readDWD(file)
-#pp <- project_and_plot(forecast, ".grib2", Sys.Date(), project=FALSE)
+#plotRadar(forecast, main=".grib2", project=FALSE)
 ```
 grib files are currently [broken](https://github.com/brry/rdwd/issues/28) (2021-04-08) but would look like this:
 <img src="readDWD_grib2-1.png" width="600">
@@ -580,18 +570,6 @@ terra::plot(terra::rast(rw_orig$dat))
 <img src="dbin1.png" width="600">
 
 
-
-## PDF overview
-
-```{r raster_pdf}
-pdf("../ExampleTests/Radartests_Vign.pdf", width=6, height=6)
-par(mar=c(0,0,3,5))
-dummy <- lapply(pp, function(x) plotRadar(x, xlim=c(3,16), ylim=c(47, 55), 
-                                        main=x@title, project=FALSE))
-invisible(dev.off())
-```
-
-Open the pdf at <https://github.com/brry/rdwd/tree/master/misc/ExampleTests>
 
 # see also
 
@@ -710,7 +688,7 @@ This runs faster if called a second time due to skip=TRUE in `gunzip`.
 Now we can project and visualize with:
 
 ```{r grid_monthly_vis}
-plotRadar(precip[[1]], proj="seasonal", extent=precip[[1]]@extent, main=names(precip)[1])
+plotRadar(precip[[1]], proj="seasonal", extent=NULL, main=names(precip)[1])
 ```
 
 For further processing, we can create a terra raster from the list, which e.g. enables fast and easy indexing.
@@ -793,15 +771,14 @@ plotRadar(radp, main=paste("mm in 24 hours preceding", rad$meta$date), project=F
 
 Save the projected radar image as NCDF file, read back and plot (not executed):
 ```{r daily_radar_ncdf, eval=FALSE}
-terra::writeRaster(radp, "rad_0714_2350.nc", format="CDF", overwrite=TRUE, 
-                    varname="pre", varunit="mm/day", longname="precipitation24hrs", 
-                    xname="X", yname="Y",zname="nbands", zunit="numeric")
+terra::writeCDF(radp, "rad_0714_2350.nc", overwrite=TRUE, 
+                varname="pre", longname="precipitation24hrs", zname="nbands")
 
 nc <- ncdf4::nc_open("rad_0714_2350.nc")
 nc
 pre <- ncdf4::ncvar_get(nc, "pre")
-lon <- nc$dim$X$vals
-lat <- nc$dim$Y$vals
+lon <- nc$dim$longitude$vals
+lat <- nc$dim$latitude$vals
 image(lon, rev(lat), pre[,ncol(pre):1]) # takes several seconds
 rdwd::addBorders()
 ```

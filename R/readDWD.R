@@ -380,8 +380,8 @@ return(dat)
 #' # Temperature aggregates (2019-04 the 9th file, 2022-05 the 8th):
 #' durl <- selectDWD(res="multi_annual", per="mean_81-10")[8]
 #' murl <- selectDWD(res="multi_annual", per="mean_81-10", meta=TRUE)[8]
-#' ma_temp <- dataDWD(durl)
-#' ma_meta <- dataDWD(murl)
+#' ma_temp <- dataDWD(durl, fileEncoding="")
+#' ma_meta <- dataDWD(murl, fileEncoding="")
 #' 
 #' head(ma_temp)
 #' head(ma_meta)
