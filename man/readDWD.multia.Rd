@@ -6,7 +6,7 @@
 \usage{
 readDWD.multia(
   file,
-  fileEncoding = "",
+  fileEncoding = "latin1",
   comment.char = "\\032",
   quiet = rdwdquiet(),
   ...
@@ -18,8 +18,7 @@ DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_aktStandort.txt or
 DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_Stationsliste_aktStandort.txt}
 
 \item{fileEncoding}{\code{\link[=read.table]{read.table()}} file encoding.
-"latin1" needed on Linux (before 2023 at least).
-DEFAULT: ""}
+DEFAULT: "latin1"}
 
 \item{comment.char}{\code{\link[=read.table]{read.table()}} comment character.
 DEFAULT: "\\032" (needed 2019-04 to ignore the binary
