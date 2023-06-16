@@ -765,7 +765,7 @@ terra::plot(tempmax_stack, range=range(terra::minmax(tempmax_stack)) )
 ```{r grid_loc_val_extract}
 # Time series at given location:
 loc <- data.frame(x=12.65295, y=53.06547) # Aussichtspunkt Kyritz-Ruppiner Heide
-terra::extract(tempmax_stack, loc)
+round(unlist(terra::extract(tempmax_stack, loc)[-1]),1)
 ```
 
 

@@ -741,7 +741,9 @@ if(!toraster) return(invisible(rb))
 # else if toraster:
 checkSuggestedPackage("terra", "rdwd:::readDWD.binary with toraster=TRUE")
 pmessage("Converting to terra raster...")
-rbmat <- terra::rast(rb)
+rbmat <- base::lapply(rb,"[[",1)
+rbmat <- lapply(rbmat, terra::rast)
+rbmat <- terra::rast(rbmat)
 rbmeta <- rb[[1]]$meta
 rbmeta$filename <- file
 rbmeta$date <- as.POSIXct(time)
@@ -771,12 +773,12 @@ return(invisible(list(dat=rbmat, meta=rbmeta)))
 #' rf <- readDWD(localfiles[1]) # runs faster at second time due to skip=TRUE
 #' terra::plot(rf)
 #' 
-#' plotRadar(rf,proj="seasonal", extent=rf@extent)
+#' plotRadar(rf, proj="seasonal", extent=NULL)
 #' 
-#' testthat::expect_equal(terra::minmax(rf), c(-8.2,4.4))
+#' testthat::expect_equal(c(terra::minmax(rf)), c(-8.2,4.4))
 #' rf10 <- readDWD(localfiles[1], dividebyten=FALSE)
 #' terra::plot(rf10)
-#' testthat::expect_equal(terra::minmax(rf10), c(-82,44))
+#' testthat::expect_equal(c(terra::minmax(rf10*1)), c(-82,44))
 #' }
 #' @param file        Name of file on harddrive, like e.g.
 #'                    DWDdata/grids_germany/seasonal/air_temperature_mean/
@@ -832,16 +834,15 @@ return(invisible(r))
 #' url <- "daily/Project_TRY/humidity/RH_199509_daymean.nc.gz"    # 25 MB
 #' file <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=locdir(), read=FALSE)
 #' nc <- readDWD(file)
-#' ncp <- plotRadar(nc, main=paste(nc@title, nc@z[[1]]), layer=1:3,
+#' ncp <- plotRadar(nc, main=paste(terra::longnames(nc), terra::time(nc)), layer=1:3,
 #'                  col=seqPal(), proj="nc", extent="nc")
-#' str(nc, max.level=2)
 #' 
-#' terra::values(nc[[1]]) # obtain actual values into memory # ToDo : check this
+#' str(terra::values(nc[[1]])) # obtain actual values into memory
 #' 
 #' terra::plot(nc[[1]]) # axes 0:938 / 0:720, the number of grid cells
 #' terra::plot(ncp[[1]])# properly projected, per default onto latlon
 #' 
-#' rng <- range(terra::minmax(nc[[1:6]]))
+#' rng <- range(terra::global(nc[[1:6]], "range", na.rm=TRUE))
 #' terra::plot(nc, col=seqPal(), zlim=rng, maxnl=6)
 #' 
 #' # Array instead of terra rast:
@@ -850,7 +851,7 @@ return(invisible(r))
 #' colPointsLegend(nc$var[,,1], title=paste(nc$varname, nc$time[1]))
 #' 
 #' # interactive selection of variable:
-#' # nc <- readDWD(file, var="-") # commented out to not block automated tests
+#' # nc <- readDWD(file, toraster=FALSE, var="-") # commented out to not block automated tests
 #' str(nc$var)
 #' }
 #' @param file        Name of file on harddrive, like e.g.
@@ -997,15 +998,11 @@ return(invisible(rf))
 #' @seealso [readDWD()]
 #' @examples
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
-#' 
 #' # File selection and download:
-#' datadir <- locdir()
 #' radbase <- paste0(gridbase,"/hourly/radolan/historical/asc/")
 #' radfile <- "2018/RW-201809.tar" # 25 MB to download
-#' file <- dataDWD(radfile, base=radbase, joinbf=TRUE, dir=datadir,
-#'                 dbin=TRUE, read=FALSE) # download with mode=wb!!!
-#' 
-#' #asc <- readDWD(file) # 4 GB in mem. ~ 20 secs unzip, 30 secs read, 10 min divide
+#' file <- dataDWD(radfile, base=radbase, joinbf=TRUE, read=FALSE)
+#' #asc <- readDWD(file) # 4 GB in mem. ~ 20 secs unzip, 10 secs read, 2 min divide
 #' asc <- readDWD(file, selection=1:5, dividebyten=TRUE)
 
 #' plotRadar(asc[[1]], main=names(asc)[1])
@@ -1075,15 +1072,14 @@ if(any(to_untar)){
 f <- dir(exdir, pattern=".asc$", full.names=TRUE) # 720 files
 if(!is.null(selection)) f <- f[selection]
 if(!quiet) message("Reading ",length(f)," files...")
+# slow variant:
+# dat <- terra::rast(f)
+# if(!quiet & dividebyten) message("Dividing values by ten...")
+# if(dividebyten) dat <- dat/10 # this loads it into memory and then takes 10 minutes
 dat <- lapply(f, terra::rast, ...)
-#
-# divide by ten (takes ~9 min!)
 if(!quiet & dividebyten) message("Dividing values by ten...")
-if(dividebyten) dat <- lapply(dat, function(x) x/10)
-#
-# stack layers:
+if(dividebyten) dat <- lapply(dat, function(x) x/10) # this takes 2 minutes
 dat <- terra::rast(dat)
-#
 # output:
 return(invisible(dat))
 }
@@ -1103,20 +1099,21 @@ return(invisible(dat))
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
 #' yw_link <- "/5_minutes/radolan/reproc/2017_002/bin/2022/YW2017.002_202203.tar"
 #' # 202006 has untar error on Mac, 2023-04, maybe due to incomplete download
-#' yw_file <- dataDWD(url=yw_link, base=gridbase, joinbf=TRUE, dir=locdir(), read=FALSE)
-#' # 207 MB
+#' yw_file <- dataDWD(url=yw_link, base=gridbase, joinbf=TRUE, read=FALSE) # 207 MB
 #' x <- readDWD(yw_file, selection=3641:3644)
 #' # 00:30 for tar files, 01:40 for unpacking. 
 #' # If you need a preselection argument, let me know.
 #' terra::plot(x$dat)
+#' plotRadar(x$dat[[1]], extent="rw") # better extent below
 #'
 #' f <- system.file("tests//raa01-yw2017.002_10000-2006131525-dwd---bin", package="dwdradar")
 #' # https://stackoverflow.com/a/72207233/1587132 on how to install with tests folder
-#' if(!file.exists(f)) f <- paste0("/Users/berry/Dropbox/Rpack/dwdradar/tests/",
-#'                                 "raa01-yw2017.002_10000-2006131525-dwd---bin")
-#' # Clone from https://github.com/brry/dwdradar
-#' if(!file.exists(f)) stop("dwdradar test file not found")
-#' 
+#' if(!file.exists(f)){
+#' # Clone from https://github.com/brry/dwdradar:
+#' f <- locdir(file="binary_testfile")
+#' download.file(paste0("https://github.com/brry/dwdradar/raw/master/tests/",
+#'                      "raa01-yw2017.002_10000-2006131525-dwd---bin"), f, mode="wb")
+#' }
 #' x <- dwdradar::readRadarFile(f)
 #' x$dat <- terra::rast(x$dat)
 #' terra::plot(x$dat)
@@ -1260,7 +1257,7 @@ return(invisible(list(dat=rbmat, meta=rbmeta)))
 #' nwp_file <- dataDWD(tail(nwp_urls,1), base=nwp_t2m_base, dir=tempdir(), 
 #'                     joinbf=TRUE, dbin=TRUE, read=FALSE)
 #' nwp_data <- readDWD(nwp_file)
-#' terra::plot(nwp_data) # same map with sp::plot
+#' terra::plot(nwp_data)
 #' addBorders() # the projection seems to be perfectly good :)
 #' 
 #' # index of GRIB files

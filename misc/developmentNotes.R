@@ -10,7 +10,7 @@ file <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=localtestdir(), read=FALSE)
 nc_ncdf <- readDWD(file, toraster=FALSE)
 
 ncfile <- R.utils::gunzip(file, remove=FALSE, skip=TRUE)
-nc_rast <- raster::raster(ncfile, band=1)
+nc_rast <- terra::rast(ncfile, band=1)
 
 # extent
 nc_range <- data.frame(range(nc_ncdf$lon), range(nc_ncdf$lat))
@@ -19,7 +19,7 @@ ec <- c(3602269, 4388061, 2243094, 3196182) # from nc lat/lon
 eb <- c(3697532, 4311490, 2300230, 3139517) # from DEU ranges
 ef <- c(3667000, 4389000, 2242000, 3181000) # final from visual adaptation
 nc_proj <- projectRasterDWD(nc_rast, proj="+init=epsg:3034", extent=ef); 
-raster::plot(nc_proj)  ; addBorders()
+terra::plot(nc_proj)  ; addBorders()
 
 
 
@@ -113,12 +113,12 @@ system.time( sf4 <- iotools::input.file(file, formatter=iotools::dstrfw,
 #' # File
 #' RR_rad <- readDWD(RW_file)
 #' RR_radp <- projectRasterDWD(RR_rad$data, extent="rw")
-#' raster::plot(RR_radp, main=RR_rad$meta$date[1])
-#' raster::plot(DEU, add=TRUE)
+#' terra::plot(RR_radp, main=RR_rad$meta$date[1])
+#' terra::plot(DEU, add=TRUE)
 #' }
 #' @param file      Name of file on harddrive, like e.g. 
 #'                  DWDdata/ToDo
-#' @param toraster  Logical: convert matrix to \code{\link[raster]{raster}}?
+#' @param toraster  Logical: convert matrix to \code{\link[terra]{rast}}?
 #'                  DEFAULT: TRUE
 #' @param \dots     Further arguments passed to \code{\link{readRadarFile}}, 
 #'                  i.e. \code{na} and \code{clutter}
@@ -131,8 +131,8 @@ rfile <- file
 rb <- readRadarFile(rfile, ...)
 if(!toraster) return(invisible(rb))
 # else if toraster:
-checkSuggestedPackage("raster", "rdwd:::readDWD.recrad with toraster=TRUE")
-rb$dat <- raster::raster(rb$dat)
+checkSuggestedPackage("terra", "rdwd:::readDWD.recrad with toraster=TRUE")
+rb$dat <- terra::rast(rb$dat)
 return(invisible(rb))
 }
 

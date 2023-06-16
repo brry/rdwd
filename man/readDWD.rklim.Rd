@@ -57,20 +57,21 @@ Note: needs dwdradar >= 0.2.6 (2021-08-08)
 \dontrun{ # Excluded from CRAN checks, but run in localtests
 yw_link <- "/5_minutes/radolan/reproc/2017_002/bin/2022/YW2017.002_202203.tar"
 # 202006 has untar error on Mac, 2023-04, maybe due to incomplete download
-yw_file <- dataDWD(url=yw_link, base=gridbase, joinbf=TRUE, dir=locdir(), read=FALSE)
-# 207 MB
+yw_file <- dataDWD(url=yw_link, base=gridbase, joinbf=TRUE, read=FALSE) # 207 MB
 x <- readDWD(yw_file, selection=3641:3644)
 # 00:30 for tar files, 01:40 for unpacking. 
 # If you need a preselection argument, let me know.
 terra::plot(x$dat)
+plotRadar(x$dat[[1]], extent="rw") # better extent below
 
 f <- system.file("tests//raa01-yw2017.002_10000-2006131525-dwd---bin", package="dwdradar")
 # https://stackoverflow.com/a/72207233/1587132 on how to install with tests folder
-if(!file.exists(f)) f <- paste0("/Users/berry/Dropbox/Rpack/dwdradar/tests/",
-                                "raa01-yw2017.002_10000-2006131525-dwd---bin")
-# Clone from https://github.com/brry/dwdradar
-if(!file.exists(f)) stop("dwdradar test file not found")
-
+if(!file.exists(f)){
+# Clone from https://github.com/brry/dwdradar:
+f <- locdir(file="binary_testfile")
+download.file(paste0("https://github.com/brry/dwdradar/raw/master/tests/",
+                     "raa01-yw2017.002_10000-2006131525-dwd---bin"), f, mode="wb")
+}
 x <- dwdradar::readRadarFile(f)
 x$dat <- terra::rast(x$dat)
 terra::plot(x$dat)

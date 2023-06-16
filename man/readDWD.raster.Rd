@@ -47,12 +47,12 @@ rf <- readDWD(localfiles[1])
 rf <- readDWD(localfiles[1]) # runs faster at second time due to skip=TRUE
 terra::plot(rf)
 
-plotRadar(rf,proj="seasonal", extent=rf@extent)
+plotRadar(rf, proj="seasonal", extent=NULL)
 
-testthat::expect_equal(terra::minmax(rf), c(-8.2,4.4))
+testthat::expect_equal(c(terra::minmax(rf)), c(-8.2,4.4))
 rf10 <- readDWD(localfiles[1], dividebyten=FALSE)
 terra::plot(rf10)
-testthat::expect_equal(terra::minmax(rf10), c(-82,44))
+testthat::expect_equal(c(terra::minmax(rf10*1)), c(-82,44))
 }
 }
 \seealso{

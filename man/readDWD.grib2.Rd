@@ -44,7 +44,7 @@ nwp_urls <- indexFTP("", base=nwp_t2m_base, dir=tempdir())
 nwp_file <- dataDWD(tail(nwp_urls,1), base=nwp_t2m_base, dir=tempdir(), 
                     joinbf=TRUE, dbin=TRUE, read=FALSE)
 nwp_data <- readDWD(nwp_file)
-terra::plot(nwp_data) # same map with sp::plot
+terra::plot(nwp_data)
 addBorders() # the projection seems to be perfectly good :)
 
 # index of GRIB files

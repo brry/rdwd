@@ -148,12 +148,12 @@ rangecheck <- function(rr, orig, proj, tolerance=0.01)
   }
   rc(rr$range_orig, orig, "Range (unprojected)")
   rc(rr$range_proj, proj, "Range (projected)")
-  }
-rangecheck(w1, c( 0.0,  6.2 ), c( 0.00,  5.87))
-rangecheck(w2, c( 0.0,  7.26), c(-0.02,  7.09)) # used to be 72.6 instead of 7.26 (Apr 2022)
-rangecheck(rw, c( 0.0, 30.7 ), c(-0.45, 30.45))
-rangecheck(sf, c( 0.0, 39.2 ), c(-0.03, 38.20))
-rangecheck(rx, c(31.5, 95.0 ), c(18.30, 97.17))
+  }                                             # before terra (June 2023)
+rangecheck(w1, c( 0.0,  6.2 ), c( 0.00,  5.67)) # was  0.00,  5.87 
+rangecheck(w2, c( 0.0,  7.26), c( 0.00,  7.03)) # was -0.02,  7.09  and 72.6 instead of 7.26 (Apr 2022)
+rangecheck(rw, c( 0.0, 30.7 ), c( 0.00, 27.21)) # was -0.45, 30.45 
+rangecheck(sf, c( 0.0, 39.2 ), c( 0.00, 38.13)) # was -0.03, 38.20
+rangecheck(rx, c(31.5, 95.0 ), c(31.50, 95.00)) # was 18.30, 97.17
 testthat::expect_equal("Radar tests passed", "Radar tests passed")
 })
 

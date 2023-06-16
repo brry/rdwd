@@ -53,16 +53,15 @@ url <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
 url <- "daily/Project_TRY/humidity/RH_199509_daymean.nc.gz"    # 25 MB
 file <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=locdir(), read=FALSE)
 nc <- readDWD(file)
-ncp <- plotRadar(nc, main=paste(nc@title, nc@z[[1]]), layer=1:3,
+ncp <- plotRadar(nc, main=paste(terra::longnames(nc), terra::time(nc)), layer=1:3,
                  col=seqPal(), proj="nc", extent="nc")
-str(nc, max.level=2)
 
-terra::values(nc[[1]]) # obtain actual values into memory # ToDo : check this
+str(terra::values(nc[[1]])) # obtain actual values into memory
 
 terra::plot(nc[[1]]) # axes 0:938 / 0:720, the number of grid cells
 terra::plot(ncp[[1]])# properly projected, per default onto latlon
 
-rng <- range(terra::minmax(nc[[1:6]]))
+rng <- range(terra::global(nc[[1:6]], "range", na.rm=TRUE))
 terra::plot(nc, col=seqPal(), zlim=rng, maxnl=6)
 
 # Array instead of terra rast:
@@ -71,7 +70,7 @@ image(nc$var[,,1], col=seqPal(), asp=1.1)
 colPointsLegend(nc$var[,,1], title=paste(nc$varname, nc$time[1]))
 
 # interactive selection of variable:
-# nc <- readDWD(file, var="-") # commented out to not block automated tests
+# nc <- readDWD(file, toraster=FALSE, var="-") # commented out to not block automated tests
 str(nc$var)
 }
 }
