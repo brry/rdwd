@@ -1,4 +1,3 @@
-I know installed size is 5.8 Mb.  
-The package contains an index of available datasets from the DWD (german weather service).  
-I'm closing in on ways to reduce the size and hope it can be accepted for now.  
+I excpect to reduce the installed size of 6 Mb next time.
 https://github.com/brry/rdwd/issues/35
+This submission accounts for the r-spatial updates.

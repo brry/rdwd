@@ -1,4 +1,10 @@
 
+# Version 1.8.0 (2023-06-17)
+
+- `readDWD.grib2`: pack option rgdal removed.
+- all instances of `raster`/`rgdal`/`sp` code replaced with `terra` code
+- cross references and website improved
+
 # Version 1.7.0 (2023-04-14)
 
 - `dataDWD`: *dir* default set to `locdir()`
