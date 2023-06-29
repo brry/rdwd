@@ -822,7 +822,7 @@ return(invisible(r))
 #' if toraster=FALSE, a list with time, lat, lon, var, varname, file and cdf.
 #' **cdf** is the output of [ncdf4::nc_open()].
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019
-#' @seealso [readDWD()]
+#' @seealso [readDWD.hyras()] for non-packed .nc files, [readDWD()] 
 #' @importFrom utils menu tail capture.output
 #' @examples
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
@@ -926,6 +926,37 @@ VAR <- ncdf4::ncvar_get(mycdf, var)
 # output:
 return(invisible(list(time=time, lat=LAT, lon=LON, var=VAR, varname=var,
                       file=mycdf$filename, cdf=mycdf)))
+}
+
+
+
+# ~ hyras ----
+
+#' @title read dwd hyras netcdf data
+#' @description Read hyras netcdf data.
+#' Intended to be called via [readDWD()].\cr
+#' Note that `terra` must be installed to read the .nc files.
+#' @return [terra::rast()] object.
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jun 2023
+#' @seealso [readDWD.nc()] for packed .nc.gz files, [readDWD()]
+#' @examples
+#' \dontrun{ # Excluded from CRAN checks, but run in localtests
+#' link <- "monthly/hyras_de/humidity/hurs_hyras_5_2020_v5-0_de_monmean.nc"
+#' hyras <- dataDWD(link, gridbase, joinbf=TRUE) # 0.9MB
+#' plotRadar(hyras, proj="nc", extent=NULL, 
+#'           main=substr(terra::time(hyras),1,7), layer=1:2)
+#' }
+#' @param file        Name of file on harddrive, like e.g.
+#'                    DWDdata/monthly_hyras_de_humidity_hurs_hyras_5_2020_v5-0_de_monmean.nc
+#' @param quiet       Currently not used.
+#'                    DEFAULT: FALSE through [rdwdquiet()]
+#' @param \dots       Further arguments passed to [terra::rast()]
+#' 
+readDWD.hyras <- function(file, quiet=rdwdquiet(), ...)
+{
+checkSuggestedPackage("terra", "rdwd:::readDWD.hyras")
+out <- terra::rast(file, ...)
+return(invisible(out))
 }
 
 

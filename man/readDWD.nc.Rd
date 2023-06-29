@@ -75,7 +75,7 @@ str(nc$var)
 }
 }
 \seealso{
-\code{\link[=readDWD]{readDWD()}}
+\code{\link[=readDWD.hyras]{readDWD.hyras()}} for non-packed .nc files, \code{\link[=readDWD]{readDWD()}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Aug 2019

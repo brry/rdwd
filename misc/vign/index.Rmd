@@ -677,9 +677,8 @@ download .asc.gz files for selected years and open them in R for further process
 
 ```{r grid_monthly_index, message=FALSE}
 data("gridIndex")
-index <- grep("monthly",   gridIndex, value=TRUE) # 12'295
-index <- grep('precipitation', index, value=TRUE) #  1'664
-index <- grep('2014|2015|2016',index, value=TRUE) #     36 (3*12)
+index <- grep("monthly/precipitation", gridIndex, value=TRUE) # 1'709
+index <- grep('2014|2015|2016',index, value=TRUE) # n=36 (3*12)
 
 precip <- dataDWD(index[6:8], base=gridbase, joinbf=TRUE)
 ```
@@ -693,7 +692,7 @@ plotRadar(precip[[1]], proj="seasonal", extent=NULL, main=names(precip)[1])
 
 For further processing, we can create a terra raster from the list, which e.g. enables fast and easy indexing.
 ```{r grid_monthly_stack, eval=FALSE}
-precip_stack <- terra::rast(precip)
+precip <- terra::rast(precip)
 ```
 This is expanded upon in the next [use case](use-case-values-at-locations-in-grid.html).
 

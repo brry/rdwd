@@ -2,7 +2,7 @@
 #' @title valid fileType values
 #' @description fileType values that have a reading subfunction `readDWD.ftype()`.
 #' @export
-validFileTypes <- strsplit("data,meta,multia,stand,deriv,radar,binary,raster,nc,asc,rklim,grib2,pdf", ",")[[1]]
+validFileTypes <- strsplit("data,meta,multia,stand,deriv,radar,binary,raster,nc,hyras,asc,rklim,grib2,pdf", ",")[[1]]
 
 
 
@@ -36,7 +36,9 @@ validFileTypes <- strsplit("data,meta,multia,stand,deriv,radar,binary,raster,nc,
 #' |                        |             |
 #' |[raster][readDWD.raster]| .asc.gz     | E.g. for seasonal data at [`gridbase`].
 #' |                        |             |
-#' |    [nc][readDWD.nc]    | .nc.gz      | For netcdf files.
+#' |    [nc][readDWD.nc]    | .nc.gz      | For packed netcdf files.
+#' |                        |             |
+#' | [hyras][readDWD.hyras] | .nc         | For non-packed netcdf files.
 #' |                        |             |
 #' |   [asc][readDWD.asc]   | .tar        | For a `file` containing asc files.
 #' |                        |             |
@@ -65,6 +67,7 @@ validFileTypes <- strsplit("data,meta,multia,stand,deriv,radar,binary,raster,nc,
 #' binary  daily_radolan_historical_bin_2017_SF201712.tar.gz
 #' raster  16_DJF_grids_germany_seasonal_air_temp_mean_188216.asc.gz
 #' nc      daily_Project_TRY_humidity_RH_199509_daymean.nc.gz
+#' hyras   monthly_hyras_de_humidity_hurs_hyras_5_2020_v5-0_de_monmean.nc
 #' asc     radolan_historical_asc_2018_RW-201809.tar
 #' rklim   5_minutes_radolan_reproc_2017_002_bin_2020_YW2017.002_202006.tar
 #' grib2   ftp_weather_nwp_cosmo-d2_005_T_2M.grib2.bz2
@@ -93,6 +96,7 @@ out[grepl(           ".gz$", file)] <- "radar"
 out[grepl(       ".tar.gz$", file)] <- "binary"
 out[grepl(       ".asc.gz$", file)] <- "raster"
 out[grepl(        ".nc.gz$", file)] <- "nc"
+out[grepl(           ".nc$", file)] <- "hyras"
 out[grepl(          ".tar$", file)] <- "asc"
 out[grepl(      "YW.*.tar$", file)] <- "rklim"
 out[grepl(    ".grib2.bz2$", file)] <- "grib2"
