@@ -26,8 +26,11 @@ Intended to be called via \code{\link[=readDWD]{readDWD()}}.\cr
 
 \examples{
 \dontrun{ # Excluded from CRAN checks, but run in localtests
-link <- selectDWD(res="hourly", var="sun", per="r", meta=TRUE)[2]
-file <- dataDWD(link, dir=locdir(), read=FALSE)
+link <- selectDWD(res="hourly", var="solar", per="r", meta=TRUE)
+if(!any(endsWith(link,"pdf"))) stop("no pdf file here anymore") 
+# hourly/sun no longer has a pdf file anymore 2023-09
+link <- link[endsWith(link,"pdf")][1]
+file <- dataDWD(link, read=FALSE)
 readDWD(file)
 }
 }
