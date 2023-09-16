@@ -17,7 +17,7 @@ readDWD.multia(
 DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_aktStandort.txt or
 DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_Stationsliste_aktStandort.txt}
 
-\item{fileEncoding}{\code{\link[=read.table]{read.table()}} file encoding.
+\item{fileEncoding}{\code{\link[=read.table]{read.table()}} file encoding. Note the example for Mac OS.
 DEFAULT: "latin1"}
 
 \item{comment.char}{\code{\link[=read.table]{read.table()}} comment character.
@@ -45,8 +45,10 @@ subdaily/standard_format data.
 # Temperature aggregates (2019-04 the 9th file, 2022-05 the 8th):
 durl <- selectDWD(res="multi_annual", per="mean_81-10")[8]
 murl <- selectDWD(res="multi_annual", per="mean_81-10", meta=TRUE)[8]
-ma_temp <- dataDWD(durl, fileEncoding="")
-ma_meta <- dataDWD(murl, fileEncoding="")
+# encoding issue not tested enough to be in the source code:
+enc <- if(.Platform$OS.type =="unix") "latin1" else ""
+ma_temp <- dataDWD(durl, fileEncoding=enc)
+ma_meta <- dataDWD(murl, fileEncoding=enc)
 
 head(ma_temp)
 head(ma_meta)
