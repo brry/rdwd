@@ -165,7 +165,9 @@ if(browse)
 owd <- dirDWD(dir, quiet=quiet)
 on.exit(setwd(owd))
 # output file name(s)
+hbas <- sub("^ftp://","https://", base) # for https base
 outfile <- gsub(paste0(base,"/"), "", url)
+outfile <- gsub(paste0(hbas,"/"), "", outfile)
 outfile <- gsub("/", "_", outfile)
 
 # force=NA management
@@ -218,8 +220,9 @@ if(any(iserror))
   msg <- paste0(msg, " download.file error",if(ne>1) "s",":\n")
   msg2 <- sapply(dl_results[iserror], function(e)attr(e,"condition")$message)
   msg2 <- berryFunctions::truncMessage(msg2, ntrunc=15, prefix="", midfix="", altnix="", sep="\n")
-  if(any(substr(url[iserror], 1, 4) != "ftp:"))
-     msg2 <- paste0(msg2, "\n- dataDWD needs urls starting with 'ftp://'. You can use joinbf=TRUE for relative links.")
+  if(any(!substr(url[iserror], 1, 4) %in% c("ftp:","http")))
+     msg2 <- paste0(msg2, "\n- dataDWD needs urls starting with 'ftp://' or 'https://'. ",
+                    "You can use joinbf=TRUE for relative links.")
   if(grepl("cannot open URL", msg2) || grepl("Kann URL .* nicht", msg2))
      msg2 <- paste0(msg2, "\n- If files have been renamed on the DWD server, ",
                     "see   https://bookdown.org/brry/rdwd/fileindex.html")
