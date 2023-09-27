@@ -7,6 +7,7 @@
 readDWD.multia(
   file,
   fileEncoding = "latin1",
+  tryenc = TRUE,
   comment.char = "\\032",
   quiet = rdwdquiet(),
   ...
@@ -17,8 +18,12 @@ readDWD.multia(
 DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_aktStandort.txt or
 DWDdata/multi_annual_mean_81-10_Temperatur_1981-2010_Stationsliste_aktStandort.txt}
 
-\item{fileEncoding}{\code{\link[=read.table]{read.table()}} file encoding. Note the example for Mac OS.
-DEFAULT: "latin1"}
+\item{fileEncoding}{\code{\link[=read.table]{read.table()}} file encoding. DEFAULT: "latin1"}
+
+\item{tryenc}{Logical. If reading fails, try with encoding ="". This was added
+in version 1.8.5 (2023-09-27) because of non-reproducible
+issues in runLocalTests.
+DEFAULT: TRUE}
 
 \item{comment.char}{\code{\link[=read.table]{read.table()}} comment character.
 DEFAULT: "\\032" (needed 2019-04 to ignore the binary
@@ -46,9 +51,8 @@ subdaily/standard_format data.
 durl <- selectDWD(res="multi_annual", per="mean_81-10")[8]
 murl <- selectDWD(res="multi_annual", per="mean_81-10", meta=TRUE)[8]
 # encoding issue not tested enough to be in the source code:
-enc <- "latin1" # ""
-ma_temp <- dataDWD(durl, fileEncoding=enc)
-ma_meta <- dataDWD(murl, fileEncoding=enc)
+ma_temp <- dataDWD(durl)
+ma_meta <- dataDWD(murl)
 
 head(ma_temp)
 head(ma_meta)
