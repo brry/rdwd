@@ -46,7 +46,7 @@ subdaily/standard_format data.
 durl <- selectDWD(res="multi_annual", per="mean_81-10")[8]
 murl <- selectDWD(res="multi_annual", per="mean_81-10", meta=TRUE)[8]
 # encoding issue not tested enough to be in the source code:
-enc <- if(.Platform$OS.type =="unix") "latin1" else ""
+enc <- "latin1" # ""
 ma_temp <- dataDWD(durl, fileEncoding=enc)
 ma_meta <- dataDWD(murl, fileEncoding=enc)
 
