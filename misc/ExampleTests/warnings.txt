@@ -1,5 +1,5 @@
 
-checkIndex results at 2023-09-16 10:31:20 for
+checkIndex results at 2023-09-27 14:10:18.591598 for
 ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate
 File 'data/fileIndex.rda' was last modified 2023-09-16 10:29:03
 Call stack: runLocalTests -> testthat::test_that -> test_code -> eval -> checkIndex
@@ -97,4 +97,4 @@ Coordinates used for more than one station:
 - 9.4003_48.4951: 23x ID=5174 (Urach, Bad), 40x ID=19580 (Urach, Bad/Erms)
 
 
-
+.719383
