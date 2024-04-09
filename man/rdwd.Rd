@@ -17,15 +17,13 @@
 For an introduction to the package, see \url{https://bookdown.org/brry/rdwd}.\cr
 }
 }
-\section{Searchability Terms}{
-
-Weather Data Germany download with R, Climate Data Germany\cr
-Deutscher Wetterdienst R Daten download Klimastationen\cr
-DWD Daten mit R runterladen, Wetter und Klimadaten in R
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/brry/rdwd}
+  \item Report bugs at \url{https://github.com/brry/rdwd/issues}
 }
 
-\seealso{
-related weather data processing references at \url{https://bookdown.org/brry/rdwd/see-also.html}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}

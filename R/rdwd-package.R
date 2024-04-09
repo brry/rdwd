@@ -11,9 +11,9 @@
 #' 
 #' @name rdwd
 #' @aliases rdwd-package rdwd
-#' @docType package
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}
 #' @keywords package documentation
+"_PACKAGE"
 #' @seealso related weather data processing references at <https://bookdown.org/brry/rdwd/see-also.html>
 #' 
 #' @section Searchability Terms:
