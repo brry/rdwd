@@ -27,9 +27,7 @@ charstring (directory)
 This can be used to set a directory for DWD data across projects,
 thus avoiding multiple downloads of the same file.\cr
 Set the default for all subsequent calls with \code{options(rdwdlocdir="YOUR/PATH")}.\cr
-Currently, the \code{\link[=dataDWD]{dataDWD()}} \code{dir} defaults to a project specific folder at \link{getwd}.
-In the future, this may change to \code{locdir()}.\cr
-\code{locdir()} is used especially for the website, local tests and examples.
+You could add this to your .Rprofile file e.g. via \code{usethis::edit_r_profile()}\cr
 }
 \examples{
 locdir()

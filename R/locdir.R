@@ -2,9 +2,7 @@
 #' @description This can be used to set a directory for DWD data across projects,
 #' thus avoiding multiple downloads of the same file.\cr
 #' Set the default for all subsequent calls with `options(rdwdlocdir="YOUR/PATH")`.\cr
-#' Currently, the [dataDWD()] `dir` defaults to a project specific folder at [getwd].
-#' In the future, this may change to `locdir()`.\cr
-#' `locdir()` is used especially for the website, local tests and examples.
+#' You could add this to your .Rprofile file e.g. via `usethis::edit_r_profile()`\cr
 #' @seealso [runLocalTests()]
 #' @return charstring (directory)
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Apr 2019, Jun 2021
