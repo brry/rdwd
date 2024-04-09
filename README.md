@@ -76,9 +76,9 @@ With `rdwd::app()`, you can run this locally with cached data, i.e. faster respo
 
 If you're new to R, these links might help you to get started:
 
-- [install R & Rstudio](https://github.com/brry/course/#install)
+- [install R & Rstudio](https://bookdown.org/brry/course/install.html)
 - [brief introduction to R](https://github.com/brry/hour)
-- [very large set of slides I use for my courses](https://github.com/brry/course/#slides)
+- [my free online courses](https://bookdown.org/brry/course/)
 
 back to `rdwd`:
 

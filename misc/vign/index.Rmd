@@ -1,7 +1,7 @@
 ---
 title: "rdwd"
 author: "Berry Boessenkool, <berry-b@gmx.de>"
-date: "build `r Sys.Date()` with rdwd version `r packageVersion('rdwd')` and dwdradar version `r packageVersion('dwdradar')`"
+date: "built `r Sys.Date()` with rdwd version `r packageVersion('rdwd')` and dwdradar version `r packageVersion('dwdradar')`"
 site: bookdown::bookdown_site
 documentclass: book
 output:
@@ -157,7 +157,8 @@ Please note:
 library(magrittr)
 suppressWarnings(suppressPackageStartupMessages(library(huxtable)))
 options(huxtable.bookdown = FALSE) # no captions on tables
-f <- readODS::read_ods("FTP_folders.ods", sheet="folders", col_types=NA)
+f <- readODS::read_ods("FTP_folders.ods", sheet="folders", col_types=NA, as_tibble=FALSE)
+colnames(f)[1:4] <- c( "res= (columns)","1_minute","5_minutes","10_minutes")
 fu <- f # f with urls
 for(i in 2:ncol(f)) fu[-1,i] <- ifelse(f[-1,i]=="", " ", 
     paste0('<a href="',sub("ftp:","https:",dwdbase),'/',colnames(f)[i],'/',f[-1,1],'" target="_blank">',f[-1,i],'</a>'))
@@ -585,6 +586,9 @@ R packages for weather data
 - Netherlands: [KNMIr](https://github.com/bvhest/KNMIr)
 
 - World: [GSODR](https://docs.ropensci.org/GSODR)
+
+- France: [Blogpost, not package](https://r.iresmi.net/posts/2023/meteofrance/index.html)
+
 
 Other resources
 

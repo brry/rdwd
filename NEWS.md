@@ -1,4 +1,9 @@
 
+# Version 1.9.0
+
+- `dataDWD`: gracefully handle links with https base (instead of ftp)
+- `readDWD.hyras`: initial release
+
 # Version 1.8.0 (2023-06-17)
 
 - `readDWD.grib2`: pack option rgdal removed.
