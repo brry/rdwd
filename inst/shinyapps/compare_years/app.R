@@ -67,7 +67,7 @@ DEU <- terra::vect(system.file("extdata/DEU.gpkg", package="rdwd"))
 
 appenv <- new.env()
 
-get_kl_data <- function(stationname, inapp=TRUE, ...)
+get_kl_data <- function(stationname, inapp=TRUE, force=c(24*365, 6), ...)
 {
  # Only load the data if it doesn't already exist in memory:
  klname <- paste0("kl_", gsub(" ", "_", stationname))
@@ -77,7 +77,7 @@ get_kl_data <- function(stationname, inapp=TRUE, ...)
  if(inapp) showNotification(paste0("Reading data for ", stationname, "."),
                             id="downloadstat")
  link <- selectDWD(name=stationname, res="daily", var="kl", per="hr")
- kl <- dataDWD(link, force=c(24*365, 6), hr=5, quiet=inapp, ...)                            
+ kl <- dataDWD(link, force=force, hr=5, quiet=inapp, ...)                            
  # Check columns:
  ainc <- vars$Abk %in% colnames(kl)
  if(!all(ainc)) warning("The following variables are missing in the dataset for ",
@@ -90,6 +90,8 @@ get_kl_data <- function(stationname, inapp=TRUE, ...)
 
 if(FALSE){ # Debugging code
 kl <- get_kl_data("Neuruppin-Alt Ruppin", inapp=F)
+kl <- get_kl_data("Potsdam", inapp=F, force=TRUE)
+plot(kl$MESS_DATUM, kl$FM, type="l") # the corresponding hourly files have more data!
 kl <- get_kl_data("Menz", inapp=F)
 kl <- kl[,c("MESS_DATUM", "NM")]
 link <- selectDWD(id=403, res="daily", var="kl", per="hr")
