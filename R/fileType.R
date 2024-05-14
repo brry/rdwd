@@ -86,10 +86,11 @@ fileType <- function(file)
 {
 out <- rep("fileTypeError", length(file))
 out[grepl(          ".zip$", file)] <- "data"
-out[grepl("standard_format", file)] <- "stand" # before meta 2024-05 for stand Stationenbeschreibung
 out[grepl(          ".txt$", file)] <- "meta"
 out[grepl(  "Standort.txt$", file)] <- "multia"
 out[grepl(  "multi.?annual", file)] <- "multia" # new format 2022
+out[grepl("standard_format", file)] <- "stand"
+out[grepl("Standardformate_Beschreibung", file)] <- "meta" # 2024-05 for stand Stationenbeschreibung
 out[grepl(          ".pdf$", file)] <- "pdf"
 
 out[grepl(           ".gz$", file)] <- "radar"

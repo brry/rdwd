@@ -1,14 +1,15 @@
 
-checkIndex results at 2023-09-27 14:10:18.591598 for
+checkIndex results at 2024-05-14 16:03:45.878118 for
 ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate
-File 'data/fileIndex.rda' was last modified 2023-09-16 10:29:03
+File 'data/fileIndex.rda' was last modified 2024-05-14 15:10:06.040308
 Call stack: runLocalTests -> testthat::test_that -> test_code -> eval -> checkIndex
 -------
 IDs with duplicate files:
 -  1132 at annual/climate_indices/historical;  1, 3, 44, 52, 61, 70, 71, 72, 73, 78  (and 1122 more)
--  485 at annual/climate_indices/recent;  44, 71, 73, 78, 91, 96, 131, 142, 150, 151  (and 475 more)
--  1107 at monthly/climate_indices/historical;  1, 3, 44, 52, 61, 70, 71, 72, 73, 78  (and 1097 more)
--  477 at monthly/climate_indices/recent;  44, 73, 78, 91, 96, 131, 142, 150, 151, 154  (and 467 more)
+-  486 at annual/climate_indices/recent;  44, 71, 73, 78, 91, 96, 131, 142, 150, 151  (and 476 more)
+-  60 at daily/more_weather_phenomena/historical;  151, 827, 1551, 1850, 2160, 2302, 2441, 2443, 2503, 2721  (and 50 more)
+-  1106 at monthly/climate_indices/historical;  1, 3, 44, 52, 61, 70, 71, 72, 73, 78  (and 1096 more)
+-  480 at monthly/climate_indices/recent;  44, 73, 78, 91, 96, 131, 142, 150, 151, 154  (and 470 more)
 Duplicate 'Beschreibung' files:
 - 10_minutes/wind_test/now/_Beschreibung_Stationen.txt
 - 10_minutes/wind_test/now/zehn_now_ffs_Beschreibung_Stationen.txt
@@ -33,7 +34,10 @@ Duplicate 'Beschreibung' files:
 - subdaily/extreme_wind/recent/FX3_Terminwerte_Beschreibung_Stationen.txt
 - subdaily/extreme_wind/recent/FX6_Terminwerte_Beschreibung_Stationen.txt
 Elevation differences >2.1m:
+- ID=73: 75x374m, 2x340m
+- ID=91: 71x304m, 2x300m
 - ID=642: 63x4m, 1x1m
+- ID=817: 67x296m, 2x293m
 - ID=1278: 23x163m, 2x160m
 - ID=2792: 25x494m, 2x498m
 - ID=5840: 21x593m, 2x600m
@@ -42,59 +46,77 @@ Elevation differences >2.1m:
 - ID=3491: 25x734m, 2x738m
 - ID=7421: 25x388m, 2x383m
 - ID=1424: 59x121m, 2x124m
+- ID=1526: 81x245m, 2x242m
+- ID=1645: 71x327m, 2x340m
 - ID=1975: 104x11m, 1x14m
 - ID=2014: 102x55m, 1x59m
 - ID=2233: 25x449m, 2x446m
 - ID=7396: 89x740m, 1x743m
+- ID=2362: 67x331m, 2x328m
+- ID=6260: 69x381m, 2x385m
 - ID=2601: 101x822m, 1x826m
 - ID=2961: 67x0m, 1x31m
 - ID=3402: 98x755m, 1x750m
-- ID=4309: 10x65m, 2x62m
+- ID=3939: 69x382m, 2x385m
 - ID=4651: 75x189m, 2x186m
-- ID=4931: 102x378m, 3x371m
 - ID=4982: 25x528m, 2x532m
 - ID=5100: 104x261m, 1x265m
 - ID=5158: 96x159m, 1x162m
+- ID=5279: 75x167m, 2x176m
 - ID=10510: 21x244m, 1x241m
 - ID=5792: 92x2956m, 1x2965m
 Location differences >40m:
+- ID=73: 75x48.6183_13.062, 2x48.6159_13.0506
 - ID=5840: 21x48.6663_8.4721, 2x48.6671_8.47
-- ID=4309: 10x52.7258_13.6396, 2x52.7241_13.6191
-- ID=4931: 102x48.6849_9.2201, 3x48.6883_9.2235
+- ID=775: 25x51.9997_10.6327, 2x52_10.6323
 Different names per id:
+- ID=73: 75xAldersbach-Kramersepp, 2xAldersbach-Kriestorf
+- ID=7372: 25xOsterburg (Altmark)-Ballerstedt, 2xBallerstedt
+- ID=5985: 21xBoll, Bad (Klaeranlage), 2xBoll, Bad (Klaeranl.)
+- ID=7492: 21xCreglingen/Tauber, 2xCreglingen
 - ID=1052: 75xMoeckern-Drewitz, 2xDrewitz bei Burg
 - ID=3234: 75xKlipphausen-Garsebach, 2xGarsebach bei Meissen
-- ID=15526: 34xHamburg (Deutsche Seewarte), 1xHamburg(Seewarte)
+- ID=7077: 25xPenzlin-Gross Lukow, 2xGross Lukow
 - ID=4412: 23xHohe Boerde-Schackensleben, 2xSchackensleben
-- ID=2667: 102xKoeln/Bonn, 3xKoeln-Bonn
+- ID=4618: 25xHohenberg-Krusemark-Schwarzholz, 2xSchwarzholz
+- ID=2667: 100xKoeln/Bonn, 3xKoeln-Bonn
+- ID=3509: 69xStechlin-Menz, 2xMenz
+- ID=3886: 10xPegnitz, 6xPegnitz (Klaeranlage)
 More than one id per name:
-- Name=Creglingen: 23x7492, 12x883
+- Name=Creglingen: 12x883, 2x7492
 - Name=Lenggries (Rissbachwehr): 12x2944, 12x19410
 - Name=Lenggries-Vorderriss: 12x2946, 12x19407
 Coordinates used for more than one station:
 - 12.5731_50.9932: 12x ID=19494 (Altmoerbitz), 12x ID=141 (Altmoerbitz/Wyhra)
 - 13.3833_52.5333: 14x ID=408 (Berlin-Invalidenstrasse), 26x ID=422 (Berlin-Mitte)
+- 9.6232_48.652: 23x ID=5985 (Boll, Bad (Klaeranl.)), 23x ID=5985 (Boll, Bad (Klaeranlage))
 - 8.3348_47.8194: 40x ID=19579 (Bonndorf), 23x ID=604 (Bonndorf/Schwarzwald)
+- 10.019_49.4844: 23x ID=7492 (Creglingen), 23x ID=7492 (Creglingen/Tauber)
 - 8.47_48.6671: 23x ID=5840 (Enzkloesterle), 44x ID=19581 (Enzkloesterle/Schwarzwald)
 - 13.8749_50.7582: 12x ID=1516 (Fuerstenwalde), 12x ID=19626 (Fuerstenwalde/Sachsen)
 - 11.4999_47.8529: 16x ID=14351 (Geretsried (Feuerwehrschule)), 10x ID=19274 (Geretsried/Isar)
 - 13.9343_50.8371: 12x ID=1710 (Gottleuba, Bad/Osterzgebirge), 12x ID=19659 (Gottleuba, Bad/Sachsen)
 - 13.4328_51.1294: 77x ID=3234 (Garsebach bei Meissen), 77x ID=3234 (Klipphausen-Garsebach)
-- 7.1575_50.8645: 105x ID=2667 (Koeln-Bonn), 105x ID=2667 (Koeln/Bonn)
+- 7.1575_50.8645: 103x ID=2667 (Koeln-Bonn), 103x ID=2667 (Koeln/Bonn)
 - 12.3541_50.7672: 12x ID=19645 (Langenhessen), 12x ID=2853 (Langenhessen/Koberbach)
 - 13.4502_50.8111: 14x ID=2979 (Lichtenberg/Erzgeb.), 12x ID=19658 (Lichtenberg/Sachsen)
 - 10.9583_47.5665: 16x ID=1313 (Ettal-Linderhof), 12x ID=19623 (Linderhof)
 - 12.1641_52.2174: 77x ID=1052 (Drewitz bei Burg), 77x ID=1052 (Moeckern-Drewitz)
-- 8.5764_48.2851: 12x ID=19706 (Oberndorf am Neckar), 23x ID=3704 (Oberndorf/Neckar)
+- 8.5764_48.2851: 12x ID=19706 (Oberndorf am Neckar), 16x ID=3704 (Oberndorf/Neckar)
+- 11.7123_52.7321: 27x ID=7372 (Ballerstedt), 27x ID=7372 (Osterburg (Altmark)-Ballerstedt)
+- 11.5528_49.7408: 16x ID=3886 (Pegnitz), 16x ID=3886 (Pegnitz (Klaeranlage))
+- 13.0161_53.5255: 27x ID=7077 (Gross Lukow), 27x ID=7077 (Penzlin-Gross Lukow)
 - 12.1832_50.5516: 12x ID=19641 (Jocketa/Vogtland), 14x ID=2457 (Poehl-Jocketa)
 - 7.31_50.3049: 12x ID=14320 (Polch), 23x ID=3969 (Polch, Kr. Mayen-Koblenz)
 - 13.2194_50.7339: 12x ID=4128 (Lengefeld-Reifland), 12x ID=19662 (Reifland/Erzgeb.)
 - 12.2102_47.7774: 12x ID=19664 (Samerberg), 18x ID=4374 (Samerberg-Geisenkam)
 - 11.4218_52.198: 25x ID=4412 (Hohe Boerde-Schackensleben), 25x ID=4412 (Schackensleben)
 - 10.7696_50.6545: 102x ID=4501 (Schmuecke), 8x ID=15232 (Schmuecke/Thuer.)
+- 11.9792_52.747: 27x ID=4618 (Hohenberg-Krusemark-Schwarzholz), 27x ID=4618 (Schwarzholz)
+- 13.0421_53.102: 71x ID=3509 (Menz), 71x ID=3509 (Stechlin-Menz)
 - 12.7634_48.0669: 16x ID=5055 (Tittmoning), 12x ID=19694 (Tittmoning/Oberbayern)
 - 13.6465_48.5995: 16x ID=5162 (Untergriesbach-Schaibing), 14x ID=19695 (Untergriesbach/Niederbayern)
 - 9.4003_48.4951: 23x ID=5174 (Urach, Bad), 40x ID=19580 (Urach, Bad/Erms)
 
 
-.719383
+.255012
