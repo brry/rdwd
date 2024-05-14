@@ -35,9 +35,12 @@ DEFAULT: FALSE (for backwards compatibility)}
 
 \item{format}{Char (vector): Format passed to \code{\link[=as.POSIXct]{as.POSIXct()}} (see \code{\link[=strptime]{strptime()}})
 to convert the date/time column to POSIX time format.\cr
+If NA (the default), \code{readDWD} tries to find a suitable format
+based on the number of characters.
+Since rdwd version 1.8.7 (2024-05-14), timestamps with 8 digits
+(e.g. in daily data) is converted with \code{\link[=as.Date]{as.Date()}}.
 If NULL, no conversion is performed (date stays a factor).
-If NA, \code{readDWD} tries to find a suitable format based
-on the number of characters. DEFAULT: NA}
+DEFAULT: NA}
 
 \item{tz}{Char (vector): time zone for \code{\link[=as.POSIXct]{as.POSIXct()}}.
 "" is the current time zone, and "GMT" is UTC (Universal Time,

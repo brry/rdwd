@@ -244,9 +244,12 @@ return(output)
 #'                 DEFAULT: FALSE (for backwards compatibility)
 #' @param format   Char (vector): Format passed to [as.POSIXct()] (see [strptime()])
 #'                 to convert the date/time column to POSIX time format.\cr
+#'                 If NA (the default), `readDWD` tries to find a suitable format 
+#'                 based on the number of characters. 
+#'                 Since rdwd version 1.8.7 (2024-05-14), timestamps with 8 digits
+#'                 (e.g. in daily data) is converted with [as.Date()].
 #'                 If NULL, no conversion is performed (date stays a factor).
-#'                 If NA, `readDWD` tries to find a suitable format based
-#'                 on the number of characters. DEFAULT: NA
+#'                 DEFAULT: NA
 #' @param tz       Char (vector): time zone for [as.POSIXct()].
 #'                 "" is the current time zone, and "GMT" is UTC (Universal Time,
 #'                 Coordinated). DEFAULT: "GMT"
@@ -312,6 +315,7 @@ if(!is.null(format))
                                 if(nch==12) "%Y%m%d%H%M" else # for 201804270020 10min data
                                 if(nch==13) "%Y%m%d%H:%M" else"%Y%m%d%H"
     dat$MESS_DATUM <- as.POSIXct(as.character(dat$MESS_DATUM), format=format, tz=tz)
+    if(is.na(format) && nch==8) dat$MESS_DATUM <- as.Date(dat$MESS_DATUM)
     }
   }
 # final output:
