@@ -311,11 +311,12 @@ if(!is.null(format))
     twarning("There is no column 'MESS_DATUM' in ",file) else
     {
     nch <- nchar(as.character(dat$MESS_DATUM[1]))
-    if(is.na(format)) format <- if(nch== 8) "%Y%m%d" else
-                                if(nch==12) "%Y%m%d%H%M" else # for 201804270020 10min data
-                                if(nch==13) "%Y%m%d%H:%M" else"%Y%m%d%H"
+    naformat <- is.na(format)
+    if(naformat) format <- if(nch== 8) "%Y%m%d" else
+                           if(nch==12) "%Y%m%d%H%M" else # for 201804270020 10min data
+                           if(nch==13) "%Y%m%d%H:%M" else"%Y%m%d%H"
     dat$MESS_DATUM <- as.POSIXct(as.character(dat$MESS_DATUM), format=format, tz=tz)
-    if(is.na(format) && nch==8) dat$MESS_DATUM <- as.Date(dat$MESS_DATUM)
+    if(naformat && nch==8) dat$MESS_DATUM <- as.Date(dat$MESS_DATUM)
     }
   }
 # final output:

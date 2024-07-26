@@ -18,6 +18,7 @@ misc/params.xlsx
 misc/ToDo/
 misc/vign/_book
 misc/vign/_bookdown_files
+misc/vign/_main_files/
 misc/vign/libs
 misc/vign/rsconnect
 inst/doc
