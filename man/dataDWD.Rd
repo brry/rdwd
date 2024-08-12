@@ -95,7 +95,7 @@ Presuming downloading and processing were successful:
 if \code{read=TRUE}, the desired dataset
 (as returned by \code{\link[=readDWD]{readDWD()}}),
 otherwise the filename as saved on disc
-(may have "_n" appended in name, see \code{\link[=newFilename]{newFilename()}}).\cr
+(may have "_n" appended in name, see \code{\link[berryFunctions:newFilename]{berryFunctions::newFilename()}}).\cr
 If length(file)>1, the output is a list of outputs / vector of filenames.\cr
 The output is always invisible.
 }

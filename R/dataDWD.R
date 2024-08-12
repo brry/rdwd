@@ -17,7 +17,7 @@
 #'         if `read=TRUE`, the desired dataset
 #'         (as returned by [readDWD()]),
 #'         otherwise the filename as saved on disc
-#'         (may have "_n" appended in name, see [newFilename()]).\cr
+#'         (may have "_n" appended in name, see [berryFunctions::newFilename()]).\cr
 #'         If length(file)>1, the output is a list of outputs / vector of filenames.\cr
 #'         The output is always invisible.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jun-Oct 2016
