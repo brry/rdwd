@@ -3,6 +3,8 @@
 
 - `dataDWD`: gracefully handle links with https base (instead of ftp)
 - `readDWD.hyras`: initial release
+- `readDWD.multia`: new argument tryenc to try different encodings
+- `readDWD.data`: convert timestamp to as.Date
 
 # Version 1.8.0 (2023-06-17)
 
