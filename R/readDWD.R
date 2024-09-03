@@ -635,11 +635,11 @@ if(grepl("subdaily_standard_format", file))
  write.table(stats, file=tf, quote=FALSE, sep="\t") # currently needed
  stats <- read.table(tf, sep="\t")
  colnames(stats) <- c("Stations_id", "von_datum", "bis_datum", "Stationshoehe",
-                      "geoBreite", "geoLaenge", "Stationsname", "Bundesland")
+                      "geoBreite", "geoLaenge", "Stationsname", "Bundesland", "Abgabe")
  }
 # check classes:
-if(ncol(stats)!=8) tstop(ncol(stats)," columns detected instead of 8 for ", file)
-classes <- c("integer", "integer", "integer", "integer", "numeric", "numeric", "character", "character")
+if(ncol(stats)!=9) tstop(ncol(stats)," columns detected instead of 9 for ", file)
+classes <- c("integer", "integer", "integer", "integer", "numeric", "numeric", "character", "character", "character")
 actual <- sapply(stats, class)
 if(actual[4]=="numeric") classes[4] <- "numeric"
 if(!all(actual == classes))
