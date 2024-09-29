@@ -1350,7 +1350,9 @@ quiet=rdwdquiet(),
 ...)
 {
 checkSuggestedPackage("R.utils", "rdwd:::readDWD.grib2")
-if(grepl(".nc", file, fixed=TRUE)) checkSuggestedPackage("ncdf4", "rdwd:::readDWD.grib2 for nc files")
+# if(grepl(".nc", file, fixed=TRUE)) checkSuggestedPackage("ncdf4", "rdwd:::readDWD.grib2 for nc files")
+# works without ncdf4 installed, gives Warning [rast] GDAL did not find an extent. installing the ncdf4 package may help 
+# but plotRadar sets the extent just fine
 # bunzip arguments:
 bdef <- list(filename=file, remove=FALSE, skip=TRUE)
 bfinal <- berryFunctions::owa(bdef, bargs, "filename")
