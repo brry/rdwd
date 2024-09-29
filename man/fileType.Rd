@@ -69,6 +69,7 @@ hyras   monthly_hyras_de_humidity_hurs_hyras_5_2020_v5-0_de_monmean.nc
 asc     radolan_historical_asc_2018_RW-201809.tar
 rklim   5_minutes_radolan_reproc_2017_002_bin_2020_YW2017.002_202006.tar
 grib2   ftp_weather_nwp_cosmo-d2_005_T_2M.grib2.bz2
+grib2   Project_TRY_air_temperature_mean_TT_201102.nc.bz2
 ")
 fileType(ft$filename)
 

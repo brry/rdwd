@@ -1319,6 +1319,14 @@ return(invisible(list(dat=rbmat, meta=rbmeta)))
 #' for(f in unique(substr(grib_files, 1,3))) print(grib_files[which(substr(grib_files, 1,3)==f)[1]])
 #' View(data.frame(grep("regular",grib_files, value=TRUE)))
 #' }
+#' 
+#' # Project_TRY bz2 netcdf data:
+#' url <- "hourly/Project_TRY/air_temperature_mean/TT_201102.nc.bz2" # 97 MB
+#' file <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=tempdir(), read=FALSE)
+#' nc <- readDWD(file) # should also be using readDWD.grib2
+#' # Setting layer=1:2 takes 4 minutes, just go one at a time, I guess:
+#' ncp <- plotRadar(nc, main=paste(terra::longnames(nc), terra::time(nc)), layer=1,
+#'                  col=berryFunctions::seqPal(), proj="nc", extent="nc")
 #' }
 #' @param file      Name of file on harddrive, like e.g.
 #'                  cosmo-d2_germany_regular-lat-lon_single-level_2021010100_005_T_2M.grib2.bz2

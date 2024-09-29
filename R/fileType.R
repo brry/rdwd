@@ -71,6 +71,7 @@ validFileTypes <- strsplit("data,meta,multia,stand,deriv,radar,binary,raster,nc,
 #' asc     radolan_historical_asc_2018_RW-201809.tar
 #' rklim   5_minutes_radolan_reproc_2017_002_bin_2020_YW2017.002_202006.tar
 #' grib2   ftp_weather_nwp_cosmo-d2_005_T_2M.grib2.bz2
+#' grib2   Project_TRY_air_temperature_mean_TT_201102.nc.bz2
 #' ")
 #' fileType(ft$filename)
 #' 
@@ -101,6 +102,7 @@ out[grepl(           ".nc$", file)] <- "hyras"
 out[grepl(          ".tar$", file)] <- "asc"
 out[grepl(      "YW.*.tar$", file)] <- "rklim"
 out[grepl(    ".grib2.bz2$", file)] <- "grib2"
+out[grepl(       ".nc.bz2$", file)] <- "grib2"
 out[grepl(       ".txt.gz$", file)] <- "deriv"
 
 if(any(out=="fileTypeError")) tstop("fileType failed for the following file", 
