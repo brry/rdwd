@@ -1350,6 +1350,7 @@ quiet=rdwdquiet(),
 ...)
 {
 checkSuggestedPackage("R.utils", "rdwd:::readDWD.grib2")
+if(grepl(".nc", file, fixed=TRUE)) checkSuggestedPackage("ncdf4", "rdwd:::readDWD.grib2 for nc files")
 # bunzip arguments:
 bdef <- list(filename=file, remove=FALSE, skip=TRUE)
 bfinal <- berryFunctions::owa(bdef, bargs, "filename")
