@@ -55,7 +55,8 @@ tabs <- base::lapply(fm, function(fi)
   if(inherits(tab,"try-error")) tab <- read_with_encoding(readr::guess_encoding(f)$encoding[1])
   if(inherits(tab,"try-error")) 
     {
-    twarning("readMeta failed for '", file, " with: ", tab)
+    twarning("readMeta failed for \n'",basename(fi),"' in \n'",file,
+             "'\nwith: ",trimws(tab),"\nSetting this entry to NULL.")
     return(NULL)
     }
   tab
