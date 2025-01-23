@@ -217,7 +217,7 @@ sapply(2:length(cnames), function(i) if(!all(cnames[[i]] == cnames[[1]]))
          "\n instead of \n", toString(cnames[[1]]), skip=2))
 #
 # merge:
-if(!quiet) messaget("Merging meta files...")
+if(!quiet) messaget("Merging meta files (expect 1 minute) ...")
 metaIndex <- Reduce(function(...) merge(..., all=TRUE), metas)
 if(!quiet) messaget("Processing meta files...")
 metaIndex$Stationsname <- berryFunctions::convertUmlaut(metaIndex$Stationsname)

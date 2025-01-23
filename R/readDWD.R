@@ -630,7 +630,7 @@ if( grepl("subdaily_standard_format", file))
                       "geoBreite", "geoLaenge", "Stationsname", "Bundesland") # , "Abgabe")
  }
 # add column if not present (added 2025-01-23)
-if(!"Abgabe" %in% colnames(stats)) stats$Abgabe <- "NA"
+if(!"Abgabe" %in% colnames(stats)) stats$Abgabe <- "---"
 # check classes:
 if(ncol(stats)!=9) tstop(ncol(stats)," columns detected instead of 9 for ", file)
 classes <- c("integer", "integer", "integer", "integer", "numeric", "numeric", "character", "character", "character")
