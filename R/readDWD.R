@@ -619,24 +619,18 @@ widths <- diff(c(0,breaks,200))
 stats <- suppressWarnings(read.fwf(file, widths=widths, skip=2, strip.white=TRUE,
                                    fileEncoding="latin1", ...) )
 if(!grepl("subdaily_standard_format", file)) colnames(stats) <- cnames
-if(grepl("subdaily_standard_format", file))
+if( grepl("subdaily_standard_format", file))
  {
- # deal with linebreaks before bundesland 2024-05-14:
- stats <- stats[1:234,] # what a messud up file...
- ns <- nrow(stats)
- stats <- stats[-seq(3,ns,by=3), ]
- stats <- cbind(stats[seq(1,ns,by=2), ],stats[seq(2,ns,by=2), ])
- stats <- na.omit(stats[,1:8])
- stats[,1] <- substr(stats[,1],22,1e3)
- # do other things for this weird file that I already did before 2024-05:
- stats <- stats[ ! stats[,1] %in% c("","ST_KE","-----") , ]
+ # deal with special file 2025-01-23:
+ stats <- stats[ ! stats[,1] %in% c("","ST_KE","-----","10XXX") , ]
  tf <- tempfile()
- # write.table(stats[,-1], file=tf, quote=FALSE, sep="\t") # originally what's needed
- write.table(stats, file=tf, quote=FALSE, sep="\t") # currently needed
+ write.table(stats[,-1], file=tf, quote=FALSE, sep="\t")
  stats <- read.table(tf, sep="\t")
  colnames(stats) <- c("Stations_id", "von_datum", "bis_datum", "Stationshoehe",
-                      "geoBreite", "geoLaenge", "Stationsname", "Bundesland", "Abgabe")
+                      "geoBreite", "geoLaenge", "Stationsname", "Bundesland") # , "Abgabe")
  }
+# add column if not present (added 2025-01-23)
+if(!"Abgabe" %in% colnames(stats)) stats$Abgabe <- "NA"
 # check classes:
 if(ncol(stats)!=9) tstop(ncol(stats)," columns detected instead of 9 for ", file)
 classes <- c("integer", "integer", "integer", "integer", "numeric", "numeric", "character", "character", "character")
