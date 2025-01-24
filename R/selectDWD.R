@@ -110,6 +110,7 @@
 #'              DEFAULT: FALSE
 #' @param base  Single char: main directory of DWD ftp server.
 #'              Must be the same `base` used to create `findex`.
+#'              `sub("ftp:", "https:", dwdbase)` works fine.
 #'              DEFAULT: [`dwdbase`]
 #' @param meta  Logical: select Beschreibung file from `ismeta` entries in `findex`? 
 #'              See [`metaIndex`] for a compilation of all Beschreibung files.

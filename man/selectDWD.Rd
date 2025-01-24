@@ -79,6 +79,7 @@ DEFAULT: FALSE}
 
 \item{base}{Single char: main directory of DWD ftp server.
 Must be the same \code{base} used to create \code{findex}.
+\code{sub("ftp:", "https:", dwdbase)} works fine.
 DEFAULT: \code{\link{dwdbase}}}
 
 \item{meta}{Logical: select Beschreibung file from \code{ismeta} entries in \code{findex}?
