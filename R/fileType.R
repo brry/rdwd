@@ -2,7 +2,7 @@
 #' @title valid fileType values
 #' @description fileType values that have a reading subfunction `readDWD.ftype()`.
 #' @export
-validFileTypes <- strsplit("data,meta,multia,stand,deriv,radar,binary,raster,nc,hyras,asc,rklim,grib2,pdf", ",")[[1]]
+validFileTypes <- strsplit("data,meta,multia,stand,deriv,radar,binary,raster,nc,hyras,asc,asczip,rklim,grib2,pdf", ",")[[1]]
 
 
 
@@ -42,6 +42,8 @@ validFileTypes <- strsplit("data,meta,multia,stand,deriv,radar,binary,raster,nc,
 #' |                        |             |
 #' |   [asc][readDWD.asc]   | .tar        | For a `file` containing asc files.
 #' |                        |             |
+#' |   [asc][readDWD.asczip]| .zip        | For a `--grids--.zip` file containing 1 asc file.
+#' |                        |             |
 #' | [rklim][readDWD.rklim] | YW*.tar     | For a `file` containing bin files.
 #' |                        |             |
 #' | [grib2][readDWD.grib2] | .grib2.bz2  | For an nwp forecast `file`.
@@ -69,6 +71,7 @@ validFileTypes <- strsplit("data,meta,multia,stand,deriv,radar,binary,raster,nc,
 #' nc      daily_Project_TRY_humidity_RH_199509_daymean.nc.gz
 #' hyras   monthly_hyras_de_humidity_hurs_hyras_5_2020_v5-0_de_monmean.nc
 #' asc     radolan_historical_asc_2018_RW-201809.tar
+#' asczip  grids_germany_annual_radiation_global_2024.zip
 #' rklim   5_minutes_radolan_reproc_2017_002_bin_2020_YW2017.002_202006.tar
 #' grib2   ftp_weather_nwp_cosmo-d2_005_T_2M.grib2.bz2
 #' grib2   Project_TRY_air_temperature_mean_TT_201102.nc.bz2
@@ -100,6 +103,7 @@ out[grepl(       ".asc.gz$", file)] <- "raster"
 out[grepl(        ".nc.gz$", file)] <- "nc"
 out[grepl(           ".nc$", file)] <- "hyras"
 out[grepl(          ".tar$", file)] <- "asc"
+out[grepl(   "grids.*.zip$", file)] <- "asczip"
 out[grepl(      "YW.*.tar$", file)] <- "rklim"
 out[grepl(    ".grib2.bz2$", file)] <- "grib2"
 out[grepl(       ".nc.bz2$", file)] <- "grib2"

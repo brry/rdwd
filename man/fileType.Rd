@@ -45,6 +45,8 @@ Click on the \code{type} for the subfunction documentation, e.g. \link[=readDWD.
     \tab  \tab  \cr
    \link[=readDWD.asc]{asc} \tab .tar \tab For a \code{file} containing asc files. \cr
     \tab  \tab  \cr
+   \link[=readDWD.asczip]{asc} \tab .zip \tab For a \code{--grids--.zip} file containing 1 asc file. \cr
+    \tab  \tab  \cr
    \link[=readDWD.rklim]{rklim} \tab YW*.tar \tab For a \code{file} containing bin files. \cr
     \tab  \tab  \cr
    \link[=readDWD.grib2]{grib2} \tab .grib2.bz2 \tab For an nwp forecast \code{file}. \cr
@@ -67,6 +69,7 @@ raster  16_DJF_grids_germany_seasonal_air_temp_mean_188216.asc.gz
 nc      daily_Project_TRY_humidity_RH_199509_daymean.nc.gz
 hyras   monthly_hyras_de_humidity_hurs_hyras_5_2020_v5-0_de_monmean.nc
 asc     radolan_historical_asc_2018_RW-201809.tar
+asczip  grids_germany_annual_radiation_global_2024.zip
 rklim   5_minutes_radolan_reproc_2017_002_bin_2020_YW2017.002_202006.tar
 grib2   ftp_weather_nwp_cosmo-d2_005_T_2M.grib2.bz2
 grib2   Project_TRY_air_temperature_mean_TT_201102.nc.bz2

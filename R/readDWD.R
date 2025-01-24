@@ -1132,6 +1132,47 @@ return(invisible(dat))
 
 
 
+# ~ asczip ----
+
+#' @title read dwd gridded asc data
+#' @description Read gridded asc data.
+#' Intended to be called via [readDWD()].\cr
+#' @return [`terra::rast`] object
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jan 2025
+#' @seealso [readDWD()]
+#' @examples
+#' \dontrun{ # Excluded from CRAN checks, but run in localtests
+#' link <- "annual/radiation_global/grids_germany_annual_radiation_global_2023.zip" # 0.1 MB
+#' grid <- dataDWD(link, base=gridbase, joinbf=TRUE)
+#' plotRadar(grid, proj="seasonal", extent=NULL)
+#' }
+#' @param file        Name of file on harddrive, like e.g.
+#'                    DWDdata/annual/radiation_global/grids_germany_annual_radiation_global_2024.zip
+#' @param dividebyten Logical: Divide the numerical values by 10? See [readDWD].
+#'                    DEFAULT: TRUE
+#' @param quiet       Ignored.
+#'                    DEFAULT: FALSE through [rdwdquiet()]
+#' @param \dots       Further arguments passed to [terra::rast()]
+readDWD.asczip <- function(file, dividebyten, quiet=rdwdquiet(), ...)
+{
+checkSuggestedPackage("terra",  "rdwd:::readDWD.raster")
+# temporary unzipping directory
+fn <- tools::file_path_sans_ext(basename(file))
+exdir <- paste0(tempdir(),"/", fn)
+unzip(file, exdir=exdir)
+on.exit(unlink(exdir, recursive=TRUE), add=TRUE)
+# Read the actual data file:
+f <- dir(exdir, full.names=TRUE)
+if(length(f)!=1) tstop("There should be a single file (.asc), but there are ",
+                      length(f), " in\n  ", file, ".")
+# raster reading:
+r <- terra::rast(f, ...)
+if(dividebyten) r <- r/10
+return(invisible(r))
+}
+
+
+
 # ~ rklim ----
 
 #' @title read dwd gridded radklim binary data
