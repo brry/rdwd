@@ -4,14 +4,14 @@
 \alias{readDWD.asczip}
 \title{read dwd gridded asc data}
 \usage{
-readDWD.asczip(file, dividebyten, quiet = rdwdquiet(), ...)
+readDWD.asczip(file, ascmeta = FALSE, quiet = rdwdquiet(), ...)
 }
 \arguments{
 \item{file}{Name of file on harddrive, like e.g.
 DWDdata/annual/radiation_global/grids_germany_annual_radiation_global_2024.zip}
 
-\item{dividebyten}{Logical: Divide the numerical values by 10? See \link{readDWD}.
-DEFAULT: TRUE}
+\item{ascmeta}{Logical: return meta data from asc file as a vector with ca 20 string elements?
+DEFAULT: FALSE}
 
 \item{quiet}{Ignored.
 DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
@@ -27,9 +27,12 @@ Intended to be called via \code{\link[=readDWD]{readDWD()}}.\cr
 }
 \examples{
 \dontrun{ # Excluded from CRAN checks, but run in localtests
-link <- "annual/radiation_global/grids_germany_annual_radiation_global_2023.zip" # 0.1 MB
-grid <- dataDWD(link, base=gridbase, joinbf=TRUE)
-plotRadar(grid, proj="seasonal", extent=NULL)
+link <- "annual/radiation_global/grids_germany_annual_radiation_global_2022.zip" # 0.1 MB
+file <- dataDWD(link, base=gridbase, joinbf=TRUE, read=FALSE)
+meta <- readDWD(file, ascmeta=TRUE)
+str(meta)
+grid <- readDWD(file)
+plotRadar(grid, proj="seasonal", extent="seasonal")
 }
 }
 \seealso{

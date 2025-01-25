@@ -1142,32 +1142,41 @@ return(invisible(dat))
 #' @seealso [readDWD()]
 #' @examples
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
-#' link <- "annual/radiation_global/grids_germany_annual_radiation_global_2023.zip" # 0.1 MB
-#' grid <- dataDWD(link, base=gridbase, joinbf=TRUE)
-#' plotRadar(grid, proj="seasonal", extent=NULL)
+#' link <- "annual/radiation_global/grids_germany_annual_radiation_global_2022.zip" # 0.1 MB
+#' file <- dataDWD(link, base=gridbase, joinbf=TRUE, read=FALSE)
+#' meta <- readDWD(file, ascmeta=TRUE)
+#' str(meta)
+#' grid <- readDWD(file)
+#' plotRadar(grid, proj="seasonal", extent="seasonal")
 #' }
 #' @param file        Name of file on harddrive, like e.g.
 #'                    DWDdata/annual/radiation_global/grids_germany_annual_radiation_global_2024.zip
-#' @param dividebyten Logical: Divide the numerical values by 10? See [readDWD].
-#'                    DEFAULT: TRUE
+#' @param ascmeta     Logical: return meta data from asc file as a vector with ca 20 string elements?
+#'                    DEFAULT: FALSE
 #' @param quiet       Ignored.
 #'                    DEFAULT: FALSE through [rdwdquiet()]
 #' @param \dots       Further arguments passed to [terra::rast()]
-readDWD.asczip <- function(file, dividebyten, quiet=rdwdquiet(), ...)
+readDWD.asczip <- function(file, ascmeta=FALSE, quiet=rdwdquiet(), ...)
 {
-checkSuggestedPackage("terra",  "rdwd:::readDWD.raster")
+checkSuggestedPackage("terra",  "rdwd:::readDWD.asczip")
 # temporary unzipping directory
 fn <- tools::file_path_sans_ext(basename(file))
 exdir <- paste0(tempdir(),"/", fn)
 unzip(file, exdir=exdir)
 on.exit(unlink(exdir, recursive=TRUE), add=TRUE)
-# Read the actual data file:
+# Prepare the actual data file:
 f <- dir(exdir, full.names=TRUE)
 if(length(f)!=1) tstop("There should be a single file (.asc), but there are ",
                       length(f), " in\n  ", file, ".")
+asc <- readLines(f)
+marker <- which(asc=="[ASCII-Raster-Format]")
+if(ascmeta)
+  return(asc[2:(marker-1)])
+# remove metadata part:
+f <- berryFunctions::normalizePathCP(paste0(tempdir(),"/", basename(f)))
+writeLines(asc[(marker+1):length(asc)], f)
 # raster reading:
 r <- terra::rast(f, ...)
-if(dividebyten) r <- r/10
 return(invisible(r))
 }
 
