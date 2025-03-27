@@ -107,7 +107,7 @@ install.packages("rdwd", dependencies="Suggests")
 - `terra`, `stars`, `R.utils`, `ncdf4`, `dwdradar` for readDWD with gridded data
 - `readr` for readDWD.stand(..., fast=TRUE)
 - `knitr`, `rmarkdown`, `testthat`, `roxygen2`, `devtools`, `remotes`, `XML`, `gsheet` for local testing, development and documentation
-- `leaflet`, `OSMscale` for interactive/static maps, see [OSMscale installation tips](https://github.com/brry/OSMscale#installation)
+- `leaflet`, `OSMscale` for interactive/static maps, see [rJava installation tips](https://bookdown.org/brry/course/packages.html#rjava-on-windows)
 - `shiny` for the interactive weather comparison app
 
 Note: on Linux (Ubuntu), install `RCurl` via the terminal (CTRL+ALT+T, note lowercase rcurl):
