@@ -18,7 +18,7 @@ That requires \code{\link{updateIndexes}} to be run by me.
 If that is the case, the funtion will give a warning, otherwise a message.
 }
 \examples{
-current <- checkUpdates()
+# current <- checkUpdates()
 }
 \seealso{
 \url{https://bookdown.org/brry/rdwd/fileindex.html}

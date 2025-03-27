@@ -303,8 +303,10 @@ testthat::expect_equal(1,1) # silence message about skipping empty test
 # Index up to date? ----
 messaget("++ Testing index up to date? Expect 20 seconds, abort if needed.")
 
-# simply try all files for Potsdam (for 1/5/10_minutes only 1 each)
 if(start<=15) testthat::test_that("15. index is up to date - all files can be downloaded and read", {
+testthat::expect_message(checkUpdates(), "index file selection is fully present on the DWD server")
+# keeping the old test for now:
+# simply try all files for Potsdam (for 1/5/10_minutes only 1 each)
 links <- selectDWD("Potsdam","","","", quiet=TRUE) # does not include multi_annual data!
 toexclude <- grep("1_minute", links)
 toexclude <- toexclude[-(length(toexclude)-3)]
