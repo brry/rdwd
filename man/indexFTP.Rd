@@ -11,6 +11,7 @@ indexFTP(
   exclude.latest.bin = TRUE,
   fast = TRUE,
   sleep = 0,
+  nosave = FALSE,
   dir = "DWDdata",
   filename = folder[1],
   overwrite = FALSE,
@@ -49,6 +50,10 @@ DEFAULT: TRUE}
 \item{sleep}{If not 0, a random number of seconds between 0 and \code{sleep}
 is passed to \code{\link[=Sys.sleep]{Sys.sleep()}} after each read folder
 to avoid getting kicked off the FTP-Server, see note above. DEFAULT: 0}
+
+\item{nosave}{Logical: do not save the results to disc?
+If TRUE, \code{dir}, \code{filename} and \code{overwrite} are ignored.
+DEFAULT: FALSE}
 
 \item{dir}{Writeable directory name where to save the downloaded file.
 Created if not existent.

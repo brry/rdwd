@@ -67,6 +67,9 @@
 #' @param sleep   If not 0, a random number of seconds between 0 and `sleep`
 #'                is passed to [Sys.sleep()] after each read folder
 #'                to avoid getting kicked off the FTP-Server, see note above. DEFAULT: 0
+#' @param nosave  Logical: do not save the results to disc? 
+#'                If TRUE, `dir`, `filename` and `overwrite` are ignored.
+#'                DEFAULT: FALSE
 #' @param dir     Writeable directory name where to save the downloaded file.
 #'                Created if not existent.
 #'                DEFAULT: "DWDdata" at current [getwd()]
@@ -88,6 +91,7 @@ is.file.if.has.dot=TRUE,
 exclude.latest.bin=TRUE,
 fast=TRUE,
 sleep=0,
+nosave=FALSE,
 dir="DWDdata",
 filename=folder[1],
 overwrite=FALSE,
@@ -123,6 +127,8 @@ if(all(folder %in% c("currentfindex","currentgindex")) & base %in% c(dwdbase, gr
   tree <- tree[!tree %in% dirname(tree)]
   folder <- tree
   }
+if(any(duplicated(folder))) tstop("There are ",length(duplicated(folder)),
+                                  " duplicates (of ",length(folder),") in 'folder'.")
 if(!quiet) message("Determining the content of the ",length(folder)," folder(s)...")
 if(base!=dwdbase)
  if(missing(folder)) twarning('base is not the rdwd default. It is likely you want',
@@ -209,6 +215,8 @@ if(anyDuplicated(df_ff$path)) twarning("Duplicate paths:",
 
 # sort final results alphabetically (path only, no f/f info):
 finalpaths <- sort(df_ff$path)
+
+if(nosave) return(finalpaths)
 
 # write output:
 owd <- dirDWD(dir, quiet=quiet)
