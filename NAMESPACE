@@ -2,6 +2,7 @@
 
 export(addBorders)
 export(app)
+export(checkUpdates)
 export(createIndex)
 export(dataDWD)
 export(dwdbase)
