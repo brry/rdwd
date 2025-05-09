@@ -254,7 +254,14 @@ if(expand)
 }
 
 # checks + output:
-if(sum(sel)<1 & !quiet) 
+nasel <- is.na(sel)
+if(any(nasel))
+  {
+  twarning("There are ", sum(nasel),"/",length(sel), " NAs in the selection. ",
+           "This should not happen, please debug. ",
+           "Probably some files are no longer present on the DWD server.")
+  }
+if(sum(sel,na.rm=TRUE)<1 & !quiet) 
  twarning("No entries in file index '", findexname, "' match your query\n  ",
           formatquery(), ".")
 return(paste0(base,"/",findex[sel,"path"]))
