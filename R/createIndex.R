@@ -41,7 +41,7 @@
 #' @param base  Main directory of DWD ftp server, defaulting to observed climatic records.
 #'              DEFAULT: [`dwdbase`]
 #' @param dir   Char: writeable directory name where to save the main output(s).
-#'              Created if not existent. DEFAULT: "DWDdata" at current [getwd()]
+#'              Created if not existent. DEFAULT: [locdir()]
 #' @param fname Char: Name of file in `dir` in which to write [`fileIndex`].
 #'              Use `fname=""` to suppress writing. DEFAULT: "fileIndex.txt"
 #' @param meta  Logical: should metaIndex also be created from fileIndex?
@@ -67,7 +67,7 @@
 createIndex <- function(
 paths,
 base=dwdbase,
-dir="DWDdata",
+dir=locdir(),
 fname="fileIndex.txt",
 meta=FALSE,
 metadir="meta",

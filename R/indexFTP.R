@@ -72,7 +72,7 @@
 #'                DEFAULT: FALSE
 #' @param dir     Writeable directory name where to save the downloaded file.
 #'                Created if not existent.
-#'                DEFAULT: "DWDdata" at current [getwd()]
+#'                DEFAULT: [locdir()]
 #' @param filename Character: Part of output filename. "INDEX_of_DWD_" is prepended,
 #'                "/" replaced with "_", ".txt" appended. DEFAULT: folder\[1]
 #' @param overwrite Logical: Overwrite existing file? If not, "_n" is added to the
@@ -92,7 +92,7 @@ exclude.latest.bin=TRUE,
 fast=TRUE,
 sleep=0,
 nosave=FALSE,
-dir="DWDdata",
+dir=locdir(),
 filename=folder[1],
 overwrite=FALSE,
 quiet=rdwdquiet(),

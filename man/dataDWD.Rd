@@ -116,7 +116,7 @@ To solve "errors in download.file: cannot open URL", see
 link <- selectDWD("Fuerstenzell", res="hourly", var="wind", per="recent")
 # download file:
 fname <- dataDWD(link, dir=locdir(), read=FALSE) ; fname
-# dir="DWDdata" is the default directory to store files
+# dlocdir() is the default directory to store files
 # unless force=TRUE, already obtained files will not be downloaded again
 
 # read and plot file:

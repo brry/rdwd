@@ -12,11 +12,11 @@
 #' # see source code of dataDWD and metaDWD
 #' 
 #' @param dir      Char for dirDWD: writeable directory name. Created if not existent.
-#'                 DEFAULT: "DWDdata" at current [getwd()]
+#'                 DEFAULT: [locdir()]
 #' @param quiet    Logical: Suppress messages about creating dir? DEFAULT: FALSE through [rdwdquiet()]
 #' 
 dirDWD <- function(
-dir="DWDdata",
+dir=locdir(),
 quiet=rdwdquiet()
 )
 {

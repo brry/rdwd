@@ -7,7 +7,7 @@
 createIndex(
   paths,
   base = dwdbase,
-  dir = "DWDdata",
+  dir = locdir(),
   fname = "fileIndex.txt",
   meta = FALSE,
   metadir = "meta",
@@ -28,7 +28,7 @@ with the same \code{base} value as this function}
 DEFAULT: \code{\link{dwdbase}}}
 
 \item{dir}{Char: writeable directory name where to save the main output(s).
-Created if not existent. DEFAULT: "DWDdata" at current \code{\link[=getwd]{getwd()}}}
+Created if not existent. DEFAULT: \code{\link[=locdir]{locdir()}}}
 
 \item{fname}{Char: Name of file in \code{dir} in which to write \code{\link{fileIndex}}.
 Use \code{fname=""} to suppress writing. DEFAULT: "fileIndex.txt"}

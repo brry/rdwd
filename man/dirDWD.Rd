@@ -4,11 +4,11 @@
 \alias{dirDWD}
 \title{directory management for rdwd}
 \usage{
-dirDWD(dir = "DWDdata", quiet = rdwdquiet())
+dirDWD(dir = locdir(), quiet = rdwdquiet())
 }
 \arguments{
 \item{dir}{Char for dirDWD: writeable directory name. Created if not existent.
-DEFAULT: "DWDdata" at current \code{\link[=getwd]{getwd()}}}
+DEFAULT: \code{\link[=locdir]{locdir()}}}
 
 \item{quiet}{Logical: Suppress messages about creating dir? DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 }

@@ -12,7 +12,7 @@ indexFTP(
   fast = TRUE,
   sleep = 0,
   nosave = FALSE,
-  dir = "DWDdata",
+  dir = locdir(),
   filename = folder[1],
   overwrite = FALSE,
   quiet = rdwdquiet(),
@@ -57,7 +57,7 @@ DEFAULT: FALSE}
 
 \item{dir}{Writeable directory name where to save the downloaded file.
 Created if not existent.
-DEFAULT: "DWDdata" at current \code{\link[=getwd]{getwd()}}}
+DEFAULT: \code{\link[=locdir]{locdir()}}}
 
 \item{filename}{Character: Part of output filename. "INDEX_of_DWD_" is prepended,
 "/" replaced with "_", ".txt" appended. DEFAULT: folder[1]}
