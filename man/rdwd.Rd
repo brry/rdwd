@@ -20,7 +20,7 @@ For an introduction to the package, see \url{https://bookdown.org/brry/rdwd}.\cr
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/brry/rdwd}
+  \item \url{https://bookdown.org/brry/rdwd/}
   \item Report bugs at \url{https://github.com/brry/rdwd/issues}
 }
 
