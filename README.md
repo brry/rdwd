@@ -9,10 +9,12 @@ Since May 2019, `rdwd` also supports reading the Radolan (binary) raster data at
 [grids_germany](https://opendata.dwd.de/climate_environment/CDC/grids_germany/).
 
 `rdwd` is available on CRAN:
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version-last-release/rdwd)](https://cran.r-project.org/package=rdwd) 
-[![downloads](http://cranlogs.r-pkg.org/badges/rdwd)](https://www.r-pkg.org/services)
-[![Rdoc](http://www.rdocumentation.org/badges/version/rdwd)](https://www.rdocumentation.org/packages/rdwd)
-!["rdwd dependencies"](https://tinyverse.netlify.com/badge/rdwd)
+<!-- badges: start -->
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version-last-release/rdwd)](https://cran.r-project.org/package=rdwd) 
+[![downloads](https://cranlogs.r-pkg.org/badges/rdwd)](https://www.r-pkg.org/services)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+<!-- badges: end -->
+
 
 It has been presented at [FOSDEM 2017](https://archive.fosdem.org/2017/schedule/event/geo_weather/)
 and [UseR!2017](https://user2017.sched.com/event/Axr3/rdwd-manage-german-weather-observations) in Brussels and with a 5 Minute [video](https://youtu.be/KOYZPMMgiHo?t=233) at [e-Rum2020](https://milano-r.github.io/erum2020program/lightning-talks.html#rdwd-r-interface-to-german-weather-service-data),
@@ -44,6 +46,8 @@ Usage for observational weather data from the measuring stations usually looks s
 ```R
 # Download and install (once only):
 install.packages("rdwd")
+# update to the most recent fileIndex (ca monthly):
+rdwd::updateRdwd() 
 # Load the package into library (needed in every R session):
 library(rdwd)
 
