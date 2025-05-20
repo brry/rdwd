@@ -5,11 +5,11 @@
 \title{Create a recursive index of an FTP Server}
 \usage{
 indexFTP(
-  folder = "currentfindex",
+  folder = "",
   base = dwdbase,
   is.file.if.has.dot = TRUE,
   exclude.latest.bin = TRUE,
-  fast = TRUE,
+  fast = NULL,
   sleep = 0,
   nosave = FALSE,
   dir = locdir(),
@@ -24,12 +24,7 @@ indexFTP(
 \item{folder}{Folder(s) to be indexed recursively, e.g. "/hourly/wind/".
 Leading slashes will be removed.
 Use \code{folder=""} to search at the location of \code{base} itself.
-If \code{folder} is "currentfindex" (the default) and \code{base}
-is the default, \code{folder} is changed to all observational
-folders listed in the current tree file at
-\url{https://opendata.dwd.de/weather/tree.html}. With "currentgindex"
-and \code{gridbase}, the grid folders in the tree are used.
-DEFAULT: "currentfindex"}
+DEFAULT: ""}
 
 \item{base}{Main directory of FTP server. Trailing slashes will be removed.
 DEFAULT: \code{\link{dwdbase}}}
@@ -43,9 +38,7 @@ DEFAULT: TRUE}
 RCurl::getURL indicates this is a pointer to the last regularly named file.
 DEFAULT: TRUE}
 
-\item{fast}{Read tree file with \code{\link[data.table:fread]{data.table::fread()}}
-(1 sec) instead of \code{\link[=readLines]{readLines()}} (10 secs)?
-DEFAULT: TRUE}
+\item{fast}{Obsolete, ignored. DEFAULT: NULL}
 
 \item{sleep}{If not 0, a random number of seconds between 0 and \code{sleep}
 is passed to \code{\link[=Sys.sleep]{Sys.sleep()}} after each read folder
@@ -89,9 +82,7 @@ and gridded datasets (\code{\link{gridIndex}}).
 If they are out of date, please let me know!\cr\cr
 \strong{Getting banned from the FTP Server}\cr
 Normally, this shouldn't happen anymore: since Version 0.10.10 (2018-11-26),
-a single RCurl handle is used for all FTP requests and since version 1.0.17 (2019-05-14),
-the file tree provided by the DWD is used to obtain all folders first,
-eliminating the recursive calls.\cr
+a single RCurl handle is used for all FTP requests.
 There's a provision if the FTP server detects bot requests and denies access.
 If \code{\link[RCurl:getURL]{RCurl::getURL()}} fails, there will still be an output
 which you can pass in a second run via \code{folder} to extract the remaining dirs.
@@ -102,13 +93,20 @@ Here's an example:\cr
 gridindex <- indexFTP(gridindex, gridbase, sleep=15)
 }\if{html}{\out{</div>}}
 
-Of course, with a higher sleep value, the execution will take longer!
+Of course, with a higher sleep value, the execution will take longer!\cr\cr
+Note:
+Between version 1.0.17 (2019-05-14) and 1.8.26 (2025-05-20),
+the DWD provided a tree file that was used to obtain all folders first,
+eliminating the recursive calls. See \href{https://github.com/brry/rdwd/issues/47}{issue 47}.
 }
 \examples{
 \dontrun{ ## Needs internet connection
 sol <- indexFTP(folder="/daily/solar", dir=tempdir())
 head(sol)
 
+# with subfolders:
+mon <- indexFTP(folder="/monthly", dir=tempdir())
+unique(dirname(mon))
 # mon <- indexFTP(folder="/monthly/kl", dir=tempdir(), verbose=TRUE)
 }
 

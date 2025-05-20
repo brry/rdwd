@@ -11,9 +11,7 @@
 #' If they are out of date, please let me know!\cr\cr
 #' **Getting banned from the FTP Server**\cr
 #' Normally, this shouldn't happen anymore: since Version 0.10.10 (2018-11-26),
-#' a single RCurl handle is used for all FTP requests and since version 1.0.17 (2019-05-14),
-#' the file tree provided by the DWD is used to obtain all folders first,
-#' eliminating the recursive calls.\cr
+#' a single RCurl handle is used for all FTP requests.
 #' There's a provision if the FTP server detects bot requests and denies access.
 #' If [RCurl::getURL()] fails, there will still be an output
 #' which you can pass in a second run via `folder` to extract the remaining dirs.
@@ -23,8 +21,11 @@
 #' gridindex <- indexFTP("", gridbase)
 #' gridindex <- indexFTP(gridindex, gridbase, sleep=15)
 #' ```
-#' Of course, with a higher sleep value, the execution will take longer!
-#' 
+#' Of course, with a higher sleep value, the execution will take longer!\cr\cr
+#' Note:
+#' Between version 1.0.17 (2019-05-14) and 1.8.26 (2025-05-20),
+#' the DWD provided a tree file that was used to obtain all folders first,
+#' eliminating the recursive calls. See [issue 47](https://github.com/brry/rdwd/issues/47).
 #' @return a vector with file paths
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2016
 #' @seealso [createIndex()], [updateIndexes()],
@@ -40,18 +41,16 @@
 #' sol <- indexFTP(folder="/daily/solar", dir=tempdir())
 #' head(sol)
 #' 
+#' # with subfolders:
+#' mon <- indexFTP(folder="/monthly", dir=tempdir())
+#' unique(dirname(mon))
 #' # mon <- indexFTP(folder="/monthly/kl", dir=tempdir(), verbose=TRUE)
 #' }
 #' 
 #' @param folder  Folder(s) to be indexed recursively, e.g. "/hourly/wind/".
 #'                Leading slashes will be removed.
 #'                Use `folder=""` to search at the location of `base` itself.
-#'                If `folder` is "currentfindex" (the default) and `base`
-#'                is the default, `folder` is changed to all observational
-#'                folders listed in the current tree file at
-#'                <https://opendata.dwd.de/weather/tree.html>. With "currentgindex"
-#'                and `gridbase`, the grid folders in the tree are used.
-#'                DEFAULT: "currentfindex"
+#'                DEFAULT: ""
 #' @param base    Main directory of FTP server. Trailing slashes will be removed.
 #'                DEFAULT: [`dwdbase`]
 #' @param is.file.if.has.dot Logical: if some of the input paths contain a dot,
@@ -61,9 +60,7 @@
 #' @param exclude.latest.bin Exclude latest file at opendata.dwd.de/weather/radar/radolan?
 #'                RCurl::getURL indicates this is a pointer to the last regularly named file.
 #'                DEFAULT: TRUE
-#' @param fast    Read tree file with [data.table::fread()]
-#'                (1 sec) instead of [readLines()] (10 secs)?
-#'                DEFAULT: TRUE
+#' @param fast    Obsolete, ignored. DEFAULT: NULL
 #' @param sleep   If not 0, a random number of seconds between 0 and `sleep`
 #'                is passed to [Sys.sleep()] after each read folder
 #'                to avoid getting kicked off the FTP-Server, see note above. DEFAULT: 0
@@ -85,11 +82,11 @@
 #'                DEFAULT: FALSE (usually, you dont need all the curl information)
 #' 
 indexFTP <- function(
-folder="currentfindex",
+folder="",
 base=dwdbase,
 is.file.if.has.dot=TRUE,
 exclude.latest.bin=TRUE,
-fast=TRUE,
+fast=NULL,
 sleep=0,
 nosave=FALSE,
 dir=locdir(),
@@ -103,30 +100,12 @@ verbose=FALSE
 # Check if RCurl is available:
 checkSuggestedPackage("RCurl", "rdwd::indexFTP")
 if(grepl("^https", base)) tstop("base should start with ftp://, not https://. base value is: ",base)
-# change folder:
-if(all(folder %in% c("currentfindex","currentgindex")) & base %in% c(dwdbase, gridbase))
-  {
-  if(!quiet) message("Reading current index tree file...")
-  if(!fast)
-     {tree <- readLines("ftp://opendata.dwd.de/weather/tree.html")
-     } else {
-     checkSuggestedPackage("data.table", "rdwd::indexFTP with fast=TRUE")
-     tree <- data.table::fread("ftp://opendata.dwd.de/weather/tree.html",
-                                sep="\n", header=FALSE, showProgress=FALSE, strip.white=FALSE)$V1
-     }
-  if(!quiet) message("Processing index tree file...")
-  urlpart <- "\"https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/"
-  if(folder=="currentgindex")
-     urlpart <- sub("observations_germany/climate", "grids_germany", urlpart)
-  tree <- grep(urlpart, tree, value=TRUE)
-  tree <- sapply(strsplit(tree, "href="), "[", 2)
-  tree <- sub(urlpart, "/", tree)
-  tree <- sapply(strsplit(tree, "/\""), "[", 1)
-  tree <- tree[-1]
-  # Remove intermediate folders:
-  tree <- tree[!tree %in% dirname(tree)]
-  folder <- tree
-  }
+# check for removed folder option:
+if(any(folder %in% c("currentfindex","currentgindex"))) 
+ tstop("The DWD deleted the tree.html file in May 2025. currentfindex is no longer an option. Use folder=\"\".")
+if(!is.null(fast))
+ twarning("The DWD deleted the tree.html file in May 2025. Argument 'fast' is ignored.")
+# check for duplicates:
 if(any(duplicated(folder))) tstop("There are ",length(duplicated(folder)),
                                   " duplicates (of ",length(folder),") in 'folder'.")
 if(!quiet) message("Determining the content of the ",length(folder)," folder(s)...")
