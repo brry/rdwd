@@ -105,11 +105,21 @@ err <- "1_minute/precipitation/historical/2021/1minutenwerte_nieder1minutenwerte
 paths <- paths[paths!=err] ; rm(err)
 fileIndex <- paths
 s <- function(pat, rep) sub(pat, rep, fileIndex, fixed=TRUE)
-fileIndex <- s("y/solar/", "y/solar//") # only hourly + daily, not the others
+fileIndex <- s("/BESCHREIBUNG","//BESCHREIBUNG")
+fileIndex <- s("/DESCRIPTION","//DESCRIPTION")
+fileIndex <- s("_obsolete//BESCHREIBUNG","_obsolete/BESCHREIBUNG")
+fileIndex <- s("_obsolete//DESCRIPTION","_obsolete/DESCRIPTION")
+fileIndex <- s("standard_format//BESCHREIBUNG","standard_format/BESCHREIBUNG")
+fileIndex <- s("standard_format//DESCRIPTION","standard_format/DESCRIPTION")
+fileIndex <- s("y/solar/t", "y/solar//t") # only hourly + daily, not the others
+fileIndex <- s("y/solar/S", "y/solar//S")
+fileIndex <- s("y/solar/s", "y/solar//s")
 fileIndex <- s("multi_annual/", "multi_annual//")
 fileIndex <- s("subdaily/standard_format/", "subdaily/standard_format//")
-fileIndex <- s( "1_minute/precipitation/historical/", "1_minute/precipitation/historical|")
-fileIndex <- s("5_minutes/precipitation/historical/","5_minutes/precipitation/historical|")
+fileIndex <- s( "1_minute/precipitation/historical/1", "1_minute/precipitation/historical|1")
+fileIndex <- s( "1_minute/precipitation/historical/2", "1_minute/precipitation/historical|2")
+fileIndex <- s("5_minutes/precipitation/historical/1","5_minutes/precipitation/historical|1")
+fileIndex <- s("5_minutes/precipitation/historical/2","5_minutes/precipitation/historical|2")
 fileIndex <- s("climate_indices/","climate_indices|")
 rm(s)
  # remove leading slashes:
@@ -120,7 +130,8 @@ fileIndex <- strsplit(fileIndex,"/", fixed=TRUE)
 # check if there are actually 4 columns:
 ln4 <- lengths(fileIndex)!=4
 if(any(ln4)) tstop("paths should have 4 elements (res/var/per/file), not ", 
-                   toString(unique(lengths(fileIndex)[ln4])))
+                   toString(unique(lengths(fileIndex)[ln4])), ". First few out of ",sum(ln4),":\n- ",
+                   paste(na.omit(sapply(fileIndex[ln4], paste, collapse="/")[1:3]), collapse="\n- "))
 rm(ln4)
 fileIndex <- data.frame(t(simplify2array(fileIndex))) # much faster than l2df
 colnames(fileIndex) <- c("res","var","per","file")

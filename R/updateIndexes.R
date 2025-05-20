@@ -48,6 +48,7 @@
 #' # 609'082 (2024-08-12)
 #' # 596'417 (2025-01-23)
 #' # 630'152 (2025-03-10)
+#' # 633'334 (2025-05-20)
 #' 
 #' # gridbase
 #' #  49'247 (2019-05-26)
@@ -82,6 +83,7 @@
 #' #  82'163 (2024-08-12)
 #' # 135'436 (2025-01-23)
 #' #  83'823 (2025-03-10)
+#' #  98'100 (2025-05-20)
 #' 
 #' @param dwdlocal Read "DWDdata/INDEX_of_DWD_.txt" instead of calling
 #'                 [indexFTP()]? DEFAULT: FALSE
@@ -104,17 +106,17 @@ messaget <- function(...) message(format(Sys.time(), "%T - "), ...)
 # get filenames on FTP server:
 if(dwdlocal) dwdfiles <- readLines("DWDdata/INDEX_of_DWD_.txt") else
  {
- messaget("Indexing FTP Server at dwdbase...")
- dwdfiles <- indexFTP(sleep=0, filename="", overwrite=TRUE)
+ messaget("Indexing FTP Server at dwdbase (expect 0,2,15,47,40s) ...")
+ dwdfiles <- indexFTP(sleep=0, filename="", dir="DWDdata", overwrite=TRUE)
  }
 if(grdlocal) grdfiles <- readLines("DWDdata/INDEX_of_DWD_grids.txt") else
  {
- messaget("Indexing FTP Server at gridbase...")
- grdfiles <- indexFTP("currentgindex", filename="grids", base=gridbase, overwrite=TRUE)
+ messaget("Indexing FTP Server at gridbase (expect 0,2,22,64s,2m,21,57s) ...")
+ grdfiles <- indexFTP(filename="grids", base=gridbase, dir="DWDdata", overwrite=TRUE)
  }
 
 messaget("Calling createIndex...")
-index <- createIndex(paths=dwdfiles, meta=TRUE, force=metaforce, overwrite=TRUE, checkwarn=FALSE)
+index <- createIndex(paths=dwdfiles, meta=TRUE, force=metaforce, dir="DWDdata", overwrite=TRUE, checkwarn=FALSE)
 
 # save indexes ----
 
