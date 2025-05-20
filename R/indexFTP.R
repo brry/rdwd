@@ -105,21 +105,17 @@ if(any(folder %in% c("currentfindex","currentgindex")))
  tstop("The DWD deleted the tree.html file in May 2025. currentfindex is no longer an option. Use folder=\"\".")
 if(!is.null(fast))
  twarning("The DWD deleted the tree.html file in May 2025. Argument 'fast' is ignored.")
-# check for duplicates:
-if(any(duplicated(folder))) tstop("There are ",length(duplicated(folder)),
-                                  " duplicates (of ",length(folder),") in 'folder'.")
-if(!quiet) message("Determining the content of the ",length(folder)," folder(s)...")
-if(base!=dwdbase)
- if(missing(folder)) twarning('base is not the rdwd default. It is likely you want',
-                             ' to use folder="" instead of "',folder,'".')
-# Progress bar?
-if(progbar) lapply <- pbapply::pblapply
-# single RCurl handle for all FTP requests:
-curl_handle <- RCurl::getCurlHandle(ftp.use.epsv=TRUE)
-
 # remove trailing slashes in base and leading slashes in folder:
 base <- sub("/+$", "", base)
 folder <- sub("^/+","",folder)
+# check for duplicates:
+if(any(duplicated(folder))) tstop("There are ",length(duplicated(folder)),
+                                  " duplicates (of ",length(folder),") in 'folder'.")
+# Progress bar?
+if(progbar) lapply <- pbapply::pblapply
+
+# single RCurl handle for all FTP requests:
+curl_handle <- RCurl::getCurlHandle(ftp.use.epsv=TRUE)
 
 # central object: df_ff (dataframe with file/folder names)
 df_ff <- data.frame(path=folder, isfile=FALSE, stringsAsFactors=FALSE)
@@ -164,7 +160,7 @@ getURL_ffe <- function(ff_row)
  ilf <- grep("latest-dwd---bin", p) # index of latest file
  if(length(ilf)>0)
    if(exclude.latest.bin) p <- p[-ilf]  else
-   p[ilf] <- sub(" -> .*", "", p[ilf]) # to keep p suited for read.text
+   p[ilf] <- sub(" -> .*", "", p[ilf]) # to keep p suited for read.table
  #
  isdir <- substr(p,1,1) =="d" # directory, else file
  pnames <- read.table(text=p, colClasses="character") # do not convert "00" folder to 0
@@ -178,6 +174,10 @@ getURL_ffe <- function(ff_row)
 }
 
 stoppp_ffe <- FALSE
+
+# message actual start:
+plural <- if(length(folder)>1) "s" else ""
+if(!quiet) message("Determining the content of ",length(folder)," FTP folder",plural,"...")
 # as long as df_ff contains folders, run the following:
 while(any(!df_ff$isfile)) # excludes checked empty folders: there, isfile is set to TRUE
   {
