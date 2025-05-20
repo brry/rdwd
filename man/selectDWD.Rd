@@ -44,6 +44,8 @@ DEFAULT: NA for interactive selection}
 "recent" (up to date records from the last 1.5 years) or
 "historical" (long time series).
 Can be abbreviated. To get both datasets, use \code{per="hr"}.
+Use \code{per=" "} when using \code{meta=TRUE} (the DWD moved the description files in late 2024).
+Use \code{per=""} for matching options from all periods.
 DEFAULT: NA for interactive selection}
 
 \item{expand}{Logical: get all possible \code{res/var/per} combinations?

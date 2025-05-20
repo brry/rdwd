@@ -435,9 +435,9 @@ return(dat)
 readDWD.multia <- function(file, fileEncoding="latin1", tryenc=TRUE,
                            comment.char="\032", quiet=rdwdquiet(), ...)
 {
-out <- try(read.table(file, sep=";", header=TRUE, fileEncoding=fileEncoding,
-                      comment.char=comment.char, ...), silent=TRUE)
-if(inherits(out, "try-error") && tryenc) # try with encoding ""
+out <- suppressWarnings(try(read.table(file, sep=";", header=TRUE, fileEncoding=fileEncoding,
+                      comment.char=comment.char, ...), silent=TRUE))
+if(tryenc) if(inherits(out, "try-error") || nrow(out)==0) # try with encoding ""
 out <- try(read.table(file, sep=";", header=TRUE, fileEncoding="",
                       comment.char=comment.char, ...), silent=TRUE)
 if(inherits(out, "try-error")) stop(out)
@@ -586,7 +586,7 @@ return(sf)
 #' head(meta)
 #' 
 #' cnm <- colnames(meta)
-#' if(length(cnm)!=8) stop("number of columns should be 8, but is ", length(cnm),
+#' if(length(cnm)!=9) stop("number of columns should be 9, but is ", length(cnm),
 #'                         ":\n", toString(cnm))
 #' }
 #' @param file  Name of file on harddrive, like e.g.
@@ -1440,7 +1440,11 @@ return(invisible(out))
 #' # hourly/sun no longer has a pdf file anymore 2023-09
 #' link <- link[endsWith(link,"pdf")][1]
 #' file <- dataDWD(link, read=FALSE)
-#' readDWD(file)
+#' readDWD(file) # opens in OS default PDF viewer
+#' 
+#' # for regular res/var combinations, use per=" " (since 1.8.29 2025-05-20)
+#' link <- selectDWD(res="daily", var="kl", per=" ", meta=TRUE)
+#' if(!any(endsWith(link,"pdf"))) stop("no pdf file here anymore") 
 #' }
 #' @param file      Name of file on harddrive, like e.g.
 #'                  monthly_kl_historical_DESCRIPTION_obsgermany_climate_monthly_kl_historical_en.pdf

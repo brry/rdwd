@@ -42,7 +42,7 @@ meta <- readDWD(file)
 head(meta)
 
 cnm <- colnames(meta)
-if(length(cnm)!=8) stop("number of columns should be 8, but is ", length(cnm),
+if(length(cnm)!=9) stop("number of columns should be 9, but is ", length(cnm),
                         ":\n", toString(cnm))
 }
 }

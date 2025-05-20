@@ -31,7 +31,11 @@ if(!any(endsWith(link,"pdf"))) stop("no pdf file here anymore")
 # hourly/sun no longer has a pdf file anymore 2023-09
 link <- link[endsWith(link,"pdf")][1]
 file <- dataDWD(link, read=FALSE)
-readDWD(file)
+readDWD(file) # opens in OS default PDF viewer
+
+# for regular res/var combinations, use per=" " (since 1.8.29 2025-05-20)
+link <- selectDWD(res="daily", var="kl", per=" ", meta=TRUE)
+if(!any(endsWith(link,"pdf"))) stop("no pdf file here anymore") 
 }
 }
 \seealso{

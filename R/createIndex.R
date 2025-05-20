@@ -103,14 +103,16 @@ messaget <- function(x) message(x, " (",
 # All paths should have the same amount of levels before being splitted:
 err <- "1_minute/precipitation/historical/2021/1minutenwerte_nieder1minutenwerte_nieder_000_hist.zip"
 paths <- paths[paths!=err] ; rm(err)
+ # remove leading slashes:
+paths <- sub("^/","",paths)
 fileIndex <- paths
 s <- function(pat, rep) sub(pat, rep, fileIndex, fixed=TRUE)
-fileIndex <- s("/BESCHREIBUNG","//BESCHREIBUNG")
-fileIndex <- s("/DESCRIPTION","//DESCRIPTION")
-fileIndex <- s("_obsolete//BESCHREIBUNG","_obsolete/BESCHREIBUNG")
-fileIndex <- s("_obsolete//DESCRIPTION","_obsolete/DESCRIPTION")
-fileIndex <- s("standard_format//BESCHREIBUNG","standard_format/BESCHREIBUNG")
-fileIndex <- s("standard_format//DESCRIPTION","standard_format/DESCRIPTION")
+fileIndex <- s("/BESCHREIBUNG","/ /BESCHREIBUNG")
+fileIndex <- s("/DESCRIPTION","/ /DESCRIPTION")
+fileIndex <- s("_obsolete/ /BESCHREIBUNG","_obsolete/BESCHREIBUNG")
+fileIndex <- s("_obsolete/ /DESCRIPTION","_obsolete/DESCRIPTION")
+fileIndex <- s("standard_format/ /BESCHREIBUNG","standard_format/BESCHREIBUNG")
+fileIndex <- s("standard_format/ /DESCRIPTION","standard_format/DESCRIPTION")
 fileIndex <- s("y/solar/t", "y/solar//t") # only hourly + daily, not the others
 fileIndex <- s("y/solar/S", "y/solar//S")
 fileIndex <- s("y/solar/s", "y/solar//s")
@@ -122,8 +124,6 @@ fileIndex <- s("5_minutes/precipitation/historical/1","5_minutes/precipitation/h
 fileIndex <- s("5_minutes/precipitation/historical/2","5_minutes/precipitation/historical|2")
 fileIndex <- s("climate_indices/","climate_indices|")
 rm(s)
- # remove leading slashes:
-fileIndex <- sub("^/","",fileIndex)
 # split into parts:
 if(!quiet) messaget("Splitting filenames...")
 fileIndex <- strsplit(fileIndex,"/", fixed=TRUE)

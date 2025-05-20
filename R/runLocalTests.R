@@ -89,6 +89,7 @@ testthat::expect_error(dataDWD(link, hr=4), "hr=4, but 2 ids are given: 850, 398
 
 if(start<=5) testthat::test_that("5. readDWD messages subfunctions correctly", {
 link <- c(selectDWD("Potsdam", res="daily", var="kl", per="hr"),
+          selectDWD("", "daily", "kl", " ", meta=TRUE),
           selectDWD("", "daily", "kl", "h", meta=TRUE))
 link <- link[!grepl("mn4_Beschreibung",link)] # mn4 file with only 2 Berlin stations, Apr 2022
 file <- dataDWD(link, read=FALSE, dir=dir_data, progbar=FALSE)

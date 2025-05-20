@@ -83,6 +83,8 @@
 #'              "recent" (up to date records from the last 1.5 years) or
 #'              "historical" (long time series). 
 #'              Can be abbreviated. To get both datasets, use `per="hr"`.
+#'              Use `per=" "` when using `meta=TRUE` (the DWD moved the description files in late 2024).
+#'              Use `per=""` for matching options from all periods.
 #'              DEFAULT: NA for interactive selection
 #' @param expand Logical: get all possible `res/var/per` combinations? 
 #'              Set to FALSE if you want only the given combinations.
