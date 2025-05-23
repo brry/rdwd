@@ -100,19 +100,23 @@ messaget <- function(x) message(x, " (",
 # clipr::write_clip(dd)
 # https://docs.google.com/spreadsheets/d/1qXQ1bSLW5TJnJgpUXIID3mVNYS6YZaHbsoe22LmBIAk/edit#gid=0
 
-# All paths should have the same amount of levels before being splitted:
-err <- "1_minute/precipitation/historical/2021/1minutenwerte_nieder1minutenwerte_nieder_000_hist.zip"
-paths <- paths[paths!=err] ; rm(err)
  # remove leading slashes:
 paths <- sub("^/","",paths)
 fileIndex <- paths
+# All paths should have the same amount of levels before being splitted:
+subdesc <- function(d)
+  {
+  sel <- grepl(d, fileIndex, fixed=TRUE) & 
+        !grepl("multi_annual", fileIndex, fixed=TRUE) &
+        !grepl("subdaily/standard_format", fileIndex, fixed=TRUE)
+  sel <- which(sel)
+  sel <- sel[lengths(gregexpr("/", fileIndex[sel], fixed=TRUE))==2] # res/var/file instead of res/var/per/file
+  fileIndex[sel] <- sub(d, paste0("/ ",d), fileIndex[sel], fixed=TRUE)
+  fileIndex
+  }
+fileIndex <- subdesc("/BESCHREIBUNG")
+fileIndex <- subdesc("/DESCRIPTION")
 s <- function(pat, rep) sub(pat, rep, fileIndex, fixed=TRUE)
-fileIndex <- s("/BESCHREIBUNG","/ /BESCHREIBUNG")
-fileIndex <- s("/DESCRIPTION","/ /DESCRIPTION")
-fileIndex <- s("_obsolete/ /BESCHREIBUNG","_obsolete/BESCHREIBUNG")
-fileIndex <- s("_obsolete/ /DESCRIPTION","_obsolete/DESCRIPTION")
-fileIndex <- s("standard_format/ /BESCHREIBUNG","standard_format/BESCHREIBUNG")
-fileIndex <- s("standard_format/ /DESCRIPTION","standard_format/DESCRIPTION")
 fileIndex <- s("y/solar/t", "y/solar//t") # only hourly + daily, not the others
 fileIndex <- s("y/solar/S", "y/solar//S")
 fileIndex <- s("y/solar/s", "y/solar//s")
@@ -123,7 +127,7 @@ fileIndex <- s( "1_minute/precipitation/historical/2", "1_minute/precipitation/h
 fileIndex <- s("5_minutes/precipitation/historical/1","5_minutes/precipitation/historical|1")
 fileIndex <- s("5_minutes/precipitation/historical/2","5_minutes/precipitation/historical|2")
 fileIndex <- s("climate_indices/","climate_indices|")
-rm(s)
+rm(s, subdesc)
 # split into parts:
 if(!quiet) messaget("Splitting filenames...")
 fileIndex <- strsplit(fileIndex,"/", fixed=TRUE)
