@@ -303,9 +303,10 @@ testthat::expect_equal(1,1) # silence message about skipping empty test
 # 70 secs so far
 # Index up to date? ----
 messaget("++ Testing index up to date? Expect 20 seconds, abort if needed.")
+messaget("assuming updateIndexes() has been run.")
 
 if(start<=15) testthat::test_that("15. index is up to date - all files can be downloaded and read", {
-testthat::expect_message(checkUpdates(), "index file selection is fully present on the DWD server")
+testthat::expect_message(checkUpdates(), "The historical index files are fully present on the DWD server")
 # keeping the old test for now:
 # simply try all files for Potsdam (for 1/5/10_minutes only 1 each)
 links <- selectDWD("Potsdam","","","", quiet=TRUE) # does not include multi_annual data!
@@ -321,33 +322,8 @@ testthat::expect_length(contents, length(files))
 })
 
 # 91 secs so far
-messaget("assuming updateIndexes() has been run.")
 if(start<=16) testthat::test_that("16. historical files have been updated by DWD", {
-# data("fileIndex")
-lastyear <- as.numeric(format(Sys.Date(), "%Y"))-1 # the last completed year
-outdated <- fileIndex$end==as.Date(paste0(lastyear-1, "-12-31")) & # ends 1 year before lastyear
-            fileIndex$per=="historical" &
-            fileIndex$res!="1_minute"
-outdated[is.na(outdated)] <- FALSE
-sum(outdated)
-#View(fileIndex[outdated,])
-if(any(outdated)){
-rvp <- unique(fileIndex[outdated,1:3])
-alloutdated <- sapply(1:nrow(rvp), function(r)
- {
- fi <- fileIndex$res==rvp[r, "res"] &
-       fileIndex$var==rvp[r, "var"] &
-       fileIndex$per==rvp[r, "per"]
- fi <- fileIndex[fi,]
- fi <- as.numeric(format(fi$end, "%Y"))
- all(fi<lastyear, na.rm=TRUE)
- })
-rvp <- apply(rvp, 1, paste, collapse="/")
-rvp <- unname(rvp)
-if(any(alloutdated)) warning("The DWD has not yet updated any historical files in ",
-                          "the following ", sum(alloutdated), " folders:\n",
-                          toString(rvp[alloutdated]))
-}
+# moved to checkUpdates - would yield a warning if applicable.
 testthat::expect_equal(1,1) # silence message about skipping empty test
 })
 

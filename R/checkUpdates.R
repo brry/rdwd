@@ -4,7 +4,7 @@
 #' If that is the case, the funtion will give a warning, otherwise a message.
 #' @return currently available files on the FTP server in the ca 34 historical folders, invisibly
 #' @export
-#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Mar 2025
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Mar+May 2025
 #' @seealso <https://bookdown.org/brry/rdwd/fileindex.html>
 #' @examples
 #' # current <- checkUpdates()
@@ -13,26 +13,46 @@ checkUpdates <- function(
   fast=TRUE
   )
 {
+# Are the files from the index still present on the DWD server? ----------------
+ 
+# historical files in the index:
 # findex <- rdwd:::fileIndex # for development
 findex <- fileIndex
 # select recent historical files:
 findex <- findex[!grepl("minute",findex$res),]
 findex <- findex[!grepl("indices",findex$var),]
-findex <- findex[findex$end>=Sys.Date()-600,]
+findex <- findex[findex$end>=Sys.Date()-600,] # only historical files have an end date
 findex <- findex[!is.na(findex$end),]
-# select one file per historical folder:
 findex$rvp <- paste(findex$res, findex$var, findex$per, sep="/")
-sel <- function(x) if(length(x)==1) x else sample(x,1) # otherwise single entries are missing
-findex <- findex[tapply(1:nrow(findex), findex$rvp, sel),]
+
 # currently avalaible files:
-current <- indexFTP(findex$rvp, nosave=TRUE)
-# check for presence:
-present <- findex$path %in% current
-msg1 <- "The following filenames from the index are not (no longer) on the DWD server:\n- "
-msg2 <- "\nProbably, the DWD updated historical files to end last year."
-msg3 <- "\nBerry needs to run   rdwd:::updateIndexes()"
-if(any(!present)) warning(msg1, paste(findex$path[!present], collapse="\n- "), msg2, msg3) else
-                  message("The checked index file selection is fully present on the DWD server :).")
+current <- indexFTP(unique(findex$rvp), nosave=TRUE)
+
+# check:
+# # Artifical outdated index for code development:
+# sel <- findex$res %in% c("hourly","daily") & findex$var %in% c("dew_point","kl")
+# findex$path[sel] <- sub("20241231","20231231",findex$path[sel]) ; rm(sel)
+findex$present <- findex$path %in% current 
+# display only one file per folder
+gone <- findex$path[!findex$present]
+gone <- gone[!duplicated(dirname(gone))]
+mOK <- "The historical index files are fully present on the DWD server :)."
+if(all(findex$present)) message(mOK) else warning(
+   sum(!findex$present)," filenames from the fileIndex are no longer on the DWD server.",
+   "\nDisplaying one per folder:\n- ", paste(gone, collapse="\n- "), 
+   "\nProbably, the DWD updated historical files to end last year.",
+   "\nBerry needs to run   rdwd:::updateIndexes()")
+
+# Have the historical folders been updated by the DWD? -------------------------
+
+cindex <- createIndex(current, dir=tempdir(), fname="", quiet=TRUE)
+cindex$rvp <- paste(cindex$res, cindex$var, cindex$per, sep="/")
+old <- tapply(cindex$end, cindex$rvp, max, na.rm=TRUE) < Sys.Date()-366
+mOK <- "The historical folders are updated on the DWD server."
+if(!any(old)) message(mOK) else warning(
+  "The DWD has not yet updated the historical files in ", sum(old),"/",length(old),
+  " folders:\n- ", paste(names(old)[old], collapse="\n- ")) 
+
 # output:
 return(invisible(current))
 }

@@ -24,5 +24,5 @@ If that is the case, the funtion will give a warning, otherwise a message.
 \url{https://bookdown.org/brry/rdwd/fileindex.html}
 }
 \author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Mar 2025
+Berry Boessenkool, \email{berry-b@gmx.de}, Mar+May 2025
 }
