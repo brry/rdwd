@@ -3,7 +3,12 @@
 # Berry Boessenkool, berry-b@gmx.de.   April 2023
 
 # before deploying, run:
-# devtools::install_github("brry/rdwd")
+if(FALSE){
+#br:::detachAll()
+remotes::install_github("brry/berryFunctions")
+remotes::install_github("brry/rdwd")
+}
+
 
 library(rdwd)
 
@@ -152,6 +157,7 @@ var       <- input$var       # column name representation to be used
 day       <- input$enddate   # end day of range
 ndays     <- input$ndays     # length of range
 cumulated <- input$cumulated # cumulated line (for rainfall, sunshine)?
+zeroline  <- input$zeroline  # abline at 0?
 aggfun    <- input$aggfun    # aggregating function to be applied
 # checks:
 if(ndays<2) stop("ndays must be larger than 1")
@@ -181,7 +187,7 @@ kl_agg$nna <- rowSums(is.na(kl_vals))
 kl_agg$value[kl_agg$nna==ncol(kl_agg)] <- NA # do not keep 0 for all-NA-years
 # output
 # if(station=="Menz" & var=="Bedeckungsgrad") browser()
-return(list(station=station, var=var, day=day, ndays=ndays, cumulated=cumulated, 
+return(list(station=station, var=var, day=day, ndays=ndays, cumulated=cumulated, zeroline=zeroline,
             aggfun=aggfun, kl_vals_plot=kl_vals_plot, kl_agg=kl_agg, year=year))
 })
 
@@ -201,6 +207,7 @@ plot(i$day,0, type="n", xlim=i$day-c(i$ndays,1)+1, ylim=ylim,
      main=paste0(vars[vars$Messgroesse==i$var,"Label"],", ",rng), 
      xlab="", ylab="", xaxt="n")
 berryFunctions::timeAxis(format="%d.%m.\n")
+if(i$zeroline) abline(h=0)
 sapply(i$year, function(y) lines(i$day-i$ndays:1+1, i$kl_vals_plot[y,],
                          col=berryFunctions::addAlpha("steelblue",0.2), lwd=2) )
 selyear <- year_sel()
@@ -219,7 +226,8 @@ i <- process_kl()
 ylim <- suppressWarnings(range(i$kl_agg[,2], finite=TRUE))
 if(all(!is.finite(ylim))) ylim <- c(0,1)
 par(mar=c(2.5,3,1,0.2), mgp=c(2,0.7,0), las=1)
-plot(i$kl_agg[,1:2], type="l", xlab="", ylab=paste(i$aggfun,"pro Jahresbereich"), ylim=ylim, col="steelblue")
+plot(i$kl_agg[,1:2], type="l", xlab="", ylab=paste(i$aggfun,"pro Jahresbereich"), ylim=ylim, 
+     panel.first=if(i$zeroline) abline(h=0), col="steelblue")
 points(i$kl_agg[year_sel(),1:2], col="salmon", cex=2, lwd=3)
 sna <- sum(i$kl_agg$nna)
 pna <- sna/length(i$kl_vals_plot)
@@ -238,6 +246,7 @@ par(mar=c(3,3,2,0.2), mgp=c(1.8,0.7,0), las=1)
 hist(values, breaks=25, col=berryFunctions::addAlpha("steelblue",0.4), main="",
      ylab="Anzahl Jahre pro Wertebereich", xlab=paste(i$aggfun,"pro Jahresbereich"))
 if(allNA) return()
+if(i$zeroline) abline(v=0)
 abline(v=values[year_sel()], col="salmon", lwd=4)
 points(median(values, na.rm=TRUE), mean(par("usr")[3:4]), pch=8, cex=1.5, lwd=2)
 # box("outer")
@@ -267,13 +276,14 @@ ui <- fixedPage( # UserInterface
   sidebarPanel(
    uiOutput("location"),
    selectInput("var", "Variable", choices=vars$Messgroesse),
+   checkboxInput("zeroline", "0-Linie", value=FALSE),
    checkboxInput("cumulated", "kumulierte Werte", value=FALSE),
+   "Sonne/Regen -> 'Summe'",
    selectInput("aggfun", "Funktion", choices=funs$deutsch),
    div(style="display:inline-block",dateInput("enddate", "Enddatum")),
    div(style="display:inline-block",numericInput("ndays", "Anzahl Tage", 
                                                  value=60, min=2, max=365, step=1)),
    plotOutput("map", click="map_click", height="350px"),
-   "Für Sonne/Regen Funktion 'Summe' verwenden.", br(),
    "App von",a("Berry", href="mailto:berry-b@gmx.de"), "Boessenkool, ",
    a("Info", href="https://bookdown.org/brry/rdwd"), "/ ",
    a("Quellcode", 
