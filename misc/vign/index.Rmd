@@ -194,6 +194,7 @@ data("fileIndex")
 on <- paste(fileIndex$res, fileIndex$var, fileIndex$per, sep="/")
 on <- unique(on)
 on <- on[!grepl("timeseries_overview$", on)]
+on <- on[!grepl("/ $", on)]
 
 tab <- lapply(colnames(f)[-1], function(r) 
   {
@@ -288,20 +289,9 @@ str(  print_short(bd[bd!=dwdbase])  )
 
 # fileIndex
 
-`r helplink("indexFTP")` recursively lists all the files on an FTP-server (using `RCurl::getURL`).  
-From those paths, `r helplink("createIndex")` generates `r helplink("fileIndex", "index")` and `r helplink("gridIndex", "index")`.
-It also downloads all (ca 84) description files with metadata and creates `r helplink("metaIndex", "index")` and `r helplink("geoIndex", "index")`.  
-All indexes are updated irregularly with the internal function [`updateIndexes`](https://github.com/brry/rdwd/blob/master/R/updateIndexes.R).
-
-`r helplink("selectDWD")` helps to query the `fileIndex`.
-
-The DWD often (but irregularly) updates or expands datasets, at which point the filenames in historical folders change.
-
-If you find the index to be outdated ("download.file errors: [...]  cannot open URL"),
-check in the [latest commits](https://github.com/brry/rdwd/commits/master) 
-if the github development version already has an updated index (install with `r helplink("rdwd::updateRdwd()", "updateRdwd")`).  
-If not, please let me [know](mailto:berry-b@gmx.de) and I will update it. 
-
+If you find the `r helplink("fileIndex", "index")` to be outdated ("download.file errors: [...]  cannot open URL"), run  
+`r helplink("rdwd::updateRdwd()", "updateRdwd")`  
+If the issue persists, please let me [know](mailto:berry-b@gmx.de) and I will update it.  
 Meanwhile, either use current=TRUE in `r helplink("selectDWD")`:
 
 ```{r files, eval=FALSE}
@@ -319,14 +309,26 @@ berryFunctions::headtail(files, 5, na=TRUE)
 cursun <- createIndex(files)
 head(cursun)
 sunlink <- selectDWD("Potsdam", res="hourly", var="sun", per="r", findex=cursun)
-
-
-# with other FTP servers, this should also work...
-funet <- indexFTP(base="ftp.funet.fi/pub/standards/w3/TR/xhtml11/", folder="")
-p <- RCurl::getURL(    "ftp.funet.fi/pub/standards/w3/TR/xhtml11/",
-                       verbose=T, ftp.use.epsv=TRUE, dirlistonly=TRUE)
 ```
 
+## background
+
+`r helplink("indexFTP")` recursively lists all the files on an FTP-server (using `RCurl::getURL`).  
+From those paths, `r helplink("createIndex")` generates `r helplink("fileIndex", "index")` and `r helplink("gridIndex", "index")`.
+It also downloads all (ca 84) description files with metadata and creates `r helplink("metaIndex", "index")` and `r helplink("geoIndex", "index")`.  
+All indexes are updated irregularly with the internal function [`updateIndexes`](https://github.com/brry/rdwd/blob/master/R/updateIndexes.R).
+
+`r helplink("selectDWD")` helps to query the `fileIndex`.
+
+The DWD often (but irregularly) updates or expands datasets, at which point the filenames in historical folders change.  
+I check this with `r helplink("checkUpdates")`, fairly often around April-May when the historical files of active stations are updated with last year's data.
+
+indexFTP can also access other servers:
+```{r indexotherftp, eval=FALSE}
+funet <- indexFTP(base="ftp.funet.fi/pub/standards/w3/TR/xhtml11/", folder="")
+p <- RCurl::getURL(    "ftp.funet.fi/pub/standards/w3/TR/xhtml11/",
+                       verbose=TRUE, ftp.use.epsv=TRUE, dirlistonly=TRUE)
+```
 
 ## metaIndex
 
@@ -443,7 +445,7 @@ rasterbase <- paste0(gridbase,"/seasonal/air_temperature_mean")
 ftp.files <- indexFTP("/16_DJF", base=rasterbase, dir=tempdir())
 
 # current index of all grid files (takes > 2 min, yields >30k charstrings >5MB):
-gridIndexNow <- indexFTP(folder="currentgindex", base=gridbase, filename="grids")
+gridIndexNow <- indexFTP(base=gridbase, filename="grids")
 ```
 If you send me examples of how you use it, I can then expand this in `rdwd`.  
 For files that are not yet read correctly, you can also consult the 
@@ -628,6 +630,8 @@ mtext("Source: Deutscher Wetterdienst", adj=-0.1, line=0.5, font=3)
 
 ```{r uc_climgraph, eval=TRUE, fig.height=3, fig.width=7, echo=-1}
 par(mar=c(4,4,2,0.5), mgp=c(2.7, 0.8, 0), cex=0.8)
+rdwd::updateRdwd()
+library(rdwd)
 link <- selectDWD("Goettingen", res="monthly", var="kl", per="h")
 clim <- dataDWD(link)
 
@@ -645,6 +649,8 @@ This can also be run locally with `rdwd::app()`.
 # - use case: merge historical and recent data
 
 ```{r uc_histrecent}
+rdwd::updateRdwd()
+library(rdwd)
 links <- selectDWD("Potsdam", res="daily", var="kl", per="hr")
 klima <- dataDWD(links, hr=4)
 plot(TMK~MESS_DATUM, data=tail(klima,1500), type="l")
@@ -680,6 +686,8 @@ folder at `r helplink("gridbase", "dwdbase")`, we want to
 download .asc.gz files for selected years and open them in R for further processing.
 
 ```{r grid_monthly_index, message=FALSE}
+rdwd::updateRdwd()
+library(rdwd)
 data("gridIndex")
 index <- grep("monthly/precipitation", gridIndex, value=TRUE) # 1'709
 index <- grep('2014|2015|2016',index, value=TRUE) # n=36 (3*12)
@@ -715,6 +723,7 @@ which is used internally in `r helplink("projectRasterDWD")`, currently at
 Obtain time series of values at a selected location in gridded data.
 
 ```{r grid_loc_val_index}
+rdwd::updateRdwd()
 library(rdwd)
 # select data
 index <- indexFTP(folder="annual/air_temperature_max", base=gridbase)
@@ -818,6 +827,8 @@ plotRadar(terra::rast(rw_orig$dat), extent="radolan", main=rw_orig$meta$date)
 Choose station in Berlin with longest monthly average recordings
 (according to metadata, which is not always correct).
 ```{r uc_berlinstationselection}
+rdwd::updateRdwd()
+library(rdwd)
 ids <- findID("Berlin", exactmatch=FALSE)
 head(ids)
 data("metaIndex")
@@ -879,7 +890,7 @@ Publication:
 rdwd::updateRdwd()
 library(rdwd)
 links <- selectDWD(res="daily", var="more_precip", per="hist")
-length(links) # ca 5k stations - would take very long to download
+length(links) # ca 6k stations - would take very long to download
 
 # select only the relevant files:
 data("metaIndex")
@@ -921,9 +932,9 @@ The latter will be named with the id extracted from the filename.
 ```{r dailyrain_reading_function, message=FALSE}
 readVars(localfiles[1])[,-3] # we want the RS column
 
-read2014_2016 <- function(file, fread=TRUE, ...)
+read2014_2016 <- function(file, fread=TRUE, quiet=TRUE, ...)
 {
- out <- readDWD(file, fread=fread, ...)
+ out <- readDWD(file, fread=fread, quiet=quiet, ...)
  out <- out[out$MESS_DATUM >= as.Date("2014-01-01") & 
             out$MESS_DATUM <= as.Date("2016-12-31")    , ]
  out <- out[ , c("MESS_DATUM", "RS")]
@@ -933,7 +944,7 @@ read2014_2016 <- function(file, fread=TRUE, ...)
  colnames(out) <- c("date",  idstring)
  return(out)
 }
-str(read2014_2016(localfiles[1])) # test looks good
+str(read2014_2016(localfiles[1], quiet=FALSE)) # test looks good
 ```
 
 Now let's apply this to all our files and merge the result.
@@ -983,6 +994,8 @@ pointsMap("lat", "lon", mygeoIndex, fx=2, fy=1, pargs=list(lwd=3),
 ## Find meteo stations around a given point
 
 ```{r rainregion_nearbyStations, message=FALSE}
+rdwd::updateRdwd()
+library(rdwd)
 m <- nearbyStations(49.211784, 9.812475, radius=30,
     res=c("daily","hourly"), var=c("precipitation","more_precip","kl"),
     mindate=as.Date("2016-05-30"), statname="Braunsbach catchment center")
@@ -1059,6 +1072,8 @@ Shapefile of Landkreis districts:
 ## find available meteo stations for each district
 
 ```{r climdistrict_data_selection, message=FALSE}
+rdwd::updateRdwd()
+library(rdwd)
 # Select monthly climate data:
 data("metaIndex") ; m <- metaIndex
 m <- m[m$res=="monthly" & m$var=="kl" & m$per=="recent" & m$hasfile, ]
@@ -1133,7 +1148,9 @@ Located here:
 https://opendata.dwd.de/climate_environment/CDC/observations_germany/phenology
 
 This example uses data in the subfolder [annual/crops/hist](https://opendata.dwd.de/climate_environment/CDC/observations_germany/phenology/annual_reporters/crops/historical/)
-```{r}
+```{r phenocrop}
+rdwd::updateRdwd()
+library(rdwd)
 phenocrop_base <- paste0(sub("climate$", "phenology", dwdbase), 
                         "/annual_reporters/crops/historical/")
 # pheno_urls <- indexFTP("", base=phenocrop_base, dir="Pheno")
@@ -1147,11 +1164,11 @@ summary(kohl)
 
 # - use case: derived data
 
-This needs rdwd >= 1.5.3 (2021-06-01)
-
 https://opendata.dwd.de/climate_environment/CDC/derived_germany/soil/daily/historical/  
 
 ```{r derivdata_basics}
+rdwd::updateRdwd()
+library(rdwd)
 dbase <- "ftp://opendata.dwd.de/climate_environment/CDC/derived_germany"
 soilIndex <- indexFTP(folder="soil/daily", base=dbase)
 soilIndex <- createIndex(soilIndex, base=dbase)
@@ -1160,7 +1177,7 @@ soilIndex <- createIndex(soilIndex, base=dbase)
 colnames(soilIndex)[1:2] <- c("var", "res")
 # non-standard column order, but rdwd should always use names (not positions)
 
-head(soilIndex)
+head(soilIndex, 8)
 summary(soilIndex$id)
 
 # select URL:
