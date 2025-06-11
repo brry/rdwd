@@ -217,16 +217,16 @@ if(any(iserror))
                 " failed (out of ",length(iserror),").",
                 if(read)" Setting read=FALSE.")
   read <- FALSE
-  msg <- paste0(msg, " download.file error",if(ne>1) "s",":\n")
-  msg2 <- sapply(dl_results[iserror], function(e)attr(e,"condition")$message)
-  msg2 <- berryFunctions::truncMessage(msg2, ntrunc=15, prefix="", midfix="", altnix="", sep="\n")
+  msg2 <- paste0("\n- download.file error",if(ne>1) "s",":\n")
+  msg3 <- sapply(dl_results[iserror], function(e)attr(e,"condition")$message)
+  msg3 <- berryFunctions::truncMessage(msg3, ntrunc=15, prefix="", midfix="", altnix="", sep="\n")
   if(any(!substr(url[iserror], 1, 4) %in% c("ftp:","http")))
-     msg2 <- paste0(msg2, "\n- dataDWD needs urls starting with 'ftp://' or 'https://'. ",
+     msg <- paste0(msg, "\n- dataDWD needs urls starting with 'ftp://' or 'https://'. ",
                     "You can use joinbf=TRUE for relative links.")
-  if(grepl("cannot open URL", msg2) || grepl("Kann URL .* nicht", msg2))
-     msg2 <- paste0(msg2, "\n- If files have been renamed on the DWD server, ",
+  if(grepl("cannot open URL", msg3) || grepl("Kann URL .* nicht", msg3))
+     msg <- paste0(msg, "\n- If files have been renamed on the DWD server, ",
                     "see   https://bookdown.org/brry/rdwd/fileindex.html")
-  msg <- paste0(msg, msg2)
+  msg <- paste0(msg, msg2, msg3)
   warning(msg, call.=FALSE)
   }
 # ------------------------------------------------------------------------------
