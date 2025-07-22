@@ -124,9 +124,8 @@ wind <- readDWD(fname, varnames=TRUE) ; head(wind)
 metafiles <- readMeta(fname)          ; str(metafiles, max.level=1)
 column_names <- readVars(fname)       ; head(column_names)
 
-plot(wind$MESS_DATUM, wind$F, main="DWD hourly wind Fuerstenzell", col="blue",
-     xaxt="n", las=1, type="l", xlab="Date", ylab="Hourly Wind speed  [m/s]")
-berryFunctions::monthAxis(1)
+plotDWD(wind, "F.Windgeschwindigkeit", main="DWD hourly wind Fuerstenzell", 
+        ylab="Hourly Wind speed  [m/s]", lwd=1)
 
 
 # current and historical files, keep historical in the overlap time period:
@@ -139,7 +138,7 @@ plot(TMK~MESS_DATUM, data=tail(potsdam,1500), type="l")
 #links <- selectDWD(res="daily", var="solar")
 #sol <- dataDWD(links, sleep=20) # random waiting time after download (0 to 20 secs)
 
-# Real life examples can be found in the use cases section of the vignette:
+# Real life examples can be found in the use cases section of the website:
 # browseURL("https://bookdown.org/brry/rdwd")
 }
 
