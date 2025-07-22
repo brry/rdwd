@@ -311,6 +311,21 @@ head(cursun)
 sunlink <- selectDWD("Potsdam", res="hourly", var="sun", per="r", findex=cursun)
 ```
 
+## check for updates by the DWD
+
+Since 2025, it is easy to check if I need to run `rdwd:::updateIndexes()` with:
+```{r, checkUpdates, eval=FALSE}
+checkUpdates()
+```
+
+## ftp
+
+If the reason for the error lies in FTP being blocked on your system, use something like:
+```{r remove_ftp, eval=FALSE}
+link <- selectDWD("Potsdam","annual","kl","r")
+kl <- dataDWD(link, base=sub("^ftp://","",dwdbase))
+```
+
 ## background
 
 `r helplink("indexFTP")` recursively lists all the files on an FTP-server (using `RCurl::getURL`).  
@@ -486,7 +501,7 @@ plotRadar(rad, main=".raster", proj="seasonal", extent=NULL)
 ```{r readDWD_nc, echo=-1}
 par(mar=c(2,2,2.2,5), mgp=c(3,0.7,0))
 link <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
-file <- dataDWD(link, base=gridbase, joinbf=TRUE, read=FALSE)
+file <- dataDWD(link, base=gridbase, joinbf=TRUE, read=FALSE, force=T)
 rad <- readDWD(file) # can also have interactive selection of variable
 plotRadar(rad, main=".nc", proj="nc", extent="nc", layer=1)
 ```
@@ -810,7 +825,7 @@ the radolan extent seems to be needed, not the rw extent.
 ```{r recent_radar}
 rw_base <- "ftp://opendata.dwd.de/weather/radar/radolan/rw"
 rw_urls <- indexFTP(base=rw_base, dir=tempdir(), folder="", exclude.latest.bin=TRUE)
-rw_file <- dataDWD(rw_urls[14], base=rw_base, joinbf=TRUE, dir=tempdir(), read=FALSE)
+rw_file <- dataDWD(rw_urls[15], base=rw_base, joinbf=TRUE, dir=tempdir(), read=FALSE)
 rw_file_actual <- R.utils::bunzip2(rw_file) # zipped since between 2022-06 and 2023-04
 
 rw_orig <- dwdradar::readRadarFile(rw_file_actual)
