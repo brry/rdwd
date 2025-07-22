@@ -9,6 +9,7 @@ readDWD.nc(
   gargs = NULL,
   var = "",
   toraster = TRUE,
+  noflip = TRUE,
   quiet = rdwdquiet(),
   ...
 )
@@ -26,8 +27,13 @@ an interactive selection is presented.
 DEFAULT: "" (last variable)}
 
 \item{toraster}{Read file with \code{\link[terra:rast]{terra::rast()}}?
-All further arguments will be ignored. Specify e.g. \code{var}
-through \dots as \code{varname}. DEFAULT: TRUE}
+All further arguments (except noflip) will be ignored.
+Specify e.g. \code{var} through \dots as \code{varname}.
+DEFAULT: TRUE}
+
+\item{noflip}{Vertical flip in \code{\link[terra:rast]{terra::rast()}}?
+Can probably always be TRUE, see https://github.com/rspatial/terra/issues/1764.
+DEFAULT: TRUE}
 
 \item{quiet}{Logical: Suppress time conversion failure warning?
 DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}

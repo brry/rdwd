@@ -874,8 +874,12 @@ return(invisible(r))
 #' @param gargs       Named list of arguments passed to
 #'                    [R.utils::gunzip()], see [readDWD.raster()]. DEFAULT: NULL
 #' @param toraster    Read file with [terra::rast()]?
-#'                    All further arguments will be ignored. Specify e.g. `var` 
-#'                    through \dots as `varname`. DEFAULT: TRUE
+#'                    All further arguments (except noflip) will be ignored.
+#'                    Specify e.g. `var` through \dots as `varname`.
+#'                    DEFAULT: TRUE
+#' @param noflip      Vertical flip in [terra::rast()]? 
+#'                    Can probably always be TRUE, see https://github.com/rspatial/terra/issues/1764.
+#'                    DEFAULT: TRUE
 #' @param var         if toraster=FALSE: Charstring with name of variable to be read with
 #'                    [ncdf4::ncvar_get()]. If not available,
 #'                    an interactive selection is presented.
@@ -884,7 +888,7 @@ return(invisible(r))
 #'                    DEFAULT: FALSE through [rdwdquiet()]
 #' @param \dots       Further arguments passed to [terra::rast()] or [ncdf4::nc_open()]
 #' 
-readDWD.nc <- function(file, gargs=NULL, var="", toraster=TRUE, quiet=rdwdquiet(), ...)
+readDWD.nc <- function(file, gargs=NULL, var="", toraster=TRUE, noflip=TRUE, quiet=rdwdquiet(), ...)
 {
 checkSuggestedPackage("ncdf4", "rdwd:::readDWD.nc") # also needed if toraster=TRUE
 checkSuggestedPackage("R.utils", "rdwd:::readDWD.nc")
@@ -897,7 +901,7 @@ if(toraster)
   {
   checkSuggestedPackage("terra", "rdwd:::readDWD.nc with toraster=TRUE")
   # ignore ncdf print, see https://github.com/rspatial/raster/issues/143
-  capture.output(out <- terra::rast(ncfile, ...))
+  capture.output(out <- terra::rast(ncfile, noflip=noflip, ...))
   return(invisible(out))
   }
 #
