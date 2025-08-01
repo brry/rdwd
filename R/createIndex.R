@@ -313,6 +313,7 @@ geoIndex$res <- NULL
 geoIndex$var <- NULL
 geoIndex$per <- NULL
 geoIndex$hasfile <- NULL
+geoIndex$Abgabe <- NULL # removed since 2025-08-01
 #
 # reduction into unique stations:
 geoIndex <- geoIndex[!duplicated(geoIndex), ]  #  ca 6k rows (=unique station IDs)

@@ -36,7 +36,7 @@ DEFAULT: "misc/ExampleTests/warnings.txt"}
 DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 }
 \value{
-Charstring with issues (if any) to be printed with \code{\link[=cat]{cat()}}.
+Charstring with issues (if any) to be printed with \code{\link[=message]{message()}}.
 }
 \description{
 check indexes. Mainly for internal usage in \code{\link[=createIndex]{createIndex()}}.
