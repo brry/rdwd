@@ -19,7 +19,7 @@ Since May 2019, `rdwd` also supports reading the Radolan (binary) raster data at
 It has been presented at [FOSDEM 2017](https://archive.fosdem.org/2017/schedule/event/geo_weather/)
 and [UseR!2017](https://user2017.sched.com/event/Axr3/rdwd-manage-german-weather-observations) in Brussels and with a 5 Minute [video](https://youtu.be/KOYZPMMgiHo?t=233) at [e-Rum2020](https://milano-r.github.io/erum2020program/lightning-talks.html#rdwd-r-interface-to-german-weather-service-data),
 featured in Rstudio's [data package list](https://rviews.rstudio.com/2017/02/17/january-new-data-packages), 
-written about in [OSOR](https://joinup.ec.europa.eu/collection/open-source-observatory-osor/news/study-german-weather-data) and used e.g. for
+written about in [OSOR](https://interoperable-europe.ec.europa.eu/collection/open-source-observatory-osor/news/study-german-weather-data) and used e.g. for
 [NDR: Starkregen im Norden](https://story.ndr.de/starkregen-im-norden/index.html).
 Development of `rdwd` was triggered 2016 by flash flood research in Braunsbach 
 ([1](https://www.uni-potsdam.de/en/natriskchange/qualification-program/task-force-braunsbach-flash-flood-2016), [2](https://doi.org/10.1016/j.scitotenv.2018.02.241),

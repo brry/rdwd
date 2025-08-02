@@ -1,10 +1,17 @@
 
-# Version 1.9.0
+# Version 1.9.0 (2025-08-01)
 
-- `dataDWD`: gracefully handle links with https base (instead of ftp)
-- `readDWD.hyras`: initial release
+- new functions: `readDWD.hyras`, `readDWD.asczip`, `checkUpdates`
+- `dataDWD`: fileIndex warning now also visible for long vectors
+- `selectDWD`: handles files removed from FTP but still in index
 - `readDWD.multia`: new argument tryenc to try different encodings
 - `readDWD.data`: convert timestamp to as.Date
+- `readDWD.meta`: reflect DWD changes (Abgabe column, standard_format beschreibung file)
+- `readDWD.nc`: flip the map upright 
+- `indexFTP`: more options and checks, reflect removal of tree.html 
+- `checkIndex`: checks + messages improved, false positives excluded
+- documentation + website improved in several spots
+- rhub tests updated
 
 # Version 1.8.0 (2023-06-17)
 

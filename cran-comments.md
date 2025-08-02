@@ -1,2 +1,3 @@
-I hope to reduce the installed size of 6 Mb next time.
+I hope to reduce the installed size of 7 Mb in the future, just haven't had the time yet.
+I'm now on a two-year cycle with CRAN updates to not bother with it too much...
 https://github.com/brry/rdwd/issues/35
