@@ -13,6 +13,8 @@ nearbyStations(
   per = NA,
   mindate = NA,
   hasfileonly = TRUE,
+  mindex = metaIndex,
+  current = FALSE,
   statname = "nearbyStations target location",
   quiet = rdwdquiet(),
   ...
@@ -34,6 +36,14 @@ DEFAULTS: NA (ignored)}
 \item{hasfileonly}{Logical: only return entries for which there is an
 open-access file available? DEFAULT: TRUE}
 
+\item{mindex}{Index with metadata for selecting data.
+See \url{https://bookdown.org/brry/rdwd/fileindex.html#metaindex}
+DEFAULT: \code{\link{metaIndex}}}
+
+\item{current}{Get current \code{mindex} for \code{res/var/per}? All 3 must be given.
+See \code{\link[=selectDWD]{selectDWD()}} for details.
+DEFAULT: FALSE}
+
 \item{statname}{Character: name for target location. DEFAULT:
 "nearbyStations target location"}
 
@@ -50,12 +60,12 @@ Select DWD stations within a given radius around a set of coordinates
 \examples{
 
 m <- nearbyStations(49.211784, 9.812475, radius=30,
-    res=c("daily","hourly"), var= c("precipitation","more_precip","kl") ,
+    res=c("daily","hourly"), var=c("precipitation","more_precip","kl"),
     mindate=as.Date("2016-05-30"), statname="Braunsbach catchment center")
 # View(m)
 
-# for a continued example of this, see the vignette in chapter
-# use case: plot all rainfall values around a given point
+# for a continued example of this, see the website use case
+# "plot all rainfall values around a given point" (ca section 21):
 # browseURL("https://bookdown.org/brry/rdwd")
 
 }
@@ -64,5 +74,5 @@ m <- nearbyStations(49.211784, 9.812475, radius=30,
 \href{https://bookdown.org/brry/rdwd/use-case-plot-all-rainfall-values-around-a-given-point.html}{website use case with nearbyStations}
 }
 \author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Mar 2017
+Berry Boessenkool, \email{berry-b@gmx.de}, Mar 2017, Aug 2025
 }

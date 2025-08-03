@@ -14,6 +14,7 @@ createIndex(
   mname = "metaIndex.txt",
   gname = "geoIndex.txt",
   overwrite = FALSE,
+  check = TRUE,
   checkwarn = TRUE,
   checklog = tempfile(),
   quiet = rdwdquiet(),
@@ -51,6 +52,8 @@ Use \code{mname=""} to suppress writing. DEFAULT: "metaIndex.txt"}
 If not, "_n" is added to the filenames, see
 \code{\link[berryFunctions:newFilename]{berryFunctions::newFilename()}}.
 DEFAULT: FALSE}
+
+\item{check}{Logical: run \code{\link[=checkIndex]{checkIndex()}}? DEFAULT: TRUE}
 
 \item{checkwarn}{Logical: warn about \code{\link[=checkIndex]{checkIndex()}} issues? DEFAULT: TRUE}
 

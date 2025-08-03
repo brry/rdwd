@@ -3,7 +3,7 @@
 #' Select DWD stations within a given radius around a set of coordinates
 #' 
 #' @return [`metaIndex`] subset with additional columns "dist" and "url"
-#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Mar 2017
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Mar 2017, Aug 2025
 #' @seealso [selectDWD()], [`metaIndex`],
 #'          [website use case with nearbyStations](https://bookdown.org/brry/rdwd/use-case-plot-all-rainfall-values-around-a-given-point.html)
 #' @export
@@ -11,12 +11,12 @@
 #' @examples
 #' 
 #' m <- nearbyStations(49.211784, 9.812475, radius=30,
-#'     res=c("daily","hourly"), var= c("precipitation","more_precip","kl") ,
+#'     res=c("daily","hourly"), var=c("precipitation","more_precip","kl"),
 #'     mindate=as.Date("2016-05-30"), statname="Braunsbach catchment center")
 #' # View(m)
 #' 
-#' # for a continued example of this, see the vignette in chapter
-#' # use case: plot all rainfall values around a given point
+#' # for a continued example of this, see the website use case
+#' # "plot all rainfall values around a given point" (ca section 21):
 #' # browseURL("https://bookdown.org/brry/rdwd")
 #' 
 #' @param lat         Coordinates y component \[degrees N/S, range 47:55]
@@ -28,6 +28,12 @@
 #' @param mindate     Minimum dataset ending date (as per metadata). DEFAULT: NA
 #' @param hasfileonly Logical: only return entries for which there is an
 #'                    open-access file available? DEFAULT: TRUE
+#' @param mindex      Index with metadata for selecting data.
+#'                    See <https://bookdown.org/brry/rdwd/fileindex.html#metaindex>
+#'                    DEFAULT: [`metaIndex`]
+#' @param current     Get current `mindex` for `res/var/per`? All 3 must be given.
+#'                    See [selectDWD()] for details.
+#'                    DEFAULT: FALSE
 #' @param statname    Character: name for target location. DEFAULT:
 #'                    "nearbyStations target location"
 #' @param quiet       Logical: suppress progress messages? DEFAULT: FALSE through [rdwdquiet()]
@@ -42,6 +48,8 @@ var=NA,
 per=NA,
 mindate=NA,
 hasfileonly=TRUE,
+mindex=metaIndex,
+current=FALSE,
 statname="nearbyStations target location",
 quiet=rdwdquiet(),
 ...
@@ -61,7 +69,16 @@ per[substr(per,1,1)=="h"] <- "historical"
 per[substr(per,1,1)=="r"] <- "recent"
 
 if(!quiet) message("Selecting stations...")
-m <- metaIndex
+m <- mindex
+if(current)
+  {
+  uniquepaths <- unique(paste0("/",res,"/",var,"/",per))
+  uniquepaths <- uniquepaths[uniquepaths!="///"]
+  uniquepaths <- uniquepaths[!grepl("NA",uniquepaths, fixed=TRUE)]
+  if(length(uniquepaths)<1) tstop("current=TRUE, but no valid paths available.")
+  mfiles <- indexFTP(uniquepaths, nosave=TRUE, quiet=quiet, ...)
+  m <- createIndex(mfiles, dir=tempdir(), fname="", meta=TRUE, check=FALSE)$metaIndex
+  }
 # Select restrictively for res/var/per, file availability, minimum end date:
 if(hasfileonly) m <- m[m$hasfile,]
 if(any(!is.na(res))) m <- m[m$res %in% res,]

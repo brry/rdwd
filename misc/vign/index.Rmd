@@ -326,6 +326,17 @@ link <- selectDWD("Potsdam","annual","kl","r")
 kl <- dataDWD(link, base=sub("^ftp://","",dwdbase))
 ```
 
+## metaIndex
+
+For a permanent curent metaIndex in `r helplink("nearbyStations")`, use:
+```{r nearbyStations_mindex, eval=FALSE}
+files <- indexFTP("hourly/sun", dir=tempdir())
+cursun <- createIndex(files, dir=tempdir(), meta=TRUE)
+head(cursun$metaIndex)
+sunlinks <- nearbyStations(52.4, 13.1, radius=30, mindex=cursun$metaIndex)
+View(sunlinks)
+```
+
 ## background
 
 `r helplink("indexFTP")` recursively lists all the files on an FTP-server (using `RCurl::getURL`).  

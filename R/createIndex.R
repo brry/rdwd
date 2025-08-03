@@ -58,6 +58,7 @@
 #'              If not, "_n" is added to the filenames, see
 #'              [berryFunctions::newFilename()].
 #'              DEFAULT: FALSE
+#' @param check Logical: run [checkIndex()]? DEFAULT: TRUE
 #' @param checkwarn Logical: warn about [checkIndex()] issues? DEFAULT: TRUE
 #' @param checklog Logfile for [checkIndex()]. DEFAULT: [tempfile()]
 #' @param quiet Logical: Suppress messages about progress and filenames?
@@ -74,6 +75,7 @@ metadir="meta",
 mname="metaIndex.txt",
 gname="geoIndex.txt",
 overwrite=FALSE,
+check=TRUE,
 checkwarn=TRUE,
 checklog=tempfile(),
 quiet=rdwdquiet(),
@@ -334,7 +336,8 @@ if(gname!="")
   }
 #
 # Check all indexes:
-checks <- checkIndex(fileIndex, metaIndex, geoIndex, fast=TRUE, warn=checkwarn,
+checks <- if(!check) "checkIndex suppressed with check=FALSE" else
+          checkIndex(fileIndex, metaIndex, geoIndex, fast=TRUE, warn=checkwarn,
                      quiet=quiet, logfile=checklog)
 #
 # Output -----------------------------------------------------------------------
