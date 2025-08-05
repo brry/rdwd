@@ -6,7 +6,7 @@ Depends: R(>= 2.10)
 Imports: berryFunctions (>= 1.21.11), pbapply
 Suggests: RCurl, leaflet, knitr, rmarkdown, testthat, roxygen2, devtools, remotes,
           bit64, data.table, OSMscale, R.utils, ncdf4, readr, dwdradar, 
-          XML, terra (>= 1.8-60), stars, shiny, gsheet
+          XML, terra (>= 1.8-60), stars, shiny, gsheet, rnaturalearth
 Authors@R: person(given = "Berry",
                     family = "Boessenkool",
                     role = c("aut", "cre"),

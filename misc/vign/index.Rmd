@@ -582,6 +582,20 @@ file <- dataDWD(links[6], base=nwpbase, joinbf=TRUE, dir=tempdir(), read=FALSE)
 grib files are currently [broken](https://github.com/brry/rdwd/issues/28) (2021-04-08) but would look like this:
 <img src="readDWD_grib2-1.png" width="600">
 
+## icon-eu
+forecasts for europe also work with `r helplink("readDWD.grib2")`:
+```{r, readDWD_grib2_iconeu}
+nwpbase <- "ftp://opendata.dwd.de/weather/nwp/icon-eu/grib/06/rain_gsp/"
+links <- indexFTP("", base=nwpbase, dir=tempdir())
+file <- dataDWD(links[6], base=nwpbase, joinbf=TRUE, dir=tempdir(), read=FALSE)
+forecast <- readDWD(file)
+terra::plot(forecast, col=berryFunctions::seqPal())
+terra::plot(terra::vect(rnaturalearth::ne_countries()), add=TRUE)
+# EUR <- terra::vect(paste0("/vsizip/vsicurl/https://gisco-services.ec.europa.eu/",
+#                 "distribution/v2/nuts/shp/NUTS_RG_20M_2021_4326_LEVL_0.shp.zip"))
+# terra::plot(EUR, add=TRUE)
+```
+
 ## binary file errors
 Binary files must be downloaded by `download.file` with wb=TRUE (at least on Windows, due to CRLF issues).
 `download.file` will automatically do that for some file endings (like .gz, .zip).
