@@ -42,6 +42,8 @@ Created if not existent. DEFAULT: \code{\link[=locdir]{locdir()}}}
 Use NA to force re-downloading files older than 24 hours.
 Use a numerical value to force after that amount of hours.
 Use something like \code{c(Inf, 24)} or \code{force=c(24*365, 6)}, for per="hr".
+Use \code{force=rep(c(365*24, 6), each=3)} if you selected
+3 stations with per="hr" in \code{\link[=selectDWD]{selectDWD()}}.
 Note: if \code{force} is not FALSE, the \code{overwrite} default is TRUE.
 DEFAULT: FALSE}
 

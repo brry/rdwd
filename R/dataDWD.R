@@ -76,6 +76,8 @@
 #'               Use NA to force re-downloading files older than 24 hours.
 #'               Use a numerical value to force after that amount of hours.
 #'               Use something like `c(Inf, 24)` or `force=c(24*365, 6)`, for per="hr".
+#'               Use `force=rep(c(365*24, 6), each=3)` if you selected 
+#'               3 stations with per="hr" in [selectDWD()].
 #'               Note: if `force` is not FALSE, the `overwrite` default is TRUE.
 #'               DEFAULT: FALSE
 #' @param overwrite Logical (vector): if force=TRUE, overwrite the existing file
