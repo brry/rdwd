@@ -1,5 +1,5 @@
 
-# Version 1.9.0 (2025-08-01)
+# Version 1.9.3 (2025-08-18)
 
 - new functions: `readDWD.hyras`, `readDWD.asczip`, `checkUpdates`
 - `dataDWD`: fileIndex warning now also visible for long vectors
@@ -9,6 +9,7 @@
 - `readDWD.meta`: reflect DWD changes (Abgabe column, standard_format beschreibung file)
 - `readDWD.nc`: flip the map upright 
 - `indexFTP`: more options and checks, reflect removal of tree.html 
+- `nearbyStations`: new arguments mindex and current
 - `checkIndex`: checks + messages improved, false positives excluded
 - documentation + website improved in several spots
 - rhub tests updated
