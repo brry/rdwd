@@ -27,12 +27,6 @@ Development of `rdwd` was triggered 2016 by flash flood research in Braunsbach
 [4](https://publishup.uni-potsdam.de/frontdoor/index/index/docId/39488)).
 
 
-```diff
-- HELP NEEDED
-- with the new 5-minute data (April 2022), the fileIndex etc are getting very big.
-- ideas on package size reduction are welcome at  https://github.com/brry/rdwd/issues/35
-```
-
 ### Documentation
 
 A website with more information, examples, use cases and an interactive map of the DWD stations
