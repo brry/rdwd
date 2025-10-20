@@ -1,13 +1,13 @@
 #' directory management for rdwd
 #' 
-#' Manage directories with useful messages in the rdwd package.
+#' Set directory with useful messages in the rdwd package.
 #' 
 #' @name dirDWD
 #' @return dirDWD invisibly returns the prior working directory as per [setwd()].
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2016
-#' @seealso [dataDWD()]
+#' @seealso [locdir()], [dataDWD()]
 #' @keywords file
-#' @importFrom berryFunctions tmessage
+#' @importFrom berryFunctions tmessage normalizePathCP
 #' @examples
 #' # see source code of dataDWD and metaDWD
 #' 
@@ -29,11 +29,12 @@ if(dir=="")
   return(getwd())
   }
 #
+dir <- berryFunctions::normalizePathCP(dir)
 if(!file.exists(dir))
   {
   dir.create(dir, recursive=TRUE)
-  if(!quiet) tmessage("creating directory '",   normalizePath(dir, winslash="/"), "'")
+  if(!quiet) tmessage("creating directory '", dir, "'")
   } else
-  if(!quiet) tmessage("adding to directory '", normalizePath(dir, winslash="/"), "'")
+  if(!quiet) tmessage("adding to directory '", dir, "'")
 setwd(dir)
 }

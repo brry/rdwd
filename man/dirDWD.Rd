@@ -16,14 +16,14 @@ DEFAULT: \code{\link[=locdir]{locdir()}}}
 dirDWD invisibly returns the prior working directory as per \code{\link[=setwd]{setwd()}}.
 }
 \description{
-Manage directories with useful messages in the rdwd package.
+Set directory with useful messages in the rdwd package.
 }
 \examples{
 # see source code of dataDWD and metaDWD
 
 }
 \seealso{
-\code{\link[=dataDWD]{dataDWD()}}
+\code{\link[=locdir]{locdir()}}, \code{\link[=dataDWD]{dataDWD()}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2016
