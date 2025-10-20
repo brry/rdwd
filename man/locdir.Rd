@@ -8,23 +8,22 @@ locdir(dir = getOption("rdwdlocdir"), file = NULL, quiet = rdwdquiet())
 }
 \arguments{
 \item{dir}{Path to data directory.
-If \code{dir} does not exist, \code{\link[=tempdir]{tempdir()}} is used instead
-(with a warning, unless \code{quiet=TRUE}).
-If \code{dir} is NULL, locdir tries "C:/DWDdata", then "~/DWDdata".\cr
+If \code{dir} is NULL, locdir tries "C:/DWDdata", then "~/DWDdata",
+then \link[tools:userdir]{tools::R_user_dir}\verb{("rdwd", which="cache")}.\cr\cr
 \code{dir} can also be set with
 \code{options(rdwdlocdir="YOUR/PATH")} thanks to the
 DEFAULT: \link{getOption}\code{("rdwdlocdir")}}
 
 \item{file}{Optional: path(s) at \code{dir}. DEFAULT: NULL}
 
-\item{quiet}{Logical: suppress tempdir warning?
+\item{quiet}{Ignored since version 1.9.4 (2025-10-20).
 DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 }
 \value{
 charstring (directory)
 }
 \description{
-This can be used to set a directory for DWD data across projects,
+Get the directory for DWD data across projects,
 thus avoiding multiple downloads of the same file.\cr
 Set the default for all subsequent calls with \code{options(rdwdlocdir="YOUR/PATH")}.\cr
 You could add this to your .Rprofile file e.g. via \code{usethis::edit_r_profile()}\cr
@@ -38,9 +37,9 @@ options(oldopt) ; rm(oldopt)
 
 }
 \seealso{
-\code{\link[=runLocalTests]{runLocalTests()}}
+\code{\link[=dataDWD]{dataDWD()}}, \code{\link[=runLocalTests]{runLocalTests()}}
 }
 \author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Apr 2019, Jun 2021
+Berry Boessenkool, \email{berry-b@gmx.de}, Apr 2019, Jun 2021, Oct 2025
 }
 \keyword{file}
