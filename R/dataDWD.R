@@ -93,6 +93,11 @@
 #' @param method [download.file] `method`. Introduced in version 1.5.25 (2022-05-12)
 #'               as triggered by <https://github.com/brry/rdwd/issues/34>.
 #'               DEFAULT: `getOption("download.file.method")`
+#' @param removeftp Logical: remove leading "ftp://" from url and base?
+#'               Quick way to circumvent forbidden FTP access.
+#'               See [website section](https://bookdown.org/brry/rdwd/fileindex.html#ftp). 
+#'               Could be related to issue 34, see argument "method".
+#'               DEFAULT: FALSE
 #' @param dfargs Named list of additional arguments passed to [download.file()]
 #'               Note that mode="wb" is already passed if `dbin=TRUE`
 #' @param sleep  Number. If not 0, a random number of seconds between 0 and
@@ -124,6 +129,7 @@ overwrite=!isFALSE(force),
 read=TRUE,
 dbin=TRUE,
 method=getOption("download.file.method"),
+removeftp=FALSE,
 dfargs=NULL,
 sleep=0,
 progbar=!quiet,
@@ -139,6 +145,11 @@ if(!is.atomic(url)) tstop("url must be a vector, not a ", class(url))
 if(!is.character(url)) tstop("url must be char, not ", class(url))
 base <- sub("/$","",base) # remove accidental trailing slash
 url <- sub("^/","",url) # remove accidental leading slash
+if(removeftp)
+ {
+ url  <- sub("^ftp://", "", url )
+ base <- sub("^ftp://", "", base)
+ }
 if(joinbf)  url <- paste0(base,"/",url)
 if(missing(progbar) & length(url)==1) progbar <- FALSE
 if(any(url==""))

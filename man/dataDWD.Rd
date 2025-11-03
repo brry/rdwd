@@ -14,6 +14,7 @@ dataDWD(
   read = TRUE,
   dbin = TRUE,
   method = getOption("download.file.method"),
+  removeftp = FALSE,
   dfargs = NULL,
   sleep = 0,
   progbar = !quiet,
@@ -63,6 +64,12 @@ DEFAULT: TRUE}
 \item{method}{\link{download.file} \code{method}. Introduced in version 1.5.25 (2022-05-12)
 as triggered by \url{https://github.com/brry/rdwd/issues/34}.
 DEFAULT: \code{getOption("download.file.method")}}
+
+\item{removeftp}{Logical: remove leading "ftp://" from url and base?
+Quick way to circumvent forbidden FTP access.
+See \href{https://bookdown.org/brry/rdwd/fileindex.html#ftp}{website section}.
+Could be related to issue 34, see argument "method".
+DEFAULT: FALSE}
 
 \item{dfargs}{Named list of additional arguments passed to \code{\link[=download.file]{download.file()}}
 Note that mode="wb" is already passed if \code{dbin=TRUE}}

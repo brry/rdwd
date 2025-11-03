@@ -320,11 +320,11 @@ checkUpdates()
 
 ## ftp
 
-If the reason for the error lies in FTP being blocked on your system, use something like:
+If the reason for the error lies in FTP being blocked on your system, use html links instead:
 ```{r remove_ftp, eval=FALSE}
-link <- selectDWD("Potsdam","annual","kl","r")
-kl <- dataDWD(link, base=sub("^ftp://","",dwdbase))
+kl <- dataDWD(link, removeftp=TRUE)
 ```
+Or look into the setting for the argument `method`.
 
 ## metaIndex
 
