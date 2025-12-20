@@ -30,7 +30,7 @@ Development of `rdwd` was triggered 2016 by flash flood research in Braunsbach
 ### Documentation
 
 A website with more information, examples, use cases and an interactive map of the DWD stations
-can be found at <https://brry.github.io/rdwd>
+can be found at <https://brry.github.io/rdwd/>
 
 
 ### Usage

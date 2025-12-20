@@ -11,7 +11,7 @@
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jun 2018
 #' @seealso [dataDWD()], [readDWD()], [`dwdparams`], [newColumnNames()]\cr
 #'          [readMeta()] for complete  `Metadaten_Parameter` file.\cr
-#'          [website use case](https://brry.github.io/rdwd/use-case-get-all-hourly-rainfall-data-20142016.html#read-the-data)
+#'          [website use case](https://brry.github.io/rdwd/use-case-get-all-daily-rainfall-data-20142016.html#read-the-data)
 #' @keywords file
 #' @importFrom utils read.table unzip
 #' @importFrom berryFunctions checkFile na9 twarning

@@ -19,7 +19,7 @@
 #'         For gridded data, terra raster objects.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jul-Oct 2016, Winter 2018/19
 #' @seealso [dataDWD()], [readVars()], [readMeta()], [selectDWD()], [fileType()]\cr
-#'          <https://brry.github.io/rdwd>
+#'          <https://brry.github.io/rdwd/>
 #' @keywords file chron
 #' @importFrom utils read.table unzip read.fwf untar write.table
 #' @importFrom berryFunctions checkFile na9 twarning tstop l2df owa

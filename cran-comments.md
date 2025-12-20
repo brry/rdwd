@@ -1,3 +1,5 @@
-I hope to reduce the installed size of 7 Mb in the future, just haven't had the time yet.
-I'm now on a two-year cycle with CRAN updates to not bother with it too much...
-https://github.com/brry/rdwd/issues/35
+Not sure why this URL is flagged, it seems fine to me:
+URL: https://user2017.sched.com/event/Axr3/rdwd-manage-german-weather-observations
+From: README.md
+Status: 400
+Message: Bad Request

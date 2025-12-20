@@ -22,7 +22,7 @@
 #'         The output is always invisible.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jun-Oct 2016
 #' @seealso [selectDWD()]. [readDWD()], [download.file()].\cr
-#'          <https://brry.github.io/rdwd>\cr
+#'          <https://brry.github.io/rdwd/>\cr
 #'          Helpful for plotting: [berryFunctions::monthAxis()],
 #'          see also [berryFunctions::climateGraph()]
 #' @keywords data file
@@ -60,7 +60,7 @@
 #' #sol <- dataDWD(links, sleep=20) # random waiting time after download (0 to 20 secs)
 #' 
 #' # Real life examples can be found in the use cases section of the website:
-#' # browseURL("https://brry.github.io/rdwd")
+#' # browseURL("https://brry.github.io/rdwd/")
 #' }
 #' 
 #' @param url    Char (vector): complete file URL(s) (including base and filename.zip) 

@@ -9,7 +9,7 @@ validFileTypes <- strsplit("data,meta,multia,stand,deriv,radar,binary,raster,nc,
 #' @title determine DWD file type
 #' @description determine which subfunction to call in [readDWD()] from the file extension (ext).\cr\cr
 #' The first block is for **observational data** ([overview](https://brry.github.io/rdwd/available-datasets.html)),
-#' the second for  **gridded data** ([overview](https://bbrry.github.io/rdwd/raster-data.html)).\cr
+#' the second for  **gridded data** ([overview](https://brry.github.io/rdwd/raster-data.html)).\cr
 #' Click on the `type` for the subfunction documentation, e.g. [data][readDWD.data] for [readDWD.data()].
 #' 
 #'  

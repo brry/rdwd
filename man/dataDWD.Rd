@@ -148,13 +148,13 @@ plot(TMK~MESS_DATUM, data=tail(potsdam,1500), type="l")
 #sol <- dataDWD(links, sleep=20) # random waiting time after download (0 to 20 secs)
 
 # Real life examples can be found in the use cases section of the website:
-# browseURL("https://brry.github.io/rdwd")
+# browseURL("https://brry.github.io/rdwd/")
 }
 
 }
 \seealso{
 \code{\link[=selectDWD]{selectDWD()}}. \code{\link[=readDWD]{readDWD()}}, \code{\link[=download.file]{download.file()}}.\cr
-\url{https://brry.github.io/rdwd}\cr
+\url{https://brry.github.io/rdwd/}\cr
 Helpful for plotting: \code{\link[berryFunctions:monthAxis]{berryFunctions::monthAxis()}},
 see also \code{\link[berryFunctions:climateGraph]{berryFunctions::climateGraph()}}
 }

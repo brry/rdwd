@@ -27,4 +27,4 @@ for three types of data:
 
 
 All further information is available on the website:
-<https://brry.github.io/rdwd>
+<https://brry.github.io/rdwd/>

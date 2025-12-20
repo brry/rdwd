@@ -7,7 +7,7 @@
 #'   -> rain, temperature, wind, sunshine, pressure, cloudiness, humidity, snow, ...\cr
 #' - gridded raster data from radar + interpolation\cr
 #' - european data stock slowly growing\cr
-#' For an introduction to the package, see <https://brry.github.io/rdwd>.\cr
+#' For an introduction to the package, see <https://brry.github.io/rdwd/>.\cr
 #' 
 #' @name rdwd
 #' @aliases rdwd-package rdwd
