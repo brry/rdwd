@@ -285,7 +285,7 @@ ui <- fixedPage( # UserInterface
                                                  value=60, min=2, max=365, step=1)),
    plotOutput("map", click="map_click", height="350px"),
    "App von",a("Berry", href="mailto:berry-b@gmx.de"), "Boessenkool, ",
-   a("Info", href="https://bookdown.org/brry/rdwd"), "/ ",
+   a("Info", href="https://brry.github.io/rdwd"), "/ ",
    a("Quellcode", 
      href="https://github.com/brry/rdwd/blob/master/inst/shinyapps/compare_years/app.R"),
   ),

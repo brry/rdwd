@@ -17,7 +17,7 @@
 #' `terra::`[`crs`][terra::crs] / [`ext`][terra::ext] / [`project`][terra::project]\cr
 #' `readDWD.`[`binary`][readDWD.binary] / [`raster`][readDWD.raster] /
 #' [`asc`][readDWD.asc] / [`radar`][readDWD.radar] / [`nc`][readDWD.nc]\cr
-#' [website raster chapter](https://bookdown.org/brry/rdwd/raster-data.html)
+#' [website raster chapter](https://brry.github.io/rdwd/raster-data.html)
 #' @keywords aplot
 #' @export
 #' @importFrom berryFunctions tstop

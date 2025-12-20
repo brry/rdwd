@@ -45,7 +45,7 @@ if(p_id=="") p_id <- id
 # message I:
 message("rdwd station id ", p_id, " with ", p_nf, " files.\n",
         "Name: ", p_sn, ", State: ", p_bl, 
-        "\nFor up-to-date info, see https://bookdown.org/brry/rdwd/fileindex.html#metaindex",
+        "\nFor up-to-date info, see https://brry.github.io/rdwd/fileindex.html#metaindex",
         nonpubmes)
 #
 if(nrow(out)==0) return()

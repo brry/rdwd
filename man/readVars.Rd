@@ -37,7 +37,7 @@ is read, processed and returned as a data.frame.\cr
 \seealso{
 \code{\link[=dataDWD]{dataDWD()}}, \code{\link[=readDWD]{readDWD()}}, \code{\link{dwdparams}}, \code{\link[=newColumnNames]{newColumnNames()}}\cr
 \code{\link[=readMeta]{readMeta()}} for complete  \code{Metadaten_Parameter} file.\cr
-\href{https://bookdown.org/brry/rdwd/use-case-get-all-hourly-rainfall-data-20142016.html#read-the-data}{website use case}
+\href{https://brry.github.io/rdwd/use-case-get-all-hourly-rainfall-data-20142016.html#read-the-data}{website use case}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Jun 2018

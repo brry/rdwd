@@ -5,7 +5,7 @@
 #' @return currently available files on the FTP server in the ca 34 historical folders, invisibly
 #' @export
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Mar+May 2025
-#' @seealso <https://bookdown.org/brry/rdwd/fileindex.html>
+#' @seealso <https://brry.github.io/rdwd/fileindex.html>
 #' @examples
 #' # current <- checkUpdates()
 #' @param fast only check a subset? currently ignored. DEFAULT: TRUE

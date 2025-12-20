@@ -1,7 +1,7 @@
 #' @title update rdwd indexes
 #' @description This is meant to be called with getwd at the
 #'  rdwd package source code directory to update the indexes with one single call.\cr
-#'  To use custom or current indexes, see <https://bookdown.org/brry/rdwd/fileindex.html>
+#'  To use custom or current indexes, see <https://brry.github.io/rdwd/fileindex.html>
 #' @return [checkIndex()] results
 #' @importFrom berryFunctions sortDF
 #' @importFrom tools resaveRdaFiles

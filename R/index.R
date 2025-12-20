@@ -34,7 +34,7 @@
 #' @source Deutscher WetterDienst / Climate Data Center  FTP Server
 #' @seealso [createIndex()], [indexFTP()], [selectDWD()],
 #'          [findID()], [metaInfo()],
-#'          [website index chapter](https://bookdown.org/brry/rdwd/fileindex.html)
+#'          [website index chapter](https://brry.github.io/rdwd/fileindex.html)
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, June-Nov 2016, June 2017, Oct 2019
 #' @keywords datasets
 #' @importFrom utils data
@@ -51,7 +51,7 @@
 #' # browseURL("http://r-pkgs.had.co.nz/data.html#data-data")
 #' 
 #' # To use a custom index, see
-#' # browseURL("https://bookdown.org/brry/rdwd/fileindex.html")
+#' # browseURL("https://brry.github.io/rdwd/fileindex.html")
 #' 
 data(fileIndex, envir=environment())
 data(metaIndex, envir=environment())

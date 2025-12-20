@@ -14,13 +14,13 @@
 -> rain, temperature, wind, sunshine, pressure, cloudiness, humidity, snow, ...\cr
 \item gridded raster data from radar + interpolation\cr
 \item european data stock slowly growing\cr
-For an introduction to the package, see \url{https://bookdown.org/brry/rdwd}.\cr
+For an introduction to the package, see \url{https://brry.github.io/rdwd}.\cr
 }
 }
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://bookdown.org/brry/rdwd/}
+  \item \url{https://brry.github.io/rdwd/}
   \item Report bugs at \url{https://github.com/brry/rdwd/issues}
 }
 

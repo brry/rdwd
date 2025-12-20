@@ -67,7 +67,7 @@ as a starting point, I then refined the extent to a visual match, see
 \verb{terra::}\code{\link[terra:crs]{crs}} / \code{\link[terra:ext]{ext}} / \code{\link[terra:project]{project}}\cr
 \code{readDWD.}\code{\link[=readDWD.binary]{binary}} / \code{\link[=readDWD.raster]{raster}} /
 \code{\link[=readDWD.asc]{asc}} / \code{\link[=readDWD.radar]{radar}} / \code{\link[=readDWD.nc]{nc}}\cr
-\href{https://bookdown.org/brry/rdwd/raster-data.html}{website raster chapter}
+\href{https://brry.github.io/rdwd/raster-data.html}{website raster chapter}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, May 2019, June 2023

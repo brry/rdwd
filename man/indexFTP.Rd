@@ -113,7 +113,7 @@ unique(dirname(mon))
 }
 \seealso{
 \code{\link[=createIndex]{createIndex()}}, \code{\link[=updateIndexes]{updateIndexes()}},
-\href{https://bookdown.org/brry/rdwd/fileindex.html}{website index chapter}
+\href{https://brry.github.io/rdwd/fileindex.html}{website index chapter}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2016

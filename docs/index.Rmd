@@ -23,7 +23,7 @@ This website has 3 main sections:
 Important links:
 
 * further details on the data: [DWD FTP server documentation](https://opendata.dwd.de/climate_environment/CDC/Readme_intro_CDC_ftp.pdf)
-* website [source code and files](https://github.com/brry/rdwd/tree/master/misc/vign)
+* website [source code and files](https://github.com/brry/rdwd/tree/master/docs)
 * feedback is very welcome via [github](https://github.com/brry/rdwd) or [berry-b@gmx.de](mailto:berry-b@gmx.de)!  
 * app for [comparing weather periods](https://brry.shinyapps.io/wetter/)
 
@@ -599,7 +599,7 @@ terra::plot(terra::vect(rnaturalearth::ne_countries()), add=TRUE)
 ## binary file errors
 Binary files must be downloaded by `download.file` with wb=TRUE (at least on Windows, due to CRLF issues).
 `download.file` will automatically do that for some file endings (like .gz, .zip).
-For others (e.g. .tar files in [readDWD.asc](https://bookdown.org/brry/rdwd/raster-data.html#readdwd.asc) 
+For others (e.g. .tar files in [readDWD.asc](https://brry.github.io/rdwd/raster-data.html#readdwd.asc) 
 or files at [weather/radar/radolan](https://opendata.dwd.de/weather/radar/radolan/rw/)),
 `r helplink("dataDWD")` has a dbin=TRUE option. 
 Since Version 1.4.18 (2021-04-08), the default is `dbin=TRUE`. Report errors [here](https://github.com/brry/rdwd/issues/20) if needed.
@@ -1248,9 +1248,9 @@ soil_data <- dataDWD(soil_links, base=dbase)
 
 ## early beginnings
 In 2016, I published my Master thesis work on high intensity rainfall depending on temperature, 
-see [rainfall use case](https://bookdown.org/brry/rdwd/use-case-rainfall-intensity-depends-on-temperature.html). 
+see [rainfall use case](https://brry.github.io/rdwd/use-case-rainfall-intensity-depends-on-temperature.html). 
 I also started a PhD in flood research and was part of a taskforce to analyze a flashflood in Braunsbach (southwestern Germany), see
-[nearbyStations use case](https://bookdown.org/brry/rdwd/use-case-plot-all-rainfall-values-around-a-given-point.html).  
+[nearbyStations use case](https://brry.github.io/rdwd/use-case-plot-all-rainfall-values-around-a-given-point.html).  
 For both these projects, I developed some R code to download and read data for given weather stations.
 In June 2016, these scripts got included in my misc package berryFunctions, see the [commit history](https://github.com/search?q=datadwd+repo:brry/berryFunctions&type=Commits&s=committer-date) there.  
 The DWD had just started their CDC FTP server with a serious amount of data the year before, so this was an exciting time to work on it.  

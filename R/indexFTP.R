@@ -29,7 +29,7 @@
 #' @return a vector with file paths
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2016
 #' @seealso [createIndex()], [updateIndexes()],
-#'          [website index chapter](https://bookdown.org/brry/rdwd/fileindex.html)
+#'          [website index chapter](https://brry.github.io/rdwd/fileindex.html)
 #' @keywords file
 #' @importFrom stats runif
 #' @importFrom pbapply pblapply

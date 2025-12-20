@@ -30,7 +30,7 @@
 #' terra::writeVector(EUR, "inst/extdata/EUR.gpkg", overwrite=TRUE)
 #' ```
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Aug 2019, June 2023
-#' @seealso [`plotRadar`], [website raster chapter](https://bookdown.org/brry/rdwd/raster-data.html)
+#' @seealso [`plotRadar`], [website raster chapter](https://brry.github.io/rdwd/raster-data.html)
 #' @keywords aplot
 #' @export
 #' @examples

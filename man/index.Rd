@@ -50,13 +50,13 @@ head(geoIndex)
 # browseURL("http://r-pkgs.had.co.nz/data.html#data-data")
 
 # To use a custom index, see
-# browseURL("https://bookdown.org/brry/rdwd/fileindex.html")
+# browseURL("https://brry.github.io/rdwd/fileindex.html")
 
 }
 \seealso{
 \code{\link[=createIndex]{createIndex()}}, \code{\link[=indexFTP]{indexFTP()}}, \code{\link[=selectDWD]{selectDWD()}},
 \code{\link[=findID]{findID()}}, \code{\link[=metaInfo]{metaInfo()}},
-\href{https://bookdown.org/brry/rdwd/fileindex.html}{website index chapter}
+\href{https://brry.github.io/rdwd/fileindex.html}{website index chapter}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, June-Nov 2016, June 2017, Oct 2019

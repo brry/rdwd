@@ -21,7 +21,7 @@ If that is the case, the funtion will give a warning, otherwise a message.
 # current <- checkUpdates()
 }
 \seealso{
-\url{https://bookdown.org/brry/rdwd/fileindex.html}
+\url{https://brry.github.io/rdwd/fileindex.html}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Mar+May 2025

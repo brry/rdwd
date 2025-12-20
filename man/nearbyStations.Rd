@@ -37,7 +37,7 @@ DEFAULTS: NA (ignored)}
 open-access file available? DEFAULT: TRUE}
 
 \item{mindex}{Index with metadata for selecting data.
-See \url{https://bookdown.org/brry/rdwd/fileindex.html#metaindex}
+See \url{https://brry.github.io/rdwd/fileindex.html#metaindex}
 DEFAULT: \code{\link{metaIndex}}}
 
 \item{current}{Get current \code{mindex} for \code{res/var/per}? All 3 must be given.
@@ -66,12 +66,12 @@ m <- nearbyStations(49.211784, 9.812475, radius=30,
 
 # for a continued example of this, see the website use case
 # "plot all rainfall values around a given point" (ca section 21):
-# browseURL("https://bookdown.org/brry/rdwd")
+# browseURL("https://brry.github.io/rdwd")
 
 }
 \seealso{
 \code{\link[=selectDWD]{selectDWD()}}, \code{\link{metaIndex}},
-\href{https://bookdown.org/brry/rdwd/use-case-plot-all-rainfall-values-around-a-given-point.html}{website use case with nearbyStations}
+\href{https://brry.github.io/rdwd/use-case-plot-all-rainfall-values-around-a-given-point.html}{website use case with nearbyStations}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Mar 2017, Aug 2025

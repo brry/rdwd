@@ -30,7 +30,7 @@ Development of `rdwd` was triggered 2016 by flash flood research in Braunsbach
 ### Documentation
 
 A website with more information, examples, use cases and an interactive map of the DWD stations
-can be found at <https://bookdown.org/brry/rdwd>
+can be found at <https://brry.github.io/rdwd>
 
 
 ### Usage
@@ -60,7 +60,7 @@ plotDWD(clim, "FM.Windgeschwindigkeit")
 ```
 
 For data interpolated onto a 1 km raster, including radar data up to the last hour,
-see the corresponding [chapter](https://bookdown.org/brry/rdwd/raster-data.html) on the website.
+see the corresponding [chapter](https://brry.github.io/rdwd/raster-data.html) on the website.
 
 
 ### App
@@ -74,9 +74,9 @@ With `rdwd::app()`, you can run this locally with cached data, i.e. faster respo
 
 If you're new to R, these links might help you to get started:
 
-- [install R & Rstudio](https://bookdown.org/brry/course/install.html)
+- [install R & Rstudio](https://brry.github.io/course/install.html)
 - [brief introduction to R](https://github.com/brry/hour)
-- [my free online courses](https://bookdown.org/brry/course/)
+- [my free online courses](https://brry.github.io/course/)
 
 back to `rdwd`:
 
@@ -105,7 +105,7 @@ install.packages("rdwd", dependencies="Suggests")
 - `terra`, `stars`, `R.utils`, `ncdf4`, `dwdradar` for readDWD with gridded data
 - `readr` for readDWD.stand(..., fast=TRUE)
 - `knitr`, `rmarkdown`, `testthat`, `roxygen2`, `devtools`, `remotes`, `XML`, `gsheet` for local testing, development and documentation
-- `leaflet`, `OSMscale` for interactive/static maps, see [rJava installation tips](https://bookdown.org/brry/course/packages.html#rjava-on-windows)
+- `leaflet`, `OSMscale` for interactive/static maps, see [rJava installation tips](https://brry.github.io/course/packages.html#rjava-on-windows)
 - `shiny` for the interactive weather comparison app
 
 Note: on Linux (Ubuntu), install `RCurl` via the terminal (CTRL+ALT+T, note lowercase rcurl):

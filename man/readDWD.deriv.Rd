@@ -30,7 +30,7 @@ Read dwd data from /CDC/derived_germany/.
 Intended to be called via \code{\link[=readDWD]{readDWD()}}.
 }
 \seealso{
-\code{\link[=readDWD]{readDWD()}}, https://bookdown.org/brry/rdwd/use-case-derived-data.html
+\code{\link[=readDWD]{readDWD()}}, https://brry.github.io/rdwd/use-case-derived-data.html
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}

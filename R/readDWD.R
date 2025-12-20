@@ -19,7 +19,7 @@
 #'         For gridded data, terra raster objects.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jul-Oct 2016, Winter 2018/19
 #' @seealso [dataDWD()], [readVars()], [readMeta()], [selectDWD()], [fileType()]\cr
-#'          <https://bookdown.org/brry/rdwd>
+#'          <https://brry.github.io/rdwd>
 #' @keywords file chron
 #' @importFrom utils read.table unzip read.fwf untar write.table
 #' @importFrom berryFunctions checkFile na9 twarning tstop l2df owa
@@ -96,7 +96,7 @@ if(anyNA(fread))
   if(haspack && Sys.which("unzip")=="") 
    twarning("R package 'data.table' available for fast reading of files, ",
             "but system command 'unzip' could not be found. Now reading slowly.\n",
-            "See   https://bookdown.org/brry/rdwd/fread.html")
+            "See   https://brry.github.io/rdwd/fread.html")
   fread[is.na(fread)] <- haspack && Sys.which("unzip")!=""
   }
 if(any(fread))
@@ -105,7 +105,7 @@ if(any(fread))
   checkSuggestedPackage("bit64",      "rdwd::readDWD with fread=TRUE")
   if(Sys.which("unzip")=="") twarning("system command 'unzip' could not be found. ",
                                      "Expect trouble with data.table::fread.\n",
-                                     "See   https://bookdown.org/brry/rdwd/fread.html")
+                                     "See   https://brry.github.io/rdwd/fread.html")
   }
 } 
 # end hr + fread / unzip checks
@@ -235,7 +235,7 @@ return(output)
 #'                 When called from [readDWD()], `fread=NA` can also be used, which means 
 #'                 TRUE if R package `data.table` and system command `unzip` are available.
 #'                 Hint for Windows users: `unzip` comes with Rtools.
-#'                 See <https://bookdown.org/brry/rdwd/fread.html>
+#'                 See <https://brry.github.io/rdwd/fread.html>
 #'                 DEFAULT: FALSE
 #' @param varnames Logical (vector): add a short description to the DWD variable
 #'                 abbreviations in the column names?
@@ -332,7 +332,7 @@ return(dat)
 #' Intended to be called via [readDWD()].
 #' @return data.frame
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}
-#' @seealso [readDWD()], https://bookdown.org/brry/rdwd/use-case-derived-data.html
+#' @seealso [readDWD()], https://brry.github.io/rdwd/use-case-derived-data.html
 #' @param file     Name of file on harddrive, like e.g.
 #'                 DWDdata/soil_daily_historical_derived_germany_soil_daily_historical_3987.txt.gz
 #' @param gargs    If fread=FALSE: Named list of arguments passed to

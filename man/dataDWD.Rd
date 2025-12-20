@@ -57,7 +57,7 @@ only download is performed and the filename(s) returned. DEFAULT: TRUE}
 
 \item{dbin}{Logical: Download binary file, i.e. add \code{mode="wb"} to the
 \code{\link[=download.file]{download.file()}} call?
-See \href{https://bookdown.org/brry/rdwd/raster-data.html#binary-file-errors}{Website}
+See \href{https://brry.github.io/rdwd/raster-data.html#binary-file-errors}{Website}
 for details.
 DEFAULT: TRUE}
 
@@ -67,7 +67,7 @@ DEFAULT: \code{getOption("download.file.method")}}
 
 \item{removeftp}{Logical: remove leading "ftp://" from url and base?
 Quick way to circumvent forbidden FTP access.
-See \href{https://bookdown.org/brry/rdwd/fileindex.html#ftp}{website section}.
+See \href{https://brry.github.io/rdwd/fileindex.html#ftp}{website section}.
 Could be related to issue 34, see argument "method".
 DEFAULT: FALSE}
 
@@ -117,7 +117,7 @@ displays progress bars (if the package \code{pbapply} is available)
 and by default does not re-download data already in \code{dir}
 (but see argument \code{force} to update files).\cr
 To solve "errors in download.file: cannot open URL", see
-\url{https://bookdown.org/brry/rdwd/fileindex.html}.\cr
+\url{https://brry.github.io/rdwd/fileindex.html}.\cr
 }
 \examples{
 \dontrun{ ## requires internet connection
@@ -148,13 +148,13 @@ plot(TMK~MESS_DATUM, data=tail(potsdam,1500), type="l")
 #sol <- dataDWD(links, sleep=20) # random waiting time after download (0 to 20 secs)
 
 # Real life examples can be found in the use cases section of the website:
-# browseURL("https://bookdown.org/brry/rdwd")
+# browseURL("https://brry.github.io/rdwd")
 }
 
 }
 \seealso{
 \code{\link[=selectDWD]{selectDWD()}}. \code{\link[=readDWD]{readDWD()}}, \code{\link[=download.file]{download.file()}}.\cr
-\url{https://bookdown.org/brry/rdwd}\cr
+\url{https://brry.github.io/rdwd}\cr
 Helpful for plotting: \code{\link[berryFunctions:monthAxis]{berryFunctions::monthAxis()}},
 see also \code{\link[berryFunctions:climateGraph]{berryFunctions::climateGraph()}}
 }

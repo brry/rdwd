@@ -59,7 +59,7 @@ addBorders(de="orange", eu=NA)
 
 }
 \seealso{
-\code{\link{plotRadar}}, \href{https://bookdown.org/brry/rdwd/raster-data.html}{website raster chapter}
+\code{\link{plotRadar}}, \href{https://brry.github.io/rdwd/raster-data.html}{website raster chapter}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Aug 2019, June 2023

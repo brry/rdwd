@@ -14,8 +14,8 @@ Character (vector)
 }
 \description{
 determine which subfunction to call in \code{\link[=readDWD]{readDWD()}} from the file extension (ext).\cr\cr
-The first block is for \strong{observational data} (\href{https://bookdown.org/brry/rdwd/available-datasets.html}{overview}),
-the second for  \strong{gridded data} (\href{https://bookdown.org/brry/rdwd/raster-data.html}{overview}).\cr
+The first block is for \strong{observational data} (\href{https://brry.github.io/rdwd/available-datasets.html}{overview}),
+the second for  \strong{gridded data} (\href{https://bbrry.github.io/rdwd/raster-data.html}{overview}).\cr
 Click on the \code{type} for the subfunction documentation, e.g. \link[=readDWD.data]{data} for \code{\link[=readDWD.data]{readDWD.data()}}.\tabular{lll}{
    \strong{type} \tab \strong{ext} \tab \strong{notes} \cr
     \tab  \tab  \cr

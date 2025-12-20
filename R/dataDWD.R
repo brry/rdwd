@@ -11,7 +11,7 @@
 #' and by default does not re-download data already in `dir`
 #' (but see argument `force` to update files).\cr
 #' To solve "errors in download.file: cannot open URL", see
-#' <https://bookdown.org/brry/rdwd/fileindex.html>.\cr
+#' <https://brry.github.io/rdwd/fileindex.html>.\cr
 #' 
 #' @return Presuming downloading and processing were successful:
 #'         if `read=TRUE`, the desired dataset
@@ -22,7 +22,7 @@
 #'         The output is always invisible.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jun-Oct 2016
 #' @seealso [selectDWD()]. [readDWD()], [download.file()].\cr
-#'          <https://bookdown.org/brry/rdwd>\cr
+#'          <https://brry.github.io/rdwd>\cr
 #'          Helpful for plotting: [berryFunctions::monthAxis()],
 #'          see also [berryFunctions::climateGraph()]
 #' @keywords data file
@@ -60,7 +60,7 @@
 #' #sol <- dataDWD(links, sleep=20) # random waiting time after download (0 to 20 secs)
 #' 
 #' # Real life examples can be found in the use cases section of the website:
-#' # browseURL("https://bookdown.org/brry/rdwd")
+#' # browseURL("https://brry.github.io/rdwd")
 #' }
 #' 
 #' @param url    Char (vector): complete file URL(s) (including base and filename.zip) 
@@ -87,7 +87,7 @@
 #'               only download is performed and the filename(s) returned. DEFAULT: TRUE
 #' @param dbin   Logical: Download binary file, i.e. add `mode="wb"` to the
 #'               [download.file()] call? 
-#'               See [Website](https://bookdown.org/brry/rdwd/raster-data.html#binary-file-errors) 
+#'               See [Website](https://brry.github.io/rdwd/raster-data.html#binary-file-errors) 
 #'               for details.
 #'               DEFAULT: TRUE
 #' @param method [download.file] `method`. Introduced in version 1.5.25 (2022-05-12)
@@ -95,7 +95,7 @@
 #'               DEFAULT: `getOption("download.file.method")`
 #' @param removeftp Logical: remove leading "ftp://" from url and base?
 #'               Quick way to circumvent forbidden FTP access.
-#'               See [website section](https://bookdown.org/brry/rdwd/fileindex.html#ftp). 
+#'               See [website section](https://brry.github.io/rdwd/fileindex.html#ftp). 
 #'               Could be related to issue 34, see argument "method".
 #'               DEFAULT: FALSE
 #' @param dfargs Named list of additional arguments passed to [download.file()]
@@ -237,7 +237,7 @@ if(any(iserror))
                     "You can use joinbf=TRUE for relative links.")
   if(grepl("cannot open URL", msg3) || grepl("Kann URL .* nicht", msg3))
      msg <- paste0(msg, "\n- If files have been renamed on the DWD server, ",
-                    "see   https://bookdown.org/brry/rdwd/fileindex.html")
+                    "see   https://brry.github.io/rdwd/fileindex.html")
   msg <- paste0(msg, msg2, msg3)
   warning(msg, call.=FALSE)
   }

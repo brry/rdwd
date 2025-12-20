@@ -97,7 +97,7 @@ ind
 }
 \seealso{
 \code{\link[=indexFTP]{indexFTP()}}, \code{\link[=updateIndexes]{updateIndexes()}}, \code{\link{index}}, \code{\link[=selectDWD]{selectDWD()}},
-\href{https://bookdown.org/brry/rdwd/fileindex.html}{website index chapter}
+\href{https://brry.github.io/rdwd/fileindex.html}{website index chapter}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct-Nov 2016, June 2017

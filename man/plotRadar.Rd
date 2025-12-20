@@ -95,7 +95,7 @@ Convenience function to plot radar products on a pretty map.
 Creates a separate plot for each layer, a selection is possible.
 }
 \examples{
-# See https://bookdown.org/brry/rdwd/raster-data.html
+# See https://brry.github.io/rdwd/raster-data.html
 \dontrun{ ## Excluded from CRAN checks: requires internet connection
 link <- "seasonal/air_temperature_mean/16_DJF/grids_germany_seasonal_air_temp_mean_188216.asc.gz"
 rad <- dataDWD(link, base=gridbase, joinbf=TRUE)
@@ -125,7 +125,7 @@ berryFunctions::is.error(plotRadar(ncp1, layer=1:4, project=FALSE), TRUE, TRUE)
 }
 \seealso{
 \code{\link[=projectRasterDWD]{projectRasterDWD()}}, \code{\link[=addBorders]{addBorders()}}, \code{\link[=readDWD]{readDWD()}},
-\href{https://bookdown.org/brry/rdwd/raster-data.html}{website raster chapter}
+\href{https://brry.github.io/rdwd/raster-data.html}{website raster chapter}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Feb 2020, June 2023

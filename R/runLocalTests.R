@@ -357,7 +357,7 @@ rem <- "Warning: fileType failed for the following file: 'random_stuff.odt'\n"
 log <- sub(rem, "", log, fixed=TRUE)
 rem <- "\nrdwd station id 2849 with 6 files.
 Name: Langenburg-Baechlingen, State: Baden-Wuerttemberg
-For up-to-date info, see https://bookdown.org/brry/rdwd/fileindex.html#metaindex
+For up-to-date info, see https://brry.github.io/rdwd/fileindex.html#metaindex
 Additionally, there are 6 non-public files. Display all with  metaInfo(2849,FALSE)
 To request those datasets, please contact cdc.daten@dwd.de or klima.vertrieb@dwd.de
       res                    var        per hasfile       from         to     lat   long ele

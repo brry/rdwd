@@ -2,7 +2,7 @@
 #' 
 #' @description Select data files for downloading with [dataDWD()].\cr
 #' The available `res/var/per` folders with datasets are listed 
-#' [online](https://bookdown.org/brry/rdwd/available-datasets.html).\cr
+#' [online](https://brry.github.io/rdwd/available-datasets.html).\cr
 #' Set `res="", var="", per=""` to avoid the default interactive selection.\cr
 #' The arguments `name/id` and `res/var/per` can be vectors.
 #' 
@@ -10,7 +10,7 @@
 #'         "base/res/var/per/filename.zip"
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2016, rewritten May 2022
 #' @seealso [dataDWD()], [`metaIndex`],
-#'          [website station selection chapter](https://bookdown.org/brry/rdwd/station-selection.html#by-name)
+#'          [website station selection chapter](https://brry.github.io/rdwd/station-selection.html#by-name)
 #' @keywords file
 #' @importFrom berryFunctions truncMessage twarning tstop
 #' @importFrom utils menu
@@ -102,13 +102,13 @@
 #'              Avoid downloading all files. DEFAULT: TRUE
 #' @param findex Single object: Index used to select filename, as returned by
 #'              [createIndex()].To use a current / custom index, see `current` and
-#'              <https://bookdown.org/brry/rdwd/fileindex.html>. 
+#'              <https://brry.github.io/rdwd/fileindex.html>. 
 #'              DEFAULT: [`fileIndex`]
 #' @param current Single logical when `res/var/per` is given: instead of
 #'              `findex`, use a list of the currently available files at
 #'              base/res/var/per? This will call [indexFTP()], thus
 #'              requires availability of the `RCurl` package.
-#'              See <https://bookdown.org/brry/rdwd/fileindex.html>. 
+#'              See <https://brry.github.io/rdwd/fileindex.html>. 
 #'              DEFAULT: FALSE
 #' @param base  Single char: main directory of DWD ftp server.
 #'              Must be the same `base` used to create `findex`.

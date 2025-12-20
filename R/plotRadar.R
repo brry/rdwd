@@ -5,14 +5,14 @@
 #' If `length(layer)==1`, only that selected layer is returned.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Feb 2020, June 2023
 #' @seealso [projectRasterDWD()], [addBorders()], [readDWD()],
-#'          [website raster chapter](https://bookdown.org/brry/rdwd/raster-data.html)
+#'          [website raster chapter](https://brry.github.io/rdwd/raster-data.html)
 #' @keywords aplot spatial
 #' @importFrom graphics box rect par title
 #' @importFrom berryFunctions seqPal tstop
 #' @importFrom pbapply pblapply
 #' @export
 #' @examples
-#' # See https://bookdown.org/brry/rdwd/raster-data.html
+#' # See https://brry.github.io/rdwd/raster-data.html
 #' \dontrun{ ## Excluded from CRAN checks: requires internet connection
 #' link <- "seasonal/air_temperature_mean/16_DJF/grids_germany_seasonal_air_temp_mean_188216.asc.gz"
 #' rad <- dataDWD(link, base=gridbase, joinbf=TRUE)

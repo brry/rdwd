@@ -12,7 +12,7 @@ If \code{dir} is NULL, locdir tries "C:/DWDdata", then "~/DWDdata",
 then \link[tools:userdir]{tools::R_user_dir}\verb{("rdwd", which="cache")}.\cr\cr
 \code{dir} can also be set with
 \code{options(rdwdlocdir="YOUR/PATH")} thanks to the
-DEFAULT: \link{getOption}\code{("rdwdlocdir")}}
+DEFAULT: \link[R.utils:Non-documented_objects]{R.utils::getOption}\code{("rdwdlocdir")}}
 
 \item{file}{Optional: path(s) at \code{dir}. DEFAULT: NULL}
 

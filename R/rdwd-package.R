@@ -7,14 +7,14 @@
 #'   -> rain, temperature, wind, sunshine, pressure, cloudiness, humidity, snow, ...\cr
 #' - gridded raster data from radar + interpolation\cr
 #' - european data stock slowly growing\cr
-#' For an introduction to the package, see <https://bookdown.org/brry/rdwd>.\cr
+#' For an introduction to the package, see <https://brry.github.io/rdwd>.\cr
 #' 
 #' @name rdwd
 #' @aliases rdwd-package rdwd
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}
 #' @keywords package documentation
 "_PACKAGE"
-#' @seealso related weather data processing references at <https://bookdown.org/brry/rdwd/see-also.html>
+#' @seealso related weather data processing references at <https://brry.github.io/rdwd/see-also.html>
 #' 
 #' @section Searchability Terms:
 #' Weather Data Germany download with R, Climate Data Germany\cr

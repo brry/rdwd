@@ -5,7 +5,7 @@
 #' @return [`metaIndex`] subset with additional columns "dist" and "url"
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Mar 2017, Aug 2025
 #' @seealso [selectDWD()], [`metaIndex`],
-#'          [website use case with nearbyStations](https://bookdown.org/brry/rdwd/use-case-plot-all-rainfall-values-around-a-given-point.html)
+#'          [website use case with nearbyStations](https://brry.github.io/rdwd/use-case-plot-all-rainfall-values-around-a-given-point.html)
 #' @export
 #' @importFrom berryFunctions sortDF
 #' @examples
@@ -17,7 +17,7 @@
 #' 
 #' # for a continued example of this, see the website use case
 #' # "plot all rainfall values around a given point" (ca section 21):
-#' # browseURL("https://bookdown.org/brry/rdwd")
+#' # browseURL("https://brry.github.io/rdwd")
 #' 
 #' @param lat         Coordinates y component \[degrees N/S, range 47:55]
 #' @param lon         Coordinates x component \[degrees E/W, range 6:15]
@@ -29,7 +29,7 @@
 #' @param hasfileonly Logical: only return entries for which there is an
 #'                    open-access file available? DEFAULT: TRUE
 #' @param mindex      Index with metadata for selecting data.
-#'                    See <https://bookdown.org/brry/rdwd/fileindex.html#metaindex>
+#'                    See <https://brry.github.io/rdwd/fileindex.html#metaindex>
 #'                    DEFAULT: [`metaIndex`]
 #' @param current     Get current `mindex` for `res/var/per`? All 3 must be given.
 #'                    See [selectDWD()] for details.

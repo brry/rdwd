@@ -69,14 +69,14 @@ Avoid downloading all files. DEFAULT: TRUE}
 
 \item{findex}{Single object: Index used to select filename, as returned by
 \code{\link[=createIndex]{createIndex()}}.To use a current / custom index, see \code{current} and
-\url{https://bookdown.org/brry/rdwd/fileindex.html}.
+\url{https://brry.github.io/rdwd/fileindex.html}.
 DEFAULT: \code{\link{fileIndex}}}
 
 \item{current}{Single logical when \code{res/var/per} is given: instead of
 \code{findex}, use a list of the currently available files at
 base/res/var/per? This will call \code{\link[=indexFTP]{indexFTP()}}, thus
 requires availability of the \code{RCurl} package.
-See \url{https://bookdown.org/brry/rdwd/fileindex.html}.
+See \url{https://brry.github.io/rdwd/fileindex.html}.
 DEFAULT: FALSE}
 
 \item{base}{Single char: main directory of DWD ftp server.
@@ -101,7 +101,7 @@ Character string with file path and name(s) in the format
 \description{
 Select data files for downloading with \code{\link[=dataDWD]{dataDWD()}}.\cr
 The available \code{res/var/per} folders with datasets are listed
-\href{https://bookdown.org/brry/rdwd/available-datasets.html}{online}.\cr
+\href{https://brry.github.io/rdwd/available-datasets.html}{online}.\cr
 Set \verb{res="", var="", per=""} to avoid the default interactive selection.\cr
 The arguments \code{name/id} and \code{res/var/per} can be vectors.
 }
@@ -158,7 +158,7 @@ dataDWD(link[1], dir=locdir())
 }
 \seealso{
 \code{\link[=dataDWD]{dataDWD()}}, \code{\link{metaIndex}},
-\href{https://bookdown.org/brry/rdwd/station-selection.html#by-name}{website station selection chapter}
+\href{https://brry.github.io/rdwd/station-selection.html#by-name}{website station selection chapter}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2016, rewritten May 2022
