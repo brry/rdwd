@@ -1,7 +1,7 @@
 
-checkIndex results at 2025-08-01 16:22:00 for
+checkIndex results at 2025-12-20 20:12:58 for
 ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate
-File 'data/fileIndex.rda' was last modified 2025-08-01 15:23:28.108037
+File 'data/fileIndex.rda' was last modified 2025-12-20 20:08:53.13375
 Call stack: runLocalTests -> testthat::test_that -> test_code -> eval -> checkIndex
 using excludefp=TRUE
 -------
@@ -9,27 +9,38 @@ IDs with duplicate files:
 -  79 at annual/climate_indices/precip/historical;  46, 141, 146, 291, 323, 443, 506, 522, 596, 809  (and 69 more)
 -  55 at daily/more_weather_phenomena/historical;  827, 1551, 1850, 1900, 2160, 2302, 2441, 2443, 2503, 2721  (and 45 more)
 
-Elevation differences >4.1m at 8 stations:
+Elevation differences >4.1m at 16 stations:
 - ID=73: 80x374m, 1x340m
 - ID=6047: 17x71m, 1x78m
 - ID=5840: 29x593m, 1x600m
 - ID=7421: 33x388m, 1x383m
 - ID=1645: 77x327m, 1x340m
+- ID=14081: 30x156m, 4x136m
+- ID=14032: 30x91m, 4x78m
+- ID=14017: 30x144m, 4x127m
+- ID=14026: 30x312m, 4x296m
+- ID=14014: 30x224m, 4x214m
+- ID=14019: 30x129m, 4x115m
+- ID=6298: 30x516m, 4x530m
 - ID=6342: 24x601m, 4x609m
 - ID=5133: 73x287m, 6x295m
+- ID=4445: 91x614m, 5x609m, 3x613m
 - ID=5279: 81x167m, 1x176m
 
-Location differences >40m at 10 stations:
+Location differences >40m at 13 stations:
 - ID=73: 80x48.6183_13.062, 1x48.6159_13.0506
 - ID=6047: 17x50.995_6.7111, 1x50.995_6.7104
 - ID=633: 29x51.4036_14.5668, 5x51.4041_14.5681
 - ID=5840: 29x48.6663_8.4721, 1x48.6671_8.47
+- ID=1270: 97x50.9827_10.9613, 8x50.9829_10.9608
 - ID=3137: 73x49.9658_8.2049, 1x49.9656_8.2139
 - ID=3307: 74x47.4814_11.2649, 2x47.4779_11.2653
 - ID=775: 32x51.9997_10.6327, 1x52_10.6323
-- ID=4261: 69x47.8819_12.1249, 1x47.8753_12.128
+- ID=4261: 65x47.8819_12.1249, 1x47.8753_12.128
 - ID=4354: 80x48.7832_13.3146, 2x48.7826_13.3166
 - ID=6342: 24x47.6573_11.321, 4x47.6572_11.3187
+- ID=14037: 30x50.0069_6.4606, 4x50.0066_6.4587
+- ID=5684: 24x52.2813_12.4681, 8x52.2813_12.458
 
 Different names at 4 IDs:
 - ID=73: 80xAldersbach-Kramersepp, 1xAldersbach-Kriestorf
@@ -39,16 +50,17 @@ Different names at 4 IDs:
 
 More than one id per name at 5 names:
 - Name=Creglingen: 12x883, 1x7492
-- Name=Doebeln: 44x1003, 3x6153
+- Name=Doebeln: 44x1003, 20x6153
 - Name=Lenggries (Rissbachwehr): 16x19410, 12x2944
 - Name=Lenggries-Vorderriss: 26x19407, 12x2946
-- Name=Wurzen: 12x5725, 3x6156
+- Name=Wurzen: 20x6156, 12x5725
 
 Coordinates used for more than one station:
 - 13.3833_52.5333: 14x ID=408 (Berlin-Invalidenstrasse), 26x ID=422 (Berlin-Mitte)
+- 11.88_52.6069: 12x ID=5960 (Stendal), 22x ID=19940 (Stendal/Altmark)
 - 12.0975_50.4299: 26x ID=4972 (Oelsnitz-Goeswein), 12x ID=19681 (Taltitz)
 
 G3;
-.297917
+.74872
 
 g
