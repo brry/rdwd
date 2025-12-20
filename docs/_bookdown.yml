@@ -1,0 +1,3 @@
+book_filename: "rdwd"
+output_dir: "."
+delete_merged_file: true

@@ -3,7 +3,6 @@ title: "rdwd"
 author: "Berry Boessenkool, <berry-b@gmx.de>"
 date: "built `r Sys.Date()` with rdwd version `r packageVersion('rdwd')` and dwdradar version `r packageVersion('dwdradar')`"
 site: bookdown::bookdown_site
-output_dir: "."
 documentclass: book
 output:
   bookdown::gitbook: default
