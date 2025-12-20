@@ -318,7 +318,7 @@ I check this with <a href="https://www.rdocumentation.org/packages/rdwd/topics/c
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="fileindex.html#cb29-1" tabindex="-1"></a><span class="co"># All metadata at all folders:</span></span>
 <span id="cb29-2"><a href="fileindex.html#cb29-2" tabindex="-1"></a><span class="fu">data</span>(metaIndex)</span>
 <span id="cb29-3"><a href="fileindex.html#cb29-3" tabindex="-1"></a><span class="fu">str</span>(metaIndex, <span class="at">vec.len=</span><span class="dv">2</span>)</span></code></pre></div>
-<pre><code>## &#39;data.frame&#39;:    160802 obs. of  13 variables:
+<pre><code>## &#39;data.frame&#39;:    161281 obs. of  13 variables:
 ##  $ Stations_id  : int  1 1 1 1 1 ...
 ##  $ von_datum    : Date, format: &quot;1891-01-01&quot; &quot;1891-01-01&quot; ...
 ##  $ bis_datum    : Date, format: &quot;1985-12-31&quot; &quot;1985-12-31&quot; ...
@@ -369,7 +369,7 @@ They are read from the DWD <code>_Beschreibung_Stationen.txt</code> files, e.g.Â
 <span id="cb38-3"><a href="fileindex.html#cb38-3" tabindex="-1"></a><span class="fu">metaInfo</span>(<span class="dv">3987</span>, <span class="at">mindex=</span>ind<span class="sc">$</span>metaIndex)</span></code></pre></div>
 <pre><code>## rdwd station id 3987 with 2 files.
 ## Name: Potsdam, State: Brandenburg
-## For up-to-date info, see https://bookdown.org/brry/rdwd/fileindex.html#metaindex</code></pre>
+## For up-to-date info, see https://brry.github.io/rdwd/fileindex.html#metaindex</code></pre>
 <pre><code>##      res  var    per hasfile       from         to     lat    long ele
 ## 1  daily   kl recent    TRUE 1893-01-01 2025-12-19 52.3812 13.0622  81
 ## 2 hourly wind recent    TRUE 1893-01-01 2025-12-19 52.3812 13.0622  81</code></pre>

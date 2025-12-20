@@ -386,7 +386,7 @@ The last line shows what projection and extent to use in <a href="https://www.rd
 <h2><span class="header-section-number">8.10</span> binary file errors<a href="raster-data.html#binary-file-errors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Binary files must be downloaded by <code>download.file</code> with wb=TRUE (at least on Windows, due to CRLF issues).
 <code>download.file</code> will automatically do that for some file endings (like .gz, .zip).
-For others (e.g. .tar files in <a href="https://bookdown.org/brry/rdwd/raster-data.html#readdwd.asc">readDWD.asc</a>
+For others (e.g. .tar files in <a href="https://brry.github.io/rdwd/raster-data.html#readdwd.asc">readDWD.asc</a>
 or files at <a href="https://opendata.dwd.de/weather/radar/radolan/rw/">weather/radar/radolan</a>),
 <a href="https://www.rdocumentation.org/packages/rdwd/topics/dataDWD" target="_blank"><code>dataDWD</code></a> has a dbin=TRUE option.
 Since Version 1.4.18 (2021-04-08), the default is <code>dbin=TRUE</code>. Report errors <a href="https://github.com/brry/rdwd/issues/20">here</a> if needed.

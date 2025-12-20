@@ -263,7 +263,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">rdwd</h1>
 <p class="author"><em>Berry Boessenkool, <a href="mailto:berry-b@gmx.de" class="email">berry-b@gmx.de</a></em></p>
-<p class="date"><em>built 2025-12-20 with rdwd version 1.9.5 and dwdradar version 0.2.10</em></p>
+<p class="date"><em>built 2025-12-20 with rdwd version 1.9.7 and dwdradar version 0.2.10</em></p>
 </div>
 <div id="intro" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">1</span> Intro<a href="index.html#intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
@@ -277,7 +277,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Important links:</p>
 <ul>
 <li>further details on the data: <a href="https://opendata.dwd.de/climate_environment/CDC/Readme_intro_CDC_ftp.pdf">DWD FTP server documentation</a></li>
-<li>website <a href="https://github.com/brry/rdwd/tree/master/misc/vign">source code and files</a></li>
+<li>website <a href="https://github.com/brry/rdwd/tree/master/docs">source code and files</a></li>
 <li>feedback is very welcome via <a href="https://github.com/brry/rdwd">github</a> or <a href="mailto:berry-b@gmx.de">berry-b@gmx.de</a>!<br />
 </li>
 <li>app for <a href="https://brry.shinyapps.io/wetter/">comparing weather periods</a></li>
@@ -329,7 +329,7 @@ Development of <code>rdwd</code> was triggered 2016 by flash flood research in B
 <span id="cb1-18"><a href="index.html#cb1-18" tabindex="-1"></a><span class="co"># Quick time series graphic:</span></span>
 <span id="cb1-19"><a href="index.html#cb1-19" tabindex="-1"></a><span class="fu">plotDWD</span>(clim, <span class="st">&quot;FM.Windgeschwindigkeit&quot;</span>)</span></code></pre></div>
 <p>For data interpolated onto a 1 km raster, including radar data up to the last hour,
-see the corresponding <a href="https://bookdown.org/brry/rdwd/raster-data.html">chapter</a> on the website.</p>
+see the corresponding <a href="https://brry.github.io/rdwd/raster-data.html">chapter</a> on the website.</p>
 </div>
 <div id="app" class="section level2 hasAnchor" number="1.2">
 <h2><span class="header-section-number">1.2</span> App<a href="index.html#app" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -341,9 +341,9 @@ see the corresponding <a href="https://bookdown.org/brry/rdwd/raster-data.html">
 <h2><span class="header-section-number">1.3</span> New to R<a href="index.html#new-to-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>If you’re new to R, these links might help you to get started:</p>
 <ul>
-<li><a href="https://bookdown.org/brry/course/install.html">install R &amp; Rstudio</a></li>
+<li><a href="https://brry.github.io/course/install.html">install R &amp; Rstudio</a></li>
 <li><a href="https://github.com/brry/hour">brief introduction to R</a></li>
-<li><a href="https://bookdown.org/brry/course/">my free online courses</a></li>
+<li><a href="https://brry.github.io/course/">my free online courses</a></li>
 </ul>
 <p>back to <code>rdwd</code>:</p>
 </div>
@@ -368,7 +368,7 @@ see the corresponding <a href="https://bookdown.org/brry/rdwd/raster-data.html">
 <li><code>terra</code>, <code>stars</code>, <code>R.utils</code>, <code>ncdf4</code>, <code>dwdradar</code> for readDWD with gridded data</li>
 <li><code>readr</code> for readDWD.stand(…, fast=TRUE)</li>
 <li><code>knitr</code>, <code>rmarkdown</code>, <code>testthat</code>, <code>roxygen2</code>, <code>devtools</code>, <code>remotes</code>, <code>XML</code>, <code>gsheet</code> for local testing, development and documentation</li>
-<li><code>leaflet</code>, <code>OSMscale</code> for interactive/static maps, see <a href="https://bookdown.org/brry/course/packages.html#rjava-on-windows">rJava installation tips</a></li>
+<li><code>leaflet</code>, <code>OSMscale</code> for interactive/static maps, see <a href="https://brry.github.io/course/packages.html#rjava-on-windows">rJava installation tips</a></li>
 <li><code>shiny</code> for the interactive weather comparison app</li>
 </ul>
 <p>Note: on Linux (Ubuntu), install <code>RCurl</code> via the terminal (CTRL+ALT+T, note lowercase rcurl):</p>
