@@ -1,4 +1,9 @@
 
+# Version 1.9.7 (2025-12-20)
+- `locdir` now defaults to R_user_dir
+- `dataDWD`: gains argument removeftp
+website migrated from bookdown.org to github pages
+
 # Version 1.9.3 (2025-08-18)
 
 - new functions: `readDWD.hyras`, `readDWD.asczip`, `checkUpdates`
