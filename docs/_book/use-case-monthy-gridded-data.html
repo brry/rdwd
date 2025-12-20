@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>14 - use case: monthy gridded data | rdwd</title>
+  <meta name="description" content="14 - use case: monthy gridded data | rdwd" />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="14 - use case: monthy gridded data | rdwd" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="14 - use case: monthy gridded data | rdwd" />
+  
+  
+  
+
+<meta name="author" content="Berry Boessenkool, berry-b@gmx.de" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="use-case-vectorized-data.html"/>
+<link rel="next" href="use-case-values-at-locations-in-grid.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.2.3/leaflet.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.34.0/datatables.js"></script>
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Intro</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#usage"><i class="fa fa-check"></i><b>1.1</b> Usage</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#app"><i class="fa fa-check"></i><b>1.2</b> App</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#new-to-r"><i class="fa fa-check"></i><b>1.3</b> New to R</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i><b>1.4</b> Installation</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="index.html"><a href="index.html#normal"><i class="fa fa-check"></i><b>1.4.1</b> Normal</a></li>
+<li class="chapter" data-level="1.4.2" data-path="index.html"><a href="index.html#latest-version"><i class="fa fa-check"></i><b>1.4.2</b> Latest version</a></li>
+<li class="chapter" data-level="1.4.3" data-path="index.html"><a href="index.html#full"><i class="fa fa-check"></i><b>1.4.3</b> Full</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="package-structure.html"><a href="package-structure.html"><i class="fa fa-check"></i><b>2</b> Package structure</a></li>
+<li class="chapter" data-level="3" data-path="interactive-map.html"><a href="interactive-map.html"><i class="fa fa-check"></i><b>3</b> Interactive map</a></li>
+<li class="chapter" data-level="4" data-path="available-datasets.html"><a href="available-datasets.html"><i class="fa fa-check"></i><b>4</b> Available datasets</a></li>
+<li class="chapter" data-level="5" data-path="station-selection.html"><a href="station-selection.html"><i class="fa fa-check"></i><b>5</b> Station selection</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="station-selection.html"><a href="station-selection.html#by-location"><i class="fa fa-check"></i><b>5.1</b> by location</a></li>
+<li class="chapter" data-level="5.2" data-path="station-selection.html"><a href="station-selection.html#by-id"><i class="fa fa-check"></i><b>5.2</b> by ID</a></li>
+<li class="chapter" data-level="5.3" data-path="station-selection.html"><a href="station-selection.html#by-name"><i class="fa fa-check"></i><b>5.3</b> by name</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="fileindex.html"><a href="fileindex.html"><i class="fa fa-check"></i><b>6</b> fileIndex</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="fileindex.html"><a href="fileindex.html#check-for-updates-by-the-dwd"><i class="fa fa-check"></i><b>6.1</b> check for updates by the DWD</a></li>
+<li class="chapter" data-level="6.2" data-path="fileindex.html"><a href="fileindex.html#ftp"><i class="fa fa-check"></i><b>6.2</b> ftp</a></li>
+<li class="chapter" data-level="6.3" data-path="fileindex.html"><a href="fileindex.html#metaindex"><i class="fa fa-check"></i><b>6.3</b> metaIndex</a></li>
+<li class="chapter" data-level="6.4" data-path="fileindex.html"><a href="fileindex.html#background"><i class="fa fa-check"></i><b>6.4</b> background</a></li>
+<li class="chapter" data-level="6.5" data-path="fileindex.html"><a href="fileindex.html#metaindex-1"><i class="fa fa-check"></i><b>6.5</b> metaIndex</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="fread.html"><a href="fread.html"><i class="fa fa-check"></i><b>7</b> fread</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="fread.html"><a href="fread.html#windows-unzip"><i class="fa fa-check"></i><b>7.1</b> windows unzip</a></li>
+<li class="chapter" data-level="7.2" data-path="fread.html"><a href="fread.html#alternative"><i class="fa fa-check"></i><b>7.2</b> alternative</a></li>
+<li class="chapter" data-level="7.3" data-path="fread.html"><a href="fread.html#error-messages"><i class="fa fa-check"></i><b>7.3</b> error messages</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="raster-data.html"><a href="raster-data.html"><i class="fa fa-check"></i><b>8</b> Raster data</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="raster-data.html"><a href="raster-data.html#readdwd.raster"><i class="fa fa-check"></i><b>8.1</b> readDWD.raster</a></li>
+<li class="chapter" data-level="8.2" data-path="raster-data.html"><a href="raster-data.html#readdwd.nc"><i class="fa fa-check"></i><b>8.2</b> readDWD.nc</a></li>
+<li class="chapter" data-level="8.3" data-path="raster-data.html"><a href="raster-data.html#readdwd.binary-rw"><i class="fa fa-check"></i><b>8.3</b> readDWD.binary (RW)</a></li>
+<li class="chapter" data-level="8.4" data-path="raster-data.html"><a href="raster-data.html#readdwd.binary-sf"><i class="fa fa-check"></i><b>8.4</b> readDWD.binary (SF)</a></li>
+<li class="chapter" data-level="8.5" data-path="raster-data.html"><a href="raster-data.html#readdwd.asc"><i class="fa fa-check"></i><b>8.5</b> readDWD.asc</a></li>
+<li class="chapter" data-level="8.6" data-path="raster-data.html"><a href="raster-data.html#readdwd.radar-rw"><i class="fa fa-check"></i><b>8.6</b> readDWD.radar (RW)</a></li>
+<li class="chapter" data-level="8.7" data-path="raster-data.html"><a href="raster-data.html#readdwd.radar-rq"><i class="fa fa-check"></i><b>8.7</b> readDWD.radar (RQ)</a></li>
+<li class="chapter" data-level="8.8" data-path="raster-data.html"><a href="raster-data.html#readdwd.grib2"><i class="fa fa-check"></i><b>8.8</b> readDWD.grib2</a></li>
+<li class="chapter" data-level="8.9" data-path="raster-data.html"><a href="raster-data.html#icon-eu"><i class="fa fa-check"></i><b>8.9</b> icon-eu</a></li>
+<li class="chapter" data-level="8.10" data-path="raster-data.html"><a href="raster-data.html#binary-file-errors"><i class="fa fa-check"></i><b>8.10</b> binary file errors</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="see-also.html"><a href="see-also.html"><i class="fa fa-check"></i><b>9</b> see also</a></li>
+<li class="chapter" data-level="10" data-path="use-case-recent-time-series.html"><a href="use-case-recent-time-series.html"><i class="fa fa-check"></i><b>10</b> - use case: recent time series</a></li>
+<li class="chapter" data-level="11" data-path="use-case-long-term-climate-graph.html"><a href="use-case-long-term-climate-graph.html"><i class="fa fa-check"></i><b>11</b> - use case: long term climate graph</a></li>
+<li class="chapter" data-level="12" data-path="use-case-merge-historical-and-recent-data.html"><a href="use-case-merge-historical-and-recent-data.html"><i class="fa fa-check"></i><b>12</b> - use case: merge historical and recent data</a></li>
+<li class="chapter" data-level="13" data-path="use-case-vectorized-data.html"><a href="use-case-vectorized-data.html"><i class="fa fa-check"></i><b>13</b> - use case: vectorized data</a></li>
+<li class="chapter" data-level="14" data-path="use-case-monthy-gridded-data.html"><a href="use-case-monthy-gridded-data.html"><i class="fa fa-check"></i><b>14</b> - use case: monthy gridded data</a></li>
+<li class="chapter" data-level="15" data-path="use-case-values-at-locations-in-grid.html"><a href="use-case-values-at-locations-in-grid.html"><i class="fa fa-check"></i><b>15</b> - use case: values at locations in grid</a></li>
+<li class="chapter" data-level="16" data-path="use-case-daily-radar-files.html"><a href="use-case-daily-radar-files.html"><i class="fa fa-check"></i><b>16</b> - use case: daily radar files</a></li>
+<li class="chapter" data-level="17" data-path="use-case-recent-hourly-radar-files.html"><a href="use-case-recent-hourly-radar-files.html"><i class="fa fa-check"></i><b>17</b> - use case: recent hourly radar files</a></li>
+<li class="chapter" data-level="18" data-path="use-case-longest-time-series-in-berlin.html"><a href="use-case-longest-time-series-in-berlin.html"><i class="fa fa-check"></i><b>18</b> - use case: longest time series in Berlin</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="use-case-longest-time-series-in-berlin.html"><a href="use-case-longest-time-series-in-berlin.html#select-station"><i class="fa fa-check"></i><b>18.1</b> select station</a></li>
+<li class="chapter" data-level="18.2" data-path="use-case-longest-time-series-in-berlin.html"><a href="use-case-longest-time-series-in-berlin.html#download-and-inspect-data"><i class="fa fa-check"></i><b>18.2</b> download and inspect data</a></li>
+<li class="chapter" data-level="18.3" data-path="use-case-longest-time-series-in-berlin.html"><a href="use-case-longest-time-series-in-berlin.html#aggregates-by-month"><i class="fa fa-check"></i><b>18.3</b> aggregates by month</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="use-case-rainfall-intensity-depends-on-temperature.html"><a href="use-case-rainfall-intensity-depends-on-temperature.html"><i class="fa fa-check"></i><b>19</b> - use case: Rainfall intensity depends on temperature</a></li>
+<li class="chapter" data-level="20" data-path="use-case-get-all-daily-rainfall-data-20142016.html"><a href="use-case-get-all-daily-rainfall-data-20142016.html"><i class="fa fa-check"></i><b>20</b> - use case: Get all daily rainfall data 2014:2016</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="use-case-get-all-daily-rainfall-data-20142016.html"><a href="use-case-get-all-daily-rainfall-data-20142016.html#get-the-urls-of-data-to-be-downloaded"><i class="fa fa-check"></i><b>20.1</b> get the URLS of data to be downloaded</a></li>
+<li class="chapter" data-level="20.2" data-path="use-case-get-all-daily-rainfall-data-20142016.html"><a href="use-case-get-all-daily-rainfall-data-20142016.html#download-the-data"><i class="fa fa-check"></i><b>20.2</b> download the data</a></li>
+<li class="chapter" data-level="20.3" data-path="use-case-get-all-daily-rainfall-data-20142016.html"><a href="use-case-get-all-daily-rainfall-data-20142016.html#read-the-data"><i class="fa fa-check"></i><b>20.3</b> read the data</a></li>
+<li class="chapter" data-level="20.4" data-path="use-case-get-all-daily-rainfall-data-20142016.html"><a href="use-case-get-all-daily-rainfall-data-20142016.html#visual-data-checks"><i class="fa fa-check"></i><b>20.4</b> visual data checks</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="use-case-plot-all-rainfall-values-around-a-given-point.html"><a href="use-case-plot-all-rainfall-values-around-a-given-point.html"><i class="fa fa-check"></i><b>21</b> - use case: plot all rainfall values around a given point</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="use-case-plot-all-rainfall-values-around-a-given-point.html"><a href="use-case-plot-all-rainfall-values-around-a-given-point.html#find-meteo-stations-around-a-given-point"><i class="fa fa-check"></i><b>21.1</b> Find meteo stations around a given point</a></li>
+<li class="chapter" data-level="21.2" data-path="use-case-plot-all-rainfall-values-around-a-given-point.html"><a href="use-case-plot-all-rainfall-values-around-a-given-point.html#download-and-process-data"><i class="fa fa-check"></i><b>21.2</b> Download and process data</a></li>
+<li class="chapter" data-level="21.3" data-path="use-case-plot-all-rainfall-values-around-a-given-point.html"><a href="use-case-plot-all-rainfall-values-around-a-given-point.html#plot-rainfall-sum-on-map"><i class="fa fa-check"></i><b>21.3</b> Plot rainfall sum on map</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="use-case-map-climate-data-to-landkreise.html"><a href="use-case-map-climate-data-to-landkreise.html"><i class="fa fa-check"></i><b>22</b> - use case: map climate data to Landkreise</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="use-case-map-climate-data-to-landkreise.html"><a href="use-case-map-climate-data-to-landkreise.html#find-available-meteo-stations-for-each-district"><i class="fa fa-check"></i><b>22.1</b> find available meteo stations for each district</a></li>
+<li class="chapter" data-level="22.2" data-path="use-case-map-climate-data-to-landkreise.html"><a href="use-case-map-climate-data-to-landkreise.html#average-data-per-district"><i class="fa fa-check"></i><b>22.2</b> Average data per district</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="use-case-phenology-data.html"><a href="use-case-phenology-data.html"><i class="fa fa-check"></i><b>23</b> - use case: phenology data</a></li>
+<li class="chapter" data-level="24" data-path="use-case-derived-data.html"><a href="use-case-derived-data.html"><i class="fa fa-check"></i><b>24</b> - use case: derived data</a></li>
+<li class="chapter" data-level="25" data-path="history.html"><a href="history.html"><i class="fa fa-check"></i><b>25</b> history</a>
+<ul>
+<li class="chapter" data-level="25.1" data-path="history.html"><a href="history.html#early-beginnings"><i class="fa fa-check"></i><b>25.1</b> early beginnings</a></li>
+<li class="chapter" data-level="25.2" data-path="history.html"><a href="history.html#a-giant-leap"><i class="fa fa-check"></i><b>25.2</b> a giant leap…</a></li>
+<li class="chapter" data-level="25.3" data-path="history.html"><a href="history.html#the-future"><i class="fa fa-check"></i><b>25.3</b> the future</a></li>
+</ul></li>
+<li class="chapter" data-level="26" data-path="search.html"><a href="search.html"><i class="fa fa-check"></i><b>26</b> search</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">rdwd</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="use-case-monthy-gridded-data" class="section level1 hasAnchor" number="14">
+<h1><span class="header-section-number">14</span> - use case: monthy gridded data<a href="use-case-monthy-gridded-data.html#use-case-monthy-gridded-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>From the <a href="https://opendata.dwd.de/climate_environment/CDC/grids_germany/monthly">monthly</a>
+folder at <a href="https://www.rdocumentation.org/packages/rdwd/topics/dwdbase" target="_blank"><code>gridbase</code></a>, we want to
+download .asc.gz files for selected years and open them in R for further processing.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="use-case-monthy-gridded-data.html#cb65-1" tabindex="-1"></a>rdwd<span class="sc">::</span><span class="fu">updateRdwd</span>()</span>
+<span id="cb65-2"><a href="use-case-monthy-gridded-data.html#cb65-2" tabindex="-1"></a><span class="fu">library</span>(rdwd)</span>
+<span id="cb65-3"><a href="use-case-monthy-gridded-data.html#cb65-3" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;gridIndex&quot;</span>)</span>
+<span id="cb65-4"><a href="use-case-monthy-gridded-data.html#cb65-4" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&quot;monthly/precipitation&quot;</span>, gridIndex, <span class="at">value=</span><span class="cn">TRUE</span>) <span class="co"># 1&#39;709</span></span>
+<span id="cb65-5"><a href="use-case-monthy-gridded-data.html#cb65-5" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&#39;2014|2015|2016&#39;</span>,index, <span class="at">value=</span><span class="cn">TRUE</span>) <span class="co"># n=36 (3*12)</span></span>
+<span id="cb65-6"><a href="use-case-monthy-gridded-data.html#cb65-6" tabindex="-1"></a></span>
+<span id="cb65-7"><a href="use-case-monthy-gridded-data.html#cb65-7" tabindex="-1"></a>precip <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(index[<span class="dv">6</span><span class="sc">:</span><span class="dv">8</span>], <span class="at">base=</span>gridbase, <span class="at">joinbf=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>For .asc.gz files, <a href="https://www.rdocumentation.org/packages/rdwd/topics/readDWD" target="_blank"><code>readDWD</code></a> calls <a href="https://www.rdocumentation.org/packages/rdwd/topics/readDWD.raster" target="_blank"><code>readDWD.raster</code></a>.
+This runs faster if called a second time due to skip=TRUE in <code>gunzip</code>.<br />
+Now we can project and visualize with:</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="use-case-monthy-gridded-data.html#cb66-1" tabindex="-1"></a><span class="fu">plotRadar</span>(precip[[<span class="dv">1</span>]], <span class="at">proj=</span><span class="st">&quot;seasonal&quot;</span>, <span class="at">extent=</span><span class="cn">NULL</span>, <span class="at">main=</span><span class="fu">names</span>(precip)[<span class="dv">1</span>])</span></code></pre></div>
+<p><img src="_main_files/figure-html/grid_monthly_vis-1.png" width="672" /></p>
+<p>For further processing, we can create a terra raster from the list, which e.g. enables fast and easy indexing.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="use-case-monthy-gridded-data.html#cb67-1" tabindex="-1"></a>precip <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rast</span>(precip)</span></code></pre></div>
+<p>This is expanded upon in the next <a href="use-case-values-at-locations-in-grid.html">use case</a>.</p>
+<p>A few projection references:</p>
+<p>The <a href="https://opendata.dwd.de/climate_environment/CDC/grids_germany/seasonal/air_temperature_max/BESCHREIBUNG_gridsgermany_seasonal_air_temperature_max_de.pdf">Beschreibung file</a>
+leads to
+<a href="https://spatialreference.org/ref/epsg/31467/" class="uri">https://spatialreference.org/ref/epsg/31467/</a>
+which is used internally in <a href="https://www.rdocumentation.org/packages/rdwd/topics/projectRasterDWD" target="_blank"><code>projectRasterDWD</code></a>, currently at
+<a href="https://github.com/brry/rdwd/blob/master/R/projectRasterDWD.R#L70">line 70</a>.</p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="use-case-vectorized-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="use-case-values-at-locations-in-grid.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>
