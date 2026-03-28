@@ -46,7 +46,9 @@
 #'               DEFAULT: 0 (ignore argument)
 #' @param dividebyten Logical (vector): Divide the values in raster files by ten?
 #'               That way, \[1/10 mm] gets transformed to \[mm] units.
-#'               Used in [readDWD.radar()], [readDWD.raster()] and [readDWD.asc()].
+#'               Used in [readDWD.raster()] and [readDWD.asc()].
+#'               Not used in [readDWD.radar()], which relies on [dwdradar::readRadarFile()]
+#'               to apply the header precision automatically.
 #'               DEFAULT: TRUE
 #' @param var    var for [readDWD.nc()]. DEFAULT: ""
 #' @param progbar Logical: present a progress bar with estimated remaining time?
@@ -148,7 +150,7 @@ nt <- function(x, pre="readDWD.", post="()") # nt: nice table
   }
 msg <- paste0("Reading ",length(file)," file", if(length(file)>1)"s", " with ",nt(type))
 if(any("data" %in% type)) msg <- paste0(msg, " and fread=",nt(fread,"",""))
-if(any(c("radar", "raster", "asc") %in% type)) 
+if(any(c("raster", "asc") %in% type))
   msg <- paste0(msg, " and dividebyten=",nt(dividebyten,"",""))
 if(any("grib2" %in% type))
  message(msg, appendLF=FALSE) else
@@ -162,7 +164,7 @@ if(type[i]=="data")   arg <- list(fread=fread[i], varnames=varnames[i], format=f
 if(type[i]=="binary") arg <- list(progbar=progbar)
 if(type[i]=="rklim")  arg <- list(progbar=progbar)
 if(type[i]=="raster") arg <- list(dividebyten=dividebyten[i])
-if(type[i]=="radar")  arg <- list(dividebyten=dividebyten[i])
+if(type[i]=="radar")  arg <- list()
 if(type[i]=="nc")     arg <- list(var=var[i])
 if(type[i]=="asc")    arg <- list(progbar=progbar, dividebyten=dividebyten[i])
 # arguments to subfunction:
@@ -761,7 +763,7 @@ rbmat <- lapply(rbmat, terra::rast)
 rbmat <- terra::rast(rbmat)
 rbmeta <- rb[[1]]$meta
 rbmeta$filename <- file
-rbmeta$date <- as.POSIXct(time)
+rbmeta$date <- as.POSIXct(time, tz="UTC")
 return(invisible(list(dat=rbmat, meta=rbmeta)))
 }
 
@@ -1013,12 +1015,14 @@ return(invisible(out))
 #'                  meta (list from the first subfile, but with vector of dates)?
 #'                  DEFAULT: TRUE
 #' @param dividebyten Logical: Divide the numerical values by 10? See [readDWD].
-#'                  toraster???  DEFAULT: TRUE
+#'                  [dwdradar::readRadarFile()] already applies the header precision
+#'                  (e.g. `PR E-01` → ×0.1), so values are already in mm.
+#'                  DEFAULT: FALSE
 #' @param quiet     Ignored.
 #'                  DEFAULT: FALSE through [rdwdquiet()]
 #' @param \dots     Further arguments passed to [dwdradar::readRadarFile()],
 #'                  i.e. `na` and `clutter`
-readDWD.radar <- function(file, gargs=NULL, toraster=TRUE, dividebyten=TRUE, quiet=rdwdquiet(), ...)
+readDWD.radar <- function(file, gargs=NULL, toraster=TRUE, dividebyten=FALSE, quiet=rdwdquiet(), ...)
 {
 checkSuggestedPackage("dwdradar","rdwd:::readDWD.radar")
 checkSuggestedPackage("R.utils", "rdwd:::readDWD.radar")
@@ -1330,7 +1334,7 @@ rbmat <- lapply(rbmat, terra::rast)
 rbmat <- terra::rast(rbmat)
 rbmeta <- rb[[1]]$meta
 rbmeta$filename <- file
-rbmeta$date <- as.POSIXct(time)
+rbmeta$date <- as.POSIXct(time, tz="UTC")
 return(invisible(list(dat=rbmat, meta=rbmeta)))
 }
 
