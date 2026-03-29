@@ -21,7 +21,7 @@
 #'                then [tools::R_user_dir]`("rdwd", which="cache")`.\cr\cr
 #'                `dir` can also be set with 
 #'                `options(rdwdlocdir="YOUR/PATH")` thanks to the 
-#'                DEFAULT: [getOption]`("rdwdlocdir")`
+#'                DEFAULT: [base::getOption]`("rdwdlocdir")`
 #' @param file    Optional: path(s) at `dir`. DEFAULT: NULL
 #' @param quiet   Ignored since version 1.9.4 (2025-10-20).
 #'                DEFAULT: FALSE through [rdwdquiet()] 
