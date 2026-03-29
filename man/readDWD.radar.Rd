@@ -8,7 +8,7 @@ readDWD.radar(
   file,
   gargs = NULL,
   toraster = TRUE,
-  dividebyten = TRUE,
+  dividebyten = FALSE,
   quiet = rdwdquiet(),
   ...
 )
@@ -27,7 +27,9 @@ meta (list from the first subfile, but with vector of dates)?
 DEFAULT: TRUE}
 
 \item{dividebyten}{Logical: Divide the numerical values by 10? See \link{readDWD}.
-toraster???  DEFAULT: TRUE}
+\code{\link[dwdradar:readRadarFile]{dwdradar::readRadarFile()}} already applies the header precision
+(e.g. \verb{PR E-01} → ×0.1), so values are already in mm.
+DEFAULT: FALSE}
 
 \item{quiet}{Ignored.
 DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}

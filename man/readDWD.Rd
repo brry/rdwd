@@ -44,7 +44,9 @@ DEFAULT: 0 (ignore argument)}
 
 \item{dividebyten}{Logical (vector): Divide the values in raster files by ten?
 That way, [1/10 mm] gets transformed to [mm] units.
-Used in \code{\link[=readDWD.radar]{readDWD.radar()}}, \code{\link[=readDWD.raster]{readDWD.raster()}} and \code{\link[=readDWD.asc]{readDWD.asc()}}.
+Used in \code{\link[=readDWD.raster]{readDWD.raster()}} and \code{\link[=readDWD.asc]{readDWD.asc()}}.
+Not used in \code{\link[=readDWD.radar]{readDWD.radar()}}, which relies on \code{\link[dwdradar:readRadarFile]{dwdradar::readRadarFile()}}
+to apply the header precision automatically.
 DEFAULT: TRUE}
 
 \item{var}{var for \code{\link[=readDWD.nc]{readDWD.nc()}}. DEFAULT: ""}
