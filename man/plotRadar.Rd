@@ -100,7 +100,7 @@ Creates a separate plot for each layer, a selection is possible.
 link <- "seasonal/air_temperature_mean/16_DJF/grids_germany_seasonal_air_temp_mean_188216.asc.gz"
 rad <- dataDWD(link, base=gridbase, joinbf=TRUE)
 radp <- plotRadar(rad, proj="seasonal", extent=NULL, main="plotRadar ex")
-plotRadar(radp, ylim=c(52,54), project=FALSE)
+plotRadar(radp, ylim=c(52,54), project=FALSE, mar=c(2.5, 1.5, 2.5, 4))
 
 # plotRadar equivalent, map only country borders:
 radpm <- projectRasterDWD(rad[[1]], proj="seasonal", extent=NULL)

@@ -17,7 +17,7 @@
 #' link <- "seasonal/air_temperature_mean/16_DJF/grids_germany_seasonal_air_temp_mean_188216.asc.gz"
 #' rad <- dataDWD(link, base=gridbase, joinbf=TRUE)
 #' radp <- plotRadar(rad, proj="seasonal", extent=NULL, main="plotRadar ex")
-#' plotRadar(radp, ylim=c(52,54), project=FALSE)
+#' plotRadar(radp, ylim=c(52,54), project=FALSE, mar=c(2.5, 1.5, 2.5, 4))
 #' 
 #' # plotRadar equivalent, map only country borders:
 #' radpm <- projectRasterDWD(rad[[1]], proj="seasonal", extent=NULL)
@@ -120,7 +120,7 @@ EUR <- terra::vect(system.file("extdata/EUR.gpkg", package="rdwd"))
 
 singlemap <- function(x_i, main_i)
  {
- terra::plot(EUR, xlim=xlim, ylim=ylim, border=eu, col=land, background=sea, las=las)
+ terra::plot(EUR, xlim=xlim, ylim=ylim, border=eu, col=land, background=sea, las=las, mar=mar)
  terra::plot(x_i, add=TRUE, range=zlim, col=col, ...)
  terra::plot(DEU, add=TRUE, border=de)
  terra::plot(EUR, add=TRUE, border=eu)
@@ -149,7 +149,7 @@ if(is.matrix(zlim)) zlim <- range(zlim[,lay], na.rm=TRUE)
 if(identical(zlim, "ind")) zlim <- NULL
 
 # set graphical parameters:
-op <- par(mar=mar)
+op <- par()$mar # not set since 1.7-49 (2023-09) https://github.com/rspatial/terra/issues/1297
 if(!keeppar) on.exit(par(op), add=TRUE)
 
 # Use function for each layer separately

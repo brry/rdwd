@@ -1000,7 +1000,7 @@ return(invisible(out))
 #' @examples
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
 #' # recent radar files
-#' rrf <- indexFTP("hourly/radolan/recent/bin", base=gridbase, dir=tempdir())
+#' rrf <- indexFTP("hourly/radolan/recent/bin", base=gridbase, dir=tempdir()) # 20secs
 #' lrf <- dataDWD(rrf[773], base=gridbase, joinbf=TRUE, dir=tempdir(), read=FALSE)
 #' r <- readDWD(lrf)
 #' plotRadar(r$dat, main=paste("mm in 24 hours preceding", r$meta$date))
