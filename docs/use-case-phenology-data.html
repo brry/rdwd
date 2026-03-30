@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>23 - use case: phenology data | rdwd</title>
   <meta name="description" content="23 - use case: phenology data | rdwd" />
-  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="23 - use case: phenology data | rdwd" />
   <meta property="og:type" content="book" />
@@ -51,7 +51,7 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<link href="libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
@@ -265,15 +265,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Located here:
 <a href="https://opendata.dwd.de/climate_environment/CDC/observations_germany/phenology" class="uri">https://opendata.dwd.de/climate_environment/CDC/observations_germany/phenology</a></p>
 <p>This example uses data in the subfolder <a href="https://opendata.dwd.de/climate_environment/CDC/observations_germany/phenology/annual_reporters/crops/historical/">annual/crops/hist</a></p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="use-case-phenology-data.html#cb115-1" tabindex="-1"></a>rdwd<span class="sc">::</span><span class="fu">updateRdwd</span>()</span>
-<span id="cb115-2"><a href="use-case-phenology-data.html#cb115-2" tabindex="-1"></a><span class="fu">library</span>(rdwd)</span>
-<span id="cb115-3"><a href="use-case-phenology-data.html#cb115-3" tabindex="-1"></a>phenocrop_base <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">sub</span>(<span class="st">&quot;climate$&quot;</span>, <span class="st">&quot;phenology&quot;</span>, dwdbase), </span>
-<span id="cb115-4"><a href="use-case-phenology-data.html#cb115-4" tabindex="-1"></a>                        <span class="st">&quot;/annual_reporters/crops/historical/&quot;</span>)</span>
-<span id="cb115-5"><a href="use-case-phenology-data.html#cb115-5" tabindex="-1"></a><span class="co"># pheno_urls &lt;- indexFTP(&quot;&quot;, base=phenocrop_base, dir=&quot;Pheno&quot;)</span></span>
-<span id="cb115-6"><a href="use-case-phenology-data.html#cb115-6" tabindex="-1"></a>kohl_url <span class="ot">&lt;-</span> <span class="st">&quot;PH_Jahresmelder_Landwirtschaft_Kulturpflanze_Weisskohl_1951_1990_hist.txt&quot;</span><span class="co"># 9 MB</span></span>
-<span id="cb115-7"><a href="use-case-phenology-data.html#cb115-7" tabindex="-1"></a>kohl_file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(<span class="at">base=</span>phenocrop_base, <span class="at">url=</span>kohl_url, <span class="at">joinbf=</span><span class="cn">TRUE</span>, <span class="at">read=</span><span class="cn">FALSE</span>) </span>
-<span id="cb115-8"><a href="use-case-phenology-data.html#cb115-8" tabindex="-1"></a>kohl <span class="ot">&lt;-</span> <span class="fu">read.table</span>(kohl_file, <span class="at">sep=</span><span class="st">&quot;;&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
-<span id="cb115-9"><a href="use-case-phenology-data.html#cb115-9" tabindex="-1"></a><span class="fu">summary</span>(kohl)</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="use-case-phenology-data.html#cb114-1" tabindex="-1"></a>rdwd<span class="sc">::</span><span class="fu">updateRdwd</span>()</span>
+<span id="cb114-2"><a href="use-case-phenology-data.html#cb114-2" tabindex="-1"></a><span class="fu">library</span>(rdwd)</span>
+<span id="cb114-3"><a href="use-case-phenology-data.html#cb114-3" tabindex="-1"></a>phenocrop_base <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">sub</span>(<span class="st">&quot;climate$&quot;</span>, <span class="st">&quot;phenology&quot;</span>, dwdbase), </span>
+<span id="cb114-4"><a href="use-case-phenology-data.html#cb114-4" tabindex="-1"></a>                        <span class="st">&quot;/annual_reporters/crops/historical/&quot;</span>)</span>
+<span id="cb114-5"><a href="use-case-phenology-data.html#cb114-5" tabindex="-1"></a><span class="co"># pheno_urls &lt;- indexFTP(&quot;&quot;, base=phenocrop_base, dir=&quot;Pheno&quot;)</span></span>
+<span id="cb114-6"><a href="use-case-phenology-data.html#cb114-6" tabindex="-1"></a>kohl_url <span class="ot">&lt;-</span> <span class="st">&quot;PH_Jahresmelder_Landwirtschaft_Kulturpflanze_Weisskohl_1951_1990_hist.txt&quot;</span><span class="co"># 9 MB</span></span>
+<span id="cb114-7"><a href="use-case-phenology-data.html#cb114-7" tabindex="-1"></a>kohl_file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(<span class="at">base=</span>phenocrop_base, <span class="at">url=</span>kohl_url, <span class="at">joinbf=</span><span class="cn">TRUE</span>, <span class="at">read=</span><span class="cn">FALSE</span>) </span>
+<span id="cb114-8"><a href="use-case-phenology-data.html#cb114-8" tabindex="-1"></a>kohl <span class="ot">&lt;-</span> <span class="fu">read.table</span>(kohl_file, <span class="at">sep=</span><span class="st">&quot;;&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb114-9"><a href="use-case-phenology-data.html#cb114-9" tabindex="-1"></a><span class="fu">summary</span>(kohl)</span></code></pre></div>
 <pre><code>##   Stations_id     Referenzjahr  Qualitaetsniveau   Objekt_id      Phase_id    
 ##  Min.   :   98   Min.   :1951   Min.   : 1.000   Min.   :244   Min.   :11.00  
 ##  1st Qu.: 9079   1st Qu.:1969   1st Qu.: 7.000   1st Qu.:244   1st Qu.:11.00  

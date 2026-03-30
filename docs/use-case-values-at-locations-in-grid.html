@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>15 - use case: values at locations in grid | rdwd</title>
   <meta name="description" content="15 - use case: values at locations in grid | rdwd" />
-  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="15 - use case: values at locations in grid | rdwd" />
   <meta property="og:type" content="book" />
@@ -51,7 +51,7 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<link href="libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
@@ -263,13 +263,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="use-case-values-at-locations-in-grid" class="section level1 hasAnchor" number="15">
 <h1><span class="header-section-number">15</span> - use case: values at locations in grid<a href="use-case-values-at-locations-in-grid.html#use-case-values-at-locations-in-grid" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Obtain time series of values at a selected location in gridded data.</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="use-case-values-at-locations-in-grid.html#cb68-1" tabindex="-1"></a>rdwd<span class="sc">::</span><span class="fu">updateRdwd</span>()</span>
-<span id="cb68-2"><a href="use-case-values-at-locations-in-grid.html#cb68-2" tabindex="-1"></a><span class="fu">library</span>(rdwd)</span>
-<span id="cb68-3"><a href="use-case-values-at-locations-in-grid.html#cb68-3" tabindex="-1"></a><span class="co"># select data</span></span>
-<span id="cb68-4"><a href="use-case-values-at-locations-in-grid.html#cb68-4" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">indexFTP</span>(<span class="at">folder=</span><span class="st">&quot;annual/air_temperature_max&quot;</span>, <span class="at">base=</span>gridbase)</span>
-<span id="cb68-5"><a href="use-case-values-at-locations-in-grid.html#cb68-5" tabindex="-1"></a>index <span class="ot">&lt;-</span> index[<span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)] <span class="co"># exclude description files</span></span>
-<span id="cb68-6"><a href="use-case-values-at-locations-in-grid.html#cb68-6" tabindex="-1"></a>index <span class="ot">&lt;-</span> index[<span class="fu">as.numeric</span>(<span class="fu">substr</span>(index,<span class="dv">62</span>,<span class="dv">65</span>))<span class="sc">&gt;=</span><span class="dv">2013</span>] <span class="co"># after year 2013</span></span>
-<span id="cb68-7"><a href="use-case-values-at-locations-in-grid.html#cb68-7" tabindex="-1"></a>index</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="use-case-values-at-locations-in-grid.html#cb67-1" tabindex="-1"></a>rdwd<span class="sc">::</span><span class="fu">updateRdwd</span>()</span>
+<span id="cb67-2"><a href="use-case-values-at-locations-in-grid.html#cb67-2" tabindex="-1"></a><span class="fu">library</span>(rdwd)</span>
+<span id="cb67-3"><a href="use-case-values-at-locations-in-grid.html#cb67-3" tabindex="-1"></a><span class="co"># select data</span></span>
+<span id="cb67-4"><a href="use-case-values-at-locations-in-grid.html#cb67-4" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">indexFTP</span>(<span class="at">folder=</span><span class="st">&quot;annual/air_temperature_max&quot;</span>, <span class="at">base=</span>gridbase)</span>
+<span id="cb67-5"><a href="use-case-values-at-locations-in-grid.html#cb67-5" tabindex="-1"></a>index <span class="ot">&lt;-</span> index[<span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)] <span class="co"># exclude description files</span></span>
+<span id="cb67-6"><a href="use-case-values-at-locations-in-grid.html#cb67-6" tabindex="-1"></a>index <span class="ot">&lt;-</span> index[<span class="fu">as.numeric</span>(<span class="fu">substr</span>(index,<span class="dv">62</span>,<span class="dv">65</span>))<span class="sc">&gt;=</span><span class="dv">2013</span>] <span class="co"># after year 2013</span></span>
+<span id="cb67-7"><a href="use-case-values-at-locations-in-grid.html#cb67-7" tabindex="-1"></a>index</span></code></pre></div>
 <pre><code>##  [1] &quot;annual/air_temperature_max/grids_germany_annual_air_temp_max_201317.asc.gz&quot;
 ##  [2] &quot;annual/air_temperature_max/grids_germany_annual_air_temp_max_201417.asc.gz&quot;
 ##  [3] &quot;annual/air_temperature_max/grids_germany_annual_air_temp_max_201517.asc.gz&quot;
@@ -281,20 +281,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  [9] &quot;annual/air_temperature_max/grids_germany_annual_air_temp_max_202117.asc.gz&quot;
 ## [10] &quot;annual/air_temperature_max/grids_germany_annual_air_temp_max_202217.asc.gz&quot;
 ## [11] &quot;annual/air_temperature_max/grids_germany_annual_air_temp_max_202317.asc.gz&quot;
-## [12] &quot;annual/air_temperature_max/grids_germany_annual_air_temp_max_202417.asc.gz&quot;</code></pre>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="use-case-values-at-locations-in-grid.html#cb70-1" tabindex="-1"></a><span class="co"># download &amp; read data:</span></span>
-<span id="cb70-2"><a href="use-case-values-at-locations-in-grid.html#cb70-2" tabindex="-1"></a>tempmax <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(index, <span class="at">base=</span>gridbase, <span class="at">joinbf=</span><span class="cn">TRUE</span>)</span>
-<span id="cb70-3"><a href="use-case-values-at-locations-in-grid.html#cb70-3" tabindex="-1"></a><span class="fu">names</span>(tempmax) <span class="ot">&lt;-</span> <span class="fu">substr</span>(<span class="fu">names</span>(tempmax), <span class="dv">62</span>, <span class="dv">65</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="use-case-values-at-locations-in-grid.html#cb71-1" tabindex="-1"></a><span class="co"># visual data &amp; projection check:</span></span>
-<span id="cb71-2"><a href="use-case-values-at-locations-in-grid.html#cb71-2" tabindex="-1"></a><span class="fu">plotRadar</span>(tempmax[[<span class="dv">1</span>]], <span class="at">proj=</span><span class="st">&quot;seasonal&quot;</span>,<span class="at">extent=</span><span class="st">&quot;seasonal&quot;</span>, </span>
-<span id="cb71-3"><a href="use-case-values-at-locations-in-grid.html#cb71-3" tabindex="-1"></a>          <span class="at">main=</span><span class="st">&quot;Annual grid of monthly averaged daily maximum air temperature (2m) - 2013&quot;</span>)</span></code></pre></div>
-<p><img src="rdwd_files/figure-html/grid_loc_val_project-1.png" width="672" /></p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="use-case-values-at-locations-in-grid.html#cb72-1" tabindex="-1"></a><span class="co"># terra raster:</span></span>
-<span id="cb72-2"><a href="use-case-values-at-locations-in-grid.html#cb72-2" tabindex="-1"></a>tempmax_stack <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rast</span>(tempmax)</span>
-<span id="cb72-3"><a href="use-case-values-at-locations-in-grid.html#cb72-3" tabindex="-1"></a>tempmax_stack <span class="ot">&lt;-</span> <span class="fu">projectRasterDWD</span>(tempmax_stack, <span class="at">proj=</span><span class="st">&quot;seasonal&quot;</span>,<span class="at">extent=</span><span class="st">&quot;seasonal&quot;</span>)</span>
-<span id="cb72-4"><a href="use-case-values-at-locations-in-grid.html#cb72-4" tabindex="-1"></a>tempmax_stack</span></code></pre></div>
+## [12] &quot;annual/air_temperature_max/grids_germany_annual_air_temp_max_202417.asc.gz&quot;
+## [13] &quot;annual/air_temperature_max/grids_germany_annual_air_temp_max_202517.asc.gz&quot;</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="use-case-values-at-locations-in-grid.html#cb69-1" tabindex="-1"></a><span class="co"># download &amp; read data:</span></span>
+<span id="cb69-2"><a href="use-case-values-at-locations-in-grid.html#cb69-2" tabindex="-1"></a>tempmax <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(index, <span class="at">base=</span>gridbase, <span class="at">joinbf=</span><span class="cn">TRUE</span>)</span>
+<span id="cb69-3"><a href="use-case-values-at-locations-in-grid.html#cb69-3" tabindex="-1"></a><span class="fu">names</span>(tempmax) <span class="ot">&lt;-</span> <span class="fu">substr</span>(<span class="fu">names</span>(tempmax), <span class="dv">62</span>, <span class="dv">65</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="use-case-values-at-locations-in-grid.html#cb70-1" tabindex="-1"></a><span class="co"># visual data &amp; projection check:</span></span>
+<span id="cb70-2"><a href="use-case-values-at-locations-in-grid.html#cb70-2" tabindex="-1"></a><span class="fu">plotRadar</span>(tempmax[[<span class="dv">1</span>]], <span class="at">proj=</span><span class="st">&quot;seasonal&quot;</span>,<span class="at">extent=</span><span class="st">&quot;seasonal&quot;</span>, </span>
+<span id="cb70-3"><a href="use-case-values-at-locations-in-grid.html#cb70-3" tabindex="-1"></a>          <span class="at">main=</span><span class="st">&quot;Annual grid of monthly averaged daily maximum air temperature (2m) - 2013&quot;</span>)</span></code></pre></div>
+<p><img src="rdwd_files/figure-html/grid_loc_val_project-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="use-case-values-at-locations-in-grid.html#cb71-1" tabindex="-1"></a><span class="co"># terra raster:</span></span>
+<span id="cb71-2"><a href="use-case-values-at-locations-in-grid.html#cb71-2" tabindex="-1"></a>tempmax_stack <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rast</span>(tempmax)</span>
+<span id="cb71-3"><a href="use-case-values-at-locations-in-grid.html#cb71-3" tabindex="-1"></a>tempmax_stack <span class="ot">&lt;-</span> <span class="fu">projectRasterDWD</span>(tempmax_stack, <span class="at">proj=</span><span class="st">&quot;seasonal&quot;</span>,<span class="at">extent=</span><span class="st">&quot;seasonal&quot;</span>)</span>
+<span id="cb71-4"><a href="use-case-values-at-locations-in-grid.html#cb71-4" tabindex="-1"></a>tempmax_stack</span></code></pre></div>
 <pre><code>## class       : SpatRaster 
-## size        : 712, 917, 12  (nrow, ncol, nlyr)
+## size        : 712, 917, 13  (nrow, ncol, nlyr)
 ## resolution  : 0.01113365, 0.01113365  (x, y)
 ## extent      : 5.565801, 15.77536, 47.13312, 55.06029  (xmin, xmax, ymin, ymax)
 ## coord. ref. : +proj=longlat +datum=WGS84 +no_defs 
@@ -302,13 +303,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## names       :       2013,      2014,      2015,       2016,       2017,      2018, ... 
 ## min values  :  0.1265155,  1.514933,  2.026515,  0.5265155,  0.4445348,  1.226516, ... 
 ## max values  : 15.5918045, 17.526398, 17.495947, 16.2808685, 16.9263973, 18.000000, ...</code></pre>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="use-case-values-at-locations-in-grid.html#cb74-1" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">plot</span>(tempmax_stack, <span class="at">range=</span><span class="fu">range</span>(terra<span class="sc">::</span><span class="fu">minmax</span>(tempmax_stack)) )</span></code></pre></div>
-<p><img src="rdwd_files/figure-html/grid_loc_val_stack-1.png" width="672" /></p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="use-case-values-at-locations-in-grid.html#cb75-1" tabindex="-1"></a><span class="co"># Time series at given location:</span></span>
-<span id="cb75-2"><a href="use-case-values-at-locations-in-grid.html#cb75-2" tabindex="-1"></a>loc <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="fl">12.65295</span>, <span class="at">y=</span><span class="fl">53.06547</span>) <span class="co"># Aussichtspunkt Kyritz-Ruppiner Heide</span></span>
-<span id="cb75-3"><a href="use-case-values-at-locations-in-grid.html#cb75-3" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">unlist</span>(terra<span class="sc">::</span><span class="fu">extract</span>(tempmax_stack, loc)[<span class="sc">-</span><span class="dv">1</span>]),<span class="dv">1</span>)</span></code></pre></div>
-<pre><code>## 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022 2023 2024 
-## 12.9 14.6 14.2 14.0 13.5 15.1 15.2 15.1 13.6 15.1 14.8 15.5</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="use-case-values-at-locations-in-grid.html#cb73-1" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">plot</span>(tempmax_stack, <span class="at">range=</span><span class="fu">range</span>(terra<span class="sc">::</span><span class="fu">minmax</span>(tempmax_stack)) )</span></code></pre></div>
+<p><img src="rdwd_files/figure-html/grid_loc_val_stack-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="use-case-values-at-locations-in-grid.html#cb74-1" tabindex="-1"></a><span class="co"># Time series at given location:</span></span>
+<span id="cb74-2"><a href="use-case-values-at-locations-in-grid.html#cb74-2" tabindex="-1"></a>loc <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="fl">12.65295</span>, <span class="at">y=</span><span class="fl">53.06547</span>) <span class="co"># Aussichtspunkt Kyritz-Ruppiner Heide</span></span>
+<span id="cb74-3"><a href="use-case-values-at-locations-in-grid.html#cb74-3" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">unlist</span>(terra<span class="sc">::</span><span class="fu">extract</span>(tempmax_stack, loc)[<span class="sc">-</span><span class="dv">1</span>]),<span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022 2023 2024 2025 
+## 12.9 14.6 14.2 14.0 13.5 15.1 15.2 15.1 13.6 15.1 14.8 15.5 14.7</code></pre>
 </div>
             </section>
 

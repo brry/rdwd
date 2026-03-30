@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>13 - use case: vectorized data | rdwd</title>
   <meta name="description" content="13 - use case: vectorized data | rdwd" />
-  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="13 - use case: vectorized data | rdwd" />
   <meta property="og:type" content="book" />
@@ -51,7 +51,7 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<link href="libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
@@ -263,14 +263,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="use-case-vectorized-data" class="section level1 hasAnchor" number="13">
 <h1><span class="header-section-number">13</span> - use case: vectorized data<a href="use-case-vectorized-data.html#use-case-vectorized-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>I’ts always good to update before getting started:</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="use-case-vectorized-data.html#cb62-1" tabindex="-1"></a>rdwd<span class="sc">::</span><span class="fu">updateRdwd</span>()</span>
-<span id="cb62-2"><a href="use-case-vectorized-data.html#cb62-2" tabindex="-1"></a><span class="fu">library</span>(rdwd)</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="use-case-vectorized-data.html#cb61-1" tabindex="-1"></a>rdwd<span class="sc">::</span><span class="fu">updateRdwd</span>()</span>
+<span id="cb61-2"><a href="use-case-vectorized-data.html#cb61-2" tabindex="-1"></a><span class="fu">library</span>(rdwd)</span></code></pre></div>
 <p>Now we’ll just specify some IDs we’re interested in:</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="use-case-vectorized-data.html#cb63-1" tabindex="-1"></a>ids <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="dv">3988</span>, <span class="dv">5559</span>, <span class="dv">2456</span>, <span class="dv">3034</span>, <span class="dv">1964</span>, <span class="dv">4549</span>, <span class="dv">2950</span>, <span class="dv">5419</span>, <span class="dv">2641</span>, <span class="dv">3565</span>)</span>
-<span id="cb63-2"><a href="use-case-vectorized-data.html#cb63-2" tabindex="-1"></a>links <span class="ot">&lt;-</span> <span class="fu">selectDWD</span>(<span class="at">id=</span>ids, <span class="at">res=</span><span class="st">&quot;daily&quot;</span>, <span class="at">var=</span><span class="st">&quot;weather_phenomena&quot;</span>, <span class="at">per=</span><span class="st">&quot;h&quot;</span>)</span>
-<span id="cb63-3"><a href="use-case-vectorized-data.html#cb63-3" tabindex="-1"></a>phen <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(links)</span>
-<span id="cb63-4"><a href="use-case-vectorized-data.html#cb63-4" tabindex="-1"></a><span class="fu">names</span>(phen) <span class="ot">&lt;-</span> <span class="fu">substr</span>(<span class="fu">names</span>(phen), <span class="dv">54</span>,<span class="dv">58</span>) <span class="co"># only IDs (not paths) as name</span></span>
-<span id="cb63-5"><a href="use-case-vectorized-data.html#cb63-5" tabindex="-1"></a><span class="fu">str</span>(phen, <span class="at">max.level=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="use-case-vectorized-data.html#cb62-1" tabindex="-1"></a>ids <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="dv">3988</span>, <span class="dv">5559</span>, <span class="dv">2456</span>, <span class="dv">3034</span>, <span class="dv">1964</span>, <span class="dv">4549</span>, <span class="dv">2950</span>, <span class="dv">5419</span>, <span class="dv">2641</span>, <span class="dv">3565</span>)</span>
+<span id="cb62-2"><a href="use-case-vectorized-data.html#cb62-2" tabindex="-1"></a>links <span class="ot">&lt;-</span> <span class="fu">selectDWD</span>(<span class="at">id=</span>ids, <span class="at">res=</span><span class="st">&quot;daily&quot;</span>, <span class="at">var=</span><span class="st">&quot;weather_phenomena&quot;</span>, <span class="at">per=</span><span class="st">&quot;h&quot;</span>)</span>
+<span id="cb62-3"><a href="use-case-vectorized-data.html#cb62-3" tabindex="-1"></a>phen <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(links)</span>
+<span id="cb62-4"><a href="use-case-vectorized-data.html#cb62-4" tabindex="-1"></a><span class="fu">names</span>(phen) <span class="ot">&lt;-</span> <span class="fu">substr</span>(<span class="fu">names</span>(phen), <span class="dv">54</span>,<span class="dv">58</span>) <span class="co"># only IDs (not paths) as name</span></span>
+<span id="cb62-5"><a href="use-case-vectorized-data.html#cb62-5" tabindex="-1"></a><span class="fu">str</span>(phen, <span class="at">max.level=</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## List of 10
 ##  $ 01964:&#39;data.frame&#39;:   21185 obs. of  13 variables:
 ##  $ 02456:&#39;data.frame&#39;:   23192 obs. of  13 variables:

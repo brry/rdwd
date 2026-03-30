@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>8 Raster data | rdwd</title>
   <meta name="description" content="8 Raster data | rdwd" />
-  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="8 Raster data | rdwd" />
   <meta property="og:type" content="book" />
@@ -51,7 +51,7 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<link href="libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
@@ -268,22 +268,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 data interpolated onto a 1 km raster and radar data up to the last hour,
 I don’t yet understand the structure of the FTP server as well.<br />
 For now, you’ll have to query <a href="https://www.rdocumentation.org/packages/rdwd/topics/index" target="_blank"><code>gridIndex</code></a> yourself, e.g. with</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="raster-data.html#cb43-1" tabindex="-1"></a><span class="fu">data</span>(gridIndex)</span>
-<span id="cb43-2"><a href="raster-data.html#cb43-2" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">grep</span>(<span class="st">&quot;historical&quot;</span>, gridIndex, <span class="at">value=</span><span class="cn">TRUE</span>))</span>
-<span id="cb43-3"><a href="raster-data.html#cb43-3" tabindex="-1"></a></span>
-<span id="cb43-4"><a href="raster-data.html#cb43-4" tabindex="-1"></a><span class="co"># currently available files in a given folder:</span></span>
-<span id="cb43-5"><a href="raster-data.html#cb43-5" tabindex="-1"></a>rasterbase <span class="ot">&lt;-</span> <span class="fu">paste0</span>(gridbase,<span class="st">&quot;/seasonal/air_temperature_mean&quot;</span>)</span>
-<span id="cb43-6"><a href="raster-data.html#cb43-6" tabindex="-1"></a>ftp.files <span class="ot">&lt;-</span> <span class="fu">indexFTP</span>(<span class="st">&quot;/16_DJF&quot;</span>, <span class="at">base=</span>rasterbase, <span class="at">dir=</span><span class="fu">tempdir</span>())</span>
-<span id="cb43-7"><a href="raster-data.html#cb43-7" tabindex="-1"></a></span>
-<span id="cb43-8"><a href="raster-data.html#cb43-8" tabindex="-1"></a><span class="co"># current index of all grid files (takes &gt; 2 min, yields &gt;30k charstrings &gt;5MB):</span></span>
-<span id="cb43-9"><a href="raster-data.html#cb43-9" tabindex="-1"></a>gridIndexNow <span class="ot">&lt;-</span> <span class="fu">indexFTP</span>(<span class="at">base=</span>gridbase, <span class="at">filename=</span><span class="st">&quot;grids&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="raster-data.html#cb42-1" tabindex="-1"></a><span class="fu">data</span>(gridIndex)</span>
+<span id="cb42-2"><a href="raster-data.html#cb42-2" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">grep</span>(<span class="st">&quot;historical&quot;</span>, gridIndex, <span class="at">value=</span><span class="cn">TRUE</span>))</span>
+<span id="cb42-3"><a href="raster-data.html#cb42-3" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="raster-data.html#cb42-4" tabindex="-1"></a><span class="co"># currently available files in a given folder:</span></span>
+<span id="cb42-5"><a href="raster-data.html#cb42-5" tabindex="-1"></a>rasterbase <span class="ot">&lt;-</span> <span class="fu">paste0</span>(gridbase,<span class="st">&quot;/seasonal/air_temperature_mean&quot;</span>)</span>
+<span id="cb42-6"><a href="raster-data.html#cb42-6" tabindex="-1"></a>ftp.files <span class="ot">&lt;-</span> <span class="fu">indexFTP</span>(<span class="st">&quot;/16_DJF&quot;</span>, <span class="at">base=</span>rasterbase, <span class="at">dir=</span><span class="fu">tempdir</span>())</span>
+<span id="cb42-7"><a href="raster-data.html#cb42-7" tabindex="-1"></a></span>
+<span id="cb42-8"><a href="raster-data.html#cb42-8" tabindex="-1"></a><span class="co"># current index of all grid files (takes &gt; 2 min, yields &gt;30k charstrings &gt;5MB):</span></span>
+<span id="cb42-9"><a href="raster-data.html#cb42-9" tabindex="-1"></a>gridIndexNow <span class="ot">&lt;-</span> <span class="fu">indexFTP</span>(<span class="at">base=</span>gridbase, <span class="at">filename=</span><span class="st">&quot;grids&quot;</span>)</span></code></pre></div>
 <p>If you send me examples of how you use it, I can then expand this in <code>rdwd</code>.<br />
 For files that are not yet read correctly, you can also consult the
 Kompositformatbeschreibung at <a href="https://www.dwd.de/DE/leistungen/radolan/radolan.html" class="uri">https://www.dwd.de/DE/leistungen/radolan/radolan.html</a></p>
 <p>Besides at <a href="https://www.rdocumentation.org/packages/rdwd/topics/dwdbase" target="_blank"><code>dwdbase</code></a> and <a href="https://www.rdocumentation.org/packages/rdwd/topics/dwdbase" target="_blank"><code>gridbase</code></a>,
 there’s yet more data at <a href="https://opendata.dwd.de/weather" class="uri">https://opendata.dwd.de/weather</a>.</p>
 <p>Before running the code below, update the package:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="raster-data.html#cb44-1" tabindex="-1"></a>rdwd<span class="sc">::</span><span class="fu">updateRdwd</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="raster-data.html#cb43-1" tabindex="-1"></a>rdwd<span class="sc">::</span><span class="fu">updateRdwd</span>()</span></code></pre></div>
 <p>The following overview will usually unzip only a few selected files for speed and memory considerations.
 In real life, you probably do not want to unzip to a temporary <code>exdir</code>.
 You can also remove <code>read=FALSE</code> in dataDWD and add the needed arguments right there,
@@ -295,92 +295,92 @@ The last line shows what projection and extent to use in <a href="https://www.rd
 <div id="readdwd.raster" class="section level2 hasAnchor" number="8.1">
 <h2><span class="header-section-number">8.1</span> readDWD.raster<a href="raster-data.html#readdwd.raster" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><a href="https://www.rdocumentation.org/packages/rdwd/topics/readDWD.raster" target="_blank"><code>readDWD.raster</code></a> - for actual code, see <a href="use-case-monthy-gridded-data.html">use case: monthly gridded data</a></p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="raster-data.html#cb45-1" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">&quot;seasonal/air_temperature_mean/16_DJF/grids_germany_seasonal_air_temp_mean_188216.asc.gz&quot;</span> <span class="co"># 0.2 MB</span></span>
-<span id="cb45-2"><a href="raster-data.html#cb45-2" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(link, <span class="at">base=</span>gridbase, <span class="at">joinbf=</span><span class="cn">TRUE</span>, <span class="at">read=</span><span class="cn">FALSE</span>)</span>
-<span id="cb45-3"><a href="raster-data.html#cb45-3" tabindex="-1"></a>rad <span class="ot">&lt;-</span> <span class="fu">readDWD</span>(file) <span class="co"># with dividebyten=TRUE</span></span>
-<span id="cb45-4"><a href="raster-data.html#cb45-4" tabindex="-1"></a>rad <span class="ot">&lt;-</span> <span class="fu">readDWD</span>(file) <span class="co"># runs faster at second time due to skip=TRUE</span></span>
-<span id="cb45-5"><a href="raster-data.html#cb45-5" tabindex="-1"></a><span class="fu">plotRadar</span>(rad, <span class="at">main=</span><span class="st">&quot;.raster&quot;</span>, <span class="at">proj=</span><span class="st">&quot;seasonal&quot;</span>, <span class="at">extent=</span><span class="cn">NULL</span>)</span></code></pre></div>
-<p><img src="rdwd_files/figure-html/readDWD_raster-1.png" width="672" /></p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="raster-data.html#cb44-1" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">&quot;seasonal/air_temperature_mean/16_DJF/grids_germany_seasonal_air_temp_mean_188216.asc.gz&quot;</span> <span class="co"># 0.2 MB</span></span>
+<span id="cb44-2"><a href="raster-data.html#cb44-2" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(link, <span class="at">base=</span>gridbase, <span class="at">joinbf=</span><span class="cn">TRUE</span>, <span class="at">read=</span><span class="cn">FALSE</span>)</span>
+<span id="cb44-3"><a href="raster-data.html#cb44-3" tabindex="-1"></a>rad <span class="ot">&lt;-</span> <span class="fu">readDWD</span>(file) <span class="co"># with dividebyten=TRUE</span></span>
+<span id="cb44-4"><a href="raster-data.html#cb44-4" tabindex="-1"></a>rad <span class="ot">&lt;-</span> <span class="fu">readDWD</span>(file) <span class="co"># runs faster at second time due to skip=TRUE</span></span>
+<span id="cb44-5"><a href="raster-data.html#cb44-5" tabindex="-1"></a><span class="fu">plotRadar</span>(rad, <span class="at">main=</span><span class="st">&quot;.raster&quot;</span>, <span class="at">proj=</span><span class="st">&quot;seasonal&quot;</span>, <span class="at">extent=</span><span class="cn">NULL</span>)</span></code></pre></div>
+<p><img src="rdwd_files/figure-html/readDWD_raster-1.png" alt="" width="672" /></p>
 </div>
 <div id="readdwd.nc" class="section level2 hasAnchor" number="8.2">
 <h2><span class="header-section-number">8.2</span> readDWD.nc<a href="raster-data.html#readdwd.nc" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><a href="https://www.rdocumentation.org/packages/rdwd/topics/readDWD.nc" target="_blank"><code>readDWD.nc</code></a></p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="raster-data.html#cb46-1" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">&quot;daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz&quot;</span>  <span class="co">#  5 MB</span></span>
-<span id="cb46-2"><a href="raster-data.html#cb46-2" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(link, <span class="at">base=</span>gridbase, <span class="at">joinbf=</span><span class="cn">TRUE</span>, <span class="at">read=</span><span class="cn">FALSE</span>, <span class="at">force=</span>T)</span>
-<span id="cb46-3"><a href="raster-data.html#cb46-3" tabindex="-1"></a>rad <span class="ot">&lt;-</span> <span class="fu">readDWD</span>(file) <span class="co"># can also have interactive selection of variable</span></span>
-<span id="cb46-4"><a href="raster-data.html#cb46-4" tabindex="-1"></a><span class="fu">plotRadar</span>(rad, <span class="at">main=</span><span class="st">&quot;.nc&quot;</span>, <span class="at">proj=</span><span class="st">&quot;nc&quot;</span>, <span class="at">extent=</span><span class="st">&quot;nc&quot;</span>, <span class="at">layer=</span><span class="dv">1</span>)</span></code></pre></div>
-<p><img src="rdwd_files/figure-html/readDWD_nc-1.png" width="672" /></p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="raster-data.html#cb45-1" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">&quot;daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz&quot;</span>  <span class="co">#  5 MB</span></span>
+<span id="cb45-2"><a href="raster-data.html#cb45-2" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(link, <span class="at">base=</span>gridbase, <span class="at">joinbf=</span><span class="cn">TRUE</span>, <span class="at">read=</span><span class="cn">FALSE</span>, <span class="at">force=</span>T)</span>
+<span id="cb45-3"><a href="raster-data.html#cb45-3" tabindex="-1"></a>rad <span class="ot">&lt;-</span> <span class="fu">readDWD</span>(file) <span class="co"># can also have interactive selection of variable</span></span>
+<span id="cb45-4"><a href="raster-data.html#cb45-4" tabindex="-1"></a><span class="fu">plotRadar</span>(rad, <span class="at">main=</span><span class="st">&quot;.nc&quot;</span>, <span class="at">proj=</span><span class="st">&quot;nc&quot;</span>, <span class="at">extent=</span><span class="st">&quot;nc&quot;</span>, <span class="at">layer=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="rdwd_files/figure-html/readDWD_nc-1.png" alt="" width="672" /></p>
 </div>
 <div id="readdwd.binary-rw" class="section level2 hasAnchor" number="8.3">
 <h2><span class="header-section-number">8.3</span> readDWD.binary (RW)<a href="raster-data.html#readdwd.binary-rw" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><a href="https://www.rdocumentation.org/packages/rdwd/topics/readDWD.binary" target="_blank"><code>readDWD.binary</code></a> - see also <a href="use-case-recent-hourly-radar-files.html">use case: recent hourly radar files</a></p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="raster-data.html#cb47-1" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">&quot;hourly/radolan/reproc/2017_002/bin/2017/RW2017.002_201712.tar.gz&quot;</span>  <span class="co"># 25 MB</span></span>
-<span id="cb47-2"><a href="raster-data.html#cb47-2" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(link, <span class="at">base=</span>gridbase, <span class="at">joinbf=</span><span class="cn">TRUE</span>, <span class="at">read=</span><span class="cn">FALSE</span>)</span>
-<span id="cb47-3"><a href="raster-data.html#cb47-3" tabindex="-1"></a>rad <span class="ot">&lt;-</span> <span class="fu">readDWD</span>(file, <span class="at">exdir=</span><span class="fu">tempdir</span>(), <span class="at">selection=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
-<span id="cb47-4"><a href="raster-data.html#cb47-4" tabindex="-1"></a><span class="fu">plotRadar</span>(rad<span class="sc">$</span>dat, <span class="at">main=</span><span class="st">&quot;.binary RW&quot;</span>, <span class="at">extent=</span><span class="st">&quot;rw&quot;</span>, <span class="at">layer=</span><span class="dv">1</span>)</span></code></pre></div>
-<p><img src="rdwd_files/figure-html/readDWD_binary_rw-1.png" width="672" /></p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="raster-data.html#cb46-1" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">&quot;hourly/radolan/reproc/2017_002/bin/2017/RW2017.002_201712.tar.gz&quot;</span>  <span class="co"># 25 MB</span></span>
+<span id="cb46-2"><a href="raster-data.html#cb46-2" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(link, <span class="at">base=</span>gridbase, <span class="at">joinbf=</span><span class="cn">TRUE</span>, <span class="at">read=</span><span class="cn">FALSE</span>)</span>
+<span id="cb46-3"><a href="raster-data.html#cb46-3" tabindex="-1"></a>rad <span class="ot">&lt;-</span> <span class="fu">readDWD</span>(file, <span class="at">exdir=</span><span class="fu">tempdir</span>(), <span class="at">selection=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb46-4"><a href="raster-data.html#cb46-4" tabindex="-1"></a><span class="fu">plotRadar</span>(rad<span class="sc">$</span>dat, <span class="at">main=</span><span class="st">&quot;.binary RW&quot;</span>, <span class="at">extent=</span><span class="st">&quot;rw&quot;</span>, <span class="at">layer=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="rdwd_files/figure-html/readDWD_binary_rw-1.png" alt="" width="672" /></p>
 </div>
 <div id="readdwd.binary-sf" class="section level2 hasAnchor" number="8.4">
 <h2><span class="header-section-number">8.4</span> readDWD.binary (SF)<a href="raster-data.html#readdwd.binary-sf" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><a href="https://www.rdocumentation.org/packages/rdwd/topics/readDWD.binary" target="_blank"><code>readDWD.binary</code></a></p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="raster-data.html#cb48-1" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">&quot;/daily/radolan/historical/bin/2017/SF201712.tar.gz&quot;</span>           <span class="co"># 204 MB</span></span>
-<span id="cb48-2"><a href="raster-data.html#cb48-2" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(link, <span class="at">base=</span>gridbase, <span class="at">joinbf=</span><span class="cn">TRUE</span>, <span class="at">read=</span><span class="cn">FALSE</span>)</span>
-<span id="cb48-3"><a href="raster-data.html#cb48-3" tabindex="-1"></a>rad <span class="ot">&lt;-</span> <span class="fu">readDWD</span>(file, <span class="at">exdir=</span><span class="fu">tempdir</span>(), <span class="at">selection=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="co"># with toraster=TRUE</span></span>
-<span id="cb48-4"><a href="raster-data.html#cb48-4" tabindex="-1"></a><span class="fu">plotRadar</span>(rad<span class="sc">$</span>dat, <span class="at">main=</span><span class="st">&quot;.binary SF&quot;</span>, <span class="at">layer=</span><span class="dv">1</span>)</span></code></pre></div>
-<p><img src="rdwd_files/figure-html/readDWD_binary_sf-1.png" width="672" /></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="raster-data.html#cb47-1" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">&quot;/daily/radolan/historical/bin/2017/SF201712.tar.gz&quot;</span>           <span class="co"># 204 MB</span></span>
+<span id="cb47-2"><a href="raster-data.html#cb47-2" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(link, <span class="at">base=</span>gridbase, <span class="at">joinbf=</span><span class="cn">TRUE</span>, <span class="at">read=</span><span class="cn">FALSE</span>)</span>
+<span id="cb47-3"><a href="raster-data.html#cb47-3" tabindex="-1"></a>rad <span class="ot">&lt;-</span> <span class="fu">readDWD</span>(file, <span class="at">exdir=</span><span class="fu">tempdir</span>(), <span class="at">selection=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="co"># with toraster=TRUE</span></span>
+<span id="cb47-4"><a href="raster-data.html#cb47-4" tabindex="-1"></a><span class="fu">plotRadar</span>(rad<span class="sc">$</span>dat, <span class="at">main=</span><span class="st">&quot;.binary SF&quot;</span>, <span class="at">layer=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="rdwd_files/figure-html/readDWD_binary_sf-1.png" alt="" width="672" /></p>
 </div>
 <div id="readdwd.asc" class="section level2 hasAnchor" number="8.5">
 <h2><span class="header-section-number">8.5</span> readDWD.asc<a href="raster-data.html#readdwd.asc" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><a href="https://www.rdocumentation.org/packages/rdwd/topics/readDWD.asc" target="_blank"><code>readDWD.asc</code></a></p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="raster-data.html#cb49-1" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">&quot;hourly/radolan/historical/asc/2018/RW-201809.tar&quot;</span> <span class="co"># 25 mB</span></span>
-<span id="cb49-2"><a href="raster-data.html#cb49-2" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(link, <span class="at">base=</span>gridbase, <span class="at">joinbf=</span><span class="cn">TRUE</span>, <span class="at">read=</span><span class="cn">FALSE</span>) <span class="co"># dbin -&gt; mode=wb</span></span>
-<span id="cb49-3"><a href="raster-data.html#cb49-3" tabindex="-1"></a>rad <span class="ot">&lt;-</span> <span class="fu">readDWD</span>(file, <span class="at">selection=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">dividebyten=</span><span class="cn">TRUE</span>)</span>
-<span id="cb49-4"><a href="raster-data.html#cb49-4" tabindex="-1"></a><span class="fu">plotRadar</span>(rad, <span class="at">main=</span><span class="st">&quot;.asc&quot;</span>, <span class="at">layer=</span><span class="dv">1</span>)</span></code></pre></div>
-<p><img src="rdwd_files/figure-html/readDWD_asc-1.png" width="672" /></p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="raster-data.html#cb48-1" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">&quot;hourly/radolan/historical/asc/2018/RW-201809.tar&quot;</span> <span class="co"># 25 mB</span></span>
+<span id="cb48-2"><a href="raster-data.html#cb48-2" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(link, <span class="at">base=</span>gridbase, <span class="at">joinbf=</span><span class="cn">TRUE</span>, <span class="at">read=</span><span class="cn">FALSE</span>) <span class="co"># dbin -&gt; mode=wb</span></span>
+<span id="cb48-3"><a href="raster-data.html#cb48-3" tabindex="-1"></a>rad <span class="ot">&lt;-</span> <span class="fu">readDWD</span>(file, <span class="at">selection=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">dividebyten=</span><span class="cn">TRUE</span>)</span>
+<span id="cb48-4"><a href="raster-data.html#cb48-4" tabindex="-1"></a><span class="fu">plotRadar</span>(rad, <span class="at">main=</span><span class="st">&quot;.asc&quot;</span>, <span class="at">layer=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="rdwd_files/figure-html/readDWD_asc-1.png" alt="" width="672" /></p>
 </div>
 <div id="readdwd.radar-rw" class="section level2 hasAnchor" number="8.6">
 <h2><span class="header-section-number">8.6</span> readDWD.radar (RW)<a href="raster-data.html#readdwd.radar-rw" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><a href="https://www.rdocumentation.org/packages/rdwd/topics/readDWD.radar" target="_blank"><code>readDWD.radar</code></a> - for actual code for daily data, see <a href="use-case-daily-radar-files.html">use case: daily radar files</a></p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="raster-data.html#cb50-1" tabindex="-1"></a>links <span class="ot">&lt;-</span> <span class="fu">indexFTP</span>(<span class="st">&quot;hourly/radolan/recent/bin&quot;</span>, <span class="at">base=</span>gridbase, <span class="at">dir=</span><span class="fu">tempdir</span>()) <span class="co"># 0.04 MB</span></span>
-<span id="cb50-2"><a href="raster-data.html#cb50-2" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(links[<span class="dv">773</span>], <span class="at">base=</span>gridbase, <span class="at">joinbf=</span><span class="cn">TRUE</span>, <span class="at">dir=</span><span class="fu">tempdir</span>(), <span class="at">read=</span><span class="cn">FALSE</span>)</span>
-<span id="cb50-3"><a href="raster-data.html#cb50-3" tabindex="-1"></a>rad <span class="ot">&lt;-</span> <span class="fu">readDWD</span>(file)</span>
-<span id="cb50-4"><a href="raster-data.html#cb50-4" tabindex="-1"></a><span class="fu">plotRadar</span>(rad<span class="sc">$</span>dat, <span class="at">main=</span><span class="st">&quot;.radar RW&quot;</span>)</span></code></pre></div>
-<p><img src="rdwd_files/figure-html/readDWD_radar-1.png" width="672" /></p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="raster-data.html#cb49-1" tabindex="-1"></a>links <span class="ot">&lt;-</span> <span class="fu">indexFTP</span>(<span class="st">&quot;hourly/radolan/recent/bin&quot;</span>, <span class="at">base=</span>gridbase, <span class="at">dir=</span><span class="fu">tempdir</span>()) <span class="co"># 0.04 MB</span></span>
+<span id="cb49-2"><a href="raster-data.html#cb49-2" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(links[<span class="dv">773</span>], <span class="at">base=</span>gridbase, <span class="at">joinbf=</span><span class="cn">TRUE</span>, <span class="at">dir=</span><span class="fu">tempdir</span>(), <span class="at">read=</span><span class="cn">FALSE</span>)</span>
+<span id="cb49-3"><a href="raster-data.html#cb49-3" tabindex="-1"></a>rad <span class="ot">&lt;-</span> <span class="fu">readDWD</span>(file)</span>
+<span id="cb49-4"><a href="raster-data.html#cb49-4" tabindex="-1"></a><span class="fu">plotRadar</span>(rad<span class="sc">$</span>dat, <span class="at">main=</span><span class="st">&quot;.radar RW&quot;</span>)</span></code></pre></div>
+<p><img src="rdwd_files/figure-html/readDWD_radar-1.png" alt="" width="672" /></p>
 </div>
 <div id="readdwd.radar-rq" class="section level2 hasAnchor" number="8.7">
 <h2><span class="header-section-number">8.7</span> readDWD.radar (RQ)<a href="raster-data.html#readdwd.radar-rq" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><a href="https://www.rdocumentation.org/packages/rdwd/topics/readDWD.radar" target="_blank"><code>readDWD.radar</code></a></p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="raster-data.html#cb51-1" tabindex="-1"></a>rqbase <span class="ot">&lt;-</span> <span class="st">&quot;ftp://opendata.dwd.de/weather/radar/radvor/rq&quot;</span></span>
-<span id="cb51-2"><a href="raster-data.html#cb51-2" tabindex="-1"></a>links <span class="ot">&lt;-</span> <span class="fu">indexFTP</span>(<span class="st">&quot;&quot;</span>, <span class="at">base=</span>rqbase, <span class="at">dir=</span><span class="fu">tempdir</span>()) <span class="co"># 0.07 MB</span></span>
-<span id="cb51-3"><a href="raster-data.html#cb51-3" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(links[<span class="dv">17</span>], <span class="at">base=</span>rqbase, <span class="at">joinbf=</span><span class="cn">TRUE</span>, <span class="at">dir=</span><span class="fu">tempdir</span>(), <span class="at">read=</span><span class="cn">FALSE</span>)</span>
-<span id="cb51-4"><a href="raster-data.html#cb51-4" tabindex="-1"></a>rad <span class="ot">&lt;-</span> <span class="fu">readDWD</span>(file)</span>
-<span id="cb51-5"><a href="raster-data.html#cb51-5" tabindex="-1"></a><span class="fu">plotRadar</span>(rad<span class="sc">$</span>dat, <span class="at">main=</span><span class="st">&quot;.radar RQ&quot;</span>)</span></code></pre></div>
-<p><img src="rdwd_files/figure-html/readDWD_radar_RQ-1.png" width="672" /></p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="raster-data.html#cb50-1" tabindex="-1"></a>rqbase <span class="ot">&lt;-</span> <span class="st">&quot;ftp://opendata.dwd.de/weather/radar/radvor/rq&quot;</span></span>
+<span id="cb50-2"><a href="raster-data.html#cb50-2" tabindex="-1"></a>links <span class="ot">&lt;-</span> <span class="fu">indexFTP</span>(<span class="st">&quot;&quot;</span>, <span class="at">base=</span>rqbase, <span class="at">dir=</span><span class="fu">tempdir</span>()) <span class="co"># 0.07 MB</span></span>
+<span id="cb50-3"><a href="raster-data.html#cb50-3" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(links[<span class="dv">17</span>], <span class="at">base=</span>rqbase, <span class="at">joinbf=</span><span class="cn">TRUE</span>, <span class="at">dir=</span><span class="fu">tempdir</span>(), <span class="at">read=</span><span class="cn">FALSE</span>)</span>
+<span id="cb50-4"><a href="raster-data.html#cb50-4" tabindex="-1"></a>rad <span class="ot">&lt;-</span> <span class="fu">readDWD</span>(file)</span>
+<span id="cb50-5"><a href="raster-data.html#cb50-5" tabindex="-1"></a><span class="fu">plotRadar</span>(rad<span class="sc">$</span>dat, <span class="at">main=</span><span class="st">&quot;.radar RQ&quot;</span>)</span></code></pre></div>
+<p><img src="rdwd_files/figure-html/readDWD_radar_RQ-1.png" alt="" width="672" /></p>
 </div>
 <div id="readdwd.grib2" class="section level2 hasAnchor" number="8.8">
 <h2><span class="header-section-number">8.8</span> readDWD.grib2<a href="raster-data.html#readdwd.grib2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><a href="https://www.rdocumentation.org/packages/rdwd/topics/readDWD.grib2" target="_blank"><code>readDWD.grib2</code></a></p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="raster-data.html#cb52-1" tabindex="-1"></a>nwpbase <span class="ot">&lt;-</span> <span class="st">&quot;ftp://opendata.dwd.de/weather/nwp/icon-d2/grib/00/t_2m&quot;</span></span>
-<span id="cb52-2"><a href="raster-data.html#cb52-2" tabindex="-1"></a>links <span class="ot">&lt;-</span> <span class="fu">indexFTP</span>(<span class="st">&quot;&quot;</span>, <span class="at">base=</span>nwpbase, <span class="at">dir=</span><span class="fu">tempdir</span>())</span>
-<span id="cb52-3"><a href="raster-data.html#cb52-3" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(links[<span class="dv">6</span>], <span class="at">base=</span>nwpbase, <span class="at">joinbf=</span><span class="cn">TRUE</span>, <span class="at">dir=</span><span class="fu">tempdir</span>(), <span class="at">read=</span><span class="cn">FALSE</span>)</span>
-<span id="cb52-4"><a href="raster-data.html#cb52-4" tabindex="-1"></a><span class="co">#forecast &lt;- readDWD(file)</span></span>
-<span id="cb52-5"><a href="raster-data.html#cb52-5" tabindex="-1"></a><span class="co">#plotRadar(forecast, main=&quot;.grib2&quot;, project=FALSE)</span></span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="raster-data.html#cb51-1" tabindex="-1"></a>nwpbase <span class="ot">&lt;-</span> <span class="st">&quot;ftp://opendata.dwd.de/weather/nwp/icon-d2/grib/00/t_2m&quot;</span></span>
+<span id="cb51-2"><a href="raster-data.html#cb51-2" tabindex="-1"></a>links <span class="ot">&lt;-</span> <span class="fu">indexFTP</span>(<span class="st">&quot;&quot;</span>, <span class="at">base=</span>nwpbase, <span class="at">dir=</span><span class="fu">tempdir</span>())</span>
+<span id="cb51-3"><a href="raster-data.html#cb51-3" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(links[<span class="dv">6</span>], <span class="at">base=</span>nwpbase, <span class="at">joinbf=</span><span class="cn">TRUE</span>, <span class="at">dir=</span><span class="fu">tempdir</span>(), <span class="at">read=</span><span class="cn">FALSE</span>)</span>
+<span id="cb51-4"><a href="raster-data.html#cb51-4" tabindex="-1"></a><span class="co">#forecast &lt;- readDWD(file)</span></span>
+<span id="cb51-5"><a href="raster-data.html#cb51-5" tabindex="-1"></a><span class="co">#plotRadar(forecast, main=&quot;.grib2&quot;, project=FALSE)</span></span></code></pre></div>
 <p>grib files are currently <a href="https://github.com/brry/rdwd/issues/28">broken</a> (2021-04-08) but would look like this:
 <img src="readDWD_grib2-1.png" width="600"></p>
 </div>
 <div id="icon-eu" class="section level2 hasAnchor" number="8.9">
 <h2><span class="header-section-number">8.9</span> icon-eu<a href="raster-data.html#icon-eu" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>forecasts for europe also work with <a href="https://www.rdocumentation.org/packages/rdwd/topics/readDWD.grib2" target="_blank"><code>readDWD.grib2</code></a>:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="raster-data.html#cb53-1" tabindex="-1"></a>nwpbase <span class="ot">&lt;-</span> <span class="st">&quot;ftp://opendata.dwd.de/weather/nwp/icon-eu/grib/06/rain_gsp/&quot;</span></span>
-<span id="cb53-2"><a href="raster-data.html#cb53-2" tabindex="-1"></a>links <span class="ot">&lt;-</span> <span class="fu">indexFTP</span>(<span class="st">&quot;&quot;</span>, <span class="at">base=</span>nwpbase, <span class="at">dir=</span><span class="fu">tempdir</span>())</span>
-<span id="cb53-3"><a href="raster-data.html#cb53-3" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(links[<span class="dv">6</span>], <span class="at">base=</span>nwpbase, <span class="at">joinbf=</span><span class="cn">TRUE</span>, <span class="at">dir=</span><span class="fu">tempdir</span>(), <span class="at">read=</span><span class="cn">FALSE</span>)</span>
-<span id="cb53-4"><a href="raster-data.html#cb53-4" tabindex="-1"></a>forecast <span class="ot">&lt;-</span> <span class="fu">readDWD</span>(file)</span>
-<span id="cb53-5"><a href="raster-data.html#cb53-5" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">plot</span>(forecast, <span class="at">col=</span>berryFunctions<span class="sc">::</span><span class="fu">seqPal</span>())</span>
-<span id="cb53-6"><a href="raster-data.html#cb53-6" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">plot</span>(terra<span class="sc">::</span><span class="fu">vect</span>(rnaturalearth<span class="sc">::</span><span class="fu">ne_countries</span>()), <span class="at">add=</span><span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="rdwd_files/figure-html/readDWD_grib2_iconeu-1.png" width="672" /></p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="raster-data.html#cb54-1" tabindex="-1"></a><span class="co"># EUR &lt;- terra::vect(paste0(&quot;/vsizip/vsicurl/https://gisco-services.ec.europa.eu/&quot;,</span></span>
-<span id="cb54-2"><a href="raster-data.html#cb54-2" tabindex="-1"></a><span class="co">#                 &quot;distribution/v2/nuts/shp/NUTS_RG_20M_2021_4326_LEVL_0.shp.zip&quot;))</span></span>
-<span id="cb54-3"><a href="raster-data.html#cb54-3" tabindex="-1"></a><span class="co"># terra::plot(EUR, add=TRUE)</span></span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="raster-data.html#cb52-1" tabindex="-1"></a>nwpbase <span class="ot">&lt;-</span> <span class="st">&quot;ftp://opendata.dwd.de/weather/nwp/icon-eu/grib/06/rain_gsp/&quot;</span></span>
+<span id="cb52-2"><a href="raster-data.html#cb52-2" tabindex="-1"></a>links <span class="ot">&lt;-</span> <span class="fu">indexFTP</span>(<span class="st">&quot;&quot;</span>, <span class="at">base=</span>nwpbase, <span class="at">dir=</span><span class="fu">tempdir</span>())</span>
+<span id="cb52-3"><a href="raster-data.html#cb52-3" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(links[<span class="dv">6</span>], <span class="at">base=</span>nwpbase, <span class="at">joinbf=</span><span class="cn">TRUE</span>, <span class="at">dir=</span><span class="fu">tempdir</span>(), <span class="at">read=</span><span class="cn">FALSE</span>)</span>
+<span id="cb52-4"><a href="raster-data.html#cb52-4" tabindex="-1"></a>forecast <span class="ot">&lt;-</span> <span class="fu">readDWD</span>(file)</span>
+<span id="cb52-5"><a href="raster-data.html#cb52-5" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">plot</span>(forecast, <span class="at">col=</span>berryFunctions<span class="sc">::</span><span class="fu">seqPal</span>())</span>
+<span id="cb52-6"><a href="raster-data.html#cb52-6" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">plot</span>(terra<span class="sc">::</span><span class="fu">vect</span>(rnaturalearth<span class="sc">::</span><span class="fu">ne_countries</span>()), <span class="at">add=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="rdwd_files/figure-html/readDWD_grib2_iconeu-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="raster-data.html#cb53-1" tabindex="-1"></a><span class="co"># EUR &lt;- terra::vect(paste0(&quot;/vsizip/vsicurl/https://gisco-services.ec.europa.eu/&quot;,</span></span>
+<span id="cb53-2"><a href="raster-data.html#cb53-2" tabindex="-1"></a><span class="co">#                 &quot;distribution/v2/nuts/shp/NUTS_RG_20M_2021_4326_LEVL_0.shp.zip&quot;))</span></span>
+<span id="cb53-3"><a href="raster-data.html#cb53-3" tabindex="-1"></a><span class="co"># terra::plot(EUR, add=TRUE)</span></span></code></pre></div>
 </div>
 <div id="binary-file-errors" class="section level2 hasAnchor" number="8.10">
 <h2><span class="header-section-number">8.10</span> binary file errors<a href="raster-data.html#binary-file-errors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -391,10 +391,10 @@ or files at <a href="https://opendata.dwd.de/weather/radar/radolan/rw/">weather/
 <a href="https://www.rdocumentation.org/packages/rdwd/topics/dataDWD" target="_blank"><code>dataDWD</code></a> has a dbin=TRUE option.
 Since Version 1.4.18 (2021-04-08), the default is <code>dbin=TRUE</code>. Report errors <a href="https://github.com/brry/rdwd/issues/20">here</a> if needed.
 If you do not use this, your plots may look partially shifted like this and have the wrong units (image from 2020-06-16 21:30 CEST):</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="raster-data.html#cb55-1" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;ftp://opendata.dwd.de/weather/radar/radolan/rw/raa01-rw_10000-latest-dwd---bin&quot;</span></span>
-<span id="cb55-2"><a href="raster-data.html#cb55-2" tabindex="-1"></a>rw_file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(url, <span class="at">read=</span><span class="cn">FALSE</span>, <span class="at">dbin=</span><span class="cn">FALSE</span>)</span>
-<span id="cb55-3"><a href="raster-data.html#cb55-3" tabindex="-1"></a>rw_orig <span class="ot">&lt;-</span> dwdradar<span class="sc">::</span><span class="fu">readRadarFile</span>(rw_file)</span>
-<span id="cb55-4"><a href="raster-data.html#cb55-4" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">plot</span>(terra<span class="sc">::</span><span class="fu">rast</span>(rw_orig<span class="sc">$</span>dat))</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="raster-data.html#cb54-1" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;ftp://opendata.dwd.de/weather/radar/radolan/rw/raa01-rw_10000-latest-dwd---bin&quot;</span></span>
+<span id="cb54-2"><a href="raster-data.html#cb54-2" tabindex="-1"></a>rw_file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(url, <span class="at">read=</span><span class="cn">FALSE</span>, <span class="at">dbin=</span><span class="cn">FALSE</span>)</span>
+<span id="cb54-3"><a href="raster-data.html#cb54-3" tabindex="-1"></a>rw_orig <span class="ot">&lt;-</span> dwdradar<span class="sc">::</span><span class="fu">readRadarFile</span>(rw_file)</span>
+<span id="cb54-4"><a href="raster-data.html#cb54-4" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">plot</span>(terra<span class="sc">::</span><span class="fu">rast</span>(rw_orig<span class="sc">$</span>dat))</span></code></pre></div>
 <p><img src="dbin1.png" width="600"></p>
 </div>
 </div>

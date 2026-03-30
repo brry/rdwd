@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>14 - use case: monthy gridded data | rdwd</title>
   <meta name="description" content="14 - use case: monthy gridded data | rdwd" />
-  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="14 - use case: monthy gridded data | rdwd" />
   <meta property="og:type" content="book" />
@@ -51,7 +51,7 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<link href="libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
@@ -265,20 +265,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>From the <a href="https://opendata.dwd.de/climate_environment/CDC/grids_germany/monthly">monthly</a>
 folder at <a href="https://www.rdocumentation.org/packages/rdwd/topics/dwdbase" target="_blank"><code>gridbase</code></a>, we want to
 download .asc.gz files for selected years and open them in R for further processing.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="use-case-monthy-gridded-data.html#cb65-1" tabindex="-1"></a>rdwd<span class="sc">::</span><span class="fu">updateRdwd</span>()</span>
-<span id="cb65-2"><a href="use-case-monthy-gridded-data.html#cb65-2" tabindex="-1"></a><span class="fu">library</span>(rdwd)</span>
-<span id="cb65-3"><a href="use-case-monthy-gridded-data.html#cb65-3" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;gridIndex&quot;</span>)</span>
-<span id="cb65-4"><a href="use-case-monthy-gridded-data.html#cb65-4" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&quot;monthly/precipitation&quot;</span>, gridIndex, <span class="at">value=</span><span class="cn">TRUE</span>) <span class="co"># 1&#39;709</span></span>
-<span id="cb65-5"><a href="use-case-monthy-gridded-data.html#cb65-5" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&#39;2014|2015|2016&#39;</span>,index, <span class="at">value=</span><span class="cn">TRUE</span>) <span class="co"># n=36 (3*12)</span></span>
-<span id="cb65-6"><a href="use-case-monthy-gridded-data.html#cb65-6" tabindex="-1"></a></span>
-<span id="cb65-7"><a href="use-case-monthy-gridded-data.html#cb65-7" tabindex="-1"></a>precip <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(index[<span class="dv">6</span><span class="sc">:</span><span class="dv">8</span>], <span class="at">base=</span>gridbase, <span class="at">joinbf=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="use-case-monthy-gridded-data.html#cb64-1" tabindex="-1"></a>rdwd<span class="sc">::</span><span class="fu">updateRdwd</span>()</span>
+<span id="cb64-2"><a href="use-case-monthy-gridded-data.html#cb64-2" tabindex="-1"></a><span class="fu">library</span>(rdwd)</span>
+<span id="cb64-3"><a href="use-case-monthy-gridded-data.html#cb64-3" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;gridIndex&quot;</span>)</span>
+<span id="cb64-4"><a href="use-case-monthy-gridded-data.html#cb64-4" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&quot;monthly/precipitation&quot;</span>, gridIndex, <span class="at">value=</span><span class="cn">TRUE</span>) <span class="co"># 1&#39;709</span></span>
+<span id="cb64-5"><a href="use-case-monthy-gridded-data.html#cb64-5" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&#39;2014|2015|2016&#39;</span>,index, <span class="at">value=</span><span class="cn">TRUE</span>) <span class="co"># n=36 (3*12)</span></span>
+<span id="cb64-6"><a href="use-case-monthy-gridded-data.html#cb64-6" tabindex="-1"></a></span>
+<span id="cb64-7"><a href="use-case-monthy-gridded-data.html#cb64-7" tabindex="-1"></a>precip <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(index[<span class="dv">6</span><span class="sc">:</span><span class="dv">8</span>], <span class="at">base=</span>gridbase, <span class="at">joinbf=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p>For .asc.gz files, <a href="https://www.rdocumentation.org/packages/rdwd/topics/readDWD" target="_blank"><code>readDWD</code></a> calls <a href="https://www.rdocumentation.org/packages/rdwd/topics/readDWD.raster" target="_blank"><code>readDWD.raster</code></a>.
 This runs faster if called a second time due to skip=TRUE in <code>gunzip</code>.<br />
 Now we can project and visualize with:</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="use-case-monthy-gridded-data.html#cb66-1" tabindex="-1"></a><span class="fu">plotRadar</span>(precip[[<span class="dv">1</span>]], <span class="at">proj=</span><span class="st">&quot;seasonal&quot;</span>, <span class="at">extent=</span><span class="cn">NULL</span>, <span class="at">main=</span><span class="fu">names</span>(precip)[<span class="dv">1</span>])</span></code></pre></div>
-<p><img src="rdwd_files/figure-html/grid_monthly_vis-1.png" width="672" /></p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="use-case-monthy-gridded-data.html#cb65-1" tabindex="-1"></a><span class="fu">plotRadar</span>(precip[[<span class="dv">1</span>]], <span class="at">proj=</span><span class="st">&quot;seasonal&quot;</span>, <span class="at">extent=</span><span class="cn">NULL</span>, <span class="at">main=</span><span class="fu">names</span>(precip)[<span class="dv">1</span>])</span></code></pre></div>
+<p><img src="rdwd_files/figure-html/grid_monthly_vis-1.png" alt="" width="672" /></p>
 <p>For further processing, we can create a terra raster from the list, which e.g. enables fast and easy indexing.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="use-case-monthy-gridded-data.html#cb67-1" tabindex="-1"></a>precip <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rast</span>(precip)</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="use-case-monthy-gridded-data.html#cb66-1" tabindex="-1"></a>precip <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rast</span>(precip)</span></code></pre></div>
 <p>This is expanded upon in the next <a href="use-case-values-at-locations-in-grid.html">use case</a>.</p>
 <p>A few projection references:</p>
 <p>The <a href="https://opendata.dwd.de/climate_environment/CDC/grids_germany/seasonal/air_temperature_max/BESCHREIBUNG_gridsgermany_seasonal_air_temperature_max_de.pdf">Beschreibung file</a>

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>6 fileIndex | rdwd</title>
   <meta name="description" content="6 fileIndex | rdwd" />
-  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="6 fileIndex | rdwd" />
   <meta property="og:type" content="book" />
@@ -51,7 +51,7 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<link href="libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
@@ -266,35 +266,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a href="https://www.rdocumentation.org/packages/rdwd/topics/updateRdwd" target="_blank"><code>rdwd::updateRdwd()</code></a><br />
 If the issue persists, please let me <a href="mailto:berry-b@gmx.de">know</a> and I will update it.<br />
 Meanwhile, either use current=TRUE in <a href="https://www.rdocumentation.org/packages/rdwd/topics/selectDWD" target="_blank"><code>selectDWD</code></a>:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="fileindex.html#cb23-1" tabindex="-1"></a><span class="co"># all files at a given path, with current file index (RCurl required):</span></span>
-<span id="cb23-2"><a href="fileindex.html#cb23-2" tabindex="-1"></a>links <span class="ot">&lt;-</span> <span class="fu">selectDWD</span>(<span class="at">res=</span><span class="st">&quot;monthly&quot;</span>, <span class="at">var=</span><span class="st">&quot;more_precip&quot;</span>, <span class="at">per=</span><span class="st">&quot;hist&quot;</span>, <span class="at">current=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="fileindex.html#cb22-1" tabindex="-1"></a><span class="co"># all files at a given path, with current file index (RCurl required):</span></span>
+<span id="cb22-2"><a href="fileindex.html#cb22-2" tabindex="-1"></a>links <span class="ot">&lt;-</span> <span class="fu">selectDWD</span>(<span class="at">res=</span><span class="st">&quot;monthly&quot;</span>, <span class="at">var=</span><span class="st">&quot;more_precip&quot;</span>, <span class="at">per=</span><span class="st">&quot;hist&quot;</span>, <span class="at">current=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p>or, for repetitive usage, create your own file index (for a certain subfolder):</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="fileindex.html#cb24-1" tabindex="-1"></a><span class="co"># recursively list files on the FTP-server:</span></span>
-<span id="cb24-2"><a href="fileindex.html#cb24-2" tabindex="-1"></a>files <span class="ot">&lt;-</span> <span class="fu">indexFTP</span>(<span class="st">&quot;hourly/sun&quot;</span>) <span class="co"># use dir=&quot;some_path&quot; to save the output elsewhere</span></span>
-<span id="cb24-3"><a href="fileindex.html#cb24-3" tabindex="-1"></a>berryFunctions<span class="sc">::</span><span class="fu">headtail</span>(files, <span class="dv">5</span>, <span class="at">na=</span><span class="cn">TRUE</span>)</span>
-<span id="cb24-4"><a href="fileindex.html#cb24-4" tabindex="-1"></a><span class="co"># create and use a personal file index:</span></span>
-<span id="cb24-5"><a href="fileindex.html#cb24-5" tabindex="-1"></a>cursun <span class="ot">&lt;-</span> <span class="fu">createIndex</span>(files)</span>
-<span id="cb24-6"><a href="fileindex.html#cb24-6" tabindex="-1"></a><span class="fu">head</span>(cursun)</span>
-<span id="cb24-7"><a href="fileindex.html#cb24-7" tabindex="-1"></a>sunlink <span class="ot">&lt;-</span> <span class="fu">selectDWD</span>(<span class="st">&quot;Potsdam&quot;</span>, <span class="at">res=</span><span class="st">&quot;hourly&quot;</span>, <span class="at">var=</span><span class="st">&quot;sun&quot;</span>, <span class="at">per=</span><span class="st">&quot;r&quot;</span>, <span class="at">findex=</span>cursun)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="fileindex.html#cb23-1" tabindex="-1"></a><span class="co"># recursively list files on the FTP-server:</span></span>
+<span id="cb23-2"><a href="fileindex.html#cb23-2" tabindex="-1"></a>files <span class="ot">&lt;-</span> <span class="fu">indexFTP</span>(<span class="st">&quot;hourly/sun&quot;</span>) <span class="co"># use dir=&quot;some_path&quot; to save the output elsewhere</span></span>
+<span id="cb23-3"><a href="fileindex.html#cb23-3" tabindex="-1"></a>berryFunctions<span class="sc">::</span><span class="fu">headtail</span>(files, <span class="dv">5</span>, <span class="at">na=</span><span class="cn">TRUE</span>)</span>
+<span id="cb23-4"><a href="fileindex.html#cb23-4" tabindex="-1"></a><span class="co"># create and use a personal file index:</span></span>
+<span id="cb23-5"><a href="fileindex.html#cb23-5" tabindex="-1"></a>cursun <span class="ot">&lt;-</span> <span class="fu">createIndex</span>(files)</span>
+<span id="cb23-6"><a href="fileindex.html#cb23-6" tabindex="-1"></a><span class="fu">head</span>(cursun)</span>
+<span id="cb23-7"><a href="fileindex.html#cb23-7" tabindex="-1"></a>sunlink <span class="ot">&lt;-</span> <span class="fu">selectDWD</span>(<span class="st">&quot;Potsdam&quot;</span>, <span class="at">res=</span><span class="st">&quot;hourly&quot;</span>, <span class="at">var=</span><span class="st">&quot;sun&quot;</span>, <span class="at">per=</span><span class="st">&quot;r&quot;</span>, <span class="at">findex=</span>cursun)</span></code></pre></div>
 <div id="check-for-updates-by-the-dwd" class="section level2 hasAnchor" number="6.1">
 <h2><span class="header-section-number">6.1</span> check for updates by the DWD<a href="fileindex.html#check-for-updates-by-the-dwd" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Since 2025, it is easy to check if I need to run <code>rdwd:::updateIndexes()</code> with:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="fileindex.html#cb25-1" tabindex="-1"></a><span class="fu">checkUpdates</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="fileindex.html#cb24-1" tabindex="-1"></a><span class="fu">checkUpdates</span>()</span></code></pre></div>
 </div>
 <div id="ftp" class="section level2 hasAnchor" number="6.2">
 <h2><span class="header-section-number">6.2</span> ftp<a href="fileindex.html#ftp" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>If the reason for the error lies in FTP being blocked on your system, use html links instead:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="fileindex.html#cb26-1" tabindex="-1"></a>kl <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(link, <span class="at">removeftp=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="fileindex.html#cb25-1" tabindex="-1"></a>kl <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(link, <span class="at">removeftp=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p>Or look into the setting for the argument <code>method</code>.</p>
 </div>
 <div id="metaindex" class="section level2 hasAnchor" number="6.3">
 <h2><span class="header-section-number">6.3</span> metaIndex<a href="fileindex.html#metaindex" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>For a permanent curent metaIndex in <a href="https://www.rdocumentation.org/packages/rdwd/topics/nearbyStations" target="_blank"><code>nearbyStations</code></a>, use:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="fileindex.html#cb27-1" tabindex="-1"></a>files <span class="ot">&lt;-</span> <span class="fu">indexFTP</span>(<span class="st">&quot;hourly/sun&quot;</span>, <span class="at">dir=</span><span class="fu">tempdir</span>())</span>
-<span id="cb27-2"><a href="fileindex.html#cb27-2" tabindex="-1"></a>cursun <span class="ot">&lt;-</span> <span class="fu">createIndex</span>(files, <span class="at">dir=</span><span class="fu">tempdir</span>(), <span class="at">meta=</span><span class="cn">TRUE</span>)</span>
-<span id="cb27-3"><a href="fileindex.html#cb27-3" tabindex="-1"></a><span class="fu">head</span>(cursun<span class="sc">$</span>metaIndex)</span>
-<span id="cb27-4"><a href="fileindex.html#cb27-4" tabindex="-1"></a>sunlinks <span class="ot">&lt;-</span> <span class="fu">nearbyStations</span>(<span class="fl">52.4</span>, <span class="fl">13.1</span>, <span class="at">radius=</span><span class="dv">30</span>, <span class="at">mindex=</span>cursun<span class="sc">$</span>metaIndex)</span>
-<span id="cb27-5"><a href="fileindex.html#cb27-5" tabindex="-1"></a><span class="fu">View</span>(sunlinks)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="fileindex.html#cb26-1" tabindex="-1"></a>files <span class="ot">&lt;-</span> <span class="fu">indexFTP</span>(<span class="st">&quot;hourly/sun&quot;</span>, <span class="at">dir=</span><span class="fu">tempdir</span>())</span>
+<span id="cb26-2"><a href="fileindex.html#cb26-2" tabindex="-1"></a>cursun <span class="ot">&lt;-</span> <span class="fu">createIndex</span>(files, <span class="at">dir=</span><span class="fu">tempdir</span>(), <span class="at">meta=</span><span class="cn">TRUE</span>)</span>
+<span id="cb26-3"><a href="fileindex.html#cb26-3" tabindex="-1"></a><span class="fu">head</span>(cursun<span class="sc">$</span>metaIndex)</span>
+<span id="cb26-4"><a href="fileindex.html#cb26-4" tabindex="-1"></a>sunlinks <span class="ot">&lt;-</span> <span class="fu">nearbyStations</span>(<span class="fl">52.4</span>, <span class="fl">13.1</span>, <span class="at">radius=</span><span class="dv">30</span>, <span class="at">mindex=</span>cursun<span class="sc">$</span>metaIndex)</span>
+<span id="cb26-5"><a href="fileindex.html#cb26-5" tabindex="-1"></a><span class="fu">View</span>(sunlinks)</span></code></pre></div>
 </div>
 <div id="background" class="section level2 hasAnchor" number="6.4">
 <h2><span class="header-section-number">6.4</span> background<a href="fileindex.html#background" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -306,19 +306,19 @@ All indexes are updated irregularly with the internal function <a href="https://
 <p>The DWD often (but irregularly) updates or expands datasets, at which point the filenames in historical folders change.<br />
 I check this with <a href="https://www.rdocumentation.org/packages/rdwd/topics/checkUpdates" target="_blank"><code>checkUpdates</code></a>, fairly often around April-May when the historical files of active stations are updated with last year’s data.</p>
 <p>indexFTP can also access other servers:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="fileindex.html#cb28-1" tabindex="-1"></a>funet <span class="ot">&lt;-</span> <span class="fu">indexFTP</span>(<span class="at">base=</span><span class="st">&quot;ftp.funet.fi/pub/standards/w3/TR/xhtml11/&quot;</span>, <span class="at">folder=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb28-2"><a href="fileindex.html#cb28-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> RCurl<span class="sc">::</span><span class="fu">getURL</span>(    <span class="st">&quot;ftp.funet.fi/pub/standards/w3/TR/xhtml11/&quot;</span>,</span>
-<span id="cb28-3"><a href="fileindex.html#cb28-3" tabindex="-1"></a>                       <span class="at">verbose=</span><span class="cn">TRUE</span>, <span class="at">ftp.use.epsv=</span><span class="cn">TRUE</span>, <span class="at">dirlistonly=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="fileindex.html#cb27-1" tabindex="-1"></a>funet <span class="ot">&lt;-</span> <span class="fu">indexFTP</span>(<span class="at">base=</span><span class="st">&quot;ftp.funet.fi/pub/standards/w3/TR/xhtml11/&quot;</span>, <span class="at">folder=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb27-2"><a href="fileindex.html#cb27-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> RCurl<span class="sc">::</span><span class="fu">getURL</span>(    <span class="st">&quot;ftp.funet.fi/pub/standards/w3/TR/xhtml11/&quot;</span>,</span>
+<span id="cb27-3"><a href="fileindex.html#cb27-3" tabindex="-1"></a>                       <span class="at">verbose=</span><span class="cn">TRUE</span>, <span class="at">ftp.use.epsv=</span><span class="cn">TRUE</span>, <span class="at">dirlistonly=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 </div>
 <div id="metaindex-1" class="section level2 hasAnchor" number="6.5">
 <h2><span class="header-section-number">6.5</span> metaIndex<a href="fileindex.html#metaindex-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><a href="https://www.rdocumentation.org/packages/rdwd/topics/selectDWD" target="_blank"><code>selectDWD</code></a> also uses a complete data.frame with meta information,
 <a href="https://www.rdocumentation.org/packages/rdwd/topics/index" target="_blank"><code>metaIndex</code></a>
 (derived from the “Beschreibung” files in <a href="https://www.rdocumentation.org/packages/rdwd/topics/index" target="_blank"><code>fileIndex</code></a>).</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="fileindex.html#cb29-1" tabindex="-1"></a><span class="co"># All metadata at all folders:</span></span>
-<span id="cb29-2"><a href="fileindex.html#cb29-2" tabindex="-1"></a><span class="fu">data</span>(metaIndex)</span>
-<span id="cb29-3"><a href="fileindex.html#cb29-3" tabindex="-1"></a><span class="fu">str</span>(metaIndex, <span class="at">vec.len=</span><span class="dv">2</span>)</span></code></pre></div>
-<pre><code>## &#39;data.frame&#39;:    161281 obs. of  13 variables:
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="fileindex.html#cb28-1" tabindex="-1"></a><span class="co"># All metadata at all folders:</span></span>
+<span id="cb28-2"><a href="fileindex.html#cb28-2" tabindex="-1"></a><span class="fu">data</span>(metaIndex)</span>
+<span id="cb28-3"><a href="fileindex.html#cb28-3" tabindex="-1"></a><span class="fu">str</span>(metaIndex, <span class="at">vec.len=</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    161711 obs. of  13 variables:
 ##  $ Stations_id  : int  1 1 1 1 1 ...
 ##  $ von_datum    : Date, format: &quot;1891-01-01&quot; &quot;1891-01-01&quot; ...
 ##  $ bis_datum    : Date, format: &quot;1985-12-31&quot; &quot;1985-12-31&quot; ...
@@ -332,15 +332,15 @@ I check this with <a href="https://www.rdocumentation.org/packages/rdwd/topics/c
 ##  $ var          : chr  &quot;more_precip&quot; &quot;more_precip&quot; ...
 ##  $ per          : chr  &quot;historical&quot; &quot;recent&quot; ...
 ##  $ hasfile      : logi  TRUE FALSE TRUE ...</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="fileindex.html#cb31-1" tabindex="-1"></a><span class="fu">View</span>(<span class="fu">data.frame</span>(<span class="fu">sort</span>(<span class="fu">unique</span>(rdwd<span class="sc">:::</span>metaIndex<span class="sc">$</span>Stationsname)))) <span class="co"># ca 6k entries</span></span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="fileindex.html#cb30-1" tabindex="-1"></a><span class="fu">View</span>(<span class="fu">data.frame</span>(<span class="fu">sort</span>(<span class="fu">unique</span>(rdwd<span class="sc">:::</span>metaIndex<span class="sc">$</span>Stationsname)))) <span class="co"># ca 6k entries</span></span></code></pre></div>
 <p><a href="https://www.rdocumentation.org/packages/rdwd/topics/readDWD" target="_blank"><code>readDWD</code></a> can correctly read such a data.frame from any folder on the FTP server:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="fileindex.html#cb32-1" tabindex="-1"></a><span class="co"># file with station metadata for a given path:</span></span>
-<span id="cb32-2"><a href="fileindex.html#cb32-2" tabindex="-1"></a>m_link <span class="ot">&lt;-</span> <span class="fu">selectDWD</span>(<span class="at">res=</span><span class="st">&quot;monthly&quot;</span>, <span class="at">var=</span><span class="st">&quot;more_precip&quot;</span>, <span class="at">per=</span><span class="st">&quot;hist&quot;</span>, <span class="at">meta=</span><span class="cn">TRUE</span>)</span>
-<span id="cb32-3"><a href="fileindex.html#cb32-3" tabindex="-1"></a>m_link <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&quot;.txt$&quot;</span>, m_link, <span class="at">value=</span><span class="cn">TRUE</span>)</span>
-<span id="cb32-4"><a href="fileindex.html#cb32-4" tabindex="-1"></a><span class="fu">print_short</span>(m_link) <span class="co"># (Monatswerte = monthly values, Beschreibung = description)</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="fileindex.html#cb31-1" tabindex="-1"></a><span class="co"># file with station metadata for a given path:</span></span>
+<span id="cb31-2"><a href="fileindex.html#cb31-2" tabindex="-1"></a>m_link <span class="ot">&lt;-</span> <span class="fu">selectDWD</span>(<span class="at">res=</span><span class="st">&quot;monthly&quot;</span>, <span class="at">var=</span><span class="st">&quot;more_precip&quot;</span>, <span class="at">per=</span><span class="st">&quot;hist&quot;</span>, <span class="at">meta=</span><span class="cn">TRUE</span>)</span>
+<span id="cb31-3"><a href="fileindex.html#cb31-3" tabindex="-1"></a>m_link <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&quot;.txt$&quot;</span>, m_link, <span class="at">value=</span><span class="cn">TRUE</span>)</span>
+<span id="cb31-4"><a href="fileindex.html#cb31-4" tabindex="-1"></a><span class="fu">print_short</span>(m_link) <span class="co"># (Monatswerte = monthly values, Beschreibung = description)</span></span></code></pre></div>
 <pre><code>## [1] &quot;---/monthly/more_precip/historical/RR_Monatswerte_Beschreibung_Stationen.txt&quot;</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="fileindex.html#cb34-1" tabindex="-1"></a>meta_monthly_rain <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(m_link)</span>
-<span id="cb34-2"><a href="fileindex.html#cb34-2" tabindex="-1"></a><span class="fu">str</span>(meta_monthly_rain)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="fileindex.html#cb33-1" tabindex="-1"></a>meta_monthly_rain <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(m_link)</span>
+<span id="cb33-2"><a href="fileindex.html#cb33-2" tabindex="-1"></a><span class="fu">str</span>(meta_monthly_rain)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    5689 obs. of  9 variables:
 ##  $ Stations_id  : int  1 2 3 4 6 7 8 9 10 12 ...
 ##  $ von_datum    : int  18910101 19140101 18440101 18980101 19821101 19360101 19090101 19920601 19380101 19310101 ...
@@ -357,22 +357,22 @@ To request those, please contact <a href="mailto:cdc.daten@dwd.de" class="email"
 <p>The from and to dates do not always reflect the real time period with avalaible data.
 They are read from the DWD <code>_Beschreibung_Stationen.txt</code> files, e.g. <a href="https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/daily/kl/historical/KL_Tageswerte_Beschreibung_Stationen.txt">this one</a>, see also <a href="https://github.com/brry/rdwd/issues/32">issue 32</a>.</p>
 <p>For up-to-date metaIndexes, check for updates in the development version (<a href="https://www.rdocumentation.org/packages/rdwd/topics/updateRdwd" target="_blank"><code>rdwd::updateRdwd()</code></a>), <a href="mailto:berry-b@gmx.de">prompt</a> me to update it, or use your own version:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="fileindex.html#cb36-1" tabindex="-1"></a>ll <span class="ot">&lt;-</span> <span class="fu">selectDWD</span>(<span class="st">&quot;&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;hourly&quot;</span>,<span class="st">&quot;daily&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;wind&quot;</span>,<span class="st">&quot;kl&quot;</span>), <span class="st">&quot;r&quot;</span>, <span class="at">meta=</span><span class="cn">TRUE</span>)</span>
-<span id="cb36-2"><a href="fileindex.html#cb36-2" tabindex="-1"></a>ll <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&quot;.txt$&quot;</span>, ll, <span class="at">value=</span><span class="cn">TRUE</span>)</span>
-<span id="cb36-3"><a href="fileindex.html#cb36-3" tabindex="-1"></a>ll <span class="ot">&lt;-</span> ll[<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">&quot;mn4&quot;</span>,ll)]</span>
-<span id="cb36-4"><a href="fileindex.html#cb36-4" tabindex="-1"></a>ll <span class="ot">&lt;-</span> <span class="fu">sub</span>(dwdbase, <span class="st">&quot;&quot;</span>, ll)</span>
-<span id="cb36-5"><a href="fileindex.html#cb36-5" tabindex="-1"></a>ll</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="fileindex.html#cb35-1" tabindex="-1"></a>ll <span class="ot">&lt;-</span> <span class="fu">selectDWD</span>(<span class="st">&quot;&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;hourly&quot;</span>,<span class="st">&quot;daily&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;wind&quot;</span>,<span class="st">&quot;kl&quot;</span>), <span class="st">&quot;r&quot;</span>, <span class="at">meta=</span><span class="cn">TRUE</span>)</span>
+<span id="cb35-2"><a href="fileindex.html#cb35-2" tabindex="-1"></a>ll <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&quot;.txt$&quot;</span>, ll, <span class="at">value=</span><span class="cn">TRUE</span>)</span>
+<span id="cb35-3"><a href="fileindex.html#cb35-3" tabindex="-1"></a>ll <span class="ot">&lt;-</span> ll[<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">&quot;mn4&quot;</span>,ll)]</span>
+<span id="cb35-4"><a href="fileindex.html#cb35-4" tabindex="-1"></a>ll <span class="ot">&lt;-</span> <span class="fu">sub</span>(dwdbase, <span class="st">&quot;&quot;</span>, ll)</span>
+<span id="cb35-5"><a href="fileindex.html#cb35-5" tabindex="-1"></a>ll</span></code></pre></div>
 <pre><code>## [1] &quot;/daily/kl/recent/KL_Tageswerte_Beschreibung_Stationen.txt&quot;     
 ## [2] &quot;/hourly/wind/recent/FF_Stundenwerte_Beschreibung_Stationen.txt&quot;</code></pre>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="fileindex.html#cb38-1" tabindex="-1"></a>ind <span class="ot">&lt;-</span> <span class="fu">createIndex</span>(ll, <span class="at">dir=</span><span class="fu">tempdir</span>(), <span class="at">meta=</span><span class="cn">TRUE</span>, <span class="at">checkwarn=</span><span class="cn">FALSE</span>)</span>
-<span id="cb38-2"><a href="fileindex.html#cb38-2" tabindex="-1"></a>ind<span class="sc">$</span>metaIndex<span class="sc">$</span>hasfile <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
-<span id="cb38-3"><a href="fileindex.html#cb38-3" tabindex="-1"></a><span class="fu">metaInfo</span>(<span class="dv">3987</span>, <span class="at">mindex=</span>ind<span class="sc">$</span>metaIndex)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="fileindex.html#cb37-1" tabindex="-1"></a>ind <span class="ot">&lt;-</span> <span class="fu">createIndex</span>(ll, <span class="at">dir=</span><span class="fu">tempdir</span>(), <span class="at">meta=</span><span class="cn">TRUE</span>, <span class="at">checkwarn=</span><span class="cn">FALSE</span>)</span>
+<span id="cb37-2"><a href="fileindex.html#cb37-2" tabindex="-1"></a>ind<span class="sc">$</span>metaIndex<span class="sc">$</span>hasfile <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb37-3"><a href="fileindex.html#cb37-3" tabindex="-1"></a><span class="fu">metaInfo</span>(<span class="dv">3987</span>, <span class="at">mindex=</span>ind<span class="sc">$</span>metaIndex)</span></code></pre></div>
 <pre><code>## rdwd station id 3987 with 2 files.
 ## Name: Potsdam, State: Brandenburg
 ## For up-to-date info, see https://brry.github.io/rdwd/fileindex.html#metaindex</code></pre>
 <pre><code>##      res  var    per hasfile       from         to     lat    long ele
-## 1  daily   kl recent    TRUE 1893-01-01 2025-12-19 52.3812 13.0622  81
-## 2 hourly wind recent    TRUE 1893-01-01 2025-12-19 52.3812 13.0622  81</code></pre>
+## 1  daily   kl recent    TRUE 1893-01-01 2026-03-28 52.3812 13.0622  81
+## 2 hourly wind recent    TRUE 1893-01-01 2026-03-28 52.3812 13.0622  81</code></pre>
 </div>
 </div>
             </section>

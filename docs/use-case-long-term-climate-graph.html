@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>11 - use case: long term climate graph | rdwd</title>
   <meta name="description" content="11 - use case: long term climate graph | rdwd" />
-  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="11 - use case: long term climate graph | rdwd" />
   <meta property="og:type" content="book" />
@@ -51,7 +51,7 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<link href="libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
@@ -262,18 +262,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="use-case-long-term-climate-graph" class="section level1 hasAnchor" number="11">
 <h1><span class="header-section-number">11</span> - use case: long term climate graph<a href="use-case-long-term-climate-graph.html#use-case-long-term-climate-graph" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="use-case-long-term-climate-graph.html#cb59-1" tabindex="-1"></a>rdwd<span class="sc">::</span><span class="fu">updateRdwd</span>()</span>
-<span id="cb59-2"><a href="use-case-long-term-climate-graph.html#cb59-2" tabindex="-1"></a><span class="fu">library</span>(rdwd)</span>
-<span id="cb59-3"><a href="use-case-long-term-climate-graph.html#cb59-3" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="fu">selectDWD</span>(<span class="st">&quot;Goettingen&quot;</span>, <span class="at">res=</span><span class="st">&quot;monthly&quot;</span>, <span class="at">var=</span><span class="st">&quot;kl&quot;</span>, <span class="at">per=</span><span class="st">&quot;h&quot;</span>)</span>
-<span id="cb59-4"><a href="use-case-long-term-climate-graph.html#cb59-4" tabindex="-1"></a>clim <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(link)</span>
-<span id="cb59-5"><a href="use-case-long-term-climate-graph.html#cb59-5" tabindex="-1"></a></span>
-<span id="cb59-6"><a href="use-case-long-term-climate-graph.html#cb59-6" tabindex="-1"></a>clim<span class="sc">$</span>month <span class="ot">&lt;-</span> <span class="fu">substr</span>(clim<span class="sc">$</span>MESS_DATUM_BEGINN,<span class="dv">5</span>,<span class="dv">6</span>)</span>
-<span id="cb59-7"><a href="use-case-long-term-climate-graph.html#cb59-7" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">tapply</span>(clim<span class="sc">$</span>MO_TT, clim<span class="sc">$</span>month, mean, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
-<span id="cb59-8"><a href="use-case-long-term-climate-graph.html#cb59-8" tabindex="-1"></a>prec <span class="ot">&lt;-</span> <span class="fu">tapply</span>(clim<span class="sc">$</span>MO_RR, clim<span class="sc">$</span>month, mean, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
-<span id="cb59-9"><a href="use-case-long-term-climate-graph.html#cb59-9" tabindex="-1"></a></span>
-<span id="cb59-10"><a href="use-case-long-term-climate-graph.html#cb59-10" tabindex="-1"></a>berryFunctions<span class="sc">::</span><span class="fu">climateGraph</span>(temp, prec, <span class="at">main=</span><span class="st">&quot;Goettingen&quot;</span>)</span>
-<span id="cb59-11"><a href="use-case-long-term-climate-graph.html#cb59-11" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">&quot;Source: Deutscher Wetterdienst&quot;</span>, <span class="at">adj=</span><span class="sc">-</span><span class="fl">0.05</span>, <span class="at">line=</span><span class="fl">2.8</span>, <span class="at">font=</span><span class="dv">3</span>)</span></code></pre></div>
-<p><img src="rdwd_files/figure-html/uc_climgraph-1.png" width="672" /></p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="use-case-long-term-climate-graph.html#cb58-1" tabindex="-1"></a>rdwd<span class="sc">::</span><span class="fu">updateRdwd</span>()</span>
+<span id="cb58-2"><a href="use-case-long-term-climate-graph.html#cb58-2" tabindex="-1"></a><span class="fu">library</span>(rdwd)</span>
+<span id="cb58-3"><a href="use-case-long-term-climate-graph.html#cb58-3" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="fu">selectDWD</span>(<span class="st">&quot;Goettingen&quot;</span>, <span class="at">res=</span><span class="st">&quot;monthly&quot;</span>, <span class="at">var=</span><span class="st">&quot;kl&quot;</span>, <span class="at">per=</span><span class="st">&quot;h&quot;</span>)</span>
+<span id="cb58-4"><a href="use-case-long-term-climate-graph.html#cb58-4" tabindex="-1"></a>clim <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(link)</span>
+<span id="cb58-5"><a href="use-case-long-term-climate-graph.html#cb58-5" tabindex="-1"></a></span>
+<span id="cb58-6"><a href="use-case-long-term-climate-graph.html#cb58-6" tabindex="-1"></a>clim<span class="sc">$</span>month <span class="ot">&lt;-</span> <span class="fu">substr</span>(clim<span class="sc">$</span>MESS_DATUM_BEGINN,<span class="dv">5</span>,<span class="dv">6</span>)</span>
+<span id="cb58-7"><a href="use-case-long-term-climate-graph.html#cb58-7" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">tapply</span>(clim<span class="sc">$</span>MO_TT, clim<span class="sc">$</span>month, mean, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb58-8"><a href="use-case-long-term-climate-graph.html#cb58-8" tabindex="-1"></a>prec <span class="ot">&lt;-</span> <span class="fu">tapply</span>(clim<span class="sc">$</span>MO_RR, clim<span class="sc">$</span>month, mean, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb58-9"><a href="use-case-long-term-climate-graph.html#cb58-9" tabindex="-1"></a></span>
+<span id="cb58-10"><a href="use-case-long-term-climate-graph.html#cb58-10" tabindex="-1"></a>berryFunctions<span class="sc">::</span><span class="fu">climateGraph</span>(temp, prec, <span class="at">main=</span><span class="st">&quot;Goettingen&quot;</span>)</span>
+<span id="cb58-11"><a href="use-case-long-term-climate-graph.html#cb58-11" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">&quot;Source: Deutscher Wetterdienst&quot;</span>, <span class="at">adj=</span><span class="sc">-</span><span class="fl">0.05</span>, <span class="at">line=</span><span class="fl">2.8</span>, <span class="at">font=</span><span class="dv">3</span>)</span></code></pre></div>
+<p><img src="rdwd_files/figure-html/uc_climgraph-1.png" alt="" width="672" /></p>
 <p>See also the <a href="https://brry.shinyapps.io/wetter/">app</a> to visualize the weather of a given time period, compared to the measurements of the same period in other years.<br />
 This can also be run locally with <code>rdwd::app()</code>.</p>
 </div>

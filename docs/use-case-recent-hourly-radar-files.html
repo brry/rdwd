@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>17 - use case: recent hourly radar files | rdwd</title>
   <meta name="description" content="17 - use case: recent hourly radar files | rdwd" />
-  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="17 - use case: recent hourly radar files | rdwd" />
   <meta property="og:type" content="book" />
@@ -51,7 +51,7 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<link href="libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
@@ -268,24 +268,24 @@ that has been outsourced to <code>dwdradar</code> to keep the basic <code>rdwd</
 <p>Since these datasets only exist for two days on the FTP Server, I’m storing them in <code>tempdir()</code>.</p>
 <p>Please note that for projecting (see <a href="https://www.rdocumentation.org/packages/rdwd/topics/projectRasterDWD" target="_blank"><code>projectRasterDWD</code></a>),
 the radolan extent seems to be needed, not the rw extent.</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="use-case-recent-hourly-radar-files.html#cb81-1" tabindex="-1"></a>rw_base <span class="ot">&lt;-</span> <span class="st">&quot;ftp://opendata.dwd.de/weather/radar/radolan/rw&quot;</span></span>
-<span id="cb81-2"><a href="use-case-recent-hourly-radar-files.html#cb81-2" tabindex="-1"></a>rw_urls <span class="ot">&lt;-</span> <span class="fu">indexFTP</span>(<span class="at">base=</span>rw_base, <span class="at">dir=</span><span class="fu">tempdir</span>(), <span class="at">folder=</span><span class="st">&quot;&quot;</span>, <span class="at">exclude.latest.bin=</span><span class="cn">TRUE</span>)</span>
-<span id="cb81-3"><a href="use-case-recent-hourly-radar-files.html#cb81-3" tabindex="-1"></a>rw_file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(rw_urls[<span class="dv">15</span>], <span class="at">base=</span>rw_base, <span class="at">joinbf=</span><span class="cn">TRUE</span>, <span class="at">dir=</span><span class="fu">tempdir</span>(), <span class="at">read=</span><span class="cn">FALSE</span>)</span>
-<span id="cb81-4"><a href="use-case-recent-hourly-radar-files.html#cb81-4" tabindex="-1"></a>rw_file_actual <span class="ot">&lt;-</span> R.utils<span class="sc">::</span><span class="fu">bunzip2</span>(rw_file) <span class="co"># zipped since between 2022-06 and 2023-04</span></span>
-<span id="cb81-5"><a href="use-case-recent-hourly-radar-files.html#cb81-5" tabindex="-1"></a></span>
-<span id="cb81-6"><a href="use-case-recent-hourly-radar-files.html#cb81-6" tabindex="-1"></a>rw_orig <span class="ot">&lt;-</span> dwdradar<span class="sc">::</span><span class="fu">readRadarFile</span>(rw_file_actual)</span>
-<span id="cb81-7"><a href="use-case-recent-hourly-radar-files.html#cb81-7" tabindex="-1"></a><span class="fu">str</span>(rw_orig)</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="use-case-recent-hourly-radar-files.html#cb80-1" tabindex="-1"></a>rw_base <span class="ot">&lt;-</span> <span class="st">&quot;ftp://opendata.dwd.de/weather/radar/radolan/rw&quot;</span></span>
+<span id="cb80-2"><a href="use-case-recent-hourly-radar-files.html#cb80-2" tabindex="-1"></a>rw_urls <span class="ot">&lt;-</span> <span class="fu">indexFTP</span>(<span class="at">base=</span>rw_base, <span class="at">dir=</span><span class="fu">tempdir</span>(), <span class="at">folder=</span><span class="st">&quot;&quot;</span>, <span class="at">exclude.latest.bin=</span><span class="cn">TRUE</span>)</span>
+<span id="cb80-3"><a href="use-case-recent-hourly-radar-files.html#cb80-3" tabindex="-1"></a>rw_file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(rw_urls[<span class="dv">15</span>], <span class="at">base=</span>rw_base, <span class="at">joinbf=</span><span class="cn">TRUE</span>, <span class="at">dir=</span><span class="fu">tempdir</span>(), <span class="at">read=</span><span class="cn">FALSE</span>)</span>
+<span id="cb80-4"><a href="use-case-recent-hourly-radar-files.html#cb80-4" tabindex="-1"></a>rw_file_actual <span class="ot">&lt;-</span> R.utils<span class="sc">::</span><span class="fu">bunzip2</span>(rw_file) <span class="co"># zipped since between 2022-06 and 2023-04</span></span>
+<span id="cb80-5"><a href="use-case-recent-hourly-radar-files.html#cb80-5" tabindex="-1"></a></span>
+<span id="cb80-6"><a href="use-case-recent-hourly-radar-files.html#cb80-6" tabindex="-1"></a>rw_orig <span class="ot">&lt;-</span> dwdradar<span class="sc">::</span><span class="fu">readRadarFile</span>(rw_file_actual)</span>
+<span id="cb80-7"><a href="use-case-recent-hourly-radar-files.html#cb80-7" tabindex="-1"></a><span class="fu">str</span>(rw_orig)</span></code></pre></div>
 <pre><code>## List of 2
 ##  $ dat : num [1:900, 1:900] NA NA NA NA NA NA NA NA NA NA ...
 ##   ..- attr(*, &quot;dimnames&quot;)=List of 2
 ##   .. ..$ x.nrs: chr [1:900] &quot;0&quot; &quot;1&quot; &quot;2&quot; &quot;3&quot; ...
 ##   .. ..$ y.nrs: chr [1:900] &quot;0&quot; &quot;1&quot; &quot;2&quot; &quot;3&quot; ...
 ##  $ meta:List of 13
-##   ..$ filename        : chr &quot;/private/var/folders/lf/4cpm3h3n6b3ddf_t8t_55x1h0000gn/T/RtmpgKMUNI/raa01-rw_10000-2512182030-dwd---bin&quot;
+##   ..$ filename        : chr &quot;/private/var/folders/lf/4cpm3h3n6b3ddf_t8t_55x1h0000gn/T/Rtmp0Q3Fdx/raa01-rw_10000-2603280800-dwd---bin&quot;
 ##   .. ..- attr(*, &quot;nbrOfBytes&quot;)= num 1620153
-##   ..$ header          : chr &quot;RW182030100001225BY1620153VS 3SW   2.29.1PR E-01INT  60GP 900x 900MF 00000001MS 70&lt;asb,boo,ros,hnr,umd,pro,ess,&quot;| __truncated__
+##   ..$ header          : chr &quot;RW280800100000326BY1620153VS 3SW   2.29.1PR E-01INT  60GP 900x 900MF 00000001MS 70&lt;asb,boo,ros,hnr,umd,pro,ess,&quot;| __truncated__
 ##   ..$ nchar           : num 153
-##   ..$ date            : POSIXlt[1:1], format: &quot;2025-12-18 20:30:00&quot;
+##   ..$ date            : POSIXlt[1:1], format: &quot;2026-03-28 08:00:00&quot;
 ##   ..$ product         : chr &quot;RW&quot;
 ##   ..$ location        : chr &quot;10000&quot;
 ##   ..$ radius_format   : chr &quot; 3&quot;
@@ -295,9 +295,9 @@ the radolan extent seems to be needed, not the rw extent.</p>
 ##   ..$ dim             : num [1:2] 900 900
 ##   ..$ radars          : chr &quot;asb,boo,ros,hnr,umd,pro,ess,fld,drs,neu,nhb,oft,eis,tur,isn,fbg,mem&quot;
 ##   ..$ radarn          : chr NA</code></pre>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="use-case-recent-hourly-radar-files.html#cb83-1" tabindex="-1"></a><span class="co"># NB: this is an rw file, but needs radolan extent instead of rw</span></span>
-<span id="cb83-2"><a href="use-case-recent-hourly-radar-files.html#cb83-2" tabindex="-1"></a><span class="fu">plotRadar</span>(terra<span class="sc">::</span><span class="fu">rast</span>(rw_orig<span class="sc">$</span>dat), <span class="at">extent=</span><span class="st">&quot;radolan&quot;</span>, <span class="at">main=</span>rw_orig<span class="sc">$</span>meta<span class="sc">$</span>date)</span></code></pre></div>
-<p><img src="rdwd_files/figure-html/recent_radar-1.png" width="672" /></p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="use-case-recent-hourly-radar-files.html#cb82-1" tabindex="-1"></a><span class="co"># NB: this is an rw file, but needs radolan extent instead of rw</span></span>
+<span id="cb82-2"><a href="use-case-recent-hourly-radar-files.html#cb82-2" tabindex="-1"></a><span class="fu">plotRadar</span>(terra<span class="sc">::</span><span class="fu">rast</span>(rw_orig<span class="sc">$</span>dat), <span class="at">extent=</span><span class="st">&quot;radolan&quot;</span>, <span class="at">main=</span>rw_orig<span class="sc">$</span>meta<span class="sc">$</span>date)</span></code></pre></div>
+<p><img src="rdwd_files/figure-html/recent_radar-1.png" alt="" width="672" /></p>
 </div>
             </section>
 
