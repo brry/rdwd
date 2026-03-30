@@ -1,8 +1,8 @@
-#' @title check some historical files for updates by DWD
+#' @title check historical files for updates by DWD
 #' @description check whether the DWD has updated historical datasets.
 #' That requires [`updateIndexes`] to be run by me.
 #' If that is the case, the funtion will give a warning, otherwise a message.
-#' @return currently available files on the FTP server in the ca 34 historical folders, invisibly
+#' @return currently available files on the FTP server in the ca 33 historical folders, invisibly
 #' @export
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Mar+May 2025
 #' @seealso <https://brry.github.io/rdwd/fileindex.html>

@@ -2,7 +2,7 @@
 % Please edit documentation in R/checkUpdates.R
 \name{checkUpdates}
 \alias{checkUpdates}
-\title{check some historical files for updates by DWD}
+\title{check historical files for updates by DWD}
 \usage{
 checkUpdates(fast = TRUE)
 }
@@ -10,7 +10,7 @@ checkUpdates(fast = TRUE)
 \item{fast}{only check a subset? currently ignored. DEFAULT: TRUE}
 }
 \value{
-currently available files on the FTP server in the ca 34 historical folders, invisibly
+currently available files on the FTP server in the ca 33 historical folders, invisibly
 }
 \description{
 check whether the DWD has updated historical datasets.
