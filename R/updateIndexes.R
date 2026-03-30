@@ -56,6 +56,7 @@
 #' # 634'644 (2025-08-02)
 #' # 634'649 (2025-08-18)
 #' # 634'859 (2025-12-20)
+#' # 634'962 (2026-03-30)
 #' 
 #' # gridbase
 #' #  49'247 (2019-05-26)
@@ -98,6 +99,7 @@
 #' # 114'146 (2025-08-02)
 #' # 117'644 (2025-08-18)
 #' # 146'958 (2025-12-20)
+#' # 173'914 (2026-03-30)
 #' 
 #' @param dwdlocal Read "DWDdata/INDEX_of_DWD_.txt" instead of calling
 #'                 [indexFTP()]? DEFAULT: FALSE
@@ -120,6 +122,7 @@ messaget <- function(...) message(format(Sys.time(), "%T - "), ...)
 # get filenames on FTP server:
 if(dwdlocal) dwdfiles <- readLines("DWDdata/INDEX_of_DWD_.txt") else
  {
+ messaget("Updating FTP file indexes, expect ca 17 minutes total time.")
  messaget("Indexing FTP Server at dwdbase (expect 0,2,15,47,40s) ...")
  dwdfiles <- indexFTP(sleep=0, filename="", dir="DWDdata", overwrite=TRUE)
  }
@@ -220,8 +223,8 @@ if(any(dupli)) message("Duplicate Kurz entries in:\n-",
 
 message(" - To view the checkIndex results, use   cat(.Last.value)")
 
-a <- paste0("#' # ", formatC(length(dwdfiles), big.mark="'"), " (",Sys.Date(), ")")
-b <- paste0("#' #  ",formatC(length(grdfiles), big.mark="'"), " (",Sys.Date(), ")")
+a <- paste0("# ", formatC(length(dwdfiles), big.mark="'"), " (",Sys.Date(), ")")
+b <- paste0("# ", formatC(length(grdfiles), big.mark="'"), " (",Sys.Date(), ")")
 message("- Manually add these file numbers to the examples in R/updateIndexes.R:\n", a, "\n", b)
 
 dt <- Sys.time()-begintime

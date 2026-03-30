@@ -639,6 +639,8 @@ Other resources
 - The Python equivalent of rdwd: the package [wetterdienst](https://github.com/earthobservations/wetterdienst) that also covers Radolan and Radvor and has local caching (even with an SQL interface), but has many dependencies. 
 It accesses more data sources than rdwd and currently has a more active development community.
 
+- Python module for radar data: [wradlib](https://github.com/wradlib/wradlib)
+
 - the *Catchment Attributes and MEteorology for Large-sample Studies* initiative 
 ([CAMELS](https://zenodo.org/record/6517142)).
 

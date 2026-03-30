@@ -1,8 +1,8 @@
 
-checkIndex results at 2025-12-20 20:12:58 for
+checkIndex results at 2026-03-30 08:20:49 for
 ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate
 File 'data/fileIndex.rda' was last modified 2025-12-20 20:08:53.13375
-Call stack: runLocalTests -> testthat::test_that -> test_code -> eval -> checkIndex
+Call stack: runLocalTests -> testthat::test_that -> test_code -> withRestarts -> withOneRestart -> doWithOneRestart -> eval -> checkIndex
 using excludefp=TRUE
 -------
 IDs with duplicate files:
@@ -61,6 +61,6 @@ Coordinates used for more than one station:
 - 12.0975_50.4299: 26x ID=4972 (Oelsnitz-Goeswein), 12x ID=19681 (Taltitz)
 
 G3;
-.74872
+.766286
 
 g
