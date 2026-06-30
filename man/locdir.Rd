@@ -9,10 +9,10 @@ locdir(dir = getOption("rdwdlocdir"), file = NULL, quiet = rdwdquiet())
 \arguments{
 \item{dir}{Path to data directory.
 If \code{dir} is NULL, locdir tries "C:/DWDdata", then "~/DWDdata",
-then \link[tools:userdir]{tools::R_user_dir}\verb{("rdwd", which="cache")}.\cr\cr
+then \link[tools:R_user_dir]{tools::R_user_dir}\verb{("rdwd", which="cache")}.\cr\cr
 \code{dir} can also be set with
 \code{options(rdwdlocdir="YOUR/PATH")} thanks to the
-DEFAULT: \link[base:options]{base::getOption}\code{("rdwdlocdir")}}
+DEFAULT: \link[base:getOption]{base::getOption}\code{("rdwdlocdir")}}
 
 \item{file}{Optional: path(s) at \code{dir}. DEFAULT: NULL}
 

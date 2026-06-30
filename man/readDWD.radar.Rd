@@ -19,7 +19,7 @@ DWDdata/hourly/radolan/recent/bin/
 raa01-rw_10000-1802020250-dwd---bin.gz}
 
 \item{gargs}{Named list of arguments passed to
-\code{\link[R.utils:compressFile]{R.utils::gunzip()}}, see \code{\link[=readDWD.raster]{readDWD.raster()}}. DEFAULT: NULL}
+\code{\link[R.utils:gunzip]{R.utils::gunzip()}}, see \code{\link[=readDWD.raster]{readDWD.raster()}}. DEFAULT: NULL}
 
 \item{toraster}{Logical: convert output (list of matrixes + meta informations)
 to a list with data (\code{\link[terra:rast]{terra::rast}}) +

@@ -11,7 +11,7 @@ readDWD.deriv(file, gargs = NULL, todate = TRUE, quiet = rdwdquiet(), ...)
 DWDdata/soil_daily_historical_derived_germany_soil_daily_historical_3987.txt.gz}
 
 \item{gargs}{If fread=FALSE: Named list of arguments passed to
-\code{\link[R.utils:compressFile]{R.utils::gunzip()}}, see \code{\link[=readDWD.raster]{readDWD.raster()}}. DEFAULT: NULL}
+\code{\link[R.utils:gunzip]{R.utils::gunzip()}}, see \code{\link[=readDWD.raster]{readDWD.raster()}}. DEFAULT: NULL}
 
 \item{todate}{Logical: Convert char column 'Datum' or 'Monat' with \code{\link[=as.Date]{as.Date()}}?
 The format is currently hard-coded. Monthly data gets mapped to yyyy-mm-15

@@ -18,11 +18,13 @@ projectRasterDWD(
 \item{r}{terra raster object}
 
 \item{proj}{Current projection to be given to \code{r}. Can be\cr
-- a \code{\link[terra:crs]{terra::crs()}} input,\cr
-- NULL to not set proj+extent (but still consider \code{targetproj}),\cr
-- or a special charstring for internal defaults, namely:
+\itemize{
+\item a \code{\link[terra:crs]{terra::crs()}} input,\cr
+\item NULL to not set proj+extent (but still consider \code{targetproj}),\cr
+\item or a special charstring for internal defaults, namely:
 "radolan" (readDWD.binary + .asc + .radar), "seasonal" (.raster) or "nc"  (.nc).\cr
-DEFAULT: "radolan"}
+DEFAULT: "radolan"
+}}
 
 \item{extent}{Current \code{\link[terra:ext]{terra::ext()}} extent to be given to \code{r}.
 Ignored if \code{proj=NULL}. Can be NULL to be ignored, an extent object,

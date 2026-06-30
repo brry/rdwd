@@ -11,7 +11,7 @@ readDWD.raster(file, gargs = NULL, dividebyten, quiet = rdwdquiet(), ...)
 DWDdata/grids_germany/seasonal/air_temperature_mean/
 16_DJF_grids_germany_seasonal_air_temp_mean_188216.asc.gz}
 
-\item{gargs}{Named list of arguments passed to \code{\link[R.utils:compressFile]{R.utils::gunzip()}}.
+\item{gargs}{Named list of arguments passed to \code{\link[R.utils:gunzip]{R.utils::gunzip()}}.
 The internal defaults are: \code{remove=FALSE} (recommended to
 keep this so \code{file} does not get deleted) and \code{skip=TRUE}
 (which reads previously unzipped files as is).

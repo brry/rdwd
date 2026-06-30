@@ -19,7 +19,7 @@ readDWD.nc(
 DWDdata/grids_germany/daily/Project_TRY/humidity/RH_199509_daymean.nc.gz}
 
 \item{gargs}{Named list of arguments passed to
-\code{\link[R.utils:compressFile]{R.utils::gunzip()}}, see \code{\link[=readDWD.raster]{readDWD.raster()}}. DEFAULT: NULL}
+\code{\link[R.utils:gunzip]{R.utils::gunzip()}}, see \code{\link[=readDWD.raster]{readDWD.raster()}}. DEFAULT: NULL}
 
 \item{var}{if toraster=FALSE: Charstring with name of variable to be read with
 \code{\link[ncdf4:ncvar_get]{ncdf4::ncvar_get()}}. If not available,

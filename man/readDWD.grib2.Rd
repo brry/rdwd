@@ -17,7 +17,7 @@ see \href{https://github.com/brry/rdwd/issues/28}{issue}.
 DEFAULT: "terra"}
 
 \item{bargs}{Named list of arguments passed to
-\code{\link[R.utils:compressFile]{R.utils::bunzip2()}}, see \code{gargs} in \code{\link[=readDWD.raster]{readDWD.raster()}}. DEFAULT: NULL}
+\code{\link[R.utils:bunzip2]{R.utils::bunzip2()}}, see \code{gargs} in \code{\link[=readDWD.raster]{readDWD.raster()}}. DEFAULT: NULL}
 
 \item{quiet}{Silence readGDAL completely, including warnings on
 discarded ellps / datum.
