@@ -59,6 +59,15 @@
 #' #links <- selectDWD(res="daily", var="solar")
 #' #sol <- dataDWD(links, sleep=20) # random waiting time after download (0 to 20 secs)
 #' 
+#' # retry historical filenames (annually renamed by DWD):
+#' link <- selectDWD("Potsdam", "monthly", "kl", "hist", current=TRUE); link
+#' # artifically outdated filename:
+#' nc <- nchar(link)
+#' year <- as.numeric(substr(link, nc-16, nc-13))
+#' substr(link, nc-16, nc-13) <- as.character(year - 1); link
+#' clim <- dataDWD(link, retryhist=1, force=TRUE)
+#' 
+#' 
 #' # Real life examples can be found in the use cases section of the website:
 #' # browseURL("https://brry.github.io/rdwd/")
 #' }
@@ -85,6 +94,12 @@
 #'               DEFAULT: `!isFALSE(force)`, i.e. true when `force` is specified.
 #' @param read   Logical: read the file(s) with [readDWD()]? If FALSE,
 #'               only download is performed and the filename(s) returned. DEFAULT: TRUE
+#' @param retryhist Integer: for failed historical files (renamed annually by DWD),
+#'               try again with updated year value?  
+#'               0: do not try again
+#'               1 (DEFAULT): retry + warn if successful
+#'               9: retry silently
+#'               Further options may be added.
 #' @param dbin   Logical: Download binary file, i.e. add `mode="wb"` to the
 #'               [download.file()] call? 
 #'               See [Website](https://brry.github.io/rdwd/raster-data.html#binary-file-errors) 
@@ -127,6 +142,7 @@ dir=locdir(),
 force=FALSE,
 overwrite=!isFALSE(force),
 read=TRUE,
+retryhist=1,
 dbin=TRUE,
 method=getOption("download.file.method"),
 removeftp=FALSE,
@@ -143,6 +159,7 @@ quiet=rdwdquiet(),
 if(!is.null(file)) tstop("The argument 'file' has been renamed to 'url' with rdwd version 1.3.34, 2020-07-28")
 if(!is.atomic(url)) tstop("url must be a vector, not a ", class(url))
 if(!is.character(url)) tstop("url must be char, not ", class(url))
+if(!is.numeric(retryhist)) tstop("retryhist must be integer, not ", class(retryhist))
 base <- sub("/$","",base) # remove accidental trailing slash
 url <- sub("^/","",url) # remove accidental leading slash
 if(removeftp)
@@ -215,6 +232,19 @@ dl_results <- lapply(seq_along(url), function(i)
   if(dbin) dfdefaults <- c(dfdefaults, mode="wb")
   e <- try(suppressWarnings(do.call(download.file,
                          berryFunctions::owa(dfdefaults, dfargs))), silent=TRUE)
+  # retry historical files (annually renamed by DWD):
+  if(inherits(e,"try-error") && retryhist>0 && endsWith(url[i], "hist.zip"))
+    {
+    retry_url <- url[i]
+    nc <- nchar(retry_url)
+    year <- as.numeric(substr(retry_url, nc-16, nc-13))
+    substr(retry_url, nc-16, nc-13) <- as.character(year + 1)
+    retry_defaults <- dfdefaults
+    retry_defaults$url <- retry_url
+    e <- try(suppressWarnings(do.call(download.file,
+                     berryFunctions::owa(retry_defaults, dfargs))), silent=TRUE)
+    if(!inherits(e,"try-error")) attr(e, "retryhist_year") <- year+1 
+    }
   # wait some time to avoid FTP bot recognition:
   if(sleep!=0) Sys.sleep(runif(n=1, min=0, max=sleep))
   return(e)
@@ -240,6 +270,19 @@ if(any(iserror))
                     "see   https://brry.github.io/rdwd/fileindex.html")
   msg <- paste0(msg, msg2, msg3)
   warning(msg, call.=FALSE)
+  }
+# check for retried hist files:
+retried <- sapply(dl_results, function(x) !is.null(attr(x,"retryhist_year")))
+if(any(retried) && retryhist<9)
+  {
+  nr <- sum(retried)
+  twarning("Historical file download originally failed for ",nr," file",if(nr>1)"s", ".\n",
+           "It worked when retried with the next year as the end date.\n",
+           "-> Your filename(s) do not match the updated + renamed DWD URL!\n",
+           "-> Tell Berry to run updateIndexes:\n",
+           "https://github.com/brry/rdwd/issues      berry-b@gmx.de\n",
+           "Set retryhist=9 to suppress this warning.\n",
+           "Generated for: ", berryFunctions::truncMessage(url[retried], ntrunc=ntrunc, prefix=""))
   }
 # ------------------------------------------------------------------------------
 # Output: Read the file or outfile name:

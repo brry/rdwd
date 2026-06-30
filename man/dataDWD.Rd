@@ -12,6 +12,7 @@ dataDWD(
   force = FALSE,
   overwrite = !isFALSE(force),
   read = TRUE,
+  retryhist = 1,
   dbin = TRUE,
   method = getOption("download.file.method"),
   removeftp = FALSE,
@@ -54,6 +55,13 @@ DEFAULT: \code{!isFALSE(force)}, i.e. true when \code{force} is specified.}
 
 \item{read}{Logical: read the file(s) with \code{\link[=readDWD]{readDWD()}}? If FALSE,
 only download is performed and the filename(s) returned. DEFAULT: TRUE}
+
+\item{retryhist}{Integer: for failed historical files (renamed annually by DWD),
+try again with updated year value?
+0: do not try again
+1 (DEFAULT): retry + warn if successful
+9: retry silently
+Further options may be added.}
 
 \item{dbin}{Logical: Download binary file, i.e. add \code{mode="wb"} to the
 \code{\link[=download.file]{download.file()}} call?
@@ -146,6 +154,15 @@ plot(TMK~MESS_DATUM, data=tail(potsdam,1500), type="l")
 # With many files (>>50), use sleep to avoid getting kicked off the FTP server
 #links <- selectDWD(res="daily", var="solar")
 #sol <- dataDWD(links, sleep=20) # random waiting time after download (0 to 20 secs)
+
+# retry historical filenames (annually renamed by DWD):
+link <- selectDWD("Potsdam", "monthly", "kl", "hist", current=TRUE); link
+# artifically outdated filename:
+nc <- nchar(link)
+year <- as.numeric(substr(link, nc-16, nc-13))
+substr(link, nc-16, nc-13) <- as.character(year - 1); link
+clim <- dataDWD(link, retryhist=1, force=TRUE)
+
 
 # Real life examples can be found in the use cases section of the website:
 # browseURL("https://brry.github.io/rdwd/")
