@@ -40,18 +40,16 @@ Usage for observational weather data from the measuring stations usually looks s
 ```R
 # Download and install (once only):
 install.packages("rdwd")
-# update to the most recent fileIndex (ca monthly):
+# update to the most recent fileIndex (ca 3x/year):
 rdwd::updateRdwd() 
 # Load the package into library (needed in every R session):
 library(rdwd)
 
-# select a dataset (e.g. last year's daily climate data from Potsdam city):
+# Select a dataset (e.g. last year's daily climate data from Potsdam city):
 link <- selectDWD("Potsdam", res="daily", var="kl", per="recent")
 
-# Actually download that dataset, returning the local storage file name:
-file <- dataDWD(link, read=FALSE)
-# Read the file from the zip folder:
-clim <- readDWD(file, varnames=TRUE) # can happen directly in dataDWD
+# Download (if needed) and read it:
+clim <- dataDWD(link, varnames=TRUE)
 
 # Inspect the data.frame:
 str(clim)
@@ -62,6 +60,7 @@ plotDWD(clim, "FM.Windgeschwindigkeit")
 For data interpolated onto a 1 km raster, including radar data up to the last hour,
 see the corresponding [chapter](https://brry.github.io/rdwd/raster-data.html) on the website.
 
+To automatically merge historical and recent data, see [this use case](https://brry.github.io/rdwd/use-case-merge-historical-and-recent-data.html).
 
 ### App
 Since April 2023, there is an [interactive app](https://brry.shinyapps.io/wetter/) to compare weather periods:
