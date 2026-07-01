@@ -1,66 +1,96 @@
 
-checkIndex results at 2026-03-30 08:20:49 for
+checkIndex results at 2026-07-02 00:38:06 for
 ftp://opendata.dwd.de/climate_environment/CDC/observations_germany/climate
-File 'data/fileIndex.rda' was last modified 2025-12-20 20:08:53.13375
+File 'data/fileIndex.rda' was last modified 2026-07-01 23:05:55.093767
 Call stack: runLocalTests -> testthat::test_that -> test_code -> withRestarts -> withOneRestart -> doWithOneRestart -> eval -> checkIndex
 using excludefp=TRUE
 -------
-IDs with duplicate files:
--  79 at annual/climate_indices/precip/historical;  46, 141, 146, 291, 323, 443, 506, 522, 596, 809  (and 69 more)
--  55 at daily/more_weather_phenomena/historical;  827, 1551, 1850, 1900, 2160, 2302, 2441, 2443, 2503, 2721  (and 45 more)
 
-Elevation differences >4.1m at 16 stations:
-- ID=73: 80x374m, 1x340m
-- ID=6047: 17x71m, 1x78m
-- ID=5840: 29x593m, 1x600m
+Elevation differences >4.1m at 20 stations:
+- ID=73: 81x374m, 1x340m
+- ID=5840: 30x593m, 1x600m
+- ID=1343: 30x530m, 1x476m
 - ID=7421: 33x388m, 1x383m
-- ID=1645: 77x327m, 1x340m
-- ID=14081: 30x156m, 4x136m
-- ID=14032: 30x91m, 4x78m
-- ID=14017: 30x144m, 4x127m
-- ID=14026: 30x312m, 4x296m
-- ID=14014: 30x224m, 4x214m
-- ID=14019: 30x129m, 4x115m
-- ID=6298: 30x516m, 4x530m
-- ID=6342: 24x601m, 4x609m
-- ID=5133: 73x287m, 6x295m
-- ID=4445: 91x614m, 5x609m, 3x613m
-- ID=5279: 81x167m, 1x176m
+- ID=1645: 78x327m, 1x340m
+- ID=14081: 35x156m, 1x136m
+- ID=14032: 36x91m, 1x78m
+- ID=14017: 36x144m, 1x127m
+- ID=14026: 36x312m, 1x296m
+- ID=2500: 28x575m, 1x570m
+- ID=14014: 36x224m, 1x214m
+- ID=14019: 36x129m, 1x115m
+- ID=6297: 30x450m, 1x420m
+- ID=6298: 36x516m, 1x530m
+- ID=5941: 65x680m, 3x686m
+- ID=6342: 30x601m, 1x609m
+- ID=5002: 32x400m, 2x450m
+- ID=5133: 78x287m, 2x295m
+- ID=4445: 97x614m, 2x609m, 1x613m
+- ID=5279: 82x167m, 1x176m
 
 Location differences >40m at 13 stations:
-- ID=73: 80x48.6183_13.062, 1x48.6159_13.0506
-- ID=6047: 17x50.995_6.7111, 1x50.995_6.7104
-- ID=633: 29x51.4036_14.5668, 5x51.4041_14.5681
-- ID=5840: 29x48.6663_8.4721, 1x48.6671_8.47
-- ID=1270: 97x50.9827_10.9613, 8x50.9829_10.9608
-- ID=3137: 73x49.9658_8.2049, 1x49.9656_8.2139
-- ID=3307: 74x47.4814_11.2649, 2x47.4779_11.2653
+- ID=73: 81x48.6183_13.062, 1x48.6159_13.0506
+- ID=633: 31x51.4036_14.5668, 2x51.4041_14.5681
+- ID=5840: 30x48.6663_8.4721, 1x48.6671_8.47
+- ID=1270: 103x50.9827_10.9613, 3x50.9829_10.9608
+- ID=2522: 81x49.0373_8.3637, 2x49.0382_8.3641
+- ID=3137: 76x49.9658_8.2049, 1x49.9656_8.2139
+- ID=3307: 77x47.4814_11.2649, 2x47.4779_11.2653
 - ID=775: 32x51.9997_10.6327, 1x52_10.6323
+- ID=5941: 65x47.6721_12.4756, 3x47.6754_12.4698
 - ID=4261: 65x47.8819_12.1249, 1x47.8753_12.128
-- ID=4354: 80x48.7832_13.3146, 2x48.7826_13.3166
-- ID=6342: 24x47.6573_11.321, 4x47.6572_11.3187
-- ID=14037: 30x50.0069_6.4606, 4x50.0066_6.4587
-- ID=5684: 24x52.2813_12.4681, 8x52.2813_12.458
+- ID=6342: 30x47.6573_11.321, 1x47.6572_11.3187
+- ID=14037: 36x50.0069_6.4606, 1x50.0066_6.4587
+- ID=5684: 28x52.2813_12.4681, 3x52.2813_12.458
 
-Different names at 4 IDs:
-- ID=73: 80xAldersbach-Kramersepp, 1xAldersbach-Kriestorf
-- ID=6047: 17xBergheim-Fliesteden, 1xBergheim-Buesdorf
-- ID=1052: 81xMoeckern-Drewitz, 1xDrewitz bei Burg
-- ID=3234: 81xKlipphausen-Garsebach, 1xGarsebach bei Meissen
+Different names at 18 IDs:
+- ID=73: 81xAldersbach-Kramersepp, 1xAldersbach-Kriestorf
+- ID=5825: 97xNauen-Berge, 3xBerge
+- ID=7079: 29xSchwedt/Oder-Berkholz-Meyenburg, 3xBerkholz-Meyenburg
+- ID=714: 28xBriesen (Mark)-Neu Madlitz, 3xNeu Madlitz
+- ID=6170: 78xNeissemuende-Coschen, 3xCoschen
+- ID=1052: 82xMoeckern-Drewitz, 1xDrewitz bei Burg
+- ID=1350: 29xNuthe-Urstromtal-Felgentreu, 3xFelgentreu
+- ID=3234: 82xKlipphausen-Garsebach, 1xGarsebach bei Meissen
+- ID=4984: 31xGartz (Oder)-Hohenreinkendorf, 3xHohenreinkendorf
+- ID=19717: 17xHaiger/Dill, 1xHaiger//Dill
+- ID=7389: 96xHeckelberg-Brunow, 3xHeckelberg
+- ID=2625: 32xKlessen-Goerne, 3xKlessen
+- ID=2856: 93xNiedergoersdorf-Langenlipsdorf, 3xLangenlipsdorf
+- ID=3205: 29xOberkraemer-Marwitz (Wasserwerk), 3xMarwitz (Wasserwerk)
+- ID=5729: 31xOderaue-Wustrow, 3xWustrow
+- ID=3967: 29xSiehdichum-Pohlitz, 3xPohlitz
+- ID=5941: 65xReit im Winkl-Groissenbach, 3xReit im Winkl
+- ID=5555: 31xTrebbin-Thyrow, 3xThyrow
 
 More than one id per name at 5 names:
 - Name=Creglingen: 12x883, 1x7492
-- Name=Doebeln: 44x1003, 20x6153
-- Name=Lenggries (Rissbachwehr): 16x19410, 12x2944
-- Name=Lenggries-Vorderriss: 26x19407, 12x2946
-- Name=Wurzen: 20x6156, 12x5725
+- Name=Doebeln: 44x1003, 26x6153
+- Name=Lenggries-Vorderriss: 29x19407, 12x2946
+- Name=Lenggries (Rissbachwehr): 19x19410, 12x2944
+- Name=Wurzen: 26x6156, 12x5725
 
 Coordinates used for more than one station:
 - 13.3833_52.5333: 14x ID=408 (Berlin-Invalidenstrasse), 26x ID=422 (Berlin-Mitte)
-- 11.88_52.6069: 12x ID=5960 (Stendal), 22x ID=19940 (Stendal/Altmark)
-- 12.0975_50.4299: 26x ID=4972 (Oelsnitz-Goeswein), 12x ID=19681 (Taltitz)
+- 8.2261_50.743: 18x ID=19717 (Haiger//Dill), 18x ID=19717 (Haiger/Dill)
+- 13.8427_52.7461: 99x ID=7389 (Heckelberg), 99x ID=7389 (Heckelberg-Brunow)
+- 14.33_53.2252: 34x ID=4984 (Gartz (Oder)-Hohenreinkendorf), 34x ID=4984 (Hohenreinkendorf)
+- 12.4984_52.739: 35x ID=2625 (Klessen), 35x ID=2625 (Klessen-Goerne)
+- 12.7867_52.6198: 100x ID=5825 (Berge), 100x ID=5825 (Nauen-Berge)
+- 14.7254_52.0192: 81x ID=6170 (Coschen), 81x ID=6170 (Neissemuende-Coschen)
+- 14.2474_52.3653: 31x ID=714 (Briesen (Mark)-Neu Madlitz), 31x ID=714 (Neu Madlitz)
+- 13.0878_51.9173: 96x ID=2856 (Langenlipsdorf), 96x ID=2856 (Niedergoersdorf-Langenlipsdorf)
+- 13.0016_52.0997: 32x ID=1350 (Felgentreu), 32x ID=1350 (Nuthe-Urstromtal-Felgentreu)
+- 13.179_52.6579: 32x ID=3205 (Marwitz (Wasserwerk)), 32x ID=3205 (Oberkraemer-Marwitz (Wasserwerk))
+- 14.2423_53.0443: 32x ID=7079 (Berkholz-Meyenburg), 32x ID=7079 (Schwedt/Oder-Berkholz-Meyenburg)
+- 14.5748_52.1836: 32x ID=3967 (Pohlitz), 32x ID=3967 (Siehdichum-Pohlitz)
+- 11.88_52.6069: 12x ID=5960 (Stendal), 34x ID=19940 (Stendal/Altmark)
+- 12.0975_50.4299: 28x ID=4972 (Oelsnitz-Goeswein), 12x ID=19681 (Taltitz)
+- 13.2361_52.2534: 34x ID=5555 (Thyrow), 34x ID=5555 (Trebbin-Thyrow)
+- 14.2174_52.7606: 34x ID=5729 (Oderaue-Wustrow), 34x ID=5729 (Wustrow)
+- 10.9848_47.421: 98x ID=5792 (Zugspitze), 6x ID=20278 (Zugspitze_Plattform)
 
 G3;
-.766286
+.50864
 
 g

@@ -27,6 +27,8 @@ quiet=rdwdquiet()
 # pre-checks ----
 checkSuggestedPackage("testthat", "runLocalTests")
 if(!grepl("rdwd$", getwd())) stop("getwd must be in package root folder.")
+if(start==1) message("running rdwd tests. Expect 9 minutes total runtime.\n",
+               "Expect 220s=3.7m at devtools start, 360s=6m at examples start.")
 begintime <- Sys.time()
 messaget <- function(x) if(!quiet) message(x, " (",
           round(difftime(Sys.time(), begintime, units="s")), " secs so far)")
