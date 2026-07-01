@@ -58,6 +58,7 @@
 #' # 634'859 (2025-12-20)
 #' # 634'962 (2026-03-30)
 #' # 672'262 (2026-06-12)
+#' # 758'223 (2026-07-01)
 #' 
 #' # gridbase
 #' #  49'247 (2019-05-26)
@@ -102,6 +103,7 @@
 #' # 146'958 (2025-12-20)
 #' # 173'914 (2026-03-30)
 #' # 194'052 (2026-06-12)
+#' # 199'263 (2026-07-01)
 #' 
 #' @param dwdlocal Read "DWDdata/INDEX_of_DWD_.txt" instead of calling
 #'                 [indexFTP()]? DEFAULT: FALSE
@@ -124,7 +126,7 @@ messaget <- function(...) message(format(Sys.time(), "%T - "), ...)
 # get filenames on FTP server:
 if(dwdlocal) dwdfiles <- readLines("DWDdata/INDEX_of_DWD_.txt") else
  {
- messaget("Updating FTP file indexes, expect ca 17 minutes total time.")
+ messaget("Updating FTP file indexes, expect ca 12 minutes total time (17 on Macbook).")
  messaget("Indexing FTP Server at dwdbase (expect 0,2,15,47,40s) ...")
  dwdfiles <- indexFTP(sleep=0, filename="", dir="DWDdata", overwrite=TRUE)
  }

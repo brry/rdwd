@@ -73,6 +73,7 @@ To use custom or current indexes, see \url{https://brry.github.io/rdwd/fileindex
 # 634'859 (2025-12-20)
 # 634'962 (2026-03-30)
 # 672'262 (2026-06-12)
+# 758'223 (2026-07-01)
 
 # gridbase
 #  49'247 (2019-05-26)
@@ -117,6 +118,7 @@ To use custom or current indexes, see \url{https://brry.github.io/rdwd/fileindex
 # 146'958 (2025-12-20)
 # 173'914 (2026-03-30)
 # 194'052 (2026-06-12)
+# 199'263 (2026-07-01)
 
 }
 \seealso{
