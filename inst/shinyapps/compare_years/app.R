@@ -209,7 +209,7 @@ plot(i$day,0, type="n", xlim=i$day-c(i$ndays,1)+1, ylim=ylim,
 berryFunctions::timeAxis(format="%d.%m.\n")
 if(i$zeroline) abline(h=0)
 sapply(i$year, function(y) lines(i$day-i$ndays:1+1, i$kl_vals_plot[y,],
-                         col=berryFunctions::addAlpha("steelblue",0.2), lwd=2) )
+                         col=adjustcolor("steelblue",0.2), lwd=2) )
 selyear <- year_sel()
 if(!is.logical(selyear))
 lines(i$day-i$ndays:1+1, i$kl_vals_plot[selyear,], col="salmon", lwd=4)
@@ -243,7 +243,7 @@ names(values) <- rownames(i$kl_agg)
 allNA <- all(is.na(values))
 if(allNA) values <- 0
 par(mar=c(3,3,2,0.2), mgp=c(1.8,0.7,0), las=1)
-hist(values, breaks=25, col=berryFunctions::addAlpha("steelblue",0.4), main="",
+hist(values, breaks=25, col=adjustcolor("steelblue",0.4), main="",
      ylab="Anzahl Jahre pro Wertebereich", xlab=paste(i$aggfun,"pro Jahresbereich"))
 if(allNA) return()
 if(i$zeroline) abline(v=0)
