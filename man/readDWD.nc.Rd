@@ -59,16 +59,17 @@ url <- "daily/Project_TRY/pressure/PRED_199606_daymean.nc.gz"  #  5 MB
 url <- "daily/Project_TRY/humidity/RH_199509_daymean.nc.gz"    # 25 MB
 file <- dataDWD(url, base=gridbase, joinbf=TRUE, dir=locdir(), read=FALSE)
 nc <- readDWD(file)
-ncp <- plotRadar(nc, main=paste(terra::longnames(nc), terra::time(nc)), layer=1:3,
+ncp <- plotRadar(nc, main=paste(terra::longnames(nc), terra::time(nc)), layer=1:2,
                  col=seqPal(), proj="nc", extent="nc")
 
 str(terra::values(nc[[1]])) # obtain actual values into memory
 
-terra::plot(nc[[1]]) # axes 0:938 / 0:720, the number of grid cells
+# axes 0:938 / 0:720, the number of grid cells
+terra::plot(nc[[1]], maxcell=2e3) # set to coarse for fast rendering
 terra::plot(ncp[[1]])# properly projected, per default onto latlon
 
 rng <- range(terra::global(nc[[1:6]], "range", na.rm=TRUE))
-terra::plot(nc, col=seqPal(), zlim=rng, maxnl=6)
+terra::plot(nc, col=seqPal(), zlim=rng, maxnl=6, maxcell=2e3) # coarse for speed
 
 # Array instead of terra rast:
 nc <- readDWD(file, toraster=FALSE)
