@@ -963,9 +963,12 @@ return(invisible(list(time=time, lat=LAT, lon=LON, var=VAR, varname=var,
 #' @seealso [readDWD.nc()] for packed .nc.gz files, [readDWD()]
 #' @examples
 #' \dontrun{ # Excluded from CRAN checks, but run in localtests
-#' link <- "monthly/hyras_de/humidity/hurs_hyras_5_2020_v5-0_de_monmean.nc"
+#' link <- "monthly/hyras_de/humidity/hurs_hyras_1_2020_v6-0_de_monmean.nc"
 #' hyras <- dataDWD(link, gridbase, joinbf=TRUE) # 0.9MB
-#' plotRadar(hyras, proj="nc", extent=NULL, 
+#' if(is.character(hyras)) stop("manually selected hyras file is not available.")
+#' # this happened 2026-07-01 when hurs_hyras_5_2020_v5-0_de_monmean.nc was gone
+#' # the extent is roughly set manually to fit the map - research needed!
+#' plotRadar(hyras, proj="nc", extent=c(3500000, 4660000, 2100000, 3165000), 
 #'           main=substr(terra::time(hyras),1,7), layer=1:2)
 #' }
 #' @param file        Name of file on harddrive, like e.g.
