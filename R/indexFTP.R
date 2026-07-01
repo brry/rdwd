@@ -156,6 +156,7 @@ getURL_ffe <- function(ff_row)
  # carriage return / newline is OS-dependent:
  p <- unlist(strsplit(p,"[\n\r]")) # http://stackoverflow.com/a/40763124/1587132
  p <- p[nchar(p)>0]
+ p <- p[!endsWith(p,"hat funktioniert.")] # 2026-07-01 in 1_minute/precipitation/historical/2021
  # handle opendata.dwd.de/weather/radar/radolan/* latest data
  ilf <- grep("latest-dwd---bin", p) # index of latest file
  if(length(ilf)>0)
