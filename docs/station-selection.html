@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5 Station selection | rdwd</title>
   <meta name="description" content="5 Station selection | rdwd" />
-  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5 Station selection | rdwd" />
   <meta property="og:type" content="book" />
@@ -287,31 +287,31 @@ All stations within a certain radius around a given lat-long position can be obt
 It is designed to be very flexible:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="station-selection.html#cb12-1" tabindex="-1"></a><span class="co"># inputs can be vectorized, and period can be abbreviated:</span></span>
 <span id="cb12-2"><a href="station-selection.html#cb12-2" tabindex="-1"></a><span class="fu">selectDWD</span>(<span class="fu">c</span>(<span class="st">&quot;Potsdam&quot;</span>,<span class="st">&quot;Wuerzburg&quot;</span>), <span class="at">res=</span><span class="st">&quot;hourly&quot;</span>, <span class="at">var=</span><span class="st">&quot;sun&quot;</span>, <span class="at">per=</span><span class="st">&quot;hist&quot;</span>) <span class="sc">%&gt;%</span> print_short</span></code></pre></div>
-<pre><code>## [1] &quot;---/hourly/sun/historical/stundenwerte_SD_03987_18930101_20241231_hist.zip&quot;
-## [2] &quot;---/hourly/sun/historical/stundenwerte_SD_05705_19510101_20241231_hist.zip&quot;</code></pre>
+<pre><code>## [1] &quot;---/hourly/sun/historical/stundenwerte_SD_03987_18930101_20251231_hist.zip&quot;
+## [2] &quot;---/hourly/sun/historical/stundenwerte_SD_05705_19510101_20251231_hist.zip&quot;</code></pre>
 <p>If res/var/per are left NA, an interactive selection is opened with the
 <a href="available-datasets.html">available folder options</a> for the given station.</p>
 <p>The time period can be doubled to get both filenames:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="station-selection.html#cb14-1" tabindex="-1"></a><span class="fu">selectDWD</span>(<span class="st">&quot;Potsdam&quot;</span>, <span class="at">res=</span><span class="st">&quot;daily&quot;</span>, <span class="at">var=</span><span class="st">&quot;kl&quot;</span>, <span class="at">per=</span><span class="st">&quot;rh&quot;</span>) <span class="sc">%&gt;%</span> print_short</span></code></pre></div>
-<pre><code>## [1] &quot;---/daily/kl/historical/tageswerte_KL_03987_18930101_20241231_hist.zip&quot;
+<pre><code>## [1] &quot;---/daily/kl/historical/tageswerte_KL_03987_18930101_20251231_hist.zip&quot;
 ## [2] &quot;---/daily/kl/recent/tageswerte_KL_03987_akt.zip&quot;</code></pre>
 <p>There may be a differing number of available files for several stations across all folders.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="station-selection.html#cb16-1" tabindex="-1"></a><span class="fu">selectDWD</span>(<span class="at">id=</span><span class="fu">c</span>(<span class="dv">3467</span>,<span class="dv">5116</span>), <span class="at">res=</span><span class="st">&quot;&quot;</span>,<span class="at">var=</span><span class="st">&quot;&quot;</span>,<span class="at">per=</span><span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span> print_short</span></code></pre></div>
-<pre><code>##  [1] &quot;---/annual/climate_indices/precip/historical/jahreswerte_RRINDEX_03467_19940101_20241231_hist.zip&quot; 
+<pre><code>##  [1] &quot;---/annual/climate_indices/precip/historical/jahreswerte_RRINDEX_03467_19940101_20251231_hist.zip&quot; 
 ##  [2] &quot;---/annual/climate_indices/precip/historical/jahreswerte_RRINDEX_05116_19930101_20061231_hist.zip&quot; 
 ##  [3] &quot;---/annual/climate_indices/precip/recent/jahreswerte_RRINDEX_03467_akt.zip&quot;                        
-##  [4] &quot;---/annual/more_precip/historical/jahreswerte_RR_03467_19940101_20241231_hist.zip&quot;                 
+##  [4] &quot;---/annual/more_precip/historical/jahreswerte_RR_03467_19940101_20251231_hist.zip&quot;                 
 ##  [5] &quot;---/annual/more_precip/historical/jahreswerte_RR_05116_19930101_20061231_hist.zip&quot;                 
 ##  [6] &quot;---/annual/more_precip/recent/jahreswerte_RR_03467_akt.zip&quot;                                        
-##  [7] &quot;---/daily/more_precip/historical/tageswerte_RR_03467_19930601_20241231_hist.zip&quot;                   
+##  [7] &quot;---/daily/more_precip/historical/tageswerte_RR_03467_19930601_20251231_hist.zip&quot;                   
 ##  [8] &quot;---/daily/more_precip/historical/tageswerte_RR_05116_19920701_20061231_hist.zip&quot;                   
 ##  [9] &quot;---/daily/more_precip/recent/tageswerte_RR_03467_akt.zip&quot;                                          
 ## [10] &quot;---/daily/more_weather_phenomena/historical/wetter_tageswerte_RR_03467_19930601_20111031_hist.zip&quot; 
 ## [11] &quot;---/daily/more_weather_phenomena/historical/wetter_tageswerte_RR_05116_19920701_20061231_hist.zip&quot; 
-## [12] &quot;---/monthly/climate_indices/precip/historical/monatswerte_RRINDEX_03467_19930601_20241231_hist.zip&quot;
+## [12] &quot;---/monthly/climate_indices/precip/historical/monatswerte_RRINDEX_03467_19930601_20251231_hist.zip&quot;
 ## [13] &quot;---/monthly/climate_indices/precip/historical/monatswerte_RRINDEX_05116_19920701_20061231_hist.zip&quot;
 ## [14] &quot;---/monthly/climate_indices/precip/recent/monatswerte_RRINDEX_03467_akt.zip&quot;                       
-## [15] &quot;---/monthly/more_precip/historical/monatswerte_RR_03467_19930601_20241231_hist.zip&quot;                
+## [15] &quot;---/monthly/more_precip/historical/monatswerte_RR_03467_19930601_20251231_hist.zip&quot;                
 ## [16] &quot;---/monthly/more_precip/historical/monatswerte_RR_05116_19920701_20061231_hist.zip&quot;                
 ## [17] &quot;---/monthly/more_precip/recent/monatswerte_RR_03467_akt.zip&quot;</code></pre>
 <p>Since version 1.3.26 (2020-07-20), <code>SelectDWD</code> collects warnings from the loop into a single message:</p>

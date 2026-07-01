@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>12 - use case: merge historical and recent data | rdwd</title>
   <meta name="description" content="12 - use case: merge historical and recent data | rdwd" />
-  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
 
   <meta property="og:title" content="12 - use case: merge historical and recent data | rdwd" />
   <meta property="og:type" content="book" />
@@ -262,15 +262,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="use-case-merge-historical-and-recent-data" class="section level1 hasAnchor" number="12">
 <h1><span class="header-section-number">12</span> - use case: merge historical and recent data<a href="use-case-merge-historical-and-recent-data.html#use-case-merge-historical-and-recent-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="use-case-merge-historical-and-recent-data.html#cb59-1" tabindex="-1"></a>rdwd<span class="sc">::</span><span class="fu">updateRdwd</span>()</span>
-<span id="cb59-2"><a href="use-case-merge-historical-and-recent-data.html#cb59-2" tabindex="-1"></a><span class="fu">library</span>(rdwd)</span>
-<span id="cb59-3"><a href="use-case-merge-historical-and-recent-data.html#cb59-3" tabindex="-1"></a>links <span class="ot">&lt;-</span> <span class="fu">selectDWD</span>(<span class="st">&quot;Potsdam&quot;</span>, <span class="at">res=</span><span class="st">&quot;daily&quot;</span>, <span class="at">var=</span><span class="st">&quot;kl&quot;</span>, <span class="at">per=</span><span class="st">&quot;hr&quot;</span>)</span>
-<span id="cb59-4"><a href="use-case-merge-historical-and-recent-data.html#cb59-4" tabindex="-1"></a>klima <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(links, <span class="at">hr=</span><span class="dv">4</span>)</span>
-<span id="cb59-5"><a href="use-case-merge-historical-and-recent-data.html#cb59-5" tabindex="-1"></a><span class="fu">plot</span>(TMK<span class="sc">~</span>MESS_DATUM, <span class="at">data=</span><span class="fu">tail</span>(klima,<span class="dv">1500</span>), <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="use-case-merge-historical-and-recent-data.html#cb58-1" tabindex="-1"></a>rdwd<span class="sc">::</span><span class="fu">updateRdwd</span>()</span>
+<span id="cb58-2"><a href="use-case-merge-historical-and-recent-data.html#cb58-2" tabindex="-1"></a><span class="fu">library</span>(rdwd)</span>
+<span id="cb58-3"><a href="use-case-merge-historical-and-recent-data.html#cb58-3" tabindex="-1"></a>links <span class="ot">&lt;-</span> <span class="fu">selectDWD</span>(<span class="st">&quot;Potsdam&quot;</span>, <span class="at">res=</span><span class="st">&quot;daily&quot;</span>, <span class="at">var=</span><span class="st">&quot;kl&quot;</span>, <span class="at">per=</span><span class="st">&quot;hr&quot;</span>)</span>
+<span id="cb58-4"><a href="use-case-merge-historical-and-recent-data.html#cb58-4" tabindex="-1"></a>klima <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(links, <span class="at">hr=</span><span class="dv">4</span>)</span>
+<span id="cb58-5"><a href="use-case-merge-historical-and-recent-data.html#cb58-5" tabindex="-1"></a><span class="fu">plot</span>(TMK<span class="sc">~</span>MESS_DATUM, <span class="at">data=</span><span class="fu">tail</span>(klima,<span class="dv">1500</span>), <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span></code></pre></div>
 <p><img src="rdwd_files/figure-html/uc_histrecent-1.png" alt="" width="672" /></p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="use-case-merge-historical-and-recent-data.html#cb60-1" tabindex="-1"></a>links <span class="ot">&lt;-</span> <span class="fu">selectDWD</span>(<span class="st">&quot;Celle&quot;</span>, <span class="at">res=</span><span class="st">&quot;daily&quot;</span>, <span class="at">var=</span><span class="st">&quot;kl&quot;</span>, <span class="at">per=</span><span class="st">&quot;hr&quot;</span>)</span>
-<span id="cb60-2"><a href="use-case-merge-historical-and-recent-data.html#cb60-2" tabindex="-1"></a>klima <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(links, <span class="at">hr=</span><span class="dv">4</span>, <span class="at">varnames=</span><span class="cn">TRUE</span>)</span>
-<span id="cb60-3"><a href="use-case-merge-historical-and-recent-data.html#cb60-3" tabindex="-1"></a><span class="fu">plotDWD</span>(<span class="fu">tail</span>(klima,<span class="dv">800</span>), <span class="st">&quot;PM.Luftdruck&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="use-case-merge-historical-and-recent-data.html#cb59-1" tabindex="-1"></a>links <span class="ot">&lt;-</span> <span class="fu">selectDWD</span>(<span class="st">&quot;Celle&quot;</span>, <span class="at">res=</span><span class="st">&quot;daily&quot;</span>, <span class="at">var=</span><span class="st">&quot;kl&quot;</span>, <span class="at">per=</span><span class="st">&quot;hr&quot;</span>)</span>
+<span id="cb59-2"><a href="use-case-merge-historical-and-recent-data.html#cb59-2" tabindex="-1"></a>klima <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(links, <span class="at">hr=</span><span class="dv">4</span>, <span class="at">varnames=</span><span class="cn">TRUE</span>)</span>
+<span id="cb59-3"><a href="use-case-merge-historical-and-recent-data.html#cb59-3" tabindex="-1"></a><span class="fu">plotDWD</span>(<span class="fu">tail</span>(klima,<span class="dv">800</span>), <span class="st">&quot;PM.Luftdruck&quot;</span>)</span></code></pre></div>
 <p><img src="rdwd_files/figure-html/uc_histrecent-2.png" alt="" width="672" /></p>
 </div>
             </section>

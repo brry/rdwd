@@ -154,7 +154,7 @@ Please note:
 * internally, `rdwd` uses ftp://opendata.dwd.de URLS, but web browsers no longer support FTP, so the documentation links to the https variant.
 
 ```{r ftp_folders_1, echo=FALSE}
-library(magrittr)
+suppressWarnings(suppressPackageStartupMessages(library(magrittr)))
 suppressWarnings(suppressPackageStartupMessages(library(huxtable)))
 options(huxtable.bookdown = FALSE) # no captions on tables
 f <- readODS::read_ods("FTP_folders.ods", sheet="folders", col_types=NA, as_tibble=FALSE)
@@ -910,7 +910,7 @@ plot(1, type="n", xlim=c(1,12), ylim=range(monthly), xaxt="n", las=1,
 axis(1, 2:12-0.5, labels=FALSE)
 axis(1, 1:12, substr(month.abb,1,1), tick=FALSE, line=-0.5)
 for(m in 1:12) for(q in 1:5) lines(c(m,m), monthly[c(q,12-q),m], lend=1, 
-                                   col=berryFunctions::addAlpha("red",0.2), lwd=5)
+                                   col=adjustcolor("red",0.2), lwd=5)
 for(m in 1:12) points(m, mean(monthly[,m]), pch=3)
 ```
 

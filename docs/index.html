@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>rdwd</title>
   <meta name="description" content="rdwd" />
-  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
 
   <meta property="og:title" content="rdwd" />
   <meta property="og:type" content="book" />
@@ -263,7 +263,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">rdwd</h1>
 <p class="author"><em>Berry Boessenkool, <a href="mailto:berry-b@gmx.de" class="email">berry-b@gmx.de</a></em></p>
-<p class="date"><em>built 2026-03-30 with rdwd version 1.9.12 and dwdradar version 0.2.13</em></p>
+<p class="date"><em>built 2026-07-02 with rdwd version 1.9.17 and dwdradar version 0.2.13</em></p>
 </div>
 <div id="intro" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">1</span> Intro<a href="index.html#intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
@@ -311,25 +311,24 @@ Development of <code>rdwd</code> was triggered 2016 by flash flood research in B
 <p>Usage for observational weather data from the measuring stations usually looks something like the following:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" tabindex="-1"></a><span class="co"># Download and install (once only):</span></span>
 <span id="cb1-2"><a href="index.html#cb1-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;rdwd&quot;</span>)</span>
-<span id="cb1-3"><a href="index.html#cb1-3" tabindex="-1"></a><span class="co"># update to the most recent fileIndex (ca monthly):</span></span>
+<span id="cb1-3"><a href="index.html#cb1-3" tabindex="-1"></a><span class="co"># update to the most recent fileIndex (ca 3x/year):</span></span>
 <span id="cb1-4"><a href="index.html#cb1-4" tabindex="-1"></a>rdwd<span class="sc">::</span><span class="fu">updateRdwd</span>() </span>
 <span id="cb1-5"><a href="index.html#cb1-5" tabindex="-1"></a><span class="co"># Load the package into library (needed in every R session):</span></span>
 <span id="cb1-6"><a href="index.html#cb1-6" tabindex="-1"></a><span class="fu">library</span>(rdwd)</span>
 <span id="cb1-7"><a href="index.html#cb1-7" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="index.html#cb1-8" tabindex="-1"></a><span class="co"># select a dataset (e.g. last year&#39;s daily climate data from Potsdam city):</span></span>
+<span id="cb1-8"><a href="index.html#cb1-8" tabindex="-1"></a><span class="co"># Select a dataset (e.g. last year&#39;s daily climate data from Potsdam city):</span></span>
 <span id="cb1-9"><a href="index.html#cb1-9" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="fu">selectDWD</span>(<span class="st">&quot;Potsdam&quot;</span>, <span class="at">res=</span><span class="st">&quot;daily&quot;</span>, <span class="at">var=</span><span class="st">&quot;kl&quot;</span>, <span class="at">per=</span><span class="st">&quot;recent&quot;</span>)</span>
 <span id="cb1-10"><a href="index.html#cb1-10" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="index.html#cb1-11" tabindex="-1"></a><span class="co"># Actually download that dataset, returning the local storage file name:</span></span>
-<span id="cb1-12"><a href="index.html#cb1-12" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(link, <span class="at">read=</span><span class="cn">FALSE</span>)</span>
-<span id="cb1-13"><a href="index.html#cb1-13" tabindex="-1"></a><span class="co"># Read the file from the zip folder:</span></span>
-<span id="cb1-14"><a href="index.html#cb1-14" tabindex="-1"></a>clim <span class="ot">&lt;-</span> <span class="fu">readDWD</span>(file, <span class="at">varnames=</span><span class="cn">TRUE</span>) <span class="co"># can happen directly in dataDWD</span></span>
-<span id="cb1-15"><a href="index.html#cb1-15" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="index.html#cb1-16" tabindex="-1"></a><span class="co"># Inspect the data.frame:</span></span>
-<span id="cb1-17"><a href="index.html#cb1-17" tabindex="-1"></a><span class="fu">str</span>(clim)</span>
-<span id="cb1-18"><a href="index.html#cb1-18" tabindex="-1"></a><span class="co"># Quick time series graphic:</span></span>
-<span id="cb1-19"><a href="index.html#cb1-19" tabindex="-1"></a><span class="fu">plotDWD</span>(clim, <span class="st">&quot;FM.Windgeschwindigkeit&quot;</span>)</span></code></pre></div>
+<span id="cb1-11"><a href="index.html#cb1-11" tabindex="-1"></a><span class="co"># Download (if needed) and read it:</span></span>
+<span id="cb1-12"><a href="index.html#cb1-12" tabindex="-1"></a>clim <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(link, <span class="at">varnames=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-13"><a href="index.html#cb1-13" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="index.html#cb1-14" tabindex="-1"></a><span class="co"># Inspect the data.frame:</span></span>
+<span id="cb1-15"><a href="index.html#cb1-15" tabindex="-1"></a><span class="fu">str</span>(clim)</span>
+<span id="cb1-16"><a href="index.html#cb1-16" tabindex="-1"></a><span class="co"># Quick time series graphic:</span></span>
+<span id="cb1-17"><a href="index.html#cb1-17" tabindex="-1"></a><span class="fu">plotDWD</span>(clim, <span class="st">&quot;FM.Windgeschwindigkeit&quot;</span>)</span></code></pre></div>
 <p>For data interpolated onto a 1 km raster, including radar data up to the last hour,
 see the corresponding <a href="https://brry.github.io/rdwd/raster-data.html">chapter</a> on the website.</p>
+<p>To automatically merge historical and recent data, see <a href="https://brry.github.io/rdwd/use-case-merge-historical-and-recent-data.html">this use case</a>.</p>
 </div>
 <div id="app" class="section level2 hasAnchor" number="1.2">
 <h2><span class="header-section-number">1.2</span> App<a href="index.html#app" class="anchor-section" aria-label="Anchor link to header"></a></h2>

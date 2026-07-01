@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>8 Raster data | rdwd</title>
   <meta name="description" content="8 Raster data | rdwd" />
-  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
 
   <meta property="og:title" content="8 Raster data | rdwd" />
   <meta property="og:type" content="book" />
@@ -355,7 +355,9 @@ The last line shows what projection and extent to use in <a href="https://www.rd
 <span id="cb50-3"><a href="raster-data.html#cb50-3" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(links[<span class="dv">17</span>], <span class="at">base=</span>rqbase, <span class="at">joinbf=</span><span class="cn">TRUE</span>, <span class="at">dir=</span><span class="fu">tempdir</span>(), <span class="at">read=</span><span class="cn">FALSE</span>)</span>
 <span id="cb50-4"><a href="raster-data.html#cb50-4" tabindex="-1"></a>rad <span class="ot">&lt;-</span> <span class="fu">readDWD</span>(file)</span>
 <span id="cb50-5"><a href="raster-data.html#cb50-5" tabindex="-1"></a><span class="fu">plotRadar</span>(rad<span class="sc">$</span>dat, <span class="at">main=</span><span class="st">&quot;.radar RQ&quot;</span>)</span></code></pre></div>
-<p><img src="rdwd_files/figure-html/readDWD_radar_RQ-1.png" alt="" width="672" /></p>
+<p>The rq folder is empty (2026-07-02) but looked like this before:<br />
+<img src="readDWD_radar_RQ-1.png" width="600"><br />
+The <code>re/</code> files have dwdradar:::readHeader issues. Contact me if they need fixing.</p>
 </div>
 <div id="readdwd.grib2" class="section level2 hasAnchor" number="8.8">
 <h2><span class="header-section-number">8.8</span> readDWD.grib2<a href="raster-data.html#readdwd.grib2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -376,11 +378,12 @@ The last line shows what projection and extent to use in <a href="https://www.rd
 <span id="cb52-3"><a href="raster-data.html#cb52-3" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(links[<span class="dv">6</span>], <span class="at">base=</span>nwpbase, <span class="at">joinbf=</span><span class="cn">TRUE</span>, <span class="at">dir=</span><span class="fu">tempdir</span>(), <span class="at">read=</span><span class="cn">FALSE</span>)</span>
 <span id="cb52-4"><a href="raster-data.html#cb52-4" tabindex="-1"></a>forecast <span class="ot">&lt;-</span> <span class="fu">readDWD</span>(file)</span>
 <span id="cb52-5"><a href="raster-data.html#cb52-5" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">plot</span>(forecast, <span class="at">col=</span>berryFunctions<span class="sc">::</span><span class="fu">seqPal</span>())</span>
-<span id="cb52-6"><a href="raster-data.html#cb52-6" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">plot</span>(terra<span class="sc">::</span><span class="fu">vect</span>(rnaturalearth<span class="sc">::</span><span class="fu">ne_countries</span>()), <span class="at">add=</span><span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="rdwd_files/figure-html/readDWD_grib2_iconeu-1.png" alt="" width="672" /></p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="raster-data.html#cb53-1" tabindex="-1"></a><span class="co"># EUR &lt;- terra::vect(paste0(&quot;/vsizip/vsicurl/https://gisco-services.ec.europa.eu/&quot;,</span></span>
-<span id="cb53-2"><a href="raster-data.html#cb53-2" tabindex="-1"></a><span class="co">#                 &quot;distribution/v2/nuts/shp/NUTS_RG_20M_2021_4326_LEVL_0.shp.zip&quot;))</span></span>
-<span id="cb53-3"><a href="raster-data.html#cb53-3" tabindex="-1"></a><span class="co"># terra::plot(EUR, add=TRUE)</span></span></code></pre></div>
+<span id="cb52-6"><a href="raster-data.html#cb52-6" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">plot</span>(terra<span class="sc">::</span><span class="fu">vect</span>(rnaturalearth<span class="sc">::</span><span class="fu">ne_countries</span>()), <span class="at">add=</span><span class="cn">TRUE</span>)</span>
+<span id="cb52-7"><a href="raster-data.html#cb52-7" tabindex="-1"></a><span class="co"># EUR &lt;- terra::vect(paste0(&quot;/vsizip/vsicurl/https://gisco-services.ec.europa.eu/&quot;,</span></span>
+<span id="cb52-8"><a href="raster-data.html#cb52-8" tabindex="-1"></a><span class="co">#                 &quot;distribution/v2/nuts/shp/NUTS_RG_20M_2021_4326_LEVL_0.shp.zip&quot;))</span></span>
+<span id="cb52-9"><a href="raster-data.html#cb52-9" tabindex="-1"></a><span class="co"># terra::plot(EUR, add=TRUE)</span></span></code></pre></div>
+<p>plotting is currently <a href="https://github.com/rspatial/terra/issues/2113">broken</a> on my system (2026-07-02) but would look like this:
+<img src="readDWD_grib2_iconeu-1.png" width="600"></p>
 </div>
 <div id="binary-file-errors" class="section level2 hasAnchor" number="8.10">
 <h2><span class="header-section-number">8.10</span> binary file errors<a href="raster-data.html#binary-file-errors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -391,10 +394,10 @@ or files at <a href="https://opendata.dwd.de/weather/radar/radolan/rw/">weather/
 <a href="https://www.rdocumentation.org/packages/rdwd/topics/dataDWD" target="_blank"><code>dataDWD</code></a> has a dbin=TRUE option.
 Since Version 1.4.18 (2021-04-08), the default is <code>dbin=TRUE</code>. Report errors <a href="https://github.com/brry/rdwd/issues/20">here</a> if needed.
 If you do not use this, your plots may look partially shifted like this and have the wrong units (image from 2020-06-16 21:30 CEST):</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="raster-data.html#cb54-1" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;ftp://opendata.dwd.de/weather/radar/radolan/rw/raa01-rw_10000-latest-dwd---bin&quot;</span></span>
-<span id="cb54-2"><a href="raster-data.html#cb54-2" tabindex="-1"></a>rw_file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(url, <span class="at">read=</span><span class="cn">FALSE</span>, <span class="at">dbin=</span><span class="cn">FALSE</span>)</span>
-<span id="cb54-3"><a href="raster-data.html#cb54-3" tabindex="-1"></a>rw_orig <span class="ot">&lt;-</span> dwdradar<span class="sc">::</span><span class="fu">readRadarFile</span>(rw_file)</span>
-<span id="cb54-4"><a href="raster-data.html#cb54-4" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">plot</span>(terra<span class="sc">::</span><span class="fu">rast</span>(rw_orig<span class="sc">$</span>dat))</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="raster-data.html#cb53-1" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;ftp://opendata.dwd.de/weather/radar/radolan/rw/raa01-rw_10000-latest-dwd---bin&quot;</span></span>
+<span id="cb53-2"><a href="raster-data.html#cb53-2" tabindex="-1"></a>rw_file <span class="ot">&lt;-</span> <span class="fu">dataDWD</span>(url, <span class="at">read=</span><span class="cn">FALSE</span>, <span class="at">dbin=</span><span class="cn">FALSE</span>)</span>
+<span id="cb53-3"><a href="raster-data.html#cb53-3" tabindex="-1"></a>rw_orig <span class="ot">&lt;-</span> dwdradar<span class="sc">::</span><span class="fu">readRadarFile</span>(rw_file)</span>
+<span id="cb53-4"><a href="raster-data.html#cb53-4" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">plot</span>(terra<span class="sc">::</span><span class="fu">rast</span>(rw_orig<span class="sc">$</span>dat))</span></code></pre></div>
 <p><img src="dbin1.png" width="600"></p>
 </div>
 </div>
