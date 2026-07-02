@@ -7,6 +7,8 @@ if(FALSE){
 #br:::detachAll()
 remotes::install_github("brry/berryFunctions")
 remotes::install_github("brry/rdwd")
+remotes::install_version("terra", version = "1.8-93") # 2026-07-02 GDAL multidim API mismatch
+# (AsClassicDataset 3-arg call needs GDAL 3.8+, server has GDAL 3.4.1)
 }
 
 

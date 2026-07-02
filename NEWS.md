@@ -1,8 +1,17 @@
 
+# Version 1.9.17 (2026-07-01)
+
+- `readDWD.binary` and `readDWD.rklim`: use tz for timestamps
+- `readDWD.radar`: dividebyten default fixed
+- `plotRadar`: mar properly used again
+- `dataDWD`: gains argument 'retryhist'
+- several examples updated to reflect DWD changes
+
 # Version 1.9.7 (2025-12-20)
+
 - `locdir` now defaults to R_user_dir
 - `dataDWD`: gains argument removeftp
-website migrated from bookdown.org to github pages
+- website migrated from bookdown.org to github pages
 
 # Version 1.9.3 (2025-08-18)
 
