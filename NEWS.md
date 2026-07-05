@@ -157,7 +157,7 @@
 # Version 1.2.0 (2019-10-26)
 
 ## Highlights
-- Vignettes moved to <https://bookdown.org/brry/rdwd> with nice structure
+- Vignettes moved to bookdown.org/brry/rdwd with nice structure
 - improved reading of gridded data, documented in vignette chapter "Raster data"
 - `readRadarFile` expanded + moved to own package (**dwdradar**) with proper tests and better warnings
 - Hexsticker created
