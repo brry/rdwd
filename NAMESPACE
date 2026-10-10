@@ -26,47 +26,61 @@ export(runLocalTests)
 export(selectDWD)
 export(updateRdwd)
 export(validFileTypes)
-importFrom(berryFunctions,checkFile)
-importFrom(berryFunctions,convertUmlaut)
-importFrom(berryFunctions,getColumn)
-importFrom(berryFunctions,l2df)
-importFrom(berryFunctions,monthAxis)
-importFrom(berryFunctions,na9)
-importFrom(berryFunctions,newFilename)
-importFrom(berryFunctions,normalizePathCP)
-importFrom(berryFunctions,owa)
-importFrom(berryFunctions,packagePath)
-importFrom(berryFunctions,round0)
-importFrom(berryFunctions,seqPal)
-importFrom(berryFunctions,sortDF)
-importFrom(berryFunctions,tmessage)
-importFrom(berryFunctions,traceCall)
-importFrom(berryFunctions,truncMessage)
-importFrom(berryFunctions,tstop)
-importFrom(berryFunctions,twarning)
-importFrom(grDevices,dev.off)
-importFrom(grDevices,pdf)
-importFrom(graphics,abline)
-importFrom(graphics,box)
-importFrom(graphics,par)
-importFrom(graphics,rect)
-importFrom(graphics,title)
-importFrom(pbapply,pblapply)
-importFrom(pbapply,pbsapply)
-importFrom(stats,na.omit)
-importFrom(stats,runif)
-importFrom(tools,file_path_sans_ext)
-importFrom(tools,resaveRdaFiles)
-importFrom(utils,browseURL)
-importFrom(utils,capture.output)
-importFrom(utils,compareVersion)
-importFrom(utils,data)
-importFrom(utils,download.file)
-importFrom(utils,menu)
-importFrom(utils,packageDescription)
-importFrom(utils,read.fwf)
-importFrom(utils,read.table)
-importFrom(utils,tail)
-importFrom(utils,untar)
-importFrom(utils,unzip)
-importFrom(utils,write.table)
+importFrom(berryFunctions,
+  checkFile,
+  convertUmlaut,
+  getColumn,
+  l2df,
+  monthAxis,
+  na9,
+  newFilename,
+  normalizePathCP,
+  owa,
+  packagePath,
+  round0,
+  seqPal,
+  sortDF,
+  tmessage,
+  traceCall,
+  truncMessage,
+  tstop,
+  twarning
+)
+importFrom(grDevices,
+  dev.off,
+  pdf
+)
+importFrom(graphics,
+  abline,
+  box,
+  par,
+  rect,
+  title
+)
+importFrom(pbapply,
+  pblapply,
+  pbsapply
+)
+importFrom(stats,
+  na.omit,
+  runif
+)
+importFrom(tools,
+  file_path_sans_ext,
+  resaveRdaFiles
+)
+importFrom(utils,
+  browseURL,
+  capture.output,
+  compareVersion,
+  data,
+  download.file,
+  menu,
+  packageDescription,
+  read.fwf,
+  read.table,
+  tail,
+  untar,
+  unzip,
+  write.table
+)

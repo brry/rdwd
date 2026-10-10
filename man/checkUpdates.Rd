@@ -15,7 +15,7 @@ currently available files on the FTP server in the ca 33 historical folders, inv
 \description{
 check whether the DWD has updated historical datasets.
 That requires \code{\link{updateIndexes}} to be run by me.
-If that is the case, the funtion will give a warning, otherwise a message.
+If that is the case, the function will give a warning, otherwise a message.
 }
 \examples{
 # current <- checkUpdates()

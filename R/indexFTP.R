@@ -79,7 +79,7 @@
 #'                DEFAULT: FALSE through [rdwdquiet()]
 #' @param progbar Logical: present a progress bar in each level? DEFAULT: TRUE
 #' @param verbose Logical: write a lot of messages from [RCurl::getURL()]?
-#'                DEFAULT: FALSE (usually, you dont need all the curl information)
+#'                DEFAULT: FALSE (usually, you don't need all the curl information)
 #' 
 indexFTP <- function(
 folder="",

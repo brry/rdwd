@@ -23,4 +23,4 @@ URL: https://brry.github.io/rdwd/
 Roxygen: list(markdown=TRUE)
 BugReports: https://github.com/brry/rdwd/issues
 VignetteBuilder: knitr
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.1

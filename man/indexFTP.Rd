@@ -65,7 +65,7 @@ DEFAULT: FALSE through \code{\link[=rdwdquiet]{rdwdquiet()}}}
 \item{progbar}{Logical: present a progress bar in each level? DEFAULT: TRUE}
 
 \item{verbose}{Logical: write a lot of messages from \code{\link[RCurl:getURL]{RCurl::getURL()}}?
-DEFAULT: FALSE (usually, you dont need all the curl information)}
+DEFAULT: FALSE (usually, you don't need all the curl information)}
 }
 \value{
 a vector with file paths
