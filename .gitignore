@@ -1,6 +1,7 @@
 .Rproj.user
 .Rhistory
 .RData
+email.txt
 inst/shinyapps/compare_years/rsconnect/
 DWDdata/
 misc/eRum/DWDdata/
